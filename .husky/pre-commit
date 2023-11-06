@@ -1,0 +1,1 @@
+cd fe && npm test && npx lint-staged
