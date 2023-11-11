@@ -43,7 +43,7 @@ export default [
     return res(ctx.status(HTTPSTATUS.success), ctx.json(successfulSignInData));
   }),
 
-  rest.delete("/api/auth/logout", async (_, res, ctx) => {
+  rest.post("/api/auth/logout", async (_, res, ctx) => {
     return res(ctx.status(HTTPSTATUS.success), ctx.json(successfulSignOutData));
   }),
 
