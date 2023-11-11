@@ -45,6 +45,7 @@ export default function SignInPage() {
   }, []);
 
   // Receive OAuth provider and auth code in original window from popup window.
+  // Currently used only by Kakao login.
   useEffect(() => {
     if (!popUpWindow) return;
 

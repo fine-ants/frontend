@@ -1,4 +1,5 @@
 import { HTTPSTATUS } from "@api/types";
+import { KAKAO_CLIENT_ID } from "@constants/config";
 
 export const successfulSignUpData = {
   code: HTTPSTATUS.created,
@@ -12,6 +13,15 @@ export const unsuccessfulSignUpData = {
   status: "Bad Request",
   message: "회원가입이 실패했습니다",
   data: null,
+};
+
+export const successfulOAuthURLData = {
+  code: HTTPSTATUS.success,
+  status: "Success",
+  message: "OAuth URL을 성공적으로 가져왔습니다",
+  data: {
+    url: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=http://localhost:5173/signin?provider=kakao`,
+  },
 };
 
 export const successfulSignInData = {
