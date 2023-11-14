@@ -1,41 +1,49 @@
-import { StockItem } from "@pages/WatchlistPage";
-import update from "immutability-helper";
-import { memo, useCallback, useState } from "react";
+import { WatchlistItemType } from "@api/watchlist";
+import useWatchlistQuery from "@api/watchlist/queries/useWatchlistQuery";
+import { useEffect, useState } from "react";
+import { List, arrayMove } from "react-movable";
 import styled from "styled-components";
-import { WatchlistItem } from "./WatchlistItem";
+import WatchlistItemStock from "./WatchlistItem";
+import WatchlistItemAddModal from "./WatchlistItemAddModal";
+import WatchlistItemDeleteAlert from "./WatchlistItemDeleteAlert";
 
-export const Watchlist = memo(function Watchlist({
-  stockItems,
-}: {
-  stockItems: StockItem[];
-}) {
+export default function Watchlist() {
+  const { data: watchlistData } = useWatchlistQuery();
+
+  const [watchlist, setWatchlist] = useState<WatchlistItemType[]>(
+    watchlistData ?? []
+  );
+
   const watchlistTitles = ["종목명", "현재가", "변동률", "배당금", "업종"];
-  const [stocks, setStocks] = useState<StockItem[]>(stockItems);
 
-  const moveStock = useCallback((dragIndex: number, hoverIndex: number) => {
-    setStocks((prevStocks: StockItem[]) =>
-      update(prevStocks, {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, prevStocks[dragIndex] as StockItem],
-        ],
-      })
-    );
-  }, []);
+  const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
 
-  const renderStock = useCallback((stock: StockItem, index: number) => {
-    return (
-      <WatchlistItem
-        key={stock.id}
-        id={`${stock.id}`}
-        item={stock}
-        index={index}
-        moveStock={moveStock}
-      />
-    );
-    // TODO: 라이브러리 변경해야함
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+
+  const [currentSelectedTickerSymbol, setCurrentSelectedTickerSymbol] =
+    useState(0);
+
+  const onPlusButtonClick = () => {
+    setIsAddItemModalOpen(true);
+  };
+
+  const onCloseItemAddModal = () => {
+    setIsAddItemModalOpen(false);
+  };
+
+  const onDeleteButtonClick = (tickerSymbol: number) => {
+    setIsDeleteAlertOpen(true);
+    setCurrentSelectedTickerSymbol(tickerSymbol);
+  };
+
+  const onCloseDeleteAlert = () => {
+    setIsDeleteAlertOpen(false);
+  };
+
+  useEffect(() => {
+    setWatchlist(watchlistData ?? []);
+  }, [watchlistData]);
+
   return (
     <StyledWatchlist>
       <WatchlistHeader>
@@ -43,17 +51,44 @@ export const Watchlist = memo(function Watchlist({
           <WatchListTitle key={index}>{title}</WatchListTitle>
         ))}
       </WatchlistHeader>
-      {stocks.map((stock, i) => renderStock(stock, i))}
-      <PlusButton>+</PlusButton>
+      <List
+        values={watchlist}
+        onChange={({ oldIndex, newIndex }) =>
+          setWatchlist(arrayMove(watchlist, oldIndex, newIndex))
+        }
+        renderList={({ children, props }) => (
+          <WatchlistContainer {...props}>{children}</WatchlistContainer>
+        )}
+        renderItem={({ value, props }) => (
+          <WatchlistItemStock
+            key={value.tickerSymbol}
+            value={value}
+            props={props}
+            onMouseDown={onDeleteButtonClick}
+          />
+        )}
+      />
+      <PlusButton onClick={onPlusButtonClick}>+</PlusButton>
+
+      <WatchlistItemAddModal
+        isOpen={isAddItemModalOpen}
+        onClose={onCloseItemAddModal}
+      />
+
+      <WatchlistItemDeleteAlert
+        isOpen={isDeleteAlertOpen}
+        onClose={onCloseDeleteAlert}
+        currentSelectedTickerSymbol={currentSelectedTickerSymbol}
+      />
     </StyledWatchlist>
   );
-});
+}
 
 const StyledWatchlist = styled.div`
   position: relative;
   top: 50px;
   width: 1142px;
-  background-color: #ffffff;
+  background-color: inherit;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -83,4 +118,10 @@ const PlusButton = styled.button`
   height: 40px;
   display: flex;
   align-items: center;
+`;
+
+const WatchlistContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
