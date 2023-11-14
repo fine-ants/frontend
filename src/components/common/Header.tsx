@@ -44,26 +44,6 @@ export default function Header() {
   const onPortfolioAddClick = () => {
     setIsPortfolioAddModalOpen(true);
   };
-  // const dropdownItems = [
-  //   {
-  //     name: "내꿈은워렌버핏",
-  //     onClick: () => {
-  //       navigate("/portfolio/1");
-  //     },
-  //   },
-  //   {
-  //     name: "단타왕",
-  //     onClick: () => {
-  //       navigate("/portfolio/5");
-  //     },
-  //   },
-  //   {
-  //     name: "물린게아니고장기투자",
-  //     onClick: () => {
-  //       navigate("/portfolio/6");
-  //     },
-  //   },
-  // ];
 
   const moveToStockPage = (tickerSymbol: string) => {
     navigate(`/stock/${tickerSymbol}`);
@@ -144,7 +124,8 @@ export default function Header() {
 
 const StyledHeader = styled.header`
   z-index: 10;
-  background-color: #ffffff;
+  background-color: #23232d;
+  color: #ffffff;
 `;
 
 const HeaderTop = styled.header`
@@ -175,7 +156,7 @@ const StyledBrandIdentity = styled.div`
 `;
 
 const navBarStyles = {
-  backgroundColor: "#ffffff",
+  backgroundColor: "#23232D",
   display: "flex",
   gap: "58px",
   alignItems: "center",
