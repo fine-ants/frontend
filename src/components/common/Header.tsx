@@ -1,6 +1,6 @@
 import { PortfolioItem } from "@api/portfolio";
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
-import PortfolioModal from "@components/Portfolio/PortfolioModal";
+import PortfolioDialog from "@components/Portfolio/PortfolioDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
 import { useContext, useState } from "react";
@@ -20,7 +20,8 @@ export default function Header() {
 
   const { data: portfolioList } = usePortfolioListQuery();
 
-  const [isPortfolioAddModalOpen, setIsPortfolioAddModalOpen] = useState(false);
+  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
+    useState(false);
 
   const navItems = [
     {
@@ -42,7 +43,7 @@ export default function Header() {
   );
 
   const onPortfolioAddClick = () => {
-    setIsPortfolioAddModalOpen(true);
+    setIsPortfolioAddDialogOpen(true);
   };
 
   const moveToStockPage = (tickerSymbol: string) => {
@@ -60,10 +61,10 @@ export default function Header() {
   return (
     <>
       <StyledHeader>
-        {isPortfolioAddModalOpen && (
-          <PortfolioModal
-            isOpen={isPortfolioAddModalOpen}
-            onClose={() => setIsPortfolioAddModalOpen(false)}
+        {isPortfolioAddDialogOpen && (
+          <PortfolioDialog
+            isOpen={isPortfolioAddDialogOpen}
+            onClose={() => setIsPortfolioAddDialogOpen(false)}
           />
         )}
         <HeaderTop>

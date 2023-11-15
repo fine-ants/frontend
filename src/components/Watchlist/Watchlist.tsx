@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { List, arrayMove } from "react-movable";
 import styled from "styled-components";
 import WatchlistItem from "./WatchlistItem";
-import WatchlistItemAddModal from "./WatchlistItemAddModal";
+import WatchlistItemAddDialog from "./WatchlistItemAddDialog";
 import WatchlistItemDeleteAlert from "./WatchlistItemDeleteAlert";
 
 export default function Watchlist() {
@@ -15,17 +15,17 @@ export default function Watchlist() {
   const [watchlist, setWatchlist] = useState<WatchlistItemType[]>(
     watchlistData ?? []
   );
-  const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+  const [isAddItemDialogOpen, setIsAddItemDialogOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const [currentSelectedTickerSymbol, setCurrentSelectedTickerSymbol] =
     useState(0);
 
   const onPlusButtonClick = () => {
-    setIsAddItemModalOpen(true);
+    setIsAddItemDialogOpen(true);
   };
 
-  const onItemAddModalClose = () => {
-    setIsAddItemModalOpen(false);
+  const onItemAddDialogClose = () => {
+    setIsAddItemDialogOpen(false);
   };
 
   const onDeleteButtonDown = (tickerSymbol: number) => {
@@ -71,9 +71,9 @@ export default function Watchlist() {
       />
       <PlusButton onClick={onPlusButtonClick}>+</PlusButton>
 
-      <WatchlistItemAddModal
-        isOpen={isAddItemModalOpen}
-        onClose={onItemAddModalClose}
+      <WatchlistItemAddDialog
+        isOpen={isAddItemDialogOpen}
+        onClose={onItemAddDialogClose}
       />
 
       <WatchlistItemDeleteAlert

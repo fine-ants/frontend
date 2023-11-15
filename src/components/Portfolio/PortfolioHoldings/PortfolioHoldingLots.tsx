@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import PortfolioHoldingLotRow from "./PortfolioHoldingLotRow";
-import PortfolioHoldingPurchaseAddModal from "./PortfolioHoldingPurchaseAddModal";
+import PortfolioHoldingPurchaseAddDialog from "./PortfolioHoldingPurchaseAddDialog";
 
 type Props = {
   portfolioId: number;
@@ -23,11 +23,11 @@ export default function PortfolioHoldingLots({
   portfolioHoldingId,
   purchaseHistory,
 }: Props) {
-  const [isAddHoldingPurchaseModalOpen, setIsAddHoldingPurchaseModalOpen] =
+  const [isAddHoldingPurchaseDialogOpen, setIsAddHoldingPurchaseDialogOpen] =
     useState(false);
 
   const onAddPurchaseClick = () => {
-    setIsAddHoldingPurchaseModalOpen(true);
+    setIsAddHoldingPurchaseDialogOpen(true);
   };
 
   return (
@@ -63,9 +63,9 @@ export default function PortfolioHoldingLots({
         </TableFooter>
       </Table>
 
-      <PortfolioHoldingPurchaseAddModal
-        isOpen={isAddHoldingPurchaseModalOpen}
-        onClose={() => setIsAddHoldingPurchaseModalOpen(false)}
+      <PortfolioHoldingPurchaseAddDialog
+        isOpen={isAddHoldingPurchaseDialogOpen}
+        onClose={() => setIsAddHoldingPurchaseDialogOpen(false)}
         portfolioId={portfolioId}
         portfolioHoldingId={portfolioHoldingId}
       />

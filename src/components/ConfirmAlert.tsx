@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
-import BaseModal from "./BaseModal";
+import BaseDialog from "./BaseDialog";
 
 type Props = {
   isOpen: boolean;
@@ -23,7 +23,7 @@ export default function ConfirmAlert({
   };
 
   return (
-    <BaseModal style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
+    <BaseDialog style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
       <Wrapper>
         <Title>{title}</Title>
         <Body>{content}</Body>
@@ -32,7 +32,7 @@ export default function ConfirmAlert({
           <Button onClick={onConfirmAlertClose}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
-    </BaseModal>
+    </BaseDialog>
   );
 }
 

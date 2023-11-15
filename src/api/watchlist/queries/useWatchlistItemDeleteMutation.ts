@@ -3,12 +3,12 @@ import { deleteWatchlistItem } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 type Props = {
-  onCloseModal: () => void;
+  onCloseDialog: () => void;
   tickerSymbol: string;
 };
 
 export default function useWatchlistItemDeleteMutation({
-  onCloseModal,
+  onCloseDialog: onCloseDialog,
   tickerSymbol,
 }: Props) {
   const queryClient = useQueryClient();
@@ -20,7 +20,7 @@ export default function useWatchlistItemDeleteMutation({
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.list().queryKey,
       });
-      onCloseModal();
+      onCloseDialog();
     },
   });
 }

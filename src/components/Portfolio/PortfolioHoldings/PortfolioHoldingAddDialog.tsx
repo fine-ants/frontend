@@ -1,5 +1,5 @@
 import usePortfolioHoldingAddMutation from "@api/portfolio/queries/usePortfolioHoldingAddMutation";
-import BaseModal from "@components/BaseModal";
+import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function PortfolioHoldingAddModal({
+export default function PortfolioHoldingAddDialog({
   portfolioId,
   isOpen,
   onClose,
@@ -28,13 +28,13 @@ export default function PortfolioHoldingAddModal({
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseDialog isOpen={isOpen} onClose={onClose}>
       <>
         <SearchBar>
           <SearchBar.Input />
           <SearchBar.SearchList onItemClick={addStockToPortfolio} />
         </SearchBar>
       </>
-    </BaseModal>
+    </BaseDialog>
   );
 }
