@@ -3,12 +3,12 @@ import { deleteWatchlistItem } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 type Props = {
-  onClose: () => void;
+  onCloseModal: () => void;
   tickerSymbol: string;
 };
 
 export default function useWatchlistItemDeleteMutation({
-  onClose,
+  onCloseModal,
   tickerSymbol,
 }: Props) {
   const queryClient = useQueryClient();
@@ -18,9 +18,9 @@ export default function useWatchlistItemDeleteMutation({
     mutationFn: () => deleteWatchlistItem(tickerSymbol),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: watchlistKeys.total().queryKey,
+        queryKey: watchlistKeys.list().queryKey,
       });
-      onClose();
+      onCloseModal();
     },
   });
 }

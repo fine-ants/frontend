@@ -9,15 +9,11 @@ type Props = {
 
 export default function WatchlistItemAddModal({ isOpen, onClose }: Props) {
   const { mutate: watchlistItemAddMutate } = useWatchlistItemAddMutation({
-    onClose,
+    onCloseModal: onClose,
   });
 
   const addItemToWatchlist = (tickerSymbol: string) => {
-    watchlistItemAddMutate({
-      body: {
-        tickerSymbol,
-      },
-    });
+    watchlistItemAddMutate(tickerSymbol);
   };
 
   return (

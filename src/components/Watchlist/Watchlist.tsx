@@ -3,7 +3,7 @@ import useWatchlistQuery from "@api/watchlist/queries/useWatchlistQuery";
 import { useEffect, useState } from "react";
 import { List, arrayMove } from "react-movable";
 import styled from "styled-components";
-import WatchlistItemStock from "./WatchlistItem";
+import WatchlistItem from "./WatchlistItem";
 import WatchlistItemAddModal from "./WatchlistItemAddModal";
 import WatchlistItemDeleteAlert from "./WatchlistItemDeleteAlert";
 
@@ -27,17 +27,21 @@ export default function Watchlist() {
     setIsAddItemModalOpen(true);
   };
 
-  const onCloseItemAddModal = () => {
+  const onItemAddModalClose = () => {
     setIsAddItemModalOpen(false);
   };
 
-  const onDeleteButtonClick = (tickerSymbol: number) => {
+  const onDeleteButtonDown = (tickerSymbol: number) => {
     setIsDeleteAlertOpen(true);
     setCurrentSelectedTickerSymbol(tickerSymbol);
   };
 
-  const onCloseDeleteAlert = () => {
+  const onDeleteAlertClose = () => {
     setIsDeleteAlertOpen(false);
+  };
+
+  const onWatchlistItemReposition = (oldIndex: number, newIndex: number) => {
+    setWatchlist(arrayMove(watchlist, oldIndex, newIndex));
   };
 
   useEffect(() => {
@@ -54,17 +58,17 @@ export default function Watchlist() {
       <List
         values={watchlist}
         onChange={({ oldIndex, newIndex }) =>
-          setWatchlist(arrayMove(watchlist, oldIndex, newIndex))
+          onWatchlistItemReposition(oldIndex, newIndex)
         }
         renderList={({ children, props }) => (
           <WatchlistContainer {...props}>{children}</WatchlistContainer>
         )}
         renderItem={({ value, props }) => (
-          <WatchlistItemStock
+          <WatchlistItem
             key={value.tickerSymbol}
             value={value}
             props={props}
-            onMouseDown={onDeleteButtonClick}
+            onMouseDown={onDeleteButtonDown}
           />
         )}
       />
@@ -72,12 +76,12 @@ export default function Watchlist() {
 
       <WatchlistItemAddModal
         isOpen={isAddItemModalOpen}
-        onClose={onCloseItemAddModal}
+        onClose={onItemAddModalClose}
       />
 
       <WatchlistItemDeleteAlert
         isOpen={isDeleteAlertOpen}
-        onClose={onCloseDeleteAlert}
+        onClose={onDeleteAlertClose}
         currentSelectedTickerSymbol={currentSelectedTickerSymbol}
       />
     </StyledWatchlist>

@@ -1,26 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postWatchlist } from "..";
+import { postWatchlistItem } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 type Props = {
-  onClose: () => void;
+  onCloseModal: () => void;
 };
 
-export default function useWatchlistItemAddMutation({ onClose }: Props) {
+export default function useWatchlistItemAddMutation({ onCloseModal }: Props) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: watchlistKeys.addItem().queryKey,
-    mutationFn: postWatchlist,
+    mutationFn: postWatchlistItem,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: watchlistKeys.total().queryKey,
+        queryKey: watchlistKeys.list().queryKey,
       });
-      onClose();
+      onCloseModal();
     },
-    onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    },
+
+    // TODO: error handling
   });
 }

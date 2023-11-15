@@ -4,7 +4,7 @@ import { watchlistKeys } from "./queryKeys";
 
 export default function useWatchlistQuery() {
   return useQuery({
-    queryKey: watchlistKeys.total().queryKey,
+    queryKey: watchlistKeys.list().queryKey,
     queryFn: () => getWatchlist(),
     retry: false,
     select: (res) => res.data,

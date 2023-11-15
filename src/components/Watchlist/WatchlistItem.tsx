@@ -13,9 +13,9 @@ export default function WatchlistItem({ value, props, onMouseDown }: Props) {
     <StyledWatchlistItem {...props}>
       <Name>{value.companyName}</Name>
       <CurrentPrice>₩ {value.currentPrice}</CurrentPrice>
-      <Change $isUp={value.dailyChangeRate > 0}>
+      <ChangeableValue $isUp={value.dailyChangeRate > 0}>
         {value.dailyChangeRate}%
-      </Change>
+      </ChangeableValue>
       <GreenText>{value.annualDividendYield}%</GreenText>
       <GreenText>{value.sector}</GreenText>
       <div
@@ -56,6 +56,6 @@ const GreenText = styled(Item)`
   color: #22ab94;
 `;
 
-const Change = styled(Item)<{ $isUp: boolean }>`
+const ChangeableValue = styled(Item)<{ $isUp: boolean }>`
   color: ${({ $isUp }) => ($isUp ? "#22AB94" : "#F34351")};
 `;

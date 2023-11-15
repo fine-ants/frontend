@@ -1,8 +1,8 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
 export const watchlistKeys = createQueryKeys("watchlist", {
-  total: () => ({
-    queryKey: ["total"],
+  list: () => ({
+    queryKey: ["list"],
   }),
 
   addItem: () => ({

@@ -16,14 +16,10 @@ export const getWatchlist = async () => {
   return res.data;
 };
 
-export const postWatchlist = async ({
-  body,
-}: {
-  body: {
-    tickerSymbol: string;
-  };
-}) => {
-  const res = await fetcher.post<Response<null>>("/watchlist", body);
+export const postWatchlistItem = async (tickerSymbol: string) => {
+  const res = await fetcher.post<Response<null>>("/watchlist", {
+    tickerSymbol,
+  });
   return res.data;
 };
 

@@ -14,7 +14,7 @@ export default function WatchlistItemDeleteAlert({
 }: Props) {
   const { mutate: watchlistItemDeleteMutate } = useWatchlistItemDeleteMutation({
     tickerSymbol: String(currentSelectedTickerSymbol),
-    onClose,
+    onCloseModal: onClose,
   });
 
   const deleteItemFromWatchlist = () => {
@@ -24,7 +24,7 @@ export default function WatchlistItemDeleteAlert({
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div>진짜로 삭제하시겠습니까?</div>
-      <div onClick={() => deleteItemFromWatchlist()}>예</div>
+      <div onClick={deleteItemFromWatchlist}>예</div>
       <div onClick={onClose}>아니오</div>
     </BaseModal>
   );
