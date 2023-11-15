@@ -1,5 +1,6 @@
 import useWatchlistItemDeleteMutation from "@api/watchlist/queries/useWatchlistItemDeleteMutation";
 import BaseModal from "@components/BaseModal";
+import styled from "styled-components";
 
 type Props = {
   isOpen: boolean;
@@ -24,8 +25,15 @@ export default function WatchlistItemDeleteAlert({
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <div>진짜로 삭제하시겠습니까?</div>
-      <div onClick={deleteItemFromWatchlist}>예</div>
-      <div onClick={onClose}>아니오</div>
+      <Button onClick={deleteItemFromWatchlist}>예</Button>
+      <Button onClick={onClose}>아니오</Button>
     </BaseModal>
   );
 }
+
+const Button = styled.button`
+  width: 100px;
+  hegiht: 50px;
+  background-color: #ffffff;
+  border: 1px solid black;
+`;

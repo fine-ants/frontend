@@ -10,16 +10,13 @@ import WatchlistItemDeleteAlert from "./WatchlistItemDeleteAlert";
 export default function Watchlist() {
   const { data: watchlistData } = useWatchlistQuery();
 
+  const watchlistTitles = ["종목명", "현재가", "변동률", "배당금", "업종"];
+
   const [watchlist, setWatchlist] = useState<WatchlistItemType[]>(
     watchlistData ?? []
   );
-
-  const watchlistTitles = ["종목명", "현재가", "변동률", "배당금", "업종"];
-
   const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
-
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
-
   const [currentSelectedTickerSymbol, setCurrentSelectedTickerSymbol] =
     useState(0);
 
