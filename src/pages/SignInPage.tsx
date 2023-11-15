@@ -32,28 +32,48 @@ export default function SignInPage() {
     signInMutate({ email, password });
   };
 
-  // Receive OAuth provider and auth code in the popup window from the OAuth provider and send it to the original window.
+  // Handle Google Redirect
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const provider = urlParams.get("provider");
     const authCode = urlParams.get("code");
+    const state = urlParams.get("state");
 
-    if (provider && authCode) {
-      // Send OAuth provider and auth code to original window.
-      window.opener.postMessage({ provider, authCode }, CLIENT_URL);
+    if (!provider || !authCode || !state) return; // TODO: handle error
+
+    if (provider === "google") {
+      oAuthSignInMutate({ provider, authCode, state });
+      return;
     }
-  }, []);
+  }, [oAuthSignInMutate]);
 
-  // Receive OAuth provider and auth code in original window from popup window.
-  // Currently used only by Kakao login.
+  // Handle Kakao, Naver Redirect (receive OAuth provider, auth code and state) received in popup.
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const provider = urlParams.get("provider");
+    const authCode = urlParams.get("code");
+    const state = urlParams.get("state");
+
+    if (!provider || !authCode || !state) return; // TODO: handle error
+
+    // Received data in the popup window from the OAuth provider and send it to the original window.
+    if (provider === "kakao" || provider === "naver") {
+      // Send OAuth provider, auth code and state to the original window.
+      window.opener.postMessage({ provider, authCode, state }, CLIENT_URL);
+    }
+  }, [oAuthSignInMutate]);
+
+  // Receive OAuth provider, auth code, state in original window from popup window.
+  // Only used by Kakao and Naver Login.
   useEffect(() => {
     if (!popUpWindow) return;
 
     const closeWindowMessageHandler = (e: MessageEvent) => {
       if (e.origin === CLIENT_URL) {
-        const { provider, authCode } = e.data;
-        if (provider && authCode) {
-          oAuthSignInMutate({ provider, authCode });
+        const { provider, authCode, state } = e.data;
+
+        if (provider && authCode && state) {
+          oAuthSignInMutate({ provider, authCode, state });
         }
         closePopUpWindow();
       }

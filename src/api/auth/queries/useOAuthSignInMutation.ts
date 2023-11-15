@@ -13,10 +13,12 @@ export default function useOAuthSignInMutation() {
     mutationFn: ({
       provider,
       authCode,
+      state,
     }: {
       provider: OAuthProvider;
       authCode: string;
-    }) => postOAuthSignIn(provider, authCode),
+      state: string;
+    }) => postOAuthSignIn(provider, authCode, state),
     onSuccess: ({ data }) => {
       onSignIn(data);
       navigate(Routes.DASHBOARD);

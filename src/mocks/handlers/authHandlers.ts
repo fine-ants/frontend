@@ -31,7 +31,7 @@ export default [
     }
   }),
 
-  rest.get("/api/auth/:provider/authUrl", async (_, res, ctx) => {
+  rest.post("/api/auth/:provider/authUrl", async (_, res, ctx) => {
     return res(
       ctx.status(HTTPSTATUS.success),
       ctx.json(successfulOAuthURLData)

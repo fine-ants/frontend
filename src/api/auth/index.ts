@@ -46,8 +46,9 @@ export const postSignIn = async (body: SignInCredentials) => {
   return res.data;
 };
 
-export const getOAuthURL = async (provider: OAuthProvider) => {
-  const res = await fetcher.get<Response<{ url: string }>>(
+// Receive OAuth URL from server
+export const postOAuthUrl = async (provider: OAuthProvider) => {
+  const res = await fetcher.post<Response<{ authURL: string }>>(
     `/auth/${provider}/authUrl`
   );
   return res.data;
@@ -55,10 +56,11 @@ export const getOAuthURL = async (provider: OAuthProvider) => {
 
 export const postOAuthSignIn = async (
   provider: OAuthProvider,
-  authCode: string
+  authCode: string,
+  state: string
 ) => {
   const res = await fetcher.post<Response<SignInData>>(
-    `/auth/${provider}/login?code=${authCode}&redirectUrl=${CLIENT_URL}/signin?provider=${provider}`
+    `/auth/${provider}/login?code=${authCode}&state=${state}&redirectUrl=${CLIENT_URL}/signin?provider=${provider}`
   );
   return res.data;
 };

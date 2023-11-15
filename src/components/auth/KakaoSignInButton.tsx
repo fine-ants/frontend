@@ -1,22 +1,29 @@
-import { getOAuthURL } from "@api/auth";
+import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
 import kakaoLoginButtonImage from "@assets/images/kakao_login_medium_wide.png";
 import { WindowContext } from "@context/WindowContext";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 export default function KakaoSignInButton() {
   const { onOpenPopUpWindow } = useContext(WindowContext);
 
   const onKakaoSignIn = async () => {
     // Get Auth URL from server.
-    const res = await getOAuthURL("kakao");
+    const res = await postOAuthUrl("kakao");
+
+    // This is for development. Remove this.
+    const tempURL = new URL(res.data.authURL);
+    tempURL.searchParams.set(
+      "redirect_uri",
+      "http://localhost:5173/signin?provider=kakao"
+    );
 
     // TODO: handle error
     if (res.code === HTTPSTATUS.success) {
       const oAuthPopUpWindow = openPopUpWindow(
-        res.data.url,
+        tempURL.toString(), // This is for development. Change this to res.data.authURL.
         "kakaoOAuth",
         500,
         600
