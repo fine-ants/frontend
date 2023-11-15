@@ -104,4 +104,5 @@ const dropdownItemStyle = {
   display: "flex",
   alignItems: "center",
   cursor: "pointer",
+  color: "black",
 };

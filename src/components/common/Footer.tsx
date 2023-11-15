@@ -15,7 +15,7 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2542ba;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #959da5;
   padding: 0 80px;
 `;
