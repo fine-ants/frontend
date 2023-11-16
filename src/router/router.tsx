@@ -2,6 +2,7 @@ import { User } from "@api/auth";
 import { GOOGLE_CLIENT_ID } from "@constants/config";
 import { WindowProvider } from "@context/WindowContext";
 import DashboardPage from "@pages/DashboardPage";
+import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
 import PortfolioPage from "@pages/PortfolioPage";
 import MyProfilePage from "@pages/ProfilePage/MyProfilePage";
@@ -26,8 +27,8 @@ const router = (user: User | null) =>
       <Route path="/">
         {/* TODO: Landing Page */}
 
+        <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
         <Route element={<ProtectedRoute user={user} />}>
-          <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
           <Route
             path={Routes.PROFILE}
             element={<Navigate to={`${Routes.PROFILE}/${Routes.PORTFOLIOS}`} />}
@@ -39,6 +40,7 @@ const router = (user: User | null) =>
             path={`${Routes.PROFILE}/:section`}
             element={<MyProfilePage />}
           />
+          <Route path={Routes.INDICES} element={<IndicesPage />} />
         </Route>
 
         <Route
@@ -54,7 +56,6 @@ const router = (user: User | null) =>
           <Route path={Routes.SIGNUP} element={<SignUpPage />} />
         </Route>
 
-        {/* <Route path={Routes.INDICES} element={<IndicesPage />}/> */}
         <Route path={Routes.STOCK} element={<StockPage />} />
         {/* <Route path={Routes.FALLBACK} element={<NotFoundPage />}/> */}
       </Route>
