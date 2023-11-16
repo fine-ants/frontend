@@ -19,11 +19,15 @@ export default function KakaoSignInButton() {
       "redirect_uri",
       "http://localhost:5173/signin?provider=kakao"
     );
+    const url =
+      process.env.NODE_ENV === "development"
+        ? tempURL.toString()
+        : res.data.authURL;
 
     // TODO: handle error
     if (res.code === HTTPSTATUS.success) {
       const oAuthPopUpWindow = openPopUpWindow(
-        tempURL.toString(), // This is for development. Change this to res.data.authURL.
+        url, // This is for development. Change this to res.data.authURL.
         "kakaoOAuth",
         500,
         600

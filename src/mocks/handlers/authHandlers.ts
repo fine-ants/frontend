@@ -1,3 +1,4 @@
+import { OAuthProvider } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
 import {
   successfulEmailDuplicationCheckData,
@@ -31,10 +32,12 @@ export default [
     }
   }),
 
-  rest.post("/api/auth/:provider/authUrl", async (_, res, ctx) => {
+  rest.post("/api/auth/:provider/authUrl", async (req, res, ctx) => {
+    const provider = req.params.provider as OAuthProvider;
+
     return res(
       ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulOAuthURLData)
+      ctx.json(successfulOAuthURLData(provider))
     );
   }),
 

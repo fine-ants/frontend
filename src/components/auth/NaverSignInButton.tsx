@@ -12,15 +12,20 @@ export default function NaverSignInButton() {
   const onNaverSignIn = async () => {
     const res = await postOAuthUrl("naver");
 
+    // This is for development. Remove this.
     const tempURL = new URL(res.data.authURL);
     tempURL.searchParams.set(
       "redirect_uri",
       "http://localhost:5173/signin?provider=naver"
     );
+    const url =
+      process.env.NODE_ENV === "development"
+        ? tempURL.toString()
+        : res.data.authURL;
 
     if (res.code === HTTPSTATUS.success) {
       const oAuthPopUpWindow = openPopUpWindow(
-        tempURL.toString(),
+        url, // This is for development. Change this to res.data.authURL.
         "naverOAuth",
         500,
         600
