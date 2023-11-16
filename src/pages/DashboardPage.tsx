@@ -4,8 +4,6 @@ import TotalValuationLineChart from "@components/Dashboard/TotalValuationLineCha
 import ValuationOverview from "@components/Dashboard/ValuationOverview";
 import { useState } from "react";
 import styled from "styled-components";
-import Footer from "../components/common/Footer";
-import Header from "../components/common/Header";
 import BasePage from "./BasePage";
 
 export default function DashboardPage() {
@@ -18,111 +16,111 @@ export default function DashboardPage() {
 
   return (
     <StyledDashboardPage>
-      <BasePage>
-        <Header />
-        <Main>
-          <MainColorBackground />
-          <ValuationOverview />
-          <CurrentChartContainer>
-            <DateRangeSelector>
-              {range.map((range, index) => (
-                <TimeRangeButton
-                  key={index}
-                  range={range}
-                  index={index}
-                  onClick={switchTimeRange}
-                />
-              ))}
-            </DateRangeSelector>
-            <ChartContainer>
-              <PortfolioPieChartContainer>
-                <PortfolioPieChart
-                  width={384}
-                  height={384}
-                  legendStyle={{ bottom: "15px" }}
-                />
-              </PortfolioPieChartContainer>
+      <Content>
+        <PageTitle>모카 님의 대시보드</PageTitle>
+        <ValuationOverview />
+        <CurrentChartContainer>
+          <ChartContainer>
+            <PortfolioPieChartContainer>
+              <PortfolioPieChart
+                width={384}
+                height={384}
+                legendStyle={{ bottom: "15px" }}
+              />
+            </PortfolioPieChartContainer>
+            <TotalValuationLineChartContainer>
+              <DateRangeSelector>
+                {range.map((range, index) => (
+                  <TimeRangeButton
+                    key={index}
+                    range={range}
+                    index={index}
+                    onClick={switchTimeRange}
+                  />
+                ))}
+              </DateRangeSelector>
               <TotalValuationLineChart
                 key={currentRangeIndex}
                 currentRangeIndex={currentRangeIndex}
                 data={data[currentRangeIndex]}
               />
-            </ChartContainer>
-          </CurrentChartContainer>
-        </Main>
-        <Footer />
-      </BasePage>
+            </TotalValuationLineChartContainer>
+          </ChartContainer>
+        </CurrentChartContainer>
+      </Content>
     </StyledDashboardPage>
   );
 }
 
-const StyledDashboardPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border: 1px solid #000000;
-`;
+const StyledDashboardPage = styled(BasePage)``;
 
-const Main = styled.main`
-  width: 100%;
-  height: 828px;
+const Content = styled.div`
   display: flex;
+  gap: 24px;
   flex-direction: column;
-  align-items: center;
   position: relative;
-  padding: 0 150px;
+  margin: 48px 0;
 `;
-
-const MainColorBackground = styled.div`
-  width: 1440px;
-  height: 460px;
-  position: absolute;
-  z-index: 0;
+const PageTitle = styled.h1`
+  font-size: 40px;
+  font-weight: bold;
 `;
 
 const CurrentChartContainer = styled.div`
-  height: 428px;
+  width: 1440px;
+  height: 456px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
-  position: absolute;
-  bottom: 72px;
-  padding: 0 80px;
-  z-index: 3;
+  position: relative;
+
+  // z-index: 3;
 `;
 
 const DateRangeSelector = styled.div`
   width: 256px;
   height: 32px;
-  margin-left: auto;
+  position: relative;
+  margin-left: 500px;
+
   color: white;
   font-size: 24px;
   font-weight: bold;
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   background-color: #d6d3d3;
 `;
 
 const ChartContainer = styled.div`
-  height: 384px;
+  height: 456px;
 
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 54px;
+  gap: 24px;
 `;
 
 const PortfolioPieChartContainer = styled.div`
-  width: 460px;
-  height: 384px;
+  width: 558px;
+  height: 456px;
   background-color: #ffffff;
   position: relative;
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  border: 1px solid #000000;
+`;
+
+const TotalValuationLineChartContainer = styled.div`
+  width: 858px;
+  height: 456px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 `;
 
 const data = [

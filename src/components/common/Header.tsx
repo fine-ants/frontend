@@ -1,5 +1,6 @@
 import { PortfolioItem } from "@api/portfolio";
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
+import BIImage from "@assets/images/profileImage.png";
 import PortfolioDialog from "@components/Portfolio/PortfolioDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
@@ -70,7 +71,8 @@ export default function Header() {
         <HeaderTop>
           <HeaderLeft>
             <StyledBrandIdentity onClick={() => navigate("/dashboard")}>
-              FINEANTS
+              <img src={BIImage} alt="FineAnts" />
+              FineAnts
             </StyledBrandIdentity>
             <NavBar style={navBarStyles}>
               <Dropdown>
@@ -135,31 +137,37 @@ const HeaderTop = styled.header`
   gap: 44px;
   justify-content: space-between;
   align-items: center;
-  padding: 0 150px;
+  padding: 0 40px;
 `;
 
 const HeaderLeft = styled.div`
   display: flex;
-  gap: 48px;
+  gap: 24px;
   align-items: center;
 `;
 
 const HeaderRight = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 38px;
   align-items: center;
   margin-left: auto;
 `;
 
 const StyledBrandIdentity = styled.div`
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 160px;
+  height: 32px;
+  font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 const navBarStyles = {
   backgroundColor: "#23232D",
   display: "flex",
-  gap: "58px",
+  gap: "40px",
   alignItems: "center",
 };
 
@@ -171,4 +179,5 @@ const navItemStyle = {
   alignItems: "center",
   fontSize: "16px",
   fontWeight: "bold",
+  cursor: "pointer",
 };
