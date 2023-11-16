@@ -4,7 +4,7 @@ import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetails
 import plusIcon from "@assets/icons/plus.svg";
 import DividendBarChart from "@components/Portfolio/DividendBarChart";
 import HoldingsPieChart from "@components/Portfolio/HoldingsPieChart";
-import PortfolioHoldingAddModal from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddModal";
+import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
 import SectorBar from "@components/Portfolio/SectorBar";
@@ -23,7 +23,7 @@ export default function PortfolioPage() {
   const { data: portfolio, isLoading: isPortfolioDetailsLoading } =
     usePortfolioDetailsQuery(Number(id));
 
-  const [isAddHoldingModalOpen, setIsAddHoldingModalOpen] = useState(false);
+  const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
 
   const { onConnect } = useStompSubscription<Portfolio>({
     brokerURL: `${BASE_API_URL_WS}/portfolio`,
@@ -47,7 +47,7 @@ export default function PortfolioPage() {
   }, [portfolio, onConnect]);
 
   const onAddHoldingButtonClick = () => {
-    setIsAddHoldingModalOpen(true);
+    setIsAddHoldingDialogOpen(true);
   };
 
   // TODO: Handle loading
@@ -104,10 +104,10 @@ export default function PortfolioPage() {
 
       <Footer />
 
-      <PortfolioHoldingAddModal
+      <PortfolioHoldingAddDialog
         portfolioId={Number(id)}
-        isOpen={isAddHoldingModalOpen}
-        onClose={() => setIsAddHoldingModalOpen(false)}
+        isOpen={isAddHoldingDialogOpen}
+        onClose={() => setIsAddHoldingDialogOpen(false)}
       />
     </StyledPortfolioPage>
   );

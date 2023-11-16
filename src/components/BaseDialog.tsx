@@ -9,7 +9,12 @@ type Props = {
   onClose: () => void;
 };
 
-export default function BaseModal({ style, children, isOpen, onClose }: Props) {
+export default function BaseDialog({
+  style,
+  children,
+  isOpen,
+  onClose,
+}: Props) {
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Box sx={{ ...baseStyle, ...style }}>{children}</Box>

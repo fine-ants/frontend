@@ -3,10 +3,12 @@ import { postWatchlistItem } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 type Props = {
-  onCloseModal: () => void;
+  onCloseDialog: () => void;
 };
 
-export default function useWatchlistItemAddMutation({ onCloseModal }: Props) {
+export default function useWatchlistItemAddMutation({
+  onCloseDialog: onCloseDialog,
+}: Props) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -16,7 +18,7 @@ export default function useWatchlistItemAddMutation({ onCloseModal }: Props) {
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.list().queryKey,
       });
-      onCloseModal();
+      onCloseDialog();
     },
 
     // TODO: error handling

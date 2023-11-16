@@ -1,7 +1,7 @@
 import { PortfolioDetails } from "@api/portfolio";
 import usePortfolioAddMutation from "@api/portfolio/queries/usePortfolioAddMutation";
 import usePortfolioEditMutation from "@api/portfolio/queries/usePortfolioEditMutation";
-import BaseModal from "@components/BaseModal";
+import BaseDialog from "@components/BaseDialog";
 import useText from "@components/hooks/useText";
 import {
   Button,
@@ -23,7 +23,7 @@ type Props = {
 };
 
 // TODO: Refactoring 시급!
-export default function PortfolioModal({
+export default function PortfolioDialog({
   isOpen,
   onClose,
   portfolioDetails,
@@ -174,7 +174,7 @@ export default function PortfolioModal({
   }, [isEditSuccess, isEditError, onClose]);
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseDialog isOpen={isOpen} onClose={onClose}>
       <Wrapper>
         <main />
         <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
@@ -256,7 +256,7 @@ export default function PortfolioModal({
           <SubmitButton onClick={onSubmit}>저장</SubmitButton>
         </ButtonWrapper>
       </Wrapper>
-    </BaseModal>
+    </BaseDialog>
   );
 }
 

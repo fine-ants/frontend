@@ -1,5 +1,5 @@
 import useWatchlistItemAddMutation from "@api/watchlist/queries/useWatchlistItemAddMutation";
-import BaseModal from "@components/BaseModal";
+import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 
 type Props = {
@@ -7,9 +7,9 @@ type Props = {
   onClose: () => void;
 };
 
-export default function WatchlistItemAddModal({ isOpen, onClose }: Props) {
+export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
   const { mutate: watchlistItemAddMutate } = useWatchlistItemAddMutation({
-    onCloseModal: onClose,
+    onCloseDialog: onClose,
   });
 
   const addItemToWatchlist = (tickerSymbol: string) => {
@@ -17,13 +17,13 @@ export default function WatchlistItemAddModal({ isOpen, onClose }: Props) {
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseDialog isOpen={isOpen} onClose={onClose}>
       <>
         <SearchBar>
           <SearchBar.Input />
           <SearchBar.SearchList onItemClick={addItemToWatchlist} />
         </SearchBar>
       </>
-    </BaseModal>
+    </BaseDialog>
   );
 }
