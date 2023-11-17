@@ -36,12 +36,7 @@ export default function ValuationOverview() {
 
   return (
     <StyledValuationOverview>
-      <TotalMainContentWrapper
-        style={{
-          justifyContent: "flex-start",
-          gap: "16px",
-          padding: "24px 8",
-        }}>
+      <TotalMainContentWrapper>
         <Title style={{ marginRight: "auto" }}>총 평가 금액</Title>
         <ValueWrapper style={{ marginRight: "auto" }}>
           <Won style={{ fontSize: "38px" }}>₩</Won>
@@ -100,11 +95,13 @@ const StyledValuationOverview = styled.div`
 const TotalMainContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: "flex-start";
   align-items: center;
   width: 424px;
   height: 176px;
   color: white;
+  gap: "16px";
+  padding: "24px 8";
 `;
 
 const Title = styled.div`
