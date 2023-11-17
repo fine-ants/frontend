@@ -1,5 +1,6 @@
 import { StockSearchResponse } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
+import searchIcon from "@assets/icons/search.svg";
 import { createContext, useContext, useState } from "react";
 import styled from "styled-components";
 
@@ -25,27 +26,6 @@ export default function SearchBar({ children }: { children: React.ReactNode }) {
       <StyledSearchBar>{children}</StyledSearchBar>
     </SearchBarContext.Provider>
   );
-
-  // return (
-  //   <StyledSearchBar>
-  //     <InputContainer>
-  //       <Input
-  //         type="text"
-  //         value={value}
-  //         placeholder="종목 또는 지수 검색"
-  //         onChange={onSearchBarChange}
-  //       />
-  //     </InputContainer>
-
-  //     {isQuerySearched && (
-  //       <SearchList>
-  //         {searchResults.map((result) => (
-  //           <SearchItem key={result.stockCode} searchResult={result} />
-  //         ))}
-  //       </SearchList>
-  //     )}
-  //   </StyledSearchBar>
-  // );
 }
 
 function Input() {
@@ -53,6 +33,7 @@ function Input() {
 
   return (
     <InputContainer>
+      <img src={searchIcon} alt="search-icon" />
       <StyledInput
         type="text"
         value={value}
@@ -111,12 +92,14 @@ const StyledSearchBar = styled.div`
 `;
 
 const InputContainer = styled.div`
-  width: 360px;
-  height: 56px;
-  padding: 8px 24px;
-  border-radius: 12px;
-  background-color: #f2f2f2;
+  width: 320px;
+  height: 40px;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: inherit;
+  border: 1px solid #b3b3c1;
   display: flex;
+  gap: 8px;
   align-items: center;
 `;
 
@@ -133,6 +116,7 @@ const StyledSearchList = styled.div`
   background-color: white;
   border-radius: 10px;
   border: 1px solid #e5e5e5;
+  color: black;
 
   overflow: scroll;
 

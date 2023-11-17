@@ -8,7 +8,7 @@ const portfolios = [
     totalGainRate: 10,
     dailyGain: 100000,
     dailyGainRate: 10,
-    expectedMmonthlyDividend: 20000,
+    expectedMonthlyDividend: 20000,
     numShares: 9,
   },
   {
@@ -19,7 +19,7 @@ const portfolios = [
     totalGainRate: 10,
     dailyGain: 100000,
     dailyGainRate: 10,
-    expectedMmonthlyDividend: 20000,
+    expectedMonthlyDividend: 20000,
     numShares: 3,
   },
   {
@@ -31,7 +31,7 @@ const portfolios = [
     totalGainRate: 10,
     dailyGain: 100000,
     dailyGainRate: 10,
-    expectedMmonthlyDividend: 20000,
+    expectedMonthlyDividend: 20000,
     numShares: 12,
   },
 ];

@@ -8,8 +8,6 @@ import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/P
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
 import SectorBar from "@components/Portfolio/SectorBar";
-import Footer from "@components/common/Footer";
-import Header from "@components/common/Header";
 import { BASE_API_URL_WS } from "@constants/config";
 import { Box, Button, Typography } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -64,8 +62,6 @@ export default function PortfolioPage() {
 
   return (
     <StyledPortfolioPage>
-      <Header />
-
       <main style={{ display: "flex", padding: "40px 150px", gap: "32px" }}>
         <LeftPanel>
           <HoldingsPieChart data={portfolioHoldings} />
@@ -101,8 +97,6 @@ export default function PortfolioPage() {
           </PortfolioHoldingsContainer>
         </RightPanel>
       </main>
-
-      <Footer />
 
       <PortfolioHoldingAddDialog
         portfolioId={Number(id)}
