@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Routes from "router/Routes";
 import styled from "styled-components";
+import designSystem from "styles/designSystem";
 import { NavBar } from "../NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
@@ -29,7 +30,7 @@ export default function Header() {
       name: "Watchlist",
       path: Routes.WATCHLIST,
     },
-    { name: "indices", path: Routes.INDICES },
+    { name: "Indices", path: Routes.INDICES },
   ];
 
   const dropdownItems = portfolioList?.portfolios?.map(
@@ -127,8 +128,8 @@ export default function Header() {
 
 const StyledHeader = styled.header`
   z-index: 10;
-  background-color: #23232d;
-  color: #ffffff;
+  color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${({ theme: { color } }) => color.neutral.gray900}};
 `;
 
 const HeaderTop = styled.header`
@@ -165,10 +166,12 @@ const StyledBrandIdentity = styled.div`
 `;
 
 const navBarStyles = {
-  backgroundColor: "#23232D",
+  backgroundColor: designSystem.color.neutral.gray900,
   display: "flex",
   gap: "40px",
   alignItems: "center",
+  font: designSystem.font.title4,
+  letterSpacing: "-0.02em",
 };
 
 const navItemStyle = {
@@ -177,7 +180,7 @@ const navItemStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "16px",
-  fontWeight: "bold",
+  font: designSystem.font.title4,
+  letterSpacing: "-0.02em",
   cursor: "pointer",
 };

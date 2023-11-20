@@ -27,62 +27,86 @@ export default function SignUpPage() {
 
   return (
     <StyledSignUpPage>
-      <h2>회원가입</h2>
+      <SignUpContainer>
+        <SignUpTitle>회원가입</SignUpTitle>
 
-      <SubPageContainer>
-        {/* TODO: 이전 단계로 이동 버튼 (`main`인 경우 제외) */}
+        <SubPageContainer>
+          {/* TODO: 이전 단계로 이동 버튼 (`main`인 경우 제외) */}
 
-        {/* TODO: SubPage 컴포넌트화 */}
-        {subPage === "main" && (
-          <MainSubPage onNext={() => setSubPage("nickname")} />
-        )}
-        {subPage === "nickname" && (
-          <NicknameSubPage
-            onNext={(data: string) => {
-              setSignUpData((prev) => ({ ...prev, nickname: data }));
-              setSubPage("email");
-            }}
-          />
-        )}
-        {subPage === "email" && (
-          <EmailSubPage
-            onNext={(data: string) => {
-              setSignUpData((prev) => ({ ...prev, email: data }));
-              setSubPage("password");
-            }}
-          />
-        )}
-        {subPage === "password" && (
-          <PasswordSubPage
-            onNext={(password: string, passwordConfirm: string) => {
-              setSignUpData((prev) => ({ ...prev, password, passwordConfirm }));
-              setSubPage("verification");
-              // Request server to send verification code
-              postEmailVerification(signUpData.email);
-            }}
-          />
-        )}
-        {subPage === "verification" && (
-          <VerificationSubPage
-            email={signUpData.email}
-            onNext={async (data: string) => {
-              setSignUpData((prev) => ({ ...prev, verificationCode: data }));
-              // TODO: If unsuccessful, show error message and require user to re-enter verification code
-              signUpMutate(signUpData);
-            }}
-          />
-        )}
-      </SubPageContainer>
+          {/* TODO: SubPage 컴포넌트화 */}
+          {subPage === "main" && (
+            <MainSubPage onNext={() => setSubPage("nickname")} />
+          )}
+          {subPage === "nickname" && (
+            <NicknameSubPage
+              onNext={(data: string) => {
+                setSignUpData((prev) => ({ ...prev, nickname: data }));
+                setSubPage("email");
+              }}
+            />
+          )}
+          {subPage === "email" && (
+            <EmailSubPage
+              onNext={(data: string) => {
+                setSignUpData((prev) => ({ ...prev, email: data }));
+                setSubPage("password");
+              }}
+            />
+          )}
+          {subPage === "password" && (
+            <PasswordSubPage
+              onNext={(password: string, passwordConfirm: string) => {
+                setSignUpData((prev) => ({
+                  ...prev,
+                  password,
+                  passwordConfirm,
+                }));
+                setSubPage("verification");
+                // Request server to send verification code
+                postEmailVerification(signUpData.email);
+              }}
+            />
+          )}
+          {subPage === "verification" && (
+            <VerificationSubPage
+              email={signUpData.email}
+              onNext={async (data: string) => {
+                setSignUpData((prev) => ({ ...prev, verificationCode: data }));
+                // TODO: If unsuccessful, show error message and require user to re-enter verification code
+                signUpMutate(signUpData);
+              }}
+            />
+          )}
+        </SubPageContainer>
+      </SignUpContainer>
     </StyledSignUpPage>
   );
 }
 
 // TODO
+
 const StyledSignUpPage = styled(BasePage)``;
+
+const SignUpTitle = styled.h2`
+  font-size: 42px;
+  font-weight: bold;
+  margin-right: auto;
+`;
+
+const SignUpContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 48px;
+  width: 720px;
+  height: 100%;
+  padding: 0 80px;
+`;
 
 const SubPageContainer = styled.div`
   width: 100%;
-  height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;

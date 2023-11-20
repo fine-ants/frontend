@@ -69,7 +69,7 @@ const NotificationWrapper = styled.div`
 const CounterBadge = styled.div<{ $numLength: number }>`
   height: 16px;
 
-  background-color: #fd4949;
+  background-color: ${({ theme: { color } }) => color.state.red};
   color: white;
   font-size: 10px;
   font-weight: bold;

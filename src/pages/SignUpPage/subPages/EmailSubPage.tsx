@@ -4,7 +4,8 @@ import useText from "@components/hooks/useText";
 import { validateEmail } from "@utils/authInputValidators";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
-import SubPage from "./SubPage";
+import styled from "styled-components";
+import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
 
 type Props = {
   onNext: (data: string) => void;
@@ -46,29 +47,53 @@ export default function EmailSubPage({ onNext }: Props) {
   return (
     <SubPage>
       <label htmlFor="emailInput">이메일</label>
-      <input
-        type="text"
-        placeholder="이메일"
-        id="emailInput"
-        value={email}
-        onChange={onEmailChange}
-      />
+      <InputWrapper>
+        <EmailInput
+          type="text"
+          placeholder="이메일"
+          id="emailInput"
+          value={email}
+          onChange={onEmailChange}
+        />
 
-      <button
-        type="button"
-        onClick={onDuplicateCheckButtonClick}
-        disabled={isError}>
-        중복 확인
-      </button>
+        <UniqueCheckButton
+          type="button"
+          onClick={onDuplicateCheckButtonClick}
+          disabled={isError}>
+          중복 확인
+        </UniqueCheckButton>
+      </InputWrapper>
 
-      <p>{duplicateCheckErrorMsg}</p>
+      <ErrorCaption>{duplicateCheckErrorMsg}</ErrorCaption>
 
-      <button
+      <NextButton
         type="button"
         onClick={() => onNext(email)}
         disabled={isError || !isDuplicateChecked}>
         다음
-      </button>
+      </NextButton>
     </SubPage>
   );
 }
+
+const EmailInput = styled(SignUpInput)``;
+
+const UniqueCheckButton = styled.button`
+  width: 120px;
+  height: 48px;
+  background-color: #2d3bae;
+  border-radius: 8px;
+  color: white;
+`;
+
+const ErrorCaption = styled.p`
+  color: red;
+`;
+
+const NextButton = styled.button<{ disabled: boolean }>`
+  width: 100%;
+  height: 48px;
+  background-color: ${({ disabled }) => (disabled ? "#c4c4c4" : "#2d3bae")};
+  border-radius: 8px;
+  color: white;
+`;
