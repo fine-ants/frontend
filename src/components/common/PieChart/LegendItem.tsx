@@ -9,18 +9,33 @@ type Props = {
 export default function LegendItem({ color, title, percent }: Props) {
   return (
     <StyledLegendItem>
-      <LegendItemColor $color={color} />
-      {title} {percent}%
+      <TitleWrapper>
+        <LegendItemColor $color={color} />
+        {title}
+      </TitleWrapper>
+      <Percent>{percent}%</Percent>
     </StyledLegendItem>
   );
 }
 
 const StyledLegendItem = styled.div`
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  line-height: 17px;
+  color: #75767f;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  gap: 8px;
+`;
+
+const Percent = styled.div`
+  color: #1f4fd5;
 `;
 
 const LegendItemColor = styled.div<{ $color: string }>`
@@ -32,6 +47,6 @@ const LegendItemColor = styled.div<{ $color: string }>`
 
   width: 10px;
   height: 10px;
-  border-radius: 4px;
+  border-radius: 50%;
   background-color: ${({ $color }) => $color};
 `;

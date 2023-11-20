@@ -1,4 +1,3 @@
-import Legend from "@components/common/PieChart/Legend";
 import styled from "styled-components";
 import { chartColorPalette } from "styles/chartColorPalette";
 
@@ -26,7 +25,7 @@ export default function SectorBar() {
           />
         ))}
       </Bar>
-      <Legend style={legendStyle} pieData={coloredData} />
+      {/* <Legend style={legendStyle} pieData={coloredData} /> */}
     </StyledSectorBar>
   );
 }
@@ -55,9 +54,9 @@ const Bar = styled.div<{ $sectorBarWidth: number }>`
   overflow: hidden;
 `;
 
-const legendStyle = {
-  position: "relative" as const,
-};
+// const legendStyle = {
+//   position: "relative" as const,
+// };
 
 // ?: 애초에 계산된 값을 줄 건지 종목을 보내면 계산해서 타나내는건지
 const data = [

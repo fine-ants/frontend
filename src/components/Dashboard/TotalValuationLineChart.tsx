@@ -1,3 +1,4 @@
+import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { IChartApi, ISeriesApi, LineWidth } from "lightweight-charts";
 import { AreaSeries, Chart } from "lightweight-charts-react-wrapper";
 import { useEffect, useRef } from "react";
@@ -28,9 +29,6 @@ export default function TotalValuationLineChart({
 
   return (
     <>
-      <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>
-        총 자산 현황 추이
-      </h1>
       <div style={{ position: "relative" }}>
         <Chart
           {...{
@@ -44,11 +42,16 @@ export default function TotalValuationLineChart({
             data={data}
             topColor="#2175ec"
             bottomColor="#8fcbff"
-            lineColor="#2175ec"
-            lineWidth={2}
+            lineColor="#8fcbff"
+            lineWidth={1}
             crosshairMarkerVisible={true}
-            crosshairMarkerRadius={4}
+            crosshairMarkerRadius={6}
             ref={seriesRef}
+            priceFormat={{
+              type: "custom",
+              formatter: (price: number) =>
+                thousandsDelimiter(Math.floor(price)).toString(),
+            }}
           />
         </Chart>
       </div>
@@ -62,7 +65,6 @@ const barSpacings = [6, 7, 9, 16, 33, 62];
 const options = {
   width: 500,
   height: 300,
-
   layout: {
     textColor: "black",
     backgroundColor: "#000000",

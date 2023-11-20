@@ -1,6 +1,7 @@
 import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import naverLoginButtonImg from "@assets/images/naver_login.png";
+// import naverLoginButtonImg from "@assets/images/naver_login.png";
+import naverLogo from "@assets/images/naver_logo.png";
 import { WindowContext } from "@context/WindowContext";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
@@ -37,19 +38,32 @@ export default function NaverSignInButton() {
     }
   };
 
+  // TODO: 로고 야매로 잘라서 모카가 만들어주신 피그마에서 따서 해야할듯
   return (
     <StyledNaverSignInButton type="button" onClick={onNaverSignIn}>
-      <img src={naverLoginButtonImg} alt="네이버 로그인" />
+      {/* <img src={naverLoginButtonImg} alt="네이버 로그인" /> */}
+      <img src={naverLogo} alt="네이버 로고" />
+      <p>네이버 로그인</p>
     </StyledNaverSignInButton>
   );
 }
 
 const StyledNaverSignInButton = styled.button`
-  width: 228px;
-  height: 44px;
+  width: 100%;
+  height: 48px;
+  background-color: #02bd34;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
 
   img {
-    width: 100%;
+    width: 30px;
+    height: 30px;
     object-fit: fill;
   }
 `;

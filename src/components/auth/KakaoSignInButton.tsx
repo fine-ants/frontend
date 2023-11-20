@@ -1,6 +1,6 @@
 import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import kakaoLoginButtonImage from "@assets/images/kakao_login_medium_wide.png";
+import kakaoLogo from "@assets/images/kakao_logo.jpeg";
 import { WindowContext } from "@context/WindowContext";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
@@ -41,17 +41,28 @@ export default function KakaoSignInButton() {
 
   return (
     <StyledKakaoSignInButton type="button" onClick={onKakaoSignIn}>
-      <img src={kakaoLoginButtonImage} alt="카카오 로그인" />
+      {/* <img src={kakaoLoginButtonImage} alt="카카오 로그인" /> */}
+      <img src={kakaoLogo} alt="카카오 로고" />
+      <p>카카오 로그인</p>
     </StyledKakaoSignInButton>
   );
 }
 
 const StyledKakaoSignInButton = styled.button`
-  width: 228px;
-  height: 44px;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  gap: 8px;
+  background-color: #ffe617;
+  color: #47292a;
+  font-size: 16px;
+  font-weight: bold;
 
   img {
-    width: 100%;
+    width: 36px;
     object-fit: fill;
   }
 `;

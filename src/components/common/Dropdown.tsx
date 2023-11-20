@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { CSSProperties } from "styled-components";
+import designSystem from "styles/designSystem";
 
 const DropdownContext = createContext({
   isOpen: false,
@@ -78,8 +79,7 @@ const dropdownToggleStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "16px",
-  fontWeight: "bold",
+  font: designSystem.font.title4,
   cursor: "pointer",
   position: "relative" as const,
 };

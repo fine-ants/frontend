@@ -34,5 +34,4 @@ const Main = styled.main`
 
   align-items: center;
   position: relative;
-  padding: 0 240px;
 `;
