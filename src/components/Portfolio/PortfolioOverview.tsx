@@ -2,7 +2,7 @@ import { PortfolioDetails } from "@api/portfolio";
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
 import tossLogo from "@assets/images/Toss_Symbol_Primary.png";
 import ConfirmAlert from "@components/ConfirmAlert";
-import PortfolioModal from "@components/Portfolio/PortfolioModal";
+import PortfolioDialog from "@components/Portfolio/PortfolioDialog";
 import ToggleSwitch from "@components/ToggleSwitch";
 import { Button } from "@mui/material";
 import { useState } from "react";
@@ -21,19 +21,19 @@ export default function PortfolioOverview({ data }: Props) {
 
   const [isTargetSwitchChecked, setIsTargetSwitchChecked] = useState(true);
   const [isLossSwitchChecked, setIsLossSwitchChecked] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const onPortfolioEdit = () => {
-    setIsModalOpen(true);
+    setIsDialogOpen(true);
   };
 
   const onPortfolioRemove = () => {
     setIsConfirmOpen(true);
   };
 
-  const onModalClose = () => {
-    setIsModalOpen(false);
+  const onDialogClose = () => {
+    setIsDialogOpen(false);
   };
 
   const onConfirmAlertClose = () => {
@@ -54,10 +54,10 @@ export default function PortfolioOverview({ data }: Props) {
 
   return (
     <StyledPortfolioOverview>
-      {isModalOpen && (
-        <PortfolioModal
-          isOpen={isModalOpen}
-          onClose={onModalClose}
+      {isDialogOpen && (
+        <PortfolioDialog
+          isOpen={isDialogOpen}
+          onClose={onDialogClose}
           portfolioDetails={data}
         />
       )}

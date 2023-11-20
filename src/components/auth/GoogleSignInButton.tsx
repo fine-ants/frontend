@@ -14,6 +14,7 @@ export default function GoogleSignInButton() {
           oAuthSignInMutate({
             provider: "google",
             authCode,
+            state: "todo", // TODO: handle state
           });
         }
       }}

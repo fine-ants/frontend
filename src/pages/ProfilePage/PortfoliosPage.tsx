@@ -44,17 +44,17 @@ function Portfolio({ portfolio }: Props) {
         <SymbolImg src={portfolio.securitiesFirm} />
         <span>{portfolio.name}</span>
       </td>
-      <td>{thousandsDelimiter(portfolio.budget)}</td>
+      <td>{thousandsDelimiter(portfolio.budget ?? 0)}</td>
       <td>
         <div>{portfolio.totalGain}%</div>
-        <div>{thousandsDelimiter(portfolio.totalGainRate)}</div>
+        <div>{thousandsDelimiter(portfolio.totalGainRate ?? 0)}</div>
       </td>
       <td>
         <div>{portfolio.dailyGain}%</div>
-        <div>{thousandsDelimiter(portfolio.dailyGainRate)}</div>
+        <div>{thousandsDelimiter(portfolio.dailyGainRate ?? 0)}</div>
       </td>
-      <td>{thousandsDelimiter(portfolio.expectedMonthlyDividend)}</td>
-      <td>{thousandsDelimiter(portfolio.totalNumShares)}</td>
+      <td>{thousandsDelimiter(portfolio.expectedMonthlyDividend ?? 0)}</td>
+      <td>{thousandsDelimiter(portfolio.totalNumShares ?? 0)}</td>
     </tr>
   );
 }

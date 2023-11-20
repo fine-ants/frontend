@@ -44,10 +44,10 @@ export default function PortfolioHoldingRow({
     usePortfolioHoldingDeleteMutation(portfolioId);
 
   const [isRowOpen, setIsRowOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const onDeleteClick = () => {
-    setIsDeleteModalOpen(true);
+    setIsDeleteDialogOpen(true);
   };
 
   const onConfirmDelete = () => {
@@ -138,10 +138,10 @@ export default function PortfolioHoldingRow({
       </HoldingLotRow>
 
       <ConfirmAlert
-        isOpen={isDeleteModalOpen}
+        isOpen={isDeleteDialogOpen}
         title="종목 삭제"
         content="종목을 삭제하시겠습니까?"
-        onClose={() => setIsDeleteModalOpen(false)}
+        onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={onConfirmDelete}
       />
     </>

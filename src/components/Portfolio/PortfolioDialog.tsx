@@ -1,7 +1,7 @@
 import { PortfolioDetails } from "@api/portfolio";
 import usePortfolioAddMutation from "@api/portfolio/queries/usePortfolioAddMutation";
 import usePortfolioEditMutation from "@api/portfolio/queries/usePortfolioEditMutation";
-import BaseModal from "@components/BaseModal";
+import BaseDialog from "@components/BaseDialog";
 import useText from "@components/hooks/useText";
 import {
   Button,
@@ -11,7 +11,11 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { calculateRate, calculateValue } from "@utils/calculations";
+import {
+  calculateLossRate,
+  calculateRate,
+  calculateValue,
+} from "@utils/calculations";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -22,8 +26,7 @@ type Props = {
   portfolioDetails?: PortfolioDetails;
 };
 
-// TODO: Refactoring 시급!
-export default function PortfolioModal({
+export default function PortfolioDialog({
   isOpen,
   onClose,
   portfolioDetails,
@@ -111,9 +114,7 @@ export default function PortfolioModal({
     const valueNumber = Number(value);
 
     onMaximumLossChange(value);
-    onMaximumLossRateChange(
-      (((budgetNumber - valueNumber) / budgetNumber) * 100).toString()
-    );
+    onMaximumLossRateChange(calculateLossRate(budgetNumber, valueNumber));
   });
 
   const maximumLossRateHandler = changeIfNumberOnly((value: string) => {
@@ -135,12 +136,8 @@ export default function PortfolioModal({
     };
 
     if (isEditMode) {
-      // TODO : 포트폴리오 수정
-
       editMutate({ portfolioId: Number(id), body: body });
     } else {
-      // TODO : 포트폴리오 추가
-
       addMutate(body);
     }
   };
@@ -155,12 +152,12 @@ export default function PortfolioModal({
     }
   }, [
     budget,
-    clearInputs,
+    targetGain,
     isBudgetEmpty,
     maximumLoss,
+    clearInputs,
     onMaximumLossHandler,
     onTargetGainHandler,
-    targetGain,
   ]);
 
   useEffect(() => {
@@ -173,8 +170,35 @@ export default function PortfolioModal({
     }
   }, [isEditSuccess, isEditError, onClose]);
 
+  const isFormValid = () => {
+    if (
+      !name ||
+      !budget ||
+      !targetGain ||
+      !targetReturnRate ||
+      !maximumLoss ||
+      !maximumLossRate
+    ) {
+      return false;
+    }
+
+    if (isEditMode) {
+      return (
+        portfolioDetails?.securitiesFirm !== securitiesFirm ||
+        portfolioDetails?.name !== name ||
+        portfolioDetails?.budget !== Number(budget) ||
+        portfolioDetails?.targetGain !== Number(targetGain) ||
+        portfolioDetails?.targetReturnRate !== Number(targetReturnRate) ||
+        portfolioDetails?.maximumLoss !== Number(maximumLoss) ||
+        portfolioDetails?.maximumLossRate !== Number(maximumLossRate)
+      );
+    }
+
+    return true;
+  };
+
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseDialog isOpen={isOpen} onClose={onClose}>
       <Wrapper>
         <main />
         <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
@@ -251,12 +275,13 @@ export default function PortfolioModal({
             </InputWrapper>
           </Row>
         </Body>
-        {/* TODO : submitButton disabled 조건식 추가 */}
         <ButtonWrapper>
-          <SubmitButton onClick={onSubmit}>저장</SubmitButton>
+          <SubmitButton onClick={onSubmit} disabled={!isFormValid()}>
+            저장
+          </SubmitButton>
         </ButtonWrapper>
       </Wrapper>
-    </BaseModal>
+    </BaseDialog>
   );
 }
 

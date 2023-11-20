@@ -4,12 +4,10 @@ import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetails
 import plusIcon from "@assets/icons/plus.svg";
 import DividendBarChart from "@components/Portfolio/DividendBarChart";
 import HoldingsPieChart from "@components/Portfolio/HoldingsPieChart";
-import PortfolioHoldingAddModal from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddModal";
+import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
 import SectorBar from "@components/Portfolio/SectorBar";
-import Footer from "@components/common/Footer";
-import Header from "@components/common/Header";
 import { BASE_API_URL_WS } from "@constants/config";
 import { Box, Button, Typography } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -23,7 +21,7 @@ export default function PortfolioPage() {
   const { data: portfolio, isLoading: isPortfolioDetailsLoading } =
     usePortfolioDetailsQuery(Number(id));
 
-  const [isAddHoldingModalOpen, setIsAddHoldingModalOpen] = useState(false);
+  const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
 
   const { onConnect } = useStompSubscription<Portfolio>({
     brokerURL: `${BASE_API_URL_WS}/portfolio`,
@@ -47,7 +45,7 @@ export default function PortfolioPage() {
   }, [portfolio, onConnect]);
 
   const onAddHoldingButtonClick = () => {
-    setIsAddHoldingModalOpen(true);
+    setIsAddHoldingDialogOpen(true);
   };
 
   // TODO: Handle loading
@@ -64,8 +62,6 @@ export default function PortfolioPage() {
 
   return (
     <StyledPortfolioPage>
-      <Header />
-
       <main style={{ display: "flex", padding: "40px 150px", gap: "32px" }}>
         <LeftPanel>
           <HoldingsPieChart data={portfolioHoldings} />
@@ -102,12 +98,10 @@ export default function PortfolioPage() {
         </RightPanel>
       </main>
 
-      <Footer />
-
-      <PortfolioHoldingAddModal
+      <PortfolioHoldingAddDialog
         portfolioId={Number(id)}
-        isOpen={isAddHoldingModalOpen}
-        onClose={() => setIsAddHoldingModalOpen(false)}
+        isOpen={isAddHoldingDialogOpen}
+        onClose={() => setIsAddHoldingDialogOpen(false)}
       />
     </StyledPortfolioPage>
   );

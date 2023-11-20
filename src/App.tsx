@@ -4,12 +4,13 @@ import { RouterProvider } from "react-router-dom";
 import router from "router/router";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "styles/GlobalStyles";
+import designSystem from "styles/designSystem";
 
 export default function App() {
   const { user } = useContext(UserContext);
 
   return (
-    <ThemeProvider theme={{}}>
+    <ThemeProvider theme={designSystem}>
       <GlobalStyles />
 
       <StyledApp>

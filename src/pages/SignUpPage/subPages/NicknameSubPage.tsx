@@ -4,7 +4,8 @@ import useText from "@components/hooks/useText";
 import { validateNickname } from "@utils/authInputValidators";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
-import SubPage from "./SubPage";
+import styled from "styled-components";
+import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
 
 type Props = {
   onNext: (data: string) => void;
@@ -48,30 +49,58 @@ export default function NicknameSubPage({ onNext }: Props) {
   return (
     <SubPage>
       <label htmlFor="nicknameInput">닉네임</label>
-      <input
-        type="text"
-        placeholder="닉네임"
-        id="nicknameInput"
-        value={nickname}
-        onChange={onNicknameChange}
-      />
-      <button
-        type="button"
-        onClick={onDuplicateCheckButtonClick}
-        disabled={isError}>
-        중복 확인
-      </button>
+      <InputWrapper>
+        <NicknameInput
+          type="text"
+          placeholder="닉네임"
+          id="nicknameInput"
+          value={nickname}
+          onChange={onNicknameChange}
+        />
+        <UniqueCheckButton
+          type="button"
+          onClick={onDuplicateCheckButtonClick}
+          disabled={isError}>
+          중복 확인
+        </UniqueCheckButton>
+      </InputWrapper>
 
-      <p>영문/한글/숫자 (2~10자)</p>
+      <Caption>영문/한글/숫자 (2~10자)</Caption>
 
-      <p>{duplicateCheckErrorMsg}</p>
+      <ErrorCaption>{duplicateCheckErrorMsg}</ErrorCaption>
 
-      <button
+      <NextButton
         type="button"
         onClick={() => onNext(nickname)}
         disabled={isError || !isDuplicateChecked}>
         다음
-      </button>
+      </NextButton>
     </SubPage>
   );
 }
+
+const NicknameInput = styled(SignUpInput)``;
+
+const UniqueCheckButton = styled.button`
+  width: 120px;
+  height: 48px;
+  background-color: #2d3bae;
+  border-radius: 8px;
+  color: white;
+`;
+
+const Caption = styled.p`
+  color: #697077;
+`;
+
+const ErrorCaption = styled.p`
+  color: red;
+`;
+
+const NextButton = styled.button<{ disabled: boolean }>`
+  width: 100%;
+  height: 48px;
+  background-color: ${({ disabled }) => (disabled ? "#c4c4c4" : "#2d3bae")};
+  border-radius: 8px;
+  color: white;
+`;

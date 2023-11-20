@@ -1,3 +1,4 @@
+import { OAuthProvider } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
 
 export const successfulSignUpData = {
@@ -12,6 +13,25 @@ export const unsuccessfulSignUpData = {
   status: "Bad Request",
   message: "회원가입이 실패했습니다",
   data: null,
+};
+
+export const successfulOAuthURLData = (provider: OAuthProvider) => {
+  const authUrls = {
+    google: "", // TODO: Add Google OAuth URL
+    kakao:
+      "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dfb1e25a2b97d03b0b225d4874a34823&redirect_uri=http://localhost:5173/signin?provider=kakao&scope=openid&state=276795850273511360818854556981559492420&nonce=e9e62073a211c8c9cf23d1e41a4182b7&code_challenge=6rUx4nIA1D1V51T8yOiQwlq0Y-h9SZIv2ZlrtcGK_0Y&code_challenge_method=S256",
+    naver:
+      "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=alyLO0sQlJ7icKGyUgDV&redirect_uri=http://localhost:5173/signin?provider=naver&state=286610174243896877101731117196091052230",
+  };
+
+  return {
+    code: HTTPSTATUS.success,
+    status: "Success",
+    message: "OAuth URL을 성공적으로 가져왔습니다",
+    data: {
+      authURL: authUrls[provider],
+    },
+  };
 };
 
 export const successfulSignInData = {

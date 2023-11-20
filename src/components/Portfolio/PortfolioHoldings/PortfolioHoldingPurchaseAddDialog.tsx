@@ -1,5 +1,5 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
-import BaseModal from "@components/BaseModal";
+import BaseDialog from "@components/BaseDialog";
 import { Button, FormControl, Input, InputLabel } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
@@ -12,7 +12,7 @@ type Props = {
   portfolioHoldingId: number;
 };
 
-export default function PortfolioHoldingPurchaseAddModal({
+export default function PortfolioHoldingPurchaseAddDialog({
   isOpen,
   onClose,
   portfolioId,
@@ -46,7 +46,7 @@ export default function PortfolioHoldingPurchaseAddModal({
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose}>
+    <BaseDialog isOpen={isOpen} onClose={onClose}>
       <div>종목 매입 이력 추가</div>
       <form onSubmit={onSubmit}>
         <FormControl>
@@ -92,6 +92,6 @@ export default function PortfolioHoldingPurchaseAddModal({
 
         <Button type="submit">매입 이력 추가</Button>
       </form>
-    </BaseModal>
+    </BaseDialog>
   );
 }

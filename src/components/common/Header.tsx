@@ -1,12 +1,14 @@
 import { PortfolioItem } from "@api/portfolio";
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
-import PortfolioModal from "@components/Portfolio/PortfolioModal";
+import BIImage from "@assets/images/profileImage.png";
+import PortfolioDialog from "@components/Portfolio/PortfolioDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Routes from "router/Routes";
 import styled from "styled-components";
+import designSystem from "styles/designSystem";
 import { NavBar } from "../NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
@@ -20,14 +22,15 @@ export default function Header() {
 
   const { data: portfolioList } = usePortfolioListQuery();
 
-  const [isPortfolioAddModalOpen, setIsPortfolioAddModalOpen] = useState(false);
+  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
+    useState(false);
 
   const navItems = [
     {
       name: "Watchlist",
       path: Routes.WATCHLIST,
     },
-    { name: "indices", path: Routes.INDICES },
+    { name: "Indices", path: Routes.INDICES },
   ];
 
   const dropdownItems = portfolioList?.portfolios?.map(
@@ -42,28 +45,8 @@ export default function Header() {
   );
 
   const onPortfolioAddClick = () => {
-    setIsPortfolioAddModalOpen(true);
+    setIsPortfolioAddDialogOpen(true);
   };
-  // const dropdownItems = [
-  //   {
-  //     name: "내꿈은워렌버핏",
-  //     onClick: () => {
-  //       navigate("/portfolio/1");
-  //     },
-  //   },
-  //   {
-  //     name: "단타왕",
-  //     onClick: () => {
-  //       navigate("/portfolio/5");
-  //     },
-  //   },
-  //   {
-  //     name: "물린게아니고장기투자",
-  //     onClick: () => {
-  //       navigate("/portfolio/6");
-  //     },
-  //   },
-  // ];
 
   const moveToStockPage = (tickerSymbol: string) => {
     navigate(`/stock/${tickerSymbol}`);
@@ -80,16 +63,17 @@ export default function Header() {
   return (
     <>
       <StyledHeader>
-        {isPortfolioAddModalOpen && (
-          <PortfolioModal
-            isOpen={isPortfolioAddModalOpen}
-            onClose={() => setIsPortfolioAddModalOpen(false)}
+        {isPortfolioAddDialogOpen && (
+          <PortfolioDialog
+            isOpen={isPortfolioAddDialogOpen}
+            onClose={() => setIsPortfolioAddDialogOpen(false)}
           />
         )}
         <HeaderTop>
           <HeaderLeft>
             <StyledBrandIdentity onClick={() => navigate("/dashboard")}>
-              FINEANTS
+              <img src={BIImage} alt="FineAnts" />
+              FineAnts
             </StyledBrandIdentity>
             <NavBar style={navBarStyles}>
               <Dropdown>
@@ -144,7 +128,8 @@ export default function Header() {
 
 const StyledHeader = styled.header`
   z-index: 10;
-  background-color: #ffffff;
+  color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${({ theme: { color } }) => color.neutral.gray900}};
 `;
 
 const HeaderTop = styled.header`
@@ -153,32 +138,40 @@ const HeaderTop = styled.header`
   gap: 44px;
   justify-content: space-between;
   align-items: center;
-  padding: 0 150px;
+  padding: 0 40px;
 `;
 
 const HeaderLeft = styled.div`
   display: flex;
-  gap: 48px;
+  gap: 24px;
   align-items: center;
 `;
 
 const HeaderRight = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 38px;
   align-items: center;
   margin-left: auto;
 `;
 
 const StyledBrandIdentity = styled.div`
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 160px;
+  height: 32px;
+  font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 const navBarStyles = {
-  backgroundColor: "#ffffff",
+  backgroundColor: designSystem.color.neutral.gray900,
   display: "flex",
-  gap: "58px",
+  gap: "40px",
   alignItems: "center",
+  font: designSystem.font.title4,
+  letterSpacing: "-0.02em",
 };
 
 const navItemStyle = {
@@ -187,6 +180,7 @@ const navItemStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "16px",
-  fontWeight: "bold",
+  font: designSystem.font.title4,
+  letterSpacing: "-0.02em",
+  cursor: "pointer",
 };
