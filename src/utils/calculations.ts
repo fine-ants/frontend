@@ -1,22 +1,22 @@
 export const calculateRate = (num1: number, num2: number) => {
   const rate = ((num1 - num2) / num2) * 100;
 
-  return formatValue(rate);
+  return rate;
 };
 
 export const calculateLossRate = (num1: number, num2: number) => {
   const rate = ((num1 - num2) / num1) * 100;
 
-  return formatValue(rate);
+  return formatToRate(rate);
 };
 
 export const calculateValue = (rate: number, base: number) => {
   const value = base + (rate / 100) * base;
 
-  return formatValue(value);
+  return formatToRate(value);
 };
 
-function formatValue(value: number) {
+export function formatToRate(value: number) {
   if (value % 1 === 0) {
     return value.toString();
   } else {

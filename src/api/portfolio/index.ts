@@ -34,6 +34,7 @@ export type PortfolioDetails = {
   targetReturnRate: number;
   maximumLoss: number;
   maximumLossRate: number;
+  currentValuation: number;
   investedAmount: number;
   totalGain: number;
   totalGainRate: number;
@@ -71,7 +72,7 @@ export type PurchaseHistoryField = {
   memo: string | null;
 };
 
-type PortfolioReqBody = {
+export type PortfolioReqBody = {
   name: string;
   securitiesFirm: string;
   budget: number;

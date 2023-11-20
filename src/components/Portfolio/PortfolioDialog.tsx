@@ -15,6 +15,7 @@ import {
   calculateLossRate,
   calculateRate,
   calculateValue,
+  formatToRate,
 } from "@utils/calculations";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -100,7 +101,7 @@ export default function PortfolioDialog({
 
     onTargetGainChange(value);
     onTargetReturnRateChange(
-      calculateRate(Number(value), budgetNumber).toString()
+      formatToRate(calculateRate(Number(value), budgetNumber))
     );
   });
 
