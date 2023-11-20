@@ -1,3 +1,4 @@
+import { PortfolioDetails, PortfolioHolding } from "@api/portfolio";
 import { HTTPSTATUS } from "@api/types";
 import { calculateRate } from "@utils/calculations";
 import {
@@ -46,7 +47,7 @@ export default [
     const { tickerSymbol } = await req.json();
 
     const newPortfolioHoldingId = portfolioHoldings.length + 1;
-    const data = {
+    const data: PortfolioHolding = {
       companyName: "새로추가한주식",
       tickerSymbol: tickerSymbol,
       portfolioHoldingId: newPortfolioHoldingId,
@@ -104,7 +105,7 @@ export default [
     const targetReturnRate = calculateRate(targetGain, budget);
     const maximumLossRate = ((budget - maximumLoss) / budget) * 100;
 
-    const data = {
+    const data: PortfolioDetails = {
       id: portfolioDetails.length + 1,
       securitiesFirm: securitiesFirm,
       name: name,
@@ -153,10 +154,10 @@ export default [
         budget,
         targetGain,
         maximumLoss,
-        targetReturnRate: targetReturnRate,
-        maximumLossRate: maximumLossRate,
+        targetReturnRate,
+        maximumLossRate,
       },
-    };
+    } as PortfolioDetails;
 
     return res(
       ctx.status(HTTPSTATUS.success),
