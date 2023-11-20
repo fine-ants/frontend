@@ -42,6 +42,8 @@ export default function HoldingsPieChart({ data }: Props) {
       name: item.companyName,
       value: item.currentValuation,
       fill: chartColorPalette[index],
+      totalGain: item.totalGain,
+      totalGainRate: item.totalReturnRate,
     };
   });
   const totalValuation = pieData.reduce((acc, cur) => acc + cur.value, 0);
