@@ -1,3 +1,4 @@
+import { CustomToastContainer } from "@components/hooks/Toast";
 import { UserContext } from "@context/UserContext";
 import { useContext } from "react";
 import { RouterProvider } from "react-router-dom";
@@ -12,7 +13,7 @@ export default function App() {
   return (
     <ThemeProvider theme={designSystem}>
       <GlobalStyles />
-
+      <CustomToastContainer />
       <StyledApp>
         <RouterProvider router={router(user)} />
       </StyledApp>

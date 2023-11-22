@@ -26,7 +26,7 @@ export const CustomToastContainer = styled(ToastContainer)`
 type Props = {
   type: "success" | "error" | "info" | "warning";
   message?: string;
-  autoCloseDelay?: number;
+  autoCloseDelay?: number | false;
   toastPosition?:
     | "top-left"
     | "top-right"
@@ -42,16 +42,13 @@ export function useShowToast({
   autoCloseDelay = 5000,
   toastPosition = "top-right",
 }: Props) {
-  const toastOption = { position: toastPosition, autoClose: autoCloseDelay };
+  const toastOptions = { position: toastPosition, autoClose: autoCloseDelay };
+  const messages = {
+    success: "성공!",
+    error: "에러!",
+    warning: "경고!",
+    info: "정보!",
+  };
 
-  switch (type) {
-    case "success":
-      return () => toast.success(message || "성공!", toastOption);
-    case "error":
-      return () => toast.error(message || "에러!", toastOption);
-    case "warning":
-      return () => toast.warning(message || "경고!", toastOption);
-    case "info":
-      return () => toast.info(message || "정보!", toastOption);
-  }
+  return () => toast[type](message || messages[type], toastOptions);
 }
