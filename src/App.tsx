@@ -1,5 +1,5 @@
+import { CustomToastContainer } from "@components/common/toast/CustomToastContainer";
 import { UserContext } from "@context/UserContext";
-import { CustomToastContainer } from "@utils/toast/CustomToastContainer";
 import { useContext } from "react";
 import { RouterProvider } from "react-router-dom";
 import router from "router/router";

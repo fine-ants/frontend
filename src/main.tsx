@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import { createToast } from "@utils/toast/createToast.ts";
+import { createToast } from "@components/common/toast/createToast.ts";
 import { AxiosError } from "axios";
 import React from "react";
 import ReactDOM from "react-dom/client";
