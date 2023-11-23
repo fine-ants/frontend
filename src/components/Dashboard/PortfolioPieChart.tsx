@@ -1,4 +1,4 @@
-import { PieChartData } from "@pages/DashboardPage";
+import { PortfolioPieChartData } from "@api/dashboard";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { useCallback, useState } from "react";
 import { Pie, PieChart, Sector, Tooltip } from "recharts";
@@ -31,16 +31,12 @@ type PieEntry = {
 type Props = {
   width: number;
   height: number;
-  coloredPieData: PieChartData[];
+  pieData: PortfolioPieChartData[];
 };
 
 const TOTAL_INDEX = -1;
 
-export default function PortfolioPieChart({
-  width,
-  height,
-  coloredPieData,
-}: Props) {
+export default function PortfolioPieChart({ width, height, pieData }: Props) {
   const [activeIndex, setActiveIndex] = useState(TOTAL_INDEX);
   const onPieEnter = useCallback(
     (_: PieEntry, index: number) => {
@@ -53,20 +49,22 @@ export default function PortfolioPieChart({
     setActiveIndex(TOTAL_INDEX);
   }, [setActiveIndex]);
 
-  const finalPieData = [
-    ...coloredPieData.slice(0, 10),
+  const topTenPieData = [
+    ...pieData.slice(0, 10),
     {
       name: "기타",
-      value: coloredPieData
+      valuation: pieData
         .slice(11)
-        .reduce((acc, item) => acc + item.value, 0),
+        .reduce((acc, item) => acc + item.valuation, 0),
       fill: "#B7B8C3",
-      totalGain: coloredPieData
+      totalGain: pieData
         .slice(11)
         .reduce((acc, item) => acc + item.totalGain, 0),
-      totalGainRate: coloredPieData
+      totalGainRate: pieData
         .slice(11)
-        .reduce((acc, item) => acc + item.totalGainRate, 0),
+        .reduce((acc, item) => acc + item.totalGainRate, 0)
+        .toFixed(2),
+      weight: pieData.slice(11).reduce((acc, item) => acc + item.weight, 0),
     },
   ];
 
@@ -77,7 +75,7 @@ export default function PortfolioPieChart({
           <p>총 자산 현황</p>
           <div>
             {thousandsDelimiter(
-              coloredPieData.reduce((acc, cur) => acc + cur.value, 0)
+              pieData.reduce((acc, cur) => acc + cur.valuation, 0)
             )}
           </div>
         </TotalValue>
@@ -87,12 +85,12 @@ export default function PortfolioPieChart({
           <Pie
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
-            data={finalPieData}
+            data={topTenPieData}
             cx={width / 2 - 5}
             cy={height / 2 - 5}
             innerRadius={80}
             outerRadius={144}
-            dataKey="value"
+            dataKey="valuation"
             onMouseEnter={onPieEnter}
             onMouseLeave={onPieLeave}
             startAngle={90}
@@ -102,8 +100,8 @@ export default function PortfolioPieChart({
             content={(props) => (
               <CustomTooltip
                 {...props}
-                totalValue={finalPieData.reduce(
-                  (acc, item) => acc + item.value,
+                totalValue={topTenPieData.reduce(
+                  (acc, item) => acc + item.valuation,
                   0
                 )}
               />
@@ -266,7 +264,7 @@ const ColorCircle = styled.div<{ color: string }>`
 `;
 
 const Percentage = styled.div`
-  margin-right: auto;
+  margin-left: auto;
   font: ${({ theme: { font } }) => font.title5};
   letter-spacing: -0.02em;
   color: ${({ theme: { color } }) => color.primary.blue500};

@@ -1,20 +1,17 @@
+import { PortfolioPieChartData } from "@api/dashboard";
+import { CSSProperties } from "react";
 import styled from "styled-components";
+import { chartColorPalette } from "styles/chartColorPalette";
 import LegendItem from "./LegendItem";
 
-import { PieChartData } from "@pages/DashboardPage";
-import { CSSProperties } from "react";
-import { chartColorPalette } from "styles/chartColorPalette";
-
 type Props = {
-  pieData: PieChartData[];
+  pieData: PortfolioPieChartData[];
   style?: CSSProperties;
 };
 export default function Legend({ pieData, style }: Props) {
-  const valueSum = pieData.reduce((acc, cur) => acc + cur.value, 0);
-  const etcValueSum = pieData
+  const etcWeight = pieData
     .slice(11)
-    .reduce((acc, item) => acc + item.value, 0);
-
+    .reduce((acc, item) => acc + item.weight, 0);
   return (
     <StyledLegend style={style}>
       <Content>
@@ -24,10 +21,10 @@ export default function Legend({ pieData, style }: Props) {
               .slice(0, 10)
               .map((item) => (
                 <LegendItem
-                  key={item.name}
+                  key={item.id}
                   color={item.fill}
                   title={item.name}
-                  percent={Math.floor((item.value / valueSum) * 100)}
+                  percent={Math.floor(item.weight)}
                 />
               ))
           ) : (
@@ -39,13 +36,13 @@ export default function Legend({ pieData, style }: Props) {
           <LegendItem
             color={chartColorPalette[chartColorPalette.length - 1]}
             title={"기타"}
-            percent={Math.trunc((etcValueSum / valueSum) * 100)}
+            percent={etcWeight}
           />
           <EtcList>
             {pieData.slice(11).map((item) => (
               <EtcItem>
                 <div>{item.name}</div>
-                <div>{Math.trunc((item.value / valueSum) * 100)}%</div>
+                <div>{Math.floor(item.weight)}%</div>
               </EtcItem>
             ))}
           </EtcList>
@@ -84,16 +81,16 @@ const PortfolioList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: #ffffff;
+  background-color: ${({ theme: { color } }) => color.neutral.white};
   padding-bottom: 10px;
-  border-bottom: 1px solid #e0e2ec;
+  border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
 `;
 
 const EtcListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: #ffffff;
+  background-color: ${({ theme: { color } }) => color.neutral.white};
   padding-top: 10px;
 `;
 
