@@ -381,12 +381,6 @@ export const successfulGetPortfolioDetailsResponse = {
   },
 };
 
-// export const successfulGetPortfolioPieChartDataResponse = {
-//   code: 200,
-//   status
-
-//TODO: api portfolios로 가져오는 데이터의 값이랑 다른 상태라 상의후에 통일해야함 포스트맨 api에는 value와 fill이 없음
-
 export const successfulPortfolioAddResponse = {
   code: 200,
   status: "OK",
