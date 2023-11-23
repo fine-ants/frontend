@@ -1,48 +1,21 @@
-import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
+import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import styled from "styled-components";
 
-export default function ValuationOverview() {
-  const { data: portfolioListData } = usePortfolioListQuery();
-
-  const totalValuation = portfolioListData?.portfolios?.reduce(
-    (acc, portfolio) => {
-      return acc + portfolio.budget;
-    },
-    0
-  );
-
-  const totalInvestment = portfolioListData?.portfolios?.reduce(
-    (acc, portfolio) => {
-      return acc + portfolio.dailyGain;
-      //TODO: 투자금액은 현재 포폴 데이터에 없어서 일단 총 손익으로 넣어놓음
-    },
-    0
-  );
-
-  const totalDailyGain = portfolioListData?.portfolios?.reduce(
-    (acc, portfolio) => {
-      return acc + portfolio.dailyGain;
-    },
-    0
-  );
-
-  const totalDividends = portfolioListData?.portfolios?.reduce(
-    (acc, portfolio) => {
-      return acc + portfolio.expectedMonthlyDividend;
-    },
-    0
-  );
+export default function DashboardOverview() {
+  const { data: overviewData } = useDashboardOverviewQuery();
 
   return (
-    <StyledValuationOverview>
-      <PageTitle>모카 님의 대시보드</PageTitle>
+    <StyledDashboardOverview>
+      <PageTitle>{overviewData?.userName} 님의 대시보드</PageTitle>
       <ContentContainer>
         <TotalMainContentWrapper>
           <MainTitle>총 평가 금액</MainTitle>
           <MainValueWrapper>
             <MainWon>₩</MainWon>
-            <MainValue>{thousandsDelimiter(totalValuation ?? 0)}</MainValue>
+            <MainValue>
+              {thousandsDelimiter(overviewData?.totalValuation ?? 0)}
+            </MainValue>
           </MainValueWrapper>
         </TotalMainContentWrapper>
         <SubContentContainer>
@@ -50,37 +23,38 @@ export default function ValuationOverview() {
             <Title>총 투자 금액</Title>
             <ValueWrapper>
               <Won>₩</Won>
-              <Value>{thousandsDelimiter(totalInvestment ?? 0)}</Value>
+              <Value>
+                {thousandsDelimiter(overviewData?.totalInvestment ?? 0)}
+              </Value>
             </ValueWrapper>
           </TotalSubContentWrapper>
           <TotalSubContentWrapper>
             <Title>총 손익</Title>
             <ValueWrapper>
               <Won>₩</Won>
-              <Value>{thousandsDelimiter(totalDailyGain ?? 0)}</Value>
+              <Value>{thousandsDelimiter(overviewData?.totalGain ?? 0)}</Value>
             </ValueWrapper>
-            <TotalValueRate>
-              ↑{100}%
-              {/* 총 손익 / 총 투자금액으로 계산한 수익률 총 투자금액이 없어서 계산안됨 */}
-            </TotalValueRate>
+            <TotalValueRate>↑{overviewData?.totalGainRate}%</TotalValueRate>
           </TotalSubContentWrapper>
           <TotalSubContentWrapper>
             <Title>연 배당금</Title>
             <ValueWrapper>
               <Won>₩</Won>
-              <Value>{thousandsDelimiter(totalDividends ?? 0)}</Value>
+              <Value>
+                {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
+              </Value>
             </ValueWrapper>
             <DividendsRate>
-              {10}%{/* TODO: 연 배당금 퍼센티지 값 없음 */}
+              {overviewData?.totalAnnualDividendYield}%
             </DividendsRate>
           </TotalSubContentWrapper>
         </SubContentContainer>
       </ContentContainer>
-    </StyledValuationOverview>
+    </StyledDashboardOverview>
   );
 }
 
-const StyledValuationOverview = styled.div`
+const StyledDashboardOverview = styled.div`
   width: 100%;
   height: 316px;
   display: flex;
