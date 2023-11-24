@@ -27,8 +27,8 @@ const router = (user: User | null) =>
       <Route path="/">
         {/* TODO: Landing Page */}
 
-        <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
         <Route element={<ProtectedRoute user={user} />}>
+          <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
           <Route
             path={Routes.PROFILE}
             element={<Navigate to={`${Routes.PROFILE}/${Routes.PORTFOLIOS}`} />}
