@@ -7,7 +7,7 @@ export default function DashboardOverview() {
 
   return (
     <StyledDashboardOverview>
-      <PageTitle>{overviewData?.userName} 님의 대시보드</PageTitle>
+      <PageTitle>{overviewData?.username} 님의 대시보드</PageTitle>
       <ContentContainer>
         <TotalMainContentWrapper>
           <MainTitle>총 평가 금액</MainTitle>

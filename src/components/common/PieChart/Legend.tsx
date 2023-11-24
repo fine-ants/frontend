@@ -9,24 +9,24 @@ type Props = {
   style?: CSSProperties;
 };
 export default function Legend({ pieData, style }: Props) {
-  const etcWeight = pieData
-    .slice(11)
-    .reduce((acc, item) => acc + item.weight, 0);
+  const topTenPieList = pieData.slice(0, 10);
+  const etcPieList = pieData.slice(11);
+
+  const etcWeight = etcPieList.reduce((acc, item) => acc + item.weight, 0);
+
   return (
     <StyledLegend style={style}>
       <Content>
         <PortfolioList>
           {pieData ? (
-            pieData
-              .slice(0, 10)
-              .map((item) => (
-                <LegendItem
-                  key={item.id}
-                  color={item.fill}
-                  title={item.name}
-                  percent={Math.floor(item.weight)}
-                />
-              ))
+            topTenPieList.map((item) => (
+              <LegendItem
+                key={item.id}
+                color={item.fill}
+                title={item.name}
+                percent={Math.floor(item.weight)}
+              />
+            ))
           ) : (
             <div>로딩중</div>
             // TODO: 로딩인디케이터
@@ -39,7 +39,7 @@ export default function Legend({ pieData, style }: Props) {
             percent={etcWeight}
           />
           <EtcList>
-            {pieData.slice(11).map((item) => (
+            {etcPieList.map((item) => (
               <EtcItem>
                 <div>{item.name}</div>
                 <div>{Math.floor(item.weight)}%</div>

@@ -219,7 +219,7 @@ export default function TotalValuationLineChart({
         chartRef.current = null;
       }
     };
-  }, [data, currentRangeIndex, currentRange]);
+  }, [data, currentRange]);
 
   return (
     <div

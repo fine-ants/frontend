@@ -49,22 +49,18 @@ export default function PortfolioPieChart({ width, height, pieData }: Props) {
     setActiveIndex(TOTAL_INDEX);
   }, [setActiveIndex]);
 
+  const topTenPieList = pieData.slice(0, 10);
   const topTenPieData = [
     ...pieData.slice(0, 10),
     {
       name: "기타",
-      valuation: pieData
-        .slice(11)
-        .reduce((acc, item) => acc + item.valuation, 0),
+      valuation: topTenPieList.reduce((acc, item) => acc + item.valuation, 0),
       fill: "#B7B8C3",
-      totalGain: pieData
-        .slice(11)
-        .reduce((acc, item) => acc + item.totalGain, 0),
-      totalGainRate: pieData
-        .slice(11)
+      totalGain: topTenPieList.reduce((acc, item) => acc + item.totalGain, 0),
+      totalGainRate: topTenPieList
         .reduce((acc, item) => acc + item.totalGainRate, 0)
         .toFixed(2),
-      weight: pieData.slice(11).reduce((acc, item) => acc + item.weight, 0),
+      weight: pieData.slice(10).reduce((acc, item) => acc + item.weight, 0),
     },
   ];
 

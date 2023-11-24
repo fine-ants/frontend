@@ -124,5 +124,5 @@ const PlusButton = styled.button`
 const WatchlistContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  // gap: 16px;
 `;
