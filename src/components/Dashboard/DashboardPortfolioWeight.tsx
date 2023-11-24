@@ -1,16 +1,20 @@
 import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieChartQuery";
 import Legend from "@components/common/PieChart/Legend";
 import styled from "styled-components";
-import PortfolioPieChart from "./PortfolioPieChart";
+import PortfolioWeightPieChart from "./PortfolioWeightPieChart";
 
-export default function DashboardPieChart() {
+export default function DashboardPortfolioWeight() {
   const { data: pieData } = useDashboardPieChartQuery();
 
   return (
     <StyledDashboardPieChart>
       <ChartTitle>포트폴리오 비중</ChartTitle>
       <div style={{ display: "flex", gap: "24px" }}>
-        <PortfolioPieChart width={320} height={320} pieData={pieData ?? []} />
+        <PortfolioWeightPieChart
+          width={320}
+          height={320}
+          pieData={pieData ?? []}
+        />
         <Legend pieData={pieData ?? []} />
       </div>
     </StyledDashboardPieChart>

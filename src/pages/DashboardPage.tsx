@@ -1,6 +1,6 @@
 import ValuationOverview from "@components/Dashboard/DashboardOverview";
-import PortfolioPieChartContainer from "@components/Dashboard/DashboardPieChart";
-import TotalValuationLineChartContainer from "@components/Dashboard/DashboardLineChart";
+import PortfolioPieChartContainer from "@components/Dashboard/DashboardPortfolioWeight";
+import TotalValuationLineChartContainer from "@components/Dashboard/DashboardTotalValuationTrend";
 import styled from "styled-components";
 import BasePage from "./BasePage";
 

@@ -36,7 +36,11 @@ type Props = {
 
 const TOTAL_INDEX = -1;
 
-export default function PortfolioPieChart({ width, height, pieData }: Props) {
+export default function PortfolioWeightPieChart({
+  width,
+  height,
+  pieData,
+}: Props) {
   const [activeIndex, setActiveIndex] = useState(TOTAL_INDEX);
   const onPieEnter = useCallback(
     (_: PieEntry, index: number) => {
@@ -49,20 +53,29 @@ export default function PortfolioPieChart({ width, height, pieData }: Props) {
     setActiveIndex(TOTAL_INDEX);
   }, [setActiveIndex]);
 
-  const topTenPieList = pieData.slice(0, 10);
-  const topTenPieData = [
-    ...pieData.slice(0, 10),
-    {
-      name: "기타",
-      valuation: topTenPieList.reduce((acc, item) => acc + item.valuation, 0),
-      fill: "#B7B8C3",
-      totalGain: topTenPieList.reduce((acc, item) => acc + item.totalGain, 0),
-      totalGainRate: topTenPieList
-        .reduce((acc, item) => acc + item.totalGainRate, 0)
-        .toFixed(2),
-      weight: pieData.slice(10).reduce((acc, item) => acc + item.weight, 0),
-    },
-  ];
+  const topTenSlices = pieData.slice(0, 10);
+  const remainingPortfolios = pieData.slice(10);
+  const remainingSlice = {
+    name: "기타",
+    valuation: remainingPortfolios.reduce(
+      (valuation, portfolio) => valuation + portfolio.valuation,
+      0
+    ),
+    fill: "#B7B8C3",
+    totalGain: remainingPortfolios.reduce(
+      (total, portfolio) => total + portfolio.totalGain,
+      0
+    ),
+    totalGainRate: remainingPortfolios
+      .reduce((total, portfolio) => total + portfolio.totalGainRate, 0)
+      .toFixed(2),
+    weight: remainingPortfolios.reduce(
+      (weight, portfolio) => weight + portfolio.weight,
+      0
+    ),
+  };
+
+  const topTenPieData = [...topTenSlices, remainingSlice];
 
   return (
     <>
@@ -92,17 +105,7 @@ export default function PortfolioPieChart({ width, height, pieData }: Props) {
             startAngle={90}
             endAngle={-360}
           />
-          <Tooltip
-            content={(props) => (
-              <CustomTooltip
-                {...props}
-                totalValue={topTenPieData.reduce(
-                  (acc, item) => acc + item.valuation,
-                  0
-                )}
-              />
-            )}
-          />
+          <Tooltip content={(props) => <CustomTooltip {...props} />} />
         </PieChart>
       </PieChartWrapper>
     </>
@@ -157,7 +160,7 @@ const renderActiveShape = (props: any) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function CustomTooltip({ active, payload, totalValue }: any) {
+function CustomTooltip({ active, payload }: any) {
   const totalGain = payload?.[0]?.payload?.totalGain;
   const totalGainRate = payload?.[0]?.payload?.totalGainRate;
 
@@ -169,9 +172,7 @@ function CustomTooltip({ active, payload, totalValue }: any) {
             <ColorCircle color={payload[0].payload.fill} />
             <p>{payload[0].name}</p>
           </ItemTitle>
-          <Percentage>
-            {Math.floor((payload[0].value / totalValue) * 100)}%
-          </Percentage>
+          <Percentage>{Math.floor(payload[0].payload.weight)}%</Percentage>
         </TooltipContainer>
         <TooltipContainer>
           ₩{thousandsDelimiter(payload[0].value)}
