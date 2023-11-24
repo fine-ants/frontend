@@ -183,7 +183,7 @@ const portfoliosPieChartData = [
 ];
 
 const overviewData = {
-  userName: "김포트폴리오",
+  username: "김포트폴리오",
   totalValuation: portfoliosPieChartData.reduce(
     (acc, cur) => acc + cur.valuation,
     0

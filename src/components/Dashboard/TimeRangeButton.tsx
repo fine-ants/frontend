@@ -4,7 +4,6 @@ type Props = {
   range: string;
   index: number;
   onClick: () => void;
-
   currentRangeIndex: number;
 };
 

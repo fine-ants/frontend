@@ -3,7 +3,7 @@ import { Response } from "@api/types";
 import { LineData } from "lightweight-charts";
 
 export type OverviewData = {
-  userName: string;
+  username: string;
   totalValuation: number;
   totalInvestment: number;
   totalGain: number;
