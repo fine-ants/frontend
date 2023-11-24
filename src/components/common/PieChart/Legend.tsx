@@ -10,7 +10,7 @@ type Props = {
 };
 export default function Legend({ pieData, style }: Props) {
   const topTenPieList = pieData.slice(0, 10);
-  const etcPieList = pieData.slice(11);
+  const etcPieList = pieData.slice(10);
 
   const etcWeight = etcPieList.reduce((acc, item) => acc + item.weight, 0);
 

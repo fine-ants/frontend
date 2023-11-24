@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTotalValuationLineChart } from "..";
 import { dashboardKeys } from "./queryKeys";
 
-export default function useDashboardLineChartQuery() {
+export default function useDashboardTotalValuationTrendQuery() {
   return useQuery({
     queryKey: dashboardKeys.lineChart().queryKey,
     queryFn: getTotalValuationLineChart,

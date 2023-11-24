@@ -1,8 +1,10 @@
-import useDashboardLineChartQuery from "@api/dashboard/queries/useDashboardLineChartQuery";
+import useDashboardTotalValuationTrendQuery from "@api/dashboard/queries/useDashboardLineChartQuery";
 import { useState } from "react";
 import styled from "styled-components";
 import TimeRangeButton from "./TimeRangeButton";
 import TotalValuationLineChart from "./TotalValuationLineChart";
+
+// TODO: jay가 range 관련 값을 하나로 없애는 방식으로 리팩토링 예정
 
 const TIME_RANGE_INDEX = {
   "1D": 0,
@@ -12,8 +14,8 @@ const TIME_RANGE_INDEX = {
   "1Y": 4,
 };
 
-export default function DashboardLineChart() {
-  const { data: totalValuationData } = useDashboardLineChartQuery();
+export default function DashboardTotalValuationTrend() {
+  const { data: totalValuationData } = useDashboardTotalValuationTrendQuery();
 
   const range = ["일", "주", "월", "분기", "연"];
 
