@@ -4,24 +4,12 @@ import styled from "styled-components";
 import TimeRangeButton from "./TimeRangeButton";
 import TotalValuationLineChart from "./TotalValuationLineChart";
 
-// TODO: jay가 range 관련 값을 하나로 없애는 방식으로 리팩토링 예정
-
-const TIME_RANGE_INDEX = {
-  "1D": 0,
-  "1W": 1,
-  "1M": 2,
-  "1Q": 3,
-  "1Y": 4,
-};
-
 export default function DashboardTotalValuationTrend() {
   const { data: totalValuationData } = useDashboardTotalValuationTrendQuery();
 
   const range = ["일", "주", "월", "분기", "연"];
 
-  const [currentRangeIndex, setCurrentRangeIndex] = useState(
-    TIME_RANGE_INDEX["1W"]
-  );
+  const [currentRangeIndex, setCurrentRangeIndex] = useState(1);
 
   const switchTimeRange = (index: number) => {
     setCurrentRangeIndex(index);
