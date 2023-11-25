@@ -55,25 +55,25 @@ export default function PortfolioWeightPieChart({
 
   const topTenSlices = pieData.slice(0, 10);
   const remainingPortfolios = pieData.slice(10);
-  const remainingSlice = {
-    name: "기타",
-    valuation: remainingPortfolios.reduce(
-      (valuation, portfolio) => valuation + portfolio.valuation,
-      0
-    ),
-    fill: "#B7B8C3",
-    totalGain: remainingPortfolios.reduce(
-      (total, portfolio) => total + portfolio.totalGain,
-      0
-    ),
-    totalGainRate: remainingPortfolios
-      .reduce((total, portfolio) => total + portfolio.totalGainRate, 0)
-      .toFixed(2),
-    weight: remainingPortfolios.reduce(
-      (weight, portfolio) => weight + portfolio.weight,
-      0
-    ),
-  };
+  const remainingSlice = remainingPortfolios.reduce(
+    (remSlice, portfolio) => {
+      return {
+        ...remSlice,
+        valuation: remSlice.valuation + portfolio.valuation,
+        totalGain: remSlice.totalGain + portfolio.totalGain,
+        totalGainRate: remSlice.totalGainRate + portfolio.totalGainRate,
+        weight: remSlice.weight + portfolio.weight,
+      };
+    },
+    {
+      name: "기타",
+      fill: "#B7B8C3",
+      valuation: 0,
+      totalGain: 0,
+      totalGainRate: 0,
+      weight: 0,
+    }
+  );
 
   const topTenPieData = [...topTenSlices, remainingSlice];
 
