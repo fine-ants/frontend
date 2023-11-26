@@ -4,10 +4,11 @@ import styled from "styled-components";
 import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
 
 type Props = {
+  onPrev: () => void;
   onNext: (password: string, passwordConfirm: string) => void;
 };
 
-export default function PasswordSubPage({ onNext }: Props) {
+export default function PasswordSubPage({ onPrev, onNext }: Props) {
   const {
     value: password,
     isError: isPasswordError,
@@ -28,6 +29,10 @@ export default function PasswordSubPage({ onNext }: Props) {
 
   return (
     <SubPage>
+      <button type="button" onClick={onPrev}>
+        이전 단계
+      </button>
+
       <label htmlFor="passwordInput">비밀번호</label>
       <InputWrapper>
         <PasswordInput
