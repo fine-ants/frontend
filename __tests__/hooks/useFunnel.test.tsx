@@ -1,12 +1,20 @@
-import {
-  act,
-  render,
-  renderHook,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, renderHook } from "@testing-library/react";
 import React from "react";
 import useFunnel from "../../src/hooks/useFunnel";
+
+function TestComponent() {
+  const [Funnel, changeStep] = useFunnel(["step1", "step2"]);
+
+  return (
+    <React.Fragment>
+      <Funnel>
+        <Funnel.Step name="step1">Step 1 UI</Funnel.Step>
+        <Funnel.Step name="step2">Step 2 UI</Funnel.Step>
+      </Funnel>
+      <button onClick={() => changeStep("step2")}>Next Step</button>
+    </React.Fragment>
+  );
+}
 
 describe("useFunnel hook", () => {
   let consoleErrorSpy: jest.SpyInstance;
@@ -50,47 +58,18 @@ describe("useFunnel hook", () => {
   });
 
   it("should successfully render the first step in the funnel", () => {
-    const { result } = renderHook(() => useFunnel(["step1", "step2"]));
-    const [Funnel] = result.current;
-
-    const { getByText, queryByText } = render(
-      <React.Fragment>
-        <div>
-          <Funnel>
-            <Funnel.Step name="step1">Step 1 UI</Funnel.Step>
-            <Funnel.Step name="step2">Step 2 UI</Funnel.Step>
-          </Funnel>
-        </div>
-      </React.Fragment>
-    );
+    const { getByText, queryByText } = render(<TestComponent />);
 
     expect(getByText("Step 1 UI")).toBeDefined();
     expect(queryByText("Step 2 UI")).toBeNull();
   });
 
-  it("should successfully render the second step in the funnel", async () => {
-    const { result } = renderHook(() => useFunnel(["step1", "step2"]));
-    const [Funnel, changeStep] = result.current;
+  it("should successfully unmount the first step and render the second step in the funnel", async () => {
+    const { getByText, queryByText } = render(<TestComponent />);
 
-    const { getByText, queryByText } = render(
-      <React.Fragment>
-        <Funnel>
-          <Funnel.Step name="step1">Step 1 UI</Funnel.Step>
-          <Funnel.Step name="step2">Step 2 UI</Funnel.Step>
-        </Funnel>
-      </React.Fragment>
-    );
+    fireEvent.click(getByText("Next Step"));
 
-    await act(async () => {
-      changeStep("step2");
-    });
-
-    // eslint-disable-next-line no-console
-    console.log(screen.debug(undefined, Infinity));
-
-    waitFor(() => {
-      expect(getByText("Step 2 UI")).toBeDefined();
-      expect(queryByText("Step 1 UI")).toBeNull();
-    });
+    expect(getByText("Step 2 UI")).toBeDefined();
+    expect(queryByText("Step 1 UI")).toBeNull();
   });
 });
