@@ -41,6 +41,8 @@ export default function PortfolioWeightPieChart({
   height,
   pieData,
 }: Props) {
+  const isPieDataEmpty = pieData.length === 0;
+
   const [activeIndex, setActiveIndex] = useState(TOTAL_INDEX);
   const onPieEnter = useCallback(
     (_: PieEntry, index: number) => {
@@ -75,7 +77,18 @@ export default function PortfolioWeightPieChart({
     }
   );
 
-  const topTenPieData = [...topTenSlices, remainingSlice];
+  const topTenPieData = isPieDataEmpty
+    ? [
+        {
+          name: "",
+          fill: "#B7B8C3",
+          valuation: 1,
+          totalGain: 0,
+          totalGainRate: 0,
+          weight: 0,
+        },
+      ]
+    : [...topTenSlices, remainingSlice];
 
   return (
     <>
@@ -100,12 +113,14 @@ export default function PortfolioWeightPieChart({
             innerRadius={80}
             outerRadius={144}
             dataKey="valuation"
-            onMouseEnter={onPieEnter}
+            onMouseEnter={isPieDataEmpty ? () => {} : onPieEnter}
             onMouseLeave={onPieLeave}
             startAngle={90}
             endAngle={-360}
           />
-          <Tooltip content={(props) => <CustomTooltip {...props} />} />
+          {isPieDataEmpty ? null : (
+            <Tooltip content={(props) => <CustomTooltip {...props} />} />
+          )}
         </PieChart>
       </PieChartWrapper>
     </>

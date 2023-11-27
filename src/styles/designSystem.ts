@@ -47,6 +47,9 @@ const font = {
   body2: "400 16px/24px 'IBMPlexSansKR-Regular', sans-serif",
   body3: "400 14px/21px 'IBMPlexSansKR-Regular', sans-serif",
   body4: "400 12px/18px 'IBMPlexSansKR-Regular', sans-serif",
+
+  button1: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
+  button2: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
 };
 
 export default {
