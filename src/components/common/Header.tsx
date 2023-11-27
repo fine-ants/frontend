@@ -1,7 +1,7 @@
 import { PortfolioItem } from "@api/portfolio";
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
 import BIImage from "@assets/images/profileImage.png";
-import PortfolioDialog from "@components/Portfolio/PortfolioDialog";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
 import { useContext, useState } from "react";
@@ -64,7 +64,7 @@ export default function Header() {
     <>
       <StyledHeader>
         {isPortfolioAddDialogOpen && (
-          <PortfolioDialog
+          <PortfolioAddDialog
             isOpen={isPortfolioAddDialogOpen}
             onClose={() => setIsPortfolioAddDialogOpen(false)}
           />

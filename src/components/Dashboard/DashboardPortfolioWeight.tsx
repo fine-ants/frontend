@@ -3,7 +3,13 @@ import Legend from "@components/common/PieChart/Legend";
 import styled from "styled-components";
 import PortfolioWeightPieChart from "./PortfolioWeightPieChart";
 
-export default function DashboardPortfolioWeight() {
+type Props = {
+  onPortfolioAddButtonClick?: () => void;
+};
+
+export default function DashboardPortfolioWeight({
+  onPortfolioAddButtonClick,
+}: Props) {
   const { data: pieData } = useDashboardPieChartQuery();
 
   return (
@@ -15,7 +21,10 @@ export default function DashboardPortfolioWeight() {
           height={320}
           pieData={pieData ?? []}
         />
-        <Legend pieData={pieData ?? []} />
+        <Legend
+          pieData={pieData ?? []}
+          onPortfolioAddButtonClick={onPortfolioAddButtonClick}
+        />
       </div>
     </StyledDashboardPieChart>
   );

@@ -27,7 +27,7 @@ type Props = {
   portfolioDetails?: PortfolioDetails;
 };
 
-export default function PortfolioDialog({
+export default function PortfolioAddDialog({
   isOpen,
   onClose,
   portfolioDetails,
