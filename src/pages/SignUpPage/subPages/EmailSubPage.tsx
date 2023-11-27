@@ -8,10 +8,11 @@ import styled from "styled-components";
 import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
 
 type Props = {
+  onPrev: () => void;
   onNext: (data: string) => void;
 };
 
-export default function EmailSubPage({ onNext }: Props) {
+export default function EmailSubPage({ onPrev, onNext }: Props) {
   const {
     value: email,
     isError,
@@ -46,6 +47,10 @@ export default function EmailSubPage({ onNext }: Props) {
 
   return (
     <SubPage>
+      <button type="button" onClick={onPrev}>
+        이전 단계
+      </button>
+
       <label htmlFor="emailInput">이메일</label>
       <InputWrapper>
         <EmailInput

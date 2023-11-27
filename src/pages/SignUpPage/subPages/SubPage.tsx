@@ -16,8 +16,6 @@ const StyledSubPage = styled.div`
   gap: 16px;
   flex-direction: column;
 
-  // background-color: cyan;
-
   > label {
     font-size: 14px;
   }

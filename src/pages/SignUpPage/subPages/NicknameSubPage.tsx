@@ -8,10 +8,11 @@ import styled from "styled-components";
 import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
 
 type Props = {
+  onPrev: () => void;
   onNext: (data: string) => void;
 };
 
-export default function NicknameSubPage({ onNext }: Props) {
+export default function NicknameSubPage({ onPrev, onNext }: Props) {
   const {
     value: nickname,
     isError,
@@ -48,6 +49,10 @@ export default function NicknameSubPage({ onNext }: Props) {
 
   return (
     <SubPage>
+      <button type="button" onClick={onPrev}>
+        이전 단계
+      </button>
+
       <label htmlFor="nicknameInput">닉네임</label>
       <InputWrapper>
         <NicknameInput

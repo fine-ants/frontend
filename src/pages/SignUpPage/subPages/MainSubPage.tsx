@@ -4,6 +4,7 @@ import NaverSignInButton from "@components/auth/NaverSignInButton";
 import { useNavigate } from "react-router-dom";
 import Routes from "router/Routes";
 import styled from "styled-components";
+import SubPage from "./SubPage";
 
 type Props = {
   onNext: () => void;
@@ -23,8 +24,6 @@ export default function MainSubPage({ onNext }: Props) {
         </EmailSignInButton>
       </SignInButtonContainer>
 
-      <hr />
-
       <p>
         이미 회원이신가요?
         <button type="button" onClick={() => navigate(Routes.SIGNIN)}>
@@ -35,7 +34,7 @@ export default function MainSubPage({ onNext }: Props) {
   );
 }
 
-const StyledMainSubPage = styled.div`
+const StyledMainSubPage = styled(SubPage)`
   display: flex;
   flex-direction: column;
   align-items: center;
