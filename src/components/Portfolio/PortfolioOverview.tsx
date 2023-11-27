@@ -2,7 +2,7 @@ import { PortfolioDetails } from "@api/portfolio";
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
 import tossLogo from "@assets/images/Toss_Symbol_Primary.png";
 import ConfirmAlert from "@components/ConfirmAlert";
-import PortfolioDialog from "@components/Portfolio/PortfolioDialog";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioDialog";
 import ToggleSwitch from "@components/ToggleSwitch";
 import { Button } from "@mui/material";
 import { useState } from "react";
@@ -55,7 +55,7 @@ export default function PortfolioOverview({ data }: Props) {
   return (
     <StyledPortfolioOverview>
       {isDialogOpen && (
-        <PortfolioDialog
+        <PortfolioAddDialog
           isOpen={isDialogOpen}
           onClose={onDialogClose}
           portfolioDetails={data}

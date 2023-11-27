@@ -8,8 +8,13 @@ import LegendItem from "./LegendItem";
 type Props = {
   pieData: PortfolioPieChartData[];
   style?: CSSProperties;
+  onPortfolioAddButtonClick?: () => void;
 };
-export default function Legend({ pieData, style }: Props) {
+export default function Legend({
+  pieData,
+  style,
+  onPortfolioAddButtonClick,
+}: Props) {
   const isPieDataEmpty = pieData.length === 0;
 
   const topTenPieList = pieData.slice(0, 10);
@@ -27,7 +32,7 @@ export default function Legend({ pieData, style }: Props) {
             <br />
             여기에 표시됩니다
           </div>
-          <PortfolioAddButton>
+          <PortfolioAddButton onClick={onPortfolioAddButtonClick}>
             <img src={addIcon} alt="add-icon" />
             <span>포트폴리오 추가</span>
           </PortfolioAddButton>
