@@ -13,7 +13,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import BasePage from "./BasePage";
+import BasePage from "../BasePage";
 
 export default function PortfolioPage() {
   const { id } = useParams();

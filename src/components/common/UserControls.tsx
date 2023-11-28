@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+// TODO: remove this
 const count = "9";
 
 export default function UserControls() {
@@ -29,7 +30,7 @@ export default function UserControls() {
       <ControlButton>
         <img src={settings} alt="settings" />
       </ControlButton>
-      <ControlButton onClick={() => navigate("/profile/edit")}>
+      <ControlButton onClick={() => navigate("/profile")}>
         <img src={profileImage} alt="profile" />
       </ControlButton>
       <Button variant="text" onClick={onSignOut}>

@@ -4,15 +4,15 @@ import { WindowProvider } from "@context/WindowContext";
 import DashboardPage from "@pages/DashboardPage";
 import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
-import PortfolioPage from "@pages/PortfolioPage";
-import MyProfilePage from "@pages/ProfilePage/MyProfilePage";
+import MyProfilePage from "@pages/MyProfilePage";
+import PortfolioPage from "@pages/Portfolio/PortfolioPage";
+import PortfoliosListPage from "@pages/Portfolio/PortfoliosListPage";
 import SignInPage from "@pages/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
 import WatchlistPage from "@pages/WatchlistPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import {
-  Navigate,
   Route,
   createBrowserRouter,
   createRoutesFromElements,
@@ -25,21 +25,13 @@ const router = (user: User | null) =>
   createBrowserRouter(
     createRoutesFromElements(
       <Route path="/">
-        {/* TODO: Landing Page */}
-
         <Route element={<ProtectedRoute user={user} />}>
           <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
-          <Route
-            path={Routes.PROFILE}
-            element={<Navigate to={`${Routes.PROFILE}/${Routes.PORTFOLIOS}`} />}
-          />
+          <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
           <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
-          <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
-          <Route
-            path={`${Routes.PROFILE}/:section`}
-            element={<MyProfilePage />}
-          />
+          <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
+          <Route path={Routes.PROFILE} element={<MyProfilePage />} />
           <Route path={Routes.INDICES} element={<IndicesPage />} />
         </Route>
 

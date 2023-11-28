@@ -27,13 +27,13 @@ export default function Header() {
 
   const navItems = [
     {
-      name: "Watchlist",
-      path: Routes.WATCHLIST,
+      name: "Watchlists",
+      path: Routes.WATCHLISTS,
     },
     { name: "Indices", path: Routes.INDICES },
   ];
 
-  const dropdownItems = portfolioList?.portfolios?.map(
+  const portfolioDropdownItems = portfolioList?.portfolios?.map(
     (portfolio: PortfolioItem) => {
       return {
         name: portfolio.name,
@@ -77,15 +77,15 @@ export default function Header() {
             </StyledBrandIdentity>
             <NavBar style={navBarStyles}>
               <Dropdown>
-                <Dropdown.Toggle>Portfolio</Dropdown.Toggle>
+                <Dropdown.Toggle>Portfolios</Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {dropdownItems?.map((item) => (
+                  {portfolioDropdownItems?.map((item) => (
                     <Dropdown.Item key={item.name} item={item} />
                   ))}
                   <Dropdown.Item
                     item={{
                       name: "포트폴리오로 이동",
-                      onClick: () => navigate("/profile/portfolio"),
+                      onClick: () => navigate("/portfolios"),
                     }}
                   />
                   <Dropdown.Item
@@ -129,7 +129,7 @@ export default function Header() {
 const StyledHeader = styled.header`
   z-index: 10;
   color: ${({ theme: { color } }) => color.neutral.white};
-  background-color: ${({ theme: { color } }) => color.neutral.gray900}};
+  background-color: ${({ theme: { color } }) => color.neutral.gray900};
 `;
 
 const HeaderTop = styled.header`
