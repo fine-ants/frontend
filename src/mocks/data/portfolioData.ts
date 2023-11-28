@@ -322,6 +322,87 @@ export const portfolioHoldings = [
   },
 ];
 
+const portfolioHoldingsPieChart = [
+  {
+    name: "삼성전자보통주",
+    valuation: 600000,
+    fill: "#1F4FD5",
+    weight: 54.55,
+    totalGain: 100000,
+    totalGainRate: 10,
+  },
+  {
+    name: "현금",
+    valuation: 500000,
+    fill: "#1CADFF",
+    weight: 45.45,
+    totalGain: 0,
+    totalGainRate: 0,
+  },
+];
+
+const portfolioHoldingsDividendChart = [
+  {
+    name: "1월",
+    amount: 50000,
+  },
+  {
+    name: "2월",
+    amount: 22100,
+  },
+  {
+    name: "3월",
+    amount: 13500,
+  },
+  {
+    name: "4월",
+    amount: 45000,
+  },
+  {
+    name: "5월",
+    amount: 75000,
+  },
+  {
+    name: "6월",
+    amount: 0,
+  },
+  {
+    name: "7월",
+    amount: 21000,
+  },
+  {
+    name: "8월",
+    amount: 35000,
+  },
+  {
+    name: "9월",
+    amount: 12000,
+  },
+  {
+    name: "10월",
+    amount: 45000,
+  },
+  {
+    name: "11월",
+    amount: 89000,
+  },
+  {
+    name: "12월",
+    amount: 35000,
+  },
+];
+
+const portfolioHoldingsSectorChart = [
+  {
+    sector: "전기전자",
+    sectorWeight: 54.55,
+  },
+  {
+    sector: "현금",
+    sectorWeight: 45.45,
+  },
+];
+
 export const successfulGetPortfolioResponse = {
   code: 200,
   status: "OK",
@@ -330,6 +411,17 @@ export const successfulGetPortfolioResponse = {
     portfolios,
     hasNext: false,
     nextCursor: null,
+  },
+};
+
+export const successfulGetPortfolioChartsResponse = {
+  code: 200,
+  status: "OK",
+  message: "포트폴리오 차트 조회가 완료되었습니다",
+  data: {
+    pieChart: portfolioHoldingsPieChart,
+    dividendChart: portfolioHoldingsDividendChart,
+    sectorChart: portfolioHoldingsSectorChart,
   },
 };
 

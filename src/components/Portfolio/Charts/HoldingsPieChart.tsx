@@ -1,5 +1,4 @@
-import { PortfolioHoldingsPieChart } from "@api/portfolio";
-import PieChartLegend from "@components/common/PieChart/PieChartLegend";
+import { PortfolioHoldingsPieChartItem } from "@api/portfolio/types";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { useCallback, useState } from "react";
 import { Pie, PieChart, Sector } from "recharts";
@@ -30,7 +29,7 @@ type PieEntry = {
 };
 
 type Props = {
-  data: PortfolioHoldingsPieChart[];
+  data: PortfolioHoldingsPieChartItem[];
 };
 
 const DEFAULT_ACTIVE_INDEX = -1;
@@ -40,11 +39,11 @@ export default function HoldingsPieChart({ data }: Props) {
 
   const totalValuation = data.reduce((acc, cur) => acc + cur.valuation, 0);
 
-  const pieChartLegendList = data.map((item) => ({
-    title: item.name,
-    percent: item.weight,
-    color: item.fill,
-  }));
+  // const pieChartLegendList = data.map((item) => ({
+  //   title: item.name,
+  //   percent: item.weight,
+  //   color: item.fill,
+  // }));
 
   const onPieEnter = useCallback(
     (_: PieEntry, index: number) => {
@@ -82,10 +81,12 @@ export default function HoldingsPieChart({ data }: Props) {
           />
         </PieChart>
       </PieChartWrapper>
-      <PieChartLegend
+
+      {/* TODO */}
+      {/* <PieChartLegend
         legendList={pieChartLegendList}
         style={{ top: "130px", position: "relative" }}
-      />
+      /> */}
     </StyledHoldingsPieChart>
   );
 }

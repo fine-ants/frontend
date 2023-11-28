@@ -1,8 +1,13 @@
+import { PortfolioHoldingsDividendChartItem } from "@api/portfolio/types";
 import { useMemo, useState } from "react";
 import { Bar, BarChart, Cell, ResponsiveContainer, XAxis } from "recharts";
 import styled from "styled-components";
 
-export default function DividendBarChart() {
+type Props = {
+  data: PortfolioHoldingsDividendChartItem[];
+};
+
+export default function DividendBarChart({ data }: Props) {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(
     new Date().getMonth()
   );
@@ -37,7 +42,7 @@ export default function DividendBarChart() {
             dataKey="displayAmount"
             activeBar={true}
             barSize={32}
-            label={<CustomBarLabel />}
+            label={<CustomBarLabel data={data} />}
             shape={<RoundedBar radius={8} />}>
             {data.map((data, index) => (
               <Cell
@@ -86,7 +91,7 @@ function RoundedBar(props: any) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function CustomBarLabel(props: any) {
-  const { x, y, width, index } = props;
+  const { x, y, width, index, data } = props;
 
   return (
     <text
@@ -110,55 +115,3 @@ const StyledDividendBarChart = styled.div`
   border: 1px solid #e0e0e0;
   box-shadow: 0px 0px 12px 0px #00000014;
 `;
-
-// ?: API를 따로 만들건지 포트폴리오 종목 조회에서 아래에 필요한 값들을 추가할것인지
-const data = [
-  {
-    name: "1월",
-    amount: 50000,
-  },
-  {
-    name: "2월",
-    amount: 22100,
-  },
-  {
-    name: "3월",
-    amount: 13500,
-  },
-  {
-    name: "4월",
-    amount: 45000,
-  },
-  {
-    name: "5월",
-    amount: 75000,
-  },
-  {
-    name: "6월",
-    amount: 0,
-  },
-  {
-    name: "7월",
-    amount: 21000,
-  },
-  {
-    name: "8월",
-    amount: 35000,
-  },
-  {
-    name: "9월",
-    amount: 12000,
-  },
-  {
-    name: "10월",
-    amount: 45000,
-  },
-  {
-    name: "11월",
-    amount: 89000,
-  },
-  {
-    name: "12월",
-    amount: 35000,
-  },
-];

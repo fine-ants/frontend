@@ -1,7 +1,8 @@
-import { PortfolioDetails, PortfolioHolding } from "@api/portfolio";
+import { PortfolioDetails, PortfolioHolding } from "@api/portfolio/types";
 import { HTTPSTATUS } from "@api/types";
 import {
   portfolioHoldings,
+  successfulGetPortfolioChartsResponse,
   successfulGetPortfolioDetailsResponse,
   successfulGetPortfolioResponse,
   successfulPortfolioAddResponse,
@@ -23,6 +24,14 @@ export default [
     return res(
       ctx.status(HTTPSTATUS.success),
       ctx.json(successfulGetPortfolioResponse)
+    );
+  }),
+
+  // Portfolio Charts
+  rest.get("/api/portfolios/:portfolioId/charts", async (_, res, ctx) => {
+    return res(
+      ctx.status(HTTPSTATUS.success),
+      ctx.json(successfulGetPortfolioChartsResponse)
     );
   }),
 
@@ -54,6 +63,8 @@ export default [
       totalAnnualDividendYield: 0,
       annualInvestmentDividendYield: 0,
       provisionalLossBalance: 0,
+      targetGainNotification: false,
+      maxLossNotification: false,
     };
 
     portfolioDetailsData.push(data);

@@ -1,5 +1,5 @@
-import { PortfolioItem } from "@api/portfolio";
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
+import { PortfolioItem } from "@api/portfolio/types";
 import BIImage from "@assets/images/profileImage.png";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { UserContext } from "@context/UserContext";

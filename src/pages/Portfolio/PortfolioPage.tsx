@@ -1,13 +1,14 @@
 import useStompSubscription from "@api/hooks/useStompSubWithRQ";
-import { Portfolio } from "@api/portfolio";
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
+import usePortfolioHoldingChartsQuery from "@api/portfolio/queries/usePortfolioHoldingChartsQuery";
+import { Portfolio } from "@api/portfolio/types";
 import plusIcon from "@assets/icons/plus.svg";
-import DividendBarChart from "@components/Portfolio/DividendBarChart";
-import HoldingsPieChart from "@components/Portfolio/HoldingsPieChart";
+import DividendBarChart from "@components/Portfolio/Charts/DividendBarChart";
+import HoldingsPieChart from "@components/Portfolio/Charts/HoldingsPieChart";
+import SectorBar from "@components/Portfolio/Charts/SectorBar";
 import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
-import SectorBar from "@components/Portfolio/SectorBar";
 import { BASE_API_URL_WS } from "@constants/config";
 import { Box, Button, Typography } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -20,6 +21,10 @@ export default function PortfolioPage() {
 
   const { data: portfolio, isLoading: isPortfolioDetailsLoading } =
     usePortfolioDetailsQuery(Number(id));
+
+  const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
+    Number(id)
+  );
 
   const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
 
@@ -48,25 +53,31 @@ export default function PortfolioPage() {
     setIsAddHoldingDialogOpen(true);
   };
 
-  // TODO: Handle loading
+  // TODO: Suspense fallback component
   if (isPortfolioDetailsLoading) {
     return <div>Loading</div>;
   }
 
-  // TODO: Handle error
+  // TODO: Error Boundary
   if (!portfolio) {
     return <div>Error</div>;
   }
 
+  // TODO: refactor this to new API!!!!!!!!!!!!!!!!!!
   const { portfolioDetails, portfolioHoldings } = portfolio;
+
+  // TODO
+  if (!portfolioHoldingCharts) return <div>Error</div>;
+
+  const { pieChart, dividendChart, sectorChart } = portfolioHoldingCharts;
 
   return (
     <StyledPortfolioPage>
       <main style={{ display: "flex", padding: "40px 150px", gap: "32px" }}>
         <LeftPanel>
-          <HoldingsPieChart data={portfolioHoldings} />
-          <DividendBarChart />
-          <SectorBar />
+          <HoldingsPieChart data={pieChart} />
+          <DividendBarChart data={dividendChart} />
+          <SectorBar data={sectorChart} />
         </LeftPanel>
 
         <RightPanel>
