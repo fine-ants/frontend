@@ -18,7 +18,7 @@ export default function DashboardTotalValuationTrend() {
     setCurrentRangeIndex(index);
   };
   return (
-    <StyledDashboardLineChart
+    <StyledDashboardTotalValuationTrend
       $isTotalValuationDataEmpty={isTotalValuationDataEmpty}>
       <TooltipRemover />
       <ChartTitle>총 자산 현황 추이</ChartTitle>
@@ -57,11 +57,11 @@ export default function DashboardTotalValuationTrend() {
           />
         </>
       )}
-    </StyledDashboardLineChart>
+    </StyledDashboardTotalValuationTrend>
   );
 }
 
-const StyledDashboardLineChart = styled.div<{
+const StyledDashboardTotalValuationTrend = styled.div<{
   $isTotalValuationDataEmpty: boolean;
 }>`
   width: 708px;
