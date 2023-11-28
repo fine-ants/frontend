@@ -1,4 +1,4 @@
-import ValuationOverview from "@components/Dashboard/DashboardOverview";
+import DashboardOverview from "@components/Dashboard/DashboardOverview";
 import DashboardPortfolioWeight from "@components/Dashboard/DashboardPortfolioWeight";
 import DashboardTotalValuationTrend from "@components/Dashboard/DashboardTotalValuationTrend";
 import styled from "styled-components";
@@ -7,21 +7,29 @@ import BasePage from "./BasePage";
 export default function DashboardPage() {
   return (
     <BasePage>
-      <ValuationOverview />
+      <DashboardOverview />
 
-      <ChartContainer>
-        <DashboardPortfolioWeight />
-        <DashboardTotalValuationTrend />
-      </ChartContainer>
+      <ChartsWrapper>
+        <ChartsContainer>
+          <DashboardPortfolioWeight />
+          <DashboardTotalValuationTrend />
+        </ChartsContainer>
+      </ChartsWrapper>
     </BasePage>
   );
 }
 
-const ChartContainer = styled.div`
+const ChartsWrapper = styled.div`
   width: 100%;
-  margin: 48px 0;
+  padding: 48px;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+`;
+
+const ChartsContainer = styled.div`
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
   gap: 24px;
 `;

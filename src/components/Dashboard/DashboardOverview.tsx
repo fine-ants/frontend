@@ -63,7 +63,7 @@ export default function DashboardOverview() {
 const StyledDashboardOverview = styled.div`
   width: 100%;
   height: 316px;
-  padding: 48px 240px;
+  padding: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;

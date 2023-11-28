@@ -61,14 +61,14 @@ export default function DashboardPortfolioWeight() {
 }
 
 const StyledDashboardPortfolioWeight = styled.div`
-  width: 708px;
+  width: 50%;
   height: 480px;
-  background-color: #ffffff;
+  padding: 32px;
   position: relative;
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
   border-radius: 10px;
-  padding: 32px;
   gap: 24px;
 `;
 
