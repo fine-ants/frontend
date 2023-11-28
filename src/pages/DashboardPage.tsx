@@ -1,7 +1,7 @@
 import ValuationOverview from "@components/Dashboard/DashboardOverview";
 import PortfolioPieChartContainer from "@components/Dashboard/DashboardPortfolioWeight";
 import TotalValuationLineChartContainer from "@components/Dashboard/DashboardTotalValuationTrend";
-import PortfolioAddDialog from "@components/Portfolio/PortfolioDialog";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { useState } from "react";
 import styled from "styled-components";
 import BasePage from "./BasePage";

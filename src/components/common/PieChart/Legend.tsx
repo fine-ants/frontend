@@ -1,6 +1,6 @@
 import { PortfolioPieChartData } from "@api/dashboard";
 import addIcon from "assets/icons/add-icon.svg";
-import { CSSProperties } from "react";
+import { CSSProperties, Suspense } from "react";
 import styled from "styled-components";
 import { chartColorPalette } from "styles/chartColorPalette";
 import LegendItem from "./LegendItem";
@@ -38,38 +38,35 @@ export default function Legend({
           </PortfolioAddButton>
         </EmptyPortfolioMessage>
       ) : (
-        <Content>
-          <PortfolioList>
-            {pieData ? (
-              topTenPieList.map((item) => (
+        <Suspense fallback={<div>로딩중</div>}>
+          <Content>
+            <PortfolioList>
+              {topTenPieList.map((item) => (
                 <LegendItem
                   key={item.id}
                   color={item.fill}
                   title={item.name}
                   percent={Math.floor(item.weight)}
                 />
-              ))
-            ) : (
-              <div>로딩중</div>
-              // TODO: 로딩인디케이터
-            )}
-          </PortfolioList>
-          <EtcListContainer>
-            <LegendItem
-              color={chartColorPalette[chartColorPalette.length - 1]}
-              title={"기타"}
-              percent={etcWeight}
-            />
-            <EtcList>
-              {etcPieList.map((item) => (
-                <EtcItem key={item.id}>
-                  <div>{item.name}</div>
-                  <div>{Math.floor(item.weight)}%</div>
-                </EtcItem>
               ))}
-            </EtcList>
-          </EtcListContainer>
-        </Content>
+            </PortfolioList>
+            <EtcListContainer>
+              <LegendItem
+                color={chartColorPalette[chartColorPalette.length - 1]}
+                title={"기타"}
+                percent={etcWeight}
+              />
+              <EtcList>
+                {etcPieList.map((item) => (
+                  <EtcItem key={item.id}>
+                    <div>{item.name}</div>
+                    <div>{Math.floor(item.weight)}%</div>
+                  </EtcItem>
+                ))}
+              </EtcList>
+            </EtcListContainer>
+          </Content>
+        </Suspense>
       )}
     </StyledLegend>
   );
