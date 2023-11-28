@@ -1,19 +1,26 @@
 import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieChartQuery";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import Legend from "@components/common/PieChart/Legend";
+import { useState } from "react";
 import styled from "styled-components";
 import PortfolioWeightPieChart from "./PortfolioWeightPieChart";
 
-type Props = {
-  onPortfolioAddButtonClick?: () => void;
-};
-
-export default function DashboardPortfolioWeight({
-  onPortfolioAddButtonClick,
-}: Props) {
+export default function DashboardPortfolioWeight() {
   const { data: pieData } = useDashboardPieChartQuery();
 
+  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
+    useState(false);
+
+  const onPortfolioAddDialogOpen = () => {
+    setIsPortfolioAddDialogOpen(true);
+  };
+
+  const onPortfolioAddDialogClose = () => {
+    setIsPortfolioAddDialogOpen(false);
+  };
+
   return (
-    <StyledDashboardPieChart>
+    <StyledDashboardPortfolioWeight>
       <ChartTitle>포트폴리오 비중</ChartTitle>
       <div style={{ display: "flex", gap: "24px" }}>
         <PortfolioWeightPieChart
@@ -23,14 +30,21 @@ export default function DashboardPortfolioWeight({
         />
         <Legend
           pieData={pieData ?? []}
-          onPortfolioAddButtonClick={onPortfolioAddButtonClick}
+          onPortfolioAddButtonClick={onPortfolioAddDialogOpen}
         />
       </div>
-    </StyledDashboardPieChart>
+
+      {isPortfolioAddDialogOpen && (
+        <PortfolioAddDialog
+          isOpen={isPortfolioAddDialogOpen}
+          onClose={onPortfolioAddDialogClose}
+        />
+      )}
+    </StyledDashboardPortfolioWeight>
   );
 }
 
-const StyledDashboardPieChart = styled.div`
+const StyledDashboardPortfolioWeight = styled.div`
   width: 708px;
   height: 480px;
   background-color: #ffffff;
