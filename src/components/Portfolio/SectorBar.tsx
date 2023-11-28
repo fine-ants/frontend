@@ -1,5 +1,5 @@
+import { chartColorPalette } from "@styles/chartColorPalette";
 import styled from "styled-components";
-import { chartColorPalette } from "styles/chartColorPalette";
 
 export default function SectorBar() {
   const coloredData = data.map((item, index) => ({

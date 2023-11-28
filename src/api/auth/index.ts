@@ -1,5 +1,5 @@
+import { Response } from "@api/types";
 import { CLIENT_URL } from "@constants/config";
-import { Response } from "api/types";
 import { fetcher } from "../fetcher";
 
 export type User = {

@@ -1,8 +1,8 @@
 import { PortfolioPieChartData } from "@api/dashboard";
-import addIcon from "assets/icons/add-icon.svg";
+import addIcon from "@assets/icons/add-icon.svg";
+import { chartColorPalette } from "@styles/chartColorPalette";
 import { CSSProperties, Suspense } from "react";
 import styled from "styled-components";
-import { chartColorPalette } from "styles/chartColorPalette";
 import LegendItem from "./LegendItem";
 
 type Props = {

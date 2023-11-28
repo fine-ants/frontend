@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import formatTickValue from "@utils/formatTickValue";
 import { getBarSpacings } from "@utils/getBarSpacings";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
@@ -14,7 +15,6 @@ import {
   createChart,
 } from "lightweight-charts";
 import { useEffect, useRef } from "react";
-import designSystem from "styles/designSystem";
 
 type Props = {
   chartContainerRef: React.RefObject<HTMLDivElement>;

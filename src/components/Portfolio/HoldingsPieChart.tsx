@@ -1,10 +1,10 @@
 import { PortfolioHolding } from "@api/portfolio";
 import Legend from "@components/common/PieChart/Legend";
+import { chartColorPalette } from "@styles/chartColorPalette";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { useCallback, useState } from "react";
 import { Pie, PieChart, Sector } from "recharts";
 import styled from "styled-components";
-import { chartColorPalette } from "styles/chartColorPalette";
 
 type PieEntry = {
   percent: number;

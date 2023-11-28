@@ -115,8 +115,8 @@ export default function PortfolioWeightPieChart({
             dataKey="valuation"
             onMouseEnter={isPieDataEmpty ? () => {} : onPieEnter}
             onMouseLeave={onPieLeave}
-            startAngle={90}
-            endAngle={-360}
+            startAngle={270}
+            endAngle={-90}
           />
           {isPieDataEmpty ? null : (
             <Tooltip content={(props) => <CustomTooltip {...props} />} />

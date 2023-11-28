@@ -1,8 +1,8 @@
 import GoogleSignInButton from "@components/auth/GoogleSignInButton";
 import KakaoSignInButton from "@components/auth/KakaoSignInButton";
 import NaverSignInButton from "@components/auth/NaverSignInButton";
+import Routes from "@router/Routes";
 import { useNavigate } from "react-router-dom";
-import Routes from "router/Routes";
 import styled from "styled-components";
 import SubPage from "./SubPage";
 

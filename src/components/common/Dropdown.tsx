@@ -1,6 +1,6 @@
+import designSystem from "@styles/designSystem";
 import { ReactNode, createContext, useContext, useState } from "react";
 import { CSSProperties } from "styled-components";
-import designSystem from "styles/designSystem";
 
 const DropdownContext = createContext({
   isOpen: false,

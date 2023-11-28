@@ -1,8 +1,8 @@
+import { refreshAccessToken } from "@api/auth";
+import { HTTPSTATUS } from "@api/types";
 import { BASE_API_URL } from "@constants/config";
-import { refreshAccessToken } from "api/auth";
-import { HTTPSTATUS } from "api/types";
+import Routes from "@router/Routes";
 import axios from "axios";
-import Routes from "router/Routes";
 
 export const fetcher = axios.create({
   baseURL: `${BASE_API_URL}/api`,

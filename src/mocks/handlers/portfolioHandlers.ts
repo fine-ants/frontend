@@ -1,6 +1,5 @@
 import { PortfolioDetails, PortfolioHolding } from "@api/portfolio";
 import { HTTPSTATUS } from "@api/types";
-import { calculateRate } from "@utils/calculations";
 import {
   portfolioHoldings,
   successfulGetPortfolioDetailsResponse,
@@ -11,8 +10,9 @@ import {
   successfulPortfolioHoldingPurchaseAddResponse,
   successfulPortfolioHoldingPurchaseDeleteResponse,
   successfulPortfolioHoldingPurchaseEditResponse,
-} from "mocks/data/portfolioData";
-import { portfolioDetails } from "mocks/data/portfolioDetailsData";
+} from "@mocks/data/portfolioData";
+import { portfolioDetails } from "@mocks/data/portfolioDetailsData";
+import { calculateRate } from "@utils/calculations";
 import { rest } from "msw";
 
 const portfolioDetailsData = portfolioDetails;
