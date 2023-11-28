@@ -7,7 +7,8 @@ import TotalValuationLineChart from "./TotalValuationLineChart";
 export default function DashboardTotalValuationTrend() {
   const { data: totalValuationData } = useDashboardTotalValuationTrendQuery();
 
-  const isTotalValuationDataEmpty = totalValuationData?.length === 0;
+  const isTotalValuationDataEmpty =
+    !totalValuationData || totalValuationData.length === 0;
 
   const range = ["일", "주", "월", "분기", "연"];
 
@@ -67,7 +68,9 @@ const StyledDashboardLineChart = styled.div<{
   height: 480px;
   background-color: #ffffff;
   border: ${({ $isTotalValuationDataEmpty, theme: { color } }) =>
-    $isTotalValuationDataEmpty ? `1px dashed ${color.neutral.gray100}` : "0"};
+    $isTotalValuationDataEmpty
+      ? `1px dashed ${color.neutral.gray100}`
+      : "none"};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
