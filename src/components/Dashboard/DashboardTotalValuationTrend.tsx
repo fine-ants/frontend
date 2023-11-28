@@ -17,6 +17,7 @@ export default function DashboardTotalValuationTrend() {
   const switchTimeRange = (index: number) => {
     setCurrentRangeIndex(index);
   };
+
   return (
     <StyledDashboardTotalValuationTrend
       $isTotalValuationDataEmpty={isTotalValuationDataEmpty}>
@@ -76,7 +77,7 @@ const StyledDashboardTotalValuationTrend = styled.div<{
   flex-direction: column;
   position: relative;
   gap: 24px;
-  padding: 32px 24px;
+  padding: 32px;
 `;
 
 const EmptyLineChartMessage = styled.div`

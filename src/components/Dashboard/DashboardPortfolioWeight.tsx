@@ -1,9 +1,10 @@
 import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieChartQuery";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
-import Legend from "@components/common/PieChart/Legend";
-import { useState } from "react";
+import PieChartLegend from "@components/common/PieChart/PieChartLegend";
+import { Suspense, useState } from "react";
 import styled from "styled-components";
-import PortfolioWeightPieChart from "./PortfolioWeightPieChart";
+import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
+import PortfolioWeightPieChart from "./PortfolioWeightPieChart/PortfolioWeightPieChart";
 
 export default function DashboardPortfolioWeight() {
   const { data: pieData } = useDashboardPieChartQuery();
@@ -19,20 +20,35 @@ export default function DashboardPortfolioWeight() {
     setIsPortfolioAddDialogOpen(false);
   };
 
+  const pieChartLegendList = pieData?.map((item) => ({
+    title: item.name,
+    percent: item.weight,
+    color: item.fill,
+  }));
+
   return (
     <StyledDashboardPortfolioWeight>
       <ChartTitle>포트폴리오 비중</ChartTitle>
-      <div style={{ display: "flex", gap: "24px" }}>
-        <PortfolioWeightPieChart
-          width={320}
-          height={320}
-          pieData={pieData ?? []}
-        />
-        <Legend
-          pieData={pieData ?? []}
-          onPortfolioAddButtonClick={onPortfolioAddDialogOpen}
-        />
-      </div>
+      {/* TODO: Suspense fallback component */}
+      <Suspense fallback={<div>로딩중</div>}>
+        <div style={{ display: "flex", gap: "24px" }}>
+          <PortfolioWeightPieChart
+            width={320}
+            height={320}
+            pieData={pieData ?? []}
+          />
+          {pieData && pieData.length > 0 ? (
+            <PieChartLegend
+              legendList={pieChartLegendList ?? []}
+              etcOptions={{ title: "기타", numItemsFromFront: 10 }}
+            />
+          ) : (
+            <EmptyPortfolioMessage
+              onPortfolioAddButtonClick={onPortfolioAddDialogOpen}
+            />
+          )}
+        </div>
+      </Suspense>
 
       {isPortfolioAddDialogOpen && (
         <PortfolioAddDialog

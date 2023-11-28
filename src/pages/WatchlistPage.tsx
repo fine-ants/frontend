@@ -5,6 +5,8 @@ import BasePage from "./BasePage";
 export default function WatchlistPage() {
   return (
     <StyledWatchlistPage>
+      <h2>Watchlist</h2>
+
       <Watchlist />
     </StyledWatchlistPage>
   );

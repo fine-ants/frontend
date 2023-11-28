@@ -151,7 +151,6 @@ const portfoliosPieChartData = [
     valuation: 245067,
     totalGain: 29613,
     totalGainRate: 13.77,
-
     fill: "#B7B8C3",
     weight: 2.69,
   },

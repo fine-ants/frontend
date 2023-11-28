@@ -1,6 +1,5 @@
-import { PortfolioHolding } from "@api/portfolio";
-import Legend from "@components/common/PieChart/Legend";
-import { chartColorPalette } from "@styles/chartColorPalette";
+import { PortfolioHoldingsPieChart } from "@api/portfolio";
+import PieChartLegend from "@components/common/PieChart/PieChartLegend";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { useCallback, useState } from "react";
 import { Pie, PieChart, Sector } from "recharts";
@@ -31,24 +30,22 @@ type PieEntry = {
 };
 
 type Props = {
-  data: PortfolioHolding[];
+  data: PortfolioHoldingsPieChart[];
 };
 
 const DEFAULT_ACTIVE_INDEX = -1;
 
 export default function HoldingsPieChart({ data }: Props) {
-  const pieData = data.map((item, index) => {
-    return {
-      name: item.companyName,
-      value: item.currentValuation,
-      fill: chartColorPalette[index],
-      totalGain: item.totalGain,
-      totalGainRate: item.totalReturnRate,
-    };
-  });
-  const totalValuation = pieData.reduce((acc, cur) => acc + cur.value, 0);
-
   const [activeIndex, setActiveIndex] = useState(DEFAULT_ACTIVE_INDEX);
+
+  const totalValuation = data.reduce((acc, cur) => acc + cur.valuation, 0);
+
+  const pieChartLegendList = data.map((item) => ({
+    title: item.name,
+    percent: item.weight,
+    color: item.fill,
+  }));
+
   const onPieEnter = useCallback(
     (_: PieEntry, index: number) => {
       setActiveIndex(index);
@@ -73,20 +70,20 @@ export default function HoldingsPieChart({ data }: Props) {
           <Pie
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
-            data={pieData}
+            data={data}
             cx={125}
             cy={125}
             innerRadius={65}
             outerRadius={100}
             fill="#FFFFFF"
-            dataKey="value"
+            dataKey="valuation"
             onMouseEnter={onPieEnter}
             onMouseLeave={onPieLeave}
           />
         </PieChart>
       </PieChartWrapper>
-      <Legend
-        pieData={pieData}
+      <PieChartLegend
+        legendList={pieChartLegendList}
         style={{ top: "130px", position: "relative" }}
       />
     </StyledHoldingsPieChart>
