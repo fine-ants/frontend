@@ -11,9 +11,7 @@ export default function BasePage({ children }: Props) {
   return (
     <StyledBasePage>
       <Header />
-      <Main>
-        <InnerWrapper>{children}</InnerWrapper>
-      </Main>
+      <Main>{children}</Main>
       <Footer />
     </StyledBasePage>
   );
@@ -35,14 +33,4 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
-`;
-
-const InnerWrapper = styled.div`
-  width: 100%;
-  max-width: 1440px;
-  height: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid blue;
 `;

@@ -6,21 +6,20 @@ import BasePage from "./BasePage";
 
 export default function DashboardPage() {
   return (
-    <StyledDashboardPage>
+    <BasePage>
       <ValuationOverview />
 
       <ChartContainer>
         <DashboardPortfolioWeight />
         <DashboardTotalValuationTrend />
       </ChartContainer>
-    </StyledDashboardPage>
+    </BasePage>
   );
 }
 
-const StyledDashboardPage = styled(BasePage)``;
-
 const ChartContainer = styled.div`
   width: 100%;
+  margin: 48px 0;
   display: flex;
   justify-content: center;
   align-items: flex-end;
