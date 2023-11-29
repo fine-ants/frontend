@@ -110,6 +110,9 @@ const StyledDividendBarChart = styled.div`
   width: 600px;
   height: 300px;
   padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: white;
   border-radius: 8px;
   border: 1px solid #e0e0e0;

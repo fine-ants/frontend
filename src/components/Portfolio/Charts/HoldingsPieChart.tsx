@@ -120,7 +120,8 @@ const renderActiveShape = (props: any) => {
         y={cy + 18}
         textAnchor="middle"
         fill={"black"}>
-        {thousandsDelimiter(payload.value)}
+        {/* TODO: FIX! undefined */}
+        {/* {thousandsDelimiter(payload.value)} */}
       </text>
       <Sector
         cx={cx}
@@ -147,6 +148,7 @@ const StyledHoldingsPieChart = styled.div`
   background-color: #ffffff;
   box-shadow: 0px 0px 12px 0px #00000014;
 `;
+
 const TotalValue = styled.div`
   display: flex;
   flex-direction: column;
