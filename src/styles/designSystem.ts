@@ -1,6 +1,7 @@
 const colors = {
   white: "#FFFFFF",
   white04: "#FFFFFF0A",
+  white08: "#FFFFFF20",
   gray50: "#F5F6FC",
   gray100: "#EBECF4",
   gray200: "#E0E2EC",
@@ -19,6 +20,7 @@ const colors = {
   blue300: "#7186E3",
   blue400: "#4D6ADC",
   blue500: "#1F4FD5",
+  blue50008: "#1F4FD520",
   blue600: "#1847CA",
   blue700: "#013DBE",
   blue800: "#001DA0",
@@ -62,6 +64,7 @@ export default {
       blue300: colors.blue300,
       blue400: colors.blue400,
       blue500: colors.blue500,
+      blue50008: colors.blue50008,
       blue600: colors.blue600,
       blue700: colors.blue700,
       blue800: colors.blue800,
@@ -70,6 +73,7 @@ export default {
     neutral: {
       white: colors.white,
       white04: colors.white04,
+      white08: colors.white08,
       gray50: colors.gray50,
       gray100: colors.gray100,
       gray200: colors.gray200,
