@@ -4,26 +4,36 @@ type Props = {
   variant: "primary" | "secondary" | "tertiary";
   height: 32 | 44;
   disabled?: boolean;
+  onClick?: () => void;
   children: React.ReactNode;
 };
 
-export default function Button({ variant, height, disabled, children }: Props) {
+export default function Button({
+  variant,
+  height,
+  disabled,
+  onClick,
+  children,
+}: Props) {
   switch (variant) {
     case "primary":
       return (
-        <PrimaryButton $height={height} $disabled={disabled}>
+        <PrimaryButton $height={height} $disabled={disabled} onClick={onClick}>
           {children}
         </PrimaryButton>
       );
     case "secondary":
       return (
-        <SecondaryButton $height={height} $disabled={disabled}>
+        <SecondaryButton
+          $height={height}
+          $disabled={disabled}
+          onClick={onClick}>
           {children}
         </SecondaryButton>
       );
     case "tertiary":
       return (
-        <TertiaryButton $height={height} $disabled={disabled}>
+        <TertiaryButton $height={height} $disabled={disabled} onClick={onClick}>
           {children}
         </TertiaryButton>
       );
