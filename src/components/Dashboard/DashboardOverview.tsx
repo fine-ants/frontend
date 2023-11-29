@@ -1,5 +1,5 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
-import RateBadge from "@components/common/RateBadge";
+import RateBadge from "@components/common/Badges/RateBadge";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import styled from "styled-components";
 
@@ -48,9 +48,7 @@ export default function DashboardOverview() {
                 {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
               </Value>
             </ValueWrapper>
-            {/* <DividendsRate>
-              {overviewData?.totalAnnualDividendYield}%
-            </DividendsRate> */}
+
             <div style={{ display: "flex", marginTop: "auto" }}>
               <RateBadge
                 rate={overviewData?.totalAnnualDividendYield ?? 0}

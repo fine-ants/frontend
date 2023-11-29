@@ -76,7 +76,6 @@ const StyledRateBadge = styled.div<{
   $color: { color: string; bgColor: string };
   $bgColorStatus: boolean;
 }>`
-  flex-grow: 0;
   display: flex;
   gap: 2.5px;
   align-items: center;
