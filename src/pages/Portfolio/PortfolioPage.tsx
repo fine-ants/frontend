@@ -10,9 +10,9 @@ import { Box, Button, Typography } from "@mui/material";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import ChartsPanel from "../../components/Portfolio/Charts/ChartsPanel";
+import ChartsPanelSkeleton from "../../components/Portfolio/Charts/skeletons/ChartsPanelSkeleton";
 import BasePage from "../BasePage";
-import ChartsPanel from "./ChartsPanel";
-import ChartsPanelSkeleton from "./skeletons/ChartsPanelSkeleton";
 
 export default function PortfolioPage() {
   const { id } = useParams();
