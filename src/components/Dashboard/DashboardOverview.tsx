@@ -1,4 +1,5 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
+import RateBadge from "@components/common/RateBadge";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import styled from "styled-components";
 
@@ -34,7 +35,10 @@ export default function DashboardOverview() {
               <Won>₩</Won>
               <Value>{thousandsDelimiter(overviewData?.totalGain ?? 0)}</Value>
             </ValueWrapper>
-            <TotalValueRate>↑{overviewData?.totalGainRate}%</TotalValueRate>
+
+            <div style={{ display: "flex", marginTop: "auto" }}>
+              <RateBadge rate={overviewData?.totalGainRate ?? 0} />
+            </div>
           </TotalSubContentWrapper>
           <TotalSubContentWrapper>
             <Title>연 배당금</Title>
@@ -44,9 +48,16 @@ export default function DashboardOverview() {
                 {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
               </Value>
             </ValueWrapper>
-            <DividendsRate>
+            {/* <DividendsRate>
               {overviewData?.totalAnnualDividendYield}%
-            </DividendsRate>
+            </DividendsRate> */}
+            <div style={{ display: "flex", marginTop: "auto" }}>
+              <RateBadge
+                rate={overviewData?.totalAnnualDividendYield ?? 0}
+                iconStatus={false}
+                isDividend={true}
+              />
+            </div>
           </TotalSubContentWrapper>
         </SubContentContainer>
       </ContentContainer>
@@ -146,30 +157,6 @@ const Value = styled.div`
   font: ${({ theme: { font } }) => font.title1};
   letter-spacing: -0.02em;
   line-height: 34px;
-`;
-
-const ValueRate = styled.div`
-  display: flex;
-  align-items: center;
-
-  height: 24px;
-  border-radius: 4px;
-  padding: 4px 8px;
-  max-width: fit-content;
-  margin-top: auto;
-
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
-`;
-
-const TotalValueRate = styled(ValueRate)`
-  color: ${({ theme: { color } }) => color.state.green};
-  background-color: ${({ theme: { color } }) => color.state.green20};
-`;
-
-const DividendsRate = styled(ValueRate)`
-  color: ${({ theme: { color } }) => color.state.green};
-  background-color: ${({ theme: { color } }) => color.state.green20};
 `;
 
 const SubContentContainer = styled.div`
