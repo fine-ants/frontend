@@ -1,5 +1,14 @@
-import { BASE_API_URL } from "@constants/config";
-import { EventSourcePolyfill } from "event-source-polyfill";
+import { useSSE } from "@api/hooks/useSSE";
+import { Portfolio } from "@api/portfolio";
+import plusIcon from "@assets/icons/plus.svg";
+import DividendBarChart from "@components/Portfolio/DividendBarChart";
+import HoldingsPieChart from "@components/Portfolio/HoldingsPieChart";
+import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
+import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
+import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
+import SectorBar from "@components/Portfolio/SectorBar";
+import { Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BasePage from "./BasePage";
@@ -7,46 +16,36 @@ import BasePage from "./BasePage";
 export default function PortfolioPage() {
   const { id } = useParams();
 
-  // const { data: portfolio, isLoading: isPortfolioDetailsLoading } =
-  //   usePortfolioDetailsQuery(Number(id));
+  const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
 
-  // const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
+  const {
+    data: portfolio,
+    isLoading,
+    isError,
+  } = useSSE<Portfolio>({
+    url: `/api/portfolio/${id}/holdings`,
+    eventTypeName: "sse event - myPortfolioStocks",
+  });
 
-  const accessToken = localStorage.getItem("accessToken");
-  const eventSource = new EventSourcePolyfill(
-    `${BASE_API_URL}/api/portfolio/${id}/holdings`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
-
-  eventSource.onmessage = async (e) => {
-    const res = await e.data;
-    // eslint-disable-next-line no-console
-    console.log(res);
+  const onAddHoldingButtonClick = () => {
+    setIsAddHoldingDialogOpen(true);
   };
 
-  // const onAddHoldingButtonClick = () => {
-  //   setIsAddHoldingDialogOpen(true);
-  // };
-
   // TODO: Handle loading
-  // if (isPortfolioDetailsLoading) {
-  //   return <div>Loading</div>;
-  // }
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
 
-  // // TODO: Handle error
-  // if (!portfolio) {
-  //   return <div>Error</div>;
-  // }
+  // TODO: Handle error
+  if (isError) {
+    return <div>Error</div>;
+  }
 
-  // const { portfolioDetails, portfolioHoldings } = portfolio!;
+  const { portfolioDetails, portfolioHoldings } = portfolio!;
 
   return (
     <StyledPortfolioPage>
-      {/* <main style={{ display: "flex", padding: "40px 150px", gap: "32px" }}>
+      <main style={{ display: "flex", padding: "40px 150px", gap: "32px" }}>
         <LeftPanel>
           <HoldingsPieChart data={portfolioHoldings} />
           <DividendBarChart />
@@ -86,42 +85,42 @@ export default function PortfolioPage() {
         portfolioId={Number(id)}
         isOpen={isAddHoldingDialogOpen}
         onClose={() => setIsAddHoldingDialogOpen(false)}
-      /> */}
+      />
     </StyledPortfolioPage>
   );
 }
 
 const StyledPortfolioPage = styled(BasePage)``;
 
-// const LeftPanel = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 16px;
-// `;
+const LeftPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
 
-// const RightPanel = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 16px;
-// `;
+const RightPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
 
-// const PortfolioOverviewContainer = styled.div``;
+const PortfolioOverviewContainer = styled.div``;
 
-// const PortfolioHoldingsContainer = styled(Box)`
-//   width: 988px;
-//   padding: 16px 24px 22px;
-//   box-shadow: 0px 0px 12px 0px #00000014;
-//   border-radius: 8px;
-//   background-color: #ffffff;
+const PortfolioHoldingsContainer = styled(Box)`
+  width: 988px;
+  padding: 16px 24px 22px;
+  box-shadow: 0px 0px 12px 0px #00000014;
+  border-radius: 8px;
+  background-color: #ffffff;
 
-//   header {
-//     margin-bottom: 16px;
-//     display: flex;
-//     justify-content: space-between;
-//   }
-// `;
+  header {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+`;
 
-// const AddHoldingButton = styled(Button)`
-//   border: 1px solid #8e8e93;
-//   border-radius: 8px;
-// `;
+const AddHoldingButton = styled(Button)`
+  border: 1px solid #8e8e93;
+  border-radius: 8px;
+`;
