@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getPortfolioCharts } from "..";
 import { portfolioKeys } from "./queryKeys";
 
 export default function usePortfolioHoldingChartsQuery(portfolioId: number) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: portfolioKeys.charts(portfolioId).queryKey,
     queryFn: () => getPortfolioCharts(portfolioId),
     retry: false,

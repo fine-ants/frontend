@@ -28,11 +28,17 @@ export default [
   }),
 
   // Portfolio Charts
-  rest.get("/api/portfolios/:portfolioId/charts", async (_, res, ctx) => {
-    return res(
-      ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulGetPortfolioChartsResponse)
-    );
+  rest.get("/api/portfolios/:portfolioId/charts", (_, res, ctx) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          res(
+            ctx.status(HTTPSTATUS.success),
+            ctx.json(successfulGetPortfolioChartsResponse)
+          )
+        );
+      }, 3000);
+    });
   }),
 
   // Add Portfolio
