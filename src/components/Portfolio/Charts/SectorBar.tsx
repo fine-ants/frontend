@@ -1,13 +1,17 @@
+import { PortfolioHoldingsSectorBarItem } from "@api/portfolio/types";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import styled from "styled-components";
 
-export default function SectorBar() {
+type Props = {
+  data: PortfolioHoldingsSectorBarItem[];
+};
+
+export default function SectorBar({ data }: Props) {
   const coloredData = data.map((item, index) => ({
     ...item,
     fill: chartColorPalette[index],
   }));
 
-  const totalValuation = coloredData.reduce((acc, cur) => acc + cur.value, 0);
   const sectorBarWidth = 552;
 
   return (
@@ -18,7 +22,7 @@ export default function SectorBar() {
           <div
             key={index}
             style={{
-              width: (d.value / totalValuation) * sectorBarWidth,
+              width: (d.sectorWeight / 100) * sectorBarWidth,
               height: "100%",
               backgroundColor: chartColorPalette[index],
             }}
@@ -59,11 +63,11 @@ const Bar = styled.div<{ $sectorBarWidth: number }>`
 // };
 
 // ?: 애초에 계산된 값을 줄 건지 종목을 보내면 계산해서 타나내는건지
-const data = [
-  { name: "IT", value: 4000 },
-  { name: "제조", value: 3000 },
-  { name: "금융", value: 2000 },
-  { name: "소비재", value: 1000 },
-  { name: "에너지", value: 1000 },
-  { name: "기타", value: 1000 },
-];
+// const data = [
+//   { name: "IT", value: 4000 },
+//   { name: "제조", value: 3000 },
+//   { name: "금융", value: 2000 },
+//   { name: "소비재", value: 1000 },
+//   { name: "에너지", value: 1000 },
+//   { name: "기타", value: 1000 },
+// ];

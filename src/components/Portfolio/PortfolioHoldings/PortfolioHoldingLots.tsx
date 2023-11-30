@@ -1,4 +1,4 @@
-import { PurchaseHistoryField } from "@api/portfolio";
+import { PurchaseHistoryField } from "@api/portfolio/types";
 import {
   Button,
   Table,

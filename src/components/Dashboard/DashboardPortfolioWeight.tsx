@@ -1,44 +1,74 @@
 import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieChartQuery";
-import Legend from "@components/common/PieChart/Legend";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
+import PieChartLegend from "@components/common/PieChart/PieChartLegend";
+import { Suspense, useState } from "react";
 import styled from "styled-components";
-import PortfolioWeightPieChart from "./PortfolioWeightPieChart";
+import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
+import PortfolioWeightPieChart from "./PortfolioWeightPieChart/PortfolioWeightPieChart";
 
-type Props = {
-  onPortfolioAddButtonClick?: () => void;
-};
-
-export default function DashboardPortfolioWeight({
-  onPortfolioAddButtonClick,
-}: Props) {
+export default function DashboardPortfolioWeight() {
   const { data: pieData } = useDashboardPieChartQuery();
 
+  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
+    useState(false);
+
+  const onPortfolioAddDialogOpen = () => {
+    setIsPortfolioAddDialogOpen(true);
+  };
+
+  const onPortfolioAddDialogClose = () => {
+    setIsPortfolioAddDialogOpen(false);
+  };
+
+  const pieChartLegendList = pieData?.map((item) => ({
+    title: item.name,
+    percent: item.weight,
+    color: item.fill,
+  }));
+
   return (
-    <StyledDashboardPieChart>
+    <StyledDashboardPortfolioWeight>
       <ChartTitle>포트폴리오 비중</ChartTitle>
-      <div style={{ display: "flex", gap: "24px" }}>
-        <PortfolioWeightPieChart
-          width={320}
-          height={320}
-          pieData={pieData ?? []}
+      {/* TODO: Suspense fallback component */}
+      <Suspense fallback={<div>로딩중</div>}>
+        <div style={{ display: "flex", gap: "24px" }}>
+          <PortfolioWeightPieChart
+            width={320}
+            height={320}
+            pieData={pieData ?? []}
+          />
+          {pieData && pieData.length > 0 ? (
+            <PieChartLegend
+              legendList={pieChartLegendList ?? []}
+              etcOptions={{ title: "기타", numItemsFromFront: 10 }}
+            />
+          ) : (
+            <EmptyPortfolioMessage
+              onPortfolioAddButtonClick={onPortfolioAddDialogOpen}
+            />
+          )}
+        </div>
+      </Suspense>
+
+      {isPortfolioAddDialogOpen && (
+        <PortfolioAddDialog
+          isOpen={isPortfolioAddDialogOpen}
+          onClose={onPortfolioAddDialogClose}
         />
-        <Legend
-          pieData={pieData ?? []}
-          onPortfolioAddButtonClick={onPortfolioAddButtonClick}
-        />
-      </div>
-    </StyledDashboardPieChart>
+      )}
+    </StyledDashboardPortfolioWeight>
   );
 }
 
-const StyledDashboardPieChart = styled.div`
-  width: 708px;
+const StyledDashboardPortfolioWeight = styled.div`
+  width: 50%;
   height: 480px;
-  background-color: #ffffff;
+  padding: 32px;
   position: relative;
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
   border-radius: 10px;
-  padding: 32px;
   gap: 24px;
 `;
 

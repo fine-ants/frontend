@@ -8,57 +8,55 @@ export default function DashboardOverview() {
 
   return (
     <StyledDashboardOverview>
-      <PageTitle>{overviewData?.username} 님의 대시보드</PageTitle>
-      <ContentContainer>
-        <TotalMainContentWrapper>
-          <MainTitle>총 평가 금액</MainTitle>
-          <MainValueWrapper>
-            <MainWon>₩</MainWon>
-            <MainValue>
-              {thousandsDelimiter(overviewData?.totalValuation ?? 0)}
-            </MainValue>
-          </MainValueWrapper>
-        </TotalMainContentWrapper>
-        <SubContentContainer>
-          <TotalSubContentWrapper>
-            <Title>총 투자 금액</Title>
-            <ValueWrapper>
-              <Won>₩</Won>
-              <Value>
-                {thousandsDelimiter(overviewData?.totalInvestment ?? 0)}
-              </Value>
-            </ValueWrapper>
-          </TotalSubContentWrapper>
-          <TotalSubContentWrapper>
-            <Title>총 손익</Title>
-            <ValueWrapper>
-              <Won>₩</Won>
-              <Value>{thousandsDelimiter(overviewData?.totalGain ?? 0)}</Value>
-            </ValueWrapper>
+      <InnerWrapper>
+        <PageTitle>{overviewData?.username} 님의 대시보드</PageTitle>
 
-            <div style={{ display: "flex", marginTop: "auto" }}>
-              <RateBadge rate={overviewData?.totalGainRate ?? 0} />
-            </div>
-          </TotalSubContentWrapper>
-          <TotalSubContentWrapper>
-            <Title>연 배당금</Title>
-            <ValueWrapper>
-              <Won>₩</Won>
-              <Value>
-                {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
-              </Value>
-            </ValueWrapper>
+        <ContentContainer>
+          <TotalMainContentWrapper>
+            <MainTitle>총 평가 금액</MainTitle>
+            <MainValueWrapper>
+              <MainWon>₩</MainWon>
+              <MainValue>
+                {thousandsDelimiter(overviewData?.totalValuation ?? 0)}
+              </MainValue>
+            </MainValueWrapper>
+          </TotalMainContentWrapper>
 
-            <div style={{ display: "flex", marginTop: "auto" }}>
-              <RateBadge
-                rate={overviewData?.totalAnnualDividendYield ?? 0}
-                iconStatus={false}
-                isDividend={true}
-              />
-            </div>
-          </TotalSubContentWrapper>
-        </SubContentContainer>
-      </ContentContainer>
+          <SubContentContainer>
+            <TotalSubContentWrapper>
+              <Title>총 투자 금액</Title>
+              <ValueWrapper>
+                <Won>₩</Won>
+                <Value>
+                  {thousandsDelimiter(overviewData?.totalInvestment ?? 0)}
+                </Value>
+              </ValueWrapper>
+            </TotalSubContentWrapper>
+            <TotalSubContentWrapper>
+              <Title>총 손익</Title>
+              <ValueWrapper>
+                <Won>₩</Won>
+                <Value>
+                  {thousandsDelimiter(overviewData?.totalGain ?? 0)}
+                </Value>
+              </ValueWrapper>
+              <TotalValueRate>↑{overviewData?.totalGainRate}%</TotalValueRate>
+            </TotalSubContentWrapper>
+            <TotalSubContentWrapper>
+              <Title>연 배당금</Title>
+              <ValueWrapper>
+                <Won>₩</Won>
+                <Value>
+                  {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
+                </Value>
+              </ValueWrapper>
+              <DividendsRate>
+                {overviewData?.totalAnnualDividendYield}%
+              </DividendsRate>
+            </TotalSubContentWrapper>
+          </SubContentContainer>
+        </ContentContainer>
+      </InnerWrapper>
     </StyledDashboardOverview>
   );
 }
@@ -66,45 +64,50 @@ export default function DashboardOverview() {
 const StyledDashboardOverview = styled.div`
   width: 100%;
   height: 316px;
+  padding: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
   gap: 24px;
-  padding: 48px 240px;
-  z-index: 1;
+  position: relative;
   background-color: ${({ theme: { color } }) => color.neutral.gray800};
-
   color: ${({ theme: { color } }) => color.neutral.white};
 `;
 
-const ContentContainer = styled.div`
-  display: flex;
+const InnerWrapper = styled.div`
   width: 100%;
-  justify-content: center;
+  max-width: 1440px;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+`;
+
+const ContentContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
 `;
 
 const PageTitle = styled.h1`
-  display: flex;
-  left: 0;
-  position: relative;
   width: 100%;
-  max-width: 1440px;
+  display: flex;
   font: ${({ theme: { font } }) => font.heading2};
   letter-spacing: -0.02em;
 `;
 
 const TotalMainContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: "flex-start";
-  align-items: center;
   width: 586px;
   height: 157px;
-  gap: 8px;
   padding-top: 24px;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
   color: ${({ theme: { color } }) => color.neutral.white};
 `;
 
@@ -134,29 +137,6 @@ const MainValue = styled.div`
   letter-spacing: -0.02em;
 `;
 
-const Title = styled.div`
-  font: ${({ theme: { font } }) => font.title4};
-  letter-spacing: -0.02em;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
-`;
-
-const ValueWrapper = styled.div`
-  display: flex;
-  gap: 4px;
-  align-items: center;
-`;
-
-const Won = styled.div`
-  font: ${({ theme: { font } }) => font.title2};
-  letter-spacing: -0.02em;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
-`;
-const Value = styled.div`
-  font: ${({ theme: { font } }) => font.title1};
-  letter-spacing: -0.02em;
-  line-height: 34px;
-`;
-
 const SubContentContainer = styled.div`
   display: flex;
   width: 830px;
@@ -181,4 +161,50 @@ const TotalSubContentWrapper = styled.div`
   flex: 1;
   gap: 8px;
   padding: 0 24px;
+`;
+
+const Title = styled.div`
+  font: ${({ theme: { font } }) => font.title4};
+  letter-spacing: -0.02em;
+  color: ${({ theme: { color } }) => color.neutral.gray400};
+`;
+
+const ValueWrapper = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`;
+
+const Won = styled.div`
+  font: ${({ theme: { font } }) => font.title2};
+  letter-spacing: -0.02em;
+  color: ${({ theme: { color } }) => color.neutral.gray600};
+`;
+
+const Value = styled.div`
+  font: ${({ theme: { font } }) => font.title1};
+  letter-spacing: -0.02em;
+  line-height: 34px;
+`;
+
+const ValueRate = styled.div`
+  max-width: fit-content;
+  height: 24px;
+  margin-top: auto;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  font: ${({ theme: { font } }) => font.title5};
+  letter-spacing: -0.02em;
+`;
+
+const TotalValueRate = styled(ValueRate)`
+  color: ${({ theme: { color } }) => color.state.green};
+  background-color: ${({ theme: { color } }) => color.state.green20};
+`;
+
+const DividendsRate = styled(ValueRate)`
+  color: ${({ theme: { color } }) => color.state.green};
+  background-color: ${({ theme: { color } }) => color.state.green20};
 `;

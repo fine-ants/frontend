@@ -28,10 +28,9 @@ const StyledBasePage = styled.div`
 
 const Main = styled.main`
   width: 100%;
-  height: 892px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-
   align-items: center;
-  position: relative;
+  flex-grow: 1;
 `;

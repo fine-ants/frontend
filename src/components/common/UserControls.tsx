@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CounterBadge from "./Badges/CounterBadge";
 
-const count = 9;
+// TODO: remove this
+const count = "9";
 
 export default function UserControls() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function UserControls() {
       <ControlButton>
         <img src={settings} alt="settings" />
       </ControlButton>
-      <ControlButton onClick={() => navigate("/profile/edit")}>
+      <ControlButton onClick={() => navigate("/profile")}>
         <img src={profileImage} alt="profile" />
       </ControlButton>
       <Button variant="text" onClick={onSignOut}>

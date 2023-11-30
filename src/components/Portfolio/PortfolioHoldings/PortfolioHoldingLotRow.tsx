@@ -1,6 +1,6 @@
-import { PurchaseHistoryField } from "@api/portfolio";
 import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseDeleteMutation";
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
+import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Button, Input, TableCell, TableRow } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";

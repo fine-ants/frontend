@@ -1,87 +1,21 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
+import {
+  Portfolio,
+  PortfolioPageCharts,
+  PortfolioReqBody,
+  PortfoliosList,
+} from "./types";
 
-export type PortfolioList = {
-  portfolios: PortfolioItem[];
-  hasNext: boolean;
-  nextCursor: string | null;
+export const getPortfoliosList = async () => {
+  const res = await fetcher.get<Response<PortfoliosList>>("/portfolios");
+  return res.data;
 };
 
-export type PortfolioItem = {
-  id: number;
-  securitiesFirm: string;
-  name: string;
-  budget: number;
-  totalGain: number;
-  totalGainRate: number;
-  dailyGain: number;
-  dailyGainRate: number;
-  expectedMonthlyDividend: number;
-  totalNumShares: number;
-};
-
-export type Portfolio = {
-  portfolioDetails: PortfolioDetails;
-  portfolioHoldings: PortfolioHolding[];
-};
-
-export type PortfolioDetails = {
-  id: number;
-  securitiesFirm: string;
-  name: string;
-  budget: number;
-  targetGain: number;
-  targetReturnRate: number;
-  maximumLoss: number;
-  maximumLossRate: number;
-  currentValuation: number;
-  investedAmount: number;
-  totalGain: number;
-  totalGainRate: number;
-  dailyGain: number;
-  dailyGainRate: number;
-  balance: number;
-  totalAnnualDividend: number;
-  totalAnnualDividendYield: number;
-  annualInvestmentDividendYield: number;
-  provisionalLossBalance: number;
-};
-
-export type PortfolioHolding = {
-  companyName: string;
-  tickerSymbol: string;
-  portfolioHoldingId: number;
-  currentValuation: number;
-  currentPrice: number;
-  averageCostPerShare: number;
-  numShares: number;
-  dailyChange: number;
-  dailyChangeRate: number;
-  totalGain: number;
-  totalReturnRate: number;
-  annualDividend: number;
-  annualDividendYield: number;
-  purchaseHistory: PurchaseHistoryField[];
-};
-
-export type PurchaseHistoryField = {
-  purchaseHistoryId: number;
-  purchaseDate: string;
-  numShares: number;
-  purchasePricePerShare: number;
-  memo: string | null;
-};
-
-export type PortfolioReqBody = {
-  name: string;
-  securitiesFirm: string;
-  budget: number;
-  targetGain: number;
-  maximumLoss: number;
-};
-
-export const getPortfolioList = async () => {
-  const res = await fetcher.get<Response<PortfolioList>>("/portfolios");
+export const getPortfolioCharts = async (portfolioId: number) => {
+  const res = await fetcher.get<Response<PortfolioPageCharts>>(
+    `/portfolios/${portfolioId}/charts`
+  );
   return res.data;
 };
 
@@ -115,7 +49,7 @@ export const putPortfolio = async ({
 };
 
 export const deletePortfolio = async (portfolioId: number) => {
-  const res = await fetcher.delete<Response<Portfolio>>(
+  const res = await fetcher.delete<Response<null>>(
     `/portfolios/${portfolioId}`
   );
   return res.data;

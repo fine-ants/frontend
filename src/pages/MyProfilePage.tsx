@@ -1,5 +1,6 @@
 import useText from "@components/hooks/useText";
 import { Button } from "@mui/material";
+import BasePage from "@pages/BasePage";
 import { validateNickname, validatePassword } from "@utils/authInputValidators";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
@@ -8,7 +9,7 @@ const SAMPLE_IMG = "https://avatars.githubusercontent.com/u/41321198?v=4";
 const EMPTY_IMG =
   "https://www.interakt.shop/wp-content/uploads/2023/01/blank_profile_img.webp";
 
-export default function ProfileEditPage() {
+export default function MyProfilePage() {
   // TODO : isNicknameChecked state를 이용해 닉네임 중복 체크 여부를 화면에 css color 또는 icon으로 표시
 
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
@@ -70,7 +71,7 @@ export default function ProfileEditPage() {
   };
 
   return (
-    <StyledProfileEditPage>
+    <BasePage>
       <Title>프로필</Title>
       <ProfileWrapper>
         <ProfileImg htmlFor="fileUploader" $profileImgUrl={profileImg} />
@@ -134,14 +135,9 @@ export default function ProfileEditPage() {
           </Button>
         </SubmitWrapper>
       </Form>
-    </StyledProfileEditPage>
+    </BasePage>
   );
 }
-const StyledProfileEditPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
 
 const Line = styled.hr`
   width: 100%;

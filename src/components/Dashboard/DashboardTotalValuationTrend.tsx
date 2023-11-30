@@ -17,6 +17,7 @@ export default function DashboardTotalValuationTrend() {
   const switchTimeRange = (index: number) => {
     setCurrentRangeIndex(index);
   };
+
   return (
     <StyledDashboardTotalValuationTrend
       $isTotalValuationDataEmpty={isTotalValuationDataEmpty}>
@@ -64,29 +65,29 @@ export default function DashboardTotalValuationTrend() {
 const StyledDashboardTotalValuationTrend = styled.div<{
   $isTotalValuationDataEmpty: boolean;
 }>`
-  width: 708px;
+  width: 50%;
   height: 480px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
   background-color: #ffffff;
   border: ${({ $isTotalValuationDataEmpty, theme: { color } }) =>
     $isTotalValuationDataEmpty
       ? `1px dashed ${color.neutral.gray100}`
       : "none"};
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  gap: 24px;
-  padding: 32px 24px;
 `;
 
 const EmptyLineChartMessage = styled.div`
   width: 100%;
   height: 363px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px dashed ${({ theme: { color } }) => color.primary.blue100};
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const MessageBox = styled.div`
@@ -134,7 +135,7 @@ const TooltipRemover = styled.div`
   height: 20px;
   position: absolute;
   z-index: 1000;
-  top: 10px;
+  top: 11px;
   left: 10px;
   background-color: ${({ theme: { color } }) => color.neutral.white};
 `;
