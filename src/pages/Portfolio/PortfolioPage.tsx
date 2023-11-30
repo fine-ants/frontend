@@ -1,19 +1,18 @@
 import useStompSubscription from "@api/hooks/useStompSubWithRQ";
-import { Portfolio } from "@api/portfolio";
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
+import { Portfolio } from "@api/portfolio/types";
 import plusIcon from "@assets/icons/plus.svg";
-import DividendBarChart from "@components/Portfolio/DividendBarChart";
-import HoldingsPieChart from "@components/Portfolio/HoldingsPieChart";
 import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
-import SectorBar from "@components/Portfolio/SectorBar";
 import { BASE_API_URL_WS } from "@constants/config";
 import { Box, Button, Typography } from "@mui/material";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import BasePage from "./BasePage";
+import ChartsPanel from "../../components/Portfolio/Charts/ChartsPanel";
+import ChartsPanelSkeleton from "../../components/Portfolio/Charts/skeletons/ChartsPanelSkeleton";
+import BasePage from "../BasePage";
 
 export default function PortfolioPage() {
   const { id } = useParams();
@@ -48,12 +47,12 @@ export default function PortfolioPage() {
     setIsAddHoldingDialogOpen(true);
   };
 
-  // TODO: Handle loading
+  // TODO: Change to Suspense fallback component
   if (isPortfolioDetailsLoading) {
     return <div>Loading</div>;
   }
 
-  // TODO: Handle error
+  // TODO: Change to Error Boundary
   if (!portfolio) {
     return <div>Error</div>;
   }
@@ -61,13 +60,11 @@ export default function PortfolioPage() {
   const { portfolioDetails, portfolioHoldings } = portfolio;
 
   return (
-    <StyledPortfolioPage>
-      <main style={{ display: "flex", padding: "40px 150px", gap: "32px" }}>
-        <LeftPanel>
-          <HoldingsPieChart data={portfolioHoldings} />
-          <DividendBarChart />
-          <SectorBar />
-        </LeftPanel>
+    <BasePage>
+      <Container>
+        <Suspense fallback={<ChartsPanelSkeleton />}>
+          <ChartsPanel portfolioId={Number(id)} />
+        </Suspense>
 
         <RightPanel>
           <PortfolioOverviewContainer>
@@ -96,23 +93,21 @@ export default function PortfolioPage() {
             />
           </PortfolioHoldingsContainer>
         </RightPanel>
-      </main>
+      </Container>
 
       <PortfolioHoldingAddDialog
         portfolioId={Number(id)}
         isOpen={isAddHoldingDialogOpen}
         onClose={() => setIsAddHoldingDialogOpen(false)}
       />
-    </StyledPortfolioPage>
+    </BasePage>
   );
 }
 
-const StyledPortfolioPage = styled(BasePage)``;
-
-const LeftPanel = styled.div`
+const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  padding: 40px 150px;
+  gap: 32px;
 `;
 
 const RightPanel = styled.div`

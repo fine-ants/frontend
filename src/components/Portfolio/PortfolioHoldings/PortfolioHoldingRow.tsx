@@ -1,5 +1,5 @@
-import { PortfolioHolding } from "@api/portfolio";
 import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
+import { PortfolioHolding } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-type Props = {
+export type Props = {
   color: string;
   title: string;
   percent: number;
 };
 
-export default function LegendItem({ color, title, percent }: Props) {
+export default function PieChartLegendItem({ color, title, percent }: Props) {
   return (
     <StyledLegendItem>
       <TitleWrapper>

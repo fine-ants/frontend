@@ -1,5 +1,5 @@
-import { PortfolioDetails } from "@api/portfolio";
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
+import { PortfolioDetails } from "@api/portfolio/types";
 import tossLogo from "@assets/images/Toss_Symbol_Primary.png";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
