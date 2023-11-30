@@ -89,7 +89,7 @@ export default function SignInPage() {
   const isAllFieldsFilled = !!email && !emailError && !!password;
 
   return (
-    <StyledSignInPage>
+    <BasePage>
       <SignInContainer>
         <h2>로그인</h2>
 
@@ -128,11 +128,9 @@ export default function SignInPage() {
           회원가입
         </SignUpButton>
       </SignInContainer>
-    </StyledSignInPage>
+    </BasePage>
   );
 }
-
-const StyledSignInPage = styled(BasePage)``;
 
 const SignInContainer = styled.div`
   display: flex;

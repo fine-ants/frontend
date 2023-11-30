@@ -71,7 +71,7 @@ export default function MyProfilePage() {
   };
 
   return (
-    <StyledProfileEditPage>
+    <BasePage>
       <Title>프로필</Title>
       <ProfileWrapper>
         <ProfileImg htmlFor="fileUploader" $profileImgUrl={profileImg} />
@@ -135,14 +135,9 @@ export default function MyProfilePage() {
           </Button>
         </SubmitWrapper>
       </Form>
-    </StyledProfileEditPage>
+    </BasePage>
   );
 }
-const StyledProfileEditPage = styled(BasePage)`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
 
 const Line = styled.hr`
   width: 100%;

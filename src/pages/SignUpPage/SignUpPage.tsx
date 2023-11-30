@@ -32,7 +32,7 @@ export default function SignUpPage() {
   const { mutate: signUpMutate } = useSignUpMutation();
 
   return (
-    <StyledSignUpPage>
+    <BasePage>
       <SignUpContainer>
         <SignUpTitle>회원가입</SignUpTitle>
 
@@ -96,12 +96,9 @@ export default function SignUpPage() {
           </Funnel>
         </SubPageContainer>
       </SignUpContainer>
-    </StyledSignUpPage>
+    </BasePage>
   );
 }
-
-// TODO
-const StyledSignUpPage = styled(BasePage)``;
 
 const SignUpTitle = styled.h2`
   font-size: 42px;
