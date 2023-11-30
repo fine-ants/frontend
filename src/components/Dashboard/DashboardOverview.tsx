@@ -1,4 +1,5 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
+import RateBadge from "@components/common/Badges/RateBadge";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import styled from "styled-components";
 
