@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
+//TODO : MUI 적용
+
+type VariantType = "primary" | "secondary" | "tertiary";
+
 type Props = {
-  variant: "primary" | "secondary" | "tertiary";
+  variant: VariantType;
   height: "S" | "M";
   disabled?: boolean;
   onClick?: () => void;
@@ -15,34 +19,61 @@ export default function Button({
   onClick,
   children,
 }: Props) {
-  switch (variant) {
-    case "primary":
-      return (
-        <PrimaryButton $height={height} $disabled={disabled} onClick={onClick}>
-          {children}
-        </PrimaryButton>
-      );
-    case "secondary":
-      return (
-        <SecondaryButton
-          $height={height}
-          $disabled={disabled}
-          onClick={onClick}>
-          {children}
-        </SecondaryButton>
-      );
-    case "tertiary":
-      return (
-        <TertiaryButton $height={height} $disabled={disabled} onClick={onClick}>
-          {children}
-        </TertiaryButton>
-      );
-    default:
-      throw new Error("버튼 타입이 잘못되었습니다.");
-  }
+  return (
+    <StyledButton
+      $variant={variant}
+      $height={height}
+      $disabled={disabled}
+      onClick={onClick}>
+      {children}
+    </StyledButton>
+  );
 }
 
-const BaseButton = styled.button<{ $height: string; $disabled?: boolean }>`
+const StyledButton = styled.button<{
+  $variant: VariantType;
+  $height: string;
+  $disabled?: boolean;
+}>`
+  color: ${({ theme: { color }, $variant, $disabled }) => {
+    switch ($variant) {
+      case "primary":
+        return $disabled ? color.primary.blue200 : color.neutral.white;
+      case "secondary":
+        return $disabled ? color.primary.blue200 : color.primary.blue500;
+      case "tertiary":
+        return $disabled ? color.neutral.gray400 : color.neutral.gray600;
+      default:
+        throw new Error("버튼 타입이 잘못되었습니다.");
+    }
+  }};
+
+  background-color: ${({ theme: { color }, $variant, $disabled }) => {
+    switch ($variant) {
+      case "primary":
+        return $disabled ? color.primary.blue200 : color.primary.blue500;
+      case "secondary":
+        return $disabled ? color.primary.blue50008 : color.neutral.white;
+      case "tertiary":
+        return $disabled ? color.neutral.gray50 : color.neutral.white;
+      default:
+        throw new Error("버튼 타입이 잘못되었습니다.");
+    }
+  }};
+
+  border: ${({ theme: { color }, $variant }) => {
+    switch ($variant) {
+      case "primary":
+        return `1px solid ${color.primary.blue500}`;
+      case "secondary":
+        return `1px solid ${color.primary.blue500}`;
+      case "tertiary":
+        return `1px solid ${color.neutral.gray600}`;
+      default:
+        throw new Error("버튼 타입이 잘못되었습니다.");
+    }
+  }};
+
   min-width: ${({ $height }) => ($height === "S" ? "80px" : "128px")};
   height: ${({ $height }) => $height}px;
   padding: ${({ $height }) => ($height === "S" ? "0 12px" : "0 16px")};
@@ -50,40 +81,19 @@ const BaseButton = styled.button<{ $height: string; $disabled?: boolean }>`
     $height === "S" ? font.button2 : font.button1};
   border-radius: ${({ $height }) => ($height === "S" ? "3px" : "4px")};
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
-`;
-
-const PrimaryButton = styled(BaseButton)`
-  color: ${({ theme: { color } }) => color.neutral.white};
-  background-color: ${({ theme: { color }, $disabled }) =>
-    $disabled ? color.primary.blue200 : color.primary.blue500};
 
   &:hover {
-    background-color: ${({ theme: { color }, $disabled }) =>
-      $disabled ? color.primary.blue200 : color.primary.blue700};
-  }
-`;
-
-const SecondaryButton = styled(BaseButton)`
-  color: ${({ theme: { color }, $disabled }) =>
-    $disabled ? color.primary.blue200 : color.primary.blue500};
-  border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
-  background-color: ${({ theme: { color }, $disabled }) =>
-    $disabled ? color.primary.blue50008 : color.neutral.white};
-
-  &:hover {
-    background-color: ${({ theme: { color } }) => color.primary.blue50008}
-`;
-
-const TertiaryButton = styled(BaseButton)`
-  color: ${({ theme: { color }, $disabled }) =>
-    $disabled ? color.neutral.gray400 : color.neutral.gray600};
-  border: 1px solid
-    ${({ theme: { color }, $disabled }) =>
-      $disabled ? color.neutral.gray400 : color.neutral.gray600};
-  background-color: ${({ theme: { color }, $disabled }) =>
-    $disabled ? color.neutral.gray50 : color.neutral.white};
-
-  &:hover {
-    background-color: ${({ theme: { color } }) => color.neutral.gray50};
+    background-color: ${({ theme: { color }, $variant, $disabled }) => {
+      switch ($variant) {
+        case "primary":
+          return $disabled ? color.primary.blue200 : color.primary.blue700;
+        case "secondary":
+          return color.primary.blue50008;
+        case "tertiary":
+          return color.neutral.gray50;
+        default:
+          throw new Error("버튼 타입이 잘못되었습니다.");
+      }
+    }};
   }
 `;

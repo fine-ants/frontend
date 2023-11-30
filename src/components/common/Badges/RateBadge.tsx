@@ -16,51 +16,9 @@ export default function RateBadge({
   bgColorStatus = true,
   iconStatus = true,
   // TODO: 배당금 조건이 UI 데이터로 사용되지않는 방향으로
+  // TODO: 숫자 + 나오는 로직 추가
   isDividend = false,
 }: Props) {
-  const getColor = (value: number, isDividendRate: boolean) => {
-    // 배당금일시 바로 오렌지 색 리턴
-    if (isDividendRate) {
-      return {
-        color: designSystem.color.state.orange,
-        bgColor: designSystem.color.state.orange16,
-      };
-    }
-
-    // 배당금이 아닌 경우 상승 하락에 따른 색깔 리턴
-    if (value > 0) {
-      return {
-        color: designSystem.color.state.green,
-        bgColor: designSystem.color.state.green16,
-      };
-    } else if (value === 0) {
-      return {
-        color: designSystem.color.neutral.gray400,
-        bgColor: designSystem.color.neutral.gray40016,
-      };
-    } else if (value < 0) {
-      return {
-        color: designSystem.color.state.red,
-        bgColor: designSystem.color.state.red16,
-      };
-    } else {
-      return {
-        color: designSystem.color.neutral.gray400,
-        bgColor: designSystem.color.neutral.gray40016,
-      };
-    }
-  };
-
-  const getIconSrc = (value: number) => {
-    if (value > 0) {
-      return upIcon;
-    } else if (value < 0) {
-      return downIcon;
-    } else {
-      return noneIcon;
-    }
-  };
-
   return (
     <StyledRateBadge
       $color={getColor(rate, isDividend)}
@@ -87,3 +45,40 @@ const StyledRateBadge = styled.div<{
   border-radius: 4px;
   padding: 3.5px 4px;
 `;
+
+const getColor = (value: number, isDividendRate: boolean) => {
+  // 배당금일시 바로 오렌지 색 리턴
+  if (isDividendRate) {
+    return {
+      color: designSystem.color.state.orange,
+      bgColor: designSystem.color.state.orange16,
+    };
+  }
+
+  // 배당금이 아닌 경우 상승 하락에 따른 색깔 리턴
+  if (value > 0) {
+    return {
+      color: designSystem.color.state.green,
+      bgColor: designSystem.color.state.green16,
+    };
+  } else if (value === 0) {
+    return {
+      color: designSystem.color.neutral.gray400,
+      bgColor: designSystem.color.neutral.gray40016,
+    };
+  } else if (value < 0) {
+    return {
+      color: designSystem.color.state.red,
+      bgColor: designSystem.color.state.red16,
+    };
+  } else {
+    return {
+      color: designSystem.color.neutral.gray400,
+      bgColor: designSystem.color.neutral.gray40016,
+    };
+  }
+};
+
+const getIconSrc = (value: number) => {
+  return value > 0 ? upIcon : value < 0 ? downIcon : noneIcon;
+};
