@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type Props = {
   variant: "primary" | "secondary" | "tertiary";
-  height: 32 | 44;
+  height: "S" | "M";
   disabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
@@ -42,13 +42,13 @@ export default function Button({
   }
 }
 
-const BaseButton = styled.button<{ $height: number; $disabled?: boolean }>`
-  min-width: ${({ $height }) => ($height === 32 ? "80px" : "128px")};
+const BaseButton = styled.button<{ $height: string; $disabled?: boolean }>`
+  min-width: ${({ $height }) => ($height === "S" ? "80px" : "128px")};
   height: ${({ $height }) => $height}px;
-  padding: ${({ $height }) => ($height === 32 ? "0 12px" : "0 16px")};
+  padding: ${({ $height }) => ($height === "S" ? "0 12px" : "0 16px")};
   font: ${({ $height, theme: { font } }) =>
-    $height === 32 ? font.button2 : font.button1};
-  border-radius: ${({ $height }) => ($height === 32 ? "3px" : "4px")};
+    $height === "S" ? font.button2 : font.button1};
+  border-radius: ${({ $height }) => ($height === "S" ? "3px" : "4px")};
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
 `;
 

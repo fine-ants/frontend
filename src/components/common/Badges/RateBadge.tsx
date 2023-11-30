@@ -15,6 +15,7 @@ export default function RateBadge({
   rate,
   bgColorStatus = true,
   iconStatus = true,
+  // TODO: 배당금 조건이 UI 데이터로 사용되지않는 방향으로
   isDividend = false,
 }: Props) {
   const getColor = (value: number, isDividendRate: boolean) => {
@@ -53,8 +54,6 @@ export default function RateBadge({
   const getIconSrc = (value: number) => {
     if (value > 0) {
       return upIcon;
-    } else if (value === 0) {
-      return noneIcon;
     } else if (value < 0) {
       return downIcon;
     } else {
@@ -66,8 +65,8 @@ export default function RateBadge({
     <StyledRateBadge
       $color={getColor(rate, isDividend)}
       $bgColorStatus={bgColorStatus}>
-      {iconStatus ? <img src={getIconSrc(rate)} alt="rateStatus" /> : null}
-      {rate}%
+      {iconStatus && <img src={getIconSrc(rate)} alt="rateStatus" />}
+      <span>{rate}%</span>
     </StyledRateBadge>
   );
 }

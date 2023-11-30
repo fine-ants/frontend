@@ -41,10 +41,6 @@ const StyledCounterBadge = styled.div<{ $numLength: number }>`
     switch ($numLength) {
       case 1:
         return 50;
-      case 2:
-        return 8;
-      case 3:
-        return 8;
       default:
         return 8;
     }
