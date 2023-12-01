@@ -16,7 +16,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
   const eventSourceRef = useRef<EventSourcePolyfill>();
 
-  const init = useCallback(() => {
+  const initEventSource = useCallback(() => {
     eventSourceRef.current = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -26,7 +26,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
   useEffect(() => {
     if (!eventSourceRef.current) {
-      init();
+      initEventSource();
       return;
     }
 
@@ -46,6 +46,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
       setIsError(true);
       eventSourceRef.current?.close();
     };
+
     eventSourceRef.current.addEventListener(eventTypeName, eventListener);
     eventSourceRef.current?.addEventListener("complete", completeListener);
 
@@ -54,7 +55,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
       eventSourceRef.current?.removeEventListener("complete", completeListener);
       eventSourceRef.current?.close();
     };
-  }, [accessToken, eventTypeName, url, init]);
+  }, [accessToken, eventTypeName, url, initEventSource]);
 
   const reconnect = () => {
     if (eventSourceRef.current) {
@@ -63,7 +64,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
     setIsError(false);
     setIsLoading(true);
-    init();
+    initEventSource();
   };
 
   return { data, isLoading, isError, reconnect };
