@@ -24,22 +24,32 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     const eventListener: EventListener = (event) => {
       const messageEvent = event as MessageEvent;
       const data = JSON.parse(messageEvent.data);
-      /* eslint-disable no-console */
-      console.log(data);
+
       setData(data);
       setIsLoading(false);
     };
 
+    const completeListener: EventListener = () => {
+      eventSource.close();
+    };
+
     eventSource.onerror = (event) => {
-      /* eslint-disable no-console */
-      console.log(event);
-      setIsError(true);
-      setIsLoading(false);
+      const state = event.target.readyState;
+
+      // state = 0 응답받던중 에러 발생
+      // state = 1 정상 처리후 다시 응답받기
+      // state = 2 SSE 연결 실패
+      if (state !== 1) {
+        setIsError(true);
+        setIsLoading(false);
+      }
     };
     eventSource.addEventListener(eventTypeName, eventListener);
+    eventSource.addEventListener("complete", completeListener);
 
     return () => {
       eventSource.removeEventListener(eventTypeName, eventListener);
+      eventSource.removeEventListener("complete", completeListener);
       eventSource.close();
     };
   }, [accessToken, eventTypeName, url]);
