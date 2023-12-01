@@ -1,6 +1,6 @@
 import { BASE_API_URL } from "@constants/config";
 import { EventListener, EventSourcePolyfill } from "event-source-polyfill";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
   url: string;
@@ -14,12 +14,21 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    const eventSource = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
+  const eventSourceRef = useRef<EventSourcePolyfill>();
+
+  const init = useCallback(() => {
+    eventSourceRef.current = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+  }, [url, accessToken]);
+
+  useEffect(() => {
+    if (!eventSourceRef.current) {
+      init();
+      return;
+    }
 
     const eventListener: EventListener = (event) => {
       const messageEvent = event as MessageEvent;
@@ -30,29 +39,32 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     };
 
     const completeListener: EventListener = () => {
-      eventSource.close();
+      eventSourceRef.current?.close();
     };
 
-    eventSource.onerror = (event) => {
-      const state = event.target.readyState;
-
-      // state = 0 응답받던중 에러 발생
-      // state = 1 정상 처리후 다시 응답받기
-      // state = 2 SSE 연결 실패
-      if (state !== 1) {
-        setIsError(true);
-        setIsLoading(false);
-      }
+    eventSourceRef.current.onerror = () => {
+      setIsError(true);
+      eventSourceRef.current?.close();
     };
-    eventSource.addEventListener(eventTypeName, eventListener);
-    eventSource.addEventListener("complete", completeListener);
+    eventSourceRef.current.addEventListener(eventTypeName, eventListener);
+    eventSourceRef.current?.addEventListener("complete", completeListener);
 
     return () => {
-      eventSource.removeEventListener(eventTypeName, eventListener);
-      eventSource.removeEventListener("complete", completeListener);
-      eventSource.close();
+      eventSourceRef.current?.removeEventListener(eventTypeName, eventListener);
+      eventSourceRef.current?.removeEventListener("complete", completeListener);
+      eventSourceRef.current?.close();
     };
-  }, [accessToken, eventTypeName, url]);
+  }, [accessToken, eventTypeName, url, init]);
 
-  return { data, isLoading, isError };
+  const reconnect = () => {
+    if (eventSourceRef.current) {
+      eventSourceRef.current?.close();
+    }
+
+    setIsError(false);
+    setIsLoading(true);
+    init();
+  };
+
+  return { data, isLoading, isError, reconnect };
 }
