@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CounterBadge from "./Badges/CounterBadge";
 
-// TODO: remove this
-const count = "9";
+// TODO: API 만든 후에 remove this
+const count = 10;
 
 export default function UserControls() {
   const navigate = useNavigate();

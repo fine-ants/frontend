@@ -5,9 +5,10 @@ type Props = {
 };
 
 export default function CounterBadge({ count }: Props) {
+  const displayCount = count >= 100 ? "99+" : count;
   return (
     <StyledCounterBadge $numLength={String(count).length}>
-      {count}
+      {displayCount}
     </StyledCounterBadge>
   );
 }
