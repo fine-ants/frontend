@@ -63,12 +63,6 @@ export default function Header() {
   return (
     <>
       <StyledHeader>
-        {isPortfolioAddDialogOpen && (
-          <PortfolioAddDialog
-            isOpen={isPortfolioAddDialogOpen}
-            onClose={() => setIsPortfolioAddDialogOpen(false)}
-          />
-        )}
         <HeaderTop>
           <HeaderLeft>
             <StyledBrandIdentity onClick={() => navigate("/dashboard")}>
@@ -120,7 +114,15 @@ export default function Header() {
             )}
           </HeaderRight>
         </HeaderTop>
+
         <TVTickerTapeWidget />
+
+        {isPortfolioAddDialogOpen && (
+          <PortfolioAddDialog
+            isOpen={isPortfolioAddDialogOpen}
+            onClose={() => setIsPortfolioAddDialogOpen(false)}
+          />
+        )}
       </StyledHeader>
     </>
   );
