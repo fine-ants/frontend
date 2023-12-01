@@ -1,3 +1,5 @@
+import { PieChartData } from "@components/common/PieChart/PieChart";
+
 export type PortfoliosList = {
   portfolios: PortfolioItem[];
   hasNext: boolean;
@@ -80,15 +82,6 @@ export type PortfolioReqBody = {
   maximumLoss: number;
 };
 
-export type PortfolioHoldingsPieChartItem = {
-  name: string;
-  valuation: number;
-  fill: string;
-  weight: number;
-  totalGain: number;
-  totalGainRate: number;
-};
-
 export type PortfolioHoldingsDividendChartItem = {
   month: number;
   amount: number;
@@ -100,7 +93,7 @@ export type PortfolioHoldingsSectorBarItem = {
 };
 
 export type PortfolioPageCharts = {
-  pieChart: PortfolioHoldingsPieChartItem[];
+  pieChart: PieChartData[];
   dividendChart: PortfolioHoldingsDividendChartItem[];
   sectorChart: PortfolioHoldingsSectorBarItem[];
 };
