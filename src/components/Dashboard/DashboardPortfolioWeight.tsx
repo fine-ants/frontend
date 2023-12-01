@@ -3,8 +3,8 @@ import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import PieChartLegend from "@components/common/PieChart/PieChartLegend";
 import { Suspense, useState } from "react";
 import styled from "styled-components";
+import PieChart from "../common/PieChart/PieChart";
 import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
-import PortfolioWeightPieChart from "./PortfolioWeightPieChart/PortfolioWeightPieChart";
 
 export default function DashboardPortfolioWeight() {
   const { data: pieData } = useDashboardPieChartQuery();
@@ -32,9 +32,10 @@ export default function DashboardPortfolioWeight() {
       {/* TODO: Suspense fallback component */}
       <Suspense fallback={<div>로딩중</div>}>
         <div style={{ display: "flex", gap: "24px" }}>
-          <PortfolioWeightPieChart
+          <PieChart
             width={320}
             height={320}
+            hoverGap={16}
             pieData={pieData ?? []}
           />
           {pieData && pieData.length > 0 ? (
