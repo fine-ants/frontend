@@ -40,7 +40,9 @@ export default function DashboardOverview() {
                   {thousandsDelimiter(overviewData?.totalGain ?? 0)}
                 </Value>
               </ValueWrapper>
-              <TotalValueRate>↑{overviewData?.totalGainRate}%</TotalValueRate>
+              <RateBadgeWrapper>
+                <RateBadge rate={overviewData?.totalGainRate ?? 0} />
+              </RateBadgeWrapper>
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <Title>연 배당금</Title>
@@ -50,9 +52,13 @@ export default function DashboardOverview() {
                   {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
                 </Value>
               </ValueWrapper>
-              <DividendsRate>
-                {overviewData?.totalAnnualDividendYield}%
-              </DividendsRate>
+              <RateBadgeWrapper>
+                <RateBadge
+                  rate={overviewData?.totalAnnualDividendYield ?? 0}
+                  iconStatus={false}
+                  isDividend={true}
+                />
+              </RateBadgeWrapper>
             </TotalSubContentWrapper>
           </SubContentContainer>
         </ContentContainer>
@@ -175,6 +181,11 @@ const ValueWrapper = styled.div`
   align-items: center;
 `;
 
+const RateBadgeWrapper = styled.div`
+  display: flex;
+  margin-top: auto;
+`;
+
 const Won = styled.div`
   font: ${({ theme: { font } }) => font.title2};
   letter-spacing: -0.02em;
@@ -185,26 +196,4 @@ const Value = styled.div`
   font: ${({ theme: { font } }) => font.title1};
   letter-spacing: -0.02em;
   line-height: 34px;
-`;
-
-const ValueRate = styled.div`
-  max-width: fit-content;
-  height: 24px;
-  margin-top: auto;
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
-`;
-
-const TotalValueRate = styled(ValueRate)`
-  color: ${({ theme: { color } }) => color.state.green};
-  background-color: ${({ theme: { color } }) => color.state.green20};
-`;
-
-const DividendsRate = styled(ValueRate)`
-  color: ${({ theme: { color } }) => color.state.green};
-  background-color: ${({ theme: { color } }) => color.state.green20};
 `;
