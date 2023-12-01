@@ -40,9 +40,7 @@ export default function DashboardOverview() {
                   {thousandsDelimiter(overviewData?.totalGain ?? 0)}
                 </Value>
               </ValueWrapper>
-              <RateBadgeWrapper>
-                <RateBadge rate={overviewData?.totalGainRate ?? 0} />
-              </RateBadgeWrapper>
+              <RateBadge rate={overviewData?.totalGainRate ?? 0} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <Title>연 배당금</Title>
@@ -52,13 +50,11 @@ export default function DashboardOverview() {
                   {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
                 </Value>
               </ValueWrapper>
-              <RateBadgeWrapper>
-                <RateBadge
-                  rate={overviewData?.totalAnnualDividendYield ?? 0}
-                  iconStatus={false}
-                  isDividend={true}
-                />
-              </RateBadgeWrapper>
+              <RateBadge
+                rate={overviewData?.totalAnnualDividendYield ?? 0}
+                iconStatus={false}
+                isDividend={true}
+              />
             </TotalSubContentWrapper>
           </SubContentContainer>
         </ContentContainer>
@@ -179,11 +175,6 @@ const ValueWrapper = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
-`;
-
-const RateBadgeWrapper = styled.div`
-  display: flex;
-  margin-top: auto;
 `;
 
 const Won = styled.div`

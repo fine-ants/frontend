@@ -130,7 +130,6 @@ const renderActiveShape = (props: any) => {
           cx={cx}
           cy={cy}
           innerRadius={innerRadius}
-          // outerRadius={outerRadius + 16}
           outerRadius={width / 2}
           startAngle={startAngle}
           endAngle={endAngle}

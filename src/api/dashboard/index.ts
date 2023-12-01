@@ -9,7 +9,7 @@ export const getDashboardOverview = async () => {
   return res.data;
 };
 
-export const getPortfolioPieChart = async () => {
+export const getPortfoliosWeightPieChart = async () => {
   const res = await fetcher.get<Response<PieChartData[]>>(
     "/dashboard/pieChart"
   );
