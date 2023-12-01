@@ -20,14 +20,21 @@ export default function RateBadge({
   isDividend = false,
 }: Props) {
   return (
-    <StyledRateBadge
-      $color={getColor(rate, isDividend)}
-      $bgColorStatus={bgColorStatus}>
-      {iconStatus && <img src={getIconSrc(rate)} alt="rateStatus" />}
-      <span>{rate}%</span>
-    </StyledRateBadge>
+    <RateBadgeWrapper>
+      <StyledRateBadge
+        $color={getColor(rate, isDividend)}
+        $bgColorStatus={bgColorStatus}>
+        {iconStatus && <img src={getIconSrc(rate)} alt="rateStatus" />}
+        <span>{rate}%</span>
+      </StyledRateBadge>
+    </RateBadgeWrapper>
   );
 }
+
+const RateBadgeWrapper = styled.div`
+  display: flex;
+  margin-top: auto;
+`;
 
 const StyledRateBadge = styled.div<{
   $color: { color: string; bgColor: string };
