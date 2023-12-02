@@ -1,4 +1,5 @@
 import { PieChartData } from "@components/common/PieChart/PieChart";
+import { SecuritiesFirm } from "@styles/securitiesFirmLogos";
 
 export type PortfoliosList = {
   portfolios: PortfolioItem[];
@@ -8,8 +9,9 @@ export type PortfoliosList = {
 
 export type PortfolioItem = {
   id: number;
-  securitiesFirm: string;
+  securitiesFirm: SecuritiesFirm;
   name: string;
+  currentValuation: number;
   budget: number;
   totalGain: number;
   totalGainRate: number;
@@ -17,6 +19,7 @@ export type PortfolioItem = {
   dailyGainRate: number;
   expectedMonthlyDividend: number;
   numShares: number;
+  dateCreated: string;
 };
 
 // TODO: 정리 필요
