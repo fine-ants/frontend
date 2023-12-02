@@ -3,8 +3,6 @@ import { SecuritiesFirm } from "@styles/securitiesFirmLogos";
 
 export type PortfoliosList = {
   portfolios: PortfolioItem[];
-  hasNext: boolean;
-  nextCursor: string | null;
 };
 
 export type PortfolioItem = {

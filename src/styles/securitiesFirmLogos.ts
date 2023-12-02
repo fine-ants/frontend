@@ -58,6 +58,7 @@ const securitiesFirmLogos = {
   sk,
   toss,
   yuanta,
+  undefined: "FA", // TODO: Change to FineAnts Logo
 };
 
 export default securitiesFirmLogos;
