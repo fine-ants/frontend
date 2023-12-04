@@ -13,7 +13,7 @@ import { NavBar } from "../NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
 import UserControls from "../common/UserControls";
-import Dropdown from "./Dropdown";
+import { PortfoliosDropdown } from "./PortfoliosDropdown";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -76,26 +76,10 @@ export default function Header() {
               FineAnts
             </StyledBrandIdentity>
             <NavBar style={navBarStyles}>
-              <Dropdown>
-                <Dropdown.Toggle>Portfolios</Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {portfolioDropdownItems?.map((item) => (
-                    <Dropdown.Item key={item.name} item={item} />
-                  ))}
-                  <Dropdown.Item
-                    item={{
-                      name: "포트폴리오로 이동",
-                      onClick: () => navigate("/portfolios"),
-                    }}
-                  />
-                  <Dropdown.Item
-                    item={{
-                      name: "포트폴리오 추가",
-                      onClick: onPortfolioAddClick,
-                    }}
-                  />
-                </Dropdown.Menu>
-              </Dropdown>
+              <PortfoliosDropdown
+                portfolioDropdownItems={portfolioDropdownItems}
+                onPortfolioAddClick={onPortfolioAddClick}
+              />
               {navItems.map((item) => (
                 <NavBar.NavItem
                   key={item.name}
