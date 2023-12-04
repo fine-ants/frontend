@@ -23,7 +23,9 @@ export type SignInData = {
 };
 
 export type SignUpData = {
+  [key: string]: string | File | null;
   nickname: string;
+  profileImage: File | null;
   email: string;
   password: string;
   passwordConfirm: string;
@@ -36,8 +38,12 @@ type AccessTokenData = {
   accessToken: string;
 };
 
-export const postSignUp = async (body: SignUpData) => {
-  const res = await fetcher.post<Response<null>>("/auth/signup", body);
+export const postSignUp = async (body: FormData) => {
+  const res = await fetcher.post<Response<null>>("/auth/signup", body, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return res.data;
 };
 

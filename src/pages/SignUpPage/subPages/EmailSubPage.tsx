@@ -5,7 +5,7 @@ import { validateEmail } from "@utils/authInputValidators";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
+import SubPage from "./SubPage";
 
 type Props = {
   onPrev: () => void;
@@ -53,7 +53,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
 
       <label htmlFor="emailInput">이메일</label>
       <InputWrapper>
-        <EmailInput
+        <SignUpInput
           type="text"
           placeholder="이메일"
           id="emailInput"
@@ -81,7 +81,19 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   );
 }
 
-const EmailInput = styled(SignUpInput)``;
+const SignUpInput = styled.input`
+  font-size: 16px;
+  padding: 16px;
+  height: 48px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #dedee0;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 
 const UniqueCheckButton = styled.button`
   width: 120px;
