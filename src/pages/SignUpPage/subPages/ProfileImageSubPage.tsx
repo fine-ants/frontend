@@ -9,7 +9,7 @@ type Props = {
 
 export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
   const {
-    image: profileImage,
+    imageUrl: profileImageUrl,
     imageFile: profileImageFile,
     error: imageFileError,
     onChange: onProfilePictureChange,
@@ -21,16 +21,17 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
         이전 단계
       </button>
       <ImageInputWrapper>
-        {profileImage && <ProfileImage src={profileImage} alt="profile" />}
+        {profileImageUrl && (
+          <ProfileImage src={profileImageUrl} alt="profile" />
+        )}
         <ImageInput
           type="file"
           accept="image/*"
           onChange={onProfilePictureChange}
         />
       </ImageInputWrapper>
-      <div>이미지에요</div>
 
-      <Caption>영문/한글/숫자 (2~10자)</Caption>
+      <Caption>2MB 이하의 이미지 파일</Caption>
 
       <ErrorCaption>{imageFileError}</ErrorCaption>
 
