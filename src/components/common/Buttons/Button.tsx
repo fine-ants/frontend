@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-type Variant = "primary" | "secondary" | "tertiary";
+type Variant = "primary" | "secondary" | "tertiary" | "text";
 
 type Props = {
   variant: Variant;
@@ -48,6 +48,8 @@ const StyledButton = styled.button<{
         return $disabled ? color.primary.blue50 : color.neutral.white;
       case "tertiary":
         return $disabled ? color.neutral.gray50 : color.neutral.white;
+      case "text":
+        return "inherit";
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
@@ -65,6 +67,8 @@ const StyledButton = styled.button<{
         return $disabled
           ? `1px solid ${color.neutral.gray400}`
           : `1px solid ${color.neutral.gray600}`;
+      case "text":
+        return "none";
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
@@ -79,6 +83,8 @@ const StyledButton = styled.button<{
         return $disabled ? color.primary.blue200 : color.primary.blue500;
       case "tertiary":
         return $disabled ? color.neutral.gray400 : color.neutral.gray600;
+      case "text":
+        return $disabled ? color.neutral.gray600 : color.neutral.white;
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
@@ -94,6 +100,8 @@ const StyledButton = styled.button<{
           return color.primary.blue50;
         case "tertiary":
           return color.neutral.gray50;
+        case "text":
+          return $disabled ? "inherit" : color.neutral.gray800;
         default:
           throw new Error("버튼 타입이 잘못되었습니다.");
       }
