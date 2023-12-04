@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
-//TODO : MUI 적용
-
-type VariantType = "primary" | "secondary" | "tertiary";
+type Variant = "primary" | "secondary" | "tertiary";
 
 type Props = {
-  variant: VariantType;
-  size: "S" | "M";
+  variant: Variant;
+  size: 32 | 44;
   disabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
@@ -31,23 +29,17 @@ export default function Button({
 }
 
 const StyledButton = styled.button<{
-  $variant: VariantType;
-  $size: string;
+  $variant: Variant;
+  $size: number;
   $disabled?: boolean;
 }>`
-  color: ${({ theme: { color }, $variant, $disabled }) => {
-    switch ($variant) {
-      case "primary":
-        return $disabled ? color.neutral.white : color.primary.white;
-      case "secondary":
-        return $disabled ? color.primary.blue200 : color.primary.blue500;
-      case "tertiary":
-        return $disabled ? color.neutral.gray400 : color.neutral.gray600;
-      default:
-        throw new Error("버튼 타입이 잘못되었습니다.");
-    }
-  }};
-
+  min-width: ${({ $size }) => ($size === 32 ? "80px" : "128px")};
+  height: ${({ $size }) => `${$size}px`};
+  padding-inline: ${({ $size }) => ($size === 32 ? "12px" : "16px")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ $size }) => ($size === 32 ? "4px" : "8px")};
   background-color: ${({ theme: { color }, $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
@@ -60,13 +52,11 @@ const StyledButton = styled.button<{
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
   }};
-
+  border-radius: ${({ $size }) => ($size === 32 ? "3px" : "4px")};
   border: ${({ theme: { color }, $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
-        return $disabled
-          ? `1px solid ${color.primary.blue200}`
-          : `1px solid ${color.primary.blue500}`;
+        return "none";
       case "secondary":
         return $disabled
           ? `1px solid ${color.primary.blue200}`
@@ -79,13 +69,20 @@ const StyledButton = styled.button<{
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
   }};
-
-  min-width: ${({ $size }) => ($size === "S" ? "80px" : "128px")};
-  height: ${({ $size }) => ($size === "S" ? 32 : 44)}px;
-  padding: ${({ $size }) => ($size === "S" ? "0 12px" : "0 16px")};
   font: ${({ $size, theme: { font } }) =>
-    $size === "S" ? font.button2 : font.button1};
-  border-radius: ${({ $size }) => ($size === "S" ? "3px" : "4px")};
+    $size === 32 ? font.button2 : font.button1};
+  color: ${({ theme: { color }, $variant, $disabled }) => {
+    switch ($variant) {
+      case "primary":
+        return color.neutral.white;
+      case "secondary":
+        return $disabled ? color.primary.blue200 : color.primary.blue500;
+      case "tertiary":
+        return $disabled ? color.neutral.gray400 : color.neutral.gray600;
+      default:
+        throw new Error("버튼 타입이 잘못되었습니다.");
+    }
+  }};
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
 
   &:hover {
@@ -101,22 +98,9 @@ const StyledButton = styled.button<{
           throw new Error("버튼 타입이 잘못되었습니다.");
       }
     }};
-    border: ${({ theme: { color }, $variant, $disabled }) => {
-      switch ($variant) {
-        case "primary":
-          return $disabled
-            ? `1px solid ${color.primary.blue200}`
-            : `1px solid ${color.primary.blue700}`;
-        case "secondary":
-          return $disabled
-            ? `1px solid ${color.primary.blue200}`
-            : `1px solid ${color.primary.blue500}`;
-        case "tertiary":
-          return $disabled
-            ? `1px solid ${color.neutral.gray400}`
-            : `1px solid ${color.neutral.gray600}`;
-        default:
-          throw new Error("버튼 타입이 잘못되었습니다.");
-      }
-    }}
+  }
+
+  img {
+    filter: ${({ $disabled }) => ($disabled ? "opacity(45%)" : "none")};
+  }
 `;
