@@ -14,6 +14,14 @@ export default function useImageInput({ sizeLimit }: Props) {
 
     if (!files) return;
 
+    if (files.length > 1) {
+      // 여러 파일이 선택된 경우 에러 메시지 설정
+      setError("하나의 이미지 파일만 업로드 가능합니다");
+      setImageFile(null);
+      setImageUrl("");
+      return;
+    }
+
     const newImageFile = files[0];
 
     if (newImageFile.size > sizeLimit) {
