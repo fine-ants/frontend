@@ -102,7 +102,7 @@ export default function SignUpPage() {
                     ...prev,
                     verificationCode: data,
                   }));
-                  signUpMutate(getFormData(signUpData));
+                  signUpMutate(createSignUpFormData(signUpData));
                 }}
               />
             </Funnel.Step>
@@ -137,7 +137,7 @@ const SubPageContainer = styled.div`
   align-items: center;
 `;
 
-const getFormData = (object: SignUpData) =>
+const createSignUpFormData = (object: SignUpData) =>
   Object.keys(object).reduce((formData, key) => {
     const value = object[key];
     if (value !== null) {
