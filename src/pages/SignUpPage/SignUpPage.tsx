@@ -11,11 +11,13 @@ import {
   VerificationSubPage,
 } from "./subPages";
 import MainSubPage from "./subPages/MainSubPage";
+import ProfileImageSubPage from "./subPages/ProfileImageSubPage";
 
 export default function SignUpPage() {
   const [Funnel, changeStep] = useFunnel([
     "main",
     "nickname",
+    "profileImage",
     "email",
     "password",
     "verification",
@@ -23,6 +25,7 @@ export default function SignUpPage() {
 
   const [signUpData, setSignUpData] = useState<SignUpData>({
     nickname: "",
+    profileImage: null,
     email: "",
     password: "",
     passwordConfirm: "",
@@ -47,6 +50,16 @@ export default function SignUpPage() {
                 onPrev={() => changeStep("main")}
                 onNext={(data: string) => {
                   setSignUpData((prev) => ({ ...prev, nickname: data }));
+                  changeStep("profileImage");
+                }}
+              />
+            </Funnel.Step>
+
+            <Funnel.Step name="profileImage">
+              <ProfileImageSubPage
+                onPrev={() => changeStep("nickname")}
+                onNext={(data: File | null) => {
+                  setSignUpData((prev) => ({ ...prev, profileImage: data }));
                   changeStep("email");
                 }}
               />
@@ -54,7 +67,7 @@ export default function SignUpPage() {
 
             <Funnel.Step name="email">
               <EmailSubPage
-                onPrev={() => changeStep("nickname")}
+                onPrev={() => changeStep("profileImage")}
                 onNext={(data: string) => {
                   setSignUpData((prev) => ({ ...prev, email: data }));
                   changeStep("password");
@@ -89,7 +102,7 @@ export default function SignUpPage() {
                     ...prev,
                     verificationCode: data,
                   }));
-                  signUpMutate(signUpData);
+                  signUpMutate(getFormData(signUpData));
                 }}
               />
             </Funnel.Step>
@@ -123,3 +136,12 @@ const SubPageContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const getFormData = (object: SignUpData) =>
+  Object.keys(object).reduce((formData, key) => {
+    const value = object[key];
+    if (value !== null) {
+      formData.append(key, value);
+    }
+    return formData;
+  }, new FormData());
