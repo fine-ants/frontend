@@ -23,7 +23,7 @@ const CustomStyledTooltip = styled(
           {
             name: "offset",
             options: {
-              offset: props.arrow ? [-7, -5] : [-7, -10],
+              offset: props.arrow ? [0, -5] : [0, -10],
             },
           },
         ],
@@ -32,6 +32,7 @@ const CustomStyledTooltip = styled(
   )
 )`
   & .${tooltipClasses.tooltip} {
+    max-width: 400px;
     padding: ${({ $smallPadding }) => ($smallPadding ? "4px" : "8px")};
     border-radius: 4px;
     border: 1px solid ${designSystem.color.primary.blue100};
@@ -43,7 +44,6 @@ const CustomStyledTooltip = styled(
 
   & .${tooltipClasses.arrow} {
     color: ${designSystem.color.neutral.white};
-    transform: translate(5px, 0px) !important;
     &::before {
       border: 1px solid ${designSystem.color.primary.blue100};
     }
