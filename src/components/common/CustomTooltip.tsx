@@ -23,7 +23,7 @@ const CustomStyledTooltip = styled(
           {
             name: "offset",
             options: {
-              offset: [0, -10],
+              offset: props.arrow ? [-7, -5] : [-7, -10],
             },
           },
         ],
@@ -43,6 +43,7 @@ const CustomStyledTooltip = styled(
 
   & .${tooltipClasses.arrow} {
     color: ${designSystem.color.neutral.white};
+    transform: translate(5px, 0px) !important;
     &::before {
       border: 1px solid ${designSystem.color.primary.blue100};
     }
