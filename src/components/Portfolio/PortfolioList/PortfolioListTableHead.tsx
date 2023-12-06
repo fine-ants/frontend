@@ -90,7 +90,7 @@ export default function PortfolioListTableHead({
       <StyledTableRow>
         <StyledTableCell padding="none">
           <CheckBox
-            size={20}
+            size="h20"
             checkType="indet"
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}

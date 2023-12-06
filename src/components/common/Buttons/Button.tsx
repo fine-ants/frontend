@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 type Variant = "primary" | "secondary" | "tertiary" | "text";
+type Size = "h32" | "h44";
 
 type Props = {
   variant: Variant;
-  size: 32 | 44;
+  size: Size;
   disabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
@@ -30,16 +31,16 @@ export default function Button({
 
 const StyledButton = styled.button<{
   $variant: Variant;
-  $size: number;
+  $size: Size;
   $disabled?: boolean;
 }>`
-  min-width: ${({ $size }) => ($size === 32 ? "80px" : "128px")};
-  height: ${({ $size }) => `${$size}px`};
-  padding-inline: ${({ $size }) => ($size === 32 ? "12px" : "16px")};
+  min-width: ${({ $size }) => ($size === "h32" ? "80px" : "128px")};
+  height: ${({ $size }) => `${$size === "h32" ? 32 : 44}px`};
+  padding-inline: ${({ $size }) => ($size === "h32" ? "12px" : "16px")};
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: ${({ $size }) => ($size === 32 ? "4px" : "8px")};
+  gap: ${({ $size }) => ($size === "h32" ? "4px" : "8px")};
   background-color: ${({ theme: { color }, $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
@@ -54,7 +55,7 @@ const StyledButton = styled.button<{
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
   }};
-  border-radius: ${({ $size }) => ($size === 32 ? "3px" : "4px")};
+  border-radius: ${({ $size }) => ($size === "h32" ? "3px" : "4px")};
   border: ${({ theme: { color }, $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
@@ -74,7 +75,7 @@ const StyledButton = styled.button<{
     }
   }};
   font: ${({ $size, theme: { font } }) =>
-    $size === 32 ? font.button2 : font.button1};
+    $size === "h32" ? font.button2 : font.button1};
   color: ${({ theme: { color }, $variant, $disabled }) => {
     switch ($variant) {
       case "primary":

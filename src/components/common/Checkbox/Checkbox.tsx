@@ -3,8 +3,10 @@ import indetIcon from "@assets/icons/ic_indet.svg";
 import { Checkbox, CheckboxProps } from "@mui/material";
 import styled from "styled-components";
 
+type Size = "h16" | "h20";
+
 type Props = {
-  size: 16 | 20;
+  size: Size;
   checkType?: "check" | "indet";
 } & Pick<CheckboxProps, "checked" | "disabled" | "onChange" | "inputProps">;
 
@@ -29,9 +31,9 @@ export default function CheckBox({
   );
 }
 
-const UncheckedIcon = styled.span<{ $size: number }>`
-  width: ${({ $size }) => `${$size}px`};
-  height: ${({ $size }) => `${$size}px`};
+const UncheckedIcon = styled.span<{ $size: Size }>`
+  width: ${({ $size }) => `${$size === "h16" ? 16 : 20}px`};
+  height: ${({ $size }) => `${$size === "h16" ? 16 : 20}px`};
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray400};
   border-radius: 4px;
@@ -61,8 +63,8 @@ const CheckedIcon = styled(UncheckedIcon)<{
 
   &:before {
     content: "";
-    width: ${({ $size }) => `${$size - 4}px`};
-    height: ${({ $size }) => `${$size - 4}px`};
+    width: ${({ $size }) => `${($size === "h16" ? 16 : 20) - 4}px`};
+    height: ${({ $size }) => `${($size === "h16" ? 16 : 20) - 4}px`};
     display: block;
     position: absolute;
     top: 50%;

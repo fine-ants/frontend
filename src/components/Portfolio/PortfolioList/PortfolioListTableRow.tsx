@@ -42,7 +42,7 @@ export default function PortfolioListTableRow({
       onClick={(event) => handleClick(event, id)}>
       <StyledTableCell padding="checkbox">
         <CheckBox
-          size={20}
+          size="h20"
           checkType="check"
           checked={isItemSelected}
           inputProps={{

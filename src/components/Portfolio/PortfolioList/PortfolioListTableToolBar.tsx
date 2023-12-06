@@ -61,7 +61,7 @@ export default function PortfolioListTableToolBar({
             <Tooltip title="Delete">
               <Button
                 variant="tertiary"
-                size={32}
+                size="h32"
                 onClick={onDeletePortfoliosButtonClick}>
                 <img src={trashIcon} alt="선택된 포트폴리오 삭제" />
                 <span>삭제</span>
@@ -71,7 +71,7 @@ export default function PortfolioListTableToolBar({
         )}
       </SelectedInfoContainer>
 
-      <Button variant="primary" size={32} onClick={onAddPortfolioButtonClick}>
+      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
         <img src={addIcon} alt="포트폴리오 추가" />
         <span>포트폴리오 추가</span>
       </Button>

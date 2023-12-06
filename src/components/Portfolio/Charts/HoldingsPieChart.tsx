@@ -1,4 +1,4 @@
-import { PortfolioHoldingsPieChartItem } from "@api/portfolio/types";
+import { PieChartData } from "@components/common/PieChart/PieChart";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { useCallback, useState } from "react";
 import { Pie, PieChart, Sector } from "recharts";
@@ -29,7 +29,7 @@ type PieEntry = {
 };
 
 type Props = {
-  data: PortfolioHoldingsPieChartItem[];
+  data: PieChartData[];
 };
 
 const DEFAULT_ACTIVE_INDEX = -1;
