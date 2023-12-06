@@ -6,7 +6,7 @@ type Props = {
   maxWidth: string;
 };
 
-export const AutoTooltipText = ({ children, maxWidth }: Props) => {
+export const EllipsisTextTooltip = ({ children, maxWidth }: Props) => {
   const [isTextOverflow, setIsTextOverflow] = useState(false);
   const textRef = useRef<HTMLDivElement>(null);
 
