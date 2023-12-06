@@ -1,6 +1,6 @@
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
 import { PortfolioDetails } from "@api/portfolio/types";
-import tossLogo from "@assets/images/Toss_Symbol_Primary.png";
+import tossLogo from "@assets/images/securitiesFirmLogo/toss.png";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import ToggleSwitch from "@components/ToggleSwitch";

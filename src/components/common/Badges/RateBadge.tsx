@@ -8,7 +8,7 @@ type Props = {
   rate: number;
   bgColorStatus?: boolean;
   iconStatus?: boolean;
-  isDividend?: boolean;
+  isDividendRate?: boolean;
 };
 
 export default function RateBadge({
@@ -17,45 +17,45 @@ export default function RateBadge({
   iconStatus = true,
   // TODO: 배당금 조건이 UI 데이터로 사용되지않는 방향으로
   // TODO: 숫자 + 나오는 로직 추가
-  isDividend = false,
+  isDividendRate = false,
 }: Props) {
+  const rateStatus = rate > 0 ? "Gain" : rate < 0 ? "Loss" : "None";
+
+  const parsedRate = parseRate(rate);
+
   return (
-    <RateBadgeWrapper>
-      <StyledRateBadge
-        $color={getColor(rate, isDividend)}
-        $bgColorStatus={bgColorStatus}>
-        {iconStatus && <img src={getIconSrc(rate)} alt="rateStatus" />}
-        <span>{rate}%</span>
-      </StyledRateBadge>
-    </RateBadgeWrapper>
+    <StyledRateBadge
+      $colors={getColors(rate, isDividendRate)}
+      $bgColorStatus={bgColorStatus}>
+      {iconStatus && (
+        <img src={getIconSrc(rate)} alt={`${parsedRate}% ${rateStatus}`} />
+      )}
+      <span>{parsedRate}%</span>
+    </StyledRateBadge>
   );
 }
 
-const RateBadgeWrapper = styled.div`
-  display: flex;
-  margin-top: auto;
-`;
-
 const StyledRateBadge = styled.div<{
-  $color: { color: string; bgColor: string };
+  $colors: { color: string; bgColor: string };
   $bgColorStatus: boolean;
 }>`
-  display: flex;
-  gap: 2.5px;
-  align-items: center;
-  justify-content: center;
   height: 24px;
-  font: ${({ theme: { font } }) => font.title5};
-  color: ${({ $color }) => $color.color};
-  background-color: ${({ $color, $bgColorStatus }) =>
-    $bgColorStatus ? $color.bgColor : "none"};
-  border-radius: 4px;
   padding: 3.5px 4px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-start;
+  gap: 2.5px;
+  background-color: ${({ $colors, $bgColorStatus }) =>
+    $bgColorStatus ? $colors.bgColor : "none"};
+  border-radius: 4px;
+  font: ${({ theme: { font } }) => font.title5};
+  color: ${({ $colors }) => $colors.color};
 `;
 
-const getColor = (value: number, isDividendRate: boolean) => {
+const getColors = (value: number, isDividendRateRate: boolean) => {
   // 배당금일시 바로 오렌지 색 리턴
-  if (isDividendRate) {
+  if (isDividendRateRate) {
     return {
       color: designSystem.color.state.orange,
       bgColor: designSystem.color.state.orange16,
@@ -88,4 +88,11 @@ const getColor = (value: number, isDividendRate: boolean) => {
 
 const getIconSrc = (value: number) => {
   return value > 0 ? upIcon : value < 0 ? downIcon : noneIcon;
+};
+
+// Exclude `-` from rate and limit decimal to hundredth.
+const parseRate = (rate: number) => {
+  const regExp = /\d+\.?\d{1,2}/;
+  const result = regExp.exec(String(rate));
+  return result ? result[0] : null;
 };

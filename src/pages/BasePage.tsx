@@ -23,7 +23,7 @@ const StyledBasePage = styled.div`
   min-height: inherit;
   display: flex;
   flex-direction: column;
-  background-color: #f6f7ff;
+  background-color: ${({ theme: { color } }) => color.neutral.gray50};
 `;
 
 const Main = styled.main`
