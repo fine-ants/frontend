@@ -16,7 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@lukemorales/query-key-factory": "^1.3.2",
     "@mui/icons-material": "^5.14.15",
-    "@mui/material": "^5.14.15",
+    "@mui/material": "^5.14.20",
     "@mui/styled-engine-sc": "^6.0.0-alpha.3",
     "@mui/x-date-pickers": "^6.17.0",
     "@react-oauth/google": "^0.11.1",
