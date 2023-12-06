@@ -1,6 +1,6 @@
 import { BASE_API_URL } from "@constants/config";
-import { EventListener, EventSourcePolyfill } from "event-source-polyfill";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { EventSourcePolyfill } from "event-source-polyfill";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Props = {
   url: string;
@@ -16,56 +16,50 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
   const eventSourceRef = useRef<EventSourcePolyfill>();
 
+  const eventListener = useMemo(
+    () => ({
+      handleEvent: (event: MessageEvent) => {
+        const data = JSON.parse(event.data);
+
+        setData(data);
+        setIsLoading(false);
+      },
+    }),
+    []
+  );
+
   const initEventSource = useCallback(() => {
     eventSourceRef.current = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-  }, [url, accessToken]);
+
+    eventSourceRef.current.onerror = () => {
+      setIsError(true);
+      onClose();
+    };
+
+    eventSourceRef.current.addEventListener(eventTypeName, eventListener);
+    eventSourceRef.current?.addEventListener("complete", onClose);
+  }, [accessToken, url, eventTypeName, eventListener]);
 
   useEffect(() => {
     if (!eventSourceRef.current) {
       initEventSource();
-      return;
     }
+  }, [initEventSource]);
 
-    const eventListener: EventListener = (event) => {
-      const messageEvent = event as MessageEvent;
-      const data = JSON.parse(messageEvent.data);
-
-      setData(data);
-      setIsLoading(false);
-    };
-
-    const completeListener: EventListener = () => {
-      eventSourceRef.current?.close();
-    };
-
-    eventSourceRef.current.onerror = () => {
-      setIsError(true);
-      eventSourceRef.current?.close();
-    };
-
-    eventSourceRef.current.addEventListener(eventTypeName, eventListener);
-    eventSourceRef.current?.addEventListener("complete", completeListener);
-
-    return () => {
-      eventSourceRef.current?.removeEventListener(eventTypeName, eventListener);
-      eventSourceRef.current?.removeEventListener("complete", completeListener);
-      eventSourceRef.current?.close();
-    };
-  }, [accessToken, eventTypeName, url, initEventSource]);
+  const onClose = () => {
+    eventSourceRef.current?.close();
+  };
 
   const reconnect = () => {
-    if (eventSourceRef.current) {
-      eventSourceRef.current?.close();
-    }
-
+    onClose();
     setIsError(false);
     setIsLoading(true);
     initEventSource();
   };
 
-  return { data, isLoading, isError, reconnect };
+  return { data, isLoading, isError, onClose, reconnect };
 }
