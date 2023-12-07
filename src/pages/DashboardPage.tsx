@@ -1,18 +1,35 @@
 import DashboardOverview from "@components/Dashboard/DashboardOverview";
 import DashboardPortfolioWeight from "@components/Dashboard/DashboardPortfolioWeight";
 import DashboardTotalValuationTrend from "@components/Dashboard/DashboardTotalValuationTrend";
+import { ChartErrorFallback } from "@components/Dashboard/errorFallback/ChartErrorFallback";
+import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
+import { DashboardLineChartSkeleton } from "@components/Dashboard/skeletons/DashboardLineChartSkeleton";
+import { DashboardOverviewSkeleton } from "@components/Dashboard/skeletons/DashboardOverviewSkeleton";
+import DashboardPieChartSkeleton from "@components/Dashboard/skeletons/DashboardPieChartSkeleton";
+import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import styled from "styled-components";
 import BasePage from "./BasePage";
 
 export default function DashboardPage() {
   return (
     <BasePage>
-      <DashboardOverview />
-
+      <AsyncBoundary
+        errorFallback={OverviewErrorFallback}
+        suspenseFallback={<DashboardOverviewSkeleton />}>
+        <DashboardOverview />
+      </AsyncBoundary>
       <ChartsWrapper>
         <ChartsContainer>
-          <DashboardPortfolioWeight />
-          <DashboardTotalValuationTrend />
+          <AsyncBoundary
+            errorFallback={ChartErrorFallback}
+            suspenseFallback={<DashboardPieChartSkeleton />}>
+            <DashboardPortfolioWeight />
+          </AsyncBoundary>
+          <AsyncBoundary
+            errorFallback={ChartErrorFallback}
+            suspenseFallback={<DashboardLineChartSkeleton />}>
+            <DashboardTotalValuationTrend />
+          </AsyncBoundary>
         </ChartsContainer>
       </ChartsWrapper>
     </BasePage>
