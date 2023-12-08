@@ -24,8 +24,8 @@ export default function PortfolioPage() {
     isError,
     onClose,
   } = useSSE<Portfolio>({
-    url: `/api/portfolio/${id}/holdings`,
-    eventTypeName: "sse event - myPortfolioStocks",
+    url: `/api/portfolio/${id}/holdings/realtime`,
+    eventTypeName: "portfolioDetails",
   });
 
   useEffect(() => {
