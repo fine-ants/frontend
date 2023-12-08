@@ -18,12 +18,7 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
 
   return (
     <BaseDialog isOpen={isOpen} onClose={onClose}>
-      <>
-        <SearchBar>
-          <SearchBar.Input />
-          <SearchBar.SearchList onItemClick={addItemToWatchlist} />
-        </SearchBar>
-      </>
+      <SearchBar onItemClick={addItemToWatchlist} />
     </BaseDialog>
   );
 }

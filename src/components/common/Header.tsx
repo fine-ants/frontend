@@ -88,10 +88,11 @@ export default function Header() {
           </NavBar>
         </HeaderLeft>
         <HeaderRight>
-          <SearchBar>
+          <SearchBar onItemClick={moveToStockPage} />
+          {/* <SearchBar>
             <SearchBar.Input />
             <SearchBar.SearchList onItemClick={moveToStockPage} />
-          </SearchBar>
+          </SearchBar> */}
           {user ? (
             <UserControls />
           ) : (
