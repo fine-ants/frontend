@@ -1,4 +1,4 @@
-import { PortfolioHolding } from "@api/portfolio";
+import { PortfolioHolding } from "@api/portfolio/types";
 import {
   Table,
   TableBody,

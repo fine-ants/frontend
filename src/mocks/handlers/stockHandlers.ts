@@ -1,4 +1,4 @@
-import { successfulStockData } from "mocks/data/stockData";
+import { successfulStockData } from "@mocks/data/stockData";
 import { rest } from "msw";
 
 export default [

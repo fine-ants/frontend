@@ -5,11 +5,11 @@ import KakaoSignInButton from "@components/auth/KakaoSignInButton";
 import NaverSignInButton from "@components/auth/NaverSignInButton";
 import useText from "@components/hooks/useText";
 import { CLIENT_URL } from "@constants/config";
+import { WindowContext } from "@context/WindowContext";
+import Routes from "@router/Routes";
 import { validateEmail } from "@utils/authInputValidators";
-import { WindowContext } from "context/WindowContext";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Routes from "router/Routes";
 import styled from "styled-components";
 import BasePage from "./BasePage";
 
@@ -89,7 +89,7 @@ export default function SignInPage() {
   const isAllFieldsFilled = !!email && !emailError && !!password;
 
   return (
-    <StyledSignInPage>
+    <BasePage>
       <SignInContainer>
         <h2>로그인</h2>
 
@@ -128,11 +128,9 @@ export default function SignInPage() {
           회원가입
         </SignUpButton>
       </SignInContainer>
-    </StyledSignInPage>
+    </BasePage>
   );
 }
-
-const StyledSignInPage = styled(BasePage)``;
 
 const SignInContainer = styled.div`
   display: flex;

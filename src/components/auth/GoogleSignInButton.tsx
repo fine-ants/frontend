@@ -20,7 +20,6 @@ export default function GoogleSignInButton() {
       }}
       onError={() => {
         // TODO: Handle error from Google
-        console.log("Login Failed");
       }}
     />
   );

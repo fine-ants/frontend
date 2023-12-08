@@ -1,7 +1,7 @@
 import useText from "@components/hooks/useText";
 import { validatePassword } from "@utils/authInputValidators";
 import styled from "styled-components";
-import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
+import SubPage from "./SubPage";
 
 type Props = {
   onPrev: () => void;
@@ -35,7 +35,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
 
       <label htmlFor="passwordInput">비밀번호</label>
       <InputWrapper>
-        <PasswordInput
+        <SignUpInput
           type="password"
           placeholder="비밀번호"
           id="passwordInput"
@@ -48,7 +48,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
 
       <label htmlFor="passwordConfirmInput">비밀번호 확인</label>
       <InputWrapper>
-        <PasswordInput
+        <SignUpInput
           type="password"
           placeholder="비밀번호 확인"
           id="passwordConfirmInput"
@@ -73,8 +73,18 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
   );
 }
 
-const PasswordInput = styled(SignUpInput)`
-  width: 100%;
+const SignUpInput = styled.input`
+  font-size: 16px;
+  padding: 16px;
+  height: 48px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #dedee0;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  gap: 20px;
 `;
 
 const Caption = styled.p`

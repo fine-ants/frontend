@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// const portfoliosPieChartData: any[] = [];
 const portfoliosPieChartData = [
   {
     id: 1,
@@ -149,7 +151,6 @@ const portfoliosPieChartData = [
     valuation: 245067,
     totalGain: 29613,
     totalGainRate: 13.77,
-
     fill: "#B7B8C3",
     weight: 2.69,
   },
@@ -184,20 +185,22 @@ const portfoliosPieChartData = [
 
 const overviewData = {
   username: "김포트폴리오",
-  totalValuation: portfoliosPieChartData.reduce(
-    (acc, cur) => acc + cur.valuation,
-    0
-  ),
+  totalValuation:
+    portfoliosPieChartData.length > 0
+      ? portfoliosPieChartData.reduce((acc, cur) => acc + cur.valuation, 0)
+      : 0,
   totalInvestment: 1234567,
-  totalGain: portfoliosPieChartData.reduce(
-    (acc, cur) => acc + cur.totalGain,
-    0
-  ),
+  totalGain:
+    portfoliosPieChartData.length > 0
+      ? portfoliosPieChartData.reduce((acc, cur) => acc + cur.totalGain, 0)
+      : 0,
   totalGainRate: 50,
   totalAnnualDividend: 500000,
   totalAnnualDividendYield: 20,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// const totalValuationData: any[] = [];
 const totalValuationData = [
   { time: "2018-10-19", value: 5012346 },
   { time: "2018-10-22", value: 4678901 },

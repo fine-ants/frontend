@@ -1,36 +1,52 @@
-import ValuationOverview from "@components/Dashboard/DashboardOverview";
-import PortfolioPieChartContainer from "@components/Dashboard/DashboardPortfolioWeight";
-import TotalValuationLineChartContainer from "@components/Dashboard/DashboardTotalValuationTrend";
+import DashboardOverview from "@components/Dashboard/DashboardOverview";
+import DashboardPortfolioWeight from "@components/Dashboard/DashboardPortfolioWeight";
+import DashboardTotalValuationTrend from "@components/Dashboard/DashboardTotalValuationTrend";
+import { ChartErrorFallback } from "@components/Dashboard/errorFallback/ChartErrorFallback";
+import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
+import { DashboardLineChartSkeleton } from "@components/Dashboard/skeletons/DashboardLineChartSkeleton";
+import { DashboardOverviewSkeleton } from "@components/Dashboard/skeletons/DashboardOverviewSkeleton";
+import DashboardPieChartSkeleton from "@components/Dashboard/skeletons/DashboardPieChartSkeleton";
+import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import styled from "styled-components";
 import BasePage from "./BasePage";
 
 export default function DashboardPage() {
   return (
-    <StyledDashboardPage>
-      <ValuationOverview />
-      <Content>
-        <ChartContainer>
-          <PortfolioPieChartContainer />
-          <TotalValuationLineChartContainer />
-        </ChartContainer>
-      </Content>
-    </StyledDashboardPage>
+    <BasePage>
+      <AsyncBoundary
+        errorFallback={OverviewErrorFallback}
+        suspenseFallback={<DashboardOverviewSkeleton />}>
+        <DashboardOverview />
+      </AsyncBoundary>
+      <ChartsWrapper>
+        <ChartsContainer>
+          <AsyncBoundary
+            errorFallback={ChartErrorFallback}
+            suspenseFallback={<DashboardPieChartSkeleton />}>
+            <DashboardPortfolioWeight />
+          </AsyncBoundary>
+          <AsyncBoundary
+            errorFallback={ChartErrorFallback}
+            suspenseFallback={<DashboardLineChartSkeleton />}>
+            <DashboardTotalValuationTrend />
+          </AsyncBoundary>
+        </ChartsContainer>
+      </ChartsWrapper>
+    </BasePage>
   );
 }
 
-const StyledDashboardPage = styled(BasePage)``;
-
-const Content = styled.div`
-  display: flex;
-  gap: 24px;
-  flex-direction: column;
-  position: relative;
-  margin: 48px 0;
-`;
-
-const ChartContainer = styled.div`
+const ChartsWrapper = styled.div`
+  width: 100%;
+  padding: 48px;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+`;
+
+const ChartsContainer = styled.div`
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
   gap: 24px;
 `;

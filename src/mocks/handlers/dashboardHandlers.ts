@@ -3,7 +3,7 @@ import {
   successfulGetOverviewDataResponse,
   successfulGetPortfolioPieChartDataResponse,
   successfulGetTotalValuationDataResponse,
-} from "mocks/data/dashboardData";
+} from "@mocks/data/dashboardData";
 import { rest } from "msw";
 
 export default [

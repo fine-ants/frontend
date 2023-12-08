@@ -5,7 +5,7 @@ import { validateNickname } from "@utils/authInputValidators";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
+import SubPage from "./SubPage";
 
 type Props = {
   onPrev: () => void;
@@ -55,7 +55,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
 
       <label htmlFor="nicknameInput">닉네임</label>
       <InputWrapper>
-        <NicknameInput
+        <SignUpInput
           type="text"
           placeholder="닉네임"
           id="nicknameInput"
@@ -84,7 +84,19 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
   );
 }
 
-const NicknameInput = styled(SignUpInput)``;
+const SignUpInput = styled.input`
+  font-size: 16px;
+  padding: 16px;
+  height: 48px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #dedee0;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 
 const UniqueCheckButton = styled.button`
   width: 120px;

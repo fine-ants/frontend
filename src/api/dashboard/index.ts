@@ -1,39 +1,16 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
+import { PieChartData } from "@components/common/PieChart/PieChart";
 import { LineData } from "lightweight-charts";
-
-export type OverviewData = {
-  username: string;
-  totalValuation: number;
-  totalInvestment: number;
-  totalGain: number;
-  totalGainRate: number;
-  totalAnnualDividend: number;
-  totalAnnualDividendYield: number;
-};
-
-export type PortfolioPieChartData = {
-  id: number;
-  name: string;
-  valuation: number;
-  fill: string;
-  totalGain: number;
-  totalGainRate: number;
-  weight: number;
-};
-
-export type TotalValuationLineChartData = {
-  date: string;
-  valuation: number;
-};
+import { OverviewData } from "./types";
 
 export const getDashboardOverview = async () => {
   const res = await fetcher.get<Response<OverviewData>>("/dashboard/overview");
   return res.data;
 };
 
-export const getPortfolioPieChart = async () => {
-  const res = await fetcher.get<Response<PortfolioPieChartData[]>>(
+export const getPortfoliosWeightPieChart = async () => {
+  const res = await fetcher.get<Response<PieChartData[]>>(
     "/dashboard/pieChart"
   );
   return res.data;

@@ -13,7 +13,7 @@ import {
   unsuccessfulNicknameDuplicationCheckData,
   unsuccessfulSignInData,
   unsuccessfulSignUpData,
-} from "mocks/data/authData";
+} from "@mocks/data/authData";
 import { rest } from "msw";
 
 export default [
