@@ -7,7 +7,7 @@ export function PieChartLegendSkeleton() {
     return <LegendSkeleton />;
   });
 
-  const other = Array.from({ length: 2 }, () => {
+  const otherLegend = Array.from({ length: 2 }, () => {
     return <LegendSkeleton />;
   });
 
@@ -15,7 +15,7 @@ export function PieChartLegendSkeleton() {
     <StyledPieChartLegendSkeleton>
       {legend}
       <Skeleton width={"100%"} height={3} />
-      {other}
+      {otherLegend}
     </StyledPieChartLegendSkeleton>
   );
 }
