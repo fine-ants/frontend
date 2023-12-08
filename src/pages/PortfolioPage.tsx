@@ -8,7 +8,7 @@ import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/Port
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
 import SectorBar from "@components/Portfolio/SectorBar";
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BasePage from "./BasePage";
@@ -22,14 +22,9 @@ export default function PortfolioPage() {
     data: portfolio,
     isLoading,
     isError,
-    onClose,
   } = useSSE<Portfolio>({
     url: `/api/portfolio/${id}/holdings/realtime`,
     eventTypeName: "portfolioDetails",
-  });
-
-  useEffect(() => {
-    return onClose;
   });
 
   const onAddHoldingButtonClick = () => {

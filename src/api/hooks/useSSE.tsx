@@ -45,10 +45,14 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   }, [accessToken, url, eventTypeName, eventListener]);
 
   useEffect(() => {
-    if (!eventSourceRef.current) {
+    if (eventSourceRef) {
       initEventSource();
     }
   }, [initEventSource]);
+
+  useEffect(() => {
+    return onClose;
+  });
 
   const onClose = () => {
     eventSourceRef.current?.close();
@@ -61,5 +65,5 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     initEventSource();
   };
 
-  return { data, isLoading, isError, onClose, reconnect };
+  return { data, isLoading, isError, reconnect };
 }
