@@ -1,13 +1,11 @@
-import useStompSubscription from "@api/hooks/useStompSubWithRQ";
-import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
+import { useSSE } from "@api/hooks/useSSE";
 import { Portfolio } from "@api/portfolio/types";
 import plusIcon from "@assets/icons/plus.svg";
 import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
-import { BASE_API_URL_WS } from "@constants/config";
 import { Box, Button, Typography } from "@mui/material";
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ChartsPanel from "../../components/Portfolio/Charts/ChartsPanel";
@@ -17,47 +15,32 @@ import BasePage from "../BasePage";
 export default function PortfolioPage() {
   const { id } = useParams();
 
-  const { data: portfolio, isLoading: isPortfolioDetailsLoading } =
-    usePortfolioDetailsQuery(Number(id));
-
   const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
 
-  const { onConnect } = useStompSubscription<Portfolio>({
-    brokerURL: `${BASE_API_URL_WS}/portfolio`,
-    subscribeURL: `portfolio/${id}`,
-    queryKey: useMemo(() => ["portfolio", Number(id)], [id]),
-    updaterFn: useCallback((_, newData) => newData, []),
-    initialMsg: useMemo(
-      () => ({
-        tickerSymbols: portfolio?.portfolioHoldings.map(
-          (holding) => holding.tickerSymbol
-        ),
-      }),
-      [portfolio]
-    ),
+  const {
+    data: portfolio,
+    isLoading,
+    isError,
+  } = useSSE<Portfolio>({
+    url: `/api/portfolio/${id}/holdings/realtime`,
+    eventTypeName: "portfolioDetails",
   });
-
-  useEffect(() => {
-    if (portfolio) {
-      onConnect();
-    }
-  }, [portfolio, onConnect]);
 
   const onAddHoldingButtonClick = () => {
     setIsAddHoldingDialogOpen(true);
   };
 
-  // TODO: Change to Suspense fallback component
-  if (isPortfolioDetailsLoading) {
+  // TODO: Handle loading
+  if (isLoading) {
     return <div>Loading</div>;
   }
 
-  // TODO: Change to Error Boundary
-  if (!portfolio) {
+  // TODO: Handle error
+  if (isError) {
     return <div>Error</div>;
   }
 
-  const { portfolioDetails, portfolioHoldings } = portfolio;
+  const { portfolioDetails, portfolioHoldings } = portfolio!;
 
   return (
     <BasePage>
