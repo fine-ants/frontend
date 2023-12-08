@@ -32,22 +32,7 @@ export default function SignInPage() {
     signInMutate({ email, password });
   };
 
-  // Handle Google Redirect
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const provider = urlParams.get("provider");
-    const authCode = urlParams.get("code");
-    const state = urlParams.get("state");
-
-    if (!provider || !authCode || !state) return; // TODO: handle error
-
-    if (provider === "google") {
-      oAuthSignInMutate({ provider, authCode, state });
-      return;
-    }
-  }, [oAuthSignInMutate]);
-
-  // Handle Kakao, Naver Redirect (receive OAuth provider, auth code and state) received in popup.
+  // Handle Google, Kakao, Naver Redirect (receive OAuth provider, auth code and state) received in popup.
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const provider = urlParams.get("provider");
@@ -57,7 +42,9 @@ export default function SignInPage() {
     if (!provider || !authCode || !state) return; // TODO: handle error
 
     // Received data in the popup window from the OAuth provider and send it to the original window.
-    if (provider === "kakao" || provider === "naver") {
+    if (provider === "google") {
+      oAuthSignInMutate({ provider, authCode, state });
+    } else if (provider === "kakao" || provider === "naver") {
       // Send OAuth provider, auth code and state to the original window.
       window.opener.postMessage({ provider, authCode, state }, CLIENT_URL);
     }
