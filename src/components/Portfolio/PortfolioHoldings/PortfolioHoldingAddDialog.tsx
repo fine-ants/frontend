@@ -29,12 +29,7 @@ export default function PortfolioHoldingAddDialog({
 
   return (
     <BaseDialog isOpen={isOpen} onClose={onClose}>
-      <>
-        <SearchBar>
-          <SearchBar.Input />
-          <SearchBar.SearchList onItemClick={addStockToPortfolio} />
-        </SearchBar>
-      </>
+      <SearchBar onItemClick={addStockToPortfolio} />
     </BaseDialog>
   );
 }

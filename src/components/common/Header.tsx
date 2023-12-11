@@ -20,7 +20,12 @@ export default function Header() {
 
   const { user } = useContext(UserContext);
 
-  const { data: portfolioList } = usePortfolioListQuery();
+  const shouldNotFetch = !user;
+
+  // TODO: 임시 처방
+  // 로그인 상태가 아니면 포트폴리오 목록을 가져오지 않는다.
+  // Header를 로그인/비로그인 상태 구분 없이 사용하고 있기 때문.
+  const { data: portfolioList } = usePortfolioListQuery(shouldNotFetch);
 
   const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
     useState(false);
@@ -61,54 +66,53 @@ export default function Header() {
   };
 
   return (
-    <>
-      <StyledHeader>
-        <HeaderTop>
-          <HeaderLeft>
-            <StyledBrandIdentity onClick={() => navigate("/dashboard")}>
-              <img src={BIImage} alt="FineAnts" />
-              FineAnts
-            </StyledBrandIdentity>
-            <NavBar style={navBarStyles}>
-              <PortfoliosDropdown
-                portfolioDropdownItems={portfolioDropdownItems}
-                onPortfolioAddClick={onPortfolioAddClick}
+    <StyledHeader>
+      <HeaderTop>
+        <HeaderLeft>
+          <StyledBrandIdentity onClick={() => navigate("/dashboard")}>
+            <img src={BIImage} alt="FineAnts" />
+            FineAnts
+          </StyledBrandIdentity>
+          <NavBar style={navBarStyles}>
+            <PortfoliosDropdown
+              portfolioDropdownItems={portfolioDropdownItems}
+              onPortfolioAddClick={onPortfolioAddClick}
+            />
+            {navItems.map((item) => (
+              <NavBar.NavItem
+                key={item.name}
+                item={item}
+                style={navItemStyle}
               />
-              {navItems.map((item) => (
-                <NavBar.NavItem
-                  key={item.name}
-                  item={item}
-                  style={navItemStyle}
-                />
-              ))}
-            </NavBar>
-          </HeaderLeft>
-          <HeaderRight>
-            <SearchBar>
-              <SearchBar.Input />
-              <SearchBar.SearchList onItemClick={moveToStockPage} />
-            </SearchBar>
-            {user ? (
-              <UserControls />
-            ) : (
-              <>
-                <Button onClick={moveToSignInPage}>로그인</Button>
-                <Button onClick={moveToSignUpPage}>회원가입</Button>
-              </>
-            )}
-          </HeaderRight>
-        </HeaderTop>
+            ))}
+          </NavBar>
+        </HeaderLeft>
+        <HeaderRight>
+          <SearchBar onItemClick={moveToStockPage} />
+          {/* <SearchBar>
+            <SearchBar.Input />
+            <SearchBar.SearchList onItemClick={moveToStockPage} />
+          </SearchBar> */}
+          {user ? (
+            <UserControls />
+          ) : (
+            <>
+              <Button onClick={moveToSignInPage}>로그인</Button>
+              <Button onClick={moveToSignUpPage}>회원가입</Button>
+            </>
+          )}
+        </HeaderRight>
+      </HeaderTop>
 
-        <TVTickerTapeWidget />
+      <TVTickerTapeWidget />
 
-        {isPortfolioAddDialogOpen && (
-          <PortfolioAddDialog
-            isOpen={isPortfolioAddDialogOpen}
-            onClose={() => setIsPortfolioAddDialogOpen(false)}
-          />
-        )}
-      </StyledHeader>
-    </>
+      {isPortfolioAddDialogOpen && (
+        <PortfolioAddDialog
+          isOpen={isPortfolioAddDialogOpen}
+          onClose={() => setIsPortfolioAddDialogOpen(false)}
+        />
+      )}
+    </StyledHeader>
   );
 }
 
