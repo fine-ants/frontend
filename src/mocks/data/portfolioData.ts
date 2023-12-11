@@ -1,7 +1,7 @@
 const portfolios = [
   {
     id: 1,
-    securitiesFirm: "toss",
+    securitiesFirm: "토스증권",
     name: "포트폴리오 1",
     currentValuation: 469423,
     budget: 375871,
@@ -15,7 +15,7 @@ const portfolios = [
   },
   {
     id: 2,
-    securitiesFirm: "kb",
+    securitiesFirm: "KB증권",
     name: "포트폴리오 2",
     currentValuation: 314912,
     budget: 271474,
@@ -29,7 +29,7 @@ const portfolios = [
   },
   {
     id: 3,
-    securitiesFirm: "namuh",
+    securitiesFirm: "나무증권",
     name: "포트폴리오 3",
     currentValuation: 288453,
     budget: 226979,
@@ -43,7 +43,7 @@ const portfolios = [
   },
   {
     id: 4,
-    securitiesFirm: "daishin",
+    securitiesFirm: "대신증권",
     name: "포트폴리오 4",
     currentValuation: 281327,
     budget: 380029,
@@ -57,7 +57,7 @@ const portfolios = [
   },
   {
     id: 5,
-    securitiesFirm: "shinhan",
+    securitiesFirm: "신한투자증권",
     name: "포트폴리오 5",
     currentValuation: 550300,
     budget: 610888,
@@ -71,7 +71,7 @@ const portfolios = [
   },
   {
     id: 6,
-    securitiesFirm: "kakao",
+    securitiesFirm: "카카오페이증권",
     name: "포트폴리오 6",
     currentValuation: 10000000,
     budget: 618764,
@@ -85,7 +85,7 @@ const portfolios = [
   },
   {
     id: 7,
-    securitiesFirm: "hyundai",
+    securitiesFirm: "현대차증권",
     name: "포트폴리오 7",
     currentValuation: 10000000,
     budget: 105981,
@@ -99,7 +99,7 @@ const portfolios = [
   },
   {
     id: 8,
-    securitiesFirm: "kiwoom",
+    securitiesFirm: "키움증권",
     name: "포트폴리오 8",
     currentValuation: 10000000,
     budget: 745170,
@@ -113,7 +113,7 @@ const portfolios = [
   },
   {
     id: 9,
-    securitiesFirm: "miraeasset",
+    securitiesFirm: "미래에셋증권",
     name: "포트폴리오 9",
     currentValuation: 10000000,
     budget: 760731,
@@ -127,7 +127,7 @@ const portfolios = [
   },
   {
     id: 10,
-    securitiesFirm: undefined,
+    securitiesFirm: undefined, // FineAnts 로고
     name: "포트폴리오 10",
     currentValuation: 10000000,
     budget: 529303,
@@ -141,7 +141,7 @@ const portfolios = [
   },
   {
     id: 11,
-    securitiesFirm: "ibk",
+    securitiesFirm: "IBK투자증권",
     name: "포트폴리오 11",
     currentValuation: 10000000,
     budget: 420735,
@@ -155,7 +155,7 @@ const portfolios = [
   },
   {
     id: 12,
-    securitiesFirm: "hana",
+    securitiesFirm: "하나증권",
     name: "포트폴리오 12",
     currentValuation: 10000000,
     budget: 670934,
@@ -169,7 +169,7 @@ const portfolios = [
   },
   {
     id: 13,
-    securitiesFirm: "samsung",
+    securitiesFirm: "삼성증권",
     name: "포트폴리오 13",
     currentValuation: 10000000,
     budget: 849978,
@@ -183,7 +183,7 @@ const portfolios = [
   },
   {
     id: 14,
-    securitiesFirm: "kyobo",
+    securitiesFirm: "교보증권",
     name: "포트폴리오 14",
     currentValuation: 10000000,
     budget: 294119,
@@ -197,7 +197,7 @@ const portfolios = [
   },
   {
     id: 15,
-    securitiesFirm: "hi",
+    securitiesFirm: "하이투자증권",
     name: "포트폴리오 15",
     currentValuation: 10000000,
     budget: 826201,
@@ -211,7 +211,7 @@ const portfolios = [
   },
   {
     id: 16,
-    securitiesFirm: "yuanta",
+    securitiesFirm: "유안타증권",
     name: "포트폴리오 16",
     currentValuation: 10000000,
     budget: 883204,
@@ -225,7 +225,7 @@ const portfolios = [
   },
   {
     id: 17,
-    securitiesFirm: "meritz",
+    securitiesFirm: "메리츠증권",
     name: "포트폴리오 17",
     currentValuation: 10000000,
     budget: 245067,
@@ -239,7 +239,7 @@ const portfolios = [
   },
   {
     id: 18,
-    securitiesFirm: "shinyoung",
+    securitiesFirm: "신영증권",
     name: "포트폴리오 18",
     currentValuation: 10000000,
     budget: 476826,
@@ -253,7 +253,7 @@ const portfolios = [
   },
   {
     id: 19,
-    securitiesFirm: "hi",
+    securitiesFirm: "하이투자증권",
     name: "포트폴리오 19",
     currentValuation: 10000000,
     budget: 584719,
@@ -267,7 +267,7 @@ const portfolios = [
   },
   {
     id: 20,
-    securitiesFirm: "hanwha",
+    securitiesFirm: "한화투자증권",
     name: "포트폴리오 20",
     currentValuation: 10000000,
     budget: 135967,
