@@ -1,10 +1,18 @@
 import { postEmailDuplicateCheck } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
+import { AuthInput } from "@components/auth/AuthInput";
+import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
+import {
+  AuthPageHeader,
+  AuthPageTitle,
+  AuthPageTitleCaption,
+  NextButton,
+} from "@components/auth/AuthPageCommon";
 import useText from "@components/hooks/useText";
+import { useDebounce } from "@hooks/useDebounce";
 import { validateEmail } from "@utils/authInputValidators";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
-import styled from "styled-components";
+import { ChangeEvent, useEffect, useState } from "react";
 import SubPage from "./SubPage";
 
 type Props = {
@@ -18,58 +26,54 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
     isError,
     onChange,
   } = useText({ validators: [validateEmail] });
-
-  const [isDuplicateChecked, setIsDuplicateChecked] = useState(false);
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
+  const isDuplicateChecked = !!duplicateCheckErrorMsg;
+
+  const deBounceEmail = useDebounce({ value: email, delay: 400 });
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
-    setIsDuplicateChecked(false);
     setDuplicateCheckErrorMsg("");
   };
 
-  const onDuplicateCheckButtonClick = async () => {
-    try {
-      const res = await postEmailDuplicateCheck(email);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await postEmailDuplicateCheck(deBounceEmail);
 
-      if (res.code === HTTPSTATUS.success) {
-        setIsDuplicateChecked(true);
-        setDuplicateCheckErrorMsg("");
+        if (res.code === HTTPSTATUS.success) {
+          setDuplicateCheckErrorMsg("");
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setDuplicateCheckErrorMsg(error.response?.data.message);
+        } else {
+          setDuplicateCheckErrorMsg((error as Error).message);
+        }
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setDuplicateCheckErrorMsg(error.response?.data.message);
-      } else {
-        setDuplicateCheckErrorMsg((error as Error).message);
-      }
-    }
-  };
+    })();
+  }, [deBounceEmail]);
 
   return (
     <SubPage>
-      <button type="button" onClick={onPrev}>
-        이전 단계
-      </button>
+      <AuthOnPrevButton onPrev={onPrev} />
 
-      <label htmlFor="emailInput">이메일</label>
-      <InputWrapper>
-        <SignUpInput
-          type="text"
-          placeholder="이메일"
-          id="emailInput"
-          value={email}
-          onChange={onEmailChange}
-        />
+      <AuthPageHeader>
+        <AuthPageTitle>이메일</AuthPageTitle>
+        <AuthPageTitleCaption>
+          올바른 형식의 이메일을 입력하세요 (example@email.com)
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
 
-        <UniqueCheckButton
-          type="button"
-          onClick={onDuplicateCheckButtonClick}
-          disabled={isError}>
-          중복 확인
-        </UniqueCheckButton>
-      </InputWrapper>
-
-      <ErrorCaption>{duplicateCheckErrorMsg}</ErrorCaption>
+      <AuthInput
+        error={isDuplicateChecked}
+        type="text"
+        placeholder="이메일"
+        id="emailInput"
+        value={email}
+        onChange={onEmailChange}
+        helperText={duplicateCheckErrorMsg}
+      />
 
       <NextButton
         type="button"
@@ -80,37 +84,3 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
     </SubPage>
   );
 }
-
-const SignUpInput = styled.input`
-  font-size: 16px;
-  padding: 16px;
-  height: 48px;
-  box-sizing: border-box;
-  border-radius: 8px;
-  background-color: #dedee0;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const UniqueCheckButton = styled.button`
-  width: 120px;
-  height: 48px;
-  background-color: #2d3bae;
-  border-radius: 8px;
-  color: white;
-`;
-
-const ErrorCaption = styled.p`
-  color: red;
-`;
-
-const NextButton = styled.button<{ disabled: boolean }>`
-  width: 100%;
-  height: 48px;
-  background-color: ${({ disabled }) => (disabled ? "#c4c4c4" : "#2d3bae")};
-  border-radius: 8px;
-  color: white;
-`;

@@ -1,3 +1,4 @@
+import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
 import useImageInput from "@components/hooks/useImageInput";
 import styled from "styled-components";
 import SubPage from "./SubPage";
@@ -17,9 +18,8 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
 
   return (
     <SubPage>
-      <button type="button" onClick={onPrev}>
-        이전 단계
-      </button>
+      <AuthOnPrevButton onPrev={onPrev} />
+
       <ImageInputWrapper>
         {profileImageUrl && (
           <ProfileImage src={profileImageUrl} alt="profile" />

@@ -1,7 +1,11 @@
 import { SignUpData, postEmailVerification } from "@api/auth";
 import useSignUpMutation from "@api/auth/queries/useSignUpMutation";
 import useFunnel from "@hooks/useFunnel";
+import { Button } from "@mui/material";
+import Routes from "@router/Routes";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BasePage from "../BasePage";
 import {
@@ -14,6 +18,8 @@ import MainSubPage from "./subPages/MainSubPage";
 import ProfileImageSubPage from "./subPages/ProfileImageSubPage";
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
+
   const [Funnel, changeStep] = useFunnel([
     "main",
     "nickname",
@@ -37,12 +43,10 @@ export default function SignUpPage() {
   return (
     <BasePage>
       <SignUpContainer>
-        <SignUpTitle>회원가입</SignUpTitle>
-
         <SubPageContainer>
           <Funnel>
             <Funnel.Step name="main">
-              <MainSubPage onNext={() => changeStep("nickname")} />
+              <MainSubPage onNext={() => changeStep("verification")} />
             </Funnel.Step>
 
             <Funnel.Step name="nickname">
@@ -108,15 +112,29 @@ export default function SignUpPage() {
             </Funnel.Step>
           </Funnel>
         </SubPageContainer>
+        <SupportContainer>
+          이미 회원이신가요?
+          <TextButton onClick={() => navigate(Routes.SIGNIN)}>
+            로그인
+          </TextButton>
+        </SupportContainer>
       </SignUpContainer>
     </BasePage>
   );
 }
 
-const SignUpTitle = styled.h2`
-  font-size: 42px;
-  font-weight: bold;
-  margin-right: auto;
+const SupportContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: ${designSystem.color.neutral.gray600};
+  font: ${designSystem.font.body3};
+`;
+
+const TextButton = styled(Button)`
+  padding: 0;
+  color: ${designSystem.color.primary.blue500};
+  font: ${designSystem.font.button2};
 `;
 
 const SignUpContainer = styled.div`
