@@ -1,10 +1,11 @@
 import { PortfolioItem } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { Link, TableCell, TableRow } from "@mui/material";
+import { TableCell, TableRow } from "@mui/material";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { MouseEvent } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type PortfolioListTableRowProps = {
@@ -50,43 +51,40 @@ export default function PortfolioListTableRow({
           }}
         />
       </StyledTableCell>
-      <StyledTableCell component="th" id={labelId} scope="row" padding="none">
-        <StyledLink
-          href={`/portfolio/${id}`}
-          underline="none"
-          sx={{
-            height: "100%",
-            display: "flex",
-            gap: "8px",
-          }}>
+      <StyledTableCell
+        component="th"
+        id={labelId}
+        scope="row"
+        padding="none"
+        sx={{ width: "338px" }}>
+        <StyledLink to={`/portfolio/${id}`}>
           <img
             src={securitiesFirmLogos[securitiesFirm]}
             alt={securitiesFirm}
             width="40px"
             height="40px"
           />
-          {/* TODO: handle long names */}
           <span className="portfolioName">{name}</span>
         </StyledLink>
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="right" sx={{ width: "170px" }}>
         ₩ {thousandsDelimiter(currentValuation)}
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="right" sx={{ width: "170px" }}>
         ₩ {thousandsDelimiter(budget)}
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="right" sx={{ width: "170px" }}>
         <div>₩ {thousandsDelimiter(totalGain)}</div>
         <RateBadge rate={totalGainRate} bgColorStatus={false} />
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="right" sx={{ width: "170px" }}>
         <div>₩ {thousandsDelimiter(dailyGain)}</div>
         <RateBadge rate={dailyGainRate} bgColorStatus={false} />
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="right" sx={{ width: "170px" }}>
         ₩ {thousandsDelimiter(expectedMonthlyDividend)}
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="right" sx={{ width: "136px" }}>
         {thousandsDelimiter(numShares)}
       </StyledTableCell>
     </StyledTableRow>
@@ -118,12 +116,18 @@ const StyledTableCell = styled(TableCell)`
 `;
 
 const StyledLink = styled(Link)`
-  width: 100%; // TODO!!!!!!!!!!!!!!!!!
+  width: 100%;
   max-width: 274px;
   height: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
+
+  &:hover {
+    .portfolioName {
+      color: ${({ theme: { color } }) => color.primary.blue500};
+    }
+  }
 
   .portfolioName {
     font: ${({ theme: { font } }) => font.body2};
