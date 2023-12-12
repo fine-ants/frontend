@@ -10,10 +10,40 @@ import PortfolioListTableToolBar from "./PortfolioListTableToolBar";
 
 export type Order = "asc" | "desc";
 
+// Natural sorting algorithm to account for numbers in strings
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) return -1;
-  if (b[orderBy] > a[orderBy]) return 1;
-  return 0;
+  const getValue = (item: T) => {
+    const value = item[orderBy];
+    if (typeof value === "string") {
+      // Split the string into parts of digits and non-digits
+      const parsedValue: (string | number)[] = value
+        .split(/(\d+)/)
+        .map((part) =>
+          isNaN(Number(part)) ? part.toLowerCase() : Number(part)
+        );
+      return parsedValue;
+    }
+    return [value]; // Return a single-element array for non-string values
+  };
+
+  const valueA = getValue(a);
+  const valueB = getValue(b);
+
+  let comparison = 0;
+  for (let i = 0; i < Math.min(valueA.length, valueB.length); i++) {
+    if (valueB[i] < valueA[i]) {
+      // Sort valueA before valueB
+      comparison = -1;
+      break;
+    }
+    if (valueB[i] > valueA[i]) {
+      // Sort valueB before valueA
+      comparison = 1;
+      break;
+    }
+  }
+
+  return comparison;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,8 +95,8 @@ export default function PortfolioListTable() {
     () =>
       rowsPerPage > 0
         ? portfolioRows
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .sort(getComparator(order, orderBy))
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         : portfolioRows,
     [order, orderBy, page, portfolioRows, rowsPerPage]
   );
