@@ -1,26 +1,57 @@
-import useOAuthSignInMutation from "@api/auth/queries/useOAuthSignInMutation";
-import { GoogleLogin } from "@react-oauth/google";
+import { postOAuthUrl } from "@api/auth";
+import { HTTPSTATUS } from "@api/types";
+import googleLogo from "@assets/images/google_logo.svg";
+import { WindowContext } from "@context/WindowContext";
+import designSystem from "@styles/designSystem";
+import openPopUpWindow from "@utils/openPopUpWindow";
+import { useContext } from "react";
+import styled from "styled-components";
+import { CommonSignInButton } from "./CommonSignInButton";
 
 export default function GoogleSignInButton() {
-  const { mutate: oAuthSignInMutate } = useOAuthSignInMutation();
+  const { onOpenPopUpWindow } = useContext(WindowContext);
+
+  const onGoogleSignIn = async () => {
+    // Get Auth URL from server.
+    const res = await postOAuthUrl("google");
+
+    // This is for development. Remove this.
+    const tempURL = new URL(res.data.authURL);
+    tempURL.searchParams.set(
+      "redirect_uri",
+      "http://localhost:5173/signin?provider=google"
+    );
+    const url =
+      process.env.NODE_ENV === "development"
+        ? tempURL.toString()
+        : res.data.authURL;
+
+    // TODO: handle error
+    if (res.code === HTTPSTATUS.success) {
+      const oAuthPopUpWindow = openPopUpWindow(
+        url, // This is for development. Change this to res.data.authURL.
+        "googleOAuth",
+        500,
+        600
+      ); // TODO: handle case where popup doesn't show (Ex: user blocked popups)
+
+      if (oAuthPopUpWindow) {
+        onOpenPopUpWindow(oAuthPopUpWindow);
+      }
+    }
+  };
 
   return (
-    // TODO: custom login button (`useGoogleLogin` "auth-code" flow)
-    <GoogleLogin
-      onSuccess={(credentialResponse) => {
-        const authCode = credentialResponse.credential;
-
-        if (authCode) {
-          oAuthSignInMutate({
-            provider: "google",
-            authCode,
-            state: "todo", // TODO: handle state
-          });
-        }
-      }}
-      onError={() => {
-        // TODO: Handle error from Google
-      }}
-    />
+    <StyledGoogleSignInButton onClick={onGoogleSignIn}>
+      <img src={googleLogo} />
+      구글 로그인
+    </StyledGoogleSignInButton>
   );
 }
+
+const StyledGoogleSignInButton = styled(CommonSignInButton)`
+  border: 1px solid ${designSystem.color.neutral.gray200};
+  background: ${designSystem.color.neutral.white};
+  color: ${designSystem.color.neutral.gray600};
+  font: ${designSystem.font.button2};
+`;

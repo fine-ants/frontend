@@ -1,10 +1,12 @@
 import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import kakaoLogo from "@assets/images/kakao_logo.jpeg";
+import kakaoLogo from "@assets/images/kakao_logo.svg";
 import { WindowContext } from "@context/WindowContext";
+import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
 import styled from "styled-components";
+import { CommonSignInButton } from "./CommonSignInButton";
 
 export default function KakaoSignInButton() {
   const { onOpenPopUpWindow } = useContext(WindowContext);
@@ -48,21 +50,8 @@ export default function KakaoSignInButton() {
   );
 }
 
-const StyledKakaoSignInButton = styled.button`
-  width: 100%;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  gap: 8px;
-  background-color: #ffe617;
-  color: #47292a;
-  font-size: 16px;
-  font-weight: bold;
-
-  img {
-    width: 36px;
-    object-fit: fill;
-  }
+const StyledKakaoSignInButton = styled(CommonSignInButton)`
+  background: ${designSystem.color.kakao.primary};
+  color: ${designSystem.color.neutral.black};
+  font: ${designSystem.font.button2};
 `;
