@@ -3,12 +3,12 @@ import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export function PieChartLegendSkeleton() {
-  const legend = Array.from({ length: 10 }, () => {
-    return <LegendSkeleton />;
+  const legend = Array.from({ length: 10 }, (_, idx) => {
+    return <LegendSkeleton key={idx} />;
   });
 
-  const otherLegend = Array.from({ length: 2 }, () => {
-    return <LegendSkeleton />;
+  const otherLegend = Array.from({ length: 2 }, (_, idx) => {
+    return <LegendSkeleton key={idx} />;
   });
 
   return (
