@@ -1,6 +1,4 @@
 import PortfolioListTable from "@components/Portfolio/PortfolioList/PortfolioListTable";
-import Pagination from "@components/common/Pagination/Pagination";
-import TablePagination from "@components/common/Pagination/TablePagination";
 import BasePage from "@pages/BasePage";
 import PortfolioListPageSkeleton from "@pages/Portfolio/skeletons/PortfolioListPageSkeleton";
 import { Suspense } from "react";
@@ -14,9 +12,6 @@ export default function PortfolioListPage() {
           <Header>
             <h1>내 포트폴리오</h1>
           </Header>
-
-          <Pagination count={10} />
-          <TablePagination count={29} />
 
           <PortfolioListTable />
         </Container>

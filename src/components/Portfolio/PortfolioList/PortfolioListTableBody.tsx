@@ -6,8 +6,8 @@ import PortfolioListTableRow from "./PortfolioListTableRow";
 type Props = {
   numEmptyRows: number;
   visibleRows: readonly PortfolioItem[];
-  selected: readonly number[];
-  updateSelected: (selected: readonly number[]) => void;
+  selected: readonly PortfolioItem[];
+  updateSelected: (selected: readonly PortfolioItem[]) => void;
 };
 
 export default function PortfolioListTableBody({
@@ -17,25 +17,31 @@ export default function PortfolioListTableBody({
   updateSelected,
 }: Props) {
   const handleClick = (_: MouseEvent<unknown>, id: number) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    const selectedItem = selected.find((item) => item.id === id);
+    const selectedItemIndex = selectedItem
+      ? selected.indexOf(selectedItem)
+      : -1;
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
+    let newSelected: readonly PortfolioItem[] = [];
+
+    if (selectedItemIndex === -1) {
+      // 선택이 되어있지 않은 경우, 해당 아이템을 선택 및 추가
+      const targetItem = visibleRows.find((item) => item.id === id);
+      newSelected = newSelected.concat(selected, targetItem ?? []);
+    } else if (selectedItemIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
+    } else if (selectedItemIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
+    } else if (selectedItemIndex > 0) {
       newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        selected.slice(0, selectedItemIndex),
+        selected.slice(selectedItemIndex + 1)
       );
     }
     updateSelected(newSelected);
   };
 
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
+  const isSelected = (id: number) => !!selected.find((item) => item.id === id);
 
   return (
     <TableBody>

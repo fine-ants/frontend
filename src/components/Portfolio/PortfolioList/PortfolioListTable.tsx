@@ -1,19 +1,11 @@
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
 import { PortfolioItem } from "@api/portfolio/types";
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TablePagination,
-  TableRow,
-  tableRowClasses,
-} from "@mui/material";
-import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
+import TablePagination from "@components/common/Pagination/TablePagination";
+import { Box, Table, TableContainer, tableRowClasses } from "@mui/material";
+import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
+import PortfolioListTableBody from "./PortfolioListTableBody";
 import PortfolioListTableHead from "./PortfolioListTableHead";
-import PortfolioListTableRow from "./PortfolioListTableRow";
 import PortfolioListTableToolBar from "./PortfolioListTableToolBar";
 
 export type Order = "asc" | "desc";
@@ -44,7 +36,7 @@ export default function PortfolioListTable() {
 
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof PortfolioItem>("dateCreated");
-  const [selected, setSelected] = useState<readonly number[]>([]);
+  const [selected, setSelected] = useState<readonly PortfolioItem[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -57,46 +49,13 @@ export default function PortfolioListTable() {
     setOrderBy(property);
   };
 
-  // TODO: select all in current page only
-  const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = portfolioRows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
-  // TODO: if click on name, navigate to portfolio page (don't select).
-  const handleClick = (_: MouseEvent<unknown>, id: number) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
-
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+  const updateSelected = (newSelected: readonly PortfolioItem[]) => {
+    setSelected(newSelected);
   };
-
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const numEmptyRows =
@@ -104,15 +63,33 @@ export default function PortfolioListTable() {
 
   const visibleRows = useMemo(
     () =>
-      portfolioRows
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .sort(getComparator(order, orderBy)),
+      rowsPerPage > 0
+        ? portfolioRows
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .sort(getComparator(order, orderBy))
+        : portfolioRows,
     [order, orderBy, page, portfolioRows, rowsPerPage]
   );
 
+  const handleSelectAllClick = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (event.target.checked) {
+        setSelected(visibleRows);
+        return;
+      }
+      setSelected([]);
+    },
+    [visibleRows]
+  );
+
+  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
-      <PortfolioListTableToolBar numSelected={selected.length} />
+      <PortfolioListTableToolBar selected={selected} />
 
       <TableContainer>
         <StyledTable aria-labelledby="tableTitle" size="medium">
@@ -120,45 +97,24 @@ export default function PortfolioListTable() {
             order={order}
             orderBy={orderBy}
             numSelected={selected.length}
-            rowCount={portfolioRows.length}
+            rowCount={visibleRows.length}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
           />
-          <TableBody>
-            {visibleRows.map((row, index) => {
-              const isItemSelected = isSelected(row.id);
-              const labelId = `enhanced-table-checkbox-${index}`;
-
-              return (
-                <PortfolioListTableRow
-                  {...{
-                    key: row.id,
-                    isItemSelected,
-                    handleClick,
-                    labelId,
-                    row,
-                  }}
-                />
-              );
-            })}
-            {numEmptyRows > 0 && (
-              <TableRow
-                style={{
-                  height: 53 * numEmptyRows,
-                }}>
-                <TableCell colSpan={8} />
-              </TableRow>
-            )}
-          </TableBody>
+          <PortfolioListTableBody
+            numEmptyRows={numEmptyRows}
+            visibleRows={visibleRows}
+            selected={selected}
+            updateSelected={updateSelected}
+          />
         </StyledTable>
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
         count={portfolioRows.length}
-        rowsPerPage={rowsPerPage}
         page={page}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5, 10, 15, 20, { label: "All", value: -1 }]}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
