@@ -102,6 +102,14 @@ export default function PortfolioListTableHead({
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
+            sx={{
+              width:
+                headCell.id === "name"
+                  ? "338px"
+                  : headCell.id === "numShares"
+                  ? "136px"
+                  : "170px",
+            }}
             align={headCell.numeric ? "right" : "left"}
             sortDirection={orderBy === headCell.id ? order : false}>
             <StyledTableSortLabel
