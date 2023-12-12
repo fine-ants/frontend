@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 type Variant = "primary" | "secondary" | "tertiary" | "text";
@@ -11,7 +12,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function Button({
+export default forwardRef(function Button({
   variant,
   size,
   disabled,
@@ -27,7 +28,7 @@ export default function Button({
       {children}
     </StyledButton>
   );
-}
+});
 
 const StyledButton = styled.button<{
   $variant: Variant;
