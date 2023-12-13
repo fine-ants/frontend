@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CommonSignInButton = styled.button`
+export const BaseSignInButton = styled.button`
   display: flex;
   min-width: 154px;
   height: 44px;
