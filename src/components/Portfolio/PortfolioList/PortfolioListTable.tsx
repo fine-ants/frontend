@@ -4,6 +4,7 @@ import TablePagination from "@components/common/Pagination/TablePagination";
 import { Box, Table, TableContainer, tableRowClasses } from "@mui/material";
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
+import EmptyPortfolioListTable from "./EmptyPortfolioListTable";
 import PortfolioListTableBody from "./PortfolioListTableBody";
 import PortfolioListTableHead from "./PortfolioListTableHead";
 import PortfolioListTableToolBar from "./PortfolioListTableToolBar";
@@ -70,35 +71,41 @@ export default function PortfolioListTable() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <PortfolioListTableToolBar selected={selected} />
+      {portfolioRows.length > 0 ? (
+        <>
+          <PortfolioListTableToolBar selected={selected} />
 
-      <TableContainer>
-        <StyledTable aria-labelledby="tableTitle" size="medium">
-          <PortfolioListTableHead
-            order={order}
-            orderBy={orderBy}
-            numSelected={selected.length}
-            rowCount={visibleRows.length}
-            onSelectAllClick={handleSelectAllClick}
-            onRequestSort={handleRequestSort}
-          />
-          <PortfolioListTableBody
-            numEmptyRows={numEmptyRows}
-            visibleRows={visibleRows}
-            selected={selected}
-            updateSelected={updateSelected}
-          />
-        </StyledTable>
-      </TableContainer>
+          <TableContainer>
+            <StyledTable aria-labelledby="tableTitle" size="medium">
+              <PortfolioListTableHead
+                order={order}
+                orderBy={orderBy}
+                numSelected={selected.length}
+                rowCount={visibleRows.length}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+              />
+              <PortfolioListTableBody
+                numEmptyRows={numEmptyRows}
+                visibleRows={visibleRows}
+                selected={selected}
+                updateSelected={updateSelected}
+              />
+            </StyledTable>
+          </TableContainer>
 
-      <TablePagination
-        count={portfolioRows.length}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 15, 20, { label: "All", value: -1 }]}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+          <TablePagination
+            count={portfolioRows.length}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={[5, 10, 15, 20, { label: "All", value: -1 }]}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </>
+      ) : (
+        <EmptyPortfolioListTable />
+      )}
     </Box>
   );
 }
