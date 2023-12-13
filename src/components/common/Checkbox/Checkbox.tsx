@@ -8,7 +8,10 @@ type Size = "h16" | "h20";
 type Props = {
   size: Size;
   checkType?: "check" | "indet";
-} & Pick<CheckboxProps, "checked" | "disabled" | "onChange" | "inputProps">;
+} & Pick<
+  CheckboxProps,
+  "checked" | "disabled" | "onChange" | "inputProps" | "id"
+>;
 
 export default function CheckBox({
   size,
@@ -31,6 +34,10 @@ export default function CheckBox({
   );
 }
 
+const getIcon = (checkType: "check" | "indet") => {
+  return checkType === "check" ? checkIcon : indetIcon;
+};
+
 const UncheckedIcon = styled.span<{ $size: Size }>`
   width: ${({ $size }) => `${$size === "h16" ? 16 : 20}px`};
   height: ${({ $size }) => `${$size === "h16" ? 16 : 20}px`};
@@ -39,9 +46,9 @@ const UncheckedIcon = styled.span<{ $size: Size }>`
   border-radius: 4px;
 
   .Mui-focusVisible & {
-    outline: 2px auto rgba(19,124,189,.6),
-    outlineOffset: 2,
-  },
+    outline: 2px auto rgba(19, 124, 189, 0.6);
+    outlineoffset: 2;
+  }
 
   input:hover ~ & {
     background-color: ${({ theme: { color } }) => color.neutral.gray50};
@@ -56,6 +63,7 @@ const UncheckedIcon = styled.span<{ $size: Size }>`
 
 const CheckedIcon = styled(UncheckedIcon)<{
   $checkType: "check" | "indet";
+  $size: Size;
 }>`
   position: relative;
   background-color: ${({ theme: { color } }) => color.primary.blue500};
@@ -70,8 +78,7 @@ const CheckedIcon = styled(UncheckedIcon)<{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-image: url(${({ $checkType }) =>
-      $checkType === "check" ? checkIcon : indetIcon});
+    background-image: url(${({ $checkType }) => getIcon($checkType)});
     background-size: contain;
   }
 

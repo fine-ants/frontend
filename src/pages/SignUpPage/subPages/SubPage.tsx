@@ -11,9 +11,8 @@ export default function SubPage({ children }: Props) {
 
 const StyledSubPage = styled.div`
   width: 100%;
-  padding: 48px 0;
   display: flex;
-  gap: 16px;
+  gap: 48px;
   flex-direction: column;
 
   > label {

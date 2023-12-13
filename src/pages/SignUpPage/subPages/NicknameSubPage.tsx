@@ -1,10 +1,18 @@
 import { postNicknameDuplicateCheck } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
+import { AuthInput } from "@components/auth/AuthInput";
+import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
+import {
+  AuthPageHeader,
+  AuthPageTitle,
+  AuthPageTitleCaption,
+  NextButton,
+} from "@components/auth/AuthPageCommon";
 import useText from "@components/hooks/useText";
+import { useDebounce } from "@hooks/useDebounce";
 import { validateNickname } from "@utils/authInputValidators";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
-import styled from "styled-components";
+import { ChangeEvent, useEffect, useState } from "react";
 import SubPage from "./SubPage";
 
 type Props = {
@@ -20,104 +28,59 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
   } = useText({
     validators: [validateNickname],
   });
-
-  const [isDuplicateChecked, setIsDuplicateChecked] = useState(false);
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
+  const isDuplicateChecked = !!duplicateCheckErrorMsg;
+
+  const debouncedNickname = useDebounce({ value: nickname, delay: 400 });
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
-    setIsDuplicateChecked(false);
     setDuplicateCheckErrorMsg("");
   };
 
-  const onDuplicateCheckButtonClick = async () => {
-    try {
-      const res = await postNicknameDuplicateCheck(nickname);
-
-      if (res.code === HTTPSTATUS.success) {
-        setIsDuplicateChecked(true);
-        setDuplicateCheckErrorMsg("");
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await postNicknameDuplicateCheck(debouncedNickname);
+        if (res.code === HTTPSTATUS.success) {
+          setDuplicateCheckErrorMsg("");
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setDuplicateCheckErrorMsg(error.response?.data.message);
+        } else {
+          setDuplicateCheckErrorMsg((error as Error).message);
+        }
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setDuplicateCheckErrorMsg(error.response?.data.message);
-      } else {
-        setDuplicateCheckErrorMsg((error as Error).message);
-      }
-    }
-  };
+    })();
+  }, [debouncedNickname]);
 
   return (
     <SubPage>
-      <button type="button" onClick={onPrev}>
-        이전 단계
-      </button>
+      <AuthOnPrevButton onPrev={onPrev} />
 
-      <label htmlFor="nicknameInput">닉네임</label>
-      <InputWrapper>
-        <SignUpInput
-          type="text"
-          placeholder="닉네임"
-          id="nicknameInput"
-          value={nickname}
-          onChange={onNicknameChange}
-        />
-        <UniqueCheckButton
-          type="button"
-          onClick={onDuplicateCheckButtonClick}
-          disabled={isError}>
-          중복 확인
-        </UniqueCheckButton>
-      </InputWrapper>
-
-      <Caption>영문/한글/숫자 (2~10자)</Caption>
-
-      <ErrorCaption>{duplicateCheckErrorMsg}</ErrorCaption>
+      <AuthPageHeader>
+        <AuthPageTitle>닉네임</AuthPageTitle>
+        <AuthPageTitleCaption>
+          닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
+      <AuthInput
+        error={isError}
+        type="text"
+        placeholder="닉네임"
+        id="nicknameInput"
+        value={nickname}
+        onChange={onNicknameChange}
+        helperText={duplicateCheckErrorMsg}
+      />
 
       <NextButton
+        disabled={isError || !isDuplicateChecked}
         type="button"
-        onClick={() => onNext(nickname)}
-        disabled={isError || !isDuplicateChecked}>
+        onClick={() => onNext(nickname)}>
         다음
       </NextButton>
     </SubPage>
   );
 }
-
-const SignUpInput = styled.input`
-  font-size: 16px;
-  padding: 16px;
-  height: 48px;
-  box-sizing: border-box;
-  border-radius: 8px;
-  background-color: #dedee0;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const UniqueCheckButton = styled.button`
-  width: 120px;
-  height: 48px;
-  background-color: #2d3bae;
-  border-radius: 8px;
-  color: white;
-`;
-
-const Caption = styled.p`
-  color: #697077;
-`;
-
-const ErrorCaption = styled.p`
-  color: red;
-`;
-
-const NextButton = styled.button<{ disabled: boolean }>`
-  width: 100%;
-  height: 48px;
-  background-color: ${({ disabled }) => (disabled ? "#c4c4c4" : "#2d3bae")};
-  border-radius: 8px;
-  color: white;
-`;
