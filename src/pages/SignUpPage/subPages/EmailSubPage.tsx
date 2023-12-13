@@ -29,7 +29,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
   const isDuplicateChecked = !!duplicateCheckErrorMsg;
 
-  const deBounceEmail = useDebounce({ value: email, delay: 400 });
+  const debouncedEmail = useDebounce({ value: email, delay: 400 });
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
@@ -39,7 +39,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   useEffect(() => {
     (async () => {
       try {
-        const res = await postEmailDuplicateCheck(deBounceEmail);
+        const res = await postEmailDuplicateCheck(debouncedEmail);
 
         if (res.code === HTTPSTATUS.success) {
           setDuplicateCheckErrorMsg("");
@@ -52,7 +52,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         }
       }
     })();
-  }, [deBounceEmail]);
+  }, [debouncedEmail]);
 
   return (
     <SubPage>

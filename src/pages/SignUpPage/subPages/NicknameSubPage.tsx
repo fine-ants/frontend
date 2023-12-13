@@ -31,7 +31,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
   const isDuplicateChecked = !!duplicateCheckErrorMsg;
 
-  const deBounceNickname = useDebounce({ value: nickname, delay: 400 });
+  const debouncedNickname = useDebounce({ value: nickname, delay: 400 });
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
@@ -41,7 +41,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
   useEffect(() => {
     (async () => {
       try {
-        const res = await postNicknameDuplicateCheck(deBounceNickname);
+        const res = await postNicknameDuplicateCheck(debouncedNickname);
         if (res.code === HTTPSTATUS.success) {
           setDuplicateCheckErrorMsg("");
         }
@@ -53,7 +53,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         }
       }
     })();
-  }, [deBounceNickname]);
+  }, [debouncedNickname]);
 
   return (
     <SubPage>
