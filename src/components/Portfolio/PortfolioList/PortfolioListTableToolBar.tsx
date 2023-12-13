@@ -63,7 +63,7 @@ export default function PortfolioListTableToolBar({
 
             <img src={dividerIcon} alt="" />
 
-            <Tooltip title="Delete">
+            <Tooltip title="포트폴리오 삭제">
               <Button
                 variant="tertiary"
                 size="h32"
