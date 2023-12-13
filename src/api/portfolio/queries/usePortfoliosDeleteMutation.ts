@@ -9,8 +9,12 @@ export default function usePortfoliosDeleteMutation() {
     mutationKey: portfolioKeys.deletePortfolios().queryKey,
     mutationFn: deletePortfolios,
     onSuccess: () => {
+      // Invalidate Portfolio List Queries
       queryClient.invalidateQueries({
-        queryKey: portfolioKeys.list().queryKey,
+        queryKey: [
+          portfolioKeys.list("header").queryKey,
+          portfolioKeys.list("table").queryKey,
+        ],
       });
     },
     meta: {

@@ -1,13 +1,24 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deletePortfolio } from "..";
 import { portfolioKeys } from "./queryKeys";
 
 export default function usePortfolioDeleteMutation(portfolioId: number) {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: portfolioKeys.details(portfolioId).queryKey,
     mutationFn: deletePortfolio,
     onSuccess: () => {
-      // TODO: toast, 포트폴리오 목록 query invalidate
+      // Invalidate Portfolio List Queries
+      queryClient.invalidateQueries({
+        queryKey: [
+          portfolioKeys.list("header").queryKey,
+          portfolioKeys.list("table").queryKey,
+        ],
+      });
+    },
+    meta: {
+      successMessage: "포트폴리오 삭제를 성공했습니다",
     },
   });
 }
