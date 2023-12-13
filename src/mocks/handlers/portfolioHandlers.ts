@@ -97,6 +97,17 @@ export default [
     );
   }),
 
+  // Delete Multiple Portfolios
+  rest.delete("/api/portfolios", async (_, res, ctx) => {
+    // TODO: apply changes to mock data
+    // const { portfolioIds } = await req.json();
+
+    return res(
+      ctx.status(HTTPSTATUS.success),
+      ctx.json(successfulPortfolioDeleteResponse)
+    );
+  }),
+
   // Portfolio Details & Holdings
   rest.get("/api/portfolio/:portfolioId/holdings", async (req, res, ctx) => {
     const portfolioId = req.params.portfolioId;

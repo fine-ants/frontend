@@ -1,3 +1,4 @@
+import usePortfoliosDeleteMutation from "@api/portfolio/queries/usePortfoliosDeleteMutation";
 import { PortfolioItem } from "@api/portfolio/types";
 import addIcon from "@assets/icons/add-icon.svg";
 import dividerIcon from "@assets/icons/ic_divider.svg";
@@ -17,6 +18,8 @@ interface PortfolioListTableToolBarProps {
 export default function PortfolioListTableToolBar({
   selected,
 }: PortfolioListTableToolBarProps) {
+  const { mutate: portfoliosDeleteMutate } = usePortfoliosDeleteMutation();
+
   const [isAddPortfolioDialogOpen, setIsAddPortfolioDialogOpen] =
     useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -38,7 +41,8 @@ export default function PortfolioListTableToolBar({
   };
 
   const onConfirmAction = () => {
-    // Request delete portfolios portfoliosDeleteMutate(selectedPortfolioIds);
+    const selectedPortfolioIds = selected.map((item) => item.id);
+    portfoliosDeleteMutate(selectedPortfolioIds);
   };
 
   return (
