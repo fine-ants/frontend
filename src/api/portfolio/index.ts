@@ -14,7 +14,7 @@ export const getPortfoliosList = async () => {
 
 export const getPortfolioCharts = async (portfolioId: number) => {
   const res = await fetcher.get<Response<PortfolioPageCharts>>(
-    `/portfolios/${portfolioId}/charts`
+    `/portfolio/${portfolioId}/charts`
   );
   return res.data;
 };
