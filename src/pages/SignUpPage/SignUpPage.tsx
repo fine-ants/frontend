@@ -46,7 +46,7 @@ export default function SignUpPage() {
         <SubPageContainer>
           <Funnel>
             <Funnel.Step name="main">
-              <MainSubPage onNext={() => changeStep("verification")} />
+              <MainSubPage onNext={() => changeStep("nickname")} />
             </Funnel.Step>
 
             <Funnel.Step name="nickname">
