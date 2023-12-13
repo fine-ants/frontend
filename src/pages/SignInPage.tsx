@@ -74,7 +74,7 @@ export default function SignInPage() {
         if (provider && authCode && state) {
           await oAuthSignInMutate({ provider, authCode, state });
         }
-        // closePopUpWindow();
+        closePopUpWindow();
       }
     };
 
