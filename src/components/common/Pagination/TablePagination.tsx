@@ -55,7 +55,13 @@ export default function TablePagination({
         <>
           <StyledLabelRowsPerPage>
             전체 <span>{count}</span> 중{" "}
-            <span>{startRow && endRow ? `${startRow}-${endRow}` : count}</span>
+            <span>
+              {startRow && endRow
+                ? endRow === 1
+                  ? 1
+                  : `${startRow}-${endRow}`
+                : count}
+            </span>
           </StyledLabelRowsPerPage>
           <img src={dividerIcon} alt="" />
         </>
