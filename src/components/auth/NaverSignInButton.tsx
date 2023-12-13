@@ -1,13 +1,12 @@
 import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-// import naverLoginButtonImg from "@assets/images/naver_login.png";
 import naverLogo from "@assets/images/naver_logo.svg";
 import { WindowContext } from "@context/WindowContext";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
 import styled from "styled-components";
-import { CommonSignInButton } from "./CommonSignInButton";
+import { BaseSignInButton } from "./BaseSignInButton";
 
 export default function NaverSignInButton() {
   const { onOpenPopUpWindow } = useContext(WindowContext);
@@ -50,7 +49,7 @@ export default function NaverSignInButton() {
   );
 }
 
-const StyledNaverSignInButton = styled(CommonSignInButton)`
+const StyledNaverSignInButton = styled(BaseSignInButton)`
   background-color: #02bd34;
   color: ${designSystem.color.neutral.white};
   font: ${designSystem.font.button2};

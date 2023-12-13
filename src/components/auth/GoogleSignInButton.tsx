@@ -6,7 +6,7 @@ import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
 import styled from "styled-components";
-import { CommonSignInButton } from "./CommonSignInButton";
+import { BaseSignInButton } from "./BaseSignInButton";
 
 export default function GoogleSignInButton() {
   const { onOpenPopUpWindow } = useContext(WindowContext);
@@ -49,7 +49,7 @@ export default function GoogleSignInButton() {
   );
 }
 
-const StyledGoogleSignInButton = styled(CommonSignInButton)`
+const StyledGoogleSignInButton = styled(BaseSignInButton)`
   border: 1px solid ${designSystem.color.neutral.gray200};
   background: ${designSystem.color.neutral.white};
   color: ${designSystem.color.neutral.gray600};

@@ -6,7 +6,7 @@ import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
 import styled from "styled-components";
-import { CommonSignInButton } from "./CommonSignInButton";
+import { BaseSignInButton } from "./BaseSignInButton";
 
 export default function KakaoSignInButton() {
   const { onOpenPopUpWindow } = useContext(WindowContext);
@@ -50,7 +50,7 @@ export default function KakaoSignInButton() {
   );
 }
 
-const StyledKakaoSignInButton = styled(CommonSignInButton)`
+const StyledKakaoSignInButton = styled(BaseSignInButton)`
   background: ${designSystem.color.kakao.primary};
   color: ${designSystem.color.neutral.black};
   font: ${designSystem.font.button2};

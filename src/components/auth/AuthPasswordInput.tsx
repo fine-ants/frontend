@@ -19,8 +19,8 @@ type Props = {
 };
 
 export function AuthPasswordInput({
-  helperText,
   error,
+  helperText,
   placeholder,
   password,
   onChange,

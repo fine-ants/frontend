@@ -23,7 +23,6 @@ export default function CheckBox({
 }: Props) {
   return (
     <Checkbox
-      sx={{}}
       icon={<UncheckedIcon $size={size} />}
       checkedIcon={<CheckedIcon $size={size} $checkType={checkType} />}
       disableRipple={true}
@@ -35,8 +34,8 @@ export default function CheckBox({
   );
 }
 
-const getIcon = ($checkType: "check" | "indet") => {
-  return $checkType === "check" ? checkIcon : indetIcon;
+const getIcon = (checkType: "check" | "indet") => {
+  return checkType === "check" ? checkIcon : indetIcon;
 };
 
 const UncheckedIcon = styled.span<{ $size: Size }>`
@@ -64,7 +63,7 @@ const UncheckedIcon = styled.span<{ $size: Size }>`
 
 const CheckedIcon = styled(UncheckedIcon)<{
   $checkType: "check" | "indet";
-  $size: Size; // Add this line
+  $size: Size;
 }>`
   position: relative;
   background-color: ${({ theme: { color } }) => color.primary.blue500};
