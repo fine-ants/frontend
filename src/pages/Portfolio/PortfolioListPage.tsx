@@ -1,21 +1,21 @@
 import PortfolioListTable from "@components/Portfolio/PortfolioList/PortfolioListTable";
+import PortfolioListTableSkeleton from "@components/Portfolio/PortfolioList/skeletons/PortfolioListTableSkeleton";
 import BasePage from "@pages/BasePage";
-import PortfolioListPageSkeleton from "@pages/Portfolio/skeletons/PortfolioListPageSkeleton";
 import { Suspense } from "react";
 import styled from "styled-components";
 
 export default function PortfolioListPage() {
   return (
     <BasePage>
-      <Suspense fallback={<PortfolioListPageSkeleton />}>
-        <Container>
-          <Header>
-            <h1>내 포트폴리오</h1>
-          </Header>
+      <Container>
+        <Header>
+          <h1>내 포트폴리오</h1>
+        </Header>
 
+        <Suspense fallback={<PortfolioListTableSkeleton />}>
           <PortfolioListTable />
-        </Container>
-      </Suspense>
+        </Suspense>
+      </Container>
     </BasePage>
   );
 }

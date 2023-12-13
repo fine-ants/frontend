@@ -1,4 +1,4 @@
-import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
+import usePortfolioListTableQuery from "@api/portfolio/queries/usePortfolioListTableQuery";
 import { PortfolioItem } from "@api/portfolio/types";
 import TablePagination from "@components/common/Pagination/TablePagination";
 import { Box, Table, TableContainer, tableRowClasses } from "@mui/material";
@@ -10,57 +10,8 @@ import PortfolioListTableToolBar from "./PortfolioListTableToolBar";
 
 export type Order = "asc" | "desc";
 
-// Natural sorting algorithm to account for numbers in strings
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  const getValue = (item: T) => {
-    const value = item[orderBy];
-    if (typeof value === "string") {
-      // Split the string into parts of digits and non-digits
-      const parsedValue: (string | number)[] = value
-        .split(/(\d+)/)
-        .map((part) =>
-          isNaN(Number(part)) ? part.toLowerCase() : Number(part)
-        );
-      return parsedValue;
-    }
-    return [value]; // Return a single-element array for non-string values
-  };
-
-  const valueA = getValue(a);
-  const valueB = getValue(b);
-
-  let comparison = 0;
-  for (let i = 0; i < Math.min(valueA.length, valueB.length); i++) {
-    if (valueB[i] < valueA[i]) {
-      // Sort valueA before valueB
-      comparison = -1;
-      break;
-    }
-    if (valueB[i] > valueA[i]) {
-      // Sort valueB before valueA
-      comparison = 1;
-      break;
-    }
-  }
-
-  return comparison;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
 export default function PortfolioListTable() {
-  const { data: portfolioItems } = usePortfolioListQuery();
+  const { data: portfolioItems } = usePortfolioListTableQuery();
 
   const portfolioRows = portfolioItems.portfolios;
 
@@ -159,3 +110,52 @@ const StyledTable = styled(Table)`
     background-color: ${({ theme: { color } }) => color.neutral.gray50};
   }
 `;
+
+// Natural sorting algorithm to account for numbers in strings
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+  const getValue = (item: T) => {
+    const value = item[orderBy];
+    if (typeof value === "string") {
+      // Split the string into parts of digits and non-digits
+      const parsedValue: (string | number)[] = value
+        .split(/(\d+)/)
+        .map((part) =>
+          isNaN(Number(part)) ? part.toLowerCase() : Number(part)
+        );
+      return parsedValue;
+    }
+    return [value]; // Return a single-element array for non-string values
+  };
+
+  const valueA = getValue(a);
+  const valueB = getValue(b);
+
+  let comparison = 0;
+  for (let i = 0; i < Math.min(valueA.length, valueB.length); i++) {
+    if (valueB[i] < valueA[i]) {
+      // Sort valueA before valueB
+      comparison = -1;
+      break;
+    }
+    if (valueB[i] > valueA[i]) {
+      // Sort valueB before valueA
+      comparison = 1;
+      break;
+    }
+  }
+
+  return comparison;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getComparator<Key extends keyof any>(
+  order: Order,
+  orderBy: Key
+): (
+  a: { [key in Key]: number | string },
+  b: { [key in Key]: number | string }
+) => number {
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
