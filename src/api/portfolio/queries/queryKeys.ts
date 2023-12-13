@@ -1,8 +1,8 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
 export const portfolioKeys = createQueryKeys("portfolio", {
-  list: () => ({
-    queryKey: ["portfolioList"],
+  list: (component: string) => ({
+    queryKey: ["portfolioList", component],
   }),
   details: (portfolioId: number) => ({
     queryKey: [portfolioId],
