@@ -21,10 +21,16 @@ const portfolioDetailsData = portfolioDetails;
 export default [
   // List of all Portfolios
   rest.get("/api/portfolios", async (_, res, ctx) => {
-    return res(
-      ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulGetPortfolioResponse)
-    );
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          res(
+            ctx.status(HTTPSTATUS.success),
+            ctx.json(successfulGetPortfolioResponse)
+          )
+        );
+      }, 5000);
+    });
   }),
 
   // Portfolio Charts
@@ -90,6 +96,17 @@ export default [
   rest.delete("/api/portfolios/:portfolioId", async (req, res, ctx) => {
     const portfolioId = Number(req.params.portfolioId);
     portfolioDetailsData.splice(portfolioId - 1, 1);
+
+    return res(
+      ctx.status(HTTPSTATUS.success),
+      ctx.json(successfulPortfolioDeleteResponse)
+    );
+  }),
+
+  // Delete Multiple Portfolios
+  rest.delete("/api/portfolios", async (_, res, ctx) => {
+    // TODO: apply changes to mock data
+    // const { portfolioIds } = await req.json();
 
     return res(
       ctx.status(HTTPSTATUS.success),

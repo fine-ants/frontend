@@ -1,0 +1,18 @@
+<svg width="600" height="248" viewBox="0 0 600 248" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M156 16C147.163 16 140 23.1635 140 32V232C140 240.837 147.163 248 156 248H444C452.837 248 460 240.837 460 232V64C460 55.1635 452.837 48 444 48H308.889C302.828 48 297.288 44.576 294.578 39.1554L287.422 24.8446C284.712 19.424 279.172 16 273.111 16H156Z" fill="url(#paint0_linear_2371_4533)"/>
+<rect x="320.5" y="0.5" width="279" height="63" rx="7.5" fill="white" stroke="#E8EAFA"/>
+<circle cx="356" cy="32" r="20" fill="#E8EAFA"/>
+<rect x="384" y="24" width="128" height="16" rx="4" fill="#E8EAFA"/>
+<rect x="520" y="24" width="64" height="16" rx="4" fill="#E8EAFA"/>
+<path d="M132.84 104.799C132.383 95.6601 139.67 88 148.82 88H451.18C460.33 88 467.617 95.6601 467.16 104.799L460.76 232.799C460.334 241.314 453.306 248 444.78 248H155.22C146.694 248 139.666 241.314 139.24 232.799L132.84 104.799Z" fill="#E8EAFA"/>
+<rect x="0.5" y="152.5" width="279" height="63" rx="7.5" fill="white" stroke="#E8EAFA"/>
+<circle cx="36" cy="184" r="20" fill="#E8EAFA"/>
+<rect x="64" y="176" width="128" height="16" rx="4" fill="#E8EAFA"/>
+<rect x="200" y="176" width="64" height="16" rx="4" fill="#E8EAFA"/>
+<defs>
+<linearGradient id="paint0_linear_2371_4533" x1="300" y1="16" x2="300" y2="248" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E8EAFA"/>
+<stop offset="1" stop-color="#9CA8EA"/>
+</linearGradient>
+</defs>
+</svg>

@@ -1,3 +1,4 @@
+import { ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
 
 type Variant = "primary" | "secondary" | "tertiary" | "text";
@@ -11,23 +12,22 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function Button({
-  variant,
-  size,
-  disabled,
-  onClick,
-  children,
-}: Props) {
+export default forwardRef(function Button(
+  { variant, size, disabled, onClick, children, ...props }: Props,
+  ref: ForwardedRef<HTMLButtonElement>
+) {
   return (
     <StyledButton
+      ref={ref}
       $variant={variant}
       $size={size}
       $disabled={disabled}
-      onClick={onClick}>
+      onClick={onClick}
+      {...props}>
       {children}
     </StyledButton>
   );
-}
+});
 
 const StyledButton = styled.button<{
   $variant: Variant;

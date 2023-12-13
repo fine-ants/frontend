@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletePortfolio } from "..";
+import { deletePortfolios } from "..";
 import { portfolioKeys } from "./queryKeys";
 
-export default function usePortfolioDeleteMutation(portfolioId: number) {
+export default function usePortfoliosDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: portfolioKeys.details(portfolioId).queryKey,
-    mutationFn: deletePortfolio,
+    mutationKey: portfolioKeys.deletePortfolios().queryKey,
+    mutationFn: deletePortfolios,
     onSuccess: () => {
       // Invalidate Portfolio List Queries
       queryClient.invalidateQueries({

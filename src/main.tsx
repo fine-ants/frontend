@@ -1,3 +1,4 @@
+import { createToast } from "@components/common/toast";
 import { UserProvider } from "@context/UserContext.tsx";
 import { StyledEngineProvider } from "@mui/styled-engine";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -9,8 +10,6 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-import { createToast } from "@components/common/toast";
 import { AxiosError } from "axios";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -41,6 +40,12 @@ const queryClient = new QueryClient({
     },
   }),
   mutationCache: new MutationCache({
+    onSuccess: (_, __, ___, mutation) => {
+      if (mutation.meta?.successMessage) {
+        toast.success(mutation.meta.successMessage as string);
+        return;
+      }
+    },
     onError: (error, _, __, mutation) => {
       if (mutation.meta?.errorMessage) {
         toast.error(mutation.meta.errorMessage as string);

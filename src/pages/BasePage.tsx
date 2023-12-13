@@ -29,6 +29,7 @@ const StyledBasePage = styled.div`
 const Main = styled.main`
   width: 100%;
   height: 100%;
+  padding-bottom: 48px;
   display: flex;
   flex-direction: column;
   align-items: center;

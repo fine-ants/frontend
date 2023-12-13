@@ -1,3 +1,5 @@
+import usePortfoliosDeleteMutation from "@api/portfolio/queries/usePortfoliosDeleteMutation";
+import { PortfolioItem } from "@api/portfolio/types";
 import addIcon from "@assets/icons/add-icon.svg";
 import dividerIcon from "@assets/icons/ic_divider.svg";
 import trashIcon from "@assets/icons/ic_trash.svg";
@@ -10,12 +12,14 @@ import styled from "styled-components";
 import PortfolioAddDialog from "../PortfolioAddDialog";
 
 interface PortfolioListTableToolBarProps {
-  numSelected: number;
+  selected: readonly PortfolioItem[];
 }
 
 export default function PortfolioListTableToolBar({
-  numSelected,
+  selected,
 }: PortfolioListTableToolBarProps) {
+  const { mutate: portfoliosDeleteMutate } = usePortfoliosDeleteMutation();
+
   const [isAddPortfolioDialogOpen, setIsAddPortfolioDialogOpen] =
     useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -37,20 +41,21 @@ export default function PortfolioListTableToolBar({
   };
 
   const onConfirmAction = () => {
-    // Request delete portfolios portfoliosDeleteMutate(selectedPortfolioIds);
+    const selectedPortfolioIds = selected.map((item) => item.id);
+    portfoliosDeleteMutate(selectedPortfolioIds);
   };
 
   return (
     <StyledToolbar>
       <SelectedInfoContainer>
-        {numSelected > 0 && (
+        {selected.length > 0 && (
           <>
             <Typography
               sx={{ font: designSystem.font.body3 }}
               color="inherit"
               variant="subtitle1"
               component="span">
-              <span>{numSelected}</span>
+              <span>{selected.length}</span>
               <span style={{ color: designSystem.color.neutral.gray600 }}>
                 개 선택됨
               </span>
@@ -58,7 +63,7 @@ export default function PortfolioListTableToolBar({
 
             <img src={dividerIcon} alt="" />
 
-            <Tooltip title="Delete">
+            <Tooltip title="포트폴리오 삭제">
               <Button
                 variant="tertiary"
                 size="h32"
@@ -86,11 +91,15 @@ export default function PortfolioListTableToolBar({
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}
-          title="삭제"
-          content="선택된 포트폴리오를 삭제 하시겠습니까?"
+          title="선택된 포트폴리오를 삭제 하시겠습니까?"
           onClose={onDeletePortfoliosAlertClose}
-          onConfirm={onConfirmAction}
-        />
+          onConfirm={onConfirmAction}>
+          <DeleteList>
+            {selected.map((item) => (
+              <DeleteListItem key={item.id}>{item.name}</DeleteListItem>
+            ))}
+          </DeleteList>
+        </ConfirmAlert>
       )}
     </StyledToolbar>
   );
@@ -110,3 +119,12 @@ const SelectedInfoContainer = styled.div`
   align-items: center;
   gap: 8px;
 `;
+
+const DeleteList = styled.ul`
+  width: 100%;
+  height: inherit;
+  max-height: inherit;
+  overflow-y: scroll;
+`;
+
+const DeleteListItem = styled.li``;

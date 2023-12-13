@@ -151,8 +151,7 @@ export default function PortfolioHoldingLotRow({
           </TableCell>
           <ConfirmAlert
             isOpen={isDeleteConfirmAlertOpen}
-            title="매입 이력 삭제"
-            content="매입 이력을 정말 삭제하시겠습니까?"
+            title="매입 이력을 정말 삭제하시겠습니까?"
             onClose={onCloseDeleteConfirmAlert}
             onConfirm={onDeleteConfirm}
           />

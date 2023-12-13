@@ -1,4 +1,4 @@
-import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
+import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
 import { PortfolioItem } from "@api/portfolio/types";
 import BIImage from "@assets/images/profileImage.png";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
@@ -20,12 +20,7 @@ export default function Header() {
 
   const { user } = useContext(UserContext);
 
-  const shouldNotFetch = !user;
-
-  // TODO: 임시 처방
-  // 로그인 상태가 아니면 포트폴리오 목록을 가져오지 않는다.
-  // Header를 로그인/비로그인 상태 구분 없이 사용하고 있기 때문.
-  const { data: portfolioList } = usePortfolioListQuery(shouldNotFetch);
+  const { data: portfolioList } = usePortfolioListHeaderQuery();
 
   const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
     useState(false);
@@ -89,10 +84,6 @@ export default function Header() {
         </HeaderLeft>
         <HeaderRight>
           <SearchBar onItemClick={moveToStockPage} />
-          {/* <SearchBar>
-            <SearchBar.Input />
-            <SearchBar.SearchList onItemClick={moveToStockPage} />
-          </SearchBar> */}
           {user ? (
             <UserControls />
           ) : (

@@ -5,32 +5,37 @@ import {
   TablePagination as MuiTablePagination,
   tablePaginationClasses,
 } from "@mui/material";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEventHandler, useState } from "react";
 import styled from "styled-components";
 import Pagination from "./Pagination";
+import calculateStartAndEndRows from "./utils/calculateStartAndEndRows";
 
 type Props = {
   count: number;
+  page: number;
+  rowsPerPage: number;
+  rowsPerPageOptions: (
+    | number
+    | {
+        label: string;
+        value: number;
+      }
+  )[];
+  onPageChange: (event: unknown, newPage: number) => void;
+  onRowsPerPageChange:
+    | ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
+    | undefined;
 };
 
-export default function TablePagination({ count }: Props) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+export default function TablePagination({
+  count,
+  page,
+  rowsPerPage,
+  rowsPerPageOptions,
+  onPageChange,
+  onRowsPerPageChange,
+}: Props) {
   const [selectOpen, setSelectOpen] = useState(false);
-
-  const handleChangePage = (
-    _: MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const { startRow, endRow } = calculateStartAndEndRows(
     count,
@@ -40,83 +45,89 @@ export default function TablePagination({ count }: Props) {
 
   return (
     <StyledTablePagination
+      component="div"
       count={count}
-      colSpan={3}
       page={page}
       rowsPerPage={rowsPerPage}
-      rowsPerPageOptions={[10, 20, 30, { label: "All", value: -1 }]}
+      // TODO: rowPerPageOptions select dropdown 컴포넌트 customize 및 분리
+      rowsPerPageOptions={rowsPerPageOptions}
       labelRowsPerPage={
         <>
           <StyledLabelRowsPerPage>
             전체 <span>{count}</span> 중{" "}
             <span>
-              {startRow}-{endRow}
+              {startRow && endRow
+                ? endRow === 1
+                  ? 1
+                  : `${startRow}-${endRow}`
+                : count}
             </span>
           </StyledLabelRowsPerPage>
           <img src={dividerIcon} alt="" />
         </>
       }
-      // TODO: synchronize page number with Pagination component
-      ActionsComponent={() => <Pagination count={count} />}
-      labelDisplayedRows={() => "개 씩 보기"} // none
-      SelectProps={{
-        IconComponent: () => (
-          <StyledSelectPropsImg
-            src={selectOpen ? chevronUpIcon : chevronDownIcon}
-            alt=""
-          />
-        ),
-        onClose: () => {
-          setSelectOpen(false);
-        },
-        onOpen: () => {
-          setSelectOpen(true);
+      labelDisplayedRows={() => (rowsPerPage === -1 ? "" : "개 씩 보기")}
+      slotProps={{
+        select: {
+          IconComponent: () => (
+            <StyledSelectPropsImg
+              src={selectOpen ? chevronUpIcon : chevronDownIcon}
+              alt=""
+            />
+          ),
+          onClose: () => {
+            setSelectOpen(false);
+          },
+          onOpen: () => {
+            setSelectOpen(true);
+          },
         },
       }}
-      onPageChange={handleChangePage}
-      onRowsPerPageChange={handleChangeRowsPerPage}
+      ActionsComponent={() => (
+        <Pagination
+          count={Math.floor(count / rowsPerPage)}
+          page={page + 1}
+          onPageChange={onPageChange}
+        />
+      )}
+      onPageChange={onPageChange}
+      onRowsPerPageChange={onRowsPerPageChange}
     />
   );
 }
 
 const StyledTablePagination = styled(MuiTablePagination)`
+  margin-top: 16px;
+  height: 24px;
+
   & .${tablePaginationClasses.spacer} {
     display: none;
   }
 
   & .${tablePaginationClasses.toolbar} {
+    height: 100%;
+    min-height: auto;
     padding: 0;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
     background-color: #fff;
-
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: center;
-    }
   }
 
   & .${tablePaginationClasses.input} {
+    width: 49px;
+    height: 24px;
+    min-height: 24px;
     margin: 0;
   }
 
-  & .${tablePaginationClasses.displayedRows} {
-    margin: 0;
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
-
-    @media (min-width: 768px) {
-      margin-left: auto;
-    }
+  & .${tablePaginationClasses.selectLabel} {
+    margin-right: 8px;
   }
 
   & .${tablePaginationClasses.select} {
-    min-width: 49px;
-    height: 24px;
+    width: 100%;
+    height: inherit;
     margin: 0;
-    padding: 0 8px; // TODO: Adjust padding-right
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     background-color: transparent;
@@ -126,40 +137,18 @@ const StyledTablePagination = styled(MuiTablePagination)`
     color: ${({ theme: { color } }) => color.neutral.gray900};
 
     &:hover {
-      background-color: lightgrey;
+      border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
     }
 
-    &:focus {
-      outline: 1px solid blue;
+    &:active {
+      border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
     }
   }
 
-  & .${tablePaginationClasses.actions} {
-    margin: 0;
-    padding: 2px;
-    border: 1px solid blue;
-    border-radius: 50px;
-    text-align: center;
-  }
-
-  & .${tablePaginationClasses.actions} > button {
-    margin: 0 8px;
-    border: transparent;
-    border-radius: 4px;
-    background-color: transparent;
-    color: black;
-
-    &:hover {
-      background-color: grey;
-    }
-
-    &:focus {
-      outline: 1px solid blue;
-    }
-
-    &:disabled {
-      opacity: 0.3;
-    }
+  & .${tablePaginationClasses.displayedRows} {
+    margin: 0 auto 0 8px;
+    font: ${({ theme: { font } }) => font.body3};
+    color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 `;
 
@@ -180,7 +169,7 @@ const StyledSelectPropsImg = styled.img`
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translate(-50%, -50%);
+  transform: translate(-8px, -50%);
   flex-shrink: 0;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -191,20 +180,3 @@ const StyledSelectPropsImg = styled.img`
 
   // TODO: filter to gray600
 `;
-
-const calculateStartAndEndRows = (
-  totalNumRows: number,
-  currentPage: number,
-  rowsPerPage: number
-) => {
-  if (currentPage < 1 || rowsPerPage < 1 || totalNumRows < 0) return {};
-
-  const startRow = (currentPage - 1) * rowsPerPage + 1;
-  const endRow = Math.min(currentPage * rowsPerPage, totalNumRows);
-
-  // If the page number exceeds the available rows.
-  // Ex: totalNumRows = 100, currentPage = 11, rowsPerPage = 10
-  if (startRow > totalNumRows) return {};
-
-  return { startRow, endRow };
-};

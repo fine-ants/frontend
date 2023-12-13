@@ -1,5 +1,7 @@
+import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
 import { useDropdown } from "@components/hooks/useDropdown";
 import designSystem from "@styles/designSystem";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -19,9 +21,16 @@ export function PortfoliosDropdown({
   const navigate = useNavigate();
   const { DropdownMenu, DropdownItem, onOpen } = useDropdown();
 
+  const { refetch: refetchPortfolioList } = usePortfolioListHeaderQuery();
+
+  const onDropdownClick = (e: MouseEvent<HTMLButtonElement>) => {
+    refetchPortfolioList();
+    onOpen(e);
+  };
+
   return (
     <>
-      <button style={buttonStyle} onClick={onOpen}>
+      <button style={buttonStyle} onClick={onDropdownClick}>
         Portfolios
       </button>
       <DropdownMenu>

@@ -64,8 +64,7 @@ export default function PortfolioOverview({ data }: Props) {
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}
-          title="포트폴리오 삭제"
-          content="포트폴리오를 삭제 하시겠습니까?"
+          title="포트폴리오를 삭제 하시겠습니까?"
           onClose={onConfirmAlertClose}
           onConfirm={onConfirmAction}
         />

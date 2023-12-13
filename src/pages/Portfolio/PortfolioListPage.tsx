@@ -1,26 +1,21 @@
 import PortfolioListTable from "@components/Portfolio/PortfolioList/PortfolioListTable";
-import Pagination from "@components/common/Pagination/Pagination";
-import TablePagination from "@components/common/Pagination/TablePagination";
+import PortfolioListTableSkeleton from "@components/Portfolio/PortfolioList/skeletons/PortfolioListTableSkeleton";
 import BasePage from "@pages/BasePage";
-import PortfolioListPageSkeleton from "@pages/Portfolio/skeletons/PortfolioListPageSkeleton";
 import { Suspense } from "react";
 import styled from "styled-components";
 
 export default function PortfolioListPage() {
   return (
     <BasePage>
-      <Suspense fallback={<PortfolioListPageSkeleton />}>
-        <Container>
-          <Header>
-            <h1>내 포트폴리오</h1>
-          </Header>
+      <Container>
+        <Header>
+          <h1>내 포트폴리오</h1>
+        </Header>
 
-          <Pagination count={10} />
-          <TablePagination count={29} />
-
+        <Suspense fallback={<PortfolioListTableSkeleton />}>
           <PortfolioListTable />
-        </Container>
-      </Suspense>
+        </Suspense>
+      </Container>
     </BasePage>
   );
 }

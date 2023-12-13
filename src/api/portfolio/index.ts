@@ -14,7 +14,7 @@ export const getPortfoliosList = async () => {
 
 export const getPortfolioCharts = async (portfolioId: number) => {
   const res = await fetcher.get<Response<PortfolioPageCharts>>(
-    `/portfolios/${portfolioId}/charts`
+    `/portfolio/${portfolioId}/charts`
   );
   return res.data;
 };
@@ -52,6 +52,13 @@ export const deletePortfolio = async (portfolioId: number) => {
   const res = await fetcher.delete<Response<null>>(
     `/portfolios/${portfolioId}`
   );
+  return res.data;
+};
+
+export const deletePortfolios = async (portfolioIds: number[]) => {
+  const res = await fetcher.delete<Response<null>>("/portfolios", {
+    data: { portfolioIds },
+  });
   return res.data;
 };
 

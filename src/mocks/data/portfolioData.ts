@@ -449,8 +449,6 @@ export const successfulGetPortfolioResponse = {
   message: "포트폴리오 목록 조회가 완료되었습니다",
   data: {
     portfolios,
-    hasNext: false,
-    nextCursor: null,
   },
 };
 
