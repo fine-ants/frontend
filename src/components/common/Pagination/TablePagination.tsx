@@ -79,7 +79,7 @@ export default function TablePagination({
       }}
       ActionsComponent={() => (
         <Pagination
-          count={count / rowsPerPage}
+          count={Math.floor(count / rowsPerPage)}
           page={page + 1}
           onPageChange={onPageChange}
         />
