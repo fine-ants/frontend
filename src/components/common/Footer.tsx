@@ -1,8 +1,8 @@
-import facebookIcon from "@assets/icons/facebook.svg";
-import instagramIcon from "@assets/icons/instagram.svg";
-import linkedinIcon from "@assets/icons/linkedin.svg";
-import XIcon from "@assets/icons/x.svg";
-import youtubeIcon from "@assets/icons/youtube.svg";
+import facebookIcon from "@assets/icons/logo/ic_facebook.svg";
+import instagramIcon from "@assets/icons/logo/ic_instagram.svg";
+import linkedinIcon from "@assets/icons/logo/ic_linkedin.svg";
+import XIcon from "@assets/icons/logo/ic_x.svg";
+import youtubeIcon from "@assets/icons/logo/ic_youtube.svg";
 import profileImage from "@assets/images/profileImage.png";
 import styled from "styled-components";
 
@@ -17,11 +17,11 @@ export default function Footer() {
         <Copyright>FineAnts Ⓒ All rights reserved.</Copyright>
       </FooterLeft>
       <IconContainer>
-        <img src={youtubeIcon} alt="youtube" />
-        <img src={facebookIcon} alt="facebook" />
-        <img src={XIcon} alt="X" />
-        <img src={linkedinIcon} alt="linkedin" />
-        <img src={instagramIcon} alt="instagram" />
+        <img src={youtubeIcon} alt="youtube 로고" />
+        <img src={facebookIcon} alt="facebook 로고" />
+        <img src={XIcon} alt="X 로고" />
+        <img src={linkedinIcon} alt="linkedin 로고" />
+        <img src={instagramIcon} alt="instagram 로고" />
       </IconContainer>
     </StyledFooter>
   );

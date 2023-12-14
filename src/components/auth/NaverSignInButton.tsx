@@ -1,6 +1,6 @@
 import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import naverLogo from "@assets/images/naver_logo.svg";
+import naverLogo from "@assets/icons/logo/ic_naver.svg";
 import { WindowContext } from "@context/WindowContext";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
