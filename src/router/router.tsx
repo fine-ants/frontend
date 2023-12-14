@@ -6,6 +6,7 @@ import GlobalErrorPage from "@pages/GlobalErrorPage";
 import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
 import MyProfilePage from "@pages/MyProfilePage";
+import NotFoundPage from "@pages/NotFoundPage";
 import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
 import PortfolioPage from "@pages/Portfolio/PortfolioPage";
 import SignInPage from "@pages/SignInPage";
@@ -50,7 +51,7 @@ const router = (user: User | null) =>
         </Route>
 
         <Route path={Routes.STOCK} element={<StockPage />} />
-        {/* <Route path={Routes.FALLBACK} element={<NotFoundPage />}/> */}
+        <Route path={Routes.FALLBACK} element={<NotFoundPage />} />
       </Route>
     )
   );
