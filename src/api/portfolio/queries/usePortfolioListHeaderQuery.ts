@@ -16,8 +16,5 @@ export default function usePortfolioListHeaderQuery() {
     retry: false,
     enabled: false,
     select: (res) => res.data,
-    meta: {
-      errorMessage: "포트폴리오 목록을 불러오는데 실패했습니다",
-    },
   });
 }

@@ -1,4 +1,4 @@
-import addIcon from "@assets/icons/add-icon.svg";
+import addIcon from "@assets/icons/ic_folder-add.svg";
 import styled from "styled-components";
 
 type Props = {

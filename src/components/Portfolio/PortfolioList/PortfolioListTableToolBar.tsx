@@ -1,7 +1,7 @@
 import usePortfoliosDeleteMutation from "@api/portfolio/queries/usePortfoliosDeleteMutation";
 import { PortfolioItem } from "@api/portfolio/types";
-import addIcon from "@assets/icons/add-icon.svg";
 import dividerIcon from "@assets/icons/ic_divider.svg";
+import addIcon from "@assets/icons/ic_folder-add.svg";
 import trashIcon from "@assets/icons/ic_trash.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";

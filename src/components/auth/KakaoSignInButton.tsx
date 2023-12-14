@@ -1,6 +1,6 @@
 import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import kakaoLogo from "@assets/images/kakao_logo.svg";
+import kakaoLogo from "@assets/icons/logo/ic_kakao.svg";
 import { WindowContext } from "@context/WindowContext";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";

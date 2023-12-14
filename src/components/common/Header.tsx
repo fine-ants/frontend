@@ -44,6 +44,10 @@ export default function Header() {
     }
   );
 
+  const onLogoClick = () => {
+    navigate(user ? Routes.DASHBOARD : Routes.LANDING);
+  };
+
   const onPortfolioAddClick = () => {
     setIsPortfolioAddDialogOpen(true);
   };
@@ -64,7 +68,7 @@ export default function Header() {
     <StyledHeader>
       <HeaderTop>
         <HeaderLeft>
-          <StyledBrandIdentity onClick={() => navigate("/dashboard")}>
+          <StyledBrandIdentity onClick={onLogoClick}>
             <img src={BIImage} alt="FineAnts" />
             FineAnts
           </StyledBrandIdentity>

@@ -1,6 +1,6 @@
 import { postOAuthUrl } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import googleLogo from "@assets/images/google_logo.svg";
+import googleLogo from "@assets/icons/logo/ic_google.svg";
 import { WindowContext } from "@context/WindowContext";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
@@ -43,7 +43,7 @@ export default function GoogleSignInButton() {
 
   return (
     <StyledGoogleSignInButton onClick={onGoogleSignIn}>
-      <img src={googleLogo} />
+      <img src={googleLogo} alt="구글 로고" />
       구글 로그인
     </StyledGoogleSignInButton>
   );

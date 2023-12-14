@@ -28,7 +28,7 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
       navigate(`/portfolio/${data.portfolioId}`);
     },
     meta: {
-      successMessage: "포트폴리오 추가를 성공했습니다",
+      tostSuccessMessage: "포트폴리오 추가를 성공했습니다",
     },
   });
 }
