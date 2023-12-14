@@ -21,9 +21,8 @@ const portfolioDetailsData = portfolioDetails;
 export default [
   // List of all Portfolios
   rest.get("/api/portfolios", async (_, res, ctx) => {
-    const rand = Math.random();
     return res(
-      ctx.status(rand < 0.4 ? HTTPSTATUS.badRequest : HTTPSTATUS.success),
+      ctx.status(HTTPSTATUS.success),
       ctx.json(successfulGetPortfolioResponse)
     );
   }),
