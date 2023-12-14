@@ -26,6 +26,11 @@ if (process.env.NODE_ENV === "development") {
 const toast = createToast();
 
 const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
   queryCache: new QueryCache({
     onError: (error, query) => {
       if (query.meta?.toastErrorMessage) {
