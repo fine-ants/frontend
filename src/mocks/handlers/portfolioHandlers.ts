@@ -21,16 +21,11 @@ const portfolioDetailsData = portfolioDetails;
 export default [
   // List of all Portfolios
   rest.get("/api/portfolios", async (_, res, ctx) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(
-          res(
-            ctx.status(HTTPSTATUS.success),
-            ctx.json(successfulGetPortfolioResponse)
-          )
-        );
-      }, 5000);
-    });
+    const rand = Math.random();
+    return res(
+      ctx.status(rand < 0.4 ? HTTPSTATUS.badRequest : HTTPSTATUS.success),
+      ctx.json(successfulGetPortfolioResponse)
+    );
   }),
 
   // Portfolio Charts
