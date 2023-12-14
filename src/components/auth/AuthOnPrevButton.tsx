@@ -1,4 +1,4 @@
-import arrow from "@assets/icons/ic_arrow-left.svg";
+import arrowIcon from "@assets/icons/ic_arrow-left.svg";
 import styled from "styled-components";
 
 type Props = {
@@ -9,7 +9,7 @@ export function AuthOnPrevButton({ onPrev }: Props) {
   return (
     <div>
       <StyledButton onClick={onPrev}>
-        <img src={arrow} />
+        <img src={arrowIcon} />
       </StyledButton>
     </div>
   );

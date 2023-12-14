@@ -1,6 +1,6 @@
 import { useSSE } from "@api/hooks/useSSE";
 import { Portfolio } from "@api/portfolio/types";
-import plusIcon from "@assets/icons/ic_add.svg";
+import addIcon from "@assets/icons/ic_add.svg";
 import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
@@ -62,7 +62,7 @@ export default function PortfolioPage() {
 
               <AddHoldingButton
                 variant="outlined"
-                startIcon={<img src={plusIcon} alt="종목 추가" />}
+                startIcon={<img src={addIcon} alt="종목 추가" />}
                 onClick={onAddHoldingButtonClick}>
                 <Typography variant="button" sx={{ color: "#2C2C2E" }}>
                   종목 추가

@@ -1,6 +1,6 @@
 import useSignOutMutation from "@api/auth/queries/useSignOutMutation";
 import notificationIcon from "@assets/icons/ic_notification.svg";
-import settings from "@assets/icons/ic_settings.svg";
+import settingsIcon from "@assets/icons/ic_settings.svg";
 import profileImage from "@assets/images/profileImage.png";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ export default function UserControls() {
         </NotificationWrapper>
       </ControlButton>
       <ControlButton>
-        <img src={settings} alt="settings" />
+        <img src={settingsIcon} alt="settings" />
       </ControlButton>
       <ControlButton onClick={() => navigate("/profile")}>
         <img src={profileImage} alt="profile" />

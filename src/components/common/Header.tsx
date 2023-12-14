@@ -44,7 +44,7 @@ export default function Header() {
     }
   );
 
-  const onBIClick = () => {
+  const onLogoClick = () => {
     navigate(user ? Routes.DASHBOARD : Routes.LANDING);
   };
 
@@ -68,7 +68,7 @@ export default function Header() {
     <StyledHeader>
       <HeaderTop>
         <HeaderLeft>
-          <StyledBrandIdentity onClick={onBIClick}>
+          <StyledBrandIdentity onClick={onLogoClick}>
             <img src={BIImage} alt="FineAnts" />
             FineAnts
           </StyledBrandIdentity>
