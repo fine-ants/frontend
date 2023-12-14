@@ -1,7 +1,8 @@
 import PortfolioListTable from "@components/Portfolio/PortfolioList/PortfolioListTable";
+import { PortfolioListTableErrorFallback } from "@components/Portfolio/PortfolioList/errorFallback/PortfolioListTableErrorFallback";
 import PortfolioListTableSkeleton from "@components/Portfolio/PortfolioList/skeletons/PortfolioListTableSkeleton";
+import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import BasePage from "@pages/BasePage";
-import { Suspense } from "react";
 import styled from "styled-components";
 
 export default function PortfolioListPage() {
@@ -12,9 +13,11 @@ export default function PortfolioListPage() {
           <h1>내 포트폴리오</h1>
         </Header>
 
-        <Suspense fallback={<PortfolioListTableSkeleton />}>
+        <AsyncBoundary
+          ErrorFallback={PortfolioListTableErrorFallback}
+          SuspenseFallback={<PortfolioListTableSkeleton />}>
           <PortfolioListTable />
-        </Suspense>
+        </AsyncBoundary>
       </Container>
     </BasePage>
   );
