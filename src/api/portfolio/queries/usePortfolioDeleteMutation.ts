@@ -18,7 +18,7 @@ export default function usePortfolioDeleteMutation(portfolioId: number) {
       });
     },
     meta: {
-      successMessage: "포트폴리오 삭제를 성공했습니다",
+      tostSuccessMessage: "포트폴리오 삭제를 성공했습니다",
     },
   });
 }
