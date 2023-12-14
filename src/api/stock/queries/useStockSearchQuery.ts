@@ -11,7 +11,6 @@ export default function useStockSearchQuery(query: string) {
     staleTime: 1000 * 60 * 5,
     select: (res) => res.data,
     gcTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   });
 }
