@@ -28,8 +28,8 @@ const toast = createToast();
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error, query) => {
-      if (query.meta?.errorMessage) {
-        toast.error(query.meta.errorMessage as string);
+      if (query.meta?.toastErrorMessage) {
+        toast.error(query.meta.toastErrorMessage as string);
         return;
       }
       if (error instanceof AxiosError) {
@@ -47,8 +47,8 @@ const queryClient = new QueryClient({
       }
     },
     onError: (error, _, __, mutation) => {
-      if (mutation.meta?.errorMessage) {
-        toast.error(mutation.meta.errorMessage as string);
+      if (mutation.meta?.toastErrorMessage) {
+        toast.error(mutation.meta.toastErrorMessage as string);
         return;
       }
       if (error instanceof AxiosError) {
