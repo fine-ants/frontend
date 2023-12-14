@@ -14,20 +14,20 @@ export default function DashboardPage() {
   return (
     <BasePage>
       <AsyncBoundary
-        errorFallback={OverviewErrorFallback}
-        suspenseFallback={<DashboardOverviewSkeleton />}>
+        ErrorFallback={OverviewErrorFallback}
+        SuspenseFallback={<DashboardOverviewSkeleton />}>
         <DashboardOverview />
       </AsyncBoundary>
       <ChartsWrapper>
         <ChartsContainer>
           <AsyncBoundary
-            errorFallback={ChartErrorFallback}
-            suspenseFallback={<DashboardPieChartSkeleton />}>
+            ErrorFallback={ChartErrorFallback}
+            SuspenseFallback={<DashboardPieChartSkeleton />}>
             <DashboardPortfolioWeight />
           </AsyncBoundary>
           <AsyncBoundary
-            errorFallback={ChartErrorFallback}
-            suspenseFallback={<DashboardLineChartSkeleton />}>
+            ErrorFallback={ChartErrorFallback}
+            SuspenseFallback={<DashboardLineChartSkeleton />}>
             <DashboardTotalValuationTrend />
           </AsyncBoundary>
         </ChartsContainer>
