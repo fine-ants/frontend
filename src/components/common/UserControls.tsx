@@ -1,6 +1,6 @@
 import useSignOutMutation from "@api/auth/queries/useSignOutMutation";
-import notificationIcon from "@assets/icons/notification.svg";
-import settings from "@assets/icons/settings.svg";
+import notificationIcon from "@assets/icons/ic_notification.svg";
+import settings from "@assets/icons/ic_settings.svg";
 import profileImage from "@assets/images/profileImage.png";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";

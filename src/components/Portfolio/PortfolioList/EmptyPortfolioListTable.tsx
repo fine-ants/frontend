@@ -1,4 +1,4 @@
-import addIcon from "@assets/icons/add-icon.svg";
+import addIcon from "@assets/icons/ic_folder-add.svg";
 import emptyPortfolioImg from "@assets/images/empty_portfolio.svg";
 import Button from "@components/common/Buttons/Button";
 import { useState } from "react";

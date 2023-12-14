@@ -1,4 +1,4 @@
-import arrow from "@assets/icons/arrow.svg";
+import arrow from "@assets/icons/ic_arrow-left.svg";
 import styled from "styled-components";
 
 type Props = {

@@ -1,6 +1,6 @@
 import { useSSE } from "@api/hooks/useSSE";
 import { Portfolio } from "@api/portfolio/types";
-import plusIcon from "@assets/icons/plus.svg";
+import plusIcon from "@assets/icons/ic_add.svg";
 import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
