@@ -2,6 +2,7 @@ import { User } from "@api/auth";
 import { GOOGLE_CLIENT_ID } from "@constants/config";
 import { WindowProvider } from "@context/WindowContext";
 import DashboardPage from "@pages/DashboardPage";
+import GlobalErrorPage from "@pages/GlobalErrorPage";
 import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
 import MyProfilePage from "@pages/MyProfilePage";
@@ -24,7 +25,7 @@ import Routes from "./Routes";
 const router = (user: User | null) =>
   createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/">
+      <Route path="/" errorElement={<GlobalErrorPage />}>
         <Route element={<ProtectedRoute user={user} />}>
           <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
           <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
