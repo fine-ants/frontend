@@ -1,5 +1,5 @@
-import { PortfolioHolding } from "@api/portfolio";
 import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
+import { PortfolioHolding } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -139,8 +139,7 @@ export default function PortfolioHoldingRow({
 
       <ConfirmAlert
         isOpen={isDeleteDialogOpen}
-        title="종목 삭제"
-        content="종목을 삭제하시겠습니까?"
+        title="종목을 삭제하시겠습니까?"
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={onConfirmDelete}
       />

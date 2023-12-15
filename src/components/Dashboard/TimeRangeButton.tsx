@@ -3,7 +3,7 @@ import styled from "styled-components";
 type Props = {
   range: string;
   index: number;
-  onClick: (index: number) => void;
+  onClick: () => void;
   currentRangeIndex: number;
 };
 
@@ -16,7 +16,7 @@ export default function TimeRangeButton({
   return (
     <StyledTimeRangeButton
       $isSelected={index === currentRangeIndex}
-      onClick={() => onClick(index)}>
+      onClick={onClick}>
       {range}
     </StyledTimeRangeButton>
   );

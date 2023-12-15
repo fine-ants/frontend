@@ -23,15 +23,15 @@ const StyledBasePage = styled.div`
   min-height: inherit;
   display: flex;
   flex-direction: column;
-  background-color: #f6f7ff;
+  background-color: ${({ theme: { color } }) => color.neutral.gray50};
 `;
 
 const Main = styled.main`
   width: 100%;
-  height: 892px;
+  height: 100%;
+  padding-bottom: 48px;
   display: flex;
   flex-direction: column;
-
   align-items: center;
-  position: relative;
+  flex-grow: 1;
 `;

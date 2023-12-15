@@ -8,8 +8,5 @@ export default function useWatchlistQuery() {
     queryFn: () => getWatchlist(),
     retry: false,
     select: (res) => res.data,
-    meta: {
-      errorMessage: "관심 종목을 불러오는데 실패했습니다",
-    },
   });
 }

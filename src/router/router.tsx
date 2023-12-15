@@ -2,17 +2,19 @@ import { User } from "@api/auth";
 import { GOOGLE_CLIENT_ID } from "@constants/config";
 import { WindowProvider } from "@context/WindowContext";
 import DashboardPage from "@pages/DashboardPage";
+import GlobalErrorPage from "@pages/GlobalErrorPage";
 import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
-import PortfolioPage from "@pages/PortfolioPage";
-import MyProfilePage from "@pages/ProfilePage/MyProfilePage";
+import MyProfilePage from "@pages/MyProfilePage";
+import NotFoundPage from "@pages/NotFoundPage";
+import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
+import PortfolioPage from "@pages/Portfolio/PortfolioPage";
 import SignInPage from "@pages/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
 import WatchlistPage from "@pages/WatchlistPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import {
-  Navigate,
   Route,
   createBrowserRouter,
   createRoutesFromElements,
@@ -24,22 +26,14 @@ import Routes from "./Routes";
 const router = (user: User | null) =>
   createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/">
-        {/* TODO: Landing Page */}
-
-        <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
+      <Route path="/" errorElement={<GlobalErrorPage />}>
         <Route element={<ProtectedRoute user={user} />}>
-          <Route
-            path={Routes.PROFILE}
-            element={<Navigate to={`${Routes.PROFILE}/${Routes.PORTFOLIOS}`} />}
-          />
+          <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
+          <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
           <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
-          <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
-          <Route
-            path={`${Routes.PROFILE}/:section`}
-            element={<MyProfilePage />}
-          />
+          <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
+          <Route path={Routes.PROFILE} element={<MyProfilePage />} />
           <Route path={Routes.INDICES} element={<IndicesPage />} />
         </Route>
 
@@ -57,7 +51,7 @@ const router = (user: User | null) =>
         </Route>
 
         <Route path={Routes.STOCK} element={<StockPage />} />
-        {/* <Route path={Routes.FALLBACK} element={<NotFoundPage />}/> */}
+        <Route path={Routes.FALLBACK} element={<NotFoundPage />} />
       </Route>
     )
   );

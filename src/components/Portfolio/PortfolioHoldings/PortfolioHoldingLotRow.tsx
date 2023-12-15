@@ -1,6 +1,6 @@
-import { PurchaseHistoryField } from "@api/portfolio";
 import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseDeleteMutation";
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
+import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Button, Input, TableCell, TableRow } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -151,8 +151,7 @@ export default function PortfolioHoldingLotRow({
           </TableCell>
           <ConfirmAlert
             isOpen={isDeleteConfirmAlertOpen}
-            title="매입 이력 삭제"
-            content="매입 이력을 정말 삭제하시겠습니까?"
+            title="매입 이력을 정말 삭제하시겠습니까?"
             onClose={onCloseDeleteConfirmAlert}
             onConfirm={onDeleteConfirm}
           />

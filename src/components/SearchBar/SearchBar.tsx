@@ -1,36 +1,37 @@
-import { StockSearchResponse } from "@api/stock";
+import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
-import searchIcon from "@assets/icons/search.svg";
-import { createContext, useContext, useState } from "react";
+import searchIcon from "@assets/icons/ic_search.svg";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+import useInputDebounce from "../hooks/useInputDebounce";
 
-interface SearchBarContextProps {
-  value: string;
-  onSearchBarChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const SearchBarContext = createContext<SearchBarContextProps>({
-  value: "",
-  onSearchBarChange: () => {},
-});
-
-export default function SearchBar({ children }: { children: React.ReactNode }) {
+export default function SearchBar({
+  onItemClick,
+}: {
+  onItemClick: (tickerSymbol: string) => void;
+}) {
   const [value, setValue] = useState("");
+  const debouncedValue = useInputDebounce(value, 250);
 
-  const onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSearchBarChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   return (
-    <SearchBarContext.Provider value={{ value, onSearchBarChange }}>
-      <StyledSearchBar>{children}</StyledSearchBar>
-    </SearchBarContext.Provider>
+    <StyledSearchBar>
+      <Input value={value} onSearchBarChange={onSearchBarChange} />
+      <SearchList debouncedValue={debouncedValue} onItemClick={onItemClick} />
+    </StyledSearchBar>
   );
 }
 
-function Input() {
-  const { value, onSearchBarChange } = useContext(SearchBarContext);
-
+function Input({
+  value,
+  onSearchBarChange,
+}: {
+  value: string;
+  onSearchBarChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <InputContainer>
       <img src={searchIcon} alt="search-icon" />
@@ -45,24 +46,28 @@ function Input() {
 }
 
 function SearchList({
+  debouncedValue,
   onItemClick,
 }: {
+  debouncedValue: string;
   onItemClick: (tickerSymbol: string) => void;
 }) {
-  const { value } = useContext(SearchBarContext);
-
-  const { data: searchResults } = useStockSearchQuery(value);
+  const { data: searchResults } = useStockSearchQuery(debouncedValue);
 
   return (
     searchResults && (
       <StyledSearchList>
-        {searchResults.map((result) => (
-          <SearchItem
-            key={result.stockCode}
-            searchResult={result}
-            onClick={onItemClick}
-          />
-        ))}
+        {searchResults.length > 0 ? (
+          searchResults.map((result) => (
+            <SearchItem
+              key={result.stockCode}
+              searchResult={result}
+              onClick={onItemClick}
+            />
+          ))
+        ) : (
+          <div>없다</div>
+        )}
       </StyledSearchList>
     )
   );
@@ -72,7 +77,7 @@ function SearchItem({
   searchResult,
   onClick,
 }: {
-  searchResult: StockSearchResponse;
+  searchResult: StockSearchItem;
   onClick: (tickerSymbol: string) => void;
 }) {
   return (
@@ -81,9 +86,6 @@ function SearchItem({
     </StyledSearchItem>
   );
 }
-
-SearchBar.Input = Input;
-SearchBar.SearchList = SearchList;
 
 const StyledSearchBar = styled.div`
   position: relative;

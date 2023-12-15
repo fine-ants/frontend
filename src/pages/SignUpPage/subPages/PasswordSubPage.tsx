@@ -1,16 +1,25 @@
+import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
+import {
+  AuthPageHeader,
+  AuthPageTitle,
+  AuthPageTitleCaption,
+  NextButton,
+} from "@components/auth/AuthPageCommon";
+import { AuthPasswordInput } from "@components/auth/AuthPasswordInput";
 import useText from "@components/hooks/useText";
 import { validatePassword } from "@utils/authInputValidators";
-import styled from "styled-components";
-import SubPage, { InputWrapper, SignUpInput } from "./SubPage";
+import SubPage from "./SubPage";
 
 type Props = {
+  onPrev: () => void;
   onNext: (password: string, passwordConfirm: string) => void;
 };
 
-export default function PasswordSubPage({ onNext }: Props) {
+export default function PasswordSubPage({ onPrev, onNext }: Props) {
   const {
     value: password,
     isError: isPasswordError,
+    error,
     onChange: onPasswordChange,
   } = useText({
     validators: [validatePassword],
@@ -28,31 +37,30 @@ export default function PasswordSubPage({ onNext }: Props) {
 
   return (
     <SubPage>
-      <label htmlFor="passwordInput">비밀번호</label>
-      <InputWrapper>
-        <PasswordInput
-          type="password"
-          placeholder="비밀번호"
-          id="passwordInput"
-          value={password}
-          onChange={(e) => onPasswordChange(e.target.value.trim())}
-        />
-      </InputWrapper>
+      <AuthPageHeader>
+        <AuthOnPrevButton onPrev={onPrev} />
 
-      <Caption>영문, 숫자, 특수문자 최소 1개 (8~16자)</Caption>
+        <AuthPageTitle>비밀번호</AuthPageTitle>
+        <AuthPageTitleCaption>
+          비밀번호는 영문, 숫자, 특수문자를 1개 이상 조합한 8~16자여야 합니다
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
 
-      <label htmlFor="passwordConfirmInput">비밀번호 확인</label>
-      <InputWrapper>
-        <PasswordInput
-          type="password"
-          placeholder="비밀번호 확인"
-          id="passwordConfirmInput"
-          value={passwordConfirm}
-          onChange={(e) => onPasswordConfirmChange(e.target.value.trim())}
-        />
+      <AuthPasswordInput
+        error={isPasswordError}
+        password={password}
+        onChange={(e) => onPasswordChange(e.target.value.trim())}
+        placeholder="비밀번호"
+        helperText={error}
+      />
 
-        {isPasswordMismatch && <Caption>비밀번호가 일치하지 않습니다.</Caption>}
-      </InputWrapper>
+      <AuthPasswordInput
+        error={isPasswordMismatch}
+        password={passwordConfirm}
+        onChange={(e) => onPasswordConfirmChange(e.target.value.trim())}
+        placeholder="비밀번호 확인"
+        helperText="비밀번호가 일치하지 않습니다"
+      />
 
       <NextButton
         type="button"
@@ -67,19 +75,3 @@ export default function PasswordSubPage({ onNext }: Props) {
     </SubPage>
   );
 }
-
-const PasswordInput = styled(SignUpInput)`
-  width: 100%;
-`;
-
-const Caption = styled.p`
-  color: #697077;
-`;
-
-const NextButton = styled.button<{ disabled: boolean }>`
-  width: 100%;
-  height: 48px;
-  background-color: ${({ disabled }) => (disabled ? "#c4c4c4" : "#2d3bae")};
-  border-radius: 8px;
-  color: white;
-`;

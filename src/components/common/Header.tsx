@@ -1,39 +1,39 @@
-import { PortfolioItem } from "@api/portfolio";
-import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
+import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
+import { PortfolioItem } from "@api/portfolio/types";
 import BIImage from "@assets/images/profileImage.png";
-import PortfolioDialog from "@components/Portfolio/PortfolioDialog";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
+import Routes from "@router/Routes";
+import designSystem from "@styles/designSystem";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Routes from "router/Routes";
 import styled from "styled-components";
-import designSystem from "styles/designSystem";
 import { NavBar } from "../NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
 import UserControls from "../common/UserControls";
-import Dropdown from "./Dropdown";
+import { PortfoliosDropdown } from "./PortfoliosDropdown";
 
 export default function Header() {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
 
-  const { data: portfolioList } = usePortfolioListQuery();
+  const { data: portfolioList } = usePortfolioListHeaderQuery();
 
   const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
     useState(false);
 
   const navItems = [
     {
-      name: "Watchlist",
-      path: Routes.WATCHLIST,
+      name: "Watchlists",
+      path: Routes.WATCHLISTS,
     },
     { name: "Indices", path: Routes.INDICES },
   ];
 
-  const dropdownItems = portfolioList?.portfolios?.map(
+  const portfolioDropdownItems = portfolioList?.portfolios?.map(
     (portfolio: PortfolioItem) => {
       return {
         name: portfolio.name,
@@ -43,6 +43,10 @@ export default function Header() {
       };
     }
   );
+
+  const onLogoClick = () => {
+    navigate(user ? Routes.DASHBOARD : Routes.LANDING);
+  };
 
   const onPortfolioAddClick = () => {
     setIsPortfolioAddDialogOpen(true);
@@ -61,75 +65,56 @@ export default function Header() {
   };
 
   return (
-    <>
-      <StyledHeader>
-        {isPortfolioAddDialogOpen && (
-          <PortfolioDialog
-            isOpen={isPortfolioAddDialogOpen}
-            onClose={() => setIsPortfolioAddDialogOpen(false)}
-          />
-        )}
-        <HeaderTop>
-          <HeaderLeft>
-            <StyledBrandIdentity onClick={() => navigate("/dashboard")}>
-              <img src={BIImage} alt="FineAnts" />
-              FineAnts
-            </StyledBrandIdentity>
-            <NavBar style={navBarStyles}>
-              <Dropdown>
-                <Dropdown.Toggle>Portfolio</Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {dropdownItems?.map((item) => (
-                    <Dropdown.Item key={item.name} item={item} />
-                  ))}
-                  <Dropdown.Item
-                    item={{
-                      name: "포트폴리오로 이동",
-                      onClick: () => navigate("/profile/portfolio"),
-                    }}
-                  />
-                  <Dropdown.Item
-                    item={{
-                      name: "포트폴리오 추가",
-                      onClick: onPortfolioAddClick,
-                    }}
-                  />
-                </Dropdown.Menu>
-              </Dropdown>
-              {navItems.map((item) => (
-                <NavBar.NavItem
-                  key={item.name}
-                  item={item}
-                  style={navItemStyle}
-                />
-              ))}
-            </NavBar>
-          </HeaderLeft>
-          <HeaderRight>
-            <SearchBar>
-              <SearchBar.Input />
-              <SearchBar.SearchList onItemClick={moveToStockPage} />
-            </SearchBar>
-            {user ? (
-              <UserControls />
-            ) : (
-              <>
-                <Button onClick={moveToSignInPage}>로그인</Button>
-                <Button onClick={moveToSignUpPage}>회원가입</Button>
-              </>
-            )}
-          </HeaderRight>
-        </HeaderTop>
-        <TVTickerTapeWidget />
-      </StyledHeader>
-    </>
+    <StyledHeader>
+      <HeaderTop>
+        <HeaderLeft>
+          <StyledBrandIdentity onClick={onLogoClick}>
+            <img src={BIImage} alt="FineAnts" />
+            FineAnts
+          </StyledBrandIdentity>
+          <NavBar style={navBarStyles}>
+            <PortfoliosDropdown
+              portfolioDropdownItems={portfolioDropdownItems}
+              onPortfolioAddClick={onPortfolioAddClick}
+            />
+            {navItems.map((item) => (
+              <NavBar.NavItem
+                key={item.name}
+                item={item}
+                style={navItemStyle}
+              />
+            ))}
+          </NavBar>
+        </HeaderLeft>
+        <HeaderRight>
+          <SearchBar onItemClick={moveToStockPage} />
+          {user ? (
+            <UserControls />
+          ) : (
+            <>
+              <Button onClick={moveToSignInPage}>로그인</Button>
+              <Button onClick={moveToSignUpPage}>회원가입</Button>
+            </>
+          )}
+        </HeaderRight>
+      </HeaderTop>
+
+      <TVTickerTapeWidget />
+
+      {isPortfolioAddDialogOpen && (
+        <PortfolioAddDialog
+          isOpen={isPortfolioAddDialogOpen}
+          onClose={() => setIsPortfolioAddDialogOpen(false)}
+        />
+      )}
+    </StyledHeader>
   );
 }
 
 const StyledHeader = styled.header`
   z-index: 10;
   color: ${({ theme: { color } }) => color.neutral.white};
-  background-color: ${({ theme: { color } }) => color.neutral.gray900}};
+  background-color: ${({ theme: { color } }) => color.neutral.gray900};
 `;
 
 const HeaderTop = styled.header`

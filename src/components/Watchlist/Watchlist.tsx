@@ -86,25 +86,24 @@ export default function Watchlist() {
 }
 
 const StyledWatchlist = styled.div`
-  position: relative;
-  top: 50px;
-  width: 1142px;
-  background-color: inherit;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
+  background-color: inherit;
 `;
 
 const WatchlistHeader = styled.div`
   width: 100%;
   height: 40px;
-  background-color: #ffffff;
-  border: 2px solid black;
   padding: 0 80px;
   display: flex;
-  gap: 158px;
   align-items: center;
   justify-content: space-between;
+  gap: 158px;
+  background-color: #ffffff;
+  border: 2px solid black;
   border-radius: 8px;
 `;
 
@@ -124,5 +123,4 @@ const PlusButton = styled.button`
 const WatchlistContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 16px;
 `;

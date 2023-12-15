@@ -2,7 +2,7 @@ import { HTTPSTATUS } from "@api/types";
 import {
   successfulGetWatchlistResponse,
   watchlistData,
-} from "mocks/data/watchlistData";
+} from "@mocks/data/watchlistData";
 import { rest } from "msw";
 
 export default [

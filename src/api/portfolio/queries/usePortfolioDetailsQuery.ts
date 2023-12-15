@@ -8,8 +8,5 @@ export default function usePortfolioDetailsQuery(portfolioId: number) {
     queryFn: () => getPortfolioDetails(portfolioId),
     retry: false,
     select: (res) => res.data,
-    meta: {
-      errorMessage: "포트폴리오 정보를 불러오는데 실패했습니다",
-    },
   });
 }

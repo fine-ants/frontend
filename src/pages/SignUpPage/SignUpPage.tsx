@@ -1,22 +1,37 @@
 import { SignUpData, postEmailVerification } from "@api/auth";
 import useSignUpMutation from "@api/auth/queries/useSignUpMutation";
+import useFunnel from "@hooks/useFunnel";
+import { Button } from "@mui/material";
+import Routes from "@router/Routes";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BasePage from "../BasePage";
-import EmailSubPage from "./subPages/EmailSubPage";
+import {
+  EmailSubPage,
+  NicknameSubPage,
+  PasswordSubPage,
+  VerificationSubPage,
+} from "./subPages";
 import MainSubPage from "./subPages/MainSubPage";
-import NicknameSubPage from "./subPages/NicknameSubPage";
-import PasswordSubPage from "./subPages/PasswordSubPage";
-import VerificationSubPage from "./subPages/VerificationSubPage";
+import ProfileImageSubPage from "./subPages/ProfileImageSubPage";
 
 export default function SignUpPage() {
-  // TODO: Refactor to custom hook
-  const [subPage, setSubPage] = useState<
-    "main" | "nickname" | "email" | "password" | "verification"
-  >("main");
+  const navigate = useNavigate();
+
+  const [Funnel, changeStep] = useFunnel([
+    "main",
+    "nickname",
+    "profileImage",
+    "email",
+    "password",
+    "verification",
+  ]);
 
   const [signUpData, setSignUpData] = useState<SignUpData>({
     nickname: "",
+    profileImage: null,
     email: "",
     password: "",
     passwordConfirm: "",
@@ -26,71 +41,100 @@ export default function SignUpPage() {
   const { mutate: signUpMutate } = useSignUpMutation();
 
   return (
-    <StyledSignUpPage>
+    <BasePage>
       <SignUpContainer>
-        <SignUpTitle>회원가입</SignUpTitle>
-
         <SubPageContainer>
-          {/* TODO: 이전 단계로 이동 버튼 (`main`인 경우 제외) */}
+          <Funnel>
+            <Funnel.Step name="main">
+              <MainSubPage onNext={() => changeStep("nickname")} />
+            </Funnel.Step>
 
-          {/* TODO: SubPage 컴포넌트화 */}
-          {subPage === "main" && (
-            <MainSubPage onNext={() => setSubPage("nickname")} />
-          )}
-          {subPage === "nickname" && (
-            <NicknameSubPage
-              onNext={(data: string) => {
-                setSignUpData((prev) => ({ ...prev, nickname: data }));
-                setSubPage("email");
-              }}
-            />
-          )}
-          {subPage === "email" && (
-            <EmailSubPage
-              onNext={(data: string) => {
-                setSignUpData((prev) => ({ ...prev, email: data }));
-                setSubPage("password");
-              }}
-            />
-          )}
-          {subPage === "password" && (
-            <PasswordSubPage
-              onNext={(password: string, passwordConfirm: string) => {
-                setSignUpData((prev) => ({
-                  ...prev,
-                  password,
-                  passwordConfirm,
-                }));
-                setSubPage("verification");
-                // Request server to send verification code
-                postEmailVerification(signUpData.email);
-              }}
-            />
-          )}
-          {subPage === "verification" && (
-            <VerificationSubPage
-              email={signUpData.email}
-              onNext={async (data: string) => {
-                setSignUpData((prev) => ({ ...prev, verificationCode: data }));
-                // TODO: If unsuccessful, show error message and require user to re-enter verification code
-                signUpMutate(signUpData);
-              }}
-            />
-          )}
+            <Funnel.Step name="nickname">
+              <NicknameSubPage
+                onPrev={() => changeStep("main")}
+                onNext={(data: string) => {
+                  setSignUpData((prev) => ({ ...prev, nickname: data }));
+                  changeStep("profileImage");
+                }}
+              />
+            </Funnel.Step>
+
+            <Funnel.Step name="profileImage">
+              <ProfileImageSubPage
+                onPrev={() => changeStep("nickname")}
+                onNext={(data: File | null) => {
+                  setSignUpData((prev) => ({ ...prev, profileImage: data }));
+                  changeStep("email");
+                }}
+              />
+            </Funnel.Step>
+
+            <Funnel.Step name="email">
+              <EmailSubPage
+                onPrev={() => changeStep("profileImage")}
+                onNext={(data: string) => {
+                  setSignUpData((prev) => ({ ...prev, email: data }));
+                  changeStep("password");
+                }}
+              />
+            </Funnel.Step>
+
+            <Funnel.Step name="password">
+              <PasswordSubPage
+                onPrev={() => changeStep("email")}
+                onNext={async (password: string, passwordConfirm: string) => {
+                  setSignUpData((prev) => ({
+                    ...prev,
+                    password,
+                    passwordConfirm,
+                  }));
+                  // Request server to send verification code
+                  // TODO: handle error
+                  await postEmailVerification(signUpData.email);
+                  changeStep("verification");
+                }}
+              />
+            </Funnel.Step>
+
+            <Funnel.Step name="verification">
+              <VerificationSubPage
+                email={signUpData.email}
+                onPrev={() => changeStep("password")}
+                onNext={(data: string) => {
+                  // TODO: handle possible delayed async state change
+                  setSignUpData((prev) => ({
+                    ...prev,
+                    verificationCode: data,
+                  }));
+                  signUpMutate(createSignUpFormData(signUpData));
+                }}
+              />
+            </Funnel.Step>
+          </Funnel>
         </SubPageContainer>
+        <SupportContainer>
+          이미 회원이신가요?
+          <TextButton onClick={() => navigate(Routes.SIGNIN)}>
+            로그인
+          </TextButton>
+        </SupportContainer>
       </SignUpContainer>
-    </StyledSignUpPage>
+    </BasePage>
   );
 }
 
-// TODO
+const SupportContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: ${designSystem.color.neutral.gray600};
+  font: ${designSystem.font.body3};
+`;
 
-const StyledSignUpPage = styled(BasePage)``;
-
-const SignUpTitle = styled.h2`
-  font-size: 42px;
-  font-weight: bold;
-  margin-right: auto;
+const TextButton = styled(Button)`
+  padding: 0;
+  color: ${designSystem.color.primary.blue500};
+  font: ${designSystem.font.button2};
 `;
 
 const SignUpContainer = styled.div`
@@ -106,8 +150,16 @@ const SignUpContainer = styled.div`
 
 const SubPageContainer = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
+const createSignUpFormData = (object: SignUpData) =>
+  Object.keys(object).reduce((formData, key) => {
+    const value = object[key];
+    if (value !== null) {
+      formData.append(key, value);
+    }
+    return formData;
+  }, new FormData());
