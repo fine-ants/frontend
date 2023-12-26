@@ -1,13 +1,17 @@
-import useText from "@components/hooks/useText";
+import { useText, validateNickname } from "@fineants/demolition";
 import { Button } from "@mui/material";
 import BasePage from "@pages/BasePage";
-import { validateNickname, validatePassword } from "@utils/authInputValidators";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 
 const SAMPLE_IMG = "https://avatars.githubusercontent.com/u/41321198?v=4";
 const EMPTY_IMG =
   "https://www.interakt.shop/wp-content/uploads/2023/01/blank_profile_img.webp";
+
+const nicknameValidator = (nickname: string) =>
+  validateNickname(nickname, {
+    errorMessage: "영문/한글/숫자 (2~10자)",
+  });
 
 export default function MyProfilePage() {
   // TODO : isNicknameChecked state를 이용해 닉네임 중복 체크 여부를 화면에 css color 또는 icon으로 표시
@@ -17,11 +21,11 @@ export default function MyProfilePage() {
   const [profileImg, setProfileImg] = useState<string | undefined>(SAMPLE_IMG);
 
   const nickname = useText({
-    validators: [validateNickname],
+    validators: [nicknameValidator],
   });
 
   const password = useText({
-    validators: [validatePassword],
+    validators: [nicknameValidator],
   });
 
   const onProfileChange = (event: ChangeEvent<HTMLInputElement>) => {

@@ -8,9 +8,7 @@ import {
   NextButton,
 } from "@components/auth/AuthPageCommon";
 import { TextField } from "@components/common/TextField/TextField";
-import useText from "@components/hooks/useText";
-import { useDebounce } from "@hooks/useDebounce";
-import { validateEmail } from "@utils/authInputValidators";
+import { useDebounce, useText, validateEmail } from "@fineants/demolition";
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import SubPage from "./SubPage";
@@ -20,16 +18,21 @@ type Props = {
   onNext: (data: string) => void;
 };
 
+const emailValidator = (email: string) =>
+  validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
+
 export default function EmailSubPage({ onPrev, onNext }: Props) {
   const {
     value: email,
     isError,
     onChange,
-  } = useText({ validators: [validateEmail] });
+  } = useText({
+    validators: [emailValidator],
+  });
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
-  const isDuplicateChecked = !!duplicateCheckErrorMsg;
+  const isDuplicateChecked = !duplicateCheckErrorMsg;
 
-  const debouncedEmail = useDebounce({ value: email, delay: 400 });
+  const debouncedEmail = useDebounce(email, 400);
 
   const onEmailClear = () => {
     onChange("");
