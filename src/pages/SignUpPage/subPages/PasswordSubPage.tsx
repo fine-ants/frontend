@@ -5,7 +5,7 @@ import {
   AuthPageTitleCaption,
   NextButton,
 } from "@components/auth/AuthPageCommon";
-import { AuthPasswordInput } from "@components/auth/AuthPasswordInput";
+import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { useText, validatePassword } from "@fineants/demolition";
 import SubPage from "./SubPage";
 
@@ -50,7 +50,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
         </AuthPageTitleCaption>
       </AuthPageHeader>
 
-      <AuthPasswordInput
+      <PasswordTextField
         error={isPasswordError}
         password={password}
         onChange={(e) => onPasswordChange(e.target.value.trim())}
@@ -58,7 +58,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
         helperText={error}
       />
 
-      <AuthPasswordInput
+      <PasswordTextField
         error={isPasswordMismatch}
         password={passwordConfirm}
         onChange={(e) => onPasswordConfirmChange(e.target.value.trim())}
