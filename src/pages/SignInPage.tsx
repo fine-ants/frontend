@@ -9,19 +9,21 @@ import GoogleSignInButton from "@components/auth/GoogleSignInButton";
 import KakaoSignInButton from "@components/auth/KakaoSignInButton";
 import NaverSignInButton from "@components/auth/NaverSignInButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import useText from "@components/hooks/useText";
 import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
+import { useText, validateEmail } from "@fineants/demolition";
 import { Button, FormControlLabel } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { validateEmail } from "@utils/authInputValidators";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AuthInput } from "../components/auth/AuthInput";
 import { AuthPasswordInput } from "../components/auth/AuthPasswordInput";
 import BasePage from "./BasePage";
+
+const emailValidator = (email: string) =>
+  validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -34,7 +36,9 @@ export default function SignInPage() {
     value: email,
     error: emailError,
     onChange: onEmailChange,
-  } = useText({ validators: [validateEmail] });
+  } = useText({
+    validators: [emailValidator],
+  });
   const {
     value: password,
     error: passwordError,

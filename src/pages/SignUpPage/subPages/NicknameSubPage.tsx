@@ -8,9 +8,7 @@ import {
   AuthPageTitleCaption,
   NextButton,
 } from "@components/auth/AuthPageCommon";
-import useText from "@components/hooks/useText";
-import { useDebounce } from "@hooks/useDebounce";
-import { validateNickname } from "@utils/authInputValidators";
+import { useDebounce, useText, validateNickname } from "@fineants/demolition";
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import SubPage from "./SubPage";
@@ -20,18 +18,23 @@ type Props = {
   onNext: (data: string) => void;
 };
 
+const nicknameValidator = (nickname: string) =>
+  validateNickname(nickname, {
+    errorMessage: "영문/한글/숫자 (2~10자)",
+  });
+
 export default function NicknameSubPage({ onPrev, onNext }: Props) {
   const {
     value: nickname,
     isError,
     onChange,
   } = useText({
-    validators: [validateNickname],
+    validators: [nicknameValidator],
   });
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
-  const isDuplicateChecked = !!duplicateCheckErrorMsg;
+  const isDuplicateChecked = !duplicateCheckErrorMsg;
 
-  const debouncedNickname = useDebounce({ value: nickname, delay: 400 });
+  const debouncedNickname = useDebounce(nickname, 400);
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());

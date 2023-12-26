@@ -6,14 +6,18 @@ import {
   NextButton,
 } from "@components/auth/AuthPageCommon";
 import { AuthPasswordInput } from "@components/auth/AuthPasswordInput";
-import useText from "@components/hooks/useText";
-import { validatePassword } from "@utils/authInputValidators";
+import { useText, validatePassword } from "@fineants/demolition";
 import SubPage from "./SubPage";
 
 type Props = {
   onPrev: () => void;
   onNext: (password: string, passwordConfirm: string) => void;
 };
+
+const passwordValidator = (password: string) =>
+  validatePassword(password, {
+    errorMessage: "영문, 숫자, 특수문자 최소 1개 (8~16자)",
+  });
 
 export default function PasswordSubPage({ onPrev, onNext }: Props) {
   const {
@@ -22,7 +26,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
     error,
     onChange: onPasswordChange,
   } = useText({
-    validators: [validatePassword],
+    validators: [passwordValidator],
   });
 
   const {
@@ -30,7 +34,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
     isError: isPasswordConfirmError,
     onChange: onPasswordConfirmChange,
   } = useText({
-    validators: [validatePassword],
+    validators: [passwordValidator],
   });
 
   const isPasswordMismatch = !isPasswordError && password !== passwordConfirm;
