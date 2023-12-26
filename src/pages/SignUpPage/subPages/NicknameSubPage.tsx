@@ -1,6 +1,5 @@
 import { postNicknameDuplicateCheck } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import { AuthInput } from "@components/auth/AuthInput";
 import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
 import {
   AuthPageHeader,
@@ -8,6 +7,7 @@ import {
   AuthPageTitleCaption,
   NextButton,
 } from "@components/auth/AuthPageCommon";
+import { TextField } from "@components/common/TextField/TextField";
 import useText from "@components/hooks/useText";
 import { useDebounce } from "@hooks/useDebounce";
 import { validateNickname } from "@utils/authInputValidators";
@@ -32,6 +32,10 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
   const isDuplicateChecked = !!duplicateCheckErrorMsg;
 
   const debouncedNickname = useDebounce({ value: nickname, delay: 400 });
+
+  const onEmailClear = () => {
+    onChange("");
+  };
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
@@ -65,14 +69,13 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
           닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다
         </AuthPageTitleCaption>
       </AuthPageHeader>
-      <AuthInput
+      <TextField
         error={isError}
-        type="text"
         placeholder="닉네임"
-        id="nicknameInput"
         value={nickname}
+        errorText={duplicateCheckErrorMsg}
         onChange={onNicknameChange}
-        helperText={duplicateCheckErrorMsg}
+        clearValue={onEmailClear}
       />
 
       <NextButton

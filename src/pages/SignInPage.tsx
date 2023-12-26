@@ -9,6 +9,8 @@ import GoogleSignInButton from "@components/auth/GoogleSignInButton";
 import KakaoSignInButton from "@components/auth/KakaoSignInButton";
 import NaverSignInButton from "@components/auth/NaverSignInButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
+import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
+import { TextField } from "@components/common/TextField/TextField";
 import useText from "@components/hooks/useText";
 import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
@@ -19,8 +21,6 @@ import { validateEmail } from "@utils/authInputValidators";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { AuthInput } from "../components/auth/AuthInput";
-import { AuthPasswordInput } from "../components/auth/AuthPasswordInput";
 import BasePage from "./BasePage";
 
 export default function SignInPage() {
@@ -40,6 +40,10 @@ export default function SignInPage() {
     error: passwordError,
     onChange: onPasswordChange,
   } = useText();
+
+  const onEmailClear = () => {
+    onEmailChange("");
+  };
 
   const onSignInSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -99,18 +103,18 @@ export default function SignInPage() {
         <Form onSubmit={onSignInSubmit}>
           <InputControl>
             <TextInputLabel>이메일</TextInputLabel>
-            <AuthInput
+            <TextField
               error={!!emailError}
-              type="text"
               placeholder="이메일"
               value={email}
+              errorText={emailError}
               onChange={(e) => onEmailChange(e.target.value.trim())}
-              helperText={emailError}
+              clearValue={onEmailClear}
             />
           </InputControl>
           <InputControl>
             <TextInputLabel>비밀번호</TextInputLabel>
-            <AuthPasswordInput
+            <PasswordTextField
               password={password}
               onChange={(e) => onPasswordChange(e.target.value.trim())}
             />
