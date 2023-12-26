@@ -1,6 +1,5 @@
 import { postEmailDuplicateCheck } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import { AuthInput } from "@components/auth/AuthInput";
 import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
 import {
   AuthPageHeader,
@@ -8,6 +7,7 @@ import {
   AuthPageTitleCaption,
   NextButton,
 } from "@components/auth/AuthPageCommon";
+import { TextField } from "@components/common/TextField/TextField";
 import useText from "@components/hooks/useText";
 import { useDebounce } from "@hooks/useDebounce";
 import { validateEmail } from "@utils/authInputValidators";
@@ -30,6 +30,10 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   const isDuplicateChecked = !!duplicateCheckErrorMsg;
 
   const debouncedEmail = useDebounce({ value: email, delay: 400 });
+
+  const onEmailClear = () => {
+    onChange("");
+  };
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
@@ -65,14 +69,13 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         </AuthPageTitleCaption>
       </AuthPageHeader>
 
-      <AuthInput
+      <TextField
         error={isDuplicateChecked}
-        type="text"
         placeholder="이메일"
-        id="emailInput"
         value={email}
+        errorText={duplicateCheckErrorMsg}
         onChange={onEmailChange}
-        helperText={duplicateCheckErrorMsg}
+        clearValue={onEmailClear}
       />
 
       <NextButton
