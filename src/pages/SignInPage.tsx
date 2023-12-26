@@ -115,6 +115,7 @@ export default function SignInPage() {
           <InputControl>
             <TextInputLabel>비밀번호</TextInputLabel>
             <PasswordTextField
+              placeholder="비밀번호를 입력해주세요"
               password={password}
               onChange={(e) => onPasswordChange(e.target.value.trim())}
             />
