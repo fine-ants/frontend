@@ -1,9 +1,9 @@
 import usePortfolioHoldingChartsQuery from "@api/portfolio/queries/usePortfolioHoldingChartsQuery";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import styled from "styled-components";
-import DividendBarChartContainer from "./DividendBarChartContainer";
-import { PieChartContainer } from "./PieChartContainer";
-import SectorBarChartContainer from "./SectorBarChartContainer";
+import DividendBarChartContainer from "./Dividend/DividendBarChartContainer";
+import { PieChartContainer } from "./Pie/PieChartContainer";
+import SectorBarChartContainer from "./Sector/SectorBarChartContainer";
 
 type Props = { portfolioId: number };
 
