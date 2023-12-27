@@ -1,6 +1,6 @@
 import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieChartQuery";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
-import PieChartLegend from "@components/common/PieChart/PieChartLegend";
+import TallLegend from "@components/common/Legend/TallLegend";
 import { Suspense, useState } from "react";
 import styled from "styled-components";
 import PieChart from "../common/PieChart/PieChart";
@@ -39,7 +39,7 @@ export default function DashboardPortfolioWeight() {
             pieData={pieData ?? []}
           />
           {pieData && pieData.length > 0 ? (
-            <PieChartLegend
+            <TallLegend
               legendList={pieChartLegendList ?? []}
               etcOptions={{ title: "기타", numItemsFromFront: 10 }}
             />
