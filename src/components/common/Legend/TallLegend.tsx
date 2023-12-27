@@ -3,7 +3,7 @@ import { CSSProperties } from "react";
 import styled from "styled-components";
 import PieChartLegendItem, {
   Props as PieChartLegendItemProps,
-} from "./PieChartLegendItem";
+} from "./TallLegendItem";
 
 type Props = {
   legendList: PieChartLegendItemProps[];
@@ -14,11 +14,7 @@ type Props = {
   style?: CSSProperties;
 };
 
-export default function PieChartLegend({
-  legendList,
-  etcOptions,
-  style,
-}: Props) {
+export default function TallLegend({ legendList, etcOptions, style }: Props) {
   const displayedLegendList = [...legendList];
 
   const etcList =
