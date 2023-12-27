@@ -83,21 +83,12 @@ export default function PortfolioHoldingRow({
             aria-label="expand row"
             size="small"
             onClick={onExpandRowClick}>
-            {isRowOpen ? (
-              <Icon
-                icon="chevron-down"
-                size={16}
-                variant="tertiary"
-                disabled={false}
-              />
-            ) : (
-              <Icon
-                icon="chevron-right"
-                size={16}
-                variant="tertiary"
-                disabled={false}
-              />
-            )}
+            <Icon
+              icon={isRowOpen ? "chevron-down" : "chevron-right"}
+              size={16}
+              variant="tertiary"
+              disabled={false}
+            />
           </IconButton>
         </HoldingTableCell>
 
@@ -216,7 +207,6 @@ const HoldingTableRow = styled(TableRow)`
 const HoldingTableCell = styled(TableCell)`
   padding: 0 8px;
   height: 48px;
-  // box-sizing: border-box;
 `;
 
 const HoldingTypography = styled(Typography)`

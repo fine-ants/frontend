@@ -2,6 +2,7 @@ import { PortfolioHolding } from "@api/portfolio/types";
 import TablePagination from "@components/common/Pagination/TablePagination";
 import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
+import styled from "styled-components";
 import PortfolioHoldingsTableHead from "./PorfolioHoldingTableHead";
 import PortfolioHoldingRow from "./PortfolioHoldingRow";
 
@@ -104,14 +105,7 @@ export default function PortfolioHoldingsTable({
   );
 
   return (
-    <Table
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "896px",
-        backgroundColor: "#FFFFFF",
-      }}
-      aria-label="collapsible table">
+    <StyledPortfolioHoldingsTable aria-label="collapsible table">
       <PortfolioHoldingsTableHead
         order={order}
         orderBy={orderBy}
@@ -154,6 +148,13 @@ export default function PortfolioHoldingsTable({
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Table>
+    </StyledPortfolioHoldingsTable>
   );
 }
+
+const StyledPortfolioHoldingsTable = styled(Table)`
+  display: flex;
+  flex-direction: column;
+  width: 896px;
+  background-color: ${({ theme: { color } }) => color.neutral.white};
+`;

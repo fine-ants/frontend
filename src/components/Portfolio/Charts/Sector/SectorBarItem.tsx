@@ -1,8 +1,7 @@
-import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import designSystem from "@styles/designSystem";
-import * as React from "react";
+import { SectorTooltip } from "./SectorTooltip";
 
 const SECTOR_BAR_WIDTH = 400;
 
@@ -17,13 +16,13 @@ export default function SectorBarItem({ title, fill, weight }: Props) {
       <SectorTooltip
         placement="top"
         title={
-          <React.Fragment>
+          <>
             <TitleWrapper>
               <Color $color={fill} />
               <SectorTitle>{title}</SectorTitle>
             </TitleWrapper>
             <Percent>{weight}%</Percent>
-          </React.Fragment>
+          </>
         }>
         <StyledSectorBarItem
           $fill={fill}
@@ -33,34 +32,6 @@ export default function SectorBarItem({ title, fill, weight }: Props) {
     </div>
   );
 }
-
-const SectorTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip
-    {...props}
-    classes={{ popper: className }}
-    PopperProps={{
-      modifiers: [
-        {
-          name: "offset",
-          options: {
-            offset: [0, -6], // 첫 번째 값은 수평 방향, 두 번째 값은 수직 방향
-          },
-        },
-      ],
-    }}
-  />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    display: "flex",
-    alignItems: "center",
-    backgroundColor: designSystem.color.neutral.white,
-    gap: "8px",
-    color: designSystem.color.neutral.gray600,
-    fontSize: theme.typography.pxToRem(12),
-    border: `1px solid ${designSystem.color.neutral.gray100}`,
-    boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.08)",
-  },
-}));
 
 const StyledSectorBarItem = styled("div")<{ $fill: string; $width: number }>(
   ({ $fill, $width }) => ({
