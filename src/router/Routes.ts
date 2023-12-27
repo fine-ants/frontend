@@ -2,6 +2,7 @@ export default {
   LANDING: "/",
   SIGNUP: "/signup",
   SIGNIN: "/signin",
+  SIGNINLOADING: "/signin/loading",
   PROFILE: "/profile",
   DASHBOARD: "/dashboard",
   WATCHLISTS: "/watchlists",

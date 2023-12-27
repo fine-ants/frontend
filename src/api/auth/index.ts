@@ -57,6 +57,16 @@ export const postOAuthUrl = async (provider: OAuthProvider) => {
   const res = await fetcher.post<Response<{ authURL: string }>>(
     `/auth/${provider}/authUrl`
   );
+
+  if (process.env.NODE_ENV === "development") {
+    const tempURL = new URL(res.data.data.authURL);
+    tempURL.searchParams.set(
+      "redirect_uri",
+      `http://localhost:5173/signin/loading?provider=${provider}`
+    );
+    res.data.data.authURL = tempURL.toString();
+  }
+
   return res.data;
 };
 
@@ -66,7 +76,7 @@ export const postOAuthSignIn = async (
   state: string
 ) => {
   const res = await fetcher.post<Response<SignInData>>(
-    `/auth/${provider}/login?code=${authCode}&state=${state}&redirectUrl=${CLIENT_URL}/signin?provider=${provider}`
+    `/auth/${provider}/login?code=${authCode}&state=${state}&redirectUrl=${CLIENT_URL}/signin/loading?provider=${provider}`
   );
   return res.data;
 };
