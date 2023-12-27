@@ -9,6 +9,7 @@ import MyProfilePage from "@pages/MyProfilePage";
 import NotFoundPage from "@pages/NotFoundPage";
 import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
 import PortfolioPage from "@pages/Portfolio/PortfolioPage";
+import SignInLoadingPage from "@pages/SignInLoadingPage";
 import SignInPage from "@pages/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
@@ -46,6 +47,7 @@ const router = (user: User | null) =>
             </WindowProvider>
           }>
           <Route index path={Routes.LANDING} element={<LandingPage />} />
+          <Route path={Routes.SIGNINLOADING} element={<SignInLoadingPage />} />
           <Route path={Routes.SIGNIN} element={<SignInPage />} />
           <Route path={Routes.SIGNUP} element={<SignUpPage />} />
         </Route>
