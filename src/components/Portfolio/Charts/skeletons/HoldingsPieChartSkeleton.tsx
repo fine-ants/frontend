@@ -3,12 +3,12 @@ import PieChartSkeleton from "@components/common/PieChart/skeletons/PieChartSkel
 export default function HoldingsPieChartSkeleton() {
   return (
     <PieChartSkeleton
-      containerWidth={600}
-      containerHeight={318}
-      pieWidth={200}
-      pieHeight={200}
-      innerCircleWidth={130}
-      innerCircleHeight={130}
+      containerWidth={256}
+      containerHeight={256}
+      pieWidth={256}
+      pieHeight={256}
+      innerCircleWidth={128}
+      innerCircleHeight={128}
     />
   );
 }
