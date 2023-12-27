@@ -65,7 +65,9 @@ export type PortfolioHolding = {
   annualDividend: number;
   annualDividendYield: number;
   purchaseHistory: PurchaseHistoryField[];
+  dateCreated: string;
 };
+//TODO : 백엔드에서도 dateCreated 필드 추가해야함
 
 export type PurchaseHistoryField = {
   purchaseHistoryId: number;

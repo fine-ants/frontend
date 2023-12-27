@@ -1,27 +1,35 @@
 import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import RateBadge from "@components/common/Badges/RateBadge";
+import CheckBox from "@components/common/Checkbox/Checkbox";
+import Icon from "@components/common/Icon";
 import {
-  Button,
   Collapse,
   IconButton,
   TableCell,
   TableRow,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import designSystem from "@styles/designSystem";
+import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { MouseEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingLots from "./PortfolioHoldingLots";
 
 export default function PortfolioHoldingRow({
   portfolioId,
+  labelId,
   row,
+  isItemSelected,
+  handleClick,
 }: {
-  portfolioId: number;
   row: PortfolioHolding;
+  labelId: string;
+  isItemSelected: boolean;
+  handleClick: (event: MouseEvent<unknown>, id: string) => void;
+  portfolioId: number;
 }) {
   const {
     companyName,
@@ -46,10 +54,6 @@ export default function PortfolioHoldingRow({
   const [isRowOpen, setIsRowOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onDeleteClick = () => {
-    setIsDeleteDialogOpen(true);
-  };
-
   const onConfirmDelete = () => {
     portfolioHoldingDeleteMutate({ portfolioId, portfolioHoldingId });
   };
@@ -60,73 +64,117 @@ export default function PortfolioHoldingRow({
 
   return (
     <>
-      <HoldingTableRow>
-        <HoldingTableCell>
+      <HoldingTableRow
+        tabIndex={-1}
+        selected={isItemSelected}
+        aria-checked={isItemSelected}
+        onClick={(event) => handleClick(event, tickerSymbol)}>
+        <HoldingTableCell
+          style={{
+            width: "40px",
+            borderRadius: "8px 0 0 8px",
+            padding: "0 8px 0 16px",
+          }}>
           <IconButton
+            style={{
+              width: "16px",
+              height: "16px",
+            }}
             aria-label="expand row"
             size="small"
             onClick={onExpandRowClick}>
-            {isRowOpen ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
+            {isRowOpen ? (
+              <Icon
+                icon="chevron-down"
+                size={16}
+                variant="tertiary"
+                disabled={false}
+              />
+            ) : (
+              <Icon
+                icon="chevron-right"
+                size={16}
+                variant="tertiary"
+                disabled={false}
+              />
+            )}
           </IconButton>
         </HoldingTableCell>
-        <HoldingTableCell component="th" scope="row">
+
+        <HoldingTableCell style={{ width: "32px", padding: "0" }}>
+          <CheckBox
+            size="h16"
+            checkType="check"
+            checked={isItemSelected}
+            inputProps={{
+              "aria-label": labelId,
+            }}
+          />
+        </HoldingTableCell>
+
+        <HoldingTableCell style={{ width: "132px" }} component="th" scope="row">
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
+              style={{ font: designSystem.font.body3 }}
               to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}>
               {companyName}
             </Link>
           </Typography>
-          <Typography>{tickerSymbol}</Typography>
+          <Typography
+            style={{
+              font: designSystem.font.body4,
+              color: designSystem.color.neutral.gray400,
+            }}>
+            {tickerSymbol}
+          </Typography>
         </HoldingTableCell>
-        <HoldingTableCell align="right">
-          <Amount>{currentValuation}</Amount>
-          <Currency>KRW</Currency>
+
+        <HoldingTableCell style={{ width: "108px" }} align="right">
+          <Amount>₩{thousandsDelimiter(currentValuation)}</Amount>
         </HoldingTableCell>
-        <HoldingTableCell align="right">
+
+        <HoldingTableCell style={{ width: "108px" }} align="right">
           <ChangeableAmount $isProfit={currentPrice > averageCostPerShare}>
-            {currentPrice}
+            ₩{thousandsDelimiter(currentPrice)}
           </ChangeableAmount>
-          <Currency>KRW</Currency>
         </HoldingTableCell>
-        <HoldingTableCell align="right">
-          <Amount>{averageCostPerShare}</Amount>
-          <Currency>KRW</Currency>
+
+        <HoldingTableCell style={{ width: "108px" }} align="right">
+          <Amount>₩{thousandsDelimiter(averageCostPerShare)}</Amount>
         </HoldingTableCell>
-        <HoldingTableCell align="right">
+
+        <HoldingTableCell style={{ width: "64px" }} align="right">
           <Typography>{numShares}</Typography>
         </HoldingTableCell>
-        <HoldingTableCell align="right">
-          <ChangeableTypography $isProfit={!(dailyChangeRate < 0)}>
-            {dailyChangeRate}%
-          </ChangeableTypography>
-          <ChangeableTypography $isProfit={!(dailyChange < 0)}>
-            {dailyChange}
-          </ChangeableTypography>
+
+        <HoldingTableCell style={{ width: "80px" }} align="right">
+          <HoldingTypography>{dailyChange}</HoldingTypography>
+          <RateBadge rate={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
-        <HoldingTableCell align="right">
-          <ChangeableTypography $isProfit={!(totalReturnRate < 0)}>
-            {totalReturnRate}%
-          </ChangeableTypography>
-          <ChangeableTypography $isProfit={!(totalGain < 0)}>
-            {totalGain}
-          </ChangeableTypography>
+
+        <HoldingTableCell style={{ width: "108px" }} align="right">
+          <HoldingTypography>
+            ₩{thousandsDelimiter(totalGain)}
+          </HoldingTypography>
+          <RateBadge rate={totalReturnRate} bgColorStatus={false} />
         </HoldingTableCell>
-        <HoldingTableCell align="right">
-          <ChangeableTypography $isProfit={!(annualDividendYield < 0)}>
-            {annualDividendYield}%
-          </ChangeableTypography>
-          <ChangeableTypography $isProfit={!(annualDividend < 0)}>
-            {annualDividend}
-          </ChangeableTypography>
+
+        <HoldingTableCell
+          style={{
+            width: "116px",
+            borderRadius: "0 8px 8px 0",
+            padding: "0 16px 0 8px",
+          }}
+          align="right">
+          <HoldingTypography>
+            ₩{thousandsDelimiter(annualDividend)}
+          </HoldingTypography>
+          <RateBadge rate={annualDividendYield} bgColorStatus={false} />
         </HoldingTableCell>
-        <TableCell style={{ border: "1px solid black", cursor: "pointer" }}>
-          <Button onClick={onDeleteClick}>삭제</Button>
-        </TableCell>
       </HoldingTableRow>
+
       <HoldingLotRow>
-        <TableCell
-          style={{ padding: "0 0 0 68.5px", border: "none" }}
-          colSpan={9}>
+        <TableCell style={{ padding: "0", border: "none" }} colSpan={10}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
             <PortfolioHoldingLots
               portfolioId={portfolioId}
@@ -148,36 +196,43 @@ export default function PortfolioHoldingRow({
 }
 
 const HoldingTableRow = styled(TableRow)`
-  height: 46px;
+  &.Mui-selected {
+    background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  }
+
+  &.Mui-selected:hover {
+    background-color: ${({ theme: { color } }) => color.neutral.gray100};
+  }
+
+  &:hover {
+    background-color: ${({ theme: { color } }) => color.neutral.gray100};
+  }
 
   & > * {
-    border-bottom: unset;
+    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
   }
 `;
 
 const HoldingTableCell = styled(TableCell)`
-  padding: 16px 0 0 0;
+  padding: 0 8px;
+  height: 48px;
+  // box-sizing: border-box;
 `;
 
-const Amount = styled(Typography)`
+const HoldingTypography = styled(Typography)`
+  font: ${designSystem.font.body3};
+  color: ${designSystem.color.neutral.gray900};
+`;
+
+const Amount = styled(HoldingTypography)`
   display: inline;
 `;
 
-const Currency = styled(Typography)`
-  padding-left: 2px;
-  display: inline;
-  color: #8b8b8b;
-  font-size: 10px;
-`;
-
-const HoldingLotRow = styled(TableRow)``;
-
-const ChangeableTypography = styled(Typography)<{ $isProfit: boolean }>`
-  color: ${({ $isProfit }) =>
-    $isProfit ? "rgb(8, 153, 129)" : "rgb(242, 54, 69)"};
+const HoldingLotRow = styled(TableRow)`
+  width: 500px;
 `;
 
 const ChangeableAmount = styled(Amount)<{ $isProfit: boolean }>`
-  color: ${({ $isProfit }) =>
-    $isProfit ? "rgb(8, 153, 129)" : "rgb(242, 54, 69)"};
+  color: ${({ $isProfit, theme: { color } }) =>
+    $isProfit ? color.state.green : color.state.red};
 `;
