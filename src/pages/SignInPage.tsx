@@ -68,9 +68,8 @@ export default function SignInPage() {
         if (provider && authCode && state) {
           await oAuthSignInMutate({ provider, authCode, state });
         }
-
-        shouldClosePopUp = true;
       }
+      shouldClosePopUp = true;
     };
 
     window.addEventListener("message", closePopUpMessageHandler);
@@ -79,7 +78,7 @@ export default function SignInPage() {
       window.removeEventListener("message", closePopUpMessageHandler);
 
       if (shouldClosePopUp) {
-        closePopUpWindow();
+        closePopUpWindow(); // redirect를 통한 component unmount에 의존
       }
     };
   }, [closePopUpWindow, oAuthSignInMutate, popUpWindow]);
