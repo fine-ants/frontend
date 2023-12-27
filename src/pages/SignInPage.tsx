@@ -9,19 +9,21 @@ import GoogleSignInButton from "@components/auth/GoogleSignInButton";
 import KakaoSignInButton from "@components/auth/KakaoSignInButton";
 import NaverSignInButton from "@components/auth/NaverSignInButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import useText from "@components/hooks/useText";
+import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
+import { TextField } from "@components/common/TextField/TextField";
 import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
+import { useText, validateEmail } from "@fineants/demolition";
 import { Button, FormControlLabel } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { validateEmail } from "@utils/authInputValidators";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { AuthInput } from "../components/auth/AuthInput";
-import { AuthPasswordInput } from "../components/auth/AuthPasswordInput";
 import BasePage from "./BasePage";
+
+const emailValidator = (email: string) =>
+  validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -34,54 +36,51 @@ export default function SignInPage() {
     value: email,
     error: emailError,
     onChange: onEmailChange,
-  } = useText({ validators: [validateEmail] });
+  } = useText({
+    validators: [emailValidator],
+  });
   const {
     value: password,
     error: passwordError,
     onChange: onPasswordChange,
   } = useText();
 
+  const onEmailClear = () => {
+    onEmailChange("");
+  };
+
   const onSignInSubmit = async (e: FormEvent) => {
     e.preventDefault();
     signInMutate({ email, password });
   };
-
-  // Handle Google, Kakao, Naver Redirect (receive OAuth provider, auth code and state) received in popup.
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const provider = urlParams.get("provider");
-    const authCode = urlParams.get("code");
-    const state = urlParams.get("state");
-
-    if (!provider || !authCode || !state) return; // TODO: handle error
-
-    // Received data in the popup window from the OAuth provider and send it to the original window.
-    if (provider === "google" || provider === "kakao" || provider === "naver") {
-      // Send OAuth provider, auth code and state to the original window.
-      window.opener.postMessage({ provider, authCode, state }, CLIENT_URL);
-    }
-  }, [oAuthSignInMutate]);
 
   // Receive OAuth provider, auth code, state in original window from popup window.
   // Only used by Kakao and Naver Login.
   useEffect(() => {
     if (!popUpWindow) return;
 
-    const closeWindowMessageHandler = async (e: MessageEvent) => {
+    let shouldClosePopUp = false;
+
+    const closePopUpMessageHandler = async (e: MessageEvent) => {
       if (e.origin === CLIENT_URL) {
         const { provider, authCode, state } = e.data;
 
         if (provider && authCode && state) {
           await oAuthSignInMutate({ provider, authCode, state });
         }
-        closePopUpWindow();
+
+        shouldClosePopUp = true;
       }
     };
 
-    window.addEventListener("message", closeWindowMessageHandler);
+    window.addEventListener("message", closePopUpMessageHandler);
 
     return () => {
-      window.removeEventListener("message", closeWindowMessageHandler);
+      window.removeEventListener("message", closePopUpMessageHandler);
+
+      if (shouldClosePopUp) {
+        closePopUpWindow();
+      }
     };
   }, [closePopUpWindow, oAuthSignInMutate, popUpWindow]);
 
@@ -99,18 +98,19 @@ export default function SignInPage() {
         <Form onSubmit={onSignInSubmit}>
           <InputControl>
             <TextInputLabel>이메일</TextInputLabel>
-            <AuthInput
+            <TextField
               error={!!emailError}
-              type="text"
               placeholder="이메일"
               value={email}
+              errorText={emailError}
               onChange={(e) => onEmailChange(e.target.value.trim())}
-              helperText={emailError}
+              clearValue={onEmailClear}
             />
           </InputControl>
           <InputControl>
             <TextInputLabel>비밀번호</TextInputLabel>
-            <AuthPasswordInput
+            <PasswordTextField
+              placeholder="비밀번호를 입력해주세요"
               password={password}
               onChange={(e) => onPasswordChange(e.target.value.trim())}
             />

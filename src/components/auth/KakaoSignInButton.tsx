@@ -15,21 +15,10 @@ export default function KakaoSignInButton() {
     // Get Auth URL from server.
     const res = await postOAuthUrl("kakao");
 
-    // This is for development. Remove this.
-    const tempURL = new URL(res.data.authURL);
-    tempURL.searchParams.set(
-      "redirect_uri",
-      "http://localhost:5173/signin?provider=kakao"
-    );
-    const url =
-      process.env.NODE_ENV === "development"
-        ? tempURL.toString()
-        : res.data.authURL;
-
     // TODO: handle error
     if (res.code === HTTPSTATUS.success) {
       const oAuthPopUpWindow = openPopUpWindow(
-        url, // This is for development. Change this to res.data.authURL.
+        res.data.authURL,
         "kakaoOAuth",
         500,
         600
@@ -43,7 +32,6 @@ export default function KakaoSignInButton() {
 
   return (
     <StyledKakaoSignInButton type="button" onClick={onKakaoSignIn}>
-      {/* <img src={kakaoLoginButtonImage} alt="카카오 로그인" /> */}
       <img src={kakaoLogo} alt="카카오 로고" />
       <p>카카오 로그인</p>
     </StyledKakaoSignInButton>
