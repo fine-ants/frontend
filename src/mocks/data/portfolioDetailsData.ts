@@ -1,7 +1,7 @@
 export const portfolioDetails = [
   {
     id: 1,
-    securitiesFirm: "kb",
+    securitiesFirm: "KB증권",
     name: "물린게아니라장기투자",
     budget: 1000000,
     targetGain: 1500000,
@@ -22,7 +22,7 @@ export const portfolioDetails = [
   },
   {
     id: 2,
-    securitiesFirm: "toss",
+    securitiesFirm: "토스증권",
     name: "롱숏롱숏",
     budget: 100,
     targetGain: 150,
@@ -43,7 +43,7 @@ export const portfolioDetails = [
   },
   {
     id: 3,
-    securitiesFirm: "toss",
+    securitiesFirm: "토스증권",
     name: "엘리엇파동12345ABC",
     budget: 1000000,
     targetGain: 1500000,

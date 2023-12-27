@@ -28,7 +28,7 @@ export default [
   }),
 
   // Portfolio Charts
-  rest.get("/api/portfolios/:portfolioId/charts", (_, res, ctx) => {
+  rest.get("/api/portfolio/:portfolioId/charts", (_, res, ctx) => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(
@@ -169,6 +169,7 @@ export default [
       annualDividend: 6000,
       annualDividendYield: 10,
       purchaseHistory: [],
+      dateCreated: "2021-01-01",
     };
 
     portfolioHoldings.push(data);
