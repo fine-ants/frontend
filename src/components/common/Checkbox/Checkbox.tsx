@@ -30,6 +30,7 @@ export default function CheckBox({
       disabled={disabled}
       onChange={onChange}
       inputProps={inputProps}
+      style={{ padding: 0, display: "flex", alignItems: "center" }}
     />
   );
 }
