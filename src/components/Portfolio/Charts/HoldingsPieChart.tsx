@@ -1,3 +1,4 @@
+import WideLegend from "@components/common/Legend/WideLegend";
 import { PieChartData } from "@components/common/PieChart/PieChart";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { useCallback, useState } from "react";
@@ -39,11 +40,11 @@ export default function HoldingsPieChart({ data }: Props) {
 
   const totalValuation = data.reduce((acc, cur) => acc + cur.valuation, 0);
 
-  // const pieChartLegendList = data.map((item) => ({
-  //   title: item.name,
-  //   percent: item.weight,
-  //   color: item.fill,
-  // }));
+  const pieChartLegendList = data.map((item) => ({
+    title: item.name,
+    percent: item.weight,
+    color: item.fill,
+  }));
 
   const onPieEnter = useCallback(
     (_: PieEntry, index: number) => {
@@ -83,10 +84,10 @@ export default function HoldingsPieChart({ data }: Props) {
       </PieChartWrapper>
 
       {/* TODO */}
-      {/* <PieChartLegend
+      <WideLegend
         legendList={pieChartLegendList}
         style={{ top: "130px", position: "relative" }}
-      /> */}
+      />
     </StyledHoldingsPieChart>
   );
 }
