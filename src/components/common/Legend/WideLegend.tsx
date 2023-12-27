@@ -37,8 +37,6 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
 
   return (
     <StyledLegend $hasScroll={hasScroll} ref={legendBoxRef} style={style}>
-      {/* <Content> */}
-
       {displayedLegendList.map((item, idx) => (
         <WideLegendItem
           key={idx}
@@ -65,7 +63,6 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
           </EtcList>
         </EtcListContainer>
       )}
-      {/* </Content> */}
     </StyledLegend>
   );
 }
@@ -91,20 +88,6 @@ const StyledLegend = styled.div<{ $hasScroll: boolean }>`
     border-radius: 2px; /* 스크롤바의 모서리를 둥글게 */
   }
 `;
-
-// const Content = styled.div`
-//   width: 368px;
-//   display: flex;
-// `;
-
-// const ItemsList = styled.div`
-//   width: 100%;
-//   display: flex;
-
-//   gap: 24px;
-//   background-color: ${({ theme: { color } }) => color.neutral.white};
-//   border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-// `;
 
 const EtcListContainer = styled.div`
   padding-top: 10px;

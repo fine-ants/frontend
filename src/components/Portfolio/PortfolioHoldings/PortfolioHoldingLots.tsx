@@ -78,7 +78,6 @@ export default function PortfolioHoldingLots({
           <TableRow>
             <TableCell colSpan={5} sx={{ border: "none" }}>
               <Button
-                icon="add"
                 size="h32"
                 variant="secondary"
                 onClick={onAddPurchaseClick}>

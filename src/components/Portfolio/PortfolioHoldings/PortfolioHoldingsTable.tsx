@@ -52,7 +52,6 @@ export default function PortfolioHoldingsTable({
     setOrderBy(property);
   };
 
-  // TODO: select all in current page only
   const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = portfolioRows.map((n) => n.tickerSymbol);
@@ -62,7 +61,6 @@ export default function PortfolioHoldingsTable({
     onClickCheckbox([]);
   };
 
-  // TODO: if click on name, navigate to portfolio page (don't select).
   const handleClick = (_: MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly string[] = [];

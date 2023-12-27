@@ -11,7 +11,7 @@ type Props = {
   weight: number;
   title: string;
 };
-export default function SectorBarElement({ title, fill, weight }: Props) {
+export default function SectorBarItem({ title, fill, weight }: Props) {
   return (
     <div>
       <SectorTooltip
@@ -25,7 +25,7 @@ export default function SectorBarElement({ title, fill, weight }: Props) {
             <Percent>{weight}%</Percent>
           </React.Fragment>
         }>
-        <StyledSectorBarElement
+        <StyledSectorBarItem
           $fill={fill}
           $width={SECTOR_BAR_WIDTH * (weight / 100)}
         />
@@ -62,7 +62,7 @@ const SectorTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 }));
 
-const StyledSectorBarElement = styled("div")<{ $fill: string; $width: number }>(
+const StyledSectorBarItem = styled("div")<{ $fill: string; $width: number }>(
   ({ $fill, $width }) => ({
     width: `${$width}px`,
     height: "24px",
@@ -95,12 +95,3 @@ const Percent = styled(Typography)({
   font: designSystem.font.title5,
   color: designSystem.color.primary.blue500,
 });
-
-// const StyledSectorBarElement = styledC.div<{ $fill: string; $width: number }>`
-//   width: ${({ $width }) => $width}%;
-//   height: 24px;
-//   display: flex;
-//   justify-content: center;
-//   border-radius: 4px;
-//   background-color: ${({ $fill }) => $fill};
-// `;

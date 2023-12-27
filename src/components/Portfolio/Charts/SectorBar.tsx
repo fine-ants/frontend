@@ -1,20 +1,11 @@
 import { PortfolioHoldingsSectorBarItem } from "@api/portfolio/types";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import styled from "styled-components";
-import SectorBarElement from "./SectorBarElement";
+import SectorBarItem from "./SectorBarItem";
 
 type Props = {
   data: PortfolioHoldingsSectorBarItem[];
   sectorBarWidth: number;
-  onHoverSectorBarElement: (
-    sector: string,
-    sectorWeight: number,
-    color: string,
-    sectorBarPosition: {
-      x: number;
-      y: number;
-    }
-  ) => void;
 };
 
 export default function SectorBar({ data, sectorBarWidth }: Props) {
@@ -26,7 +17,7 @@ export default function SectorBar({ data, sectorBarWidth }: Props) {
   return (
     <StyledSectorBar $sectorBarWidth={sectorBarWidth}>
       {coloredData.map((d, index) => (
-        <SectorBarElement
+        <SectorBarItem
           key={index}
           title={d.sector}
           fill={d.fill}

@@ -1,7 +1,7 @@
 import { ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
 
-type Variant = "primary" | "secondary" | "tertiary" | "text";
+export type Variant = "primary" | "secondary" | "tertiary" | "text";
 type Size = "h32" | "h44";
 
 type Props = {

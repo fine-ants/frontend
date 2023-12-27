@@ -32,21 +32,9 @@ export default function PortfolioPage() {
   //   eventTypeName: "portfolioDetails",
   // });
 
-  // console.log(portfolioSSE);
-
   const onAddHoldingButtonClick = () => {
     setIsAddHoldingDialogOpen(true);
   };
-
-  // // TODO: Handle loading
-  // if (isLoading) {
-  //   return <div>Loading</div>;
-  // }
-
-  // // TODO: Handle error
-  // if (isError) {
-  //   return <div>Error</div>;
-  // }
 
   const { portfolioDetails, portfolioHoldings } = portfolio!;
 

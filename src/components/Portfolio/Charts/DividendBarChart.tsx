@@ -44,7 +44,7 @@ export default function DividendBarChart({ data }: Props) {
           barSize={16}
           isAnimationActive={false}
           shape={<RoundedBar radius={4} />}
-          activeBar={<ActiveBar radius={4} />}>
+          activeBar={<RoundedBar isHover={true} radius={4} />}>
           {data.map((data, index) => (
             <Cell
               cursor="pointer"
@@ -61,7 +61,7 @@ export default function DividendBarChart({ data }: Props) {
           ))}
         </Bar>
         {currentMonthIndex !== null && (
-          <Tooltip cursor={false} content={<CustomTooltip />} />
+          <Tooltip cursor={false} content={<DividendBarTooltip />} />
         )}
       </BarChart>
     </ResponsiveContainer>
@@ -70,43 +70,9 @@ export default function DividendBarChart({ data }: Props) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function RoundedBar(props: any) {
-  const { fill, x, y, width, height, index, onClick, radius } = props;
+  const { fill, x, y, width, height, index, onClick, radius, isHover } = props;
 
-  // Adjust the y position to create a gap
-  const adjustedY = y - 8; // Increase this value to push the bar down
-
-  const path = useMemo(() => {
-    return `
-      M${x + radius},${adjustedY} 
-      L${x + width - radius},${adjustedY} 
-      Q${x + width},${adjustedY} ${x + width},${adjustedY + radius}
-      L${x + width},${adjustedY + height - radius} 
-      Q${x + width},${adjustedY + height} ${x + width - radius},${
-        adjustedY + height
-      }
-      L${x + radius},${adjustedY + height} 
-      Q${x},${adjustedY + height} ${x},${adjustedY + height - radius}
-      L${x},${adjustedY + radius} 
-      Q${x},${adjustedY} ${x + radius},${adjustedY}
-      Z`;
-  }, [x, adjustedY, width, height, radius]);
-
-  return (
-    <path
-      cursor={"pointer"}
-      d={path}
-      fill={fill}
-      onClick={() => onClick(index)}
-    />
-  );
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ActiveBar(props: any) {
-  const { x, y, width, height, index, onClick, radius } = props;
-
-  // Adjust the y position to create a gap
-  const adjustedY = y - 8; // Increase this value to push the bar down
+  const adjustedY = y - 8;
 
   const path = useMemo(() => {
     return `
@@ -128,14 +94,14 @@ function ActiveBar(props: any) {
     <path
       cursor={"pointer"}
       d={path}
-      fill={designSystem.color.primary.blue200}
+      fill={isHover ? designSystem.color.primary.blue200 : fill}
       onClick={() => onClick(index)}
     />
   );
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CustomTooltip = ({ active, payload, label }: any) => {
+const DividendBarTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const currentYear = new Date().getFullYear();
     const month = parseInt(label.split("월")[0], 10);
@@ -153,8 +119,6 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
   return null;
 };
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 const StyledCustomTooltip = styled.div`
   display: flex;
