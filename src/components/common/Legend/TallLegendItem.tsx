@@ -6,7 +6,7 @@ export type Props = {
   percent: number;
 };
 
-export default function PieChartLegendItem({ color, title, percent }: Props) {
+export default function LegendItem({ color, title, percent }: Props) {
   return (
     <StyledLegendItem>
       <TitleWrapper>

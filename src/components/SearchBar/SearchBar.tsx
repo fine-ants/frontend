@@ -1,6 +1,6 @@
 import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
-import searchIcon from "@assets/icons/ic_search.svg";
+import searchIcon from "@assets/icons/ic_search_16.svg";
 import { useDebounce } from "@fineants/demolition";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
