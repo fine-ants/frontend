@@ -1,4 +1,7 @@
 import { User } from "@api/auth";
+import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
+import { DashboardOverviewSkeleton } from "@components/Dashboard/skeletons/DashboardOverviewSkeleton";
+import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import { GOOGLE_CLIENT_ID } from "@constants/config";
 import { WindowProvider } from "@context/WindowContext";
 import DashboardPage from "@pages/DashboardPage";
@@ -31,7 +34,16 @@ const router = (user: User | null) =>
         <Route element={<ProtectedRoute user={user} />}>
           <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
           <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
-          <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
+          <Route
+            path={Routes.PORTFOLIO}
+            element={
+              <AsyncBoundary
+                ErrorFallback={OverviewErrorFallback}
+                SuspenseFallback={<DashboardOverviewSkeleton />}>
+                <PortfolioPage />
+              </AsyncBoundary>
+            }
+          />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
           <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
           <Route path={Routes.PROFILE} element={<MyProfilePage />} />

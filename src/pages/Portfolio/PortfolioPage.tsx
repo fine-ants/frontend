@@ -1,12 +1,9 @@
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
-import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
-import { DashboardOverviewSkeleton } from "@components/Dashboard/skeletons/DashboardOverviewSkeleton";
 import ChartsPanel from "@components/Portfolio/Charts/ChartsPanel";
 import ChartsPanelSkeleton from "@components/Portfolio/Charts/skeletons/ChartsPanelSkeleton";
 import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
-import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import Button from "@components/common/Buttons/Button";
 import { Box } from "@mui/material";
 import { Suspense, useState } from "react";
@@ -43,12 +40,8 @@ export default function PortfolioPage() {
       <Container>
         <LeftPanel>
           <PortfolioOverviewContainer>
-            <AsyncBoundary
-              ErrorFallback={OverviewErrorFallback}
-              SuspenseFallback={<DashboardOverviewSkeleton />}>
-              {/* //TODO data는 sse데이터,고정data 분리작업 필요 */}
-              <PortfolioOverview data={portfolioDetails} />
-            </AsyncBoundary>
+            {/* //TODO data는 sse데이터,고정data 분리작업 필요 */}
+            <PortfolioOverview data={portfolioDetails} />
           </PortfolioOverviewContainer>
 
           <PortfolioHoldingsContainer>
