@@ -1,12 +1,10 @@
-import chevronDownIcon from "@assets/icons/ic_chevron-down.svg";
-import chevronUpIcon from "@assets/icons/ic_chevron-up.svg";
 import dividerIcon from "@assets/icons/ic_divider.svg";
 import {
   TablePagination as MuiTablePagination,
   tablePaginationClasses,
 } from "@mui/material";
-import { ChangeEventHandler, useState } from "react";
 import styled from "styled-components";
+import Select from "../Select";
 import Pagination from "./Pagination";
 import calculateStartAndEndRows from "./utils/calculateStartAndEndRows";
 
@@ -14,17 +12,9 @@ type Props = {
   count: number;
   page: number;
   rowsPerPage: number;
-  rowsPerPageOptions: (
-    | number
-    | {
-        label: string;
-        value: number;
-      }
-  )[];
+  rowsPerPageOptions: number[];
   onPageChange: (event: unknown, newPage: number) => void;
-  onRowsPerPageChange:
-    | ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
-    | undefined;
+  onRowsPerPageChange: (newValue: string) => void;
 };
 
 export default function TablePagination({
@@ -35,8 +25,6 @@ export default function TablePagination({
   onPageChange,
   onRowsPerPageChange,
 }: Props) {
-  const [selectOpen, setSelectOpen] = useState(false);
-
   const { startRow, endRow } = calculateStartAndEndRows(
     count,
     page + 1,
@@ -49,8 +37,6 @@ export default function TablePagination({
       count={count}
       page={page}
       rowsPerPage={rowsPerPage}
-      // TODO: rowPerPageOptions select dropdown 컴포넌트 customize 및 분리
-      rowsPerPageOptions={rowsPerPageOptions}
       labelRowsPerPage={
         <>
           <StyledLabelRowsPerPage>
@@ -69,18 +55,14 @@ export default function TablePagination({
       labelDisplayedRows={() => (rowsPerPage === -1 ? "" : "개 씩 보기")}
       slotProps={{
         select: {
-          IconComponent: () => (
-            <StyledSelectPropsImg
-              src={selectOpen ? chevronUpIcon : chevronDownIcon}
-              alt=""
+          input: (
+            <Select
+              items={rowsPerPageOptions.map((x) => x.toString())}
+              size="h24"
+              selectedItem={rowsPerPage.toString()}
+              changeSelectedItem={onRowsPerPageChange}
             />
           ),
-          onClose: () => {
-            setSelectOpen(false);
-          },
-          onOpen: () => {
-            setSelectOpen(true);
-          },
         },
       }}
       ActionsComponent={() => (
@@ -91,7 +73,6 @@ export default function TablePagination({
         />
       )}
       onPageChange={onPageChange}
-      onRowsPerPageChange={onRowsPerPageChange}
     />
   );
 }
@@ -160,23 +141,4 @@ const StyledLabelRowsPerPage = styled.span`
   > span {
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
-`;
-
-const StyledSelectPropsImg = styled.img`
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(-8px, -50%);
-  flex-shrink: 0;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  pointer-events: none;
-  user-select: none;
-
-  // TODO: filter to gray600
 `;
