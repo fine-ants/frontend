@@ -15,15 +15,24 @@ export default function SectorBarChartContainer({
   sectorChart,
   sectorLegendList,
 }: Props) {
+  const hasNoHoldings =
+    sectorChart.length === 1 && sectorChart[0].sector === "현금";
+
   return (
     <StyledSectorBarChartContainer>
       <ChartLabel>섹터 구성</ChartLabel>
-      <SectorBar sectorBarWidth={400} data={sectorChart} />
-      <WideLegend
-        style={{ height: "68px" }}
-        legendList={sectorLegendList}
-        etcOptions={{ title: "기타", numItemsFromFront: 10 }}
+      <SectorBar
+        hasNoHoldings={hasNoHoldings}
+        sectorBarWidth={400}
+        data={sectorChart}
       />
+      {!hasNoHoldings && (
+        <WideLegend
+          style={{ height: "68px" }}
+          legendList={sectorLegendList}
+          etcOptions={{ title: "기타", numItemsFromFront: 10 }}
+        />
+      )}
     </StyledSectorBarChartContainer>
   );
 }

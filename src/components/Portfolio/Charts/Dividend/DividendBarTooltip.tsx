@@ -4,7 +4,8 @@ import styled from "styled-components";
 export default function DividendBarTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     const currentYear = new Date().getFullYear();
-    const month = parseInt(label.split("월")[0], 10);
+
+    const month = parseInt(label, 10);
     // 월이 10보다 작으면 앞에 '0'을 붙임
     const formattedMonth = month.toString().padStart(2, "0");
     return (

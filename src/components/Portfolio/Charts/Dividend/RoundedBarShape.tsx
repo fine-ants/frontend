@@ -3,7 +3,8 @@ import { useMemo } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function RoundedBarShape(props: any) {
-  const { fill, x, y, width, height, index, onClick, radius, isHover } = props;
+  const { amount, fill, x, y, width, height, index, onClick, radius, isHover } =
+    props;
 
   const adjustedY = y - 8;
 
@@ -27,7 +28,13 @@ export default function RoundedBarShape(props: any) {
     <path
       cursor={"pointer"}
       d={path}
-      fill={isHover ? designSystem.color.primary.blue200 : fill}
+      fill={
+        isHover
+          ? amount === 0
+            ? designSystem.color.neutral.white
+            : designSystem.color.primary.blue200
+          : fill
+      }
       onClick={() => onClick(index)}
     />
   );
