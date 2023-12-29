@@ -7,9 +7,8 @@ import PortfolioHoldingAddDialog from "@components/Portfolio/PortfolioHoldings/P
 import PortfolioHoldingsTable from "@components/Portfolio/PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "@components/Portfolio/PortfolioOverview";
 import Button from "@components/common/Buttons/Button";
-import Icon from "@components/common/Icon";
+import { Icon } from "@components/common/Icon";
 import { Box } from "@mui/material";
-import designSystem from "@styles/designSystem";
 import { Suspense, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -94,11 +93,7 @@ export default function PortfolioPage() {
                   variant="primary"
                   size="h32"
                   onClick={onAddHoldingButtonClick}>
-                  <Icon
-                    icon="add"
-                    size={16}
-                    color={designSystem.color.neutral.white}
-                  />
+                  <Icon icon="add" size={16} color={"white"} />
                   종목 추가
                 </Button>
               </ButtonContainer>

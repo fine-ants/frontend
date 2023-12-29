@@ -1,6 +1,6 @@
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import Button from "@components/common/Buttons/Button";
-import Icon from "@components/common/Icon";
+import { Icon } from "@components/common/Icon";
 import {
   Table,
   TableBody,
@@ -9,7 +9,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import PortfolioHoldingLotAddRow from "./PortfolioHoldingLotAddRow";
@@ -53,19 +52,11 @@ export default function PortfolioHoldingLots({
               메모
             </LotsTableHeadCell>
             <LotsTableHeadCell style={{ width: "32px" }}>
-              <Icon
-                icon="edit"
-                size={16}
-                color={designSystem.color.neutral.gray400}
-              />
+              <Icon icon="edit" size={16} color={"gray400"} />
             </LotsTableHeadCell>
 
             <LotsTableHeadCell style={{ width: "32px" }}>
-              <Icon
-                icon="remove"
-                size={16}
-                color={designSystem.color.neutral.gray400}
-              />
+              <Icon icon="remove" size={16} color={"gray400"} />
             </LotsTableHeadCell>
           </LotsTableHeadRow>
         </LostTableHead>

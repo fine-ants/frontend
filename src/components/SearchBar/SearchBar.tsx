@@ -1,10 +1,9 @@
 import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
 import searchIcon from "@assets/icons/ic_search.svg";
-import Icon from "@components/common/Icon";
+import { Icon } from "@components/common/Icon";
 import useOutsideClick from "@components/hooks/useOutsideClick";
 import { useDebounce } from "@fineants/demolition";
-import designSystem from "@styles/designSystem";
 import { removeWord } from "@utils/removeWord";
 import { ChangeEvent, useRef, useState } from "react";
 import styled from "styled-components";
@@ -90,7 +89,7 @@ function Input({
             onClick={onRemoveSearchValue}
             icon="close"
             size={16}
-            color={designSystem.color.neutral.gray600}
+            color={"gray600"}
           />
         </div>
       )}

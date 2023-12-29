@@ -3,7 +3,7 @@ import { PortfolioHolding } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import Icon from "@components/common/Icon";
+import { Icon } from "@components/common/Icon";
 import {
   Collapse,
   IconButton,
@@ -86,7 +86,7 @@ export default function PortfolioHoldingRow({
             <Icon
               icon={isRowOpen ? "chevron-down" : "chevron-right"}
               size={16}
-              color={designSystem.color.neutral.gray400}
+              color={"gray400"}
             />
           </IconButton>
         </HoldingTableCell>

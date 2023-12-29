@@ -2,8 +2,7 @@ import usePortfolioHoldingAddMutation from "@api/portfolio/queries/usePortfolioH
 import BaseDialog from "@components/BaseDialog";
 import SearchBar, { StockInfo } from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
-import Icon from "@components/common/Icon";
-import designSystem from "@styles/designSystem";
+import { Icon } from "@components/common/Icon";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -83,7 +82,7 @@ export default function PortfolioHoldingAddDialog({
             onClick={onDeleteHoldingBoxClick}
             icon="close"
             size={16}
-            color={designSystem.color.primary.blue200}
+            color={"blue200"}
           />
         </HoldingBox>
       )}

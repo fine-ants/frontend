@@ -2,10 +2,9 @@ import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/us
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
-import Icon from "@components/common/Icon";
+import { Icon } from "@components/common/Icon";
 import { TableCell, TableRow } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import designSystem from "@styles/designSystem";
 
 import { formatDate } from "@utils/date";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
@@ -138,7 +137,7 @@ export default function PortfolioHoldingLotRow({
               onClick={onSaveClick}
               icon="check"
               size={16}
-              color={designSystem.color.primary.blue500}
+              color={"blue500"}
             />
           </LotTableCell>
 
@@ -146,7 +145,7 @@ export default function PortfolioHoldingLotRow({
             <Icon
               icon="remove"
               size={16}
-              color={designSystem.color.neutral.gray400}
+              color={"gray400"}
               onClick={onOpenDeleteConfirmAlert}
             />
           </LotTableCell>
@@ -171,7 +170,7 @@ export default function PortfolioHoldingLotRow({
             <Icon
               icon="edit"
               size={16}
-              color={designSystem.color.neutral.gray400}
+              color={"gray400"}
               onClick={onEditClick}
             />
           </LotTableCell>
@@ -179,7 +178,7 @@ export default function PortfolioHoldingLotRow({
             <Icon
               icon="remove"
               size={16}
-              color={designSystem.color.neutral.gray400}
+              color={"gray400"}
               onClick={onOpenDeleteConfirmAlert}
             />
           </LotTableCell>
