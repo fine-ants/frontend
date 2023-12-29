@@ -4,7 +4,6 @@ import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Icon from "@components/common/Icon";
 import { TableCell, TableRow } from "@mui/material";
-// import { DatePicker } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import designSystem from "@styles/designSystem";
 

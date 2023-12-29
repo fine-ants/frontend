@@ -1,12 +1,12 @@
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
 import { PortfolioDetails } from "@api/portfolio/types";
-import tossLogo from "@assets/images/securitiesFirmLogo/toss.png";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import LabelBadge from "@components/common/Badges/LabelBadge";
 import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
+import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 
 import { useState } from "react";
@@ -66,14 +66,13 @@ export default function PortfolioOverview({ data }: Props) {
       <TitleContainer>
         <Breadcrumb
           depthData={[
-            { name: "내 포트폴리오", url: "포폴url" },
-            { name: data.name, url: "포폴url" },
+            { name: "내 포트폴리오", url: "/portfolios" },
+            { name: data.name, url: `/portfolio/${id}` },
           ]}
         />
         <TitleContent>
           <TitleWrapper>
-            <FirmImage src={tossLogo} />
-            {/* <FirmImage src={securitiesFirmLogos[데이터]} /> */}
+            <FirmImage src={securitiesFirmLogos["BNK투자증권"]} />
             <Title>{data.name}</Title>
             <LabelBadge title={data.securitiesFirm} />
           </TitleWrapper>

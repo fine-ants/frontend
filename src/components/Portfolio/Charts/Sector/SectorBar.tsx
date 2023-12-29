@@ -24,7 +24,6 @@ export default function SectorBar({
     <StyledSectorBar $sectorBarWidth={sectorBarWidth}>
       {hasNoHoldings ? (
         <SectorBarItem
-          key={0}
           title="No Holdings"
           fill={designSystem.color.primary.blue50}
           weight={100}

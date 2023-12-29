@@ -91,10 +91,3 @@ const getColors = (value: number, isDividendRateRate: boolean) => {
 const getIconSrc = (value: number) => {
   return value > 0 ? upIcon : value < 0 ? downIcon : noneIcon;
 };
-
-// Exclude `-` from rate and limit decimal to hundredth.
-// const parseRate = (rate: number) => {
-//   const regExp = /\d+\.?\d{1,2}/;
-//   const result = regExp.exec(String(rate));
-//   return result ? result[0] : null;
-// };

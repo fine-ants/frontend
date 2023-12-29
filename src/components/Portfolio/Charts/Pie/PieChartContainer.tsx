@@ -1,7 +1,7 @@
 import WideLegend from "@components/common/Legend/WideLegend";
 import PieChart from "@components/common/PieChart/PieChart";
 import styled from "styled-components";
-import NoHoldingsPieChart from "./NoHoldingsPieChart";
+import EmptyHoldingsPieChartImg from "./EmptyHoldingsPieChartImg";
 
 type Props = {
   coloredPieChart: {
@@ -32,7 +32,7 @@ export function PieChartContainer({
       <ChartLabel>종목 구성</ChartLabel>
       <PieChartWrapper>
         {hasNoHoldings ? (
-          <NoHoldingsPieChart />
+          <EmptyHoldingsPieChartImg />
         ) : (
           <PieChart
             width={256}

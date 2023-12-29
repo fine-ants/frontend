@@ -138,27 +138,23 @@ type SearchItemProps = {
   onClick: (stockInfo: StockInfo) => void;
   onListClose: () => void;
 };
+
 function SearchItem({
   value,
   searchResult,
   onClick,
   onListClose,
 }: SearchItemProps) {
-  const onSearchItemClick = (stockInfo: StockInfo) => {
+  const onSearchItemClick = () => {
     onClick({
-      companyName: stockInfo.companyName,
-      tickerSymbol: stockInfo.tickerSymbol,
+      companyName: searchResult.companyName,
+      tickerSymbol: searchResult.tickerSymbol,
     });
     onListClose();
   };
+
   return (
-    <StyledSearchItem
-      onClick={() =>
-        onSearchItemClick({
-          companyName: searchResult.companyName,
-          tickerSymbol: searchResult.tickerSymbol,
-        })
-      }>
+    <StyledSearchItem onClick={onSearchItemClick}>
       <SearchItemName>
         <span>{value}</span>
         {removeWord(searchResult.companyName, value)}

@@ -61,7 +61,7 @@ export default function PortfolioHoldingAddDialog({
 
   return (
     <BaseDialog
-      style={{ width: "544px", height: "547px", padding: "32px" }}
+      style={PortfolioHoldingAddDialogStyle}
       isOpen={isOpen}
       onClose={onDialogClose}>
       <Title>종목 추가</Title>
@@ -129,6 +129,12 @@ export default function PortfolioHoldingAddDialog({
     </BaseDialog>
   );
 }
+
+const PortfolioHoldingAddDialogStyle = {
+  width: "544px",
+  height: "547px",
+  padding: "32px",
+};
 
 const Title = styled.div`
   font: ${({ theme: { font } }) => font.heading3};

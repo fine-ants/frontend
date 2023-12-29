@@ -87,7 +87,6 @@ export default function PortfolioHoldingRow({
               icon={isRowOpen ? "chevron-down" : "chevron-right"}
               size={16}
               color={designSystem.color.neutral.gray400}
-              // disabled={false}
             />
           </IconButton>
         </HoldingTableCell>

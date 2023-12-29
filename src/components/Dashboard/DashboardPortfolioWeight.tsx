@@ -21,12 +21,12 @@ export default function DashboardPortfolioWeight() {
     setIsPortfolioAddDialogOpen(false);
   };
 
-  const coloredPieChart = pieChart?.map((item, index) => ({
+  const coloredPieChart = pieChart.map((item, index) => ({
     ...item,
     fill: chartColorPalette[index],
   }));
 
-  const pieChartLegendList = coloredPieChart?.map((item) => ({
+  const pieChartLegendList = coloredPieChart.map((item) => ({
     title: item.name,
     percent: item.weight,
     color: item.fill,
