@@ -85,8 +85,8 @@ export default function PortfolioHoldingsTable({
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  const handleChangeRowsPerPage = (value: string) => {
+    setRowsPerPage(parseInt(value, 10));
     setPage(0);
   };
 
@@ -144,7 +144,7 @@ export default function PortfolioHoldingsTable({
         count={portfolioRows.length}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 15, 20, { label: "All", value: -1 }]}
+        rowsPerPageOptions={[5, 10, 15, 20, -1]}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
