@@ -64,4 +64,7 @@ const StyledIcon = styled.div<{
   mask-image: url(${({ $iconUrl }) => $iconUrl});
   mask-repeat: no-repeat;
   mask-position: center;
+  -webkit-mask-image: url(${({ $iconUrl }) => $iconUrl});
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
 `;
