@@ -1,6 +1,7 @@
 import WideLegend from "@components/common/Legend/WideLegend";
 import PieChart from "@components/common/PieChart/PieChart";
 import styled from "styled-components";
+import EmptyHoldingsPieChartImg from "./EmptyHoldingsPieChartImg";
 
 type Props = {
   coloredPieChart: {
@@ -23,20 +24,29 @@ export function PieChartContainer({
   coloredPieChart,
   pieChartLegendList,
 }: Props) {
+  const hasNoHoldings =
+    coloredPieChart.length === 1 && coloredPieChart[0].name === "현금";
+
   return (
     <StyledPieChartContainer>
       <ChartLabel>종목 구성</ChartLabel>
       <PieChartWrapper>
-        <PieChart
-          width={256}
-          height={256}
-          hoverGap={12.8}
-          pieData={coloredPieChart}
-        />
-        <WideLegend
-          legendList={pieChartLegendList}
-          etcOptions={{ title: "기타", numItemsFromFront: 10 }}
-        />
+        {hasNoHoldings ? (
+          <EmptyHoldingsPieChartImg />
+        ) : (
+          <PieChart
+            width={256}
+            height={256}
+            hoverGap={12.8}
+            pieData={coloredPieChart}
+          />
+        )}
+        {!hasNoHoldings && (
+          <WideLegend
+            legendList={pieChartLegendList}
+            etcOptions={{ title: "기타", numItemsFromFront: 10 }}
+          />
+        )}
       </PieChartWrapper>
     </StyledPieChartContainer>
   );

@@ -1,4 +1,4 @@
-import iconChevronRight from "@assets/icons/ic_chevron-right_16.svg";
+import iconChevronRight from "@assets/icons/ic_chevron-right.svg";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 

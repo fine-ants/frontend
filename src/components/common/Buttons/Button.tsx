@@ -10,10 +10,11 @@ type Props = {
   disabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 };
 
 export default forwardRef(function Button(
-  { variant, size, disabled, onClick, children, ...props }: Props,
+  { variant, size, disabled, onClick, children, style, ...props }: Props,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
   return (
@@ -22,7 +23,9 @@ export default forwardRef(function Button(
       $variant={variant}
       $size={size}
       $disabled={disabled}
+      disabled={disabled}
       onClick={onClick}
+      style={style}
       {...props}>
       {children}
     </StyledButton>

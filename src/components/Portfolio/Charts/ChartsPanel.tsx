@@ -53,6 +53,5 @@ const StyledChartsPanel = styled.div`
   flex-direction: column;
   gap: 48px;
   width: 464px;
-  height: 1061px;
   padding: 32px;
 `;

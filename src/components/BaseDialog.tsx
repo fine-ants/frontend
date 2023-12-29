@@ -1,4 +1,5 @@
 import { Box, Modal } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import { CSSProperties } from "styled-components";
 
@@ -25,14 +26,13 @@ export default function BaseDialog({
 const baseStyle = {
   width: "700px",
   height: "430px",
-  backgroundColor: "#ffffff",
-  border: "1px solid black",
+  backgroundColor: designSystem.color.neutral.white,
+  border: `1px solid ${designSystem.color.neutral.gray100}`,
   borderRadius: "8px",
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
-  boxShadow: 24,
   p: 4,
 };

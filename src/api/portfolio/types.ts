@@ -26,6 +26,29 @@ export type Portfolio = {
   portfolioHoldings: PortfolioHolding[];
 };
 
+type PortfolioDetailsSSE = {
+  currentValuation: number;
+  totalGain: number;
+  totalGainRate: number;
+  dailyGain: number;
+  dailyGainRate: number;
+  provisionalLossBalance: number;
+};
+
+type PortfolioHoldingsSSE = {
+  currentValuation: number;
+  currentPrice: number;
+  dailyChange: number;
+  dailyChangeRate: number;
+  totalGain: number;
+  totalReturnRate: number;
+};
+
+export type PortfolioSSE = {
+  portfolioDetails: PortfolioDetailsSSE;
+  portfolioHoldings: PortfolioHoldingsSSE[];
+};
+
 export type PortfolioDetails = {
   id: number;
   securitiesFirm: string;

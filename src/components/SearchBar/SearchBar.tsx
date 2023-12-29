@@ -1,57 +1,114 @@
 import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
-import searchIcon from "@assets/icons/ic_search_16.svg";
+import searchIcon from "@assets/icons/ic_search.svg";
+import Icon from "@components/common/Icon";
+import useOutsideClick from "@components/hooks/useOutsideClick";
 import { useDebounce } from "@fineants/demolition";
-import { ChangeEvent, useState } from "react";
+import designSystem from "@styles/designSystem";
+import { removeWord } from "@utils/removeWord";
+import { ChangeEvent, useRef, useState } from "react";
 import styled from "styled-components";
+
+export type StockInfo = {
+  companyName: string;
+  tickerSymbol: string;
+};
 
 export default function SearchBar({
   onItemClick,
 }: {
-  onItemClick: (tickerSymbol: string) => void;
+  onItemClick: (stockInfo: StockInfo) => void;
 }) {
   const [value, setValue] = useState("");
+  const [showList, setShowList] = useState(false);
+  const searchBarRef = useRef(null);
+
   const debouncedValue = useDebounce(value, 250);
+  useOutsideClick(searchBarRef, () => setShowList(false));
 
   const onSearchBarChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
+  const onSearchBarFocus = () => {
+    setShowList(true);
+  };
+
+  const onListClose = () => {
+    setShowList(false);
+  };
+
+  const onRemoveSearchValue = () => {
+    setValue("");
+  };
+
   return (
-    <StyledSearchBar>
-      <Input value={value} onSearchBarChange={onSearchBarChange} />
-      <SearchList debouncedValue={debouncedValue} onItemClick={onItemClick} />
+    <StyledSearchBar ref={searchBarRef}>
+      <Input
+        value={value}
+        onSearchBarChange={onSearchBarChange}
+        onSearchBarFocus={onSearchBarFocus}
+        onRemoveSearchValue={onRemoveSearchValue}
+      />
+      {showList && (
+        <SearchList
+          debouncedValue={debouncedValue}
+          onItemClick={onItemClick}
+          onListClose={onListClose}
+        />
+      )}
     </StyledSearchBar>
   );
 }
 
+type InputProps = {
+  value: string;
+  onSearchBarChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSearchBarFocus: () => void;
+  onRemoveSearchValue: () => void;
+};
+
 function Input({
   value,
   onSearchBarChange,
-}: {
-  value: string;
-  onSearchBarChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}) {
+  onSearchBarFocus,
+  onRemoveSearchValue,
+}: InputProps) {
   return (
     <InputContainer>
       <img src={searchIcon} alt="search-icon" />
       <StyledInput
         type="text"
         value={value}
-        placeholder="종목 또는 지수 검색"
+        placeholder="종목을 검색하세요"
         onChange={onSearchBarChange}
+        onFocus={onSearchBarFocus}
       />
+      {value && (
+        <div style={iconCenterPosition}>
+          <Icon
+            onClick={onRemoveSearchValue}
+            icon="close"
+            size={16}
+            color={designSystem.color.neutral.gray600}
+          />
+        </div>
+      )}
     </InputContainer>
   );
 }
 
+type SearchListProps = {
+  debouncedValue: string;
+  onItemClick: (stockInfo: StockInfo) => void;
+  onListClose: () => void;
+};
+
 function SearchList({
   debouncedValue,
   onItemClick,
-}: {
-  debouncedValue: string;
-  onItemClick: (tickerSymbol: string) => void;
-}) {
+  onListClose,
+}: SearchListProps) {
   const { data: searchResults } = useStockSearchQuery(debouncedValue);
 
   return (
@@ -61,8 +118,10 @@ function SearchList({
           searchResults.map((result) => (
             <SearchItem
               key={result.stockCode}
+              value={debouncedValue}
               searchResult={result}
               onClick={onItemClick}
+              onListClose={onListClose}
             />
           ))
         ) : (
@@ -73,16 +132,34 @@ function SearchList({
   );
 }
 
+type SearchItemProps = {
+  value: string;
+  searchResult: StockSearchItem;
+  onClick: (stockInfo: StockInfo) => void;
+  onListClose: () => void;
+};
+
 function SearchItem({
+  value,
   searchResult,
   onClick,
-}: {
-  searchResult: StockSearchItem;
-  onClick: (tickerSymbol: string) => void;
-}) {
+  onListClose,
+}: SearchItemProps) {
+  const onSearchItemClick = () => {
+    onClick({
+      companyName: searchResult.companyName,
+      tickerSymbol: searchResult.tickerSymbol,
+    });
+    onListClose();
+  };
+
   return (
-    <StyledSearchItem onClick={() => onClick(searchResult.tickerSymbol)}>
-      {searchResult.companyName}
+    <StyledSearchItem onClick={onSearchItemClick}>
+      <SearchItemName>
+        <span>{value}</span>
+        {removeWord(searchResult.companyName, value)}
+      </SearchItemName>
+      <label>{searchResult.tickerSymbol}</label>
     </StyledSearchItem>
   );
 }
@@ -94,61 +171,92 @@ const StyledSearchBar = styled.div`
 `;
 
 const InputContainer = styled.div`
-  width: 320px;
-  height: 40px;
-  padding: 12px;
-  border-radius: 4px;
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 3px;
   background-color: inherit;
-  border: 1px solid #b3b3c1;
+  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   display: flex;
   gap: 8px;
   align-items: center;
+
+  &:focus-within {
+    border-color: ${({ theme: { color } }) => color.primary.blue500};
+  }
 `;
 
 const StyledInput = styled.input`
   width: 100%;
   height: 16px;
+
+  &::placeholder {
+    color: ${({ theme: { color } }) => color.neutral.gray400};
+    font: ${({ theme: { font } }) => font.body3};
+  }
 `;
 
 const StyledSearchList = styled.div`
   position: absolute;
-  width: 300px;
+  width: 100%;
   height: 500px;
-  top: 62px;
-  background-color: white;
-  border-radius: 10px;
-  border: 1px solid #e5e5e5;
-  color: black;
+  top: 34px;
+  background-color: ${({ theme: { color } }) => color.neutral.white};
+  padding: 4px;
+  border-radius: 3px;
+  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  color: ${({ theme: { color } }) => color.neutral.gray900};
+  font: ${({ theme: { font } }) => font.body3};
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+  z-index: 1;
 
-  overflow: scroll;
+  overflow-y: scroll;
 
-  > :first-child {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+  &::-webkit-scrollbar {
+    width: 5px;
   }
 
-  > :last-child {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme: { color } }) => color.neutral.gray200};
+    border-radius: 4px;
   }
 `;
 
 const StyledSearchItem = styled.div`
   position: relative;
   display: flex;
+  gap: 4px;
   align-items: center;
   height: 50px;
-  padding: 10px 20px;
-  background-color: white;
+  padding: 0 8px;
+  background-color: ${({ theme: { color } }) => color.neutral.white};
   font-weight: 400;
+  cursor: pointer;
+  border-radius: 3px;
 
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-    right: 16px;
-    height: 1.5px;
-    background-color: #e5e5e5;
+  &:hover {
+    background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  }
+
+  > label {
+    font: ${({ theme: { font } }) => font.body4};
+    color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
+
+const SearchItemName = styled.div`
+  display: flex;
+  align-items: center;
+
+  > span {
+    color: ${({ theme: { color } }) => color.primary.blue500};
+  }
+`;
+
+const iconCenterPosition = {
+  width: "24px",
+  height: "24px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};

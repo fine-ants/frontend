@@ -1,6 +1,6 @@
-import downIcon from "@assets/icons/ic_down_12.svg";
-import noneIcon from "@assets/icons/ic_none_12.svg";
-import upIcon from "@assets/icons/ic_up_12.svg";
+import downIcon from "@assets/icons/ic_down.svg";
+import noneIcon from "@assets/icons/ic_none.svg";
+import upIcon from "@assets/icons/ic_up.svg";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -21,16 +21,14 @@ export default function RateBadge({
 }: Props) {
   const rateStatus = rate > 0 ? "Gain" : rate < 0 ? "Loss" : "None";
 
-  const parsedRate = parseRate(rate);
-
   return (
     <StyledRateBadge
       $colors={getColors(rate, isDividendRate)}
       $bgColorStatus={bgColorStatus}>
       {iconStatus && (
-        <img src={getIconSrc(rate)} alt={`${parsedRate}% ${rateStatus}`} />
+        <img src={getIconSrc(rate)} alt={`${rate}% ${rateStatus}`} />
       )}
-      <span>{parsedRate}%</span>
+      <span>{rate}%</span>
     </StyledRateBadge>
   );
 }
@@ -92,11 +90,4 @@ const getColors = (value: number, isDividendRateRate: boolean) => {
 
 const getIconSrc = (value: number) => {
   return value > 0 ? upIcon : value < 0 ? downIcon : noneIcon;
-};
-
-// Exclude `-` from rate and limit decimal to hundredth.
-const parseRate = (rate: number) => {
-  const regExp = /\d+\.?\d{1,2}/;
-  const result = regExp.exec(String(rate));
-  return result ? result[0] : null;
 };

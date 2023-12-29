@@ -25,12 +25,23 @@ export default function DividendBarChart({ data }: Props) {
     setCurrentMonthIndex(index);
   };
 
+  const hasNoDividendData = data.length === 0;
+
+  const emptyDividendData = Array.from({ length: 12 }, (_, index) => ({
+    month: index + 1,
+    amount: 0,
+  }));
+
   return (
     <ResponsiveContainer width={400} height={234}>
-      <BarChart width={390} height={180} data={data}>
+      <BarChart
+        width={400}
+        height={234}
+        data={hasNoDividendData ? emptyDividendData : data}>
         <XAxis
-          dataKey="name"
+          dataKey="month"
           tickLine={false}
+          tickFormatter={(tickItem) => `${tickItem}월`}
           axisLine={{
             stroke: designSystem.color.neutral.gray400,
             strokeWidth: 0.5,
@@ -46,7 +57,7 @@ export default function DividendBarChart({ data }: Props) {
           isAnimationActive={false}
           shape={<RoundedBarShape radius={4} />}
           activeBar={<RoundedBarShape isHover={true} radius={4} />}>
-          {data.map((data, index) => (
+          {(hasNoDividendData ? emptyDividendData : data).map((data, index) => (
             <Cell
               cursor="pointer"
               fill={

@@ -1,6 +1,6 @@
 import useWatchlistItemAddMutation from "@api/watchlist/queries/useWatchlistItemAddMutation";
 import BaseDialog from "@components/BaseDialog";
-import SearchBar from "@components/SearchBar/SearchBar";
+import SearchBar, { StockInfo } from "@components/SearchBar/SearchBar";
 
 type Props = {
   isOpen: boolean;
@@ -12,8 +12,8 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
     onCloseDialog: onClose,
   });
 
-  const addItemToWatchlist = (tickerSymbol: string) => {
-    watchlistItemAddMutate(tickerSymbol);
+  const addItemToWatchlist = (stockInfo: StockInfo) => {
+    watchlistItemAddMutate(stockInfo.tickerSymbol);
   };
 
   return (
