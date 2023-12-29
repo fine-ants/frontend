@@ -1,6 +1,6 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
 import { Icon } from "@components/common/Icon";
-import { TableCell } from "@mui/material";
+import { IconButton, TableCell } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
 import styled from "styled-components";
@@ -83,16 +83,15 @@ export default function PortfolioHoldingLotAddRow({
       </LotTableCell>
 
       <LotTableCell align="right" sx={{ width: "32px" }}>
-        <Icon onClick={onSaveClick} icon="check" size={16} color={"blue500"} />
+        <IconButton onClick={onSaveClick}>
+          <Icon icon="check" size={16} color={"blue500"} />
+        </IconButton>
       </LotTableCell>
 
       <LotTableCell align="right" sx={{ width: "32px" }}>
-        <Icon
-          icon="remove"
-          size={16}
-          color={"gray600"}
-          onClick={onPurchaseValuesRemove}
-        />
+        <IconButton onClick={onPurchaseValuesRemove}>
+          <Icon icon="remove" size={16} color={"gray600"} />
+        </IconButton>
       </LotTableCell>
     </>
   );

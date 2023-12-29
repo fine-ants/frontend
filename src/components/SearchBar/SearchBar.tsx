@@ -4,6 +4,7 @@ import searchIcon from "@assets/icons/ic_search.svg";
 import { Icon } from "@components/common/Icon";
 import useOutsideClick from "@components/hooks/useOutsideClick";
 import { useDebounce } from "@fineants/demolition";
+import { IconButton } from "@mui/material";
 import { removeWord } from "@utils/removeWord";
 import { ChangeEvent, useRef, useState } from "react";
 import styled from "styled-components";
@@ -85,12 +86,9 @@ function Input({
       />
       {value && (
         <div style={iconCenterPosition}>
-          <Icon
-            onClick={onRemoveSearchValue}
-            icon="close"
-            size={16}
-            color={"gray600"}
-          />
+          <IconButton onClick={onRemoveSearchValue}>
+            <Icon icon="close" size={16} color={"gray600"} />
+          </IconButton>
         </div>
       )}
     </InputContainer>

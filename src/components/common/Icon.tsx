@@ -1,4 +1,4 @@
-import designSystem, { colors } from "@styles/designSystem";
+import { colors } from "@styles/designSystem";
 import { styled } from "styled-components";
 
 type IconType =
@@ -18,6 +18,7 @@ type IconType =
   | "divider"
   | "down"
   | "edit"
+  | "favorite"
   | "folder-add"
   | "help"
   | "hide"
@@ -42,40 +43,23 @@ type Props = {
   size: IconSize;
   icon: IconType;
   color: ColorType;
-  disabled?: boolean;
-  onClick?: () => void;
 };
 
-export function Icon({ size, icon, color, disabled, onClick }: Props) {
+export function Icon({ size, icon, color }: Props) {
   const iconUrl = `/src/assets/icons/ic_${icon}.svg`;
 
-  return (
-    <StyledIcon
-      $size={size}
-      $iconUrl={iconUrl}
-      $color={colors[color]}
-      $disabled={Boolean(disabled)}
-      $hasOnClick={Boolean(onClick)}
-      onClick={onClick}
-    />
-  );
+  return <StyledIcon $size={size} $iconUrl={iconUrl} $color={colors[color]} />;
 }
 
 const StyledIcon = styled.div<{
   $iconUrl: string;
   $size: IconSize;
   $color: string;
-  $disabled: boolean;
-  $hasOnClick: boolean;
 }>`
   width: ${({ $size }) => `${$size}px`};
   height: ${({ $size }) => `${$size}px`};
 
-  background-color: ${({ $color, $disabled }) =>
-    $disabled ? designSystem.color.neutral.gray400 : $color};
-
-  cursor: ${({ $disabled, $hasOnClick }) =>
-    `${$disabled ? "not-allowed" : $hasOnClick && "pointer"} `};
+  background-color: ${({ $color }) => $color};
 
   mask-image: url(${({ $iconUrl }) => $iconUrl});
   mask-repeat: no-repeat;
