@@ -19,7 +19,7 @@ import browserServiceWorker from "./mocks/browserServiceWorker.ts";
 
 if (process.env.NODE_ENV === "development") {
   browserServiceWorker.start({
-    onUnhandledRequest: "warn",
+    onUnhandledRequest: "bypass",
   });
 }
 

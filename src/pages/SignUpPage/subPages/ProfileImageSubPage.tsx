@@ -1,5 +1,5 @@
 import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
-import useImageInput from "@components/hooks/useImageInput";
+import { useImageInput } from "@fineants/demolition";
 import styled from "styled-components";
 import SubPage from "./SubPage";
 
@@ -10,7 +10,7 @@ type Props = {
 
 export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
   const {
-    imageUrl: profileImageUrl,
+    imageFilePath: profileImageUrl,
     imageFile: profileImageFile,
     error: imageFileError,
     onChange: onProfilePictureChange,

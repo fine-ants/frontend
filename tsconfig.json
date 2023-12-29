@@ -34,6 +34,6 @@
       "@router/*": ["src/router/*"]
     }
   },
-  "include": ["__tests__", "src"],
+  "include": ["__tests__", "src", "svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,6 +1,6 @@
-import downIcon from "@assets/icons/ic_down.svg";
-import noneIcon from "@assets/icons/ic_none.svg";
-import upIcon from "@assets/icons/ic_up.svg";
+import downIcon from "@assets/icons/ic_down_12.svg";
+import noneIcon from "@assets/icons/ic_none_12.svg";
+import upIcon from "@assets/icons/ic_up_12.svg";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -50,7 +50,11 @@ const StyledRateBadge = styled.div<{
     $bgColorStatus ? $colors.bgColor : "none"};
   border-radius: 4px;
   font: ${({ theme: { font } }) => font.title5};
+  padding: ${({ $bgColorStatus }) => ($bgColorStatus ? "3.5px 4px" : "0")};
   color: ${({ $colors }) => $colors.color};
+  background-color: ${({ $colors, $bgColorStatus }) =>
+    $bgColorStatus ? $colors.bgColor : "none"};
+  border-radius: 4px;
 `;
 
 const getColors = (value: number, isDividendRateRate: boolean) => {

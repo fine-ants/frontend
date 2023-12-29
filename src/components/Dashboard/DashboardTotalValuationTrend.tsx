@@ -1,7 +1,7 @@
 import useDashboardTotalValuationTrendQuery from "@api/dashboard/queries/useDashboardLineChartQuery";
+import { Tab } from "@components/common/Tab";
 import { useState } from "react";
 import styled from "styled-components";
-import TimeRangeButton from "./TimeRangeButton";
 import TotalValuationLineChart from "./TotalValuationLineChart";
 
 export default function DashboardTotalValuationTrend() {
@@ -36,22 +36,13 @@ export default function DashboardTotalValuationTrend() {
         </EmptyLineChartMessage>
       ) : (
         <>
-          <DateRangeSelector>
-            {range.map((range, index) => {
-              const onClick = () => {
-                switchTimeRange(index);
-              };
-              return (
-                <TimeRangeButton
-                  key={index}
-                  range={range}
-                  index={index}
-                  onClick={onClick}
-                  currentRangeIndex={currentRangeIndex}
-                />
-              );
-            })}
-          </DateRangeSelector>
+          <TabWrapper>
+            <Tab
+              tabs={range}
+              currentIndex={currentRangeIndex}
+              onClick={switchTimeRange}
+            />
+          </TabWrapper>
           <TotalValuationLineChart
             data={totalValuationData ?? []}
             currentRangeIndex={currentRangeIndex}
@@ -110,18 +101,8 @@ const MessageBox = styled.div`
   }
 `;
 
-const DateRangeSelector = styled.div`
-  width: 264px;
-  height: 32px;
-  border-radius: 8px;
-  padding: 4px;
-  gap: 4px;
-  justify-content: space-around;
-  position: relative;
+const TabWrapper = styled.div`
   margin-left: auto;
-  display: flex;
-
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
 `;
 
 const ChartTitle = styled.div`

@@ -1,4 +1,5 @@
 import { Skeleton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type Props = {
@@ -22,7 +23,12 @@ export default function PieChartSkeleton({
     <StyledPieChartSkeleton
       $containerWidth={containerWidth}
       $containerHeight={containerHeight}>
-      <Skeleton variant="circular" width={pieWidth} height={pieHeight} />
+      <Skeleton
+        variant="circular"
+        width={pieWidth}
+        height={pieHeight}
+        style={{ backgroundColor: designSystem.color.primary.blue50 }}
+      />
       {innerCircleWidth && innerCircleHeight && (
         <InnerCircle
           $innerCircleWidth={innerCircleWidth}
@@ -45,9 +51,7 @@ const StyledPieChartSkeleton = styled.div<{
   align-items: center;
   position: relative;
   border-radius: 8px;
-  border: 1px solid #e0e0e0;
   background-color: #ffffff;
-  box-shadow: 0px 0px 12px 0px #00000014;
 `;
 
 const InnerCircle = styled.div<{

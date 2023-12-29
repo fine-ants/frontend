@@ -15,21 +15,10 @@ export default function GoogleSignInButton() {
     // Get Auth URL from server.
     const res = await postOAuthUrl("google");
 
-    // This is for development. Remove this.
-    const tempURL = new URL(res.data.authURL);
-    tempURL.searchParams.set(
-      "redirect_uri",
-      "http://localhost:5173/signin?provider=google"
-    );
-    const url =
-      process.env.NODE_ENV === "development"
-        ? tempURL.toString()
-        : res.data.authURL;
-
     // TODO: handle error
     if (res.code === HTTPSTATUS.success) {
       const oAuthPopUpWindow = openPopUpWindow(
-        url, // This is for development. Change this to res.data.authURL.
+        res.data.authURL,
         "googleOAuth",
         500,
         600

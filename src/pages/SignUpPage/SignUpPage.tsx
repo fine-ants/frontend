@@ -1,6 +1,6 @@
 import { SignUpData, postEmailVerification } from "@api/auth";
 import useSignUpMutation from "@api/auth/queries/useSignUpMutation";
-import useFunnel from "@hooks/useFunnel";
+import { useFunnel } from "@fineants/demolition";
 import { Button } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";

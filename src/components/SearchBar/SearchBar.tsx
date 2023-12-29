@@ -1,9 +1,9 @@
 import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
-import searchIcon from "@assets/icons/ic_search.svg";
+import searchIcon from "@assets/icons/ic_search_16.svg";
+import { useDebounce } from "@fineants/demolition";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import useInputDebounce from "../hooks/useInputDebounce";
 
 export default function SearchBar({
   onItemClick,
@@ -11,7 +11,7 @@ export default function SearchBar({
   onItemClick: (tickerSymbol: string) => void;
 }) {
   const [value, setValue] = useState("");
-  const debouncedValue = useInputDebounce(value, 250);
+  const debouncedValue = useDebounce(value, 250);
 
   const onSearchBarChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

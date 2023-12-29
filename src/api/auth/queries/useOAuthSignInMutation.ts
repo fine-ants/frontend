@@ -1,12 +1,9 @@
 import { OAuthProvider, postOAuthSignIn } from "@api/auth";
 import { UserContext } from "@context/UserContext";
-import Routes from "@router/Routes";
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function useOAuthSignInMutation() {
-  const navigate = useNavigate();
   const { onSignIn } = useContext(UserContext);
 
   return useMutation({
@@ -21,7 +18,6 @@ export default function useOAuthSignInMutation() {
     }) => postOAuthSignIn(provider, authCode, state),
     onSuccess: ({ data }) => {
       onSignIn(data);
-      navigate(Routes.DASHBOARD);
     },
   });
 }

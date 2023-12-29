@@ -2,7 +2,7 @@ import usePortfolioAddMutation from "@api/portfolio/queries/usePortfolioAddMutat
 import usePortfolioEditMutation from "@api/portfolio/queries/usePortfolioEditMutation";
 import { PortfolioDetails } from "@api/portfolio/types";
 import BaseDialog from "@components/BaseDialog";
-import useText from "@components/hooks/useText";
+import { useText } from "@fineants/demolition";
 import {
   Button,
   FormControl,

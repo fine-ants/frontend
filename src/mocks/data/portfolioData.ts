@@ -366,16 +366,56 @@ const portfolioHoldingsPieChart = [
   {
     name: "삼성전자보통주",
     valuation: 600000,
-    fill: "#1F4FD5",
-    weight: 54.55,
+    weight: 22,
     totalGain: 100000,
     totalGainRate: 10,
   },
   {
-    name: "현금",
+    name: "NAVER",
+    valuation: 1475200,
+    weight: 18,
+    totalGain: 275200,
+    totalGainRate: 22.93,
+  },
+  {
+    name: "카카오",
+    valuation: 1000000,
+    weight: 12,
+    totalGain: 0,
+    totalGainRate: 0,
+  },
+  {
+    name: "SK하이닉스",
     valuation: 500000,
-    fill: "#1CADFF",
-    weight: 45.45,
+    weight: 10,
+    totalGain: 0,
+    totalGainRate: 0,
+  },
+  {
+    name: "LG화학",
+    valuation: 500000,
+    weight: 6,
+    totalGain: 0,
+    totalGainRate: 0,
+  },
+  {
+    name: "삼성바이오로직스",
+    valuation: 500000,
+    weight: 4,
+    totalGain: 0,
+    totalGainRate: 0,
+  },
+  {
+    name: "기업은행",
+    valuation: 500000,
+    weight: 3,
+    totalGain: 0,
+    totalGainRate: 0,
+  },
+  {
+    name: "KT",
+    valuation: 500000,
+    weight: 3,
     totalGain: 0,
     totalGainRate: 0,
   },
@@ -435,11 +475,27 @@ const portfolioHoldingsDividendChart = [
 const portfolioHoldingsSectorChart = [
   {
     sector: "전기전자",
-    sectorWeight: 54.55,
+    sectorWeight: 22,
   },
   {
-    sector: "현금",
-    sectorWeight: 45.45,
+    sector: "서비스업",
+    sectorWeight: 18,
+  },
+  {
+    sector: "증권",
+    sectorWeight: 12,
+  },
+  {
+    sector: "은행",
+    sectorWeight: 10,
+  },
+  {
+    sector: "기계",
+    sectorWeight: 6,
+  },
+  {
+    sector: "의료정밀",
+    sectorWeight: 4,
   },
 ];
 
