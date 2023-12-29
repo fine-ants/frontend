@@ -4,7 +4,7 @@ import {
   tablePaginationClasses,
 } from "@mui/material";
 import styled from "styled-components";
-import { Select, SelectOption } from "../Select/index";
+import { Select, SelectOption } from "../Select";
 import Pagination from "./Pagination";
 import calculateStartAndEndRows from "./utils/calculateStartAndEndRows";
 
@@ -62,7 +62,7 @@ export default function TablePagination({
               changeSelectedValue={onRowsPerPageChange}>
               {rowsPerPageOptions.map((option) => (
                 <SelectOption key={option} value={option.toString()}>
-                  {option === -1 ? "All" : option.toString()}
+                  {option}
                 </SelectOption>
               ))}
             </Select>
