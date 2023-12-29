@@ -77,7 +77,7 @@ const StyledIcon = styled.div<{
   cursor: ${({ $disabled, $hasOnClick }) =>
     `${$disabled ? "not-allowed" : $hasOnClick && "pointer"} `};
 
-  -webkit-mask-image: url(${({ $iconUrl }) => $iconUrl});
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
+  mask-image: url(${({ $iconUrl }) => $iconUrl});
+  mask-repeat: no-repeat;
+  mask-position: center;
 `;
