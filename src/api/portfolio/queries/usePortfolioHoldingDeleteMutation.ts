@@ -13,6 +13,9 @@ export default function usePortfolioHoldingDeleteMutation(portfolioId: number) {
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: portfolioKeys.charts(portfolioId).queryKey,
+      });
     },
   });
 }
