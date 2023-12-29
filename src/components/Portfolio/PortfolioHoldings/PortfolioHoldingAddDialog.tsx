@@ -2,8 +2,8 @@ import usePortfolioHoldingAddMutation from "@api/portfolio/queries/usePortfolioH
 import BaseDialog from "@components/BaseDialog";
 import SearchBar, { StockInfo } from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
-import Icon from "@components/common/Icon";
-import designSystem from "@styles/designSystem";
+import { Icon } from "@components/common/Icon";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -79,12 +79,9 @@ export default function PortfolioHoldingAddDialog({
             <label>{currentStock.companyName}</label>
             <span>{currentStock.tickerSymbol}</span>
           </TitleWrapper>
-          <Icon
-            onClick={onDeleteHoldingBoxClick}
-            icon="close"
-            size={16}
-            color={designSystem.color.primary.blue200}
-          />
+          <IconButton onClick={onDeleteHoldingBoxClick}>
+            <Icon icon="close" size={16} color={"blue200"} />
+          </IconButton>
         </HoldingBox>
       )}
 

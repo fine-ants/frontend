@@ -2,10 +2,9 @@ import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/us
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
-import Icon from "@components/common/Icon";
-import { TableCell, TableRow } from "@mui/material";
+import { Icon } from "@components/common/Icon";
+import { IconButton, TableCell, TableRow } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import designSystem from "@styles/designSystem";
 
 import { formatDate } from "@utils/date";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
@@ -134,21 +133,15 @@ export default function PortfolioHoldingLotRow({
           </LotTableCell>
 
           <LotTableCell align="right" sx={{ width: "32px" }}>
-            <Icon
-              onClick={onSaveClick}
-              icon="check"
-              size={16}
-              color={designSystem.color.primary.blue500}
-            />
+            <IconButton onClick={onSaveClick}>
+              <Icon icon="check" size={16} color={"blue500"} />
+            </IconButton>
           </LotTableCell>
 
           <LotTableCell align="right" sx={{ width: "32px" }}>
-            <Icon
-              icon="remove"
-              size={16}
-              color={designSystem.color.neutral.gray400}
-              onClick={onOpenDeleteConfirmAlert}
-            />
+            <IconButton onClick={onOpenDeleteConfirmAlert}>
+              <Icon icon="remove" size={16} color={"gray400"} />
+            </IconButton>
           </LotTableCell>
         </>
       ) : (
@@ -168,20 +161,14 @@ export default function PortfolioHoldingLotRow({
           <LotTableCell style={{ width: "395px" }}>{memo}</LotTableCell>
 
           <LotTableCell style={{ width: "32px" }}>
-            <Icon
-              icon="edit"
-              size={16}
-              color={designSystem.color.neutral.gray400}
-              onClick={onEditClick}
-            />
+            <IconButton onClick={onEditClick}>
+              <Icon icon="edit" size={16} color={"gray400"} />
+            </IconButton>
           </LotTableCell>
           <LotTableCell align="right" sx={{ width: "32px" }}>
-            <Icon
-              icon="remove"
-              size={16}
-              color={designSystem.color.neutral.gray400}
-              onClick={onOpenDeleteConfirmAlert}
-            />
+            <IconButton onClick={onOpenDeleteConfirmAlert}>
+              <Icon icon="remove" size={16} color={"gray400"} />
+            </IconButton>
           </LotTableCell>
 
           <ConfirmAlert
