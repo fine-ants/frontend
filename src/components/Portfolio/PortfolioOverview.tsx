@@ -73,6 +73,7 @@ export default function PortfolioOverview({ data }: Props) {
         <TitleContent>
           <TitleWrapper>
             <FirmImage src={tossLogo} />
+            {/* <FirmImage src={securitiesFirmLogos[데이터]} /> */}
             <Title>{data.name}</Title>
             <LabelBadge title={data.securitiesFirm} />
           </TitleWrapper>
@@ -97,7 +98,7 @@ export default function PortfolioOverview({ data }: Props) {
       <ValuationContainer>
         <div>평가금액</div>
         <CurrentValuation>
-          ₩<span>{data.currentValuation}</span>
+          ₩<span>{thousandsDelimiter(data.currentValuation)}</span>
         </CurrentValuation>
       </ValuationContainer>
       <OverviewContainer>

@@ -28,7 +28,7 @@ export default function PortfolioHoldingRow({
   row: PortfolioHolding;
   labelId: string;
   isItemSelected: boolean;
-  handleClick: (event: MouseEvent<unknown>, id: string) => void;
+  handleClick: (event: MouseEvent<unknown>, id: number) => void;
   portfolioId: number;
 }) {
   const {
@@ -68,7 +68,7 @@ export default function PortfolioHoldingRow({
         tabIndex={-1}
         selected={isItemSelected}
         aria-checked={isItemSelected}
-        onClick={(event) => handleClick(event, tickerSymbol)}>
+        onClick={(event) => handleClick(event, portfolioHoldingId)}>
         <HoldingTableCell
           style={{
             width: "40px",
@@ -86,8 +86,8 @@ export default function PortfolioHoldingRow({
             <Icon
               icon={isRowOpen ? "chevron-down" : "chevron-right"}
               size={16}
-              variant="tertiary"
-              disabled={false}
+              color={designSystem.color.neutral.gray400}
+              // disabled={false}
             />
           </IconButton>
         </HoldingTableCell>
@@ -189,6 +189,7 @@ export default function PortfolioHoldingRow({
 const HoldingTableRow = styled(TableRow)`
   &.Mui-selected {
     background-color: ${({ theme: { color } }) => color.neutral.gray50};
+    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.white};
   }
 
   &.Mui-selected:hover {
@@ -219,7 +220,7 @@ const Amount = styled(HoldingTypography)`
 `;
 
 const HoldingLotRow = styled(TableRow)`
-  width: 500px;
+  width: 856px;
 `;
 
 const ChangeableAmount = styled(Amount)<{ $isProfit: boolean }>`

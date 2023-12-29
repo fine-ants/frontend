@@ -10,7 +10,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "../NavBar";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar, { StockInfo } from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
 import UserControls from "../common/UserControls";
 import { PortfoliosDropdown } from "./PortfoliosDropdown";
@@ -52,8 +52,8 @@ export default function Header() {
     setIsPortfolioAddDialogOpen(true);
   };
 
-  const moveToStockPage = (tickerSymbol: string) => {
-    navigate(`/stock/${tickerSymbol}`);
+  const moveToStockPage = (stockInfo: StockInfo) => {
+    navigate(`/stock/${stockInfo.tickerSymbol}`);
   };
 
   const moveToSignInPage = () => {
