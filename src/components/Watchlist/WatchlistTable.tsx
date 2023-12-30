@@ -43,10 +43,14 @@ export default function WatchlistTable() {
 
   const visibleRows = useMemo(
     () =>
-      rowsPerPage > 0
+      rowsPerPage > 0 || rowsPerPage === -1
         ? watchlistData
             .sort(getComparator(order, orderBy))
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .slice(
+              page * rowsPerPage,
+              page * rowsPerPage +
+                (rowsPerPage === -1 ? watchlistData.length : rowsPerPage)
+            )
         : watchlistData,
     [order, orderBy, page, watchlistData, rowsPerPage]
   );
