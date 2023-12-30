@@ -2,15 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteWatchlistItem } from "..";
 import { watchlistKeys } from "./queryKeys";
 
-type Props = {
-  onCloseDialog: () => void;
-  tickerSymbol: string;
-};
-
-export default function useWatchlistItemDeleteMutation({
-  onCloseDialog: onCloseDialog,
-  tickerSymbol,
-}: Props) {
+export default function useWatchlistItemDeleteMutation(tickerSymbol: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -20,7 +12,6 @@ export default function useWatchlistItemDeleteMutation({
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.list().queryKey,
       });
-      onCloseDialog();
     },
   });
 }
