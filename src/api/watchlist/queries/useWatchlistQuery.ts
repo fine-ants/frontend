@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getWatchlist } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 export default function useWatchlistQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: watchlistKeys.list().queryKey,
     queryFn: () => getWatchlist(),
     retry: false,
