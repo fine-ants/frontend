@@ -62,7 +62,7 @@ export default function TablePagination({
               changeSelectedValue={onRowsPerPageChange}>
               {rowsPerPageOptions.map((option) => (
                 <SelectOption key={option} value={option.toString()}>
-                  {option}
+                  {option === -1 ? "All" : option}
                 </SelectOption>
               ))}
             </Select>

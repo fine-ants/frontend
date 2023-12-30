@@ -107,7 +107,11 @@ export default function PortfolioHoldingsTable({
   const visibleRows = useMemo(
     () =>
       portfolioRows
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        .slice(
+          page * rowsPerPage,
+          page * rowsPerPage +
+            (rowsPerPage === -1 ? portfolioRows.length : rowsPerPage)
+        )
         .sort(getComparator(order, orderBy)),
     [order, orderBy, page, portfolioRows, rowsPerPage]
   );
