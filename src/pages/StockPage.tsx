@@ -3,7 +3,11 @@ import TVStockDetailWidget from "../components/TradingViewWidgets/TVStockDetailW
 import BasePage from "./BasePage";
 
 export default function StockPage() {
-  const { id } = useParams();
+  const { tickerSymbol } = useParams();
 
-  return <BasePage>{id && <TVStockDetailWidget tickerSymbol={id} />}</BasePage>;
+  return (
+    <BasePage>
+      {tickerSymbol && <TVStockDetailWidget tickerSymbol={tickerSymbol} />}
+    </BasePage>
+  );
 }
