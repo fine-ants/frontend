@@ -45,7 +45,7 @@ const headCells: readonly HeadCell[] = [
   {
     id: "sector",
     numeric: true,
-    label: "업종",
+    label: "섹터",
   },
 ];
 
