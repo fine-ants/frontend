@@ -23,9 +23,11 @@ export default [
       companyName: "새로추가주식",
       tickerSymbol: tickerSymbol,
       currentPrice: 60000,
+      dailyChange: 7000,
       dailyChangeRate: 13.35,
       annualDividendYield: 3.5,
       sector: "제조업",
+      dateAdded: "2023-12-30T15:00:00",
     };
 
     watchlistData.push(data);

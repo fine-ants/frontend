@@ -4,11 +4,13 @@ import { Response } from "@api/types";
 export type WatchlistItemType = {
   id: number;
   companyName: string;
-  tickerSymbol: number;
+  tickerSymbol: string;
   currentPrice: number;
+  dailyChange: number;
   dailyChangeRate: number;
   annualDividendYield: number;
   sector: string;
+  dateAdded: string;
 };
 
 export const getWatchlist = async () => {
