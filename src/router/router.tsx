@@ -2,7 +2,6 @@ import { User } from "@api/auth";
 import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
 import { DashboardOverviewSkeleton } from "@components/Dashboard/skeletons/DashboardOverviewSkeleton";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
-import { GOOGLE_CLIENT_ID } from "@constants/config";
 import { WindowProvider } from "@context/WindowContext";
 import DashboardPage from "@pages/DashboardPage";
 import GlobalErrorPage from "@pages/GlobalErrorPage";
@@ -17,7 +16,6 @@ import SignInPage from "@pages/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
 import WatchlistPage from "@pages/WatchlistPage";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import {
   Route,
   createBrowserRouter,
@@ -53,9 +51,7 @@ const router = (user: User | null) =>
         <Route
           element={
             <WindowProvider>
-              <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                <PublicOnlyRoute user={user} />
-              </GoogleOAuthProvider>
+              <PublicOnlyRoute user={user} />
             </WindowProvider>
           }>
           <Route index path={Routes.LANDING} element={<LandingPage />} />
