@@ -1,5 +1,4 @@
 import { postOAuthUrl } from "@api/auth";
-import { HTTPSTATUS } from "@api/types";
 import googleLogo from "@assets/icons/logo/ic_google.svg";
 import kakaoLogo from "@assets/icons/logo/ic_kakao.svg";
 import naverLogo from "@assets/icons/logo/ic_naver.svg";
@@ -15,16 +14,16 @@ type Props = {
   provider: "google" | "kakao" | "naver";
 };
 
+const toast = createToast();
+
 export default function SocialLoginButton({ provider }: Props) {
   const { onOpenPopUpWindow } = useContext(WindowContext);
-  const toast = createToast();
 
   const onSignIn = async () => {
-    // Get Auth URL from server.
-    const res = await postOAuthUrl(provider);
+    try {
+      // Get Auth URL from server.
+      const res = await postOAuthUrl(provider);
 
-    // TODO: handle error
-    if (res.code === HTTPSTATUS.success) {
       const oAuthPopUpWindow = openPopUpWindow(
         res.data.authURL,
         `${provider}OAuth`,
@@ -37,6 +36,8 @@ export default function SocialLoginButton({ provider }: Props) {
       } else {
         toast.error("소셜 로그인을 위해 팝업을 허용해주세요");
       }
+    } catch (_) {
+      toast.error("로그인을 실패했습니다. 잠시후 재시도해주세요.");
     }
   };
 
