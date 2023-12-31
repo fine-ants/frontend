@@ -5,9 +5,7 @@ import {
   AuthPageTitle,
   AuthPageTitleCaption,
 } from "@components/auth/AuthPageCommon";
-import GoogleSignInButton from "@components/auth/GoogleSignInButton";
-import KakaoSignInButton from "@components/auth/KakaoSignInButton";
-import NaverSignInButton from "@components/auth/NaverSignInButton";
+import SocialLoginButton from "@components/auth/SocialLoginButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { TextField } from "@components/common/TextField/TextField";
@@ -129,9 +127,9 @@ export default function SignInPage() {
         </Form>
 
         <SignInButtonContainer>
-          <GoogleSignInButton />
-          <KakaoSignInButton />
-          <NaverSignInButton />
+          <SocialLoginButton provider="google" />
+          <SocialLoginButton provider="kakao" />
+          <SocialLoginButton provider="naver" />
         </SignInButtonContainer>
         <SignUpWrapper>
           아직 계정이 없으신가요?
