@@ -45,7 +45,7 @@ export default function SocialLoginButton({ provider }: Props) {
     return (
       <StyledGoogleSignInButton onClick={onSignIn}>
         <img src={googleLogo} alt="구글 로고" />
-        구글 로그인
+        <p>구글 로그인</p>
       </StyledGoogleSignInButton>
     );
   }
