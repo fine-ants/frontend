@@ -72,7 +72,6 @@ export default function PortfolioHoldingRow({
         <HoldingTableCell
           style={{
             width: "40px",
-            borderRadius: "8px 0 0 8px",
             padding: "0 8px 0 16px",
           }}>
           <IconButton
@@ -138,7 +137,7 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
-          <HoldingTypography>{dailyChange}</HoldingTypography>
+          <HoldingTypography>{dailyChange}%</HoldingTypography>
           <RateBadge rate={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
 
@@ -152,7 +151,6 @@ export default function PortfolioHoldingRow({
         <HoldingTableCell
           style={{
             width: "116px",
-            borderRadius: "0 8px 8px 0",
             padding: "0 16px 0 8px",
           }}
           align="right">
@@ -207,6 +205,10 @@ const HoldingTableRow = styled(TableRow)`
 const HoldingTableCell = styled(TableCell)`
   padding: 0 8px;
   height: 48px;
+
+  > button {
+    padding: 0;
+  }
 `;
 
 const HoldingTypography = styled(Typography)`
