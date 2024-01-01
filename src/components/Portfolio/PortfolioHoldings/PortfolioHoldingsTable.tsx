@@ -127,7 +127,7 @@ export default function PortfolioHoldingsTable({
         onRequestSort={handleRequestSort}
       />
       <ThemeProvider theme={muiTheme}>
-        <TableBody style={{ width: "896px" }}>
+        <TableBody style={{ width: "896px", marginTop: "8px" }}>
           {visibleRows.map((row, index) => {
             const isItemSelected = isSelected(row.portfolioHoldingId);
             const labelId = `enhanced-table-checkbox-${index}`;
@@ -185,7 +185,7 @@ const muiTheme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          width: "12px",
+          width: "10px",
           height: "12px",
         },
       },
@@ -193,12 +193,20 @@ const muiTheme = createTheme({
     MuiInputAdornment: {
       styleOverrides: {
         root: {
-          width: "32px",
+          width: "16px",
           height: "100%",
           margin: "0",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: "0",
+          margin: "0",
         },
       },
     },
@@ -227,6 +235,7 @@ const muiTheme = createTheme({
           height: "24px",
           font: designSystem.font.body3,
           backgroundColor: designSystem.color.neutral.white,
+          textAlign: "left",
         },
         input: {},
       },
