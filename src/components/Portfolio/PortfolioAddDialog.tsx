@@ -3,9 +3,9 @@ import usePortfolioEditMutation from "@api/portfolio/queries/usePortfolioEditMut
 import { PortfolioDetails } from "@api/portfolio/types";
 import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 
 import { Select, SelectOption } from "@components/common/Select";
-import { SECURITIES_FIRMS } from "@constants/securitiesFirms";
 import { useText } from "@fineants/demolition";
 import { FormControl } from "@mui/material";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
@@ -205,7 +205,7 @@ export default function PortfolioAddDialog({
         <HeaderWrapper>
           <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
           <Button size="h32" variant="tertiary" onClick={onClose}>
-            X
+            <Icon size={24} icon="close" color={"gray600"} />
           </Button>
         </HeaderWrapper>
         <Body>
@@ -230,15 +230,17 @@ export default function PortfolioAddDialog({
                 size="h32"
                 selectedValue={securitiesFirm}
                 changeSelectedValue={handleChange}>
-                {SECURITIES_FIRMS.map((option) => (
-                  <SelectOption key={option} value={option}>
-                    <SecuritiesFirmLogo
-                      src={securitiesFirmLogos[option]}
-                      alt={option}
-                    />
-                    <SecuritiesFirmTitle>{option}</SecuritiesFirmTitle>
-                  </SelectOption>
-                ))}
+                {Object.keys(securitiesFirmLogos)
+                  .filter((option) => option !== "undefined")
+                  .map((option) => (
+                    <SelectOption key={option} value={option}>
+                      <SecuritiesFirmLogo
+                        src={securitiesFirmLogos[option]}
+                        alt={option}
+                      />
+                      <SecuritiesFirmTitle>{option}</SecuritiesFirmTitle>
+                    </SelectOption>
+                  ))}
               </Select>
             </FormControl>
           </Row>

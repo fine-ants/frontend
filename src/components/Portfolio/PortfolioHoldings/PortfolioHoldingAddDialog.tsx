@@ -73,8 +73,12 @@ export default function PortfolioHoldingAddDialog({
       style={PortfolioHoldingAddDialogStyle}
       isOpen={isOpen}
       onClose={onDialogClose}>
-      <Title>종목 추가</Title>
-
+      <HeaderWrapper>
+        <Header>종목 추가</Header>
+        <Button size="h32" variant="tertiary" onClick={onDialogClose}>
+          <Icon size={24} icon="close" color={"gray600"} />
+        </Button>
+      </HeaderWrapper>
       <SearchWrapper>
         <div>
           종목 검색 <span>*</span>
@@ -145,10 +149,15 @@ export default function PortfolioHoldingAddDialog({
   );
 }
 
-const Title = styled.div`
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+`;
+
+const Header = styled.div`
   font: ${({ theme: { font } }) => font.heading3};
   color: ${({ theme: { color } }) => color.neutral.gray800};
-  margin-bottom: 32px;
 `;
 
 const SearchWrapper = styled.div`

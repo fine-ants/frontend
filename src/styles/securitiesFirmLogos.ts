@@ -28,7 +28,7 @@ import sk from "@assets/images/securitiesFirmLogo/sk.png";
 import toss from "@assets/images/securitiesFirmLogo/toss.png";
 import yuanta from "@assets/images/securitiesFirmLogo/yuanta.png";
 
-const securitiesFirmLogos = {
+const securitiesFirmLogos: { [key: string]: string } = {
   BNK투자증권: bnk,
   부국증권: bookook,
   케이프투자증권: cape,
