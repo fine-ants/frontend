@@ -2,15 +2,13 @@ import usePortfolioAddMutation from "@api/portfolio/queries/usePortfolioAddMutat
 import usePortfolioEditMutation from "@api/portfolio/queries/usePortfolioEditMutation";
 import { PortfolioDetails } from "@api/portfolio/types";
 import BaseDialog from "@components/BaseDialog";
+import Button from "@components/common/Buttons/Button";
+
+import { Select, SelectOption } from "@components/common/Select";
+import { SECURITIES_FIRMS } from "@constants/securitiesFirms";
 import { useText } from "@fineants/demolition";
-import {
-  Button,
-  FormControl,
-  Input,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { FormControl } from "@mui/material";
+import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import {
   calculateLossRate,
   calculateRate,
@@ -123,8 +121,8 @@ export default function PortfolioAddDialog({
     onMaximumLossChange(calculateValue(-Number(value), Number(budget)));
   });
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSecuritiesFirm(event.target.value);
+  const handleChange = (value: string) => {
+    setSecuritiesFirm(value);
   };
 
   const onSubmit = async () => {
@@ -199,134 +197,192 @@ export default function PortfolioAddDialog({
   };
 
   return (
-    <BaseDialog isOpen={isOpen} onClose={onClose}>
+    <BaseDialog
+      style={PortfolioAddDialogStyle}
+      isOpen={isOpen}
+      onClose={onClose}>
       <Wrapper>
-        <main />
-        <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
-        <CloseButton onClick={onClose}>close</CloseButton>
+        <HeaderWrapper>
+          <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
+          <Button size="h32" variant="tertiary" onClick={onClose}>
+            X
+          </Button>
+        </HeaderWrapper>
         <Body>
           <Row>
-            <StyledSpan>증권사</StyledSpan>
+            <StyledSpan>
+              이름 <span>*</span>
+            </StyledSpan>
+            <StyledInput>
+              <Input
+                placeholder="이름을 입력하세요"
+                value={name}
+                onChange={(e) => onNameChange(e.target.value)}
+              />
+            </StyledInput>
+          </Row>
+          <Row>
+            <StyledSpan>
+              증권사 <span>*</span>
+            </StyledSpan>
             <FormControl fullWidth>
               <Select
-                value={securitiesFirm}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "Without label" }}>
-                <MenuItem value={"fineAnts"}>없음</MenuItem>
-                <MenuItem value={"kb"}>KB증권</MenuItem>
-                <MenuItem value={"toss"}>토스증권</MenuItem>
+                size="h32"
+                selectedValue={securitiesFirm}
+                changeSelectedValue={handleChange}>
+                {SECURITIES_FIRMS.map((option) => (
+                  <SelectOption key={option} value={option}>
+                    <SecuritiesFirmLogo
+                      src={securitiesFirmLogos[option]}
+                      alt={option}
+                    />
+                    <SecuritiesFirmTitle>{option}</SecuritiesFirmTitle>
+                  </SelectOption>
+                ))}
               </Select>
             </FormControl>
           </Row>
-          <Row>
-            <StyledSpan>이름</StyledSpan>
-            <StyledInput
-              placeholder="포트폴리오 제목을 입력해 주세요"
-              value={name}
-              onChange={(e) => onNameChange(e.target.value)}
-            />
-          </Row>
+
           <Row>
             <StyledSpan>예산</StyledSpan>
-            <StyledInput
-              placeholder="예산을 입력해 주세요"
-              value={budget}
-              onChange={(e) => onBudgetInputChange(e.target.value.trim())}
-            />
-            <span>KRW</span>
-          </Row>
-          <Row>
-            <StyledSpan>목표 수익</StyledSpan>
-            <InputWrapper>
-              <StyledInput
-                disabled={isBudgetEmpty}
-                placeholder="목표 수익을 입력해 주세요"
-                value={targetGain}
-                onChange={(e) => onTargetGainHandler(e.target.value.trim())}
+            <StyledInput>
+              <Input
+                placeholder="예산을 입력하세요"
+                value={budget}
+                onChange={(e) => onBudgetInputChange(e.target.value.trim())}
               />
               <span>KRW</span>
-              <StyledInput
-                disabled={isBudgetEmpty}
-                placeholder="목표 수익률을 입력해 주세요"
-                value={targetReturnRate}
-                onChange={(e) =>
-                  onTargetReturnRateHandler(e.target.value.trim())
-                }
-              />
-              <span>%</span>
+            </StyledInput>
+          </Row>
+          <Row>
+            <StyledSpan>목표 수익률</StyledSpan>
+            <InputWrapper>
+              <StyledInput>
+                <Input
+                  disabled={isBudgetEmpty}
+                  value={targetReturnRate}
+                  onChange={(e) =>
+                    onTargetReturnRateHandler(e.target.value.trim())
+                  }
+                />
+                <span>%</span>
+              </StyledInput>
+
+              <StyledInput>
+                <Input
+                  disabled={isBudgetEmpty}
+                  value={targetGain}
+                  onChange={(e) => onTargetGainHandler(e.target.value.trim())}
+                />
+                <span>₩</span>
+              </StyledInput>
             </InputWrapper>
           </Row>
           <Row>
-            <StyledSpan>최대 손실</StyledSpan>
+            <StyledSpan>최대 손실율</StyledSpan>
             <InputWrapper>
-              <StyledInput
-                disabled={isBudgetEmpty}
-                placeholder="최대 손실을 입력해 주세요"
-                value={maximumLoss}
-                onChange={(e) => onMaximumLossHandler(e.target.value.trim())}
-              />
-              <span>KRW</span>
-              <StyledInput
-                disabled={isBudgetEmpty}
-                placeholder="최대 손실율을 입력해 주세요"
-                value={maximumLossRate}
-                onChange={(e) => maximumLossRateHandler(e.target.value.trim())}
-              />
-              <span>%</span>
+              <StyledInput>
+                <Input
+                  disabled={isBudgetEmpty}
+                  value={maximumLossRate}
+                  onChange={(e) =>
+                    maximumLossRateHandler(e.target.value.trim())
+                  }
+                />
+                <span>%</span>
+              </StyledInput>
+              <StyledInput>
+                <Input
+                  disabled={isBudgetEmpty}
+                  value={maximumLoss}
+                  onChange={(e) => onMaximumLossHandler(e.target.value.trim())}
+                />
+                <span>₩</span>
+              </StyledInput>
             </InputWrapper>
           </Row>
         </Body>
         <ButtonWrapper>
-          <SubmitButton onClick={onSubmit} disabled={!isFormValid()}>
-            저장
-          </SubmitButton>
+          <Button
+            variant="primary"
+            size="h32"
+            onClick={onSubmit}
+            disabled={!isFormValid()}>
+            {isEditMode ? `수정` : `추가`}
+          </Button>
         </ButtonWrapper>
       </Wrapper>
     </BaseDialog>
   );
 }
 
+const PortfolioAddDialogStyle = {
+  width: "544px",
+  height: "405px",
+  padding: "32px",
+};
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Header = styled.div`
-  width: 100%;
-  font-size: 20px;
-  font-weight: bold;
+  font: ${({ theme: { font } }) => font.heading3};
+  color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled.div`
+  display: flex;
   min-width: auto;
+  flex: 1;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  border: 1px solid ${({ theme: { color } }) => color.neutral.gray300};
+  border-radius: 3px;
+
+  > span {
+    font: ${({ theme: { font } }) => font.body3};
+    color: ${({ theme: { color } }) => color.neutral.gray400};
+  }
+`;
+
+const Input = styled.input`
   width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font: ${({ theme: { font } }) => font.body3};
+  color: ${({ theme: { color } }) => color.neutral.gray900};
+
+  &::placeholder {
+    color: ${({ theme: { color } }) => color.neutral.gray400};
+  }
 `;
 
 const StyledSpan = styled.span`
-  width: 95px;
-  text-align: center;
-`;
-
-const CloseButton = styled(Button)`
-  position: absolute;
-  top: 0;
-  right: 0;
+  width: 120px;
+  flex-shrink: 0;
+  > span {
+    color: ${({ theme: { color } }) => color.state.red};
+  }
 `;
 
 const Body = styled.div`
+  margin-top: 32px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
   flex: 1;
-`;
-
-const SubmitButton = styled(Button)`
-  width: 70px;
-  height: 30px;
 `;
 
 const Row = styled.div`
@@ -343,5 +399,17 @@ const InputWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   width: 100%;
-  text-align: right;
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const SecuritiesFirmLogo = styled.img`
+  width: 24px;
+  height: 24px;
+`;
+
+const SecuritiesFirmTitle = styled.span`
+  font: ${({ theme: { font } }) => font.body3};
+  color: ${({ theme: { color } }) => color.neutral.gray900};
 `;
