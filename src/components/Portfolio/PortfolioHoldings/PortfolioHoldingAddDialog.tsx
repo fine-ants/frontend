@@ -63,7 +63,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
 
   const PortfolioHoldingAddDialogStyle = {
     width: "544px",
-    height: currentStock.companyName !== "" ? "547px" : "467px",
+    height: "auto",
     padding: "32px",
   };
 

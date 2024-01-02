@@ -7,14 +7,11 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PortfolioHoldingAddDialog from "./PortfolioHoldings/PortfolioHoldingAddDialog";
 import PortfolioHoldingsTable from "./PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "./PortfolioOverview";
 
-type Props = {
-  onAddHoldingButtonClick: () => void;
-};
-
-export default function MainPanel({ onAddHoldingButtonClick }: Props) {
+export default function MainPanel() {
   const { id } = useParams();
 
   const { data: portfolio } = usePortfolioDetailsQuery(Number(id));
@@ -24,6 +21,7 @@ export default function MainPanel({ onAddHoldingButtonClick }: Props) {
     usePortfolioHoldingDeleteMutation(portfolioDetails.id);
 
   const [selected, setSelected] = useState<readonly number[]>([]);
+  const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
 
   const onDeleteHoldingButtonClick = () => {
     selected.forEach((holdingId) => {
@@ -32,6 +30,10 @@ export default function MainPanel({ onAddHoldingButtonClick }: Props) {
         portfolioHoldingId: holdingId,
       });
     });
+  };
+
+  const onAddHoldingButtonClick = () => {
+    setIsAddHoldingDialogOpen(true);
   };
 
   const hasNoHoldings = portfolioHoldings.length === 0;
@@ -88,6 +90,11 @@ export default function MainPanel({ onAddHoldingButtonClick }: Props) {
           />
         </PortfolioHoldingsContainer>
       )}
+
+      <PortfolioHoldingAddDialog
+        isOpen={isAddHoldingDialogOpen}
+        onClose={() => setIsAddHoldingDialogOpen(false)}
+      />
     </StyledMainPanel>
   );
 }
