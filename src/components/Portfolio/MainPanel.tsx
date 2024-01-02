@@ -25,10 +25,6 @@ export default function MainPanel({ onAddHoldingButtonClick }: Props) {
 
   const [selected, setSelected] = useState<readonly number[]>([]);
 
-  // const onAddHoldingButtonClick = () => {
-  //   setIsAddHoldingDialogOpen(true);
-  // };
-
   const onDeleteHoldingButtonClick = () => {
     selected.forEach((holdingId) => {
       portfolioHoldingDeleteMutate({
