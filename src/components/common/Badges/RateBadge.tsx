@@ -37,7 +37,7 @@ const StyledRateBadge = styled.div<{
   $colors: { color: string; bgColor: string };
   $bgColorStatus: boolean;
 }>`
-  height: 24px;
+  height: 14px;
   padding: 3.5px 4px;
   display: inline-flex;
   justify-content: center;
@@ -47,7 +47,7 @@ const StyledRateBadge = styled.div<{
   background-color: ${({ $colors, $bgColorStatus }) =>
     $bgColorStatus ? $colors.bgColor : "none"};
   border-radius: 4px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${({ theme: { font } }) => font.title6};
   padding: ${({ $bgColorStatus }) => ($bgColorStatus ? "3.5px 4px" : "0")};
   color: ${({ $colors }) => $colors.color};
   background-color: ${({ $colors, $bgColorStatus }) =>
