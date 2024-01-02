@@ -203,7 +203,7 @@ const HoldingTableRow = styled(TableRow)`
 `;
 
 const HoldingTableCell = styled(TableCell)`
-  padding: 0 8px;
+  padding: 0px 8px;
   height: 48px;
 
   > button {

@@ -4,11 +4,13 @@ import { PortfolioDetails } from "@api/portfolio/types";
 import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
-
 import { Select, SelectOption } from "@components/common/Select";
+import { SECURITIES_FIRM } from "@constants/securitiesFirm";
 import { useText } from "@fineants/demolition";
 import { FormControl } from "@mui/material";
-import securitiesFirmLogos from "@styles/securitiesFirmLogos";
+import securitiesFirmLogos, {
+  SecuritiesFirm,
+} from "@styles/securitiesFirmLogos";
 import {
   calculateLossRate,
   calculateRate,
@@ -43,7 +45,7 @@ export default function PortfolioAddDialog({
   });
 
   const [securitiesFirm, setSecuritiesFirm] = useState(
-    portfolioDetails ? portfolioDetails.securitiesFirm : "fineAnts"
+    portfolioDetails ? portfolioDetails.securitiesFirm : "FineAnts"
   );
 
   const { value: name, onChange: onNameChange } = useText({
@@ -122,7 +124,7 @@ export default function PortfolioAddDialog({
   });
 
   const handleChange = (value: string) => {
-    setSecuritiesFirm(value);
+    setSecuritiesFirm(value as SecuritiesFirm);
   };
 
   const onSubmit = async () => {
@@ -230,17 +232,17 @@ export default function PortfolioAddDialog({
                 size="h32"
                 selectedValue={securitiesFirm}
                 changeSelectedValue={handleChange}>
-                {Object.keys(securitiesFirmLogos)
-                  .filter((option) => option !== "undefined")
-                  .map((option) => (
-                    <SelectOption key={option} value={option}>
-                      <SecuritiesFirmLogo
-                        src={securitiesFirmLogos[option]}
-                        alt={option}
-                      />
-                      <SecuritiesFirmTitle>{option}</SecuritiesFirmTitle>
-                    </SelectOption>
-                  ))}
+                {SECURITIES_FIRM.map((option) => (
+                  <SelectOption key={option} value={option}>
+                    <SecuritiesFirmLogo
+                      src={securitiesFirmLogos[option]}
+                      alt={option}
+                    />
+                    <SecuritiesFirmTitle>
+                      {option === "FineAnts" ? "선택안함" : option}
+                    </SecuritiesFirmTitle>
+                  </SelectOption>
+                ))}
               </Select>
             </FormControl>
           </Row>

@@ -82,7 +82,7 @@ const headCells: readonly HeadCell[] = [
     id: "annualDividend",
     numeric: true,
     label: "연 배당금",
-    size: "108px",
+    size: "116px",
   },
 ];
 
@@ -123,11 +123,17 @@ export default function PortfolioHoldingsTableHead({
             }}
           />
         </ColumnHeaderCell>
-        {headCells.map((headCell) => (
+        {headCells.map((headCell, index) => (
           <ColumnHeaderCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
-            style={{ width: headCell.size }}
+            style={{
+              width: headCell.size,
+              borderRadius:
+                index === headCells.length - 1 ? "0 8px 8px 0" : "0",
+              padding:
+                index === headCells.length - 1 ? "0 16px 0 8px" : "0 8px",
+            }}
             sortDirection={orderBy === headCell.id ? order : false}>
             <StyledTableSortLabel
               active={orderBy === headCell.id}
@@ -154,6 +160,7 @@ export default function PortfolioHoldingsTableHead({
           </ColumnHeaderCell>
         ))}
       </ColumnHeader>
+      <TableRow sx={{ height: "8px" }} />
     </CustomTableHead>
   );
 }
@@ -173,12 +180,23 @@ const CustomTableHead = styled(TableHead)`
 `;
 
 const ColumnHeader = styled(TableRow)`
+  width: 100%;
   background-color: #f6f6f8;
+
+  & > last-child {
+    border-radius: 0 8px 8px 0;
+    padding: 0 16px 0 8px;
+  }
 `;
 
 const ColumnHeaderCell = styled(TableCell)`
-  padding: 0 8px;
+  padding: 4px 8px;
+
   height: 48px;
+
+  > span {
+    width: auto;
+  }
 `;
 
 const StyledTableSortLabel = styled(TableSortLabel)`

@@ -128,12 +128,11 @@ const LostTableHead = styled(TableHead)`
 const LotsTableHeadRow = styled(TableRow)`
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
   border-radius: 8px;
-
   width: 856px;
+
   & > * {
     border: none;
   }
-
   & > .MuiTableCell-root:first-child {
     padding-left: 16px;
     border-top-left-radius: 8px;

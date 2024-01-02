@@ -7,24 +7,23 @@ import { IconButton, ThemeProvider, createTheme } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IconCalendar } from "./IconCalendar";
 
 type Props = {
-  portfolioId: number;
   isOpen: boolean;
   onClose: () => void;
 };
 
-export default function PortfolioHoldingAddDialog({
-  portfolioId,
-  isOpen,
-  onClose,
-}: Props) {
+export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
+  const { portfolioId } = useParams();
+
   const { mutate: portfolioHoldingAddMutate } = usePortfolioHoldingAddMutation({
-    portfolioId,
+    portfolioId: Number(portfolioId),
     onClose,
   });
+
   const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
   const [currentStock, setCurrentStock] = useState<StockInfo>({
     companyName: "",
@@ -33,7 +32,7 @@ export default function PortfolioHoldingAddDialog({
 
   const addStockToPortfolio = (tickerSymbol: string) => {
     portfolioHoldingAddMutate({
-      portfolioId,
+      portfolioId: Number(portfolioId),
       body: {
         tickerSymbol,
       },
