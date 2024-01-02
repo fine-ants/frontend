@@ -33,12 +33,12 @@ export function PortfoliosDropdown({
 
   return (
     <>
-      <DropdownButton onClick={onDropdownClick}>
+      <DropdownButton onClick={onDropdownClick} $isOpen={isOpen}>
         <span>Portfolios</span>
         <Icon
           icon={isOpen ? "chevron-up" : "chevron-down"}
           size={12}
-          color="white"
+          color={isOpen ? "white" : "gray400"}
         />
       </DropdownButton>
       <DropdownMenu sx={dropdownMenuSx}>
@@ -71,7 +71,7 @@ export function PortfoliosDropdown({
   );
 }
 
-const DropdownButton = styled.button`
+const DropdownButton = styled.button<{ $isOpen: boolean }>`
   width: 80px;
   height: 40px;
   display: flex;
@@ -79,8 +79,18 @@ const DropdownButton = styled.button`
   align-items: center;
   gap: 4px;
   font: ${designSystem.font.title4};
+  color: ${({ $isOpen }) => ($isOpen ? "white" : "gray400")};
   letter-spacing: -0.02em;
   cursor: pointer;
+
+  &:hover {
+    color: ${designSystem.color.neutral.white};
+
+    // Icon Component
+    > div {
+      background-color: ${designSystem.color.neutral.white};
+    }
+  }
 `;
 
 const dropdownMenuSx = {

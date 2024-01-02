@@ -60,8 +60,13 @@ const StyledNavItem = styled.li`
   justify-content: center;
   align-items: center;
   font: ${designSystem.font.title4};
+  color: ${designSystem.color.neutral.gray400};
   letter-spacing: -0.02em;
   cursor: pointer;
+
+  :hover {
+    color: ${designSystem.color.neutral.white};
+  }
 `;
 
 const StyledNavItemContent = styled.div`
