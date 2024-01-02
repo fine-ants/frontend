@@ -61,12 +61,6 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     });
   };
 
-  const PortfolioHoldingAddDialogStyle = {
-    width: "544px",
-    height: "auto",
-    padding: "32px",
-  };
-
   return (
     <BaseDialog
       style={PortfolioHoldingAddDialogStyle}
@@ -278,6 +272,12 @@ const Input = styled.input`
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
+
+const PortfolioHoldingAddDialogStyle = {
+  width: "544px",
+  height: "auto",
+  padding: "32px",
+};
 
 const muiTheme = createTheme({
   components: {
