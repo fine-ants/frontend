@@ -1,18 +1,17 @@
-import { Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem, SxProps } from "@mui/material";
 import { ReactNode, useState } from "react";
-import { CSSProperties } from "styled-components";
 
 type DropdownMenuProps = {
+  sx?: SxProps;
   children: ReactNode;
-  style?: CSSProperties;
 };
 
 type DropdownItemProps = {
+  sx?: SxProps;
   item: {
     name: string;
     onClick: () => void;
   };
-  style?: CSSProperties;
 };
 
 export function useDropdown() {
@@ -28,19 +27,15 @@ export function useDropdown() {
     setAnchorElement(null);
   };
 
-  function DropdownMenu({ children, style }: DropdownMenuProps) {
+  function DropdownMenu({ sx, children }: DropdownMenuProps) {
     return (
-      <Menu
-        style={style}
-        anchorEl={anchorElement}
-        open={open}
-        onClose={onClose}>
+      <Menu sx={sx} anchorEl={anchorElement} open={open} onClose={onClose}>
         {children}
       </Menu>
     );
   }
 
-  function DropdownItem({ item, style }: DropdownItemProps) {
+  function DropdownItem({ sx, item }: DropdownItemProps) {
     const { name, onClick } = item;
 
     const onClickHandler = () => {
@@ -49,11 +44,11 @@ export function useDropdown() {
     };
 
     return (
-      <MenuItem style={style} onClick={onClickHandler}>
+      <MenuItem sx={sx} onClick={onClickHandler}>
         {name}
       </MenuItem>
     );
   }
 
-  return { onOpen, onClose, DropdownMenu, DropdownItem };
+  return { isOpen: open, onOpen, onClose, DropdownMenu, DropdownItem };
 }
