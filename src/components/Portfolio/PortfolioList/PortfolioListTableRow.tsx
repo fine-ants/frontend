@@ -60,7 +60,7 @@ export default function PortfolioListTableRow({
         <StyledLink to={`/portfolio/${id}`}>
           <img
             src={securitiesFirmLogos[securitiesFirm]}
-            alt={String(securitiesFirm)}
+            alt={securitiesFirm}
             width="40px"
             height="40px"
           />

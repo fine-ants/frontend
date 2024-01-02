@@ -12,29 +12,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      // CSS 미디어 쿼리를 사용하여 색상 스킴 감지
-      const matcher = window.matchMedia("(prefers-color-scheme: light)");
-      console.log(matcher);
-      const lightSchemeIcon = document.querySelector("link#light-scheme-icon");
-      const darkSchemeIcon = document.querySelector("link#dark-scheme-icon");
-
-      // 색상 스킴 변경에 따라 아이콘 업데이트
-      function onUpdate() {
-        if (matcher.matches) {
-          // 다크 모드
-          lightSchemeIcon.remove();
-          document.head.append(darkSchemeIcon);
-        } else {
-          // 라이트 모드
-          darkSchemeIcon.remove();
-          document.head.append(lightSchemeIcon);
-        }
-      }
-
-      // 이벤트 리스너 추가 및 초기 업데이트 실행
-      matcher.addListener(onUpdate);
-      onUpdate();
-    </script>
   </body>
 </html>
