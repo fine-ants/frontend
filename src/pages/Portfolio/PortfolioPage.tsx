@@ -1,8 +1,9 @@
-import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
+import ChartsPanelErrorFallback from "@components/Dashboard/errorFallback/ChartsPanelErrorFallback";
+import MainPanelErrorFallback from "@components/Dashboard/errorFallback/MainPanelErrorFallback";
 import ChartsPanel from "@components/Portfolio/Charts/ChartsPanel";
 import ChartsPanelSkeleton from "@components/Portfolio/Charts/skeletons/ChartsPanelSkeleton";
-import MainPanelSkeleton from "@components/Portfolio/MainPanelSkeleton";
 import MainPanel from "@components/Portfolio/MainPanel";
+import MainPanelSkeleton from "@components/Portfolio/MainPanelSkeleton";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import styled from "styled-components";
 import BasePage from "../BasePage";
@@ -21,13 +22,13 @@ export default function PortfolioPage() {
     <BasePage>
       <Container>
         <AsyncBoundary
-          ErrorFallback={OverviewErrorFallback}
+          ErrorFallback={MainPanelErrorFallback}
           SuspenseFallback={<MainPanelSkeleton />}>
           <MainPanel />
         </AsyncBoundary>
 
         <AsyncBoundary
-          ErrorFallback={OverviewErrorFallback}
+          ErrorFallback={ChartsPanelErrorFallback}
           SuspenseFallback={<ChartsPanelSkeleton />}>
           <ChartsPanel />
         </AsyncBoundary>
