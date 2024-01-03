@@ -13,7 +13,7 @@ import NotFoundPage from "@pages/NotFoundPage";
 import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
 import PortfolioPage from "@pages/Portfolio/PortfolioPage";
 import SignInLoadingPage from "@pages/SignInLoadingPage";
-import SignInPage from "@pages/SignInPage";
+import SignInPage from "@pages/SignInPage/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
 import WatchlistPage from "@pages/WatchlistPage";
