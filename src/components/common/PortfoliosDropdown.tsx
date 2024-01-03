@@ -45,27 +45,22 @@ export function PortfoliosDropdown({
         {portfolioDropdownItems?.map((item) => (
           <DropdownItem
             key={item.name}
-            item={item}
             sx={portfolioDropdownItemSx}
-          />
+            onClick={item.onClick}>
+            {item.name}
+          </DropdownItem>
         ))}
 
         <Divider />
 
         <DropdownItem
           sx={fixedDropdownItemSx}
-          item={{
-            name: "포트폴리오로 이동",
-            onClick: () => navigate("/portfolios"),
-          }}
-        />
-        <DropdownItem
-          sx={fixedDropdownItemSx}
-          item={{
-            name: "포트폴리오 추가",
-            onClick: onPortfolioAddClick,
-          }}
-        />
+          onClick={() => navigate("/portfolios")}>
+          포트폴리오로 이동
+        </DropdownItem>
+        <DropdownItem sx={fixedDropdownItemSx} onClick={onPortfolioAddClick}>
+          포트폴리오 추가
+        </DropdownItem>
       </DropdownMenu>
     </>
   );

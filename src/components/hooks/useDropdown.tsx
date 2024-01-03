@@ -1,5 +1,5 @@
 import { Menu, MenuItem, SxProps } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode, SyntheticEvent, useState } from "react";
 
 type DropdownMenuProps = {
   sx?: SxProps;
@@ -8,10 +8,8 @@ type DropdownMenuProps = {
 
 type DropdownItemProps = {
   sx?: SxProps;
-  item: {
-    name: string;
-    onClick: () => void;
-  };
+  onClick: () => void;
+  children: ReactNode;
 };
 
 export function useDropdown() {
@@ -19,7 +17,7 @@ export function useDropdown() {
 
   const open = Boolean(anchorElement);
 
-  const onOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onOpen = (event: SyntheticEvent<HTMLElement>) => {
     setAnchorElement(event.currentTarget);
   };
 
@@ -35,9 +33,7 @@ export function useDropdown() {
     );
   }
 
-  function DropdownItem({ sx, item }: DropdownItemProps) {
-    const { name, onClick } = item;
-
+  function DropdownItem({ sx, onClick, children }: DropdownItemProps) {
     const onClickHandler = () => {
       onClick();
       onClose();
@@ -45,7 +41,7 @@ export function useDropdown() {
 
     return (
       <MenuItem sx={sx} onClick={onClickHandler}>
-        {name}
+        {children}
       </MenuItem>
     );
   }
