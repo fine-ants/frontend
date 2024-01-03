@@ -14,12 +14,12 @@ export type WatchlistItemType = {
 };
 
 export const getWatchlist = async () => {
-  const res = await fetcher.get<Response<WatchlistItemType[]>>("/watchlist");
+  const res = await fetcher.get<Response<WatchlistItemType[]>>("/watchlists");
   return res.data;
 };
 
 export const postWatchlistItem = async (tickerSymbol: string) => {
-  const res = await fetcher.post<Response<null>>("/watchlist", {
+  const res = await fetcher.post<Response<null>>("/watchlists", {
     tickerSymbol,
   });
   return res.data;
@@ -27,7 +27,7 @@ export const postWatchlistItem = async (tickerSymbol: string) => {
 
 export const deleteWatchlistItem = async (tickerSymbol: string) => {
   const res = await fetcher.delete<Response<null>>(
-    `/watchlist/${tickerSymbol}`
+    `/watchlists/${tickerSymbol}`
   );
   return res.data;
 };

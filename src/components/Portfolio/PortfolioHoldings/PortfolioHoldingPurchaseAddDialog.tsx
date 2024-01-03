@@ -4,6 +4,7 @@ import { Button, FormControl, Input, InputLabel } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { FormEvent, useState } from "react";
+import { IconCalendar } from "./IconCalendar";
 
 type Props = {
   isOpen: boolean;
@@ -51,9 +52,15 @@ export default function PortfolioHoldingPurchaseAddDialog({
       <form onSubmit={onSubmit}>
         <FormControl>
           <DatePicker
-            label="Purchase Date"
             value={purchaseDate}
             onChange={(newVal) => setPurchaseDate(newVal)}
+            format="YYYY-MM-DD"
+            slotProps={{
+              textField: { placeholder: "매입 날짜" },
+            }}
+            slots={{
+              openPickerIcon: IconCalendar,
+            }}
           />
         </FormControl>
         <FormControl>

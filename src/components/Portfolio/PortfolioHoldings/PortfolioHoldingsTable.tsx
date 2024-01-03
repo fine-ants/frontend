@@ -1,9 +1,11 @@
 import { PortfolioHolding } from "@api/portfolio/types";
 import TablePagination from "@components/common/Pagination/TablePagination";
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableRow,
   ThemeProvider,
   createTheme,
@@ -117,41 +119,46 @@ export default function PortfolioHoldingsTable({
   );
 
   return (
-    <StyledPortfolioHoldingsTable aria-label="collapsible table">
-      <PortfolioHoldingsTableHead
-        order={order}
-        orderBy={orderBy}
-        numSelected={selected.length}
-        rowCount={portfolioRows.length}
-        onSelectAllClick={handleSelectAllClick}
-        onRequestSort={handleRequestSort}
-      />
+    <StyledPortfolioHoldingsTable>
       <ThemeProvider theme={muiTheme}>
-        <TableBody style={{ width: "896px" }}>
-          {visibleRows.map((row, index) => {
-            const isItemSelected = isSelected(row.portfolioHoldingId);
-            const labelId = `enhanced-table-checkbox-${index}`;
-            return (
-              <PortfolioHoldingRow
-                key={row.tickerSymbol}
-                isItemSelected={isItemSelected}
-                handleClick={handleClick}
-                labelId={labelId}
-                row={row}
-                portfolioId={portfolioId}
-              />
-            );
-          })}
-          {numEmptyRows > 0 && (
-            <TableRow
-              style={{
-                width: 896,
-                height: 48 * numEmptyRows,
-              }}>
-              <TableCell colSpan={10} style={{ padding: 0 }} />
-            </TableRow>
-          )}
-        </TableBody>
+        <TableContainer>
+          <Table aria-label="collapsible table">
+            <PortfolioHoldingsTableHead
+              order={order}
+              orderBy={orderBy}
+              numSelected={selected.length}
+              rowCount={portfolioRows.length}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+            />
+
+            <TableBody style={{ width: "896px", marginTop: "8px" }}>
+              {visibleRows.map((row, index) => {
+                const isItemSelected = isSelected(row.portfolioHoldingId);
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <PortfolioHoldingRow
+                    key={row.tickerSymbol}
+                    isItemSelected={isItemSelected}
+                    handleClick={handleClick}
+                    labelId={labelId}
+                    row={row}
+                    portfolioId={portfolioId}
+                  />
+                );
+              })}
+              {numEmptyRows > 0 && (
+                <TableRow
+                  style={{
+                    width: 896,
+                    height: 48 * numEmptyRows,
+                  }}>
+                  <TableCell colSpan={10} style={{ padding: 0 }} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </ThemeProvider>
 
       <TablePagination
@@ -166,9 +173,7 @@ export default function PortfolioHoldingsTable({
   );
 }
 
-const StyledPortfolioHoldingsTable = styled(Table)`
-  display: flex;
-  flex-direction: column;
+const StyledPortfolioHoldingsTable = styled(Box)`
   width: 896px;
   background-color: ${({ theme: { color } }) => color.neutral.white};
 `;
@@ -185,7 +190,7 @@ const muiTheme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          width: "12px",
+          width: "10px",
           height: "12px",
         },
       },
@@ -193,12 +198,20 @@ const muiTheme = createTheme({
     MuiInputAdornment: {
       styleOverrides: {
         root: {
-          width: "32px",
+          width: "16px",
           height: "100%",
           margin: "0",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: "0",
+          margin: "0",
         },
       },
     },
@@ -227,6 +240,7 @@ const muiTheme = createTheme({
           height: "24px",
           font: designSystem.font.body3,
           backgroundColor: designSystem.color.neutral.white,
+          textAlign: "left",
         },
         input: {},
       },
