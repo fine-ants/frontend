@@ -1,7 +1,7 @@
 import designSystem from "@styles/designSystem";
+import { thousandsDelimiter } from "@utils/delimiters";
 import formatTickValue from "@utils/formatTickValue";
 import { getBarSpacings } from "@utils/getBarSpacings";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import {
   ChartOptions,
   ColorType,

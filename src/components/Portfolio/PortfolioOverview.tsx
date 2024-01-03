@@ -7,7 +7,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 
 import { useState } from "react";
 import { useParams } from "react-router-dom";

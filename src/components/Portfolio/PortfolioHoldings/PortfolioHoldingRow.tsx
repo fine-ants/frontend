@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
