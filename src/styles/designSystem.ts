@@ -45,6 +45,7 @@ const font = {
   title3: "500 20px/24px 'IBMPlexSansKR-Regular', sans-serif",
   title4: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
   title5: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
+  title6: "500 12px/14px 'IBMPlexSansKR-Regular', sans-serif",
 
   body1: "400 20px/30px 'IBMPlexSansKR-Regular', sans-serif",
   body2: "400 16px/24px 'IBMPlexSansKR-Regular', sans-serif",
