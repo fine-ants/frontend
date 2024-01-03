@@ -58,7 +58,7 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
         type="button"
         onClick={() => onNext(profileImageFile)}
         disabled={imageFileError.length > 0}>
-        다음
+        등록 완료
       </NextButton>
       <Container>
         <TextButton onClick={() => {}}>지금은 건너뛰기</TextButton>

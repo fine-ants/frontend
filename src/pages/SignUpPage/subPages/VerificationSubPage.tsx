@@ -1,5 +1,12 @@
 import VerificationCodeInput from "@components/VerificationCodeInput/VerificationCodeInput";
 import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
+import {
+  AuthPageHeader,
+  AuthPageTitle,
+  AuthPageTitleCaption,
+} from "@components/auth/AuthPageCommon";
+import designSystem from "@styles/designSystem";
+import styled from "styled-components";
 import SubPage from "./SubPage";
 
 type Props = {
@@ -19,10 +26,15 @@ export default function VerificationCodeSubPage({
 
   return (
     <SubPage>
-      <AuthOnPrevButton onPrev={onPrev} />
+      <AuthPageHeader>
+        <AuthOnPrevButton onPrev={onPrev} />
 
-      <h3>가입을 완료하려면 인증 코드를 입력해주세요</h3>
-      <p>{email}으로 전송된 인증 코드를 입력해주세요</p>
+        <AuthPageTitle>이메일 인증</AuthPageTitle>
+        <AuthPageTitleCaption>
+          <EmailText>{email}</EmailText> (으)로 발송된 인증번호를 확인 후
+          입력하세요
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
 
       <VerificationCodeInput onComplete={onDigitsFilled} />
 
@@ -30,3 +42,8 @@ export default function VerificationCodeSubPage({
     </SubPage>
   );
 }
+
+const EmailText = styled.span`
+  color: ${designSystem.color.neutral.gray900};
+  font: ${designSystem.font.body3};
+`;

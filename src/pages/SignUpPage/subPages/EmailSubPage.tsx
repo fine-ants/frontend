@@ -88,7 +88,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         type="button"
         onClick={() => onNext(email)}
         disabled={isError || !isDuplicateChecked}>
-        다음
+        다음 단계
       </NextButton>
     </SubPage>
   );

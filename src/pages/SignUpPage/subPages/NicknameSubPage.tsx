@@ -88,7 +88,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         disabled={isError || !isDuplicateChecked}
         type="button"
         onClick={() => onNext(nickname)}>
-        다음
+        다음 단계
       </NextButton>
     </SubPage>
   );
