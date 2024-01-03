@@ -5,6 +5,7 @@ import { Icon } from "@components/common/Icon";
 import useOutsideClick from "@components/hooks/useOutsideClick";
 import { useDebounce } from "@fineants/demolition";
 import { IconButton } from "@mui/material";
+import { splitAndIncludeDelimiter } from "@utils/delimiters";
 import { ChangeEvent, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -152,8 +153,9 @@ function SearchItem({
   return (
     <StyledSearchItem onClick={onSearchItemClick}>
       <SearchItemName>
-        <span>{value}</span>
-        {(searchResult.companyName, value)}
+        {splitAndIncludeDelimiter(searchResult.companyName, value).map(
+          (word) => (word === value ? <span>{word}</span> : word)
+        )}
       </SearchItemName>
       <label>{searchResult.tickerSymbol}</label>
     </StyledSearchItem>
