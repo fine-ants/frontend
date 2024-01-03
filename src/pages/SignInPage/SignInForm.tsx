@@ -14,18 +14,17 @@ import { TextField } from "@components/common/TextField/TextField";
 import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
 import { useText, validateEmail } from "@fineants/demolition";
-import { Button, FormControlLabel } from "@mui/material";
+import { Button } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import BasePage from "./BasePage";
 
 const emailValidator = (email: string) =>
   validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
 
-export default function SignInPage() {
+export default function SignInForm() {
   const navigate = useNavigate();
   const { popUpWindow, closePopUpWindow } = useContext(WindowContext);
 
@@ -86,7 +85,7 @@ export default function SignInPage() {
   const isAllFieldsFilled = !!email && !emailError && !!password;
 
   return (
-    <BasePage>
+    <div>
       <SignInContainer>
         <AuthPageHeader>
           <AuthPageTitle>로그인</AuthPageTitle>
@@ -115,10 +114,9 @@ export default function SignInPage() {
             />
             {passwordError && <TextInputError>{passwordError}</TextInputError>}
             <SupportContainer>
-              <FormControlLabel
-                control={<CheckBox size="h20" />}
-                label="내 정보 기억하기"
-              />
+              <FormControlLabel>
+                <CheckBox size="h20" />내 정보 기억하기
+              </FormControlLabel>
               <TextButton>비밀번호를 잊으셨나요?</TextButton>
             </SupportContainer>
           </InputControl>
@@ -140,7 +138,7 @@ export default function SignInPage() {
           </SignUpButton>
         </SignUpWrapper>
       </SignInContainer>
-    </BasePage>
+    </div>
   );
 }
 
@@ -197,6 +195,12 @@ const SupportContainer = styled.div`
 const TextButton = styled(Button)`
   color: ${designSystem.color.neutral.gray600};
   font: ${designSystem.font.button2};
+`;
+
+const FormControlLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 const SignInButtonContainer = styled.div`
