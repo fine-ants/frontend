@@ -108,17 +108,15 @@ export const patchUserInfo = async (body: FormData) => {
 };
 
 export const postNicknameDuplicateCheck = async (nickname: string) => {
-  const res = await fetcher.post<Response<null>>(
-    "/auth/signup/duplicationcheck/nickname",
-    { nickname }
+  const res = await fetcher.get<Response<null>>(
+    `/auth/signup/duplicationcheck/nickname/${nickname}`
   );
   return res.data;
 };
 
 export const postEmailDuplicateCheck = async (email: string) => {
-  const res = await fetcher.post<Response<null>>(
-    "/auth/signup/duplicationcheck/email",
-    { email }
+  const res = await fetcher.get<Response<null>>(
+    `/auth/signup/duplicationcheck/email/${email}`
   );
   return res.data;
 };
