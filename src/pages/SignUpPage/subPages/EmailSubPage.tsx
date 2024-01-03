@@ -29,6 +29,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   } = useText({
     validators: [emailValidator],
   });
+
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
   const isDuplicateChecked = !duplicateCheckErrorMsg;
 
@@ -44,6 +45,8 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   };
 
   useEffect(() => {
+    if (debouncedEmail === "" || isError) return;
+
     (async () => {
       try {
         const res = await postEmailDuplicateCheck(debouncedEmail);
@@ -59,7 +62,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         }
       }
     })();
-  }, [debouncedEmail]);
+  }, [debouncedEmail, isError]);
 
   return (
     <SubPage>
@@ -73,7 +76,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
       </AuthPageHeader>
 
       <TextField
-        error={isDuplicateChecked}
+        error={isError || !isDuplicateChecked}
         placeholder="이메일"
         value={email}
         errorText={duplicateCheckErrorMsg}

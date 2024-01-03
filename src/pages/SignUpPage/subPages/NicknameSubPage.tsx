@@ -46,9 +46,12 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
   };
 
   useEffect(() => {
+    if (debouncedNickname === "" || isError) return;
+
     (async () => {
       try {
         const res = await postNicknameDuplicateCheck(debouncedNickname);
+
         if (res.code === HTTPSTATUS.success) {
           setDuplicateCheckErrorMsg("");
         }
@@ -60,7 +63,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         }
       }
     })();
-  }, [debouncedNickname]);
+  }, [debouncedNickname, isError]);
 
   return (
     <SubPage>
@@ -73,7 +76,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         </AuthPageTitleCaption>
       </AuthPageHeader>
       <TextField
-        error={isError}
+        error={isError || !isDuplicateChecked}
         placeholder="닉네임"
         value={nickname}
         errorText={duplicateCheckErrorMsg}
