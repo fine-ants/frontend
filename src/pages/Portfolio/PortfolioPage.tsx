@@ -1,5 +1,5 @@
-import ChartsPanelErrorFallback from "@components/Dashboard/errorFallback/ChartsPanelErrorFallback";
-import MainPanelErrorFallback from "@components/Dashboard/errorFallback/MainPanelErrorFallback";
+import ChartsPanelErrorFallback from "@components/Portfolio/Charts/errorFallback/ChartsPanelErrorFallback";
+import MainPanelErrorFallback from "@components/Portfolio/errorFallback/MainPanelErrorFallback";
 import ChartsPanel from "@components/Portfolio/Charts/ChartsPanel";
 import ChartsPanelSkeleton from "@components/Portfolio/Charts/skeletons/ChartsPanelSkeleton";
 import MainPanel from "@components/Portfolio/MainPanel";
