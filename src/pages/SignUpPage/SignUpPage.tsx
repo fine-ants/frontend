@@ -111,7 +111,7 @@ export default function SignUpPage() {
 
             <Funnel.Step name="profileImage">
               <ProfileImageSubPage
-                onPrev={() => changeStep("nickname")}
+                onPrev={() => changeStep("password")}
                 onNext={(data: File | null) => {
                   setSignUpData((prev) => ({ ...prev, profileImage: data }));
                   signUpMutate(createSignUpFormData(signUpData));
@@ -123,7 +123,7 @@ export default function SignUpPage() {
         <SupportContainer>
           이미 회원이신가요?
           <TextButton onClick={() => navigate(Routes.SIGNIN)}>
-            로그인
+            로그인하기
           </TextButton>
         </SupportContainer>
       </SignUpContainer>
@@ -135,6 +135,7 @@ const SupportContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  gap: 8px;
   color: ${designSystem.color.neutral.gray600};
   font: ${designSystem.font.body3};
 `;
@@ -147,7 +148,6 @@ const TextButton = styled(Button)`
 
 const SignUpContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 48px;
