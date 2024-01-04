@@ -19,7 +19,7 @@ export default function SignInLoadingPage() {
 
   return (
     <StyledSignInLoadingPage>
-      <CircularProgress size={85} />
+      <StyledCircularProgress size={85} />
       <Text>로그인 중입니다.</Text>
     </StyledSignInLoadingPage>
   );
@@ -33,6 +33,12 @@ const StyledSignInLoadingPage = styled.div`
   justify-content: center;
   align-items: center;
   gap: 32px;
+`;
+
+const StyledCircularProgress = styled(CircularProgress)`
+  svg {
+    color: ${designSystem.color.primary.blue500};
+  }
 `;
 
 const Text = styled.p`
