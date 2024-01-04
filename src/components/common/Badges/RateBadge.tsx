@@ -4,7 +4,7 @@ import upIcon from "@assets/icons/ic_up.svg";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
-type Size = 24 | 16 | 12;
+type Size = 12 | 16 | 24;
 
 type Props = {
   rate: number;

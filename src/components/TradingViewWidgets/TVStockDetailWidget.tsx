@@ -31,7 +31,7 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
       matcher.removeEventListener("change", onChange);
       onLoadScriptRef.current = null;
     };
-  }, [tickerSymbol]);
+  }, []);
 
   useEffect(() => {
     onLoadScriptRef.current = createWidget;

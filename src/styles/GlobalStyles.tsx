@@ -76,15 +76,13 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  * {
-    &,
-    &::before,
-    &::after {
-      box-sizing: border-box;
-    }
-  }
 
   * {
+    box-sizing: border-box;
+    
+    scrollbar-width: thin;
+  scrollbar-color: ${designSystem.color.neutral.gray200} ${designSystem.color.neutral.white};
+  
     &::-webkit-scrollbar {
       width: 8px;
     }

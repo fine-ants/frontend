@@ -77,7 +77,6 @@ const StyledLegend = styled.div<{ $hasScroll: boolean }>`
   gap: 8px 24px;
   border: ${({ theme: { color } }) => `1px solid ${color.neutral.gray100}`};
   border-radius: 8px;
-  // overflow-y: scroll;
   overflow-y: ${({ $hasScroll }) => ($hasScroll ? "scroll" : "none")};
 `;
 
