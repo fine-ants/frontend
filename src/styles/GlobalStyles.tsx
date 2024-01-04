@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import designSystem from "./designSystem";
 
 export default createGlobalStyle`
   html,
@@ -79,7 +80,35 @@ export default createGlobalStyle`
     &,
     &::before,
     &::after {
-      box-sizing: inherit;
+      box-sizing: border-box;
+    }
+  }
+
+  * {
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: ${designSystem.color.neutral.white};
+      border-radius: inherit;
+    }
+
+    &::-webkit-scrollbar-track:active {
+      background-color: ${designSystem.color.neutral.gray50};
+      border-radius: inherit;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 4px;
+      height: 156px;
+      background-color: ${designSystem.color.neutral.gray200};
+      border-radius: 4px;
+      border: 2px solid ${designSystem.color.neutral.white}; 
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: ${designSystem.color.neutral.gray400};
+      border: 2px solid ${designSystem.color.neutral.gray50}; 
     }
   }
 `;

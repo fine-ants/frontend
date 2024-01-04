@@ -73,20 +73,12 @@ const StyledLegend = styled.div<{ $hasScroll: boolean }>`
   height: 120px;
   display: flex;
   flex-wrap: wrap;
-  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 12px 16px 16px" : "16px")};
+  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 4px 16px 16px" : "16px")};
   gap: 8px 24px;
   border: ${({ theme: { color } }) => `1px solid ${color.neutral.gray100}`};
   border-radius: 8px;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme: { color } }) => color.neutral.gray200};
-    border-radius: 2px; /* 스크롤바의 모서리를 둥글게 */
-  }
+  // overflow-y: scroll;
+  overflow-y: ${({ $hasScroll }) => ($hasScroll ? "scroll" : "none")};
 `;
 
 const EtcListContainer = styled.div`

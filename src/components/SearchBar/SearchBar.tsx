@@ -208,15 +208,6 @@ const StyledSearchList = styled.div`
   z-index: 1;
 
   overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme: { color } }) => color.neutral.gray200};
-    border-radius: 4px;
-  }
 `;
 
 const StyledSearchItem = styled.div`
