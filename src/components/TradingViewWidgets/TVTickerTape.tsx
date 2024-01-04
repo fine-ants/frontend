@@ -32,7 +32,7 @@ export default function TVTickerTapeWidget() {
       showSymbolLogo: true,
       colorTheme: "dark",
       isTransparent: false,
-      displayMode: "adaptive",
+      displayMode: "regular",
       locale: "kr",
     });
 

@@ -67,8 +67,8 @@ export type PortfolioDetails = {
   dailyGain: number;
   dailyGainRate: number;
   balance: number;
-  totalAnnualDividend: number;
-  totalAnnualDividendYield: number;
+  annualDividend: number;
+  annualDividendYield: number;
   annualInvestmentDividendYield: number;
   provisionalLossBalance: number;
   targetGainNotification: boolean;
