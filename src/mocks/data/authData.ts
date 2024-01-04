@@ -17,11 +17,15 @@ export const unsuccessfulSignUpData = {
 
 export const successfulOAuthURLData = (provider: OAuthProvider) => {
   const authUrls = {
-    google: "", // TODO: Add Google OAuth URL
-    kakao:
-      "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=dfb1e25a2b97d03b0b225d4874a34823&redirect_uri=http://localhost:5173/signin?provider=kakao&scope=openid&state=276795850273511360818854556981559492420&nonce=e9e62073a211c8c9cf23d1e41a4182b7&code_challenge=6rUx4nIA1D1V51T8yOiQwlq0Y-h9SZIv2ZlrtcGK_0Y&code_challenge_method=S256",
-    naver:
-      "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=alyLO0sQlJ7icKGyUgDV&redirect_uri=http://localhost:5173/signin?provider=naver&state=286610174243896877101731117196091052230",
+    google: `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${
+      import.meta.env.VITE_GOOGLE_CLIENT_ID
+    }&redirect_uri=https://localhost:5173/signin/loading?provider=google&scope=openid profile email&state=12345&nonce=6789&code_challenge=IAmCodeChallenge&code_challenge_method=S256`,
+    kakao: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
+      import.meta.env.VITE_KAKAO_CLIENT_ID
+    }&redirect_uri=http://localhost:5173/signin/loading?provider=kakao&scope=openid&state=12345&nonce=6789&code_challenge=IAmCodeChallenge&code_challenge_method=S256`,
+    naver: `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
+      import.meta.env.VITE_NAVER_CLIENT_ID
+    }&redirect_uri=http://localhost:5173/signin/loading?provider=naver&state=12345`,
   };
 
   return {

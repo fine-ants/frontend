@@ -6,7 +6,9 @@ import LabelBadge from "@components/common/Badges/LabelBadge";
 import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
-import securitiesFirmLogos from "@styles/securitiesFirmLogos";
+import securitiesFirmLogos, {
+  SecuritiesFirm,
+} from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 
 import { useState } from "react";
@@ -72,7 +74,9 @@ export default function PortfolioOverview({ data }: Props) {
         />
         <TitleContent>
           <TitleWrapper>
-            <FirmImage src={securitiesFirmLogos["BNK투자증권"]} />
+            <FirmImage
+              src={securitiesFirmLogos[data.securitiesFirm as SecuritiesFirm]}
+            />
             <Title>{data.name}</Title>
             <LabelBadge title={data.securitiesFirm} />
           </TitleWrapper>
@@ -207,7 +211,6 @@ const StyledPortfolioOverview = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  width: 888px;
   height: 73px;
   display: flex;
   flex-direction: column;
@@ -244,7 +247,6 @@ const ButtonWrapper = styled.div`
 `;
 
 const ValuationContainer = styled.div`
-  width: 888px;
   height: 64px;
   display: flex;
   justify-content: space-between;
@@ -269,7 +271,6 @@ const CurrentValuation = styled.div`
 `;
 
 const OverviewContainer = styled.div`
-  width: 888px;
   display: flex;
   flex-direction: column;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};

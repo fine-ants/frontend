@@ -38,7 +38,7 @@ export default [
     );
   }),
 
-  rest.delete("/api/watchlist/:tickerSymbol", async (req, res, ctx) => {
+  rest.delete("/api/watchlists/:tickerSymbol", async (req, res, ctx) => {
     let tickerSymbol = req.params.tickerSymbol as string;
 
     if (Array.isArray(tickerSymbol)) {

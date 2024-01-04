@@ -99,6 +99,9 @@ export default {
     kakao: {
       primary: colors.kakaoYellow,
     },
+    naver: {
+      primary: colors.naverGreen,
+    },
   },
 
   font,

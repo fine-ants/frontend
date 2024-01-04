@@ -1,8 +1,4 @@
 import { User } from "@api/auth";
-import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
-import { DashboardOverviewSkeleton } from "@components/Dashboard/skeletons/DashboardOverviewSkeleton";
-import { AsyncBoundary } from "@components/common/AsyncBoundary";
-import { GOOGLE_CLIENT_ID } from "@constants/config";
 import { WindowProvider } from "@context/WindowContext";
 import DashboardPage from "@pages/DashboardPage";
 import GlobalErrorPage from "@pages/GlobalErrorPage";
@@ -17,7 +13,6 @@ import SignInPage from "@pages/SignInPage/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
 import WatchlistPage from "@pages/WatchlistPage";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import {
   Route,
   createBrowserRouter,
@@ -34,16 +29,7 @@ const router = (user: User | null) =>
         <Route element={<ProtectedRoute user={user} />}>
           <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
           <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
-          <Route
-            path={Routes.PORTFOLIO}
-            element={
-              <AsyncBoundary
-                ErrorFallback={OverviewErrorFallback}
-                SuspenseFallback={<DashboardOverviewSkeleton />}>
-                <PortfolioPage />
-              </AsyncBoundary>
-            }
-          />
+          <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
           <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
           <Route path={Routes.PROFILE} element={<MyProfilePage />} />
@@ -53,9 +39,7 @@ const router = (user: User | null) =>
         <Route
           element={
             <WindowProvider>
-              <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                <PublicOnlyRoute user={user} />
-              </GoogleOAuthProvider>
+              <PublicOnlyRoute user={user} />
             </WindowProvider>
           }>
           <Route index path={Routes.LANDING} element={<LandingPage />} />
