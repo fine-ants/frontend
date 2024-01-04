@@ -8,7 +8,8 @@ import MyProfilePage from "@pages/MyProfilePage";
 import NotFoundPage from "@pages/NotFoundPage";
 import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
 import PortfolioPage from "@pages/Portfolio/PortfolioPage";
-import SignInLoadingPage from "@pages/SignInLoadingPage";
+
+import SignInLoadingPage from "@pages/SignInPage/SignInLoadingPage";
 import SignInPage from "@pages/SignInPage/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
