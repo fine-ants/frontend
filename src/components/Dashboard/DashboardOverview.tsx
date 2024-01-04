@@ -40,7 +40,7 @@ export default function DashboardOverview() {
                   {thousandsDelimiter(overviewData?.totalGain ?? 0)}
                 </Value>
               </ValueWrapper>
-              <RateBadge rate={overviewData?.totalGainRate ?? 0} />
+              <RateBadge size={24} rate={overviewData?.totalGainRate ?? 0} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <Title>연 배당금</Title>
@@ -51,6 +51,7 @@ export default function DashboardOverview() {
                 </Value>
               </ValueWrapper>
               <RateBadge
+                size={24}
                 rate={overviewData?.totalAnnualDividendYield ?? 0}
                 iconStatus={false}
                 isDividendRate={true}

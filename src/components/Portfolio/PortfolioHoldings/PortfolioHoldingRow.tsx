@@ -105,7 +105,9 @@ export default function PortfolioHoldingRow({
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
               style={{ font: designSystem.font.body3 }}
-              to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}>
+              to={`/stock/${tickerSymbol}`}
+              // to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}
+            >
               {companyName}
             </Link>
           </Typography>
@@ -138,14 +140,14 @@ export default function PortfolioHoldingRow({
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
           <HoldingTypography>{dailyChange}%</HoldingTypography>
-          <RateBadge rate={dailyChangeRate} bgColorStatus={false} />
+          <RateBadge size={12} rate={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <HoldingTypography>
             ₩{thousandsDelimiter(totalGain)}
           </HoldingTypography>
-          <RateBadge rate={totalReturnRate} bgColorStatus={false} />
+          <RateBadge size={12} rate={totalReturnRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell
@@ -157,7 +159,11 @@ export default function PortfolioHoldingRow({
           <HoldingTypography>
             ₩{thousandsDelimiter(annualDividend)}
           </HoldingTypography>
-          <RateBadge rate={annualDividendYield} bgColorStatus={false} />
+          <RateBadge
+            size={12}
+            rate={annualDividendYield}
+            bgColorStatus={false}
+          />
         </HoldingTableCell>
       </HoldingTableRow>
 

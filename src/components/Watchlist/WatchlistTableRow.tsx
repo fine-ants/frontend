@@ -50,7 +50,7 @@ export default function WatchlistTableRow({
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
         <div>₩ {thousandsDelimiter(dailyChange ?? 0)}</div>
-        <RateBadge rate={dailyChangeRate} bgColorStatus={false} />
+        <RateBadge size={16} rate={dailyChangeRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
         {annualDividendYield.toString().padEnd(4, "0") ?? 0}%

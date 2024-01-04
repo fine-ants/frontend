@@ -101,7 +101,7 @@ export default function PortfolioOverview({ data }: Props) {
       <ValuationContainer>
         <div>평가금액</div>
         <CurrentValuation>
-          ₩<span>{thousandsDelimiter(data.currentValuation)}</span>
+          ₩<span>{thousandsDelimiter(data.currentValuation ?? 0)}</span>
         </CurrentValuation>
       </ValuationContainer>
       <OverviewContainer>
@@ -129,10 +129,11 @@ export default function PortfolioOverview({ data }: Props) {
           <Overview>
             <OverviewData>
               <div>목표 수익률</div>
-              <span>₩{thousandsDelimiter(data.targetGain)}</span>
+              <span>₩{thousandsDelimiter(data.targetGain ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={data.targetReturnRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -140,10 +141,11 @@ export default function PortfolioOverview({ data }: Props) {
             </div>
             <OverviewData>
               <div>최대 손실율</div>
-              <span>₩{thousandsDelimiter(data.maximumLoss)}</span>
+              <span>₩{thousandsDelimiter(data.maximumLoss ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={-data.maximumLossRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -155,10 +157,11 @@ export default function PortfolioOverview({ data }: Props) {
           <Overview>
             <OverviewData>
               <div>총 손익</div>
-              <span>₩{thousandsDelimiter(data.totalGain)}</span>
+              <span>₩{thousandsDelimiter(data.totalGain ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={data.totalGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -166,10 +169,11 @@ export default function PortfolioOverview({ data }: Props) {
             </div>
             <OverviewData>
               <div>당일 손익</div>
-              <span>₩{thousandsDelimiter(data.dailyGain)}</span>
+              <span>₩{thousandsDelimiter(data.dailyGain ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={data.dailyGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -179,11 +183,12 @@ export default function PortfolioOverview({ data }: Props) {
           <Overview>
             <OverviewData>
               <div>총 연배당금</div>
-              <span>₩{thousandsDelimiter(data.totalAnnualDividend)}</span>
+              <span>₩{thousandsDelimiter(data.annualDividend)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
-                rate={data.totalAnnualDividendYield}
+                size={16}
+                rate={data.annualDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -191,6 +196,7 @@ export default function PortfolioOverview({ data }: Props) {
             <OverviewData>
               <div>투자대비 연 배당률</div>
               <RateBadge
+                size={16}
                 rate={data.annualInvestmentDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
