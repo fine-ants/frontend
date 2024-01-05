@@ -32,13 +32,13 @@ export default function PortfolioAddDialog({
   onClose,
   portfolioDetails,
 }: Props) {
-  const { id } = useParams();
+  const { portfolioId } = useParams();
 
   const {
     mutate: editMutate,
     isError: isEditError,
     isSuccess: isEditSuccess,
-  } = usePortfolioEditMutation(Number(id));
+  } = usePortfolioEditMutation(Number(portfolioId));
 
   const { mutate: addMutate } = usePortfolioAddMutation({
     onSuccessCb: onClose,
@@ -137,7 +137,7 @@ export default function PortfolioAddDialog({
     };
 
     if (isEditMode) {
-      editMutate({ portfolioId: Number(id), body: body });
+      editMutate({ portfolioId: Number(portfolioId), body: body });
     } else {
       addMutate(body);
     }

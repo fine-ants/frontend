@@ -7,7 +7,7 @@ export default {
   DASHBOARD: "/dashboard",
   WATCHLISTS: "/watchlists",
   PORTFOLIOS: "/portfolios",
-  PORTFOLIO: "/portfolio/:id",
+  PORTFOLIO: "/portfolio/:portfolioId",
   PORTFOLIOHOLDING: "/portfolio/:id/holding/:holdingId",
   INDICES: "/indices",
   STOCK: "/stock/:tickerSymbol",

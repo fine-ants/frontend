@@ -7,10 +7,10 @@ import { PieChartContainer } from "./Pie/PieChartContainer";
 import SectorBarChartContainer from "./Sector/SectorBarChartContainer";
 
 export default function ChartsPanel() {
-  const { id } = useParams();
+  const { portfolioId } = useParams();
 
   const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
-    Number(id)
+    Number(portfolioId)
   );
 
   const { pieChart, dividendChart, sectorChart } = portfolioHoldingCharts;
