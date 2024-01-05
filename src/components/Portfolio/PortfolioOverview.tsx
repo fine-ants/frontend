@@ -20,9 +20,9 @@ type Props = {
 };
 
 export default function PortfolioOverview({ data }: Props) {
-  const { id } = useParams();
+  const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation(
-    Number(id)
+    Number(portfolioId)
   );
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function PortfolioOverview({ data }: Props) {
   };
 
   const onConfirmAction = () => {
-    portfolioDeleteMutate(Number(id));
+    portfolioDeleteMutate(Number(portfolioId));
   };
 
   return (
@@ -69,7 +69,7 @@ export default function PortfolioOverview({ data }: Props) {
         <Breadcrumb
           depthData={[
             { name: "내 포트폴리오", url: "/portfolios" },
-            { name: data.name, url: `/portfolio/${id}` },
+            { name: data.name, url: `/portfolio/${portfolioId}` },
           ]}
         />
         <TitleContent>

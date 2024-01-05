@@ -12,9 +12,9 @@ import PortfolioHoldingsTable from "./PortfolioHoldings/PortfolioHoldingsTable";
 import PortfolioOverview from "./PortfolioOverview";
 
 export default function MainPanel() {
-  const { id } = useParams();
+  const { portfolioId } = useParams();
 
-  const { data: portfolio } = usePortfolioDetailsQuery(Number(id));
+  const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
   const { portfolioDetails, portfolioHoldings } = portfolio;
 
   const { mutate: portfolioHoldingDeleteMutate } =
