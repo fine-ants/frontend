@@ -1,3 +1,4 @@
+import FA from "@assets/icons/logo/ic_fineants.svg";
 import bnk from "@assets/images/securitiesFirmLogo/bnk.png";
 import bookook from "@assets/images/securitiesFirmLogo/bookook.png";
 import cape from "@assets/images/securitiesFirmLogo/cape.png";
@@ -29,6 +30,7 @@ import toss from "@assets/images/securitiesFirmLogo/toss.png";
 import yuanta from "@assets/images/securitiesFirmLogo/yuanta.png";
 
 const securitiesFirmLogos = {
+  FineAnts: FA,
   BNK투자증권: bnk,
   부국증권: bookook,
   케이프투자증권: cape,
@@ -58,7 +60,6 @@ const securitiesFirmLogos = {
   SK증권: sk,
   토스증권: toss,
   유안타증권: yuanta,
-  undefined: "FA", // TODO: Change to FineAnts Logo
 };
 
 export default securitiesFirmLogos;

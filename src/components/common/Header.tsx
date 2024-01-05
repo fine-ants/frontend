@@ -1,6 +1,6 @@
 import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
 import { PortfolioItem } from "@api/portfolio/types";
-import BIImage from "@assets/images/profileImage.png";
+import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
@@ -10,7 +10,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "../NavBar";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar, { StockInfo } from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
 import UserControls from "../common/UserControls";
 import { PortfoliosDropdown } from "./PortfoliosDropdown";
@@ -52,8 +52,8 @@ export default function Header() {
     setIsPortfolioAddDialogOpen(true);
   };
 
-  const moveToStockPage = (tickerSymbol: string) => {
-    navigate(`/stock/${tickerSymbol}`);
+  const moveToStockPage = (stockInfo: StockInfo) => {
+    navigate(`/stock/${stockInfo.tickerSymbol}`);
   };
 
   const moveToSignInPage = () => {
@@ -70,7 +70,6 @@ export default function Header() {
         <HeaderLeft>
           <StyledBrandIdentity onClick={onLogoClick}>
             <img src={BIImage} alt="FineAnts" />
-            FineAnts
           </StyledBrandIdentity>
           <NavBar style={navBarStyles}>
             <PortfoliosDropdown

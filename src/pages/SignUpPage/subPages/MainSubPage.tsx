@@ -3,9 +3,7 @@ import {
   AuthPageTitle,
   AuthPageTitleCaption,
 } from "@components/auth/AuthPageCommon";
-import GoogleSignInButton from "@components/auth/GoogleSignInButton";
-import KakaoSignInButton from "@components/auth/KakaoSignInButton";
-import NaverSignInButton from "@components/auth/NaverSignInButton";
+import SocialLoginButton from "@components/auth/SocialLoginButton";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import SubPage from "./SubPage";
@@ -29,9 +27,9 @@ export default function MainSubPage({ onNext }: Props) {
         </EmailSignInButton>
         <span>또는</span>
         <OAuthButtonContainer>
-          <GoogleSignInButton />
-          <KakaoSignInButton />
-          <NaverSignInButton />
+          <SocialLoginButton provider="google" />
+          <SocialLoginButton provider="kakao" />
+          <SocialLoginButton provider="naver" />
         </OAuthButtonContainer>
       </ButtonContainer>
     </StyledMainSubPage>

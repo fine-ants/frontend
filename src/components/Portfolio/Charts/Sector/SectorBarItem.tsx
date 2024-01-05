@@ -3,14 +3,18 @@ import { styled } from "@mui/material/styles";
 import designSystem from "@styles/designSystem";
 import { SectorTooltip } from "./SectorTooltip";
 
-const SECTOR_BAR_WIDTH = 400;
-
 type Props = {
   fill: string;
   weight: number;
   title: string;
+  sectorBarWidth: number;
 };
-export default function SectorBarItem({ title, fill, weight }: Props) {
+export default function SectorBarItem({
+  title,
+  fill,
+  weight,
+  sectorBarWidth,
+}: Props) {
   return (
     <div>
       <SectorTooltip
@@ -26,7 +30,7 @@ export default function SectorBarItem({ title, fill, weight }: Props) {
         }>
         <StyledSectorBarItem
           $fill={fill}
-          $width={SECTOR_BAR_WIDTH * (weight / 100)}
+          $width={sectorBarWidth * (weight / 100)}
         />
       </SectorTooltip>
     </div>

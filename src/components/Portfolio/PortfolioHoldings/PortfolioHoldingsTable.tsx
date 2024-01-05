@@ -1,6 +1,16 @@
 import { PortfolioHolding } from "@api/portfolio/types";
 import TablePagination from "@components/common/Pagination/TablePagination";
-import { Table, TableBody, TableCell, TableRow } from "@mui/material";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import styled from "styled-components";
 import PortfolioHoldingsTableHead from "./PorfolioHoldingTableHead";
@@ -25,8 +35,8 @@ function getComparator<Key extends keyof PortfolioHolding>(
 }
 
 type Props = {
-  selected: readonly string[];
-  onClickCheckbox: (selected: readonly string[]) => void;
+  selected: readonly number[];
+  onClickCheckbox: (selected: readonly number[]) => void;
   portfolioId: number;
   data: PortfolioHolding[];
 };
@@ -55,16 +65,16 @@ export default function PortfolioHoldingsTable({
 
   const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = portfolioRows.map((n) => n.tickerSymbol);
+      const newSelected = portfolioRows.map((n) => n.portfolioHoldingId);
       onClickCheckbox(newSelected);
       return;
     }
     onClickCheckbox([]);
   };
 
-  const handleClick = (_: MouseEvent<unknown>, id: string) => {
+  const handleClick = (_: MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly string[] = [];
+    let newSelected: readonly number[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -90,7 +100,7 @@ export default function PortfolioHoldingsTable({
     setPage(0);
   };
 
-  const isSelected = (id: string) => selected.indexOf(id) !== -1;
+  const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const numEmptyRows =
@@ -99,46 +109,57 @@ export default function PortfolioHoldingsTable({
   const visibleRows = useMemo(
     () =>
       portfolioRows
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        .slice(
+          page * rowsPerPage,
+          page * rowsPerPage +
+            (rowsPerPage === -1 ? portfolioRows.length : rowsPerPage)
+        )
         .sort(getComparator(order, orderBy)),
     [order, orderBy, page, portfolioRows, rowsPerPage]
   );
 
   return (
-    <StyledPortfolioHoldingsTable aria-label="collapsible table">
-      <PortfolioHoldingsTableHead
-        order={order}
-        orderBy={orderBy}
-        numSelected={selected.length}
-        rowCount={portfolioRows.length}
-        onSelectAllClick={handleSelectAllClick}
-        onRequestSort={handleRequestSort}
-      />
-      <TableBody style={{ width: "896px" }}>
-        {visibleRows.map((row, index) => {
-          const isItemSelected = isSelected(row.tickerSymbol);
-          const labelId = `enhanced-table-checkbox-${index}`;
-          return (
-            <PortfolioHoldingRow
-              key={row.tickerSymbol}
-              isItemSelected={isItemSelected}
-              handleClick={handleClick}
-              labelId={labelId}
-              row={row}
-              portfolioId={portfolioId}
+    <StyledPortfolioHoldingsTable>
+      <ThemeProvider theme={muiTheme}>
+        <TableContainer>
+          <Table aria-label="collapsible table">
+            <PortfolioHoldingsTableHead
+              order={order}
+              orderBy={orderBy}
+              numSelected={selected.length}
+              rowCount={portfolioRows.length}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
             />
-          );
-        })}
-        {numEmptyRows > 0 && (
-          <TableRow
-            style={{
-              width: 896,
-              height: 48 * numEmptyRows,
-            }}>
-            <TableCell colSpan={10} style={{ padding: 0 }} />
-          </TableRow>
-        )}
-      </TableBody>
+
+            <TableBody style={{ width: "896px", marginTop: "8px" }}>
+              {visibleRows.map((row, index) => {
+                const isItemSelected = isSelected(row.portfolioHoldingId);
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <PortfolioHoldingRow
+                    key={row.tickerSymbol}
+                    isItemSelected={isItemSelected}
+                    handleClick={handleClick}
+                    labelId={labelId}
+                    row={row}
+                    portfolioId={portfolioId}
+                  />
+                );
+              })}
+              {numEmptyRows > 0 && (
+                <TableRow
+                  style={{
+                    width: 896,
+                    height: 48 * numEmptyRows,
+                  }}>
+                  <TableCell colSpan={10} style={{ padding: 0 }} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </ThemeProvider>
 
       <TablePagination
         count={portfolioRows.length}
@@ -152,9 +173,89 @@ export default function PortfolioHoldingsTable({
   );
 }
 
-const StyledPortfolioHoldingsTable = styled(Table)`
-  display: flex;
-  flex-direction: column;
+const StyledPortfolioHoldingsTable = styled(Box)`
   width: 896px;
   background-color: ${({ theme: { color } }) => color.neutral.white};
 `;
+
+const muiTheme = createTheme({
+  components: {
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          width: "127px",
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          width: "10px",
+          height: "12px",
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          width: "16px",
+          height: "100%",
+          margin: "0",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: "0",
+          margin: "0",
+        },
+      },
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          width: "32px",
+          height: "100%",
+        },
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          width: "87px",
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          display: "flex",
+          padding: "0 8px",
+          justifyContent: "center",
+          width: "127px",
+          height: "24px",
+          font: designSystem.font.body3,
+          backgroundColor: designSystem.color.neutral.white,
+          textAlign: "left",
+        },
+        input: {},
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          padding: "0",
+        },
+        input: {
+          width: "87px",
+          padding: "0 0 0 0",
+          font: designSystem.font.body3,
+        },
+      },
+    },
+  },
+});

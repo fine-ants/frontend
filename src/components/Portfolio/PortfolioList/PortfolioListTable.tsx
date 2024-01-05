@@ -45,10 +45,14 @@ export default function PortfolioListTable() {
 
   const visibleRows = useMemo(
     () =>
-      rowsPerPage > 0
+      rowsPerPage > 0 || rowsPerPage === -1
         ? portfolioRows
             .sort(getComparator(order, orderBy))
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .slice(
+              page * rowsPerPage,
+              page * rowsPerPage +
+                (rowsPerPage === -1 ? portfolioRows.length : rowsPerPage)
+            )
         : portfolioRows,
     [order, orderBy, page, portfolioRows, rowsPerPage]
   );

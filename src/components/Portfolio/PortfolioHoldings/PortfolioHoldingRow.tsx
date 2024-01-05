@@ -3,7 +3,7 @@ import { PortfolioHolding } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import Icon from "@components/common/Icon";
+import { Icon } from "@components/common/Icon";
 import {
   Collapse,
   IconButton,
@@ -28,7 +28,7 @@ export default function PortfolioHoldingRow({
   row: PortfolioHolding;
   labelId: string;
   isItemSelected: boolean;
-  handleClick: (event: MouseEvent<unknown>, id: string) => void;
+  handleClick: (event: MouseEvent<unknown>, id: number) => void;
   portfolioId: number;
 }) {
   const {
@@ -58,7 +58,10 @@ export default function PortfolioHoldingRow({
     portfolioHoldingDeleteMutate({ portfolioId, portfolioHoldingId });
   };
 
-  const onExpandRowClick = () => {
+  const onExpandRowClick = (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    event.stopPropagation();
     setIsRowOpen(!isRowOpen);
   };
 
@@ -68,11 +71,10 @@ export default function PortfolioHoldingRow({
         tabIndex={-1}
         selected={isItemSelected}
         aria-checked={isItemSelected}
-        onClick={(event) => handleClick(event, tickerSymbol)}>
+        onClick={(event) => handleClick(event, portfolioHoldingId)}>
         <HoldingTableCell
           style={{
             width: "40px",
-            borderRadius: "8px 0 0 8px",
             padding: "0 8px 0 16px",
           }}>
           <IconButton
@@ -82,12 +84,11 @@ export default function PortfolioHoldingRow({
             }}
             aria-label="expand row"
             size="small"
-            onClick={onExpandRowClick}>
+            onClick={(event) => onExpandRowClick(event)}>
             <Icon
               icon={isRowOpen ? "chevron-down" : "chevron-right"}
               size={16}
-              variant="tertiary"
-              disabled={false}
+              color={"gray400"}
             />
           </IconButton>
         </HoldingTableCell>
@@ -107,7 +108,9 @@ export default function PortfolioHoldingRow({
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
               style={{ font: designSystem.font.body3 }}
-              to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}>
+              to={`/stock/${tickerSymbol}`}
+              // to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}
+            >
               {companyName}
             </Link>
           </Typography>
@@ -139,28 +142,33 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
-          <HoldingTypography>{dailyChange}</HoldingTypography>
-          <RateBadge rate={dailyChangeRate} bgColorStatus={false} />
+          <HoldingTypography>
+            {thousandsDelimiter(dailyChange)}
+          </HoldingTypography>
+          <RateBadge size={12} rate={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <HoldingTypography>
             ₩{thousandsDelimiter(totalGain)}
           </HoldingTypography>
-          <RateBadge rate={totalReturnRate} bgColorStatus={false} />
+          <RateBadge size={12} rate={totalReturnRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell
           style={{
             width: "116px",
-            borderRadius: "0 8px 8px 0",
             padding: "0 16px 0 8px",
           }}
           align="right">
           <HoldingTypography>
             ₩{thousandsDelimiter(annualDividend)}
           </HoldingTypography>
-          <RateBadge rate={annualDividendYield} bgColorStatus={false} />
+          <RateBadge
+            size={12}
+            rate={annualDividendYield}
+            bgColorStatus={false}
+          />
         </HoldingTableCell>
       </HoldingTableRow>
 
@@ -189,6 +197,7 @@ export default function PortfolioHoldingRow({
 const HoldingTableRow = styled(TableRow)`
   &.Mui-selected {
     background-color: ${({ theme: { color } }) => color.neutral.gray50};
+    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.white};
   }
 
   &.Mui-selected:hover {
@@ -205,8 +214,12 @@ const HoldingTableRow = styled(TableRow)`
 `;
 
 const HoldingTableCell = styled(TableCell)`
-  padding: 0 8px;
+  padding: 0px 8px;
   height: 48px;
+
+  > button {
+    padding: 0;
+  }
 `;
 
 const HoldingTypography = styled(Typography)`
@@ -219,7 +232,7 @@ const Amount = styled(HoldingTypography)`
 `;
 
 const HoldingLotRow = styled(TableRow)`
-  width: 500px;
+  width: 856px;
 `;
 
 const ChangeableAmount = styled(Amount)<{ $isProfit: boolean }>`

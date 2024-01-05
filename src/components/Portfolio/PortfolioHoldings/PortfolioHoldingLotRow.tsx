@@ -2,14 +2,16 @@ import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/us
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
-import Icon from "@components/common/Icon";
-import { Button, Input, TableCell, TableRow } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
+import { Icon } from "@components/common/Icon";
+import { TableCell, TableRow } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 import { formatDate } from "@utils/date";
 import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
+import { IconCalendar } from "./IconCalendar";
 
 type Props = {
   portfolioId: number;
@@ -55,9 +57,9 @@ export default function PortfolioHoldingLotRow({
   const [newNumShares, setNewNumShares] = useState(numShares.toString());
   const [newMemo, setNewMemo] = useState(memo ?? "");
 
-  // const onEditClick = () => {
-  //   setIsEditing(true);
-  // };
+  const onEditClick = () => {
+    setIsEditing(true);
+  };
 
   const onSaveClick = () => {
     // TODO: Handle error
@@ -97,52 +99,61 @@ export default function PortfolioHoldingLotRow({
     <LotRow>
       {isEditing ? (
         <>
-          <LotTableCell component="th" scope="row">
+          <LotTableCell component="th" scope="row" style={{ width: "143px" }}>
             <DatePicker
-              label="Purchase Date"
               value={newPurchaseDate}
               onChange={(newVal) => setNewPurchaseDate(newVal)}
+              format="YYYY-MM-DD"
+              slotProps={{
+                textField: { placeholder: "매입 날짜" },
+              }}
+              slots={{
+                openPickerIcon: IconCalendar,
+              }}
             />
           </LotTableCell>
-          <LotTableCell align="right">
+          <LotTableCell align="right" style={{ width: "119px" }}>
             <Input
+              style={{ width: "100px", textAlign: "left" }}
               type="number"
-              slotProps={{
-                input: {
-                  min: 0,
-                },
-              }}
               value={newPurchasePricePerShare}
               onChange={(e) =>
                 setNewPurchasePricePerShare(e.target.value.trim())
               }
             />
           </LotTableCell>
-          <LotTableCell align="right">
+
+          <LotTableCell align="right" style={{ width: "119px" }}>
             <Input
+              style={{ width: "100px", textAlign: "left" }}
               type="number"
-              slotProps={{
-                input: {
-                  min: 0,
-                },
-              }}
               value={newNumShares}
               onChange={(e) => setNewNumShares(e.target.value.trim())}
             />
           </LotTableCell>
-          <LotTableCell align="right">
-            <Input
+
+          <LotTableCell align="left" style={{ width: "395px" }}>
+            <TextInput
               value={newMemo}
               onChange={(e) => setNewMemo(e.target.value.trim())}
             />
           </LotTableCell>
-          <LotTableCell align="right" sx={{ width: "160px" }}>
-            <Button onClick={onSaveClick}>저장</Button>
+
+          <LotTableCell align="right" style={{ width: "32px" }}>
+            <IconButton onClick={onSaveClick}>
+              <Icon icon="check" size={16} color={"blue500"} />
+            </IconButton>
+          </LotTableCell>
+
+          <LotTableCell align="right" style={{ width: "32px" }}>
+            <IconButton onClick={onOpenDeleteConfirmAlert}>
+              <Icon icon="remove" size={16} color={"gray400"} />
+            </IconButton>
           </LotTableCell>
         </>
       ) : (
         <>
-          <LotTableCell style={{ width: "119px" }} component="th" scope="row">
+          <LotTableCell style={{ width: "151px" }} component="th" scope="row">
             {formatDate(purchaseDate)}
           </LotTableCell>
 
@@ -154,16 +165,19 @@ export default function PortfolioHoldingLotRow({
             {numShares}
           </LotTableCell>
 
-          <LotTableCell style={{ width: "443px" }}>{memo}</LotTableCell>
+          <LotTableCell style={{ width: "395px" }}>{memo}</LotTableCell>
 
-          <LotTableCell align="right" sx={{ width: "32px" }}>
-            <Icon
-              icon="remove"
-              size={16}
-              variant="tertiary"
-              disabled={false}
-              onClick={onOpenDeleteConfirmAlert}
-            />
+          <LotTableCell style={{ width: "32px" }}>
+            <IconButton onClick={onEditClick}>
+              <Icon icon="edit" size={16} color={"gray600"} />
+            </IconButton>
+          </LotTableCell>
+          <LotTableCell
+            align="right"
+            style={{ width: "40px !important", boxSizing: "border-box" }}>
+            <IconButton onClick={onOpenDeleteConfirmAlert}>
+              <Icon icon="remove" size={16} color={"gray600"} />
+            </IconButton>
           </LotTableCell>
 
           <ConfirmAlert
@@ -179,8 +193,14 @@ export default function PortfolioHoldingLotRow({
 }
 
 const LotRow = styled(TableRow)`
-  width: 848px;
+  width: 856px;
   height: 40px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+
+  & > .MuiTableCell-root {
+    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  }
 
   & > :first-child {
     padding-left: 16px;
@@ -191,9 +211,60 @@ const LotRow = styled(TableRow)`
   }
 `;
 
+const IconButton = styled.button`
+  width: 100%;
+`;
+
 const LotTableCell = styled(TableCell)`
   padding: 4px 8px;
-  height: 40px;
+
   font: ${({ theme: { font } }) => font.body3};
   color: ${({ theme: { color } }) => color.neutral.gray900};
+
+  &.MuiFormControl-root
+    MuiTextField-root
+    css-140751r-MuiFormControl-root-MuiTextField-root {
+    background-color: ${({ theme: { color } }) => color.primary.blue500};
+  }
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 24px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  font: ${({ theme: { font } }) => font.body3};
+  color: ${({ theme: { color } }) => color.neutral.gray900};
+  background-color: ${({ theme: { color } }) => color.neutral.white};
+  border-radius: 2px;
+
+  &::placeholder {
+    color: ${({ theme: { color } }) => color.neutral.gray400};
+  }
+
+  &:focus {
+    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+  }
+`;
+
+const TextInput = styled.textarea`
+  margin-top: 7px;
+  width: 100%;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  font: ${({ theme: { font } }) => font.body3};
+  color: ${({ theme: { color } }) => color.neutral.gray900};
+  background-color: ${({ theme: { color } }) => color.neutral.white};
+  border-radius: 2px;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: ${({ theme: { color } }) => color.neutral.gray400};
+  }
+
+  &:focus {
+    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+  }
 `;

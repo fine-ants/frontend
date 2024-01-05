@@ -7,13 +7,13 @@ type Props = TooltipProps & { children: ReactElement; smallPadding?: boolean };
 
 export function CustomTooltip({ children, smallPadding, ...props }: Props) {
   return (
-    <CustomStyledTooltip $smallPadding={smallPadding} {...props}>
+    <StyledCustomTooltip $smallPadding={smallPadding} {...props}>
       {children}
-    </CustomStyledTooltip>
+    </StyledCustomTooltip>
   );
 }
 
-const CustomStyledTooltip = styled(
+const StyledCustomTooltip = styled(
   ({ className, ...props }: TooltipProps & { $smallPadding?: boolean }) => (
     <Tooltip
       {...props}
@@ -31,6 +31,8 @@ const CustomStyledTooltip = styled(
     />
   )
 )`
+  pointer-events: none;
+
   & .${tooltipClasses.tooltip} {
     max-width: 400px;
     padding: ${({ $smallPadding }) => ($smallPadding ? "4px" : "8px")};

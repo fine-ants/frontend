@@ -60,9 +60,8 @@ const BootstrapInput = styled(InputBase)<{ $size: Size; $isOpen: boolean }>`
     min-width: ${({ $size }) => ($size === "h24" ? 56 : 80)}px;
     padding: 0 28px 0 8px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
     box-sizing: border-box;
     background-color: ${({ theme: { color } }) => color.neutral.white};
     border: 1px solid

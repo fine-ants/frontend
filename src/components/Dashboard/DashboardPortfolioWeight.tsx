@@ -1,13 +1,14 @@
 import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieChartQuery";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import TallLegend from "@components/common/Legend/TallLegend";
+import { chartColorPalette } from "@styles/chartColorPalette";
 import { Suspense, useState } from "react";
 import styled from "styled-components";
 import PieChart from "../common/PieChart/PieChart";
 import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
 
 export default function DashboardPortfolioWeight() {
-  const { data: pieData } = useDashboardPieChartQuery();
+  const { data: pieChart } = useDashboardPieChartQuery();
 
   const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
     useState(false);
@@ -20,7 +21,12 @@ export default function DashboardPortfolioWeight() {
     setIsPortfolioAddDialogOpen(false);
   };
 
-  const pieChartLegendList = pieData?.map((item) => ({
+  const coloredPieChart = pieChart.map((item, index) => ({
+    ...item,
+    fill: chartColorPalette[index],
+  }));
+
+  const pieChartLegendList = coloredPieChart.map((item) => ({
     title: item.name,
     percent: item.weight,
     color: item.fill,
@@ -36,9 +42,9 @@ export default function DashboardPortfolioWeight() {
             width={320}
             height={320}
             hoverGap={16}
-            pieData={pieData ?? []}
+            pieData={coloredPieChart ?? []}
           />
-          {pieData && pieData.length > 0 ? (
+          {coloredPieChart && coloredPieChart.length > 0 ? (
             <TallLegend
               legendList={pieChartLegendList ?? []}
               etcOptions={{ title: "기타", numItemsFromFront: 10 }}

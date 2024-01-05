@@ -23,9 +23,11 @@ export default [
       companyName: "새로추가주식",
       tickerSymbol: tickerSymbol,
       currentPrice: 60000,
+      dailyChange: 7000,
       dailyChangeRate: 13.35,
       annualDividendYield: 3.5,
       sector: "제조업",
+      dateAdded: "2023-12-30T15:00:00",
     };
 
     watchlistData.push(data);
@@ -36,7 +38,7 @@ export default [
     );
   }),
 
-  rest.delete("/api/watchlist/:tickerSymbol", async (req, res, ctx) => {
+  rest.delete("/api/watchlists/:tickerSymbol", async (req, res, ctx) => {
     let tickerSymbol = req.params.tickerSymbol as string;
 
     if (Array.isArray(tickerSymbol)) {

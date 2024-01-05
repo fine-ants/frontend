@@ -10,6 +10,6 @@ export default {
   PORTFOLIO: "/portfolio/:id",
   PORTFOLIOHOLDING: "/portfolio/:id/holding/:holdingId",
   INDICES: "/indices",
-  STOCK: "/stock/:id",
+  STOCK: "/stock/:tickerSymbol",
   FALLBACK: "*",
 };
