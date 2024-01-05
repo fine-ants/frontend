@@ -34,40 +34,6 @@ import upIcon from "@assets/icons/ic_up.svg";
 import { colors } from "@styles/designSystem";
 import { styled } from "styled-components";
 
-type IconType =
-  | "add"
-  | "arrow-left"
-  | "ascending"
-  | "calendar"
-  | "camera"
-  | "check-outline"
-  | "check"
-  | "chevron-down"
-  | "chevron-left"
-  | "chevron-right"
-  | "chevron-up"
-  | "close"
-  | "descending"
-  | "divider"
-  | "down"
-  | "edit"
-  | "favorite"
-  | "folder-add"
-  | "help"
-  | "hide"
-  | "indet"
-  | "none"
-  | "notification"
-  | "remove"
-  | "search"
-  | "settings"
-  | "show"
-  | "sort_ascending"
-  | "sort_descending"
-  | "sort_none"
-  | "trash"
-  | "up";
-
 type ColorType = keyof typeof colors;
 
 type IconSize = 24 | 16 | 12;
@@ -112,6 +78,8 @@ const icons = {
   "trash": trashIcon,
   "up": upIcon,
 };
+
+type IconType = keyof typeof icons;
 
 export function Icon({ size, icon, color }: Props) {
   const iconUrl = icons[icon];
