@@ -1,9 +1,9 @@
 import facebookIcon from "@assets/icons/logo/ic_facebook.svg";
+import BIImage from "@assets/icons/logo/ic_fineants-footer.svg";
 import instagramIcon from "@assets/icons/logo/ic_instagram.svg";
 import linkedinIcon from "@assets/icons/logo/ic_linkedin.svg";
 import XIcon from "@assets/icons/logo/ic_x.svg";
 import youtubeIcon from "@assets/icons/logo/ic_youtube.svg";
-import profileImage from "@assets/images/profileImage.png";
 import styled from "styled-components";
 
 export default function Footer() {
@@ -11,8 +11,7 @@ export default function Footer() {
     <StyledFooter>
       <FooterLeft>
         <BI>
-          <img src={profileImage} alt="" />
-          <div>FineAnts</div>
+          <img src={BIImage} alt="" />
         </BI>
         <Copyright>FineAnts Ⓒ All rights reserved.</Copyright>
       </FooterLeft>

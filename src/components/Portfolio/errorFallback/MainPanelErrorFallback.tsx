@@ -26,6 +26,7 @@ const StyledMainPanelErrorFallback = styled.div`
   align-items: center;
   gap: 24px;
   position: relative;
+  border-radius: 8px;
   background-color: ${({ theme: { color } }) => color.neutral.white};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 `;

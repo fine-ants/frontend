@@ -58,7 +58,10 @@ export default function PortfolioHoldingRow({
     portfolioHoldingDeleteMutate({ portfolioId, portfolioHoldingId });
   };
 
-  const onExpandRowClick = () => {
+  const onExpandRowClick = (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    event.stopPropagation();
     setIsRowOpen(!isRowOpen);
   };
 
@@ -81,7 +84,7 @@ export default function PortfolioHoldingRow({
             }}
             aria-label="expand row"
             size="small"
-            onClick={onExpandRowClick}>
+            onClick={(event) => onExpandRowClick(event)}>
             <Icon
               icon={isRowOpen ? "chevron-down" : "chevron-right"}
               size={16}
@@ -139,7 +142,9 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
-          <HoldingTypography>{dailyChange}%</HoldingTypography>
+          <HoldingTypography>
+            {thousandsDelimiter(dailyChange)}
+          </HoldingTypography>
           <RateBadge size={12} rate={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
 
