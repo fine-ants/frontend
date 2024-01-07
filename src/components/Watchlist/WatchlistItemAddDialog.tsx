@@ -22,7 +22,19 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
   });
 
   const onSelectOption = (option: StockSearchItem) => {
-    setSelectedStocks((prev) => [...prev, option]);
+    setSelectedStocks((prev) => {
+      const index = prev.findIndex(
+        (stock) => stock.tickerSymbol === option.tickerSymbol
+      );
+
+      if (index === -1) {
+        return [...prev, option];
+      } else {
+        return prev.filter(
+          (stock) => stock.tickerSymbol !== option.tickerSymbol
+        );
+      }
+    });
   };
 
   const onAddButtonClick = () => {
@@ -61,20 +73,22 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
         </SearchBarWrapper>
 
         {/* TODO: render selectedStocks */}
-        <SelectedStocksList>
-          {selectedStocks.map((stock) => (
-            <StockListItem>
-              <StockDetails>
-                <p>{stock.companyName}</p>
-                <p>{stock.tickerSymbol}</p>
-              </StockDetails>
-              <IconButton
-                onClick={() => onDeleteHoldingBoxClick(stock.tickerSymbol)}>
-                <Icon icon="close" size={16} color="blue200" />
-              </IconButton>
-            </StockListItem>
-          ))}
-        </SelectedStocksList>
+        {selectedStocks.length > 0 && (
+          <SelectedStocksList>
+            {selectedStocks.map((stock) => (
+              <StockListItem>
+                <StockDetails>
+                  <p>{stock.companyName}</p>
+                  <p>{stock.tickerSymbol}</p>
+                </StockDetails>
+                <IconButton
+                  onClick={() => onDeleteHoldingBoxClick(stock.tickerSymbol)}>
+                  <Icon icon="close" size={16} color="blue200" />
+                </IconButton>
+              </StockListItem>
+            ))}
+          </SelectedStocksList>
+        )}
       </div>
 
       <Button
@@ -126,7 +140,7 @@ const SearchBarWrapper = styled.div`
 
 const SelectedStocksList = styled.ul`
   width: 100%;
-  height: 344px;
+  max-height: 330px;
   padding: 16px;
   display: flex;
   flex-direction: column;
