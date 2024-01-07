@@ -66,7 +66,7 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
           <div>종목 검색</div>
           <SearchBar
             variant="select-multiple"
-            sx={{ width: "480px", height: "32px", marginBottom: "16px" }}
+            sx={{ width: "480px", marginBottom: "16px" }}
             selectedOptions={selectedStocks}
             onSelectOption={onSelectOption}
           />

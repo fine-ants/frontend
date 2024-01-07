@@ -75,7 +75,7 @@ export default function PortfolioHoldingAddDialog({
         </div>
         <SearchBar
           variant="select"
-          sx={{ width: "480px", height: "32px" }}
+          sx={{ width: "480px" }}
           onSelectOption={onSelectOption}
         />
       </SearchWrapper>

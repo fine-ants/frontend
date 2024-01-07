@@ -79,7 +79,7 @@ export default function Header() {
           </NavBar>
         </HeaderLeft>
         <HeaderRight>
-          <SearchBar sx={{ width: "300px" }} />
+          <SearchBar sx={{ width: "328px" }} />
 
           {user ? (
             <UserControls />
