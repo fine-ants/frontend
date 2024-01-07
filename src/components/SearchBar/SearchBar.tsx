@@ -1,260 +1,269 @@
 import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
-import searchIcon from "@assets/icons/ic_search.svg";
 import { Icon } from "@components/common/Icon";
-import useOutsideClick from "@components/hooks/useOutsideClick";
 import { useDebounce } from "@fineants/demolition";
-import { IconButton } from "@mui/material";
-import { splitAndIncludeDelimiter } from "@utils/delimiters";
-import { ChangeEvent, useRef, useState } from "react";
-import styled from "styled-components";
+import { Autocomplete, SxProps, TextField } from "@mui/material";
+import designSystem from "@styles/designSystem";
+import { SyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import RenderOptionDefault from "./RenderOptionDefault";
+import RenderOptionSelect from "./RenderOptionSelect";
+import RenderOptionSelectMultiple from "./RenderOptionSelectMultiple";
 
-export type StockInfo = {
-  companyName: string;
-  tickerSymbol: string;
+type Variant = "default" | "select" | "select-multiple";
+
+type Props = {
+  variant?: Variant;
+  sx?: SxProps;
+  selectedOptions?: StockSearchItem[];
+  onSelectOption?: (item: StockSearchItem) => void;
 };
 
+/**
+ * @param {Function} [onSelectOption] - Must be provided when variant is `"select"`.
+ */
 export default function SearchBar({
-  onItemClick,
-}: {
-  onItemClick: (stockInfo: StockInfo) => void;
-}) {
-  const [value, setValue] = useState("");
-  const [showList, setShowList] = useState(false);
-  const searchBarRef = useRef(null);
+  variant = "default",
+  sx,
+  selectedOptions,
+  onSelectOption,
+}: Props) {
+  if (variant === "select" && !onSelectOption) {
+    throw Error("`onSelectOption` must be passed in when variant is 'select'");
+  }
+  if (variant === "select-multiple" && !onSelectOption) {
+    throw Error(
+      "`onSelectOption` must be passed in when variant is 'select-multiple'"
+    );
+  }
+  if (variant === "select-multiple" && !selectedOptions) {
+    throw Error(
+      "`selectedOptions` must be passed in when variant is 'select-multiple'"
+    );
+  }
 
-  const debouncedValue = useDebounce(value, 250);
-  useOutsideClick(searchBarRef, () => setShowList(false));
+  const navigate = useNavigate();
 
-  const onSearchBarChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => {
+    setIsOpen(true);
   };
 
-  const onSearchBarFocus = () => {
-    setShowList(true);
+  const onClose = () => {
+    setIsOpen(false);
   };
 
-  const onListClose = () => {
-    setShowList(false);
+  const [searchInputValue, setSearchInputValue] = useState("");
+  const debouncedValue = useDebounce(searchInputValue, 250);
+
+  const { data: searchResults, isLoading } =
+    useStockSearchQuery(debouncedValue);
+
+  const onSearchInputChange = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: string
+  ) => {
+    setSearchInputValue(newValue as string);
   };
 
-  const onRemoveSearchValue = () => {
-    setValue("");
+  const clearSearchInput = () => {
+    setSearchInputValue("");
+  };
+
+  const onClickOption = (option: string) => {
+    setSearchInputValue(option);
   };
 
   return (
-    <StyledSearchBar ref={searchBarRef}>
-      <Input
-        value={value}
-        onSearchBarChange={onSearchBarChange}
-        onSearchBarFocus={onSearchBarFocus}
-        onRemoveSearchValue={onRemoveSearchValue}
-      />
-      {showList && (
-        <SearchList
-          debouncedValue={debouncedValue}
-          onItemClick={onItemClick}
-          onListClose={onListClose}
+    <Autocomplete
+      id="stock-search-bar"
+      fullWidth
+      sx={{ ...autocompleteSx(variant), ...sx }}
+      inputValue={searchInputValue}
+      open={isOpen}
+      onOpen={onOpen}
+      onClose={onClose}
+      getOptionLabel={(option) => option.companyName} // Used to fill the input value.
+      onInputChange={onSearchInputChange}
+      isOptionEqualToValue={(option, value) =>
+        option.companyName === value.companyName
+      }
+      clearOnBlur={false}
+      options={searchResults ?? []}
+      loading={isLoading}
+      loadingText={"검색 중입니다"} // TODO: Replace with animated FA logo
+      noOptionsText={searchInputValue && "검색 결과가 없습니다"} // TODO: style this
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          placeholder="검색어를 입력하세요"
+          sx={{ height: "100%" }}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <Icon
+                icon="search"
+                size={16}
+                color={variant === "default" ? "gray400" : "gray600"}
+              />
+            ),
+          }}
         />
       )}
-    </StyledSearchBar>
+      forcePopupIcon={searchInputValue !== ""}
+      popupIcon={
+        <Icon
+          icon="close"
+          size={16}
+          color={variant === "default" ? "gray100" : "gray600"}
+        />
+      }
+      componentsProps={{
+        popupIndicator: {
+          sx: popupIndicatorSx,
+          onClick: clearSearchInput,
+        },
+        popper: {
+          sx: popperSx(variant),
+        },
+      }}
+      renderOption={(props, option) => {
+        switch (variant) {
+          case "select":
+            return (
+              <RenderOptionSelect
+                key={option.tickerSymbol}
+                {...{
+                  props,
+                  option,
+                  onClick: () => {
+                    if (onSelectOption) onSelectOption(option);
+                    onClickOption(option.companyName);
+                    onClose();
+                  },
+                  searchValue: debouncedValue,
+                }}
+              />
+            );
+          case "select-multiple":
+            return (
+              <RenderOptionSelectMultiple
+                key={option.tickerSymbol}
+                {...{
+                  props,
+                  option,
+                  selectedOptions: selectedOptions ?? [],
+                  onClick: () => {
+                    if (onSelectOption) onSelectOption(option);
+                  },
+                  searchValue: debouncedValue,
+                }}
+              />
+            );
+          default:
+            return (
+              <RenderOptionDefault
+                key={option.tickerSymbol}
+                {...{
+                  props,
+                  option,
+                  onClick: () => navigate(`/stock/${option.tickerSymbol}`),
+                }}
+              />
+            );
+        }
+      }}
+    />
   );
 }
 
-type InputProps = {
-  value: string;
-  onSearchBarChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onSearchBarFocus: () => void;
-  onRemoveSearchValue: () => void;
+const autocompleteSx = (variant: Variant) => ({
+  "height": variant === "default" ? "40px" : "32px",
+
+  "& .MuiInputBase-root": {
+    "width": "100%",
+    "height": "100%",
+    "padding": "0 12px",
+    "gap": "8px",
+    "backgroundColor": "inherit",
+
+    "&:hover": {
+      fieldset: {
+        border: `1px solid ${
+          variant === "default"
+            ? designSystem.color.neutral.gray500
+            : designSystem.color.primary.blue500
+        }`,
+      },
+    },
+
+    "& .MuiInputBase-input": {
+      "padding": "0",
+      "font": designSystem.font.body3,
+      "color":
+        variant === "default"
+          ? designSystem.color.neutral.gray100
+          : designSystem.color.neutral.gray900,
+
+      "&::placeholder": {
+        color: designSystem.color.neutral.gray400,
+      },
+
+      "&:hover": {
+        "& ~ fieldset": {
+          border: `1px solid ${
+            variant === "default"
+              ? designSystem.color.neutral.gray500
+              : designSystem.color.primary.blue500
+          }`,
+        },
+      },
+    },
+
+    ".MuiAutocomplete-endAdornment": {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      right: "16px",
+      top: "50%",
+      transform: "translateY(-50%)",
+    },
+
+    "fieldset": {
+      border: `1px solid ${
+        variant === "default"
+          ? designSystem.color.neutral.gray700
+          : designSystem.color.neutral.gray200
+      }`,
+    },
+  },
+});
+
+const popupIndicatorSx = {
+  width: "16px",
+  height: "16px",
+  padding: "0",
 };
 
-function Input({
-  value,
-  onSearchBarChange,
-  onSearchBarFocus,
-  onRemoveSearchValue,
-}: InputProps) {
-  return (
-    <InputContainer>
-      <img src={searchIcon} alt="search-icon" />
-      <StyledInput
-        type="text"
-        value={value}
-        placeholder="종목을 검색하세요"
-        onChange={onSearchBarChange}
-        onFocus={onSearchBarFocus}
-      />
-      {value && (
-        <div style={iconCenterPosition}>
-          <IconButton onClick={onRemoveSearchValue}>
-            <Icon icon="close" size={16} color={"gray600"} />
-          </IconButton>
-        </div>
-      )}
-    </InputContainer>
-  );
-}
+const popperSx = (variant: Variant) => ({
+  "marginTop": `${variant === "default" ? "8px" : "2px"} !important`,
 
-type SearchListProps = {
-  debouncedValue: string;
-  onItemClick: (stockInfo: StockInfo) => void;
-  onListClose: () => void;
-};
+  "& .MuiAutocomplete-listbox": {
+    "maxHeight": variant === "default" ? "484px" : "168px",
+    "padding": "4px",
 
-function SearchList({
-  debouncedValue,
-  onItemClick,
-  onListClose,
-}: SearchListProps) {
-  const { data: searchResults } = useStockSearchQuery(debouncedValue);
+    "& .MuiAutocomplete-option": {
+      "width": "100%",
+      "padding": "4px 8px",
+      "display": "flex",
+      "alignItems": "center",
+      "gap": "4px",
+      "borderRadius": "3px",
 
-  return (
-    searchResults && (
-      <StyledSearchList>
-        {searchResults.length > 0 ? (
-          searchResults.map((result) => (
-            <SearchItem
-              key={result.stockCode}
-              value={debouncedValue}
-              searchResult={result}
-              onClick={onItemClick}
-              onListClose={onListClose}
-            />
-          ))
-        ) : (
-          <div>없다</div>
-        )}
-      </StyledSearchList>
-    )
-  );
-}
-
-type SearchItemProps = {
-  value: string;
-  searchResult: StockSearchItem;
-  onClick: (stockInfo: StockInfo) => void;
-  onListClose: () => void;
-};
-
-function SearchItem({
-  value,
-  searchResult,
-  onClick,
-  onListClose,
-}: SearchItemProps) {
-  const onSearchItemClick = () => {
-    onClick({
-      companyName: searchResult.companyName,
-      tickerSymbol: searchResult.tickerSymbol,
-    });
-    onListClose();
-  };
-
-  return (
-    <StyledSearchItem onClick={onSearchItemClick}>
-      <SearchItemName>
-        {splitAndIncludeDelimiter(searchResult.companyName, value).map(
-          (word) => (word === value ? <span>{word}</span> : word)
-        )}
-      </SearchItemName>
-      <label>{searchResult.tickerSymbol}</label>
-    </StyledSearchItem>
-  );
-}
-
-const StyledSearchBar = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputContainer = styled.div`
-  width: 100%;
-  height: 32px;
-  padding: 0 8px;
-  border-radius: 3px;
-  background-color: inherit;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  display: flex;
-  gap: 8px;
-  align-items: center;
-
-  &:focus-within {
-    border-color: ${({ theme: { color } }) => color.primary.blue500};
-  }
-`;
-
-const StyledInput = styled.input`
-  width: 100%;
-  height: 16px;
-
-  &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${({ theme: { font } }) => font.body3};
-  }
-`;
-
-const StyledSearchList = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 500px;
-  top: 34px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  padding: 4px;
-  border-radius: 3px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
-  font: ${({ theme: { font } }) => font.body3};
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
-  z-index: 1;
-
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme: { color } }) => color.neutral.gray200};
-    border-radius: 4px;
-  }
-`;
-
-const StyledSearchItem = styled.div`
-  position: relative;
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  height: 50px;
-  padding: 0 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  font-weight: 400;
-  cursor: pointer;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: ${({ theme: { color } }) => color.neutral.gray50};
-  }
-
-  > label {
-    font: ${({ theme: { font } }) => font.body4};
-    color: ${({ theme: { color } }) => color.neutral.gray400};
-  }
-`;
-
-const SearchItemName = styled.div`
-  display: flex;
-  align-items: center;
-
-  > span {
-    color: ${({ theme: { color } }) => color.primary.blue500};
-  }
-`;
-
-const iconCenterPosition = {
-  width: "24px",
-  height: "24px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
+      "&:hover": {
+        backgroundColor: designSystem.color.neutral.gray50,
+      },
+    },
+  },
+});

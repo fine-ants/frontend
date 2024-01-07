@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "../NavBar";
-import SearchBar, { StockInfo } from "../SearchBar/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
 import UserControls from "../common/UserControls";
 import { PortfoliosDropdown } from "./PortfoliosDropdown";
@@ -19,6 +19,7 @@ export default function Header() {
 
   const { user } = useContext(UserContext);
 
+  // TODO: Move into PortfoliosDropdown
   const { data: portfolioList } = usePortfolioListHeaderQuery();
 
   const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
@@ -47,10 +48,6 @@ export default function Header() {
 
   const onPortfolioAddClick = () => {
     setIsPortfolioAddDialogOpen(true);
-  };
-
-  const moveToStockPage = (stockInfo: StockInfo) => {
-    navigate(`/stock/${stockInfo.tickerSymbol}`);
   };
 
   const moveToSignInPage = () => {
@@ -82,7 +79,8 @@ export default function Header() {
           </NavBar>
         </HeaderLeft>
         <HeaderRight>
-          <SearchBar onItemClick={moveToStockPage} />
+          <SearchBar sx={{ width: "300px" }} />
+
           {user ? (
             <UserControls />
           ) : (

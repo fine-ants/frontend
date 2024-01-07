@@ -1,6 +1,7 @@
 import usePortfolioHoldingAddMutation from "@api/portfolio/queries/usePortfolioHoldingAddMutation";
+import { StockSearchItem } from "@api/stock";
 import BaseDialog from "@components/BaseDialog";
-import SearchBar, { StockInfo } from "@components/SearchBar/SearchBar";
+import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
@@ -23,64 +24,70 @@ export default function PortfolioHoldingAddDialog({
     onClose,
   });
 
-  const [currentStock, setCurrentStock] = useState<StockInfo>({
-    companyName: "",
-    tickerSymbol: "",
-  });
+  const [selectedStock, setSelectedStock] = useState<StockSearchItem | null>(
+    null
+  );
 
-  const addStockToPortfolio = (tickerSymbol: string) => {
+  const onSelectOption = (stock: StockSearchItem) => {
+    setSelectedStock(stock);
+  };
+
+  const addStockToPortfolio = (stock: StockSearchItem) => {
     portfolioHoldingAddMutate({
       portfolioId,
       body: {
-        tickerSymbol,
+        tickerSymbol: stock.tickerSymbol,
       },
     });
-    setCurrentStock({
-      companyName: "",
-      tickerSymbol: "",
-    });
+    setSelectedStock(null);
   };
 
-  const addStockToDialog = (currentStock: StockInfo) => {
-    setCurrentStock(currentStock);
+  const onAddButtonClick = () => {
+    if (!selectedStock) return;
+    addStockToPortfolio(selectedStock);
   };
 
   const onDialogClose = () => {
     onClose();
-    setCurrentStock({
-      companyName: "",
-      tickerSymbol: "",
-    });
+    setSelectedStock(null);
   };
+
   const onDeleteHoldingBoxClick = () => {
-    setCurrentStock({
-      companyName: "",
-      tickerSymbol: "",
-    });
+    setSelectedStock(null);
   };
 
   return (
     <BaseDialog
-      style={PortfolioHoldingAddDialogStyle}
+      style={portfolioHoldingAddDialogStyle}
       isOpen={isOpen}
       onClose={onDialogClose}>
-      <Title>종목 추가</Title>
+      <Header>
+        <Title>종목 추가</Title>
+        {/* TODO: fix size */}
+        <IconButton onClick={onDialogClose}>
+          <Icon icon="close" size={24} color="gray600" />
+        </IconButton>
+      </Header>
 
       <SearchWrapper>
         <div>
           종목 검색 <span>*</span>
         </div>
-        <SearchBar onItemClick={addStockToDialog} />
+        <SearchBar
+          variant="select"
+          sx={{ width: "480px", height: "32px" }}
+          onSelectOption={onSelectOption}
+        />
       </SearchWrapper>
 
-      {currentStock.companyName && (
+      {selectedStock && (
         <HoldingBox>
           <TitleWrapper>
-            <label>{currentStock.companyName}</label>
-            <span>{currentStock.tickerSymbol}</span>
+            <label>{selectedStock.companyName}</label>
+            <span>{selectedStock.tickerSymbol}</span>
           </TitleWrapper>
           <IconButton onClick={onDeleteHoldingBoxClick}>
-            <Icon icon="close" size={16} color={"blue200"} />
+            <Icon icon="close" size={16} color="blue200" />
           </IconButton>
         </HoldingBox>
       )}
@@ -116,35 +123,43 @@ export default function PortfolioHoldingAddDialog({
       </InputContainer>
 
       <Button
-        style={{ marginLeft: "auto" }}
-        disabled={!currentStock.companyName}
         variant="primary"
         size="h32"
-        onClick={() => addStockToPortfolio(currentStock.tickerSymbol)}>
+        style={{ marginLeft: "auto" }}
+        disabled={!selectedStock}
+        onClick={onAddButtonClick}>
         추가
       </Button>
     </BaseDialog>
   );
 }
 
-const PortfolioHoldingAddDialogStyle = {
+const portfolioHoldingAddDialogStyle = {
   width: "544px",
   height: "547px",
   padding: "32px",
 };
 
+const Header = styled.header`
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Title = styled.div`
   font: ${({ theme: { font } }) => font.heading3};
   color: ${({ theme: { color } }) => color.neutral.gray800};
-  margin-bottom: 32px;
 `;
 
 const SearchWrapper = styled.div`
-  font: ${({ theme: { font } }) => font.title5};
+  width: 100%;
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 16px;
+  font: ${({ theme: { font } }) => font.title5};
+
   > div {
     color: ${({ theme: { color } }) => color.neutral.gray800};
 
@@ -155,19 +170,17 @@ const SearchWrapper = styled.div`
 `;
 
 const HoldingBox = styled.div`
+  width: 100%;
+  height: 64px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 480px;
-  height: 64px;
-  color: ${({ theme: { color } }) => color.primary.blue500};
-  width: 100%;
-
-  padding: 0 16px;
-  border-radius: 8px;
-  border: 1px solid ${({ theme: { color } }) => color.primary.blue50};
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  border: 1px solid ${({ theme: { color } }) => color.primary.blue50};
+  border-radius: 8px;
   font: ${({ theme: { font } }) => font.title5};
+  color: ${({ theme: { color } }) => color.primary.blue500};
 `;
 
 const TitleWrapper = styled.div`
@@ -190,7 +203,6 @@ const InputContainer = styled.div`
 
 const InputBox = styled.div`
   display: flex;
-
   gap: 8px;
 
   > label {
@@ -205,33 +217,30 @@ const InputBox = styled.div`
 `;
 
 const InputWrapper = styled.div`
+  height: 32px;
+  padding: 4px 8px;
   flex: 1;
   display: flex;
   justify-content: space-between;
-  height: 32px;
+  align-items: center;
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  padding: 4px 8px;
-
-  display: flex;
-  align-items: center;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
   font: ${({ theme: { font } }) => font.body3};
+  color: ${({ theme: { color } }) => color.neutral.gray400};
 `;
 
 const InputTextArea = styled.textarea`
-  flex: 1;
   height: 54px;
+  padding: 4px 8px;
+  flex: 1;
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  padding: 4px 8px;
-
-  display: flex;
-  align-items: center;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
   font: ${({ theme: { font } }) => font.body3};
+  color: ${({ theme: { color } }) => color.neutral.gray400};
 
   &&::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
@@ -239,12 +248,12 @@ const InputTextArea = styled.textarea`
 `;
 
 const Input = styled.input`
-  flex: 1;
   height: 100%;
+  flex: 1;
   border: none;
   outline: none;
-  color: ${({ theme: { color } }) => color.neutral.gray800};
   font: ${({ theme: { font } }) => font.body3};
+  color: ${({ theme: { color } }) => color.neutral.gray800};
 
   &&::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
