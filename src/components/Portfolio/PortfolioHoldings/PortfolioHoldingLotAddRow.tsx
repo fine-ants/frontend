@@ -1,17 +1,20 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
 import { Icon } from "@components/common/Icon";
-import { IconButton, TableCell } from "@mui/material";
+import { TableCell } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
 import styled from "styled-components";
+import { IconCalendar } from "./IconCalendar";
 
 type Props = {
   portfolioId: number;
   portfolioHoldingId: number;
+  onDeleteButtonClick: () => void;
 };
 export default function PortfolioHoldingLotAddRow({
   portfolioId,
   portfolioHoldingId,
+  onDeleteButtonClick,
 }: Props) {
   const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
   const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState("");
@@ -33,6 +36,7 @@ export default function PortfolioHoldingLotAddRow({
         memo: newMemo,
       },
     });
+    onPurchaseValuesRemove();
   };
 
   const onPurchaseValuesRemove = () => {
@@ -40,7 +44,10 @@ export default function PortfolioHoldingLotAddRow({
     setNewPurchasePricePerShare("");
     setNewNumShares("");
     setNewMemo("");
+    onDeleteButtonClick();
   };
+
+  const isValid = newPurchaseDate && newPurchasePricePerShare && newNumShares;
 
   return (
     <>
@@ -52,6 +59,12 @@ export default function PortfolioHoldingLotAddRow({
           value={newPurchaseDate}
           onChange={(newVal) => setNewPurchaseDate(newVal)}
           format="YYYY-MM-DD"
+          slotProps={{
+            textField: { placeholder: "매입 날짜" },
+          }}
+          slots={{
+            openPickerIcon: IconCalendar,
+          }}
         />
       </LotTableCell>
       <LotTableCell align="right" style={{ width: "119px" }}>
@@ -84,7 +97,11 @@ export default function PortfolioHoldingLotAddRow({
 
       <LotTableCell align="right" sx={{ width: "32px" }}>
         <IconButton onClick={onSaveClick}>
-          <Icon icon="check" size={16} color={"blue500"} />
+          <Icon
+            icon="check"
+            size={16}
+            color={isValid ? "blue500" : "gray400"}
+          />
         </IconButton>
       </LotTableCell>
 
@@ -102,10 +119,16 @@ const LotTableCell = styled(TableCell)`
   height: 40px;
   font: ${({ theme: { font } }) => font.body3};
   color: ${({ theme: { color } }) => color.neutral.gray900};
+  text-align: center;
+`;
+
+const IconButton = styled.button`
+  width: 100%;
 `;
 
 const Input = styled.input`
   width: 100%;
+  height: 24px;
   padding: 0 8px;
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
@@ -117,11 +140,17 @@ const Input = styled.input`
   &::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
+
+  &:focus {
+    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+  }
 `;
 
 const TextInput = styled.textarea`
+  margin-top: 7px;
   width: 100%;
   height: 24px;
+  text-align: left;
   padding: 0 8px;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   font: ${({ theme: { font } }) => font.body3};
@@ -132,5 +161,9 @@ const TextInput = styled.textarea`
 
   &::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
+  }
+
+  &:focus {
+    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
   }
 `;

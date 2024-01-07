@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Light scheme icon -->
+    <link rel="icon" href="/public/favicon-light.ico" id="light-scheme-icon" />
+    <!-- Dark scheme icon -->
+    <link rel="icon" href="/public/favicon-dark.ico" id="dark-scheme-icon" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FineAnts</title>
@@ -8,5 +12,24 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      const matcher = window.matchMedia("(prefers-color-scheme: light)");
+
+      const lightSchemeIcon = document.querySelector("link#light-scheme-icon");
+      const darkSchemeIcon = document.querySelector("link#dark-scheme-icon");
+
+      function onUpdate() {
+        if (matcher.matches) {
+          lightSchemeIcon.remove();
+          document.head.append(darkSchemeIcon);
+        } else {
+          darkSchemeIcon.remove();
+          document.head.append(lightSchemeIcon);
+        }
+      }
+
+      matcher.addListener(onUpdate);
+      onUpdate();
+    </script>
   </body>
 </html>

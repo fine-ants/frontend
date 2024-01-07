@@ -58,7 +58,10 @@ export default function PortfolioHoldingRow({
     portfolioHoldingDeleteMutate({ portfolioId, portfolioHoldingId });
   };
 
-  const onExpandRowClick = () => {
+  const onExpandRowClick = (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    event.stopPropagation();
     setIsRowOpen(!isRowOpen);
   };
 
@@ -72,7 +75,6 @@ export default function PortfolioHoldingRow({
         <HoldingTableCell
           style={{
             width: "40px",
-            borderRadius: "8px 0 0 8px",
             padding: "0 8px 0 16px",
           }}>
           <IconButton
@@ -82,7 +84,7 @@ export default function PortfolioHoldingRow({
             }}
             aria-label="expand row"
             size="small"
-            onClick={onExpandRowClick}>
+            onClick={(event) => onExpandRowClick(event)}>
             <Icon
               icon={isRowOpen ? "chevron-down" : "chevron-right"}
               size={16}
@@ -106,7 +108,9 @@ export default function PortfolioHoldingRow({
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
               style={{ font: designSystem.font.body3 }}
-              to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}>
+              to={`/stock/${tickerSymbol}`}
+              // to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}
+            >
               {companyName}
             </Link>
           </Typography>
@@ -138,28 +142,33 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
-          <HoldingTypography>{dailyChange}</HoldingTypography>
-          <RateBadge rate={dailyChangeRate} bgColorStatus={false} />
+          <HoldingTypography>
+            {thousandsDelimiter(dailyChange)}
+          </HoldingTypography>
+          <RateBadge size={12} rate={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <HoldingTypography>
             ₩{thousandsDelimiter(totalGain)}
           </HoldingTypography>
-          <RateBadge rate={totalReturnRate} bgColorStatus={false} />
+          <RateBadge size={12} rate={totalReturnRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell
           style={{
             width: "116px",
-            borderRadius: "0 8px 8px 0",
             padding: "0 16px 0 8px",
           }}
           align="right">
           <HoldingTypography>
             ₩{thousandsDelimiter(annualDividend)}
           </HoldingTypography>
-          <RateBadge rate={annualDividendYield} bgColorStatus={false} />
+          <RateBadge
+            size={12}
+            rate={annualDividendYield}
+            bgColorStatus={false}
+          />
         </HoldingTableCell>
       </HoldingTableRow>
 
@@ -205,8 +214,12 @@ const HoldingTableRow = styled(TableRow)`
 `;
 
 const HoldingTableCell = styled(TableCell)`
-  padding: 0 8px;
+  padding: 0px 8px;
   height: 48px;
+
+  > button {
+    padding: 0;
+  }
 `;
 
 const HoldingTypography = styled(Typography)`

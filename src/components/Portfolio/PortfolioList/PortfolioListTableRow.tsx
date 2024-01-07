@@ -75,11 +75,11 @@ export default function PortfolioListTableRow({
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
         <div>₩ {thousandsDelimiter(totalGain ?? 0)}</div>
-        <RateBadge rate={totalGainRate} bgColorStatus={false} />
+        <RateBadge size={16} rate={totalGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
         <div>₩ {thousandsDelimiter(dailyGain ?? 0)}</div>
-        <RateBadge rate={dailyGainRate} bgColorStatus={false} />
+        <RateBadge size={16} rate={dailyGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
         ₩ {thousandsDelimiter(expectedMonthlyDividend ?? 0)}

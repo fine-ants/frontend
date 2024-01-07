@@ -1,6 +1,6 @@
 import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
 import { PortfolioItem } from "@api/portfolio/types";
-import BIImage from "@assets/images/profileImage.png";
+import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
@@ -64,7 +64,6 @@ export default function Header() {
         <HeaderLeft>
           <StyledBrandIdentity onClick={onLogoClick}>
             <img src={BIImage} alt="FineAnts" />
-            FineAnts
           </StyledBrandIdentity>
           <NavBar>
             <NavBar.NavItem>

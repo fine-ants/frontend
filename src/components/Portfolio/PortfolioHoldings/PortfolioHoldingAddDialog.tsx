@@ -4,23 +4,24 @@ import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
-import { IconButton } from "@mui/material";
+import { IconButton, ThemeProvider, createTheme } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { IconCalendar } from "./IconCalendar";
 
 type Props = {
-  portfolioId: number;
   isOpen: boolean;
   onClose: () => void;
 };
 
-export default function PortfolioHoldingAddDialog({
-  portfolioId,
-  isOpen,
-  onClose,
-}: Props) {
+export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
+  const { portfolioId } = useParams();
+
   const { mutate: portfolioHoldingAddMutate } = usePortfolioHoldingAddMutation({
-    portfolioId,
+    portfolioId: Number(portfolioId),
     onClose,
   });
 
@@ -34,7 +35,7 @@ export default function PortfolioHoldingAddDialog({
 
   const addStockToPortfolio = (stock: StockSearchItem) => {
     portfolioHoldingAddMutate({
-      portfolioId,
+      portfolioId: Number(portfolioId),
       body: {
         tickerSymbol: stock.tickerSymbol,
       },
@@ -61,6 +62,7 @@ export default function PortfolioHoldingAddDialog({
       style={portfolioHoldingAddDialogStyle}
       isOpen={isOpen}
       onClose={onDialogClose}>
+
       <Header>
         <Title>종목 추가</Title>
         {/* TODO: fix size */}
@@ -95,10 +97,19 @@ export default function PortfolioHoldingAddDialog({
       <InputContainer>
         <InputBox>
           <label>매입 날짜</label>
-          <InputWrapper>
-            <Input type="text" placeholder="매입 날짜 선택" />
-            <Icon icon="calendar" size={16} color="white" />
-          </InputWrapper>
+          <ThemeProvider theme={muiTheme}>
+            <DatePicker
+              value={newPurchaseDate}
+              onChange={(newVal) => setNewPurchaseDate(newVal)}
+              format="YYYY-MM-DD"
+              slotProps={{
+                textField: { placeholder: "매입 날짜" },
+              }}
+              slots={{
+                openPickerIcon: IconCalendar,
+              }}
+            />
+          </ThemeProvider>
         </InputBox>
 
         <InputBox>
@@ -245,6 +256,10 @@ const InputTextArea = styled.textarea`
   &&::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
+
+  &:focus {
+    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+  }
 `;
 
 const Input = styled.input`
@@ -259,3 +274,106 @@ const Input = styled.input`
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
+
+const PortfolioHoldingAddDialogStyle = {
+  width: "544px",
+  height: "auto",
+  padding: "32px",
+};
+
+const muiTheme = createTheme({
+  components: {
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          width: "352px",
+          height: "32px",
+          border: "none",
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          width: "16px",
+          height: "24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          width: "24px",
+          height: "100%",
+          margin: "0",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: "0",
+          margin: "0",
+        },
+      },
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+          height: "100%",
+        },
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          width: "87px",
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          "display": "flex",
+          "padding": "4px 8px",
+          "justifyContent": "center",
+          "width": "352px",
+          "height": "32px",
+          "font": designSystem.font.body3,
+          "color": designSystem.color.neutral.gray400,
+          "borderColor": designSystem.color.neutral.gray100,
+          "backgroundColor": designSystem.color.neutral.white,
+          "&:focus": {
+            borderColor: designSystem.color.primary.blue500,
+          },
+          "&:hover": {
+            borderColor: designSystem.color.neutral.gray100,
+          },
+        },
+        input: {},
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {},
+        input: {
+          "width": "304px",
+          "height": "21px",
+          "padding": "0 0 0 0",
+          "font": designSystem.font.body3,
+          "color": designSystem.color.neutral.gray900,
+          "::placeholder": {
+            color: designSystem.color.neutral.gray700,
+          },
+        },
+      },
+    },
+  },
+});

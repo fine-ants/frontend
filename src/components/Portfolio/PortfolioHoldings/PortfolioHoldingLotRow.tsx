@@ -3,7 +3,7 @@ import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/useP
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
-import { IconButton, TableCell, TableRow } from "@mui/material";
+import { TableCell, TableRow } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { formatDate } from "@utils/date";
@@ -11,6 +11,7 @@ import { thousandsDelimiter } from "@utils/delimiters";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
+import { IconCalendar } from "./IconCalendar";
 
 type Props = {
   portfolioId: number;
@@ -103,6 +104,12 @@ export default function PortfolioHoldingLotRow({
               value={newPurchaseDate}
               onChange={(newVal) => setNewPurchaseDate(newVal)}
               format="YYYY-MM-DD"
+              slotProps={{
+                textField: { placeholder: "매입 날짜" },
+              }}
+              slots={{
+                openPickerIcon: IconCalendar,
+              }}
             />
           </LotTableCell>
           <LotTableCell align="right" style={{ width: "119px" }}>
@@ -132,13 +139,13 @@ export default function PortfolioHoldingLotRow({
             />
           </LotTableCell>
 
-          <LotTableCell align="right" sx={{ width: "32px" }}>
+          <LotTableCell align="right" style={{ width: "32px" }}>
             <IconButton onClick={onSaveClick}>
               <Icon icon="check" size={16} color={"blue500"} />
             </IconButton>
           </LotTableCell>
 
-          <LotTableCell align="right" sx={{ width: "32px" }}>
+          <LotTableCell align="right" style={{ width: "32px" }}>
             <IconButton onClick={onOpenDeleteConfirmAlert}>
               <Icon icon="remove" size={16} color={"gray400"} />
             </IconButton>
@@ -146,7 +153,7 @@ export default function PortfolioHoldingLotRow({
         </>
       ) : (
         <>
-          <LotTableCell style={{ width: "143px" }} component="th" scope="row">
+          <LotTableCell style={{ width: "151px" }} component="th" scope="row">
             {formatDate(purchaseDate)}
           </LotTableCell>
 
@@ -162,12 +169,14 @@ export default function PortfolioHoldingLotRow({
 
           <LotTableCell style={{ width: "32px" }}>
             <IconButton onClick={onEditClick}>
-              <Icon icon="edit" size={16} color={"gray400"} />
+              <Icon icon="edit" size={16} color={"gray600"} />
             </IconButton>
           </LotTableCell>
-          <LotTableCell align="right" sx={{ width: "32px" }}>
+          <LotTableCell
+            align="right"
+            style={{ width: "40px !important", boxSizing: "border-box" }}>
             <IconButton onClick={onOpenDeleteConfirmAlert}>
-              <Icon icon="remove" size={16} color={"gray400"} />
+              <Icon icon="remove" size={16} color={"gray600"} />
             </IconButton>
           </LotTableCell>
 
@@ -187,6 +196,7 @@ const LotRow = styled(TableRow)`
   width: 856px;
   height: 40px;
   padding: 8px 16px;
+  box-sizing: border-box;
 
   & > .MuiTableCell-root {
     border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
@@ -201,15 +211,26 @@ const LotRow = styled(TableRow)`
   }
 `;
 
+const IconButton = styled.button`
+  width: 100%;
+`;
+
 const LotTableCell = styled(TableCell)`
-  padding: 0 8px;
-  height: 40px;
+  padding: 4px 8px;
+
   font: ${({ theme: { font } }) => font.body3};
   color: ${({ theme: { color } }) => color.neutral.gray900};
+
+  &.MuiFormControl-root
+    MuiTextField-root
+    css-140751r-MuiFormControl-root-MuiTextField-root {
+    background-color: ${({ theme: { color } }) => color.primary.blue500};
+  }
 `;
 
 const Input = styled.input`
   width: 100%;
+  height: 24px;
   padding: 0 8px;
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
@@ -221,9 +242,14 @@ const Input = styled.input`
   &::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
+
+  &:focus {
+    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+  }
 `;
 
 const TextInput = styled.textarea`
+  margin-top: 7px;
   width: 100%;
   height: 24px;
   padding: 0 8px;
@@ -236,5 +262,9 @@ const TextInput = styled.textarea`
 
   &::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
+  }
+
+  &:focus {
+    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
   }
 `;

@@ -1,15 +1,17 @@
 import usePortfolioHoldingChartsQuery from "@api/portfolio/queries/usePortfolioHoldingChartsQuery";
 import { chartColorPalette } from "@styles/chartColorPalette";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DividendBarChartContainer from "./Dividend/DividendBarChartContainer";
 import { PieChartContainer } from "./Pie/PieChartContainer";
 import SectorBarChartContainer from "./Sector/SectorBarChartContainer";
 
-type Props = { portfolioId: number };
+export default function ChartsPanel() {
+  const { portfolioId } = useParams();
 
-export default function ChartsPanel({ portfolioId }: Props) {
-  const { data: portfolioHoldingCharts } =
-    usePortfolioHoldingChartsQuery(portfolioId);
+  const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
+    Number(portfolioId)
+  );
 
   const { pieChart, dividendChart, sectorChart } = portfolioHoldingCharts;
 

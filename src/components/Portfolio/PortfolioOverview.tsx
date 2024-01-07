@@ -6,9 +6,10 @@ import LabelBadge from "@components/common/Badges/LabelBadge";
 import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
-import securitiesFirmLogos from "@styles/securitiesFirmLogos";
-import { thousandsDelimiter } from "@utils/delimiters";
-
+import securitiesFirmLogos, {
+  SecuritiesFirm,
+} from "@styles/securitiesFirmLogos";
+import { thousandsDelimiter } from "@utils/thousandsDelimiter";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -18,9 +19,9 @@ type Props = {
 };
 
 export default function PortfolioOverview({ data }: Props) {
-  const { id } = useParams();
+  const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation(
-    Number(id)
+    Number(portfolioId)
   );
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function PortfolioOverview({ data }: Props) {
   };
 
   const onConfirmAction = () => {
-    portfolioDeleteMutate(Number(id));
+    portfolioDeleteMutate(Number(portfolioId));
   };
 
   return (
@@ -67,12 +68,14 @@ export default function PortfolioOverview({ data }: Props) {
         <Breadcrumb
           depthData={[
             { name: "내 포트폴리오", url: "/portfolios" },
-            { name: data.name, url: `/portfolio/${id}` },
+            { name: data.name, url: `/portfolio/${portfolioId}` },
           ]}
         />
         <TitleContent>
           <TitleWrapper>
-            <FirmImage src={securitiesFirmLogos["BNK투자증권"]} />
+            <FirmImage
+              src={securitiesFirmLogos[data.securitiesFirm as SecuritiesFirm]}
+            />
             <Title>{data.name}</Title>
             <LabelBadge title={data.securitiesFirm} />
           </TitleWrapper>
@@ -97,7 +100,7 @@ export default function PortfolioOverview({ data }: Props) {
       <ValuationContainer>
         <div>평가금액</div>
         <CurrentValuation>
-          ₩<span>{thousandsDelimiter(data.currentValuation)}</span>
+          ₩<span>{thousandsDelimiter(data.currentValuation ?? 0)}</span>
         </CurrentValuation>
       </ValuationContainer>
       <OverviewContainer>
@@ -125,10 +128,11 @@ export default function PortfolioOverview({ data }: Props) {
           <Overview>
             <OverviewData>
               <div>목표 수익률</div>
-              <span>₩{thousandsDelimiter(data.targetGain)}</span>
+              <span>₩{thousandsDelimiter(data.targetGain ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={data.targetReturnRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -136,10 +140,11 @@ export default function PortfolioOverview({ data }: Props) {
             </div>
             <OverviewData>
               <div>최대 손실율</div>
-              <span>₩{thousandsDelimiter(data.maximumLoss)}</span>
+              <span>₩{thousandsDelimiter(data.maximumLoss ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={-data.maximumLossRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -151,10 +156,11 @@ export default function PortfolioOverview({ data }: Props) {
           <Overview>
             <OverviewData>
               <div>총 손익</div>
-              <span>₩{thousandsDelimiter(data.totalGain)}</span>
+              <span>₩{thousandsDelimiter(data.totalGain ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={data.totalGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -162,10 +168,11 @@ export default function PortfolioOverview({ data }: Props) {
             </div>
             <OverviewData>
               <div>당일 손익</div>
-              <span>₩{thousandsDelimiter(data.dailyGain)}</span>
+              <span>₩{thousandsDelimiter(data.dailyGain ?? 0)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
+                size={16}
                 rate={data.dailyGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -175,11 +182,12 @@ export default function PortfolioOverview({ data }: Props) {
           <Overview>
             <OverviewData>
               <div>총 연배당금</div>
-              <span>₩{thousandsDelimiter(data.totalAnnualDividend)}</span>
+              <span>₩{thousandsDelimiter(data.annualDividend)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
-                rate={data.totalAnnualDividendYield}
+                size={16}
+                rate={data.annualDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -187,6 +195,7 @@ export default function PortfolioOverview({ data }: Props) {
             <OverviewData>
               <div>투자대비 연 배당률</div>
               <RateBadge
+                size={16}
                 rate={data.annualInvestmentDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
@@ -207,7 +216,6 @@ const StyledPortfolioOverview = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  width: 888px;
   height: 73px;
   display: flex;
   flex-direction: column;
@@ -244,7 +252,6 @@ const ButtonWrapper = styled.div`
 `;
 
 const ValuationContainer = styled.div`
-  width: 888px;
   height: 64px;
   display: flex;
   justify-content: space-between;
@@ -269,7 +276,6 @@ const CurrentValuation = styled.div`
 `;
 
 const OverviewContainer = styled.div`
-  width: 888px;
   display: flex;
   flex-direction: column;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};

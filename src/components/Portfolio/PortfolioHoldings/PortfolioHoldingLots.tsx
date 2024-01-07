@@ -29,8 +29,14 @@ export default function PortfolioHoldingLots({
   const [isAddHoldingPurchaseDialogOpen, setIsAddHoldingPurchaseDialogOpen] =
     useState(false);
 
-  const onAddPurchaseClick = () => {
-    setIsAddHoldingPurchaseDialogOpen(true);
+  const [isAddMode, setIsAddMode] = useState(false);
+
+  const onAddHoldingButtonClick = () => {
+    setIsAddMode(true);
+  };
+
+  const onDeleteButtonClick = () => {
+    setIsAddMode(false);
   };
 
   return (
@@ -39,7 +45,7 @@ export default function PortfolioHoldingLots({
       <LotsTable size="small" aria-label="purchases">
         <LostTableHead>
           <LotsTableHeadRow>
-            <LotsTableHeadCell style={{ width: "143px" }}>
+            <LotsTableHeadCell style={{ width: "151px" }}>
               매입 날짜
             </LotsTableHeadCell>
             <LotsTableHeadCell style={{ width: "119px" }} align="right">
@@ -52,11 +58,11 @@ export default function PortfolioHoldingLots({
               메모
             </LotsTableHeadCell>
             <LotsTableHeadCell style={{ width: "32px" }}>
-              <Icon icon="edit" size={16} color={"gray400"} />
+              <Icon icon="edit" size={16} color={"gray600"} />
             </LotsTableHeadCell>
 
-            <LotsTableHeadCell style={{ width: "32px" }}>
-              <Icon icon="remove" size={16} color={"gray400"} />
+            <LotsTableHeadCell style={{ width: "40px" }}>
+              <Icon icon="remove" size={16} color={"gray600"} />
             </LotsTableHeadCell>
           </LotsTableHeadRow>
         </LostTableHead>
@@ -70,17 +76,20 @@ export default function PortfolioHoldingLots({
               lot={lot}
             />
           ))}
-          <PortfolioHoldingLotAddRow
-            portfolioId={portfolioId}
-            portfolioHoldingId={portfolioHoldingId}
-          />
+          {isAddMode && (
+            <PortfolioHoldingLotAddRow
+              onDeleteButtonClick={onDeleteButtonClick}
+              portfolioId={portfolioId}
+              portfolioHoldingId={portfolioHoldingId}
+            />
+          )}
           <TableFooter>
             <TableRow>
               <TableCell colSpan={5} sx={{ border: "none" }}>
                 <Button
                   size="h32"
                   variant="secondary"
-                  onClick={onAddPurchaseClick}>
+                  onClick={onAddHoldingButtonClick}>
                   항목 추가
                 </Button>
               </TableCell>
@@ -107,8 +116,8 @@ const LotsTable = styled(Table)`
 `;
 
 const LostTableHead = styled(TableHead)`
-  padding: 0 8px;
-
+  margin-left: auto;
+  width: 856px;
   & > tr:last-child {
     td {
       padding-bottom: 8px;
@@ -119,11 +128,11 @@ const LostTableHead = styled(TableHead)`
 const LotsTableHeadRow = styled(TableRow)`
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
   border-radius: 8px;
-  padding: 0 8px;
+  width: 856px;
+
   & > * {
     border: none;
   }
-
   & > .MuiTableCell-root:first-child {
     padding-left: 16px;
     border-top-left-radius: 8px;

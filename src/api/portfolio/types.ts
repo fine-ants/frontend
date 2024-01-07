@@ -26,23 +26,25 @@ export type Portfolio = {
   portfolioHoldings: PortfolioHolding[];
 };
 
-type PortfolioDetailsSSE = {
-  currentValuation: number;
-  totalGain: number;
-  totalGainRate: number;
-  dailyGain: number;
-  dailyGainRate: number;
-  provisionalLossBalance: number;
-};
+type PortfolioDetailsSSE = Pick<
+  PortfolioDetails,
+  | "currentValuation"
+  | "totalGain"
+  | "totalGainRate"
+  | "dailyGain"
+  | "dailyGainRate"
+  | "provisionalLossBalance"
+>;
 
-type PortfolioHoldingsSSE = {
-  currentValuation: number;
-  currentPrice: number;
-  dailyChange: number;
-  dailyChangeRate: number;
-  totalGain: number;
-  totalReturnRate: number;
-};
+type PortfolioHoldingsSSE = Pick<
+  PortfolioHolding,
+  | "currentValuation"
+  | "currentPrice"
+  | "dailyChange"
+  | "dailyChangeRate"
+  | "totalGain"
+  | "totalReturnRate"
+>;
 
 export type PortfolioSSE = {
   portfolioDetails: PortfolioDetailsSSE;
@@ -51,7 +53,7 @@ export type PortfolioSSE = {
 
 export type PortfolioDetails = {
   id: number;
-  securitiesFirm: string;
+  securitiesFirm: SecuritiesFirm;
   name: string;
   budget: number;
   targetGain: number;
@@ -65,8 +67,8 @@ export type PortfolioDetails = {
   dailyGain: number;
   dailyGainRate: number;
   balance: number;
-  totalAnnualDividend: number;
-  totalAnnualDividendYield: number;
+  annualDividend: number;
+  annualDividendYield: number;
   annualInvestmentDividendYield: number;
   provisionalLossBalance: number;
   targetGainNotification: boolean;
