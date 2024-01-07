@@ -20,7 +20,8 @@ type Props = {
 };
 
 /**
- * @param {Function} [onSelectOption] - Must be provided when variant is `"select"`.
+ * @param {StockSearchItem[]} [selectedOptions] - Must be provided when variant is `"select-multiple"`.
+ * @param {Function} [onSelectOption] - Must be provided when variant is `"select"` or `"select-multiple"`.
  */
 export default function SearchBar({
   variant = "default",
