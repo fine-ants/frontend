@@ -2,29 +2,29 @@ import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type ProgressProps = {
-  progressIndex: number;
+  stepNumber: number;
   title: string;
   isLast: boolean;
-  currentIndex: number;
+  currentStepNumber: number;
 };
 
 export function Progress({
-  progressIndex,
+  stepNumber,
   title,
   isLast,
-  currentIndex,
+  currentStepNumber,
 }: ProgressProps) {
   return (
     <StyledProgress>
       <ProgressContent>
-        <ProgressIndex
-          $currentIndex={currentIndex}
-          $progressIndex={progressIndex}>
-          {progressIndex}
-        </ProgressIndex>
+        <ProgressStepNumber
+          $currentStepNumber={currentStepNumber}
+          $stepNumber={stepNumber}>
+          {stepNumber}
+        </ProgressStepNumber>
         <ProgressTitle
-          $currentIndex={currentIndex}
-          $progressIndex={progressIndex}>
+          $currentStepNumber={currentStepNumber}
+          $stepNumber={stepNumber}>
           {title}
         </ProgressTitle>
       </ProgressContent>
@@ -33,8 +33,8 @@ export function Progress({
           {Array.from({ length: 3 }).map((_, index) => (
             <Dot
               key={index}
-              $currentIndex={currentIndex}
-              $progressIndex={progressIndex}
+              $currentIndex={currentStepNumber}
+              $progressIndex={stepNumber}
             />
           ))}
         </Dots>
@@ -76,9 +76,9 @@ const ProgressContent = styled.div`
   gap: 4px;
 `;
 
-const ProgressIndex = styled.div<{
-  $currentIndex: number;
-  $progressIndex: number;
+const ProgressStepNumber = styled.div<{
+  $currentStepNumber: number;
+  $stepNumber: number;
 }>`
   display: flex;
   width: 24px;
@@ -88,8 +88,10 @@ const ProgressIndex = styled.div<{
   align-items: center;
   gap: 10px;
   border-radius: 12px;
-  background: ${({ $currentIndex, $progressIndex }) =>
-    getBackgroundStyle($currentIndex, $progressIndex)};
+  background: ${({
+    $currentStepNumber: $currentIndex,
+    $stepNumber: $progressIndex,
+  }) => getBackgroundStyle($currentIndex, $progressIndex)};
   color: ${designSystem.color.neutral.white};
   text-align: center;
   font-family: "IBM Plex Sans";
@@ -101,11 +103,13 @@ const ProgressIndex = styled.div<{
 `;
 
 const ProgressTitle = styled.div<{
-  $currentIndex: number;
-  $progressIndex: number;
+  $currentStepNumber: number;
+  $stepNumber: number;
 }>`
-  color: ${({ $currentIndex, $progressIndex }) =>
-    getColorStyle($currentIndex, $progressIndex)};
+  color: ${({
+    $currentStepNumber: $currentIndex,
+    $stepNumber: $progressIndex,
+  }) => getColorStyle($currentIndex, $progressIndex)};
   font: ${designSystem.font.title6};
   text-align: center;
 `;

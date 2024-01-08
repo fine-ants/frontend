@@ -18,10 +18,10 @@ export function ProgressBoard({ progressList, currentStep }: Props) {
         progressTitleList.map((title, index) => (
           <Progress
             key={index}
-            progressIndex={index + 1}
+            stepNumber={index + 1}
             title={title}
             isLast={progressTitleList.length - 1 === index}
-            currentIndex={currentIndex + 1}
+            currentStepNumber={currentIndex + 1}
           />
         ))}
     </StyledProgressBoard>
