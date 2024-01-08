@@ -32,7 +32,14 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
     validators: [nicknameValidator],
   });
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
-  const isDuplicateChecked = !duplicateCheckErrorMsg;
+  const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
+
+  const isDuplicateChecked = !duplicateCheckErrorMsg && isDuplicateComplete;
+  const errorText = isError
+    ? "영문/한글/숫자 (2~10자)으로 입력하세요."
+    : isDuplicateChecked
+    ? ""
+    : duplicateCheckErrorMsg;
 
   const debouncedNickname = useDebounce(nickname, 400);
 
@@ -42,13 +49,18 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
+    setIsDuplicateComplete(false);
     setDuplicateCheckErrorMsg("");
   };
 
   useEffect(() => {
+    if (debouncedNickname === "" || isError) return;
+
     (async () => {
       try {
         const res = await postNicknameDuplicateCheck(debouncedNickname);
+        setIsDuplicateComplete(true);
+
         if (res.code === HTTPSTATUS.success) {
           setDuplicateCheckErrorMsg("");
         }
@@ -60,7 +72,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         }
       }
     })();
-  }, [debouncedNickname]);
+  }, [debouncedNickname, isError]);
 
   return (
     <SubPage>
@@ -73,10 +85,10 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         </AuthPageTitleCaption>
       </AuthPageHeader>
       <TextField
-        error={isError}
+        error={isError || !isDuplicateChecked}
         placeholder="닉네임"
         value={nickname}
-        errorText={duplicateCheckErrorMsg}
+        errorText={errorText}
         onChange={onNicknameChange}
         clearValue={onEmailClear}
       />
@@ -85,7 +97,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         disabled={isError || !isDuplicateChecked}
         type="button"
         onClick={() => onNext(nickname)}>
-        다음
+        다음 단계
       </NextButton>
     </SubPage>
   );

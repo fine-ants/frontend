@@ -51,7 +51,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
       </AuthPageHeader>
 
       <PasswordTextField
-        error={isPasswordError}
+        error={isPasswordError && password !== ""}
         password={password}
         onChange={(e) => onPasswordChange(e.target.value.trim())}
         placeholder="비밀번호"
@@ -59,7 +59,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
       />
 
       <PasswordTextField
-        error={isPasswordMismatch}
+        error={isPasswordMismatch && passwordConfirm !== ""}
         password={passwordConfirm}
         onChange={(e) => onPasswordConfirmChange(e.target.value.trim())}
         placeholder="비밀번호 확인"

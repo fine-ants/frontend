@@ -29,7 +29,6 @@ export type SignUpData = {
   email: string;
   password: string;
   passwordConfirm: string;
-  verificationCode: string;
 };
 
 export type OAuthProvider = "google" | "naver" | "kakao";
@@ -108,17 +107,15 @@ export const patchUserInfo = async (body: FormData) => {
 };
 
 export const postNicknameDuplicateCheck = async (nickname: string) => {
-  const res = await fetcher.post<Response<null>>(
-    "/auth/signup/duplicationcheck/nickname",
-    { nickname }
+  const res = await fetcher.get<Response<null>>(
+    `/auth/signup/duplicationcheck/nickname/${nickname}`
   );
   return res.data;
 };
 
 export const postEmailDuplicateCheck = async (email: string) => {
-  const res = await fetcher.post<Response<null>>(
-    "/auth/signup/duplicationcheck/email",
-    { email }
+  const res = await fetcher.get<Response<null>>(
+    `/auth/signup/duplicationcheck/email/${email}`
   );
   return res.data;
 };
@@ -126,6 +123,20 @@ export const postEmailDuplicateCheck = async (email: string) => {
 export const postEmailVerification = async (email: string) => {
   const res = await fetcher.post<Response<null>>("/auth/signup/verifyEmail", {
     email,
+  });
+  return res.data;
+};
+
+export const postEmailCodeVerification = async ({
+  email,
+  code,
+}: {
+  email: string;
+  code: string;
+}) => {
+  const res = await fetcher.post("/auth/signup/verifyCode", {
+    email,
+    code,
   });
   return res.data;
 };
