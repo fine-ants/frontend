@@ -19,14 +19,14 @@ type Props = {
   onNext: () => void;
 };
 
+const verificationCodeInputLength = 6;
+
 export default function VerificationCodeSubPage({
   email,
   resendVerificationEmail,
   onPrev,
   onNext,
 }: Props) {
-  const verificationCodeInputLength = 6;
-
   const { isSuccess, isError, mutateAsync } =
     useEmailCodeVerificationMutation();
   const [digits, setDigits] = useState("");
