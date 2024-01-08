@@ -23,16 +23,16 @@ export default function SignUpPage() {
 
   const stepList = [
     "main",
-    "nickname",
     "email",
     "verification",
     "password",
+    "nickname",
     "profileImage",
   ];
   const progressList = {
-    "닉네임 입력": ["nickname"],
     "이메일 입력/인증": ["email", "verification"],
     "비밀번호 생성": ["password"],
+    "닉네임 입력": ["nickname"],
     "프로필 이미지 등록": ["profileImage"],
   };
 
@@ -55,22 +55,12 @@ export default function SignUpPage() {
         <SubPageContainer>
           <Funnel>
             <Funnel.Step name="main">
-              <MainSubPage onNext={() => changeStep("nickname")} />
-            </Funnel.Step>
-
-            <Funnel.Step name="nickname">
-              <NicknameSubPage
-                onPrev={() => changeStep("main")}
-                onNext={(data: string) => {
-                  setSignUpData((prev) => ({ ...prev, nickname: data }));
-                  changeStep("email");
-                }}
-              />
+              <MainSubPage onNext={() => changeStep("email")} />
             </Funnel.Step>
 
             <Funnel.Step name="email">
               <EmailSubPage
-                onPrev={() => changeStep("nickname")}
+                onPrev={() => changeStep("main")}
                 onNext={(data: string) => {
                   setSignUpData((prev) => ({ ...prev, email: data }));
                   // Request server to send verification code
@@ -84,12 +74,9 @@ export default function SignUpPage() {
             <Funnel.Step name="verification">
               <VerificationSubPage
                 email={signUpData.email}
+                resend={() => postEmailVerification(signUpData.email)}
                 onPrev={() => changeStep("email")}
-                onNext={(data: string) => {
-                  setSignUpData((prev) => ({
-                    ...prev,
-                    verificationCode: data,
-                  }));
+                onNext={() => {
                   changeStep("password");
                 }}
               />
@@ -109,9 +96,19 @@ export default function SignUpPage() {
               />
             </Funnel.Step>
 
+            <Funnel.Step name="nickname">
+              <NicknameSubPage
+                onPrev={() => changeStep("password")}
+                onNext={(data: string) => {
+                  setSignUpData((prev) => ({ ...prev, nickname: data }));
+                  changeStep("email");
+                }}
+              />
+            </Funnel.Step>
+
             <Funnel.Step name="profileImage">
               <ProfileImageSubPage
-                onPrev={() => changeStep("password")}
+                onPrev={() => changeStep("nickname")}
                 onNext={(data: File | null) => {
                   setSignUpData((prev) => ({ ...prev, profileImage: data }));
                   signUpMutate(createSignUpFormData(signUpData));
