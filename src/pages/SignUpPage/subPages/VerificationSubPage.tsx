@@ -14,22 +14,25 @@ import SubPage from "./SubPage";
 
 type Props = {
   email: string;
-  resend: () => void;
+  resendVerificationEmail: () => void;
   onPrev: () => void;
   onNext: () => void;
 };
 
 export default function VerificationCodeSubPage({
   email,
-  resend,
+  resendVerificationEmail,
   onPrev,
   onNext,
 }: Props) {
+  const verificationCodeInputLength = 6;
+
   const { isSuccess, isError, mutateAsync } =
     useEmailCodeVerificationMutation();
   const [digits, setDigits] = useState("");
 
-  const isButtonDisabled = digits.length === 6 && isSuccess;
+  const isButtonDisabled =
+    digits.length === verificationCodeInputLength && isSuccess;
 
   const onDigitsChange = (digits: string) => {
     setDigits(digits);
@@ -41,7 +44,7 @@ export default function VerificationCodeSubPage({
 
   const onEmailCodeResend = () => {
     setDigits("");
-    resend();
+    resendVerificationEmail();
   };
 
   return (
@@ -58,6 +61,7 @@ export default function VerificationCodeSubPage({
       <CodeInputWrapper>
         <VerificationCodeInput
           value={digits}
+          inputLength={verificationCodeInputLength}
           isError={isError}
           onChange={onDigitsChange}
           onComplete={onDigitsFilled}

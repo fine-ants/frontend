@@ -5,6 +5,7 @@ import styled from "styled-components";
 type Props = {
   isError: boolean;
   value: string;
+  inputLength: number;
   onChange: (digits: string) => void;
   onComplete: (digits: string) => void;
 };
@@ -12,6 +13,7 @@ type Props = {
 export default function VerificationCodeInput({
   value,
   isError,
+  inputLength,
   onChange,
   onComplete,
 }: Props) {
@@ -21,7 +23,7 @@ export default function VerificationCodeInput({
         value={value}
         validChars="0-9"
         inputProps={{ inputMode: "numeric" }}
-        length={6}
+        length={inputLength}
         placeholder=""
         classNames={{
           character: "character",
