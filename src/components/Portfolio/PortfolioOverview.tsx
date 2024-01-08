@@ -9,7 +9,7 @@ import Button from "@components/common/Buttons/Button";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";

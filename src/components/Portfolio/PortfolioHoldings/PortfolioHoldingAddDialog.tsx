@@ -29,6 +29,8 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     null
   );
 
+  const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
+
   const onSelectOption = (stock: StockSearchItem) => {
     setSelectedStock(stock);
   };
@@ -62,7 +64,6 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       style={portfolioHoldingAddDialogStyle}
       isOpen={isOpen}
       onClose={onDialogClose}>
-
       <Header>
         <Title>종목 추가</Title>
         {/* TODO: fix size */}
@@ -147,7 +148,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
 
 const portfolioHoldingAddDialogStyle = {
   width: "544px",
-  height: "547px",
+  height: "auto",
   padding: "32px",
 };
 
@@ -274,12 +275,6 @@ const Input = styled.input`
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
-
-const PortfolioHoldingAddDialogStyle = {
-  width: "544px",
-  height: "auto",
-  padding: "32px",
-};
 
 const muiTheme = createTheme({
   components: {
