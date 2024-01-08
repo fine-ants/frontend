@@ -127,10 +127,13 @@ export const postEmailVerification = async (email: string) => {
   return res.data;
 };
 
-export const postEmailCodeVerification = async (
-  email: string,
-  code: string
-) => {
+export const postEmailCodeVerification = async ({
+  email,
+  code,
+}: {
+  email: string;
+  code: string;
+}) => {
   const res = await fetcher.post("/auth/signup/verifyCode", {
     email,
     code,

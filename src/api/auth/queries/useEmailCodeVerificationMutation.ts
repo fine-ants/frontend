@@ -1,10 +1,10 @@
-import { postEmailCodeVerification } from "@api/auth";
 import { useMutation } from "@tanstack/react-query";
+import { postEmailCodeVerification } from "..";
 
 export default function useEmailCodeVerificationMutation() {
   return useMutation({
-    mutationFn: ({ email, code }: { email: string; code: string }) =>
-      postEmailCodeVerification(email, code),
+    mutationFn: (data: { email: string; code: string }) =>
+      postEmailCodeVerification(data),
     retry: 0,
   });
 }
