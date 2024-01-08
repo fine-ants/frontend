@@ -7,7 +7,7 @@ import { TableCell, TableRow } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { formatDate } from "@utils/date";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";

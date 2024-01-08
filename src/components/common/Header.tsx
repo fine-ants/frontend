@@ -5,12 +5,11 @@ import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
 import Routes from "@router/Routes";
-import designSystem from "@styles/designSystem";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "../NavBar";
-import SearchBar, { StockInfo } from "../SearchBar/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
 import UserControls from "../common/UserControls";
 import { PortfoliosDropdown } from "./PortfoliosDropdown";
@@ -20,6 +19,7 @@ export default function Header() {
 
   const { user } = useContext(UserContext);
 
+  // TODO: Move into PortfoliosDropdown
   const { data: portfolioList } = usePortfolioListHeaderQuery();
 
   const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
@@ -28,20 +28,18 @@ export default function Header() {
   const navItems = [
     {
       name: "Watchlists",
-      path: Routes.WATCHLISTS,
+      to: Routes.WATCHLISTS,
     },
-    { name: "Indices", path: Routes.INDICES },
+    { name: "Indices", to: Routes.INDICES },
   ];
 
   const portfolioDropdownItems = portfolioList?.portfolios?.map(
-    (portfolio: PortfolioItem) => {
-      return {
-        name: portfolio.name,
-        onClick: () => {
-          navigate(`/portfolio/${portfolio.id}`);
-        },
-      };
-    }
+    (portfolio: PortfolioItem) => ({
+      name: portfolio.name,
+      onClick: () => {
+        navigate(`/portfolio/${portfolio.id}`);
+      },
+    })
   );
 
   const onLogoClick = () => {
@@ -50,10 +48,6 @@ export default function Header() {
 
   const onPortfolioAddClick = () => {
     setIsPortfolioAddDialogOpen(true);
-  };
-
-  const moveToStockPage = (stockInfo: StockInfo) => {
-    navigate(`/stock/${stockInfo.tickerSymbol}`);
   };
 
   const moveToSignInPage = () => {
@@ -71,22 +65,21 @@ export default function Header() {
           <StyledBrandIdentity onClick={onLogoClick}>
             <img src={BIImage} alt="FineAnts" />
           </StyledBrandIdentity>
-          <NavBar style={navBarStyles}>
-            <PortfoliosDropdown
-              portfolioDropdownItems={portfolioDropdownItems}
-              onPortfolioAddClick={onPortfolioAddClick}
-            />
-            {navItems.map((item) => (
-              <NavBar.NavItem
-                key={item.name}
-                item={item}
-                style={navItemStyle}
+          <NavBar>
+            <NavBar.NavItem>
+              <PortfoliosDropdown
+                portfolioDropdownItems={portfolioDropdownItems}
+                onPortfolioAddClick={onPortfolioAddClick}
               />
+            </NavBar.NavItem>
+            {navItems.map((item) => (
+              <NavBar.NavItem key={item.name} item={item} />
             ))}
           </NavBar>
         </HeaderLeft>
         <HeaderRight>
-          <SearchBar onItemClick={moveToStockPage} />
+          <SearchBar sx={{ width: "328px" }} />
+
           {user ? (
             <UserControls />
           ) : (
@@ -148,23 +141,3 @@ const StyledBrandIdentity = styled.div`
   font-weight: bold;
   cursor: pointer;
 `;
-
-const navBarStyles = {
-  backgroundColor: designSystem.color.neutral.gray900,
-  display: "flex",
-  gap: "40px",
-  alignItems: "center",
-  font: designSystem.font.title4,
-  letterSpacing: "-0.02em",
-};
-
-const navItemStyle = {
-  width: "80px",
-  height: "40px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  font: designSystem.font.title4,
-  letterSpacing: "-0.02em",
-  cursor: "pointer",
-};

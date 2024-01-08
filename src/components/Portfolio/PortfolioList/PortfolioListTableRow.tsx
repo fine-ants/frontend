@@ -3,7 +3,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { TableCell, TableRow } from "@mui/material";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

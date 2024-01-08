@@ -4,7 +4,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
 import { IconButton, TableCell, TableRow } from "@mui/material";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
