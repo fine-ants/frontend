@@ -31,7 +31,14 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   });
 
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
-  const isDuplicateChecked = !duplicateCheckErrorMsg;
+  const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
+
+  const isDuplicateChecked = !duplicateCheckErrorMsg && isDuplicateComplete;
+  const errorText = isError
+    ? "올바른 형식의 이메일을 입력하세요."
+    : isDuplicateChecked
+    ? ""
+    : duplicateCheckErrorMsg;
 
   const debouncedEmail = useDebounce(email, 400);
 
@@ -41,6 +48,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
+    setIsDuplicateComplete(false);
     setDuplicateCheckErrorMsg("");
   };
 
@@ -50,6 +58,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
     (async () => {
       try {
         const res = await postEmailDuplicateCheck(debouncedEmail);
+        setIsDuplicateComplete(true);
 
         if (res.code === HTTPSTATUS.success) {
           setDuplicateCheckErrorMsg("");
@@ -79,7 +88,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         error={isError || !isDuplicateChecked}
         placeholder="이메일"
         value={email}
-        errorText={duplicateCheckErrorMsg}
+        errorText={errorText}
         onChange={onEmailChange}
         clearValue={onEmailClear}
       />

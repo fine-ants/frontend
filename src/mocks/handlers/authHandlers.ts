@@ -58,10 +58,10 @@ export default [
     );
   }),
 
-  rest.post(
-    "/api/auth/signup/duplicationcheck/nickname",
+  rest.get(
+    "/api/auth/signup/duplicationcheck/nickname/:nickname",
     async (req, res, ctx) => {
-      const { nickname } = await req.json();
+      const nickname = req.params.nickname;
 
       if (nickname === "duplicate") {
         return res(
@@ -77,10 +77,10 @@ export default [
     }
   ),
 
-  rest.post(
-    "/api/auth/signup/duplicationcheck/email",
+  rest.get(
+    "/api/auth/signup/duplicationcheck/email/:email",
     async (req, res, ctx) => {
-      const { email } = await req.json();
+      const email = req.params.email;
 
       if (email === "duplicate@email.com") {
         return res(
