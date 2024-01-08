@@ -3,26 +3,24 @@ import { Progress } from "./Progress";
 
 type Props = {
   currentStep: string;
-  progressList: {
-    [key: string]: string[];
-  };
+  progressList: { title: string; step: string[] }[];
 };
 
 export function ProgressBoard({ progressList, currentStep }: Props) {
-  const progressTitle = Object.keys(progressList);
-  const currentIndex = progressTitle.findIndex((title) =>
-    progressList[title].includes(currentStep)
+  const progressTitleList = progressList.map((progress) => progress.title);
+  const currentIndex = progressList.findIndex((item) =>
+    item.step.includes(currentStep)
   );
 
   return (
     <StyledProgressBoard>
       {currentIndex >= 0 &&
-        progressTitle.map((title, index) => (
+        progressTitleList.map((title, index) => (
           <Progress
             key={index}
             progressIndex={index + 1}
             title={title}
-            isLast={progressTitle.length - 1 === index}
+            isLast={progressTitleList.length - 1 === index}
             currentIndex={currentIndex + 1}
           />
         ))}

@@ -29,12 +29,12 @@ export default function SignUpPage() {
     "nickname",
     "profileImage",
   ];
-  const progressList = {
-    "이메일 입력/인증": ["email", "verification"],
-    "비밀번호 생성": ["password"],
-    "닉네임 입력": ["nickname"],
-    "프로필 이미지 등록": ["profileImage"],
-  };
+  const progressList = [
+    { title: "이메일 입력/인증", step: ["email", "verification"] },
+    { title: "비밀번호 생성", step: ["password"] },
+    { title: "닉네임 입력", step: ["nickname"] },
+    { title: "프로필 이미지 등록", step: ["profileImage"] },
+  ];
 
   const { currentStep, Funnel, changeStep } = useFunnel(stepList);
   const [signUpData, setSignUpData] = useState<SignUpData>({
@@ -73,7 +73,9 @@ export default function SignUpPage() {
             <Funnel.Step name="verification">
               <VerificationSubPage
                 email={signUpData.email}
-                resend={() => postEmailVerification(signUpData.email)}
+                resendVerificationEmail={() =>
+                  postEmailVerification(signUpData.email)
+                }
                 onPrev={() => changeStep("email")}
                 onNext={() => {
                   changeStep("password");
