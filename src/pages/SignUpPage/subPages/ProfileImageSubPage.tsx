@@ -4,6 +4,7 @@ import {
   AuthPageHeader,
   AuthPageTitle,
   AuthPageTitleCaption,
+  NextButton,
 } from "@components/auth/AuthPageCommon";
 import { Icon } from "@components/common/Icon";
 import { useImageInput } from "@fineants/demolition";
@@ -23,6 +24,10 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
     error: imageFileError,
     onChange: onProfilePictureChange,
   } = useImageInput({ sizeLimit: 2000000 });
+
+  const submit = () => {
+    onNext(profileImageFile);
+  };
 
   return (
     <SubPage>
@@ -56,12 +61,12 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
 
       <NextButton
         type="button"
-        onClick={() => onNext(profileImageFile)}
-        disabled={imageFileError.length > 0}>
+        onClick={submit}
+        disabled={profileImageFile === null}>
         등록 완료
       </NextButton>
       <Container>
-        <TextButton onClick={() => {}}>지금은 건너뛰기</TextButton>
+        <TextButton onClick={submit}>지금은 건너뛰기</TextButton>
       </Container>
     </SubPage>
   );
@@ -132,12 +137,4 @@ const Container = styled.div`
 
 const ErrorCaption = styled.p`
   color: red;
-`;
-
-const NextButton = styled.button<{ disabled: boolean }>`
-  width: 100%;
-  height: 48px;
-  background-color: ${({ disabled }) => (disabled ? "#c4c4c4" : "#2d3bae")};
-  border-radius: 8px;
-  color: white;
 `;

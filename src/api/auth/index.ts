@@ -29,7 +29,6 @@ export type SignUpData = {
   email: string;
   password: string;
   passwordConfirm: string;
-  verificationCode: string;
 };
 
 export type OAuthProvider = "google" | "naver" | "kakao";

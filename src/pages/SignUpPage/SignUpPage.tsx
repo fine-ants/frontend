@@ -41,7 +41,6 @@ export default function SignUpPage() {
     nickname: "",
     profileImage: null,
     email: "",
-    verificationCode: "",
     password: "",
     passwordConfirm: "",
   });
