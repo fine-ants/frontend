@@ -18,7 +18,7 @@ export default function AuthBasePage({ children }: Props) {
   return (
     <StyledBasePage>
       <StyledSignInHeader onClick={onLogoClick}>
-        <img src={fineAntsLogo} />
+        <img src={fineAntsLogo} alt="fineAnts 로고 이미지" />
       </StyledSignInHeader>
       {children}
     </StyledBasePage>

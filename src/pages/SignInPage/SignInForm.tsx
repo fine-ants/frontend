@@ -83,60 +83,58 @@ export default function SignInForm() {
   const isAllFieldsFilled = !!email && !emailError && !!password;
 
   return (
-    <div>
-      <SignInContainer>
-        <AuthPageHeader>
-          <AuthPageTitle>로그인</AuthPageTitle>
-          <AuthPageTitleCaption>
-            이메일 또는 소셜 계정으로 로그인하세요
-          </AuthPageTitleCaption>
-        </AuthPageHeader>
-        <Form onSubmit={onSignInSubmit}>
-          <InputControl>
-            <TextInputLabel>이메일</TextInputLabel>
-            <TextField
-              error={!!emailError}
-              placeholder="이메일"
-              value={email}
-              errorText={emailError}
-              onChange={(e) => onEmailChange(e.target.value.trim())}
-              clearValue={onEmailClear}
-            />
-          </InputControl>
-          <InputControl>
-            <TextInputLabel>비밀번호</TextInputLabel>
-            <PasswordTextField
-              placeholder="비밀번호를 입력해주세요"
-              password={password}
-              onChange={(e) => onPasswordChange(e.target.value.trim())}
-            />
-            {passwordError && <TextInputError>{passwordError}</TextInputError>}
-            <SupportContainer>
-              <FormControlLabel>
-                <CheckBox size="h20" />내 정보 기억하기
-              </FormControlLabel>
-              <TextButton>비밀번호를 잊으셨나요?</TextButton>
-            </SupportContainer>
-          </InputControl>
+    <SignInContainer>
+      <AuthPageHeader>
+        <AuthPageTitle>로그인</AuthPageTitle>
+        <AuthPageTitleCaption>
+          이메일 또는 소셜 계정으로 로그인하세요
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
+      <Form onSubmit={onSignInSubmit}>
+        <InputControl>
+          <TextInputLabel>이메일</TextInputLabel>
+          <TextField
+            error={!!emailError}
+            placeholder="이메일"
+            value={email}
+            errorText={emailError}
+            onChange={(e) => onEmailChange(e.target.value.trim())}
+            clearValue={onEmailClear}
+          />
+        </InputControl>
+        <InputControl>
+          <TextInputLabel>비밀번호</TextInputLabel>
+          <PasswordTextField
+            placeholder="비밀번호를 입력해주세요"
+            password={password}
+            onChange={(e) => onPasswordChange(e.target.value.trim())}
+          />
+          {passwordError && <TextInputError>{passwordError}</TextInputError>}
+          <SupportContainer>
+            <FormControlLabel>
+              <CheckBox size="h20" />내 정보 기억하기
+            </FormControlLabel>
+            <TextButton>비밀번호를 잊으셨나요?</TextButton>
+          </SupportContainer>
+        </InputControl>
 
-          <SignInButton type="submit" disabled={!isAllFieldsFilled}>
-            로그인
-          </SignInButton>
-        </Form>
+        <SignInButton type="submit" disabled={!isAllFieldsFilled}>
+          로그인
+        </SignInButton>
+      </Form>
 
-        <SignInButtonContainer>
-          <SocialLoginButton provider="google" />
-          <SocialLoginButton provider="kakao" />
-          <SocialLoginButton provider="naver" />
-        </SignInButtonContainer>
-        <SignUpWrapper>
-          아직 계정이 없으신가요?
-          <SignUpButton type="button" onClick={() => navigate(Routes.SIGNUP)}>
-            회원가입하기
-          </SignUpButton>
-        </SignUpWrapper>
-      </SignInContainer>
-    </div>
+      <SignInButtonContainer>
+        <SocialLoginButton provider="google" />
+        <SocialLoginButton provider="kakao" />
+        <SocialLoginButton provider="naver" />
+      </SignInButtonContainer>
+      <SignUpWrapper>
+        아직 계정이 없으신가요?
+        <SignUpButton type="button" onClick={() => navigate(Routes.SIGNUP)}>
+          회원가입하기
+        </SignUpButton>
+      </SignUpWrapper>
+    </SignInContainer>
   );
 }
 

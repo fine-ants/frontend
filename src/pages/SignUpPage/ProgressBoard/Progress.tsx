@@ -90,7 +90,6 @@ const ProgressIndex = styled.div<{
   border-radius: 12px;
   background: ${({ $currentIndex, $progressIndex }) =>
     getBackgroundStyle($currentIndex, $progressIndex)};
-
   color: ${designSystem.color.neutral.white};
   text-align: center;
   font-family: "IBM Plex Sans";
