@@ -28,6 +28,31 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     []
   );
 
+  const completeHandler = useMemo(
+    () => ({
+      handleEvent: (event: MessageEvent) => {
+        const { data } = event;
+        console.log("data:", data);
+
+        setData(data);
+        setIsLoading(false);
+      },
+    }),
+    []
+  );
+
+  // const completeHandler = (eventSource: EventSource) => {
+  //   const { data } = eventSource;
+
+  //   if (data === "retry") {
+  //     // 장시간이면 재연결 시도.
+  //     reconnect();
+  //   } else {
+  //     // 장시간이 아니면 끊기.
+  //     onClose();
+  //   }
+  // };
+
   const initEventSource = useCallback(() => {
     eventSourceRef.current = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
       headers: {
@@ -41,8 +66,8 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     };
 
     eventSourceRef.current.addEventListener(eventTypeName, eventListener);
-    eventSourceRef.current?.addEventListener("complete", onClose);
-  }, [accessToken, url, eventTypeName, eventListener]);
+    eventSourceRef.current.addEventListener("complete", completeHandler);
+  }, [url, accessToken, eventTypeName, eventListener, completeHandler]);
 
   useEffect(() => {
     if (eventSourceRef) {
