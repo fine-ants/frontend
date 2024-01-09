@@ -13,13 +13,15 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [shouldReconnect, setShouldReconnect] = useState(true);
 
   const eventSourceRef = useRef<EventSourcePolyfill>();
 
-  const eventListener = useMemo(
+  const messageListener = useMemo(
     () => ({
       handleEvent: (event: MessageEvent) => {
         const data = JSON.parse(event.data);
+        console.log("normal event:", event);
 
         setData(data);
         setIsLoading(false);
@@ -28,30 +30,20 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     []
   );
 
+  // For when the server is indicating that there is no need to reconnect.
   const completeHandler = useMemo(
     () => ({
       handleEvent: (event: MessageEvent) => {
         const { data } = event;
-        console.log("data:", data);
+        console.log("complete event:", event);
 
         setData(data);
         setIsLoading(false);
+        setShouldReconnect(false);
       },
     }),
     []
   );
-
-  // const completeHandler = (eventSource: EventSource) => {
-  //   const { data } = eventSource;
-
-  //   if (data === "retry") {
-  //     // 장시간이면 재연결 시도.
-  //     reconnect();
-  //   } else {
-  //     // 장시간이 아니면 끊기.
-  //     onClose();
-  //   }
-  // };
 
   const initEventSource = useCallback(() => {
     eventSourceRef.current = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
@@ -65,19 +57,18 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
       onClose();
     };
 
-    eventSourceRef.current.addEventListener(eventTypeName, eventListener);
+    eventSourceRef.current.addEventListener(eventTypeName, messageListener);
     eventSourceRef.current.addEventListener("complete", completeHandler);
-  }, [url, accessToken, eventTypeName, eventListener, completeHandler]);
+  }, [url, accessToken, eventTypeName, messageListener, completeHandler]);
 
   useEffect(() => {
-    if (eventSourceRef) {
-      initEventSource();
-    }
-  }, [initEventSource]);
+    if (!shouldReconnect) return;
 
-  useEffect(() => {
+    console.log("attempt to connect");
+    initEventSource();
+
     return onClose;
-  });
+  }, [shouldReconnect, initEventSource]);
 
   const onClose = () => {
     eventSourceRef.current?.close();
