@@ -35,21 +35,19 @@ fetcher.interceptors.response.use(
     ) {
       originalRequest._retry = true;
 
-      try {
-        const res = await refreshAccessToken();
-        localStorage.setItem("accessToken", res.data?.accessToken);
-        return fetcher(originalRequest);
-      } catch (refreshError) {
-        // Refresh token expired.
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-
-        // TODO: navigate the user to `/signin` while displaying the toast
-        window.location.href = Routes.SIGNIN;
-        return Promise.reject(refreshError);
-      }
+      const res = await refreshAccessToken();
+      localStorage.setItem("accessToken", res.data?.accessToken);
+      return fetcher(originalRequest);
     }
 
+    if (error.response.status === HTTPSTATUS.unAuthorized) {
+      // Refresh token expired.
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+
+      // TODO: navigate the user to `/signin` while displaying the toast
+      window.location.href = Routes.SIGNIN;
+    }
     return Promise.reject(error);
   }
 );
