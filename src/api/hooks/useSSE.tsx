@@ -54,7 +54,6 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
     eventSourceRef.current.onerror = () => {
       setIsError(true);
-      onClose();
     };
 
     eventSourceRef.current.addEventListener(eventTypeName, messageListener);
@@ -64,11 +63,12 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   useEffect(() => {
     if (!shouldReconnect) return;
 
-    console.log("attempt to connect");
     initEventSource();
-
-    return onClose;
   }, [shouldReconnect, initEventSource]);
+
+  useEffect(() => {
+    return onClose;
+  }, []);
 
   const onClose = () => {
     eventSourceRef.current?.close();
