@@ -22,5 +22,6 @@ const StyledDividendBarChartContainer = styled.div`
 `;
 
 const ChartLabel = styled.h1`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${({ theme: { font } }) => font.heading3.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
 `;

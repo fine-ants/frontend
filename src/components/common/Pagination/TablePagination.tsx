@@ -118,7 +118,8 @@ const StyledTablePagination = styled(MuiTablePagination)`
     background-color: transparent;
     border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
     border-radius: 2px;
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${({ theme: { font } }) => font.body3.font};
+    letter-spacing: ${({ theme: { font } }) => font.body3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray900};
 
     &:hover {
@@ -132,14 +133,16 @@ const StyledTablePagination = styled(MuiTablePagination)`
 
   & .${tablePaginationClasses.displayedRows} {
     margin: 0 auto 0 8px;
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${({ theme: { font } }) => font.body3.font};
+    letter-spacing: ${({ theme: { font } }) => font.body3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 `;
 
 const StyledLabelRowsPerPage = styled.span`
   margin-right: 8px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
+  letter-spacing: ${({ theme: { font } }) => font.body3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 
   > span {

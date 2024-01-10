@@ -21,7 +21,8 @@ const StyledGlobalErrorPage = styled.div`
 `;
 
 const Title = styled.h3`
-  font: ${({ theme }) => theme.font.heading3};
+  font: ${({ theme }) => theme.font.heading3.font};
+  letter-spacing: ${({ theme }) => theme.font.heading3.letterSpacing};
 `;
 
 const Content = styled.p`

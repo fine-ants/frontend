@@ -218,7 +218,7 @@ const IconButton = styled.button`
 const LotTableCell = styled(TableCell)`
   padding: 4px 8px;
 
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &.MuiFormControl-root
@@ -234,7 +234,7 @@ const Input = styled.input`
   padding: 0 8px;
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border-radius: 2px;
@@ -254,7 +254,7 @@ const TextInput = styled.textarea`
   height: 24px;
   padding: 0 8px;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border-radius: 2px;

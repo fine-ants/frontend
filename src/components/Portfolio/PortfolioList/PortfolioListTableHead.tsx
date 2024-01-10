@@ -169,7 +169,8 @@ const StyledTableCell = styled(TableCell)`
   }
 
   & > .${tableSortLabelClasses.root} {
-    font: ${({ theme: { font } }) => font.body5};
+    font: ${({ theme: { font } }) => font.title5.font};
+    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
   }
 `;
 

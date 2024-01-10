@@ -90,13 +90,16 @@ const MessageBox = styled.div`
   height: 82px;
 
   > h1 {
-    font: ${({ theme: { font } }) => font.title3};
+    font: ${({ theme: { font } }) => font.title3.font};
+    letter-spacing: ${({ theme: { font } }) => font.title3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
   > span {
     text-align: center;
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${({ theme: { font } }) => font.body3.font};
+    letter-spacing: ${({ theme: { font } }) => font.body3.letterSpacing};
+
     color: ${({ theme: { color } }) => color.neutral.gray500};
   }
 `;
@@ -106,9 +109,8 @@ const TabWrapper = styled.div`
 `;
 
 const ChartTitle = styled.div`
-  font-size: 24px;
-  line-height: 29px;
-  font-weight: bold;
+  font: ${({ theme: { font } }) => font.heading3.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
 `;
 
 const TooltipRemover = styled.div`

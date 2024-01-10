@@ -238,7 +238,7 @@ const muiTheme = createTheme({
           justifyContent: "center",
           width: "127px",
           height: "24px",
-          font: designSystem.font.body3,
+          font: designSystem.font.body3.font,
           backgroundColor: designSystem.color.neutral.white,
           textAlign: "left",
         },
@@ -253,7 +253,7 @@ const muiTheme = createTheme({
         input: {
           width: "87px",
           padding: "0 0 0 0",
-          font: designSystem.font.body3,
+          font: designSystem.font.body3.font,
         },
       },
     },

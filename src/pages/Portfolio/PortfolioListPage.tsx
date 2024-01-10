@@ -39,7 +39,8 @@ const Header = styled.header`
   justify-content: space-between;
 
   h1 {
-    font: ${({ theme: { font } }) => font.heading2};
+    font: ${({ theme: { font } }) => font.heading2.font};
+    letter-spacing: ${({ theme: { font } }) => font.heading2.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;

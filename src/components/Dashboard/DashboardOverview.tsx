@@ -98,8 +98,8 @@ const ContentContainer = styled.div`
 const PageTitle = styled.h1`
   width: 100%;
   display: flex;
-  font: ${({ theme: { font } }) => font.heading2};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.heading2.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading2.letterSpacing};
 `;
 
 const TotalMainContentWrapper = styled.div`
@@ -117,14 +117,14 @@ const TotalMainContentWrapper = styled.div`
 const MainTitle = styled.div`
   margin-right: auto;
 
-  font: ${({ theme: { font } }) => font.title3};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.title3.font};
+  letter-spacing: ${({ theme: { font } }) => font.title3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray400};
 `;
 
 const MainWon = styled.div`
-  font: ${({ theme: { font } }) => font.heading2};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.heading2.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading2.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;
 
@@ -136,8 +136,8 @@ const MainValueWrapper = styled.div`
 `;
 
 const MainValue = styled.div`
-  font: ${({ theme: { font } }) => font.heading1};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.heading1.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading1.letterSpacing};
 `;
 
 const SubContentContainer = styled.div`
@@ -167,8 +167,9 @@ const TotalSubContentWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font: ${({ theme: { font } }) => font.title4};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.title4.font};
+  letter-spacing: ${({ theme: { font } }) => font.title4.letterSpacing};
+
   color: ${({ theme: { color } }) => color.neutral.gray400};
 `;
 
@@ -179,13 +180,12 @@ const ValueWrapper = styled.div`
 `;
 
 const Won = styled.div`
-  font: ${({ theme: { font } }) => font.title2};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.title2.font};
+  letter-spacing: ${({ theme: { font } }) => font.title2.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;
 
 const Value = styled.div`
-  font: ${({ theme: { font } }) => font.title1};
-  letter-spacing: -0.02em;
-  line-height: 34px;
+  font: ${({ theme: { font } }) => font.title1.font};
+  letter-spacing: ${({ theme: { font } }) => font.title1.letterSpacing};
 `;

@@ -1,5 +1,6 @@
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
-import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
+
+import usePortfolioHoldingsDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingsDeleteMutation";
 import noHoldingsStock from "@assets/images/no_holdings_stock.png";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
@@ -17,18 +18,16 @@ export default function MainPanel() {
   const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
   const { portfolioDetails, portfolioHoldings } = portfolio;
 
-  const { mutate: portfolioHoldingDeleteMutate } =
-    usePortfolioHoldingDeleteMutation(portfolioDetails.id);
+  const { mutate: portfolioHoldingsDeleteMutate } =
+    usePortfolioHoldingsDeleteMutation(portfolioDetails.id);
 
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
 
   const onDeleteHoldingButtonClick = () => {
-    selected.forEach((holdingId) => {
-      portfolioHoldingDeleteMutate({
-        portfolioId: portfolioDetails.id,
-        portfolioHoldingId: holdingId,
-      });
+    portfolioHoldingsDeleteMutate({
+      portfolioId: portfolioDetails.id,
+      body: { portfolioHoldingIds: selected },
     });
   };
 
@@ -133,7 +132,7 @@ const SelectAndDeletePanel = styled.div`
 `;
 
 const SelectedItemsCount = styled.div`
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 
   > span {
@@ -157,7 +156,8 @@ const NoHoldingsContainer = styled.div`
   gap: 24px;
   border-radius: 8px;
   border: 1px dashed ${({ theme: { color } }) => color.primary.blue100};
-  font: ${({ theme: { font } }) => font.title3};
+  font: ${({ theme: { font } }) => font.title3.font};
+  letter-spacing: ${({ theme: { font } }) => font.title3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;
 
@@ -168,7 +168,7 @@ const TextBox = styled.div`
   text-align: center;
 
   > span {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${({ theme: { font } }) => font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray500};
   }
 `;

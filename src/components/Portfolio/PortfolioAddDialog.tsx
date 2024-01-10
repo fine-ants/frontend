@@ -339,7 +339,8 @@ const HeaderWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${({ theme: { font } }) => font.heading3.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
@@ -354,7 +355,7 @@ const StyledInput = styled.div`
   border-radius: 3px;
 
   > span {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${({ theme: { font } }) => font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
@@ -364,7 +365,7 @@ const Input = styled.input`
   height: 100%;
   border: none;
   outline: none;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &::placeholder {
@@ -414,6 +415,6 @@ const SecuritiesFirmLogo = styled.img`
 `;
 
 const SecuritiesFirmTitle = styled.span`
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 `;

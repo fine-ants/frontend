@@ -34,7 +34,8 @@ const StyledChartsPanelSkeleton = styled.div`
 
 const ChartLabel = styled.h1`
   margin-right: auto;
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${({ theme: { font } }) => font.heading3.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
 `;
 
 const SkeletonContainer = styled.div`

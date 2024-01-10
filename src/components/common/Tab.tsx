@@ -55,6 +55,6 @@ const StyledTabButton = styled.button<{ $isSelected: boolean }>`
     $isSelected ? color.primary.blue500 : color.neutral.gray600};
   background-color: ${({ theme: { color }, $isSelected }) =>
     $isSelected ? color.primary.blue50 : color.white};
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
 `;

@@ -70,8 +70,8 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
           enable_publishing: false,
           allow_symbol_change: true,
           container_id: "tradingview_3efa6",
-          width: 893,
-          height: 366,
+          width: 1377,
+          height: 501,
         });
       }
     }

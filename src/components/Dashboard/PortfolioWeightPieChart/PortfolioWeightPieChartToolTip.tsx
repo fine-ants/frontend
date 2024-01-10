@@ -66,7 +66,6 @@ const ItemTitle = styled.div`
 
   > p {
     font: ${({ theme: { font } }) => font.title5};
-    letter-spacing: -0.02em;
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 `;
@@ -80,14 +79,14 @@ const ColorCircle = styled.div<{ color: string }>`
 
 const Percentage = styled.div`
   margin-left: auto;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.primary.blue500};
 `;
 
 const GainValue = styled.p`
   display: flex;
   align-items: center;
-  font: ${({ theme: { font } }) => font.body4};
+  font: ${({ theme: { font } }) => font.body4.font};
   color: ${({ theme: { color } }) => color.state.green};
 `;

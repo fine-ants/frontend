@@ -91,6 +91,22 @@ export const deletePortfolioHolding = async ({
   return res.data;
 };
 
+export const deletePortfolioHoldings = async ({
+  portfolioId,
+  body,
+}: {
+  portfolioId: number;
+  body: {
+    portfolioHoldingIds: readonly number[];
+  };
+}) => {
+  const res = await fetcher.delete<Response<null>>(
+    `/portfolio/${portfolioId}/holdings`,
+    { data: body }
+  );
+  return res.data;
+};
+
 export const postPortfolioHoldingPurchase = async ({
   portfolioId,
   portfolioHoldingId,

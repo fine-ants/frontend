@@ -37,7 +37,8 @@ const StyledEmptyPortfolioMessage = styled.div`
   border-radius: 8px;
 
   > h1 {
-    font: ${({ theme: { font } }) => font.title3};
+    font: ${({ theme: { font } }) => font.title3.font};
+    letter-spacing: ${({ theme: { font } }) => font.title3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
@@ -57,7 +58,8 @@ const PortfolioAddButton = styled.div`
   gap: 4px;
   padding: 12px 8px;
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.button2};
+  font: ${({ theme: { font } }) => font.button2.font};
+  letter-spacing: ${({ theme: { font } }) => font.button2.letterSpacing};
 
   background-color: ${({ theme: { color } }) => color.primary.blue500};
   cursor: pointer;

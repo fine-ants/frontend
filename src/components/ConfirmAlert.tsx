@@ -1,14 +1,13 @@
-import { Button } from "@mui/material";
-import { ReactNode } from "react";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
+import Button from "./common/Buttons/Button";
 
 type Props = {
   isOpen: boolean;
   title: string;
   onClose: () => void;
   onConfirm: () => void;
-  children?: ReactNode;
+  selected?: string[];
 };
 
 export default function ConfirmAlert({
@@ -16,7 +15,7 @@ export default function ConfirmAlert({
   title,
   onClose,
   onConfirm,
-  children,
+  selected,
 }: Props) {
   const onConfirmAlertClose = () => {
     onConfirm();
@@ -26,11 +25,28 @@ export default function ConfirmAlert({
   return (
     <BaseDialog style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
       <Wrapper>
-        <Title>{title}</Title>
-        <Body>{children}</Body>
+        <div>
+          <Title>{title}</Title>
+
+          {selected && (
+            <Body>
+              {selected.length === 1 && <>{selected[0]}을 삭제하시겠습니까?</>}
+              {selected.length > 1 && (
+                <>
+                  {selected[0]} 외 {selected.length - 1} 개 항목을
+                  삭제하시겠습니까?
+                </>
+              )}
+            </Body>
+          )}
+        </div>
         <ButtonWrapper>
-          <CancelButton onClick={onClose}>취소</CancelButton>
-          <Button onClick={onConfirmAlertClose}>확인</Button>
+          <Button variant="tertiary" size="h32" onClick={onClose}>
+            <span>취소</span>
+          </Button>
+          <Button variant="primary" size="h32" onClick={onConfirmAlertClose}>
+            <span>확인</span>
+          </Button>
         </ButtonWrapper>
       </Wrapper>
     </BaseDialog>
@@ -38,9 +54,8 @@ export default function ConfirmAlert({
 }
 
 const ConfirmAlertStyle = {
-  width: "400px",
-  height: "auto",
-  maxHeight: "300px",
+  width: "544px",
+  height: "280px",
 };
 
 const Wrapper = styled.div`
@@ -54,20 +69,22 @@ const Wrapper = styled.div`
 const Title = styled.div`
   width: 100%;
   text-align: left;
-  font-size: 16px;
-  font-weight: bold;
+  ${({ theme: { font } }) => font.heading3.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+  color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
 const Body = styled.div`
+  margin-top: 32px;
   width: 100%;
   max-height: 120px;
+  ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+  color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
 const ButtonWrapper = styled.div`
-  width: 100%;
-  text-align: right;
-`;
-
-const CancelButton = styled(Button)`
-  color: red;
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
 `;

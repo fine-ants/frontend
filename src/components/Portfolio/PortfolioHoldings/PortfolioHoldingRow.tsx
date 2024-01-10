@@ -1,6 +1,4 @@
-import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@api/portfolio/types";
-import ConfirmAlert from "@components/ConfirmAlert";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
@@ -48,15 +46,7 @@ export default function PortfolioHoldingRow({
     purchaseHistory,
   } = row;
 
-  const { mutate: portfolioHoldingDeleteMutate } =
-    usePortfolioHoldingDeleteMutation(portfolioId);
-
   const [isRowOpen, setIsRowOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
-  const onConfirmDelete = () => {
-    portfolioHoldingDeleteMutate({ portfolioId, portfolioHoldingId });
-  };
 
   const onExpandRowClick = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -107,7 +97,7 @@ export default function PortfolioHoldingRow({
         <HoldingTableCell style={{ width: "132px" }} component="th" scope="row">
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
-              style={{ font: designSystem.font.body3 }}
+              style={{ font: designSystem.font.body3.font }}
               to={`/stock/${tickerSymbol}`}
               // to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}
             >
@@ -116,7 +106,7 @@ export default function PortfolioHoldingRow({
           </Typography>
           <Typography
             style={{
-              font: designSystem.font.body4,
+              font: designSystem.font.body4.font,
               color: designSystem.color.neutral.gray400,
             }}>
             {tickerSymbol}
@@ -183,13 +173,6 @@ export default function PortfolioHoldingRow({
           </Collapse>
         </TableCell>
       </HoldingLotRow>
-
-      <ConfirmAlert
-        isOpen={isDeleteDialogOpen}
-        title="종목을 삭제하시겠습니까?"
-        onClose={() => setIsDeleteDialogOpen(false)}
-        onConfirm={onConfirmDelete}
-      />
     </>
   );
 }
@@ -223,7 +206,7 @@ const HoldingTableCell = styled(TableCell)`
 `;
 
 const HoldingTypography = styled(Typography)`
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
 `;
 

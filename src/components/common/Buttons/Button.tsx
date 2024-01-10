@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import { ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
 
@@ -78,7 +79,7 @@ const StyledButton = styled.button<{
     }
   }};
   font: ${({ $size, theme: { font } }) =>
-    $size === "h32" ? font.button2 : font.button1};
+    $size === "h32" ? font.button2.font : font.button1.font};
   color: ${({ theme: { color }, $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
@@ -93,6 +94,7 @@ const StyledButton = styled.button<{
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
   }};
+  letter-spacing: ${designSystem.font.button1.letterSpacing}
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
 
   &:hover {

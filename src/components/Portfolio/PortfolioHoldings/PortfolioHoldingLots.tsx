@@ -149,7 +149,8 @@ const LotsTableHeadCell = styled(TableCell)`
   padding: 4px 8px;
   height: 40px;
   color: ${({ theme: { color } }) => color.neutral.gray600};
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
 `;
 
 const LotsTableBody = styled(TableBody)`

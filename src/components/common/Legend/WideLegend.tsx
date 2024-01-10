@@ -101,6 +101,7 @@ const EtcItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;

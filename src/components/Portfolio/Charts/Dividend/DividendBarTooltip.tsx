@@ -32,12 +32,13 @@ const StyledDividendBarTooltip = styled.div`
   box-shadow: 0px 0px 12px 0px #00000014;
 
   > label {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${({ theme: { font } }) => font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
   > span {
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${({ theme: { font } }) => font.title5.font};
+    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;

@@ -22,8 +22,8 @@ const StyledLegendItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
+  font: ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
   color: #75767f;
 `;
 

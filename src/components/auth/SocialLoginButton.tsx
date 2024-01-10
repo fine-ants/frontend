@@ -72,18 +72,21 @@ export default function SocialLoginButton({ provider }: Props) {
 const StyledKakaoSignInButton = styled(BaseSignInButton)`
   background-color: ${designSystem.color.kakao.primary};
   color: ${designSystem.color.neutral.black};
-  font: ${designSystem.font.button2};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;
 
 const StyledGoogleSignInButton = styled(BaseSignInButton)`
   background-color: ${designSystem.color.neutral.white};
   border: 1px solid ${designSystem.color.neutral.gray200};
   color: ${designSystem.color.neutral.gray600};
-  font: ${designSystem.font.button2};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;
 
 const StyledNaverSignInButton = styled(BaseSignInButton)`
   background-color: ${designSystem.color.naver.primary};
   color: ${designSystem.color.neutral.white};
-  font: ${designSystem.font.button2};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;

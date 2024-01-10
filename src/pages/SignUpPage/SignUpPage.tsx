@@ -128,13 +128,14 @@ const SupportContainer = styled.div`
   display: flex;
   align-items: center;
   color: ${designSystem.color.neutral.gray600};
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
 `;
 
 const TextButton = styled(Button)`
   padding: 0;
   color: ${designSystem.color.primary.blue500};
-  font: ${designSystem.font.button2};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;
 
 const SignUpContainer = styled.div`

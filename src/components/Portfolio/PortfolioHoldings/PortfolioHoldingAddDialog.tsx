@@ -160,7 +160,8 @@ const Header = styled.header`
 `;
 
 const Title = styled.div`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${({ theme: { font } }) => font.heading3.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
@@ -170,7 +171,8 @@ const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
 
   > div {
     color: ${({ theme: { color } }) => color.neutral.gray800};
@@ -191,7 +193,8 @@ const HoldingBox = styled.div`
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
   border: 1px solid ${({ theme: { color } }) => color.primary.blue50};
   border-radius: 8px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${({ theme: { font } }) => font.title5.font};
+  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.primary.blue500};
 `;
 
@@ -201,7 +204,7 @@ const TitleWrapper = styled.div`
   gap: 8px;
   > span {
     color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${({ theme: { font } }) => font.body4};
+    font: ${({ theme: { font } }) => font.body4.font};
   }
 `;
 
@@ -223,7 +226,8 @@ const InputBox = styled.div`
     align-items: center;
     width: 120px;
     height: 24px;
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${({ theme: { font } }) => font.title5.font};
+    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;
@@ -238,7 +242,7 @@ const InputWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray400};
 `;
 
@@ -251,7 +255,7 @@ const InputTextArea = styled.textarea`
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray400};
 
   &&::placeholder {
@@ -268,7 +272,7 @@ const Input = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${({ theme: { font } }) => font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 
   &&::placeholder {
@@ -341,7 +345,7 @@ const muiTheme = createTheme({
           "justifyContent": "center",
           "width": "352px",
           "height": "32px",
-          "font": designSystem.font.body3,
+          "font": designSystem.font.body3.font,
           "color": designSystem.color.neutral.gray400,
           "borderColor": designSystem.color.neutral.gray100,
           "backgroundColor": designSystem.color.neutral.white,
@@ -362,7 +366,7 @@ const muiTheme = createTheme({
           "width": "304px",
           "height": "21px",
           "padding": "0 0 0 0",
-          "font": designSystem.font.body3,
+          "font": designSystem.font.body3.font,
           "color": designSystem.color.neutral.gray900,
           "::placeholder": {
             color: designSystem.color.neutral.gray700,

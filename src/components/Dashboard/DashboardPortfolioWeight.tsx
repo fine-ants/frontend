@@ -80,7 +80,6 @@ const StyledDashboardPortfolioWeight = styled.div`
 `;
 
 const ChartTitle = styled.div`
-  font-size: 24px;
-  line-height: 29px;
-  font-weight: bold;
+  font: ${({ theme: { font } }) => font.heading3.font};
+  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
 `;

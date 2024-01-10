@@ -10,9 +10,7 @@ export default function Footer() {
   return (
     <StyledFooter>
       <FooterLeft>
-        <BI>
-          <img src={BIImage} alt="" />
-        </BI>
+        <img src={BIImage} alt="BIImage" />
         <Copyright>FineAnts Ⓒ All rights reserved.</Copyright>
       </FooterLeft>
       <IconContainer>
@@ -43,17 +41,9 @@ const FooterLeft = styled.div`
   align-items: center;
 `;
 
-const BI = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  color: #b3b3c1;
-  font-size: 20px;
-  font-weight: bold;
-`;
-
 const Copyright = styled.div`
-  color: #6a6b77;
+  color: ${({ theme: { color } }) => color.gray600};
+  ${({ theme: { font } }) => font.body4.font};
 `;
 
 const IconContainer = styled.div`

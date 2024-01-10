@@ -90,16 +90,12 @@ export default function PortfolioListTableToolBar({
 
       {isConfirmOpen && (
         <ConfirmAlert
+          selected={selected.map((item) => item.name)}
           isOpen={isConfirmOpen}
           title="선택된 포트폴리오를 삭제 하시겠습니까?"
           onClose={onDeletePortfoliosAlertClose}
-          onConfirm={onConfirmAction}>
-          <DeleteList>
-            {selected.map((item) => (
-              <DeleteListItem key={item.id}>{item.name}</DeleteListItem>
-            ))}
-          </DeleteList>
-        </ConfirmAlert>
+          onConfirm={onConfirmAction}
+        />
       )}
     </StyledToolbar>
   );
@@ -119,12 +115,3 @@ const SelectedInfoContainer = styled.div`
   align-items: center;
   gap: 8px;
 `;
-
-const DeleteList = styled.ul`
-  width: 100%;
-  height: inherit;
-  max-height: inherit;
-  overflow-y: scroll;
-`;
-
-const DeleteListItem = styled.li``;
