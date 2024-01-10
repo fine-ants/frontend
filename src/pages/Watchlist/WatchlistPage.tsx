@@ -38,13 +38,6 @@ export default function WatchlistPage() {
 
   return (
     <BasePage>
-      {/* {isDialogOpen && (
-        <WatchlistItemEditDialog
-          isOpen={isDialogOpen}
-          onClose={onDialogClose}
-          portfolioDetails={data}
-        />
-      )} */}
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}

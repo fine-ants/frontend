@@ -14,9 +14,6 @@ export type Order = "asc" | "desc";
 export default function WatchlistsTable() {
   const { data: watchlistsData } = useWatchlistsQuery();
 
-  // const { data } = useWatchlistsQuery();
-  // const watchlistsData = data.watchLists;
-
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof WatchlistsType>("id");
   const [selected, setSelected] = useState<readonly WatchlistsType[]>([]);

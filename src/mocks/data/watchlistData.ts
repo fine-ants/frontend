@@ -94,7 +94,6 @@ export const successfulGetWatchlistResponse = {
   status: "OK",
   message: "관심종목 목록 조회가 완료되었습니다",
   data: watchlistData,
-  // data: [],
 };
 
 export const successfulGetWatchlistsResponse = {
@@ -102,39 +101,4 @@ export const successfulGetWatchlistsResponse = {
   status: "OK",
   message: "관심종목 목록 조회가 완료되었습니다",
   data: watchlistsData,
-  // data: [],
 };
-
-// {
-//   id: 8,
-//   companyName: "POSCO",
-//   tickerSymbol: "005490",
-//   currentPrice: 315000,
-//   dailyChange: -3300,
-//   dailyChangeRate: -11.5,
-//   annualDividendYield: 4.2,
-//   sector: "제조업",
-//   dateAdded: "2023-12-21T15:00:00",
-// },
-// {
-//   id: 9,
-//   companyName: "한화솔루션",
-//   tickerSymbol: "009830",
-//   currentPrice: 43000,
-//   dailyChange: 2400,
-//   dailyChangeRate: 6.36,
-//   annualDividendYield: 0.9,
-//   sector: "에너지업",
-//   dateAdded: "2023-12-22T15:00:00",
-// },
-// {
-//   id: 10,
-//   companyName: "기아",
-//   tickerSymbol: "000270",
-//   currentPrice: 74500,
-//   dailyChange: 8000,
-//   dailyChangeRate: 15.35,
-//   annualDividendYield: 3.15,
-//   sector: "제조업",
-//   dateAdded: "2023-12-23T15:00:00",
-// },

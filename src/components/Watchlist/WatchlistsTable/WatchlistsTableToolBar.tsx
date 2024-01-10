@@ -39,9 +39,6 @@ export default function WatchlistsTableToolBar({ selected }: Props) {
   };
 
   const onConfirmAction = () => {
-    // const selectedWatchlistIds = selected.map((item) => item.id);
-    // watchlistsDeleteMutate(selectedWatchlistIds);
-    //TODO: 다수 삭제 구현되면 위 로직으로 변경
     const selectedWatchlistIds = selected.map((item) => item.id);
 
     watchlistsDeleteMutate(selectedWatchlistIds);
@@ -97,10 +94,17 @@ export default function WatchlistsTableToolBar({ selected }: Props) {
         <ConfirmAlert
           isOpen={isConfirmOpen}
           title="관심 종목 목록 삭제"
-          selected={selected.map((item) => item.name)}
           onClose={onDeleteWatchlistsAlertClose}
-          onConfirm={onConfirmAction}
-        />
+          onConfirm={onConfirmAction}>
+          {selected.length === 1 ? (
+            <span>{selected[0].name} 항목을 삭제하시겠습니까?</span>
+          ) : (
+            <span>
+              {selected[0].name} 외 {selected.length - 1} 개 항목을
+              삭제하시겠습니까?
+            </span>
+          )}
+        </ConfirmAlert>
       )}
     </StyledToolbar>
   );

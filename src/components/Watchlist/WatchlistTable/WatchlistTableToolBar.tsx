@@ -98,10 +98,17 @@ export default function WatchlistTableToolBar({ selected }: Props) {
         <ConfirmAlert
           isOpen={isConfirmOpen}
           title="관심 종목 삭제"
-          selected={selected.map((item) => item.companyName)}
           onClose={onDeleteWatchlistItemAlertClose}
-          onConfirm={onConfirmAction}
-        />
+          onConfirm={onConfirmAction}>
+          {selected.length === 1 ? (
+            <span>{selected[0].companyName} 항목을 삭제하시겠습니까?</span>
+          ) : (
+            <span>
+              {selected[0].companyName} 외 {selected.length - 1} 개 항목을
+              삭제하시겠습니까?
+            </span>
+          )}
+        </ConfirmAlert>
       )}
     </StyledToolbar>
   );

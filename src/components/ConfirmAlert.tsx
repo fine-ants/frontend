@@ -7,7 +7,7 @@ type Props = {
   title: string;
   onClose: () => void;
   onConfirm: () => void;
-  selected?: string[];
+  children?: React.ReactNode;
 };
 
 export default function ConfirmAlert({
@@ -15,7 +15,7 @@ export default function ConfirmAlert({
   title,
   onClose,
   onConfirm,
-  selected,
+  children,
 }: Props) {
   const onConfirmAlertClose = () => {
     onConfirm();
@@ -27,18 +27,7 @@ export default function ConfirmAlert({
       <Wrapper>
         <div>
           <Title>{title}</Title>
-
-          {selected && (
-            <Body>
-              {selected.length === 1 && <>{selected[0]}을 삭제하시겠습니까?</>}
-              {selected.length > 1 && (
-                <>
-                  {selected[0]} 외 {selected.length - 1} 개 항목을
-                  삭제하시겠습니까?
-                </>
-              )}
-            </Body>
-          )}
+          <Body>{children}</Body>
         </div>
         <ButtonWrapper>
           <Button variant="tertiary" size="h32" onClick={onClose}>
@@ -69,7 +58,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   width: 100%;
   text-align: left;
-  ${({ theme: { font } }) => font.heading3.font};
+  font: ${({ theme: { font } }) => font.heading3.font};
   letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
@@ -78,7 +67,7 @@ const Body = styled.div`
   margin-top: 32px;
   width: 100%;
   max-height: 120px;
-  ${({ theme: { font } }) => font.title5.font};
+  font: ${({ theme: { font } }) => font.title5.font};
   letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
