@@ -13,16 +13,31 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [shouldReconnect, setShouldReconnect] = useState(true);
 
   const eventSourceRef = useRef<EventSourcePolyfill>();
 
-  const eventListener = useMemo(
+  const messageListener = useMemo(
     () => ({
       handleEvent: (event: MessageEvent) => {
         const data = JSON.parse(event.data);
 
         setData(data);
         setIsLoading(false);
+      },
+    }),
+    []
+  );
+
+  // For when the server is indicating that there is no need to reconnect.
+  const completeHandler = useMemo(
+    () => ({
+      handleEvent: (event: MessageEvent) => {
+        const { data } = event;
+
+        setData(data);
+        setIsLoading(false);
+        setShouldReconnect(false);
       },
     }),
     []
@@ -37,22 +52,21 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
     eventSourceRef.current.onerror = () => {
       setIsError(true);
-      onClose();
     };
 
-    eventSourceRef.current.addEventListener(eventTypeName, eventListener);
-    eventSourceRef.current?.addEventListener("complete", onClose);
-  }, [accessToken, url, eventTypeName, eventListener]);
+    eventSourceRef.current.addEventListener(eventTypeName, messageListener);
+    eventSourceRef.current.addEventListener("complete", completeHandler);
+  }, [url, accessToken, eventTypeName, messageListener, completeHandler]);
 
   useEffect(() => {
-    if (eventSourceRef) {
-      initEventSource();
-    }
-  }, [initEventSource]);
+    if (!shouldReconnect) return;
+
+    initEventSource();
+  }, [shouldReconnect, initEventSource]);
 
   useEffect(() => {
     return onClose;
-  });
+  }, []);
 
   const onClose = () => {
     eventSourceRef.current?.close();
