@@ -12,7 +12,8 @@ import SignInLoadingPage from "@pages/SignInLoadingPage";
 import SignInPage from "@pages/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
-import WatchlistPage from "@pages/WatchlistPage";
+import WatchlistPage from "@pages/Watchlist/WatchlistPage";
+import WatchlistsPage from "@pages/Watchlist/WatchlistsPage";
 import {
   Route,
   createBrowserRouter,
@@ -31,7 +32,8 @@ const router = (user: User | null) =>
           <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
           <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
-          <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
+          <Route path={Routes.WATCHLISTS} element={<WatchlistsPage />} />
+          <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
           <Route path={Routes.PROFILE} element={<MyProfilePage />} />
           <Route path={Routes.INDICES} element={<IndicesPage />} />
         </Route>

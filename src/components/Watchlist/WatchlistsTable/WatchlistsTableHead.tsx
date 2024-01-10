@@ -1,7 +1,8 @@
-import { WatchlistItemType } from "@api/watchlist";
+import { WatchlistsType } from "@api/watchlist";
 import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
+import CheckBox from "@components/common/Checkbox/Checkbox";
 import {
   Box,
   TableCell,
@@ -11,72 +12,68 @@ import {
   tableSortLabelClasses,
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
-import { MouseEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
-import { Order } from "./WatchlistTable";
+import { Order } from "./WatchlistsTable";
 
 type HeadCell = {
-  id: keyof WatchlistItemType;
+  id: keyof WatchlistsType;
   label: string;
   numeric: boolean;
 };
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "companyName",
+    id: "name",
     numeric: false,
-    label: "종목명",
-  },
-  {
-    id: "currentPrice",
-    numeric: true,
-    label: "현재가",
-  },
-  {
-    id: "dailyChangeRate",
-    numeric: true,
-    label: "변동률",
-  },
-  {
-    id: "annualDividendYield",
-    numeric: true,
-    label: "배당률",
-  },
-  {
-    id: "sector",
-    numeric: true,
-    label: "섹터",
+    label: "이름",
   },
 ];
 
 type Props = {
   order: Order;
   orderBy: string;
+  numSelected: number;
+  rowCount: number;
   onRequestSort: (
     event: MouseEvent<unknown>,
-    property: keyof WatchlistItemType
+    property: keyof WatchlistsType
   ) => void;
+  onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function WatchlistTableHead({
+export default function WatchlistsTableHead({
   order,
   orderBy,
+  numSelected,
+  rowCount,
   onRequestSort,
+  onSelectAllClick,
 }: Props) {
   const createSortHandler =
-    (property: keyof WatchlistItemType) => (event: MouseEvent<unknown>) => {
+    (property: keyof WatchlistsType) => (event: MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
   return (
     <StyledPortfolioListTableHead>
       <StyledTableRow>
-        <StyledTableCell padding="none" />
+        <StyledTableCell sx={{ width: "36px" }} padding="none">
+          <CheckBox
+            size="h20"
+            checkType="indet"
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            inputProps={{
+              "aria-label": "select all portfolios",
+            }}
+          />
+        </StyledTableCell>
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
             sx={{
-              width: headCell.id === "companyName" ? "368px" : "240px",
+              width: "1324px",
             }}
             align={headCell.numeric ? "right" : "left"}
             sortDirection={orderBy === headCell.id ? order : false}>
@@ -137,11 +134,16 @@ const StyledTableCell = styled(TableCell)`
   }
 
   & > .${tableSortLabelClasses.root} {
-    font: ${({ theme: { font } }) => font.body5};
+    font: ${({ theme: { font } }) => font.title5.font};
+    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
   }
 `;
 
 const StyledTableSortLabel = styled(TableSortLabel)`
+  &.Mui-active {
+    color: ${({ theme: { color } }) => color.neutral.gray600};
+  }
+
   flex-direction: row;
   gap: 4px;
   color: ${({ theme: { color } }) => color.neutral.gray600};
