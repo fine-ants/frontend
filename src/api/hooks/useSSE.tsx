@@ -21,7 +21,6 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     () => ({
       handleEvent: (event: MessageEvent) => {
         const data = JSON.parse(event.data);
-        console.log("normal event:", event);
 
         setData(data);
         setIsLoading(false);
@@ -35,7 +34,6 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     () => ({
       handleEvent: (event: MessageEvent) => {
         const { data } = event;
-        console.log("complete event:", event);
 
         setData(data);
         setIsLoading(false);
