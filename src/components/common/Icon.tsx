@@ -94,9 +94,8 @@ const StyledIcon = styled.div<{
 }>`
   width: ${({ $size }) => `${$size}px`};
   height: ${({ $size }) => `${$size}px`};
-
   background-color: ${({ $color }) => $color};
-
+  mask-size: contain;
   mask-image: url(${({ $iconUrl }) => $iconUrl});
   mask-repeat: no-repeat;
   mask-position: center;

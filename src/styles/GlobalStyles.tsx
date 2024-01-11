@@ -98,7 +98,6 @@ export default createGlobalStyle`
 
     &::-webkit-scrollbar-thumb {
       width: 4px;
-      height: 156px;
       background-color: ${designSystem.color.neutral.gray200};
       border-radius: 4px;
       border: 2px solid ${designSystem.color.neutral.white}; 
