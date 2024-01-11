@@ -1,5 +1,4 @@
 import Footer from "@components/common/Footer";
-import Header from "@components/common/Header";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -10,7 +9,6 @@ type Props = {
 export default function BasePage({ children }: Props) {
   return (
     <StyledBasePage>
-      <Header />
       <Main>{children}</Main>
       <Footer />
     </StyledBasePage>
