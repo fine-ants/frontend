@@ -239,7 +239,7 @@ export default function PortfolioAddDialog({
                       alt={option}
                     />
                     <SecuritiesFirmTitle>
-                      {option === "FineAnts" ? "선택안함" : option}
+                      {option === "FineAnts" ? "FineAnts (선택안함)" : option}
                     </SecuritiesFirmTitle>
                   </SelectOption>
                 ))}
@@ -286,7 +286,9 @@ export default function PortfolioAddDialog({
             <StyledSpan>최대 손실율</StyledSpan>
             <InputWrapper>
               <StyledInput>
+                {maximumLossRate && <span>-</span>}
                 <Input
+                  style={{ paddingLeft: "3px" }}
                   disabled={isBudgetEmpty}
                   value={maximumLossRate}
                   onChange={(e) =>
