@@ -1,5 +1,4 @@
 import { PurchaseHistoryField } from "@api/portfolio/types";
-import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import {
   Table as MuiTable,
@@ -9,6 +8,7 @@ import {
   TableHead as MuiTableHead,
   TableRow as MuiTableRow,
 } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import PortfolioHoldingLotAddRow from "./PortfolioHoldingLotAddRow";
@@ -36,8 +36,7 @@ export default function PortfolioHoldingLotsTable({
   };
 
   return (
-    <div
-      style={{ display: "flex", justifyContent: "flex-end", marginTop: "8px" }}>
+    <StyledPortfolioHoldingLotsTable>
       <StyledTable size="small" aria-label="purchases">
         <StyledTableHead>
           <StyledTableHeadRow>
@@ -81,21 +80,29 @@ export default function PortfolioHoldingLotsTable({
           )}
           <MuiTableFooter>
             <MuiTableRow>
-              <MuiTableCell colSpan={5} sx={{ border: "none" }}>
-                <Button
-                  size="h32"
-                  variant="secondary"
-                  onClick={onAddLotButtonClick}>
-                  항목 추가
-                </Button>
+              <MuiTableCell
+                colSpan={6}
+                sx={{ paddingInline: "8px", border: "none" }}>
+                <AddLotButton onClick={onAddLotButtonClick}>
+                  <Icon icon="add" size={16} color="blue500" />
+                  <span>항목 추가</span>
+                </AddLotButton>
               </MuiTableCell>
             </MuiTableRow>
           </MuiTableFooter>
         </StyledTableBody>
       </StyledTable>
-    </div>
+    </StyledPortfolioHoldingLotsTable>
   );
 }
+
+const StyledPortfolioHoldingLotsTable = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid ${designSystem.color.neutral.gray100};
+`;
 
 const StyledTable = styled(MuiTable)`
   width: 856px;
@@ -146,4 +153,17 @@ const StyledTableHeadCell = styled(MuiTableCell)`
 
 const StyledTableBody = styled(MuiTableBody)`
   width: 100%;
+`;
+
+const AddLotButton = styled.button`
+  height: 24px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  span {
+    font: ${designSystem.font.button2};
+    color: ${designSystem.color.primary.blue500};
+  }
 `;

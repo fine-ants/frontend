@@ -103,7 +103,7 @@ export default function PortfolioHoldingLotAddRow({
       </StyledTableCell>
 
       <StyledTableCell align="right" sx={{ width: "32px" }}>
-        <IconButton onClick={onSaveClick}>
+        <IconButton disabled={!isValid} onClick={onSaveClick}>
           <Icon
             icon="check"
             size={16}
