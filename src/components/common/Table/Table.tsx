@@ -43,7 +43,6 @@ export type Order = "asc" | "desc";
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-// `Item` Ex: `PortfolioItem`
 export default function Table<Item>({
   tableTitle,
   initialOrderBy,
@@ -56,7 +55,7 @@ export default function Table<Item>({
 }: Props<Item>) {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
-  const [selected, setSelected] = useState<readonly Item[]>([]); // only if checkbox is used.
+  const [selected, setSelected] = useState<readonly Item[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
 
