@@ -1,6 +1,4 @@
-import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@api/portfolio/types";
-import ConfirmAlert from "@components/ConfirmAlert";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
@@ -14,23 +12,23 @@ import {
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import PortfolioHoldingLots from "./PortfolioHoldingLots";
+import PortfolioHoldingLotsTable from "./PortfolioHoldingLots/PortfolioHoldingLotsTable";
 
 export default function PortfolioHoldingRow({
-  portfolioId,
   labelId,
   row,
   isItemSelected,
   handleClick,
 }: {
-  row: PortfolioHolding;
   labelId: string;
+  row: PortfolioHolding;
   isItemSelected: boolean;
   handleClick: (event: MouseEvent<unknown>, id: number) => void;
-  portfolioId: number;
 }) {
+  const { portfolioId } = useParams();
+
   const {
     companyName,
     tickerSymbol,
@@ -48,15 +46,7 @@ export default function PortfolioHoldingRow({
     purchaseHistory,
   } = row;
 
-  const { mutate: portfolioHoldingDeleteMutate } =
-    usePortfolioHoldingDeleteMutation(portfolioId);
-
   const [isRowOpen, setIsRowOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
-  const onConfirmDelete = () => {
-    portfolioHoldingDeleteMutate({ portfolioId, portfolioHoldingId });
-  };
 
   const onExpandRowClick = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -67,7 +57,7 @@ export default function PortfolioHoldingRow({
 
   return (
     <>
-      <HoldingTableRow
+      <StyledHoldingTableRow
         tabIndex={-1}
         selected={isItemSelected}
         aria-checked={isItemSelected}
@@ -108,9 +98,7 @@ export default function PortfolioHoldingRow({
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
               style={{ font: designSystem.font.body3 }}
-              to={`/stock/${tickerSymbol}`}
-              // to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}
-            >
+              to={`/stock/${tickerSymbol}`}>
               {companyName}
             </Link>
           </Typography>
@@ -170,31 +158,24 @@ export default function PortfolioHoldingRow({
             bgColorStatus={false}
           />
         </HoldingTableCell>
-      </HoldingTableRow>
+      </StyledHoldingTableRow>
 
-      <HoldingLotRow>
+      <StyledHoldingLotRow>
         <TableCell style={{ padding: "0", border: "none" }} colSpan={10}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
-            <PortfolioHoldingLots
-              portfolioId={portfolioId}
+            <PortfolioHoldingLotsTable
+              portfolioId={Number(portfolioId)}
               portfolioHoldingId={portfolioHoldingId}
               purchaseHistory={purchaseHistory}
             />
           </Collapse>
         </TableCell>
-      </HoldingLotRow>
-
-      <ConfirmAlert
-        isOpen={isDeleteDialogOpen}
-        title="종목을 삭제하시겠습니까?"
-        onClose={() => setIsDeleteDialogOpen(false)}
-        onConfirm={onConfirmDelete}
-      />
+      </StyledHoldingLotRow>
     </>
   );
 }
 
-const HoldingTableRow = styled(TableRow)`
+const StyledHoldingTableRow = styled(TableRow)`
   &.Mui-selected {
     background-color: ${({ theme: { color } }) => color.neutral.gray50};
     border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.white};
@@ -231,7 +212,7 @@ const Amount = styled(HoldingTypography)`
   display: inline;
 `;
 
-const HoldingLotRow = styled(TableRow)`
+const StyledHoldingLotRow = styled(TableRow)`
   width: 856px;
 `;
 

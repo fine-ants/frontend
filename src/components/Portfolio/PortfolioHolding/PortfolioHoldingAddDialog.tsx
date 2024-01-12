@@ -10,7 +10,7 @@ import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { IconCalendar } from "./IconCalendar";
+import { IconCalendar } from "../../common/IconCalendar";
 
 type Props = {
   isOpen: boolean;
@@ -76,6 +76,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
         <div>
           종목 검색 <span>*</span>
         </div>
+        {/* TODO: width */}
         <SearchBar
           variant="select"
           sx={{ width: "480px" }}
