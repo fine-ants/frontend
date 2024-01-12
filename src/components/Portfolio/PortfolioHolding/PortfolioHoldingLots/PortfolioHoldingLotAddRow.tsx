@@ -1,15 +1,9 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
+import SmallDatePicker from "@components/common/DatePicker/SmallDatePicker";
 import { Icon } from "@components/common/Icon";
-import {
-  TableCell as MuiTableCell,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import designSystem from "@styles/designSystem";
+import { TableCell as MuiTableCell } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconCalendar } from "../../../common/IconCalendar";
 
 type Props = {
   portfolioId: number;
@@ -60,19 +54,10 @@ export default function PortfolioHoldingLotAddRow({
         component="th"
         scope="row"
         style={{ width: "143px", padding: "0 8px 0 16px" }}>
-        <ThemeProvider theme={muiTheme}>
-          <DatePicker
-            value={newPurchaseDate}
-            onChange={(newVal) => setNewPurchaseDate(newVal)}
-            format="YYYY-MM-DD"
-            slotProps={{
-              textField: { placeholder: "매입 날짜" },
-            }}
-            slots={{
-              openPickerIcon: IconCalendar,
-            }}
-          />
-        </ThemeProvider>
+        <SmallDatePicker
+          value={newPurchaseDate}
+          onChange={(newVal) => setNewPurchaseDate(newVal)}
+        />
       </StyledTableCell>
       <StyledTableCell align="right" style={{ width: "119px" }}>
         <Input
@@ -174,85 +159,3 @@ const StyledTextArea = styled.textarea`
 const IconButton = styled.button`
   width: 100%;
 `;
-
-const muiTheme = createTheme({
-  components: {
-    MuiFormControl: {
-      styleOverrides: {
-        root: {
-          width: "127px",
-        },
-      },
-    },
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          width: "10px",
-          height: "12px",
-        },
-      },
-    },
-    MuiInputAdornment: {
-      styleOverrides: {
-        root: {
-          width: "16px",
-          height: "100%",
-          margin: "0",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        },
-      },
-    },
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          padding: "0",
-          margin: "0",
-        },
-      },
-    },
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {
-          width: "32px",
-          height: "100%",
-        },
-      },
-    },
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          width: "87px",
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          display: "flex",
-          padding: "0 8px",
-          justifyContent: "center",
-          width: "127px",
-          height: "24px",
-          font: designSystem.font.body3,
-          backgroundColor: designSystem.color.neutral.white,
-          textAlign: "left",
-        },
-        input: {},
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          padding: "0",
-        },
-        input: {
-          width: "87px",
-          padding: "0 0 0 0",
-          font: designSystem.font.body3,
-        },
-      },
-    },
-  },
-});
