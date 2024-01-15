@@ -30,18 +30,20 @@ import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import trashIcon from "@assets/icons/ic_trash.svg";
 import upIcon from "@assets/icons/ic_up.svg";
+import userIcon from "@assets/icons/ic_user.svg";
 
 import { colors } from "@styles/designSystem";
 import { styled } from "styled-components";
 
 type ColorType = keyof typeof colors;
 
-type IconSize = 24 | 16 | 12;
+type IconSize = 12 | 16 | 24 | 32 | 48;
 
 type Props = {
   size: IconSize;
   icon: IconType;
   color: ColorType;
+  hoverColor?: ColorType;
 };
 
 const icons = {
@@ -77,20 +79,29 @@ const icons = {
   "sort_none": sortNoneIcon,
   "trash": trashIcon,
   "up": upIcon,
+  "user": userIcon,
 };
 
 type IconType = keyof typeof icons;
 
-export function Icon({ size, icon, color }: Props) {
+export function Icon({ size, icon, color, hoverColor }: Props) {
   const iconUrl = icons[icon];
 
-  return <StyledIcon $size={size} $iconUrl={iconUrl} $color={colors[color]} />;
+  return (
+    <StyledIcon
+      $size={size}
+      $iconUrl={iconUrl}
+      $color={colors[color]}
+      $hoverColor={hoverColor}
+    />
+  );
 }
 
 const StyledIcon = styled.div<{
   $iconUrl: string;
   $size: IconSize;
   $color: string;
+  $hoverColor?: string;
 }>`
   width: ${({ $size }) => `${$size}px`};
   height: ${({ $size }) => `${$size}px`};
@@ -100,6 +111,11 @@ const StyledIcon = styled.div<{
   mask-repeat: no-repeat;
   mask-position: center;
   -webkit-mask-image: url(${({ $iconUrl }) => $iconUrl});
-  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
   -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+
+  &:hover {
+    background-color: ${({ $color, $hoverColor }) => $hoverColor ?? $color};
+  }
 `;

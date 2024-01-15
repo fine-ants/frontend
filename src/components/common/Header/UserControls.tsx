@@ -1,25 +1,13 @@
-import useSignOutMutation from "@api/auth/queries/useSignOutMutation";
 import notificationIcon from "@assets/icons/ic_notification.svg";
-import settingsIcon from "@assets/icons/ic_settings.svg";
-import profileImage from "@assets/images/profileImage.png";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import CounterBadge from "./Badges/CounterBadge";
+import CounterBadge from "../Badges/CounterBadge";
+import UserDropdown from "./UserDropdown";
 
 // TODO: API 만든 후에 remove this
 const count = 10;
 
 export default function UserControls() {
-  const navigate = useNavigate();
-
-  const { mutate: signOutMutate } = useSignOutMutation();
-
-  const onSignOut = () => {
-    // TODO: Handler error
-    signOutMutate();
-  };
-
   return (
     <StyledUserControls>
       <ControlButton>
@@ -28,15 +16,8 @@ export default function UserControls() {
           <CounterBadge count={count} />
         </NotificationWrapper>
       </ControlButton>
-      <ControlButton>
-        <img src={settingsIcon} alt="settings" />
-      </ControlButton>
-      <ControlButton onClick={() => navigate("/profile")}>
-        <img src={profileImage} alt="profile" />
-      </ControlButton>
-      <Button variant="text" onClick={onSignOut}>
-        로그아웃
-      </Button>
+
+      <UserDropdown />
     </StyledUserControls>
   );
 }
@@ -53,6 +34,7 @@ const StyledUserControls = styled.div`
 const ControlButton = styled.button`
   width: 40px;
   height: 40px;
+  padding: 4px;
   border-radius: 4px;
   background-color: inherit;
   display: flex;
@@ -60,7 +42,7 @@ const ControlButton = styled.button`
   align-items: center;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: ${designSystem.color.neutral.gray800};
   }
 `;
 

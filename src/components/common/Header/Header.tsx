@@ -8,11 +8,11 @@ import Routes from "@router/Routes";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { NavBar } from "../NavBar";
-import SearchBar from "../SearchBar/SearchBar";
-import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
-import UserControls from "../common/UserControls";
+import { NavBar } from "../../NavBar";
+import SearchBar from "../../SearchBar/SearchBar";
+import TVTickerTapeWidget from "../../TradingViewWidgets/TVTickerTape";
 import { PortfoliosDropdown } from "./PortfoliosDropdown";
+import UserControls from "./UserControls";
 
 export default function Header() {
   const navigate = useNavigate();
