@@ -218,7 +218,6 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <div>이전가격 {prevValues.current.currentPrice}</div>
           <ChangeableAmount $gainOrLoss={changeStatus.currentPrice}>
             ₩{thousandsDelimiter(sse?.currentPrice ?? currentPrice)}
           </ChangeableAmount>
