@@ -3,7 +3,7 @@ import { StockSearchItem } from "@api/stock";
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
-import BigDatePicker from "@components/common/DatePicker/BigDatePicker";
+import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
 import { useState } from "react";
@@ -95,7 +95,8 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       <InputContainer>
         <InputBox>
           <label>매입 날짜</label>
-          <BigDatePicker
+          <DatePicker
+            size="big"
             value={newPurchaseDate}
             onChange={(newVal) => setNewPurchaseDate(newVal)}
           />

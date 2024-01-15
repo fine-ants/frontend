@@ -1,5 +1,5 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
-import SmallDatePicker from "@components/common/DatePicker/SmallDatePicker";
+import DatePicker from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import { TableCell as MuiTableCell } from "@mui/material";
 import { useState } from "react";
@@ -54,7 +54,8 @@ export default function PortfolioHoldingLotAddRow({
         component="th"
         scope="row"
         style={{ width: "143px", padding: "0 8px 0 16px" }}>
-        <SmallDatePicker
+        <DatePicker
+          size="small"
           value={newPurchaseDate}
           onChange={(newVal) => setNewPurchaseDate(newVal)}
         />
