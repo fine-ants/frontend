@@ -11,32 +11,33 @@ import PortfolioOverview from "./PortfolioOverview";
 export default function MainPanel() {
   const { portfolioId } = useParams();
 
+  const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
   const {
     data: portfolioSSE,
-    // isError,
+    isLoading,
+    isError,
     //TODO: SSE 에러일때 핸들링처리
   } = useSSE<PortfolioSSE>({
     url: `/api/portfolio/${portfolioId}/holdings/realtime`,
     eventTypeName: "portfolioDetails",
   });
-  const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
 
+  // Static Data
+  const { portfolioDetails, portfolioHoldings } = portfolio;
   // Realtime Data
   const {
     portfolioDetails: portfolioDetailsSSE,
     portfolioHoldings: portfolioHoldingsSSE,
   } = portfolioSSE ?? { portfolioDetails: null, portfolioHoldings: [] };
 
-  // Static Data
-  const { portfolioDetails, portfolioHoldings } = portfolio;
-
-  const freshPortfolioHoldingsData = [];
-  for (let i = 0; i < portfolioHoldings.length; i++) {
-    freshPortfolioHoldingsData.push({
-      ...portfolioHoldings[i],
-      ...portfolioHoldingsSSE[i],
-    });
-  }
+  // Merge static data with realtime data
+  const freshPortfolioHoldingsData =
+    !isLoading && !isError
+      ? portfolioHoldings.map((holding, index) => ({
+          ...holding,
+          ...portfolioHoldingsSSE[index],
+        }))
+      : portfolioHoldings;
 
   const hasNoHoldings = portfolioHoldings.length === 0;
 
