@@ -1,10 +1,10 @@
-import { Menu, MenuItem, SxProps } from "@mui/material";
+import { Menu, MenuItem, MenuProps, SxProps } from "@mui/material";
 import { ReactNode, SyntheticEvent, useState } from "react";
 
 type DropdownMenuProps = {
   sx?: SxProps;
   children: ReactNode;
-};
+} & Omit<MenuProps, "open" | "onClose">;
 
 type DropdownItemProps = {
   sx?: SxProps;
@@ -25,9 +25,14 @@ export function useDropdown() {
     setAnchorElement(null);
   };
 
-  function DropdownMenu({ sx, children }: DropdownMenuProps) {
+  function DropdownMenu({ sx, children, ...menuProps }: DropdownMenuProps) {
     return (
-      <Menu sx={sx} anchorEl={anchorElement} open={open} onClose={onClose}>
+      <Menu
+        sx={sx}
+        {...menuProps}
+        anchorEl={anchorElement}
+        open={open}
+        onClose={onClose}>
         {children}
       </Menu>
     );
