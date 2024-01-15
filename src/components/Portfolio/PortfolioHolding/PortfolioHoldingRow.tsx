@@ -1,6 +1,4 @@
-import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
-import ConfirmAlert from "@components/ConfirmAlert";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
@@ -14,9 +12,9 @@ import {
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent, useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import PortfolioHoldingLots from "./PortfolioHoldingLots";
+import PortfolioHoldingLotsTable from "./PortfolioHoldingLots/PortfolioHoldingLotsTable";
 
 type GainOrLoss = "gain" | "loss" | "none";
 
@@ -30,20 +28,18 @@ type ChangeStatus = {
 };
 
 export default function PortfolioHoldingRow({
-  portfolioId,
   labelId,
   row,
-  sse,
   isItemSelected,
   handleClick,
 }: {
-  row: PortfolioHolding;
-  sse: PortfolioHoldingsSSE;
   labelId: string;
+  row: PortfolioHolding;
   isItemSelected: boolean;
   handleClick: (event: MouseEvent<unknown>, id: number) => void;
-  portfolioId: number;
 }) {
+  const { portfolioId } = useParams();
+
   const {
     companyName,
     tickerSymbol,
@@ -61,11 +57,7 @@ export default function PortfolioHoldingRow({
     purchaseHistory,
   } = row;
 
-  const { mutate: portfolioHoldingDeleteMutate } =
-    usePortfolioHoldingDeleteMutation(portfolioId);
-
   const [isRowOpen, setIsRowOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const [changeStatus, setChangeStatus] = useState<ChangeStatus>({
     currentValuation: "none",
@@ -87,64 +79,72 @@ export default function PortfolioHoldingRow({
 
   const checkValuesChange = useCallback(
     (key: keyof PortfolioHoldingsSSE): GainOrLoss => {
-      if (sse) {
-        const currentValue = sse[key];
-        const previousValue = prevValues.current[key];
+      const currentValue = row[key];
+      const previousValue = prevValues.current[key];
 
-        if (currentValue > previousValue) {
-          return "gain"; // 값이 증가했음
-        } else if (currentValue < previousValue) {
-          return "loss"; // 값이 감소했음
-        } else {
-          return "none"; // 값이 동일함
-        }
+      if (currentValue > previousValue) {
+        return "gain"; // 값이 증가했음
+      } else if (currentValue < previousValue) {
+        return "loss"; // 값이 감소했음
       } else {
-        return "none";
+        return "none"; // 값이 동일함
       }
     },
-    [sse]
+    [row]
   );
 
+  const resyncValues = useCallback(() => {
+    setChangeStatus({
+      currentValuation: "none",
+      currentPrice: "none",
+      dailyChange: "none",
+      dailyChangeRate: "none",
+      totalGain: "none",
+      totalReturnRate: "none",
+    });
+    prevValues.current = {
+      currentValuation: currentValuation,
+      currentPrice: currentPrice,
+      dailyChange: dailyChange,
+      dailyChangeRate: dailyChangeRate,
+      totalGain: totalGain,
+      totalReturnRate: totalReturnRate,
+    };
+  }, [
+    currentValuation,
+    currentPrice,
+    dailyChange,
+    dailyChangeRate,
+    totalGain,
+    totalReturnRate,
+  ]);
+
   useEffect(() => {
-    if (sse) {
-      const newStatus = {
-        currentValuation: checkValuesChange("currentValuation"),
-        currentPrice: checkValuesChange("currentPrice"),
-        dailyChange: checkValuesChange("dailyChange"),
-        dailyChangeRate: checkValuesChange("dailyChangeRate"),
-        totalGain: checkValuesChange("totalGain"),
-        totalReturnRate: checkValuesChange("totalReturnRate"),
-      };
-      setChangeStatus(newStatus);
+    const newStatus = {
+      currentValuation: checkValuesChange("currentValuation"),
+      currentPrice: checkValuesChange("currentPrice"),
+      dailyChange: checkValuesChange("dailyChange"),
+      dailyChangeRate: checkValuesChange("dailyChangeRate"),
+      totalGain: checkValuesChange("totalGain"),
+      totalReturnRate: checkValuesChange("totalReturnRate"),
+    };
+    setChangeStatus(newStatus);
 
-      const timer = setTimeout(() => {
-        setChangeStatus({
-          currentValuation: "none",
-          currentPrice: "none",
-          dailyChange: "none",
-          dailyChangeRate: "none",
-          totalGain: "none",
-          totalReturnRate: "none",
-        });
-        prevValues.current = {
-          currentValuation: sse.currentValuation,
-          currentPrice: sse.currentPrice,
-          dailyChange: sse.dailyChange,
-          dailyChangeRate: sse.dailyChangeRate,
-          totalGain: sse.totalGain,
-          totalReturnRate: sse.totalReturnRate,
-        };
-      }, 2500);
+    const timer = setTimeout(resyncValues, 2500);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [sse, checkValuesChange]);
-
-  const onConfirmDelete = () => {
-    portfolioHoldingDeleteMutate({ portfolioId, portfolioHoldingId });
-  };
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [
+    checkValuesChange,
+    currentPrice,
+    currentValuation,
+    dailyChange,
+    dailyChangeRate,
+    totalGain,
+    totalReturnRate,
+    resyncValues,
+  ]);
 
   const onExpandRowClick = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -155,7 +155,7 @@ export default function PortfolioHoldingRow({
 
   return (
     <>
-      <HoldingTableRow
+      <StyledHoldingTableRow
         tabIndex={-1}
         selected={isItemSelected}
         aria-checked={isItemSelected}
@@ -196,9 +196,7 @@ export default function PortfolioHoldingRow({
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
               style={{ font: designSystem.font.body3 }}
-              to={`/stock/${tickerSymbol}`}
-              // to={`/portfolio/$${portfolioId}/holding/${portfolioHoldingId}`}
-            >
+              to={`/stock/${tickerSymbol}`}>
               {companyName}
             </Link>
           </Typography>
@@ -213,13 +211,13 @@ export default function PortfolioHoldingRow({
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <ChangeableAmount $gainOrLoss={changeStatus.currentValuation}>
-            ₩{thousandsDelimiter(sse?.currentValuation ?? currentValuation)}
+            ₩{thousandsDelimiter(currentValuation ?? currentValuation)}
           </ChangeableAmount>
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <ChangeableAmount $gainOrLoss={changeStatus.currentPrice}>
-            ₩{thousandsDelimiter(sse?.currentPrice ?? currentPrice)}
+            ₩{thousandsDelimiter(currentPrice ?? currentPrice)}
           </ChangeableAmount>
         </HoldingTableCell>
 
@@ -233,22 +231,22 @@ export default function PortfolioHoldingRow({
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
           <ChangeableAmount $gainOrLoss={changeStatus.dailyChange}>
-            {thousandsDelimiter(sse?.dailyChange ?? dailyChange)}
+            {thousandsDelimiter(dailyChange ?? dailyChange)}
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={sse?.dailyChangeRate ?? dailyChangeRate}
+            rate={dailyChangeRate ?? dailyChangeRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <ChangeableAmount $gainOrLoss={changeStatus.totalGain}>
-            ₩{thousandsDelimiter(sse?.totalGain ?? totalGain)}
+            ₩{thousandsDelimiter(totalGain ?? totalGain)}
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={sse?.totalReturnRate ?? totalReturnRate}
+            rate={totalReturnRate ?? totalReturnRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -268,31 +266,24 @@ export default function PortfolioHoldingRow({
             bgColorStatus={false}
           />
         </HoldingTableCell>
-      </HoldingTableRow>
+      </StyledHoldingTableRow>
 
-      <HoldingLotRow>
+      <StyledHoldingLotRow>
         <TableCell style={{ padding: "0", border: "none" }} colSpan={10}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
-            <PortfolioHoldingLots
-              portfolioId={portfolioId}
+            <PortfolioHoldingLotsTable
+              portfolioId={Number(portfolioId)}
               portfolioHoldingId={portfolioHoldingId}
               purchaseHistory={purchaseHistory}
             />
           </Collapse>
         </TableCell>
-      </HoldingLotRow>
-
-      <ConfirmAlert
-        isOpen={isDeleteDialogOpen}
-        title="종목을 삭제하시겠습니까?"
-        onClose={() => setIsDeleteDialogOpen(false)}
-        onConfirm={onConfirmDelete}
-      />
+      </StyledHoldingLotRow>
     </>
   );
 }
 
-const HoldingTableRow = styled(TableRow)`
+const StyledHoldingTableRow = styled(TableRow)`
   &.Mui-selected {
     background-color: ${({ theme: { color } }) => color.neutral.gray50};
     border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.white};
@@ -329,7 +320,7 @@ const Amount = styled(HoldingTypography)`
   display: inline;
 `;
 
-const HoldingLotRow = styled(TableRow)`
+const StyledHoldingLotRow = styled(TableRow)`
   width: 856px;
 `;
 

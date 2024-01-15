@@ -1,4 +1,4 @@
-import { PortfolioItem } from "@api/portfolio/types";
+import { PortfolioHolding } from "@api/portfolio/types";
 import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
@@ -10,107 +10,130 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
-  tableSortLabelClasses,
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
+import designSystem from "@styles/designSystem";
 import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
 
-type HeadCell = {
-  id: keyof PortfolioItem;
-  label: string;
-  numeric: boolean;
-};
-
-const headCells: readonly HeadCell[] = [
-  {
-    id: "name",
-    numeric: false,
-    label: "이름",
-  },
-  {
-    id: "currentValuation",
-    numeric: true,
-    label: "평가 금액",
-  },
-  {
-    id: "budget",
-    numeric: true,
-    label: "투자 예산",
-  },
-  {
-    id: "totalGain",
-    numeric: true,
-    label: "총 손익",
-  },
-  {
-    id: "dailyGain",
-    numeric: true,
-    label: "당일 손익",
-  },
-  {
-    id: "expectedMonthlyDividend",
-    numeric: true,
-    label: "당월 예상 배당금",
-  },
-  {
-    id: "numShares",
-    numeric: true,
-    label: "종목 개수",
-  },
-];
-
-type PortfolioListTableHeadProps = {
+type Props = {
   order: Order;
   orderBy: string;
   numSelected: number;
   rowCount: number;
   onRequestSort: (
     event: MouseEvent<unknown>,
-    property: keyof PortfolioItem
+    property: keyof PortfolioHolding
   ) => void;
   onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function PortfolioListTableHead({
+type HeadCell = {
+  id: keyof PortfolioHolding;
+  label: string;
+  numeric: boolean;
+  size: string;
+};
+
+const headCells: readonly HeadCell[] = [
+  {
+    id: "companyName",
+    numeric: false,
+    label: "종목명",
+    size: "132px",
+  },
+  {
+    id: "currentValuation",
+    numeric: true,
+    label: "평가 금액",
+    size: "108px",
+  },
+  {
+    id: "currentPrice",
+    numeric: true,
+    label: "현재가",
+    size: "108px",
+  },
+  {
+    id: "averageCostPerShare",
+    numeric: true,
+    label: "평균 매입가",
+    size: "108px",
+  },
+  {
+    id: "numShares",
+    numeric: true,
+    label: "개수",
+    size: "64px",
+  },
+  {
+    id: "dailyChangeRate",
+    numeric: true,
+    label: "변동률",
+    size: "80px",
+  },
+  {
+    id: "totalGain",
+    numeric: true,
+    label: "총 손익",
+    size: "108px",
+  },
+  {
+    id: "annualDividend",
+    numeric: true,
+    label: "연 배당금",
+    size: "116px",
+  },
+];
+
+export default function PortfolioHoldingTableHead({
   order,
   orderBy,
   numSelected,
   rowCount,
   onRequestSort,
   onSelectAllClick,
-}: PortfolioListTableHeadProps) {
+}: Props) {
   const createSortHandler =
-    (property: keyof PortfolioItem) => (event: MouseEvent<unknown>) => {
+    (property: keyof PortfolioHolding) => (event: MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
   return (
-    <StyledPortfolioListTableHead>
-      <StyledTableRow>
-        <StyledTableCell padding="none">
+    <CustomTableHead>
+      <ColumnHeader
+        style={{
+          backgroundColor: designSystem.color.neutral.gray50,
+        }}>
+        <ColumnHeaderCell
+          style={{
+            width: "32px",
+            boxSizing: "border-box",
+            borderRadius: "8px 0 0 8px",
+          }}
+        />
+        <ColumnHeaderCell style={{ width: "32px" }}>
           <CheckBox
-            size="h20"
+            size="h16"
             checkType="indet"
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              "aria-label": "select all portfolios",
+              "aria-label": "select all desserts",
             }}
           />
-        </StyledTableCell>
-        {headCells.map((headCell) => (
-          <StyledTableCell
+        </ColumnHeaderCell>
+        {headCells.map((headCell, index) => (
+          <ColumnHeaderCell
             key={headCell.id}
-            sx={{
-              width:
-                headCell.id === "name"
-                  ? "338px"
-                  : headCell.id === "numShares"
-                  ? "136px"
-                  : "170px",
-            }}
             align={headCell.numeric ? "right" : "left"}
+            style={{
+              width: headCell.size,
+              borderRadius:
+                index === headCells.length - 1 ? "0 8px 8px 0" : "0",
+              padding:
+                index === headCells.length - 1 ? "0 16px 0 8px" : "0 8px",
+            }}
             sortDirection={orderBy === headCell.id ? order : false}>
             <StyledTableSortLabel
               active={orderBy === headCell.id}
@@ -134,42 +157,45 @@ export default function PortfolioListTableHead({
                 </Box>
               ) : null}
             </StyledTableSortLabel>
-          </StyledTableCell>
+          </ColumnHeaderCell>
         ))}
-      </StyledTableRow>
+      </ColumnHeader>
       <TableRow sx={{ height: "8px" }} />
-    </StyledPortfolioListTableHead>
+    </CustomTableHead>
   );
 }
 
-const StyledPortfolioListTableHead = styled(TableHead)`
-  height: 56px;
-`;
-
-const StyledTableRow = styled(TableRow)`
+const CustomTableHead = styled(TableHead)`
   height: 48px;
-`;
-
-const StyledTableCell = styled(TableCell)`
-  height: 100%;
+  width: 100%;
   padding: 0 8px;
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
-  border: none;
+  border-radius: 8px;
 
-  &:first-of-type {
-    padding-left: 16px;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+  & .MuiTableCell-root {
+    border-bottom: none;
+    color: ${({ theme: { color } }) => color.neutral.gray600};
+    font: ${({ theme: { font } }) => font.title5};
   }
+`;
 
-  &:last-of-type {
-    padding-right: 16px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+const ColumnHeader = styled(TableRow)`
+  width: 100%;
+  background-color: #f6f6f8;
+
+  & > last-child {
+    border-radius: 0 8px 8px 0;
+    padding: 0 16px 0 8px;
   }
+`;
 
-  & > .${tableSortLabelClasses.root} {
-    font: ${({ theme: { font } }) => font.body5};
+const ColumnHeaderCell = styled(TableCell)`
+  padding: 4px 8px;
+
+  height: 48px;
+
+  > span {
+    width: auto;
   }
 `;
 
