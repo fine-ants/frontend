@@ -1,5 +1,7 @@
+import { useSSE } from "@api/hooks/useSSE";
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
 import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
+import { PortfolioSSE } from "@api/portfolio/types";
 import noHoldingsStock from "@assets/images/no_holdings_stock.png";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
@@ -14,7 +16,21 @@ import PortfolioOverview from "./PortfolioOverview";
 export default function MainPanel() {
   const { portfolioId } = useParams();
 
+  const {
+    data: portfolioSSE,
+    // isError,
+    //TODO: SSE 에러일때 핸들링처리
+  } = useSSE<PortfolioSSE>({
+    url: `/api/portfolio/${portfolioId}/holdings/realtime`,
+    eventTypeName: "portfolioDetails",
+  });
   const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
+
+  const {
+    portfolioDetails: portfolioDetailsSSE,
+    portfolioHoldings: portfolioHoldingsSSE,
+  } = portfolioSSE ?? { portfolioDetails: null, portfolioHoldings: [] };
+
   const { portfolioDetails, portfolioHoldings } = portfolio;
 
   const { mutate: portfolioHoldingDeleteMutate } =
@@ -40,7 +56,10 @@ export default function MainPanel() {
   return (
     <StyledMainPanel>
       <PortfolioOverviewContainer>
-        <PortfolioOverview data={portfolioDetails} />
+        <PortfolioOverview
+          data={portfolioDetails}
+          sseData={portfolioDetailsSSE}
+        />
       </PortfolioOverviewContainer>
 
       {hasNoHoldings ? (
@@ -87,6 +106,7 @@ export default function MainPanel() {
             onClickCheckbox={setSelected}
             portfolioId={portfolioDetails.id}
             data={portfolioHoldings}
+            sseData={portfolioHoldingsSSE}
           />
         </PortfolioHoldingsContainer>
       )}

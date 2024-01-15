@@ -12,16 +12,6 @@ import styled from "styled-components";
 import BasePage from "../BasePage";
 
 export default function PortfolioPage() {
-  // const { portfolioId } = useParams();
-  // const {
-  //   data: portfolioSSE,
-  //   isLoading,
-  //   isError,
-  // } = useSSE<PortfolioSSE>({
-  //   url: `/api/portfolio/${portfolioId}/holdings/realtime`,
-  //   eventTypeName: "portfolioDetails",
-  // });
-
   return (
     <BasePage>
       <Container>

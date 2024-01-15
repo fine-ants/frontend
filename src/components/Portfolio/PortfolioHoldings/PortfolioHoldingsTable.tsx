@@ -1,4 +1,4 @@
-import { PortfolioHolding } from "@api/portfolio/types";
+import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
 import TablePagination from "@components/common/Pagination/TablePagination";
 import {
   Box,
@@ -13,8 +13,8 @@ import {
 import designSystem from "@styles/designSystem";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import styled from "styled-components";
-import PortfolioHoldingsTableHead from "./PorfolioHoldingTableHead";
 import PortfolioHoldingRow from "./PortfolioHoldingRow";
+import PortfolioHoldingsTableHead from "./PortfolioHoldingTableHead";
 
 export type Order = "asc" | "desc";
 
@@ -24,7 +24,6 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getComparator<Key extends keyof PortfolioHolding>(
   order: Order,
   orderBy: Key
@@ -39,6 +38,7 @@ type Props = {
   onClickCheckbox: (selected: readonly number[]) => void;
   portfolioId: number;
   data: PortfolioHolding[];
+  sseData: PortfolioHoldingsSSE[] | never[];
 };
 
 export default function PortfolioHoldingsTable({
@@ -46,8 +46,10 @@ export default function PortfolioHoldingsTable({
   onClickCheckbox,
   portfolioId,
   data,
+  sseData,
 }: Props) {
   const portfolioRows = data;
+  const portfolioRowsSSE = sseData;
 
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof PortfolioHolding>("dateCreated");
@@ -143,6 +145,7 @@ export default function PortfolioHoldingsTable({
                     handleClick={handleClick}
                     labelId={labelId}
                     row={row}
+                    sse={portfolioRowsSSE && portfolioRowsSSE[index]}
                     portfolioId={portfolioId}
                   />
                 );

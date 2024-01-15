@@ -1,6 +1,18 @@
+import { refreshAccessToken } from "@api/auth";
+import { HTTPSTATUS } from "@api/types";
 import { BASE_API_URL } from "@constants/config";
-import { EventSourcePolyfill } from "event-source-polyfill";
+import { Event, EventSourcePolyfill } from "event-source-polyfill";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+type ErrorEvent = {
+  type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  target: any;
+  status: number;
+  statusText: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  headers: any;
+} & Event;
 
 type Props = {
   url: string;
@@ -8,8 +20,6 @@ type Props = {
 };
 
 export function useSSE<T>({ url, eventTypeName }: Props) {
-  const accessToken = localStorage.getItem("accessToken");
-
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -38,25 +48,39 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
         setData(data);
         setIsLoading(false);
         setShouldReconnect(false);
+        onClose();
       },
     }),
     []
   );
 
   const initEventSource = useCallback(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
     eventSourceRef.current = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    eventSourceRef.current.onerror = () => {
+    eventSourceRef.current.onerror = async (errorEvent) => {
+      if ((errorEvent as ErrorEvent).status === HTTPSTATUS.forbidden) {
+        const res = await refreshAccessToken();
+
+        localStorage.setItem("accessToken", res.data?.accessToken);
+
+        setIsError(false);
+        setIsLoading(true);
+        initEventSource();
+        return;
+      }
+
       setIsError(true);
     };
 
     eventSourceRef.current.addEventListener(eventTypeName, messageListener);
     eventSourceRef.current.addEventListener("complete", completeHandler);
-  }, [url, accessToken, eventTypeName, messageListener, completeHandler]);
+  }, [url, eventTypeName, messageListener, completeHandler]);
 
   useEffect(() => {
     if (!shouldReconnect) return;
