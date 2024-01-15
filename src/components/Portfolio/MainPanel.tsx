@@ -1,4 +1,6 @@
+import { useSSE } from "@api/hooks/useSSE";
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
+import { PortfolioSSE } from "@api/portfolio/types";
 import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -10,21 +12,49 @@ export default function MainPanel() {
   const { portfolioId } = useParams();
 
   const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
+  const {
+    data: portfolioSSE,
+    isLoading,
+    isError,
+    //TODO: SSE 에러일때 핸들링처리
+  } = useSSE<PortfolioSSE>({
+    url: `/api/portfolio/${portfolioId}/holdings/realtime`,
+    eventTypeName: "portfolioDetails",
+  });
+
+  // Static Data
   const { portfolioDetails, portfolioHoldings } = portfolio;
+  // Realtime Data
+  const {
+    portfolioDetails: portfolioDetailsSSE,
+    portfolioHoldings: portfolioHoldingsSSE,
+  } = portfolioSSE ?? { portfolioDetails: null, portfolioHoldings: [] };
+
+  // Merge static data with realtime data
+  const freshPortfolioHoldingsData =
+    !isLoading && !isError
+      ? portfolioHoldings.map((holding, index) => ({
+          ...holding,
+          ...portfolioHoldingsSSE[index],
+        }))
+      : portfolioHoldings;
 
   const hasNoHoldings = portfolioHoldings.length === 0;
 
   return (
     <StyledMainPanel>
       <PortfolioOverviewContainer>
-        <PortfolioOverview data={portfolioDetails} />
+        <PortfolioOverview
+          data={portfolioDetails}
+          sseData={portfolioDetailsSSE}
+        />
       </PortfolioOverviewContainer>
 
       {hasNoHoldings ? (
         <EmptyPortfolioHoldingTable />
       ) : (
         <PortfolioHoldingsContainer>
-          <PortfolioHoldingTable data={portfolioHoldings} />
+          <PortfolioHoldingTable data={freshPortfolioHoldingsData} />
         </PortfolioHoldingsContainer>
       )}
     </StyledMainPanel>

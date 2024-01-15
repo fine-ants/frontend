@@ -1,4 +1,4 @@
-import { PortfolioHolding } from "@api/portfolio/types";
+import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
@@ -11,10 +11,21 @@ import {
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingLotsTable from "./PortfolioHoldingLots/PortfolioHoldingLotsTable";
+
+type GainOrLoss = "gain" | "loss" | "none";
+
+type ChangeStatus = {
+  currentValuation: GainOrLoss;
+  currentPrice: GainOrLoss;
+  dailyChange: GainOrLoss;
+  dailyChangeRate: GainOrLoss;
+  totalGain: GainOrLoss;
+  totalReturnRate: GainOrLoss;
+};
 
 export default function PortfolioHoldingRow({
   labelId,
@@ -47,6 +58,93 @@ export default function PortfolioHoldingRow({
   } = row;
 
   const [isRowOpen, setIsRowOpen] = useState(false);
+
+  const [changeStatus, setChangeStatus] = useState<ChangeStatus>({
+    currentValuation: "none",
+    currentPrice: "none",
+    dailyChange: "none",
+    dailyChangeRate: "none",
+    totalGain: "none",
+    totalReturnRate: "none",
+  });
+
+  const prevValues = useRef<PortfolioHoldingsSSE>({
+    currentValuation: currentValuation,
+    currentPrice: currentPrice,
+    dailyChange: dailyChange,
+    dailyChangeRate: dailyChangeRate,
+    totalGain: totalGain,
+    totalReturnRate: totalReturnRate,
+  });
+
+  const checkValuesChange = useCallback(
+    (key: keyof PortfolioHoldingsSSE): GainOrLoss => {
+      const currentValue = row[key];
+      const previousValue = prevValues.current[key];
+
+      if (currentValue > previousValue) {
+        return "gain"; // 값이 증가했음
+      } else if (currentValue < previousValue) {
+        return "loss"; // 값이 감소했음
+      } else {
+        return "none"; // 값이 동일함
+      }
+    },
+    [row]
+  );
+
+  const resyncValues = useCallback(() => {
+    setChangeStatus({
+      currentValuation: "none",
+      currentPrice: "none",
+      dailyChange: "none",
+      dailyChangeRate: "none",
+      totalGain: "none",
+      totalReturnRate: "none",
+    });
+    prevValues.current = {
+      currentValuation: currentValuation,
+      currentPrice: currentPrice,
+      dailyChange: dailyChange,
+      dailyChangeRate: dailyChangeRate,
+      totalGain: totalGain,
+      totalReturnRate: totalReturnRate,
+    };
+  }, [
+    currentValuation,
+    currentPrice,
+    dailyChange,
+    dailyChangeRate,
+    totalGain,
+    totalReturnRate,
+  ]);
+
+  useEffect(() => {
+    const newStatus = {
+      currentValuation: checkValuesChange("currentValuation"),
+      currentPrice: checkValuesChange("currentPrice"),
+      dailyChange: checkValuesChange("dailyChange"),
+      dailyChangeRate: checkValuesChange("dailyChangeRate"),
+      totalGain: checkValuesChange("totalGain"),
+      totalReturnRate: checkValuesChange("totalReturnRate"),
+    };
+    setChangeStatus(newStatus);
+
+    const timer = setTimeout(resyncValues, 2500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [
+    checkValuesChange,
+    currentPrice,
+    currentValuation,
+    dailyChange,
+    dailyChangeRate,
+    totalGain,
+    totalReturnRate,
+    resyncValues,
+  ]);
 
   const onExpandRowClick = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -112,12 +210,14 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <Amount>₩{thousandsDelimiter(currentValuation)}</Amount>
+          <ChangeableAmount $gainOrLoss={changeStatus.currentValuation}>
+            ₩{thousandsDelimiter(currentValuation ?? currentValuation)}
+          </ChangeableAmount>
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <ChangeableAmount $isProfit={currentPrice > averageCostPerShare}>
-            ₩{thousandsDelimiter(currentPrice)}
+          <ChangeableAmount $gainOrLoss={changeStatus.currentPrice}>
+            ₩{thousandsDelimiter(currentPrice ?? currentPrice)}
           </ChangeableAmount>
         </HoldingTableCell>
 
@@ -130,17 +230,25 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
-          <HoldingTypography>
-            {thousandsDelimiter(dailyChange)}
-          </HoldingTypography>
-          <RateBadge size={12} rate={dailyChangeRate} bgColorStatus={false} />
+          <ChangeableAmount $gainOrLoss={changeStatus.dailyChange}>
+            {thousandsDelimiter(dailyChange ?? dailyChange)}
+          </ChangeableAmount>
+          <RateBadge
+            size={12}
+            rate={dailyChangeRate ?? dailyChangeRate}
+            bgColorStatus={false}
+          />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <HoldingTypography>
-            ₩{thousandsDelimiter(totalGain)}
-          </HoldingTypography>
-          <RateBadge size={12} rate={totalReturnRate} bgColorStatus={false} />
+          <ChangeableAmount $gainOrLoss={changeStatus.totalGain}>
+            ₩{thousandsDelimiter(totalGain ?? totalGain)}
+          </ChangeableAmount>
+          <RateBadge
+            size={12}
+            rate={totalReturnRate ?? totalReturnRate}
+            bgColorStatus={false}
+          />
         </HoldingTableCell>
 
         <HoldingTableCell
@@ -216,7 +324,19 @@ const StyledHoldingLotRow = styled(TableRow)`
   width: 856px;
 `;
 
-const ChangeableAmount = styled(Amount)<{ $isProfit: boolean }>`
-  color: ${({ $isProfit, theme: { color } }) =>
-    $isProfit ? color.state.green : color.state.red};
+const ChangeableAmount = styled(Amount)<{
+  $gainOrLoss: GainOrLoss;
+}>`
+  color: ${({ $gainOrLoss, theme: { color } }) => {
+    switch ($gainOrLoss) {
+      case "none":
+        return color.neutral.gray900;
+      case "gain":
+        return color.state.green;
+      case "loss":
+        return color.state.red;
+      default:
+        return color.neutral.gray900;
+    }
+  }};
 `;

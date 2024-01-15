@@ -53,8 +53,6 @@ export default function DashboardOverview() {
               <RateBadge
                 size={24}
                 rate={overviewData?.totalAnnualDividendYield ?? 0}
-                iconStatus={false}
-                isDividendRate={true}
               />
             </TotalSubContentWrapper>
           </SubContentContainer>

@@ -15,6 +15,9 @@ export default function usePortfolioHoldingPurchaseAddMutation(
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: portfolioKeys.charts(portfolioId).queryKey,
+      });
     },
   });
 }

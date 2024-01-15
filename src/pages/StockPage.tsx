@@ -1,5 +1,6 @@
 import RateBadge from "@components/common/Badges/RateBadge";
 import Button from "@components/common/Buttons/Button";
+import Header from "@components/common/Header";
 import { Icon } from "@components/common/Icon";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -13,72 +14,81 @@ export default function StockPage() {
   const onAddWatchlistButtonClick = () => {};
 
   return (
-    <BasePage>
-      <Main>
-        <ChartContainer>
-          <TitleContainer>
-            <NameWrapper>
-              <Symbol />
-              <label>종목명</label>
-              <span>{tickerSymbol}</span>
-            </NameWrapper>
-            <ButtonWrapper>
-              <Button variant="tertiary" size="h32">
-                <Icon icon="favorite" size={16} color="gray600" />
-                관심 종목 해제
-              </Button>
-              <Button
-                variant="secondary"
-                size="h32"
-                onClick={onAddWatchlistButtonClick}>
-                <Icon icon="favorite" size={16} color="blue500" />
-                관심 종목 추가
-              </Button>
-            </ButtonWrapper>
-          </TitleContainer>
-          <ValuationContainer>
-            <PriceWrapper>
-              <span>₩</span>
-              <label>종목 현재가</label>
-            </PriceWrapper>
-            <RateBadge
-              size={16}
-              rate={12800}
-              bgColorStatus={false}
-              iconStatus={true}
-            />
-            <RateBadge
-              size={24}
-              rate={23.19}
-              bgColorStatus={true}
-              iconStatus={true}
-            />
-          </ValuationContainer>
-          {tickerSymbol && <TVStockDetailWidget tickerSymbol={tickerSymbol} />}
-        </ChartContainer>
-        <StockInfo>
-          <label>종목 정보</label>
-          <InfoContainer>
-            <Info>
-              <label>섹터</label>
-              <span>종목의 섹터</span>
-            </Info>
-            <Info>
-              <label>배당금</label>
-              <span>종목의 배당금</span>
-            </Info>
-            <Info>
-              <label>배당률</label>
-              <span>종목의 배당률</span>
-            </Info>
-            <Info>
-              <label>배당주기</label>
-              <span>종목의 배당주기</span>
-            </Info>
-          </InfoContainer>
-        </StockInfo>
-      </Main>
-    </BasePage>
+    <>
+      <Header />
+      <BasePage>
+        <Main>
+          <ChartContainer>
+            <TitleContainer>
+              <NameWrapper>
+                <Symbol />
+                <label>종목명</label>
+                <span>{tickerSymbol}</span>
+              </NameWrapper>
+              <ButtonWrapper>
+                <Button variant="tertiary" size="h32">
+                  <Icon icon="favorite" size={16} color="gray600" />
+                  관심 종목 해제
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="h32"
+                  onClick={onAddWatchlistButtonClick}>
+                  <Icon icon="favorite" size={16} color="blue500" />
+                  관심 종목 추가
+                </Button>
+              </ButtonWrapper>
+            </TitleContainer>
+            <ValuationContainer>
+              <PriceWrapper>
+                <span>₩</span>
+                <label>종목 현재가</label>
+              </PriceWrapper>
+              <RateBadge
+                size={16}
+                rate={12800}
+                bgColorStatus={false}
+                iconStatus={true}
+              />
+              <RateBadge
+                size={24}
+                rate={23.19}
+                bgColorStatus={true}
+                iconStatus={true}
+              />
+            </ValuationContainer>
+            {tickerSymbol && (
+              <TVStockDetailWidget
+                tickerSymbol={tickerSymbol}
+                width={893}
+                height={366}
+              />
+            )}
+          </ChartContainer>
+          <StockInfo>
+            <label>종목 정보</label>
+            <InfoContainer>
+              <Info>
+                <label>섹터</label>
+                <span>종목의 섹터</span>
+              </Info>
+              <Info>
+                <label>배당금</label>
+                <span>종목의 배당금</span>
+              </Info>
+              <Info>
+                <label>배당률</label>
+                <span>종목의 배당률</span>
+              </Info>
+              <Info>
+                <label>배당주기</label>
+                <span>종목의 배당주기</span>
+              </Info>
+            </InfoContainer>
+          </StockInfo>
+        </Main>
+      </BasePage>
+    </>
   );
 }
 
