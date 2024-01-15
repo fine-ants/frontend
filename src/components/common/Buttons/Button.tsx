@@ -7,6 +7,7 @@ type Size = "h32" | "h44";
 type Props = {
   variant: Variant;
   size: Size;
+  type?: "button" | "submit";
   disabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
@@ -14,7 +15,16 @@ type Props = {
 };
 
 export default forwardRef(function Button(
-  { variant, size, disabled, onClick, children, style, ...props }: Props,
+  {
+    variant,
+    size,
+    type = "button",
+    disabled = false,
+    onClick,
+    children,
+    style,
+    ...props
+  }: Props,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
   return (
@@ -23,6 +33,7 @@ export default forwardRef(function Button(
       $variant={variant}
       $size={size}
       $disabled={disabled}
+      type={type}
       disabled={disabled}
       onClick={onClick}
       style={style}
