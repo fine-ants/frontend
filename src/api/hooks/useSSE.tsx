@@ -1,7 +1,11 @@
 import { refreshAccessToken } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
 import { BASE_API_URL } from "@constants/config";
-import { Event, EventSourcePolyfill } from "event-source-polyfill";
+import {
+  Event,
+  EventSourcePolyfill,
+  MessageEvent,
+} from "event-source-polyfill";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type ErrorEvent = {
@@ -42,10 +46,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   // For when the server is indicating that there is no need to reconnect.
   const completeHandler = useMemo(
     () => ({
-      handleEvent: (event: MessageEvent) => {
-        const { data } = event;
-
-        setData(data);
+      handleEvent: () => {
         setIsLoading(false);
         setShouldReconnect(false);
         onClose();
