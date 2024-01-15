@@ -5,6 +5,5 @@
   },
   "editor.formatOnSave": true,
   "editor.wordWrap": "on",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["tradingview", "Watchlist"]
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
