@@ -41,7 +41,8 @@ fetcher.interceptors.response.use(
     }
 
     if (error.response.status === HTTPSTATUS.unAuthorized) {
-      // Refresh token expired.
+      // Refresh token expired. Log the user out.
+      localStorage.removeItem("user");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
 
