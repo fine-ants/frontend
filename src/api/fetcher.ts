@@ -44,6 +44,7 @@ fetcher.interceptors.response.use(
       // Refresh token expired.
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
 
       // TODO: navigate the user to `/signin` while displaying the toast
       window.location.href = Routes.SIGNIN;
