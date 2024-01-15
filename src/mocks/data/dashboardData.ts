@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// const portfoliosPieChartData: any[] = [];
 const portfoliosPieChartData = [
   {
     id: 1,
@@ -199,8 +197,6 @@ const overviewData = {
   totalAnnualDividendYield: 20,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// const totalValuationData: any[] = [];
 const totalValuationData = [
   { time: "2018-10-19", value: 5012346 },
   { time: "2018-10-22", value: 4678901 },
