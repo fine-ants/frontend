@@ -3,14 +3,12 @@ import { StockSearchItem } from "@api/stock";
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
+import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
-import { IconButton, ThemeProvider, createTheme } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import designSystem from "@styles/designSystem";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { IconCalendar } from "./IconCalendar";
 
 type Props = {
   isOpen: boolean;
@@ -66,7 +64,6 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       onClose={onDialogClose}>
       <Header>
         <Title>종목 추가</Title>
-        {/* TODO: fix size */}
         <IconButton onClick={onDialogClose}>
           <Icon icon="close" size={24} color="gray600" />
         </IconButton>
@@ -98,19 +95,11 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       <InputContainer>
         <InputBox>
           <label>매입 날짜</label>
-          <ThemeProvider theme={muiTheme}>
-            <DatePicker
-              value={newPurchaseDate}
-              onChange={(newVal) => setNewPurchaseDate(newVal)}
-              format="YYYY-MM-DD"
-              slotProps={{
-                textField: { placeholder: "매입 날짜" },
-              }}
-              slots={{
-                openPickerIcon: IconCalendar,
-              }}
-            />
-          </ThemeProvider>
+          <DatePicker
+            size="big"
+            value={newPurchaseDate}
+            onChange={(newVal) => setNewPurchaseDate(newVal)}
+          />
         </InputBox>
 
         <InputBox>
@@ -160,8 +149,7 @@ const Header = styled.header`
 `;
 
 const Title = styled.div`
-  font: ${({ theme: { font } }) => font.heading3.font};
-  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+  font: ${({ theme: { font } }) => font.heading3};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
@@ -171,8 +159,7 @@ const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font: ${({ theme: { font } }) => font.title5.font};
-  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+  font: ${({ theme: { font } }) => font.title5};
 
   > div {
     color: ${({ theme: { color } }) => color.neutral.gray800};
@@ -193,8 +180,7 @@ const HoldingBox = styled.div`
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
   border: 1px solid ${({ theme: { color } }) => color.primary.blue50};
   border-radius: 8px;
-  font: ${({ theme: { font } }) => font.title5.font};
-  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+  font: ${({ theme: { font } }) => font.title5};
   color: ${({ theme: { color } }) => color.primary.blue500};
 `;
 
@@ -204,7 +190,7 @@ const TitleWrapper = styled.div`
   gap: 8px;
   > span {
     color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${({ theme: { font } }) => font.body4.font};
+    font: ${({ theme: { font } }) => font.body4};
   }
 `;
 
@@ -226,8 +212,7 @@ const InputBox = styled.div`
     align-items: center;
     width: 120px;
     height: 24px;
-    font: ${({ theme: { font } }) => font.title5.font};
-    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+    font: ${({ theme: { font } }) => font.title5};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;
@@ -242,7 +227,7 @@ const InputWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${({ theme: { font } }) => font.body3};
   color: ${({ theme: { color } }) => color.neutral.gray400};
 `;
 
@@ -255,7 +240,7 @@ const InputTextArea = styled.textarea`
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${({ theme: { font } }) => font.body3};
   color: ${({ theme: { color } }) => color.neutral.gray400};
 
   &&::placeholder {
@@ -272,107 +257,10 @@ const Input = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${({ theme: { font } }) => font.body3};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 
   &&::placeholder {
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
-
-const muiTheme = createTheme({
-  components: {
-    MuiFormControl: {
-      styleOverrides: {
-        root: {
-          width: "352px",
-          height: "32px",
-          border: "none",
-        },
-      },
-    },
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          width: "16px",
-          height: "24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-      },
-    },
-    MuiInputAdornment: {
-      styleOverrides: {
-        root: {
-          width: "24px",
-          height: "100%",
-          margin: "0",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        },
-      },
-    },
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          padding: "0",
-          margin: "0",
-        },
-      },
-    },
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {
-          width: "100%",
-          height: "100%",
-        },
-      },
-    },
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          width: "87px",
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          "display": "flex",
-          "padding": "4px 8px",
-          "justifyContent": "center",
-          "width": "352px",
-          "height": "32px",
-          "font": designSystem.font.body3.font,
-          "color": designSystem.color.neutral.gray400,
-          "borderColor": designSystem.color.neutral.gray100,
-          "backgroundColor": designSystem.color.neutral.white,
-          "&:focus": {
-            borderColor: designSystem.color.primary.blue500,
-          },
-          "&:hover": {
-            borderColor: designSystem.color.neutral.gray100,
-          },
-        },
-        input: {},
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {},
-        input: {
-          "width": "304px",
-          "height": "21px",
-          "padding": "0 0 0 0",
-          "font": designSystem.font.body3.font,
-          "color": designSystem.color.neutral.gray900,
-          "::placeholder": {
-            color: designSystem.color.neutral.gray700,
-          },
-        },
-      },
-    },
-  },
-});

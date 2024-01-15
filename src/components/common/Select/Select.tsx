@@ -12,6 +12,7 @@ export type Size = "h24" | "h32" | "h40";
 
 type Props = {
   size: Size;
+  menuMinHeight?: number;
   selectedValue: string;
   changeSelectedValue: (value: string) => void;
   children: ReactNode;
@@ -22,6 +23,7 @@ type Props = {
  */
 export default function Select({
   size,
+  menuMinHeight,
   selectedValue,
   changeSelectedValue,
   children,
@@ -48,7 +50,7 @@ export default function Select({
       IconComponent={() => (
         <StyledIconComponent src={isOpen ? chevronUp : chevronDown} />
       )}
-      MenuProps={{ sx: MenuSX(size) }}>
+      MenuProps={{ sx: MenuSX(size, menuMinHeight) }}>
       {children}
     </MuiSelect>
   );
@@ -88,8 +90,9 @@ const StyledIconComponent = styled.img`
   pointer-events: none;
 `;
 
-const MenuSX = (size: Size) => ({
+const MenuSX = (size: Size, menuMinHeight?: number) => ({
   "& .MuiPaper-root": {
+    "height": menuMinHeight ? `${menuMinHeight}px` : "160px",
     "minWidth": `${size === "h24" ? 56 : 80}px`,
     "marginTop": "2px",
     "padding": "4px",

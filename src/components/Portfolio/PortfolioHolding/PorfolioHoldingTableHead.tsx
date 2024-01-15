@@ -3,6 +3,7 @@ import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
+import { Order } from "@components/common/Table/Table";
 import {
   Box,
   TableCell,
@@ -14,9 +15,8 @@ import { visuallyHidden } from "@mui/utils";
 import designSystem from "@styles/designSystem";
 import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
-import { Order } from "./PortfolioHoldingsTable";
 
-type PortfolioHoldingsTableHeadProps = {
+type Props = {
   order: Order;
   orderBy: string;
   numSelected: number;
@@ -86,14 +86,14 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-export default function PortfolioHoldingsTableHead({
+export default function PortfolioHoldingTableHead({
   order,
   orderBy,
   numSelected,
   rowCount,
   onRequestSort,
   onSelectAllClick,
-}: PortfolioHoldingsTableHeadProps) {
+}: Props) {
   const createSortHandler =
     (property: keyof PortfolioHolding) => (event: MouseEvent<unknown>) => {
       onRequestSort(event, property);

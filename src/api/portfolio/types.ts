@@ -26,7 +26,7 @@ export type Portfolio = {
   portfolioHoldings: PortfolioHolding[];
 };
 
-type PortfolioDetailsSSE = Pick<
+export type PortfolioDetailsSSE = Pick<
   PortfolioDetails,
   | "currentValuation"
   | "totalGain"
@@ -36,7 +36,7 @@ type PortfolioDetailsSSE = Pick<
   | "provisionalLossBalance"
 >;
 
-type PortfolioHoldingsSSE = Pick<
+export type PortfolioHoldingsSSE = Pick<
   PortfolioHolding,
   | "currentValuation"
   | "currentPrice"

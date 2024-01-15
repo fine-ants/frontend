@@ -3,6 +3,7 @@ import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
+import { Order } from "@components/common/Table/Table";
 import {
   Box,
   TableCell,
@@ -14,7 +15,6 @@ import {
 import { visuallyHidden } from "@mui/utils";
 import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
-import { Order } from "./PortfolioListTable";
 
 type HeadCell = {
   id: keyof PortfolioItem;

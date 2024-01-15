@@ -12,18 +12,17 @@ import { TextField } from "@components/common/TextField/TextField";
 import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
 import { useText, validateEmail } from "@fineants/demolition";
-import { Button, FormControlLabel } from "@mui/material";
+import { Button } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import BasePage from "./BasePage";
 
 const emailValidator = (email: string) =>
   validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
 
-export default function SignInPage() {
+export default function SignInForm() {
   const navigate = useNavigate();
   const { popUpWindow, closePopUpWindow } = useContext(WindowContext);
 
@@ -84,61 +83,58 @@ export default function SignInPage() {
   const isAllFieldsFilled = !!email && !emailError && !!password;
 
   return (
-    <BasePage>
-      <SignInContainer>
-        <AuthPageHeader>
-          <AuthPageTitle>로그인</AuthPageTitle>
-          <AuthPageTitleCaption>
-            이메일 또는 소셜 계정으로 로그인하세요
-          </AuthPageTitleCaption>
-        </AuthPageHeader>
-        <Form onSubmit={onSignInSubmit}>
-          <InputControl>
-            <TextInputLabel>이메일</TextInputLabel>
-            <TextField
-              error={!!emailError}
-              placeholder="이메일"
-              value={email}
-              errorText={emailError}
-              onChange={(e) => onEmailChange(e.target.value.trim())}
-              clearValue={onEmailClear}
-            />
-          </InputControl>
-          <InputControl>
-            <TextInputLabel>비밀번호</TextInputLabel>
-            <PasswordTextField
-              placeholder="비밀번호를 입력해주세요"
-              password={password}
-              onChange={(e) => onPasswordChange(e.target.value.trim())}
-            />
-            {passwordError && <TextInputError>{passwordError}</TextInputError>}
-            <SupportContainer>
-              <FormControlLabel
-                control={<CheckBox size="h20" />}
-                label="내 정보 기억하기"
-              />
-              <TextButton>비밀번호를 잊으셨나요?</TextButton>
-            </SupportContainer>
-          </InputControl>
+    <SignInContainer>
+      <AuthPageHeader>
+        <AuthPageTitle>로그인</AuthPageTitle>
+        <AuthPageTitleCaption>
+          이메일 또는 소셜 계정으로 로그인하세요
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
+      <Form onSubmit={onSignInSubmit}>
+        <InputControl>
+          <TextInputLabel>이메일</TextInputLabel>
+          <TextField
+            error={!!emailError}
+            placeholder="이메일"
+            value={email}
+            errorText={emailError}
+            onChange={(e) => onEmailChange(e.target.value.trim())}
+            clearValue={onEmailClear}
+          />
+        </InputControl>
+        <InputControl>
+          <TextInputLabel>비밀번호</TextInputLabel>
+          <PasswordTextField
+            placeholder="비밀번호를 입력해주세요"
+            password={password}
+            onChange={(e) => onPasswordChange(e.target.value.trim())}
+          />
+          {passwordError && <TextInputError>{passwordError}</TextInputError>}
+          <SupportContainer>
+            <FormControlLabel>
+              <CheckBox size="h20" />내 정보 기억하기
+            </FormControlLabel>
+            <TextButton>비밀번호를 잊으셨나요?</TextButton>
+          </SupportContainer>
+        </InputControl>
 
-          <SignInButton type="submit" disabled={!isAllFieldsFilled}>
-            로그인
-          </SignInButton>
-        </Form>
+        <SignInButton type="submit" disabled={!isAllFieldsFilled}>
+          로그인
+        </SignInButton>
+      </Form>
 
-        <SignInButtonContainer>
-          <SocialLoginButton provider="google" />
-          <SocialLoginButton provider="kakao" />
-          <SocialLoginButton provider="naver" />
-        </SignInButtonContainer>
-        <SignUpWrapper>
-          아직 계정이 없으신가요?
-          <SignUpButton type="button" onClick={() => navigate(Routes.SIGNUP)}>
-            회원가입하기
-          </SignUpButton>
-        </SignUpWrapper>
-      </SignInContainer>
-    </BasePage>
+      <SignInButtonContainer>
+        <SocialLoginButton provider="google" />
+        <SocialLoginButton provider="kakao" />
+        <SocialLoginButton provider="naver" />
+      </SignInButtonContainer>
+      <SignUpWrapper>
+        아직 계정이 없으신가요?
+        <SignUpButton type="button" onClick={() => navigate(Routes.SIGNUP)}>
+          회원가입하기
+        </SignUpButton>
+      </SignUpWrapper>
+    </SignInContainer>
   );
 }
 
@@ -197,6 +193,12 @@ const TextButton = styled(Button)`
   color: ${designSystem.color.neutral.gray600};
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
+`;
+
+const FormControlLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 const SignInButtonContainer = styled.div`

@@ -10,12 +10,11 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AxiosError } from "axios";
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import browserServiceWorker from "./mocks/browserServiceWorker.ts";
+import React from "react";
 
 if (process.env.NODE_ENV === "development") {
   browserServiceWorker.start({
@@ -32,16 +31,11 @@ const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error, query) => {
+    onError: (_, query) => {
       if (query.meta?.toastErrorMessage) {
         toast.error(query.meta.toastErrorMessage as string);
         return;
       }
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message);
-        return;
-      }
-      toast.error(String(error));
     },
   }),
   mutationCache: new MutationCache({
@@ -51,16 +45,11 @@ const queryClient = new QueryClient({
         return;
       }
     },
-    onError: (error, _, __, mutation) => {
+    onError: (_, __, ___, mutation) => {
       if (mutation.meta?.toastErrorMessage) {
         toast.error(mutation.meta.toastErrorMessage as string);
         return;
       }
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message);
-        return;
-      }
-      toast.error(String(error));
     },
   }),
 });

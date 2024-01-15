@@ -10,10 +10,14 @@ declare global {
 }
 interface TVStockDetailWidgetProps {
   tickerSymbol: string;
+  width?: number;
+  height?: number;
 }
 
 const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
   tickerSymbol,
+  width,
+  height,
 }) => {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -70,17 +74,22 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
           enable_publishing: false,
           allow_symbol_change: true,
           container_id: "tradingview_3efa6",
-          width: 1377,
-          height: 501,
+          width: width,
+          height: height,
         });
       }
     }
-  }, [tickerSymbol, theme]);
+  }, [tickerSymbol, theme, width, height]);
 
   return (
     <div
       className="tradingview-widget-container"
-      style={{ height: "100%", width: "100%" }}>
+      style={{
+        height: height,
+        width: width,
+        display: "flex",
+        alignItems: "center",
+      }}>
       <div
         id="tradingview_3efa6"
         style={{ height: "calc(100% - 32px)", width: "100%" }}

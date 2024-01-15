@@ -1,6 +1,7 @@
 import { OAuthProvider } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
 import {
+  successfulEmailCodeVerificationData,
   successfulEmailDuplicationCheckData,
   successfulEmailVerificationData,
   successfulNicknameDuplicationCheckData,
@@ -8,6 +9,7 @@ import {
   successfulSignInData,
   successfulSignOutData,
   successfulSignUpData,
+  unsuccessfulEmailCodeVerificationData,
   unsuccessfulEmailDuplicationCheckData,
   unsuccessfulEmailVerificationData,
   unsuccessfulNicknameDuplicationCheckData,
@@ -58,10 +60,10 @@ export default [
     );
   }),
 
-  rest.post(
-    "/api/auth/signup/duplicationcheck/nickname",
+  rest.get(
+    "/api/auth/signup/duplicationcheck/nickname/:nickname",
     async (req, res, ctx) => {
-      const { nickname } = await req.json();
+      const nickname = req.params.nickname;
 
       if (nickname === "duplicate") {
         return res(
@@ -77,10 +79,10 @@ export default [
     }
   ),
 
-  rest.post(
-    "/api/auth/signup/duplicationcheck/email",
+  rest.get(
+    "/api/auth/signup/duplicationcheck/email/:email",
     async (req, res, ctx) => {
-      const { email } = await req.json();
+      const email = req.params.email;
 
       if (email === "duplicate@email.com") {
         return res(
@@ -105,5 +107,20 @@ export default [
       ctx.status(HTTPSTATUS.badRequest),
       ctx.json(unsuccessfulEmailVerificationData)
     );
+  }),
+
+  rest.post("/api/auth/signup/verifyCode", async (req, res, ctx) => {
+    const { code } = await req.json();
+    if (code === "777777") {
+      return res(
+        ctx.status(HTTPSTATUS.badRequest),
+        ctx.json(unsuccessfulEmailCodeVerificationData)
+      );
+    } else {
+      return res(
+        ctx.status(HTTPSTATUS.success),
+        ctx.json(successfulEmailCodeVerificationData)
+      );
+    }
   }),
 ];

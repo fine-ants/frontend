@@ -7,7 +7,7 @@ import { Icon } from "@components/common/Icon";
 import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
 import { useText } from "@fineants/demolition";
-import { FormControl } from "@mui/material";
+import { FormControl, IconButton } from "@mui/material";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
@@ -147,15 +147,22 @@ export default function PortfolioAddDialog({
   useEffect(() => {
     if (isBudgetEmpty) {
       clearInputs();
-    } else {
+    }
+
+    if (targetGain || targetReturnRate) {
       onTargetGainHandler(targetGain);
+    }
+
+    if (maximumLoss || maximumLossRate) {
       onMaximumLossHandler(maximumLoss);
     }
   }, [
     budget,
-    targetGain,
     isBudgetEmpty,
+    targetGain,
+    targetReturnRate,
     maximumLoss,
+    maximumLossRate,
     clearInputs,
     onMaximumLossHandler,
     onTargetGainHandler,
@@ -172,14 +179,7 @@ export default function PortfolioAddDialog({
   }, [isEditSuccess, isEditError, onClose]);
 
   const isFormValid = () => {
-    if (
-      !name ||
-      !budget ||
-      !targetGain ||
-      !targetReturnRate ||
-      !maximumLoss ||
-      !maximumLossRate
-    ) {
+    if (!name) {
       return false;
     }
 
@@ -206,9 +206,9 @@ export default function PortfolioAddDialog({
       <Wrapper>
         <HeaderWrapper>
           <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
-          <Button size="h32" variant="tertiary" onClick={onClose}>
+          <IconButton onClick={onClose}>
             <Icon size={24} icon="close" color={"gray600"} />
-          </Button>
+          </IconButton>
         </HeaderWrapper>
         <Body>
           <Row>
@@ -239,7 +239,7 @@ export default function PortfolioAddDialog({
                       alt={option}
                     />
                     <SecuritiesFirmTitle>
-                      {option === "FineAnts" ? "선택안함" : option}
+                      {option === "FineAnts" ? "FineAnts (선택안함)" : option}
                     </SecuritiesFirmTitle>
                   </SelectOption>
                 ))}
@@ -286,7 +286,9 @@ export default function PortfolioAddDialog({
             <StyledSpan>최대 손실율</StyledSpan>
             <InputWrapper>
               <StyledInput>
+                {maximumLossRate && <span>-</span>}
                 <Input
+                  style={{ paddingLeft: "3px" }}
                   disabled={isBudgetEmpty}
                   value={maximumLossRate}
                   onChange={(e) =>
