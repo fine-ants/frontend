@@ -66,14 +66,19 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
     eventSourceRef.current.onerror = async (errorEvent) => {
       if ((errorEvent as ErrorEvent).status === HTTPSTATUS.forbidden) {
-        const res = await refreshAccessToken();
+        try {
+          const res = await refreshAccessToken();
 
-        localStorage.setItem("accessToken", res.data?.accessToken);
+          localStorage.setItem("accessToken", res.data?.accessToken);
 
-        setIsError(false);
-        setIsLoading(true);
-        initEventSource();
-        return;
+          setIsError(false);
+          setIsLoading(true);
+          initEventSource();
+          return;
+        } catch (error) {
+          setIsError(true);
+          return;
+        }
       }
 
       setIsError(true);
