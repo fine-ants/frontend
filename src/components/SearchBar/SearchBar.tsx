@@ -137,13 +137,13 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
+                  searchValue: debouncedValue,
                   option,
                   onClick: () => {
                     if (onSelectOption) onSelectOption(option);
                     onClickOption(option.companyName);
                     onClose();
                   },
-                  searchValue: debouncedValue,
                 }}
               />
             );
@@ -153,12 +153,12 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
+                  searchValue: debouncedValue,
                   option,
                   selectedOptions: selectedOptions ?? [],
                   onClick: () => {
                     if (onSelectOption) onSelectOption(option);
                   },
-                  searchValue: debouncedValue,
                 }}
               />
             );
@@ -168,6 +168,7 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
+                  searchValue: debouncedValue,
                   option,
                   onClick: () => navigate(`/stock/${option.tickerSymbol}`),
                 }}

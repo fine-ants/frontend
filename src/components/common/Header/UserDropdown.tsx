@@ -139,6 +139,7 @@ const dropdownItemSx = {
 const ProfileImageWrapper = styled.div`
   background-color: ${designSystem.color.neutral.gray800};
   border-radius: 50%;
+  overflow: hidden;
 `;
 
 const ProfileImage = styled.img<{ $size: number }>`
