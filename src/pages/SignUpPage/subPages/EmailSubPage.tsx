@@ -29,8 +29,16 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   } = useText({
     validators: [emailValidator],
   });
+
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
-  const isDuplicateChecked = !duplicateCheckErrorMsg;
+  const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
+
+  const isDuplicateChecked = !duplicateCheckErrorMsg && isDuplicateComplete;
+  const errorText = isError
+    ? "올바른 형식의 이메일을 입력하세요."
+    : isDuplicateChecked
+    ? ""
+    : duplicateCheckErrorMsg;
 
   const debouncedEmail = useDebounce(email, 400);
 
@@ -40,13 +48,17 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
+    setIsDuplicateComplete(false);
     setDuplicateCheckErrorMsg("");
   };
 
   useEffect(() => {
+    if (debouncedEmail === "" || isError) return;
+
     (async () => {
       try {
         const res = await postEmailDuplicateCheck(debouncedEmail);
+        setIsDuplicateComplete(true);
 
         if (res.code === HTTPSTATUS.success) {
           setDuplicateCheckErrorMsg("");
@@ -59,7 +71,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         }
       }
     })();
-  }, [debouncedEmail]);
+  }, [debouncedEmail, isError]);
 
   return (
     <SubPage>
@@ -73,10 +85,10 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
       </AuthPageHeader>
 
       <TextField
-        error={isDuplicateChecked}
+        error={isError || !isDuplicateChecked}
         placeholder="이메일"
         value={email}
-        errorText={duplicateCheckErrorMsg}
+        errorText={errorText}
         onChange={onEmailChange}
         clearValue={onEmailClear}
       />
@@ -85,7 +97,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         type="button"
         onClick={() => onNext(email)}
         disabled={isError || !isDuplicateChecked}>
-        다음
+        다음 단계
       </NextButton>
     </SubPage>
   );

@@ -1,4 +1,4 @@
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
 export default function PortfolioWeightPieChartToolTip({

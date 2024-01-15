@@ -1,37 +1,79 @@
+import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-import { CSSProperties } from "styled-components";
+import styled from "styled-components";
 
-type Props = {
-  style: CSSProperties;
+type NavBarProps = {
   children: ReactNode;
 };
 
-export function NavBar({ style, children }: Props) {
+type NavItemProps = {
+  item?: { name: string; to: string };
+  children?: ReactNode;
+};
+
+export function NavBar({ children }: NavBarProps) {
   return (
-    <nav>
-      <ul style={style}>{children}</ul>
-    </nav>
+    <StyledNavBar>
+      <ul>{children}</ul>
+    </StyledNavBar>
   );
 }
 
-function NavItem({
-  style,
-  item,
-}: {
-  style: CSSProperties;
-  item: { name: string; path: string };
-}) {
+function NavItem({ item, children }: NavItemProps) {
+  if (item && children) {
+    throw new Error("Only provide either one of item or children to NavItem.");
+  }
+
   const navigate = useNavigate();
 
   return (
-    <li key={item.name}>
-      <div style={style} onClick={() => navigate(item.path)}>
-        {item.name}
-      </div>
-    </li>
+    <StyledNavItem>
+      {item ? (
+        <StyledNavItemContent onClick={() => navigate(item.to)}>
+          {item.name}
+        </StyledNavItemContent>
+      ) : (
+        children
+      )}
+    </StyledNavItem>
   );
 }
 
 NavBar.NavItem = NavItem;
+
+const StyledNavBar = styled.nav`
+  > ul {
+    display: flex;
+    gap: 40px;
+    alignitems: center;
+    background-color: ${designSystem.color.neutral.gray900};
+    font: ${designSystem.font.title4};
+    letter-spacing: -0.02em;
+  }
+`;
+
+const StyledNavItem = styled.li`
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: ${designSystem.font.title4};
+  color: ${designSystem.color.neutral.gray400};
+  letter-spacing: -0.02em;
+  cursor: pointer;
+
+  :hover {
+    color: ${designSystem.color.neutral.white};
+  }
+`;
+
+const StyledNavItemContent = styled.div`
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  background-color: ${designSystem.color.neutral.gray900};
+  font: ${designSystem.font.title4};
+  letter-spacing: -0.02em;
+`;

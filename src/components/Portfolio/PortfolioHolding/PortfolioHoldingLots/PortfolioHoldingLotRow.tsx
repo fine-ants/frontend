@@ -3,15 +3,17 @@ import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/useP
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
-import { TableCell, TableRow } from "@mui/material";
+import {
+  TableCell as MuiTableCell,
+  TableRow as MuiTableRow,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
 import { formatDate } from "@utils/date";
-import { thousandsDelimiter } from "@utils/thousandsDelimiter";
+import { thousandsDelimiter } from "@utils/delimiters";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconCalendar } from "./IconCalendar";
+import { IconCalendar } from "../../../common/IconCalendar";
 
 type Props = {
   portfolioId: number;
@@ -19,7 +21,7 @@ type Props = {
   lot: PurchaseHistoryField;
 };
 
-export default function PortfolioHoldingLotRow({
+export default function PortfolioHoldingStyledTableRow({
   portfolioId,
   portfolioHoldingId,
   lot: {
@@ -96,10 +98,13 @@ export default function PortfolioHoldingLotRow({
   };
 
   return (
-    <LotRow>
+    <StyledTableRow>
       {isEditing ? (
         <>
-          <LotTableCell component="th" scope="row" style={{ width: "143px" }}>
+          <StyledTableCell
+            component="th"
+            scope="row"
+            style={{ width: "143px" }}>
             <DatePicker
               value={newPurchaseDate}
               onChange={(newVal) => setNewPurchaseDate(newVal)}
@@ -111,8 +116,8 @@ export default function PortfolioHoldingLotRow({
                 openPickerIcon: IconCalendar,
               }}
             />
-          </LotTableCell>
-          <LotTableCell align="right" style={{ width: "119px" }}>
+          </StyledTableCell>
+          <StyledTableCell align="right" style={{ width: "119px" }}>
             <Input
               style={{ width: "100px", textAlign: "left" }}
               type="number"
@@ -121,64 +126,67 @@ export default function PortfolioHoldingLotRow({
                 setNewPurchasePricePerShare(e.target.value.trim())
               }
             />
-          </LotTableCell>
+          </StyledTableCell>
 
-          <LotTableCell align="right" style={{ width: "119px" }}>
+          <StyledTableCell align="right" style={{ width: "119px" }}>
             <Input
               style={{ width: "100px", textAlign: "left" }}
               type="number"
               value={newNumShares}
               onChange={(e) => setNewNumShares(e.target.value.trim())}
             />
-          </LotTableCell>
+          </StyledTableCell>
 
-          <LotTableCell align="left" style={{ width: "395px" }}>
-            <TextInput
+          <StyledTableCell align="left" style={{ width: "395px" }}>
+            <StyledTextArea
               value={newMemo}
               onChange={(e) => setNewMemo(e.target.value.trim())}
             />
-          </LotTableCell>
+          </StyledTableCell>
 
-          <LotTableCell align="right" style={{ width: "32px" }}>
+          <StyledTableCell align="right" style={{ width: "32px" }}>
             <IconButton onClick={onSaveClick}>
               <Icon icon="check" size={16} color={"blue500"} />
             </IconButton>
-          </LotTableCell>
+          </StyledTableCell>
 
-          <LotTableCell align="right" style={{ width: "32px" }}>
+          <StyledTableCell align="right" style={{ width: "32px" }}>
             <IconButton onClick={onOpenDeleteConfirmAlert}>
               <Icon icon="remove" size={16} color={"gray400"} />
             </IconButton>
-          </LotTableCell>
+          </StyledTableCell>
         </>
       ) : (
         <>
-          <LotTableCell style={{ width: "151px" }} component="th" scope="row">
+          <StyledTableCell
+            style={{ width: "151px" }}
+            component="th"
+            scope="row">
             {formatDate(purchaseDate)}
-          </LotTableCell>
+          </StyledTableCell>
 
-          <LotTableCell style={{ width: "119px" }} align="right">
+          <StyledTableCell style={{ width: "119px" }} align="right">
             ₩{thousandsDelimiter(purchasePricePerShare)}
-          </LotTableCell>
+          </StyledTableCell>
 
-          <LotTableCell style={{ width: "119px" }} align="right">
+          <StyledTableCell style={{ width: "119px" }} align="right">
             {numShares}
-          </LotTableCell>
+          </StyledTableCell>
 
-          <LotTableCell style={{ width: "395px" }}>{memo}</LotTableCell>
+          <StyledTableCell style={{ width: "395px" }}>{memo}</StyledTableCell>
 
-          <LotTableCell style={{ width: "32px" }}>
+          <StyledTableCell style={{ width: "32px" }}>
             <IconButton onClick={onEditClick}>
               <Icon icon="edit" size={16} color={"gray600"} />
             </IconButton>
-          </LotTableCell>
-          <LotTableCell
+          </StyledTableCell>
+          <StyledTableCell
             align="right"
             style={{ width: "40px !important", boxSizing: "border-box" }}>
             <IconButton onClick={onOpenDeleteConfirmAlert}>
               <Icon icon="remove" size={16} color={"gray600"} />
             </IconButton>
-          </LotTableCell>
+          </StyledTableCell>
 
           <ConfirmAlert
             isOpen={isDeleteConfirmAlertOpen}
@@ -188,11 +196,11 @@ export default function PortfolioHoldingLotRow({
           />
         </>
       )}
-    </LotRow>
+    </StyledTableRow>
   );
 }
 
-const LotRow = styled(TableRow)`
+const StyledTableRow = styled(MuiTableRow)`
   width: 856px;
   height: 40px;
   padding: 8px 16px;
@@ -211,11 +219,7 @@ const LotRow = styled(TableRow)`
   }
 `;
 
-const IconButton = styled.button`
-  width: 100%;
-`;
-
-const LotTableCell = styled(TableCell)`
+const StyledTableCell = styled(MuiTableCell)`
   padding: 4px 8px;
 
   font: ${({ theme: { font } }) => font.body3};
@@ -248,7 +252,7 @@ const Input = styled.input`
   }
 `;
 
-const TextInput = styled.textarea`
+const StyledTextArea = styled.textarea`
   margin-top: 7px;
   width: 100%;
   height: 24px;
@@ -267,4 +271,8 @@ const TextInput = styled.textarea`
   &:focus {
     border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
   }
+`;
+
+const IconButton = styled.button`
+  width: 100%;
 `;

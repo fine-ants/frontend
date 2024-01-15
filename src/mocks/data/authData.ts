@@ -111,3 +111,17 @@ export const unsuccessfulEmailVerificationData = {
   message: "이메일 검증코드 전송을 실패했습니다",
   data: null,
 };
+
+export const successfulEmailCodeVerificationData = {
+  code: HTTPSTATUS.success,
+  status: "Success",
+  message: "올바른 인증 코드 입니다",
+  data: null,
+};
+
+export const unsuccessfulEmailCodeVerificationData = {
+  code: HTTPSTATUS.badRequest,
+  status: "Bad Request",
+  message: "올바르지 않은 인증 코드 입니다",
+  data: null,
+};

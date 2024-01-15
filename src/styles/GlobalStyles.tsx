@@ -81,7 +81,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
     
     scrollbar-width: thin;
-  scrollbar-color: ${designSystem.color.neutral.gray200} ${designSystem.color.neutral.white};
+    scrollbar-color: ${designSystem.color.neutral.gray200} ${designSystem.color.neutral.white};
   
     &::-webkit-scrollbar {
       width: 8px;
@@ -98,7 +98,6 @@ export default createGlobalStyle`
 
     &::-webkit-scrollbar-thumb {
       width: 4px;
-      height: 156px;
       background-color: ${designSystem.color.neutral.gray200};
       border-radius: 4px;
       border: 2px solid ${designSystem.color.neutral.white}; 

@@ -14,6 +14,6 @@ export default function usePortfolioListTableQuery() {
     queryKey: portfolioKeys.list("table").queryKey,
     queryFn: getPortfoliosList,
     retry: false,
-    select: (res) => res.data,
+    select: (res) => res.data.portfolios,
   });
 }

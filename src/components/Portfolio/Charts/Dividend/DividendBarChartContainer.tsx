@@ -9,7 +9,7 @@ type Props = {
 export default function DividendBarChartContainer({ dividendChart }: Props) {
   return (
     <StyledDividendBarChartContainer>
-      <ChartLabel>월 배당금</ChartLabel>
+      <ChartLabel>예상 월 배당금</ChartLabel>
       <DividendBarChart data={dividendChart} />
     </StyledDividendBarChartContainer>
   );
