@@ -22,7 +22,6 @@ export function TextField({
   onChange,
   clearValue,
 }: Props) {
-  const isError = value !== "" && error;
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -33,8 +32,10 @@ export function TextField({
     setIsFocused(false);
   };
 
+  const isError = value !== "" && error;
+
   return (
-    <TextFieldWrapper>
+    <StyledTextFieldWrapper>
       <BaseTextField
         size="h44"
         error={isError}
@@ -53,11 +54,12 @@ export function TextField({
           )
         }
       />
-      {isError && <ErrorText>{errorText}</ErrorText>}
-    </TextFieldWrapper>
+      {isError && errorText && <ErrorText>{errorText}</ErrorText>}
+    </StyledTextFieldWrapper>
   );
 }
 
-const TextFieldWrapper = styled.div`
+const StyledTextFieldWrapper = styled.div`
   width: 100%;
+  position: relative;
 `;

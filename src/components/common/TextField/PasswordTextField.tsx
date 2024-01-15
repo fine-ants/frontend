@@ -31,8 +31,10 @@ export function PasswordTextField({
     event.preventDefault();
   };
 
+  const isError = password !== "" && error;
+
   return (
-    <TextFieldWrapper>
+    <StyledPasswordTextField>
       <BaseTextField
         size="h44"
         error={error}
@@ -50,11 +52,12 @@ export function PasswordTextField({
           </InputAdornment>
         }
       />
-      {error && helperText && <ErrorText>{helperText}</ErrorText>}
-    </TextFieldWrapper>
+      {isError && helperText && <ErrorText>{helperText}</ErrorText>}
+    </StyledPasswordTextField>
   );
 }
 
-const TextFieldWrapper = styled.div`
+const StyledPasswordTextField = styled.div`
   width: 100%;
+  position: relative;
 `;
