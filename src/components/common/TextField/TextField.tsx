@@ -6,6 +6,7 @@ import { BaseTextField } from "./BaseTextField";
 import { ErrorText } from "./ErrorText";
 
 type Props = {
+  id?: string;
   error?: boolean;
   errorText?: string;
   placeholder?: string;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export function TextField({
+  id,
   error,
   errorText,
   placeholder,
@@ -37,6 +39,7 @@ export function TextField({
   return (
     <StyledTextFieldWrapper>
       <BaseTextField
+        id={id ?? ""}
         size="h44"
         error={isError}
         value={value}

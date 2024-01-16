@@ -7,6 +7,7 @@ import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
+  id?: string;
   error?: boolean;
   helperText?: string;
   placeholder?: string;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export function PasswordTextField({
+  id,
   error,
   helperText,
   placeholder,
@@ -36,6 +38,7 @@ export function PasswordTextField({
   return (
     <StyledPasswordTextField>
       <BaseTextField
+        id={id ?? ""}
         size="h44"
         error={error}
         type={showPassword ? "text" : "password"}
