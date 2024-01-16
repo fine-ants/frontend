@@ -9,7 +9,7 @@ import styled from "styled-components";
 type Props = {
   id?: string;
   error?: boolean;
-  helperText?: string;
+  errorText?: string;
   placeholder?: string;
   password: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -18,7 +18,7 @@ type Props = {
 export function PasswordTextField({
   id,
   error,
-  helperText,
+  errorText,
   placeholder,
   password,
   onChange,
@@ -55,7 +55,7 @@ export function PasswordTextField({
           </InputAdornment>
         }
       />
-      {isError && helperText && <ErrorText>{helperText}</ErrorText>}
+      {isError && errorText && <ErrorText>{errorText}</ErrorText>}
     </StyledPasswordTextField>
   );
 }
