@@ -1,5 +1,3 @@
-import { postNicknameDuplicateCheck } from "@api/auth";
-import { HTTPSTATUS } from "@api/types";
 import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
 import {
   AuthPageHeader,
@@ -9,8 +7,8 @@ import {
 } from "@components/auth/AuthPageCommon";
 import { TextField } from "@components/common/TextField/TextField";
 import { useDebounce, useText, validateNickname } from "@fineants/demolition";
-import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import useNicknameDuplicateCheck from "@hooks/useNicknameDuplicateCheck";
+import { ChangeEvent } from "react";
 import SubPage from "./SubPage";
 
 type Props = {
@@ -31,48 +29,34 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
   } = useText({
     validators: [nicknameValidator],
   });
-  const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
-  const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
-
-  const isDuplicateChecked = !duplicateCheckErrorMsg && isDuplicateComplete;
-  const errorText = isError
-    ? "영문/한글/숫자 (2~10자)으로 입력하세요."
-    : isDuplicateChecked
-    ? ""
-    : duplicateCheckErrorMsg;
 
   const debouncedNickname = useDebounce(nickname, 400);
 
-  const onEmailClear = () => {
+  const {
+    isDuplicateChecked,
+    duplicateCheckErrorMsg,
+    updateDuplicateCheckErrorMsg,
+    updateIsDuplicateComplete,
+  } = useNicknameDuplicateCheck({
+    newNickname: debouncedNickname,
+    newNicknameIsError: isError,
+  });
+
+  const onNicknameClear = () => {
     onChange("");
   };
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
-    setIsDuplicateComplete(false);
-    setDuplicateCheckErrorMsg("");
+    updateIsDuplicateComplete(false);
+    updateDuplicateCheckErrorMsg("");
   };
 
-  useEffect(() => {
-    if (debouncedNickname === "" || isError) return;
-
-    (async () => {
-      try {
-        const res = await postNicknameDuplicateCheck(debouncedNickname);
-        setIsDuplicateComplete(true);
-
-        if (res.code === HTTPSTATUS.success) {
-          setDuplicateCheckErrorMsg("");
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setDuplicateCheckErrorMsg(error.response?.data.message);
-        } else {
-          setDuplicateCheckErrorMsg((error as Error).message);
-        }
-      }
-    })();
-  }, [debouncedNickname, isError]);
+  const errorText = isError
+    ? "영문/한글/숫자 (2~10자)으로 입력하세요."
+    : isDuplicateChecked
+    ? ""
+    : duplicateCheckErrorMsg;
 
   return (
     <SubPage>
@@ -90,7 +74,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         value={nickname}
         errorText={errorText}
         onChange={onNicknameChange}
-        clearValue={onEmailClear}
+        clearValue={onNicknameClear}
       />
 
       <NextButton

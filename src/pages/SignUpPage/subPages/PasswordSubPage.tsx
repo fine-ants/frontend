@@ -37,7 +37,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
     validators: [passwordValidator],
   });
 
-  const isPasswordMismatch = !isPasswordError && password !== passwordConfirm;
+  const isPasswordMismatch = password !== passwordConfirm;
 
   return (
     <SubPage>
