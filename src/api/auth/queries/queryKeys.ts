@@ -1,6 +1,6 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
-export const userKeys = createQueryKeys("user", {
+export const authKeys = createQueryKeys("user", {
   signIn: () => ({
     queryKey: ["signIn"],
   }),
