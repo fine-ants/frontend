@@ -43,8 +43,8 @@ const queryClient = new QueryClient({
   }),
   mutationCache: new MutationCache({
     onSuccess: (_, __, ___, mutation) => {
-      if (mutation.meta?.tostSuccessMessage) {
-        toast.success(mutation.meta.tostSuccessMessage as string);
+      if (mutation.meta?.toastSuccessMessage) {
+        toast.success(mutation.meta.toastSuccessMessage as string);
         return;
       }
     },
