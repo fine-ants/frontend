@@ -1,8 +1,8 @@
 import { PortfolioHolding } from "@api/portfolio/types";
 import Table from "@components/common/Table/Table";
 import EmptyPortfolioHoldingTable from "./EmptyPortfolioHoldingTable";
-import PortfolioHoldingTableHead from "./PorfolioHoldingTableHead";
 import PortfolioHoldingTableBody from "./PortfolioHoldingTableBody";
+import PortfolioHoldingTableHead from "./PortfolioHoldingTableHead";
 import PortfolioHoldingTableToolBar from "./PortfolioHoldingTableToolBar";
 
 type Props = {

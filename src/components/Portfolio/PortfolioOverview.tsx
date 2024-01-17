@@ -6,12 +6,13 @@ import LabelBadge from "@components/common/Badges/LabelBadge";
 import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
+import Routes from "@router/Routes";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -20,6 +21,7 @@ type Props = {
 };
 
 export default function PortfolioOverview({ data, sseData }: Props) {
+  const navigate = useNavigate();
   const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation(
     Number(portfolioId)
@@ -46,6 +48,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
 
   const onConfirmAction = () => {
     portfolioDeleteMutate(Number(portfolioId));
+    navigate(Routes.PORTFOLIOS);
   };
 
   return (

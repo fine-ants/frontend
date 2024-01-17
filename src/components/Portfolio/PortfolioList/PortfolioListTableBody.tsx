@@ -62,7 +62,7 @@ export default function PortfolioListTableBody({
       {numEmptyRows > 0 && (
         <TableRow
           style={{
-            height: 53 * numEmptyRows,
+            height: 64 * numEmptyRows,
           }}>
           <TableCell colSpan={8} />
         </TableRow>
