@@ -11,7 +11,7 @@ import securitiesFirmLogos, {
 } from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -20,6 +20,7 @@ type Props = {
 };
 
 export default function PortfolioOverview({ data, sseData }: Props) {
+  const navigate = useNavigate();
   const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation(
     Number(portfolioId)
@@ -46,6 +47,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
 
   const onConfirmAction = () => {
     portfolioDeleteMutate(Number(portfolioId));
+    navigate("/portfolios");
   };
 
   return (
