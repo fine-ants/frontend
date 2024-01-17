@@ -7,4 +7,7 @@ export const settingsKeys = createQueryKeys("settings", {
   passwordEdit: () => ({
     queryKey: ["passwordEdit"],
   }),
+  deleteAccount: () => ({
+    queryKey: ["deleteAccount"],
+  }),
 });

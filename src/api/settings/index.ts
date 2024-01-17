@@ -19,3 +19,8 @@ export const putNewPassword = async (body: {
   const res = await fetcher.put<Response<null>>("/account/password", body);
   return res.data;
 };
+
+export const deleteAccount = async () => {
+  const res = await fetcher.delete<Response<null>>("/account");
+  return res.data;
+};

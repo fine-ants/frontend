@@ -27,4 +27,10 @@ export default [
       status: HTTPSTATUS.success,
     });
   }),
+
+  http.delete("/api/account", () => {
+    return HttpResponse.json(successfulPasswordEditData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
 ];

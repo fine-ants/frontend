@@ -1,11 +1,12 @@
 import usePasswordEditMutation from "@api/settings/queries/usePasswordEditMutation";
+import AccountDeleteDialog from "@components/AccountDeleteDialog";
 import Button from "@components/common/Buttons/Button";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { useText, validatePassword } from "@fineants/demolition";
 import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -16,6 +17,9 @@ const passwordValidator = (password: string) =>
 
 export default function AccountSettingsSubPage() {
   const navigate = useNavigate();
+
+  const [isAccountDeleteDialogOpen, setIsAccountDeleteDialogOpen] =
+    useState(false);
 
   const {
     value: currentPasswordValue,
@@ -61,7 +65,7 @@ export default function AccountSettingsSubPage() {
   };
 
   const onAccountDeleteClick = () => {
-    // TODO: open confirm dialog
+    setIsAccountDeleteDialogOpen(true);
   };
 
   const newPasswordIsErrorExtended =
@@ -161,6 +165,13 @@ export default function AccountSettingsSubPage() {
         onClick={onAccountDeleteClick}>
         계정 삭제하기
       </MuiButton>
+
+      {isAccountDeleteDialogOpen && (
+        <AccountDeleteDialog
+          isOpen={isAccountDeleteDialogOpen}
+          onClose={() => setIsAccountDeleteDialogOpen(false)}
+        />
+      )}
     </Form>
   );
 }

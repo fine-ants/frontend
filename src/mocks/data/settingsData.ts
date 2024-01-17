@@ -26,3 +26,10 @@ export const successfulPasswordEditData = {
   message: "비밀번호를 성공적으로 변경했습니다",
   data: null,
 };
+
+export const successfulAccountDeleteData = {
+  code: HTTPSTATUS.success,
+  status: "Success",
+  message: "계정을 성공적으로 삭제했습니다",
+  data: null,
+};
