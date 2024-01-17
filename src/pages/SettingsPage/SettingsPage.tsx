@@ -3,6 +3,7 @@ import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { NavLink, Navigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import AccountSettingsSubPage from "./subPages/AccountSettingsSubPage";
 import ProfileSettingsSubPage from "./subPages/ProfileSettingsSubPage";
 
 function isValidTab(tab: string | undefined) {
@@ -33,7 +34,7 @@ export default function SettingsPage() {
         </Nav>
 
         {tab === "profile" && <ProfileSettingsSubPage />}
-        {/* {tab === "account" && <AccountSettingsSubPage />} */}
+        {tab === "account" && <AccountSettingsSubPage />}
       </Container>
     </BasePage>
   );
