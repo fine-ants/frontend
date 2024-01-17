@@ -104,7 +104,7 @@ export type PurchaseHistoryField = {
 
 export type PortfolioReqBody = {
   name: string;
-  securitiesFirm: string;
+  securitiesFirm: SecuritiesFirm;
   budget: number;
   targetGain: number;
   maximumLoss: number;
