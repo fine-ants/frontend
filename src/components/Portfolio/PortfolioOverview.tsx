@@ -6,6 +6,7 @@ import LabelBadge from "@components/common/Badges/LabelBadge";
 import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
+import Routes from "@router/Routes";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
@@ -47,7 +48,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
 
   const onConfirmAction = () => {
     portfolioDeleteMutate(Number(portfolioId));
-    navigate("/portfolios");
+    navigate(Routes.PORTFOLIOS);
   };
 
   return (

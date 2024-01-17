@@ -2,6 +2,7 @@ import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioList
 import { useDropdown } from "@components/hooks/useDropdown";
 import { UserContext } from "@context/UserContext";
 import { Divider } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -61,7 +62,7 @@ export function PortfoliosDropdown({
 
         <DropdownItem
           sx={fixedDropdownItemSx}
-          onClick={() => navigate("/portfolios")}>
+          onClick={() => navigate(Routes.PORTFOLIOS)}>
           포트폴리오로 이동
         </DropdownItem>
         <DropdownItem sx={fixedDropdownItemSx} onClick={onPortfolioAddClick}>
