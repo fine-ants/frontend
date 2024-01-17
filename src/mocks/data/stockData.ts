@@ -75,3 +75,10 @@ export const successfulStockData = {
     },
   ],
 };
+
+export const InvalidSearchTermStockData = {
+  code: 400,
+  status: "Bad Request",
+  message: "Invalid searchTerm",
+  data: null,
+};

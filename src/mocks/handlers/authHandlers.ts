@@ -1,4 +1,4 @@
-import { OAuthProvider } from "@api/auth";
+import { OAuthProvider, SignInCredentials } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
 import {
   successfulEmailCodeVerificationData,
@@ -16,111 +16,125 @@ import {
   unsuccessfulSignInData,
   unsuccessfulSignUpData,
 } from "@mocks/data/authData";
-import { rest } from "msw";
+import { HttpResponse, http } from "msw";
 
 export default [
-  rest.post("/api/auth/login", async (req, res, ctx) => {
-    const { email, password } = await req.json();
-    if (email === "d@d.com" && password === "hello123!") {
-      return res(
-        ctx.status(HTTPSTATUS.success),
-        ctx.json(successfulSignInData)
-      );
-    } else {
-      return res(
-        ctx.status(HTTPSTATUS.badRequest),
-        ctx.json(unsuccessfulSignInData)
-      );
+  // Email/Password Sign In
+  http.post<never, SignInCredentials>(
+    "/api/auth/login",
+    async ({ request }) => {
+      const data = await request.json();
+      const { email, password } = data;
+
+      if (email === "d@d.com" && password === "hello123!") {
+        return HttpResponse.json(successfulSignInData, {
+          status: HTTPSTATUS.success,
+        });
+      } else {
+        return HttpResponse.json(unsuccessfulSignInData, {
+          status: HTTPSTATUS.badRequest,
+        });
+      }
     }
-  }),
+  ),
 
-  rest.post("/api/auth/:provider/authUrl", async (req, res, ctx) => {
-    const provider = req.params.provider as OAuthProvider;
+  // OAuth URL
+  http.post<{ provider: OAuthProvider }>(
+    "/api/auth/:provider/authUrl",
+    ({ params }) => {
+      const { provider } = params;
 
-    return res(
-      ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulOAuthURLData(provider))
-    );
-  }),
+      return HttpResponse.json(successfulOAuthURLData(provider), {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
 
-  rest.post("/api/auth/:provider/login?code=blahblah", async (_, res, ctx) => {
+  // OAuth Sign In
+  http.post("/api/auth/:provider/login?code=blahblah", () => {
     // Ignore `provider` and `code` for the sake of mock.
-    return res(ctx.status(HTTPSTATUS.success), ctx.json(successfulSignInData));
+    return HttpResponse.json(successfulSignInData, {
+      status: HTTPSTATUS.success,
+    });
   }),
 
-  rest.post("/api/auth/logout", async (_, res, ctx) => {
-    return res(ctx.status(HTTPSTATUS.success), ctx.json(successfulSignOutData));
+  // Sign Out
+  http.post("/api/auth/logout", () => {
+    return HttpResponse.json(successfulSignOutData, {
+      status: HTTPSTATUS.success,
+    });
   }),
 
-  rest.post("/api/auth/signup", async (_, res, ctx) => {
-    return res(ctx.status(HTTPSTATUS.created), ctx.json(successfulSignUpData));
-    return res(
-      ctx.status(HTTPSTATUS.badRequest),
-      ctx.json(unsuccessfulSignUpData)
-    );
+  // Email/Pasword Sign Up
+  http.post("/api/auth/signup", () => {
+    return HttpResponse.json(successfulSignUpData, {
+      status: HTTPSTATUS.created,
+    });
+    return HttpResponse.json(unsuccessfulSignUpData, {
+      status: HTTPSTATUS.badRequest,
+    });
   }),
 
-  rest.get(
+  // Nickname Duplicate Check
+  http.get<{ nickname: string }>(
     "/api/auth/signup/duplicationcheck/nickname/:nickname",
-    async (req, res, ctx) => {
-      const nickname = req.params.nickname;
+    ({ params }) => {
+      const { nickname } = params;
 
       if (nickname === "duplicate") {
-        return res(
-          ctx.status(HTTPSTATUS.badRequest),
-          ctx.json(unsuccessfulNicknameDuplicationCheckData)
-        );
+        return HttpResponse.json(unsuccessfulNicknameDuplicationCheckData, {
+          status: HTTPSTATUS.badRequest,
+        });
       } else {
-        return res(
-          ctx.status(HTTPSTATUS.success),
-          ctx.json(successfulNicknameDuplicationCheckData)
-        );
+        return HttpResponse.json(successfulNicknameDuplicationCheckData, {
+          status: HTTPSTATUS.success,
+        });
       }
     }
   ),
 
-  rest.get(
+  // Email Duplicate Check
+  http.get<{ email: string }>(
     "/api/auth/signup/duplicationcheck/email/:email",
-    async (req, res, ctx) => {
-      const email = req.params.email;
+    ({ params }) => {
+      const { email } = params;
 
       if (email === "duplicate@email.com") {
-        return res(
-          ctx.status(HTTPSTATUS.badRequest),
-          ctx.json(unsuccessfulEmailDuplicationCheckData)
-        );
+        return HttpResponse.json(unsuccessfulEmailDuplicationCheckData, {
+          status: HTTPSTATUS.badRequest,
+        });
       } else {
-        return res(
-          ctx.status(HTTPSTATUS.success),
-          ctx.json(successfulEmailDuplicationCheckData)
-        );
+        return HttpResponse.json(successfulEmailDuplicationCheckData, {
+          status: HTTPSTATUS.success,
+        });
       }
     }
   ),
 
-  rest.post("/api/auth/signup/verifyEmail", async (_, res, ctx) => {
-    return res(
-      ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulEmailVerificationData)
-    );
-    return res(
-      ctx.status(HTTPSTATUS.badRequest),
-      ctx.json(unsuccessfulEmailVerificationData)
-    );
+  // Send Email Verification Code to Email
+  http.post("/api/auth/signup/verifyEmail", () => {
+    return HttpResponse.json(successfulEmailVerificationData, {
+      status: HTTPSTATUS.success,
+    });
+    return HttpResponse.json(unsuccessfulEmailVerificationData, {
+      status: HTTPSTATUS.badRequest,
+    });
   }),
 
-  rest.post("/api/auth/signup/verifyCode", async (req, res, ctx) => {
-    const { code } = await req.json();
-    if (code === "777777") {
-      return res(
-        ctx.status(HTTPSTATUS.badRequest),
-        ctx.json(unsuccessfulEmailCodeVerificationData)
-      );
-    } else {
-      return res(
-        ctx.status(HTTPSTATUS.success),
-        ctx.json(successfulEmailCodeVerificationData)
-      );
+  // Email Code Verification
+  http.post<never, { code: string }>(
+    "/api/auth/signup/verifyCode",
+    async ({ request }) => {
+      const { code } = await request.json();
+      if (code === "777777") {
+        return HttpResponse.json(unsuccessfulEmailCodeVerificationData, {
+          status: HTTPSTATUS.badRequest,
+        });
+      } else {
+        return HttpResponse.json(successfulEmailCodeVerificationData, {
+          status: HTTPSTATUS.success,
+        });
+      }
     }
-  }),
+  ),
 ];

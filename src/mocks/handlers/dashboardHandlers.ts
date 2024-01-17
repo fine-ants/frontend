@@ -4,29 +4,27 @@ import {
   successfulGetPortfolioPieChartDataResponse,
   successfulGetTotalValuationDataResponse,
 } from "@mocks/data/dashboardData";
-import { rest } from "msw";
+import { HttpResponse, http } from "msw";
 
 export default [
   // Get dashboard overview data
-  rest.get("/api/dashboard/overview", async (_, res, ctx) => {
-    return res(
-      ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulGetOverviewDataResponse)
-    );
+  http.get("/api/dashboard/overview", () => {
+    return HttpResponse.json(successfulGetOverviewDataResponse, {
+      status: HTTPSTATUS.success,
+    });
   }),
+
   // Get portfolio pie chart data
-  rest.get("/api/dashboard/pieChart", async (_, res, ctx) => {
-    return res(
-      ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulGetPortfolioPieChartDataResponse)
-    );
+  http.get("/api/dashboard/pieChart", () => {
+    return HttpResponse.json(successfulGetPortfolioPieChartDataResponse, {
+      status: HTTPSTATUS.success,
+    });
   }),
 
   // Get total valuation line chart data
-  rest.get("/api/dashboard/lineChart", async (_, res, ctx) => {
-    return res(
-      ctx.status(HTTPSTATUS.success),
-      ctx.json(successfulGetTotalValuationDataResponse)
-    );
+  http.get("/api/dashboard/lineChart", () => {
+    return HttpResponse.json(successfulGetTotalValuationDataResponse, {
+      status: HTTPSTATUS.success,
+    });
   }),
 ];
