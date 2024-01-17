@@ -54,7 +54,9 @@ export default function UserDropdown() {
           vertical: "top",
           horizontal: "right",
         }}>
-        <DropdownItem sx={dropdownItemSx} onClick={() => navigate("/profile")}>
+        <DropdownItem
+          sx={dropdownItemSx}
+          onClick={() => navigate("/settings/profile")}>
           {user?.profileUrl ? (
             <ProfileImage
               src={user.profileUrl}
