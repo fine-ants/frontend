@@ -19,3 +19,10 @@ export const successfulProfileDetailsEditData = ({
       : "https://avatars.githubusercontent.com/u/79886384?v=4",
   },
 });
+
+export const successfulPasswordEditData = {
+  code: HTTPSTATUS.success,
+  status: "Success",
+  message: "비밀번호를 성공적으로 변경했습니다",
+  data: null,
+};

@@ -10,3 +10,12 @@ export const putProfileDetails = async (body: FormData) => {
   });
   return res.data;
 };
+
+export const putNewPassword = async (body: {
+  currentPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}) => {
+  const res = await fetcher.put<Response<null>>("/account/password", body);
+  return res.data;
+};

@@ -1,3 +1,4 @@
+import usePasswordEditMutation from "@api/settings/queries/usePasswordEditMutation";
 import Button from "@components/common/Buttons/Button";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { useText, validatePassword } from "@fineants/demolition";
@@ -41,10 +42,22 @@ export default function AccountSettingsSubPage() {
     validators: [passwordValidator],
   });
 
+  const { mutate: mutatePasswordEdit } = usePasswordEditMutation({
+    onSuccess: () => {
+      currentPasswordOnChange("");
+      newPasswordOnChange("");
+      newPasswordConfirmOnChange("");
+    },
+  });
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    // TODO
+    mutatePasswordEdit({
+      currentPassword: currentPasswordValue,
+      newPassword: newPasswordValue,
+      newPasswordConfirm: newPasswordConfirmValue,
+    });
   };
 
   const onAccountDeleteClick = () => {

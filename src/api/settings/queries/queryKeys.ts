@@ -4,4 +4,7 @@ export const settingsKeys = createQueryKeys("settings", {
   profileEdit: () => ({
     queryKey: ["profileEdit"],
   }),
+  passwordEdit: () => ({
+    queryKey: ["passwordEdit"],
+  }),
 });

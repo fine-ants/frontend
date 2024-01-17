@@ -1,5 +1,8 @@
 import { HTTPSTATUS } from "@api/types";
-import { successfulProfileDetailsEditData } from "@mocks/data/settingsData";
+import {
+  successfulPasswordEditData,
+  successfulProfileDetailsEditData,
+} from "@mocks/data/settingsData";
 import { HttpResponse, http } from "msw";
 
 export default [
@@ -15,6 +18,12 @@ export default [
     );
 
     return HttpResponse.json(successfulProfileDetailsEditData(data), {
+      status: HTTPSTATUS.success,
+    });
+  }),
+
+  http.put("/api/account/password", () => {
+    return HttpResponse.json(successfulPasswordEditData, {
       status: HTTPSTATUS.success,
     });
   }),
