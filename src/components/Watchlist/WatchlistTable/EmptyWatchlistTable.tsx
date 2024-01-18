@@ -4,6 +4,7 @@ import { Icon } from "@components/common/Icon";
 import { useState } from "react";
 import styled from "styled-components";
 import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
+import designSystem from "@styles/designSystem";
 
 export default function EmptyWatchlistTable() {
   const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
@@ -69,13 +70,13 @@ const TextContainer = styled.div`
   gap: 16px;
 
   h1 {
-    font: ${({ theme: { font } }) => font.heading3.font};
-    letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+    font: ${designSystem.font.heading3.font};
+    letter-spacing: ${designSystem.font.heading3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
   span {
-    font: ${({ theme: { font } }) => font.body2.font};
+    font: ${designSystem.font.body2.font};
     color: ${({ theme: { color } }) => color.neutral.gray500};
   }
 `;

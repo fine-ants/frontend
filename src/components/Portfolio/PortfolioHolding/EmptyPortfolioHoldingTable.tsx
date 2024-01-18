@@ -1,5 +1,6 @@
 import noHoldingStockImg from "@assets/images/no_holdings_stock.png";
 import Button from "@components/common/Buttons/Button";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
@@ -44,7 +45,8 @@ const StyledEmptyPortfolioHoldingTable = styled.div`
   gap: 24px;
   border-radius: 8px;
   border: 1px dashed ${({ theme: { color } }) => color.primary.blue100};
-  font: ${({ theme: { font } }) => font.title3};
+  font: ${designSystem.font.title3.font};
+  letter-spacing: ${designSystem.font.title3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;
 
@@ -55,7 +57,7 @@ const TextBox = styled.div`
   text-align: center;
 
   > span {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray500};
   }
 `;

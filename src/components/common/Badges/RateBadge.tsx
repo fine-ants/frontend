@@ -62,9 +62,14 @@ const StyledRateBadge = styled.div<{
 
   > span {
     padding-top: 2px;
-    font: ${({ theme: { font }, $size }) =>
-      $size === 12 ? font.title6.font : font.title5.font};
-    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+    font: ${({ $size }) =>
+      $size === 12
+        ? designSystem.font.title6.font
+        : designSystem.font.title5.font};
+    letter-spacing: ${({ $size }) =>
+      $size === 12
+        ? designSystem.font.title6.letterSpacing
+        : designSystem.font.title5.letterSpacing};
   }
 `;
 

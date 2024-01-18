@@ -4,6 +4,7 @@ import instagramIcon from "@assets/icons/logo/ic_instagram.svg";
 import linkedinIcon from "@assets/icons/logo/ic_linkedin.svg";
 import XIcon from "@assets/icons/logo/ic_x.svg";
 import youtubeIcon from "@assets/icons/logo/ic_youtube.svg";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export default function Footer() {
@@ -43,7 +44,7 @@ const FooterLeft = styled.div`
 
 const Copyright = styled.div`
   color: ${({ theme: { color } }) => color.gray600};
-  ${({ theme: { font } }) => font.body4.font};
+  font: ${designSystem.font.body4.font};
 `;
 
 const IconContainer = styled.div`

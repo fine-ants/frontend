@@ -1,5 +1,6 @@
 import WideLegend from "@components/common/Legend/WideLegend";
 import PieChart from "@components/common/PieChart/PieChart";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import EmptyHoldingsPieChartImg from "./EmptyHoldingsPieChartImg";
 
@@ -66,6 +67,6 @@ const PieChartWrapper = styled.div`
 `;
 
 const ChartLabel = styled.h1`
-  font: ${({ theme: { font } }) => font.heading3.font};
-  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;

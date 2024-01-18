@@ -5,6 +5,7 @@ import {
   Select as MuiSelect,
   SelectChangeEvent,
 } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
 
@@ -72,8 +73,7 @@ const BootstrapInput = styled(InputBase)<{ $size: Size; $isOpen: boolean }>`
       ${({ theme: { color }, $isOpen }) =>
         $isOpen ? color.primary.blue500 : color.neutral.gray200};
     border-radius: ${({ $size }) => ($size === "h24" ? 2 : 3)}px;
-    font: ${({ theme: { font } }) => font.body3.font};
-    letter-spacing: ${({ theme: { font } }) => font.body3.letterSpacing};
+    font: ${designSystem.font.body3.font}
     color: ${({ theme: { color } }) => color.neutral.gray900};
 
     &:hover {

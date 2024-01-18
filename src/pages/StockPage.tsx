@@ -2,6 +2,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import Button from "@components/common/Buttons/Button";
 import Header from "@components/common/Header/Header";
 import { Icon } from "@components/common/Icon";
+import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TVStockDetailWidget from "../components/TradingViewWidgets/TVStockDetailWidget";
@@ -117,14 +118,14 @@ const NameWrapper = styled.div`
   gap: 8px;
   align-items: center;
   > label {
-    font: ${({ theme: { font } }) => font.heading2.font};
-    letter-spacing: ${({ theme: { font } }) => font.heading2.letterSpacing};
+    font: ${designSystem.font.heading2.font};
+    letter-spacing: ${designSystem.font.heading2.letterSpacing};
 
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
   > span {
-    font: ${({ theme: { font } }) => font.title5.font};
-    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
@@ -154,14 +155,14 @@ const PriceWrapper = styled.div`
   align-items: center;
 
   > span {
-    font: ${({ theme: { font } }) => font.title2.font};
-    letter-spacing: ${({ theme: { font } }) => font.title2.letterSpacing};
+    font: ${designSystem.font.title2.font};
+    letter-spacing: ${designSystem.font.title2.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 
   > label {
-    font: ${({ theme: { font } }) => font.title1.font};
-    letter-spacing: ${({ theme: { font } }) => font.title1.letterSpacing};
+    font: ${designSystem.font.title1.font};
+    letter-spacing: ${designSystem.font.title1.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;
@@ -181,8 +182,8 @@ const StockInfo = styled.div`
   background-color: ${({ theme: { color } }) => color.neutral.white};
 
   > label {
-    font: ${({ theme: { font } }) => font.heading3.font};
-    letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+    font: ${designSystem.font.heading3.font};
+    letter-spacing: ${designSystem.font.heading3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;
@@ -212,14 +213,13 @@ const Info = styled.div`
   }
 
   > label {
-    font: ${({ theme: { font } }) => font.title5.font};
-    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
   > span {
-    font: ${({ theme: { font } }) => font.body3.font};
-    letter-spacing: ${({ theme: { font } }) => font.body3.letterSpacing};
+    font: ${designSystem.font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;

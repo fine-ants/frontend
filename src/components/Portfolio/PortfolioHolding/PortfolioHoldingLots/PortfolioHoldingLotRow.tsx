@@ -8,6 +8,7 @@ import {
   TableRow as MuiTableRow,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import designSystem from "@styles/designSystem";
 import { formatDate } from "@utils/date";
 import { thousandsDelimiter } from "@utils/delimiters";
 import dayjs, { Dayjs } from "dayjs";
@@ -222,7 +223,7 @@ const StyledTableRow = styled(MuiTableRow)`
 const StyledTableCell = styled(MuiTableCell)`
   padding: 4px 8px;
 
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &.MuiFormControl-root
@@ -238,7 +239,7 @@ const Input = styled.input`
   padding: 0 8px;
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border-radius: 2px;
@@ -258,7 +259,7 @@ const StyledTextArea = styled.textarea`
   height: 24px;
   padding: 0 8px;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border-radius: 2px;

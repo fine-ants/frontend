@@ -3,6 +3,7 @@ import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { TextField } from "@components/common/TextField/TextField";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -79,8 +80,8 @@ const IconButton = styled.button`
 `;
 
 const Label = styled.label`
-  font: ${({ theme: { font } }) => font.heading3.font};
-  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
@@ -94,28 +95,8 @@ const InputWrapper = styled.div`
     align-items: center;
     width: 120px;
     height: 24px;
-    font: ${({ theme: { font } }) => font.title5.font};
-    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
-
-  // input {
-  //   width: 352px;
-  //   height: 32px;
-  //   border-radius: 3px;
-  //   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  //   padding: 4px 8px;
-  //   box-sizing: border-box;
-  //   font: ${({ theme: { font } }) => font.body3.font};
-  //   color: ${({ theme: { color } }) => color.neutral.gray800};
-
-  //   &:focus {
-  //     outline: none;
-  //     border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
-  //   }
-
-  //   &::placeholder {
-  //     color: ${({ theme: { color } }) => color.neutral.gray400};
-  //   }
-  // }
 `;

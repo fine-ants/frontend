@@ -5,6 +5,7 @@ import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
 import { IconButton, TableCell, TableRow } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -106,7 +107,7 @@ const StyledTableCell = styled(TableCell)`
   height: 100%;
   padding: 0 8px;
   border-color: ${({ theme: { color } }) => color.neutral.gray100};
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &:first-of-type {
@@ -125,7 +126,7 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${({ theme: { font } }) => font.body2.font};
+  font: ${designSystem.font.body2.font};
   color: ${({ theme: { color } }) => color.neutral.gray800};
   overflow: hidden;
   white-space: nowrap;

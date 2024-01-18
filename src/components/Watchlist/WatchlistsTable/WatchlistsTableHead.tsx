@@ -13,6 +13,7 @@ import {
   tableSortLabelClasses,
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
+import designSystem from "@styles/designSystem";
 import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
 
@@ -73,7 +74,7 @@ export default function WatchlistsTableHead({
           <StyledTableCell
             key={headCell.id}
             sx={{
-              width: "1324px",
+              width: "100%",
             }}
             align={headCell.numeric ? "right" : "left"}
             sortDirection={orderBy === headCell.id ? order : false}>
@@ -134,8 +135,8 @@ const StyledTableCell = styled(TableCell)`
   }
 
   & > .${tableSortLabelClasses.root} {
-    font: ${({ theme: { font } }) => font.title5.font};
-    letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 `;
 

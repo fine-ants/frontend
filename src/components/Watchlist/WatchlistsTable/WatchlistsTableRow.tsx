@@ -1,6 +1,7 @@
 import { WatchlistsType } from "@api/watchlist";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { TableCell, TableRow } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -62,7 +63,7 @@ const StyledTableCell = styled(TableCell)`
   height: 100%;
   padding: 0 8px;
   border-color: ${({ theme: { color } }) => color.neutral.gray100};
-  font: ${({ theme: { font } }) => font.body3.font};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &:first-of-type {
@@ -81,7 +82,7 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${({ theme: { font } }) => font.body2.font};
+  font: ${designSystem.font.body2.font};
   color: ${({ theme: { color } }) => color.neutral.gray800};
   overflow: hidden;
   white-space: nowrap;

@@ -1,5 +1,6 @@
 import useDashboardTotalValuationTrendQuery from "@api/dashboard/queries/useDashboardLineChartQuery";
 import { Tab } from "@components/common/Tab";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import TotalValuationLineChart from "./TotalValuationLineChart";
@@ -90,16 +91,14 @@ const MessageBox = styled.div`
   height: 82px;
 
   > h1 {
-    font: ${({ theme: { font } }) => font.title3.font};
-    letter-spacing: ${({ theme: { font } }) => font.title3.letterSpacing};
+    font: ${designSystem.font.title3.font}
+    letter-spacing: ${designSystem.font.title3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
   > span {
     text-align: center;
-    font: ${({ theme: { font } }) => font.body3.font};
-    letter-spacing: ${({ theme: { font } }) => font.body3.letterSpacing};
-
+    font: ${designSystem.font.body3.font}
     color: ${({ theme: { color } }) => color.neutral.gray500};
   }
 `;
@@ -109,8 +108,8 @@ const TabWrapper = styled.div`
 `;
 
 const ChartTitle = styled.div`
-  font: ${({ theme: { font } }) => font.heading3.font};
-  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+font: ${designSystem.font.heading3.font}
+letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
 const TooltipRemover = styled.div`

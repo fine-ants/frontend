@@ -4,6 +4,7 @@ import WatchlistTableSkeleton from "@components/Watchlist/skeletons/WatchlistTab
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import styled from "styled-components";
 import BasePage from "../BasePage";
+import designSystem from "@styles/designSystem";
 
 export default function WatchlistsPage() {
   return (
@@ -40,8 +41,8 @@ const Header = styled.header`
   justify-content: space-between;
 
   h1 {
-    font: ${({ theme: { font } }) => font.heading2.font};
-    letter-spacing: ${({ theme: { font } }) => font.heading2.letterSpacing};
+    font: ${designSystem.font.heading2.font};
+    letter-spacing: ${designSystem.font.heading2.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;

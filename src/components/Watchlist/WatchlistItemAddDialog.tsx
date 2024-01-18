@@ -127,8 +127,8 @@ const Header = styled.header`
 `;
 
 const Title = styled.h3`
-  font: ${({ theme: { font } }) => font.heading3.font};
-  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 

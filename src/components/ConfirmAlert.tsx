@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
 import Button from "./common/Buttons/Button";
@@ -58,8 +59,8 @@ const Wrapper = styled.div`
 const Title = styled.div`
   width: 100%;
   text-align: left;
-  font: ${({ theme: { font } }) => font.heading3.font};
-  letter-spacing: ${({ theme: { font } }) => font.heading3.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
@@ -67,8 +68,8 @@ const Body = styled.div`
   margin-top: 32px;
   width: 100%;
   max-height: 120px;
-  font: ${({ theme: { font } }) => font.title5.font};
-  letter-spacing: ${({ theme: { font } }) => font.title5.letterSpacing};
+  font: ${designSystem.font.title5.font}
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 

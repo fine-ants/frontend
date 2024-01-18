@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import WatchlistTable from "./WatchlistTable";
+import designSystem from "@styles/designSystem";
 
 export default function WatchlistContainer() {
   const { watchlistId } = useParams();
@@ -96,8 +97,8 @@ const Header = styled.header`
   justify-content: space-between;
 
   h1 {
-    font: ${({ theme: { font } }) => font.heading2.font};
-    letter-spacing: ${({ theme: { font } }) => font.heading2.letterSpacing};
+    font: ${designSystem.font.heading2.font};
+    letter-spacing: ${designSystem.font.heading2.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;
