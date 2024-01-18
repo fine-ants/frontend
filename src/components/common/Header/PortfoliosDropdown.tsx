@@ -80,7 +80,8 @@ const DropdownButton = styled.button<{ $isOpen: boolean }>`
   justify-content: center;
   align-items: center;
   gap: 4px;
-  font: ${designSystem.font.title4};
+  font: ${designSystem.font.title4.font}
+  letter-spacing: ${designSystem.font.title4.letterSpacing};
   color: ${({ $isOpen }) => ($isOpen ? "white" : "gray400")};
   letter-spacing: -0.02em;
   cursor: pointer;
@@ -139,12 +140,12 @@ const dropdownMenuSx = {
 };
 
 const portfolioDropdownItemSx = {
-  font: designSystem.font.body2,
+  font: designSystem.font.body2.font,
   color: designSystem.color.neutral.gray900,
 };
 
 const fixedDropdownItemSx = {
-  font: designSystem.font.body2,
+  font: designSystem.font.body2.font,
   color: designSystem.color.neutral.gray600,
   borderRadius: "4px",
 };

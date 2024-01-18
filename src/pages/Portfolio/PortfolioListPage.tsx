@@ -3,6 +3,7 @@ import { PortfolioListTableErrorFallback } from "@components/Portfolio/Portfolio
 import PortfolioListTableSkeleton from "@components/Portfolio/PortfolioList/skeletons/PortfolioListTableSkeleton";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import BasePage from "@pages/BasePage";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export default function PortfolioListPage() {
@@ -39,7 +40,8 @@ const Header = styled.header`
   justify-content: space-between;
 
   h1 {
-    font: ${({ theme: { font } }) => font.heading2};
+    font: ${designSystem.font.heading2.font};
+    letter-spacing: ${designSystem.font.heading2.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;

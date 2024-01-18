@@ -1,4 +1,5 @@
 import addIcon from "@assets/icons/ic_folder-add.svg";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type Props = {
@@ -37,12 +38,13 @@ const StyledEmptyPortfolioMessage = styled.div`
   border-radius: 8px;
 
   > h1 {
-    font: ${({ theme: { font } }) => font.title3};
+    font: ${designSystem.font.title3.font}
+    letter-spacing: ${designSystem.font.title3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
   > div {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font}
     color: ${({ theme: { color } }) => color.neutral.gray500};
   }
 `;
@@ -57,7 +59,8 @@ const PortfolioAddButton = styled.div`
   gap: 4px;
   padding: 12px 8px;
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.button2};
+  font: ${designSystem.font.button2.font}
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
 
   background-color: ${({ theme: { color } }) => color.primary.blue500};
   cursor: pointer;

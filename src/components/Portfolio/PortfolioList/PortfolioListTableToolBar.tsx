@@ -94,11 +94,11 @@ export default function PortfolioListTableToolBar({
           title="선택된 포트폴리오를 삭제 하시겠습니까?"
           onClose={onDeletePortfoliosAlertClose}
           onConfirm={onConfirmAction}>
-          <DeleteList>
-            {selected.map((item) => (
-              <DeleteListItem key={item.id}>{item.name}</DeleteListItem>
-            ))}
-          </DeleteList>
+          <span>
+            {`${selected[0].name}${
+              selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
+            } 항목을 삭제하시겠습니까?`}
+          </span>
         </ConfirmAlert>
       )}
     </StyledToolbar>
@@ -119,12 +119,3 @@ const SelectedInfoContainer = styled.div`
   align-items: center;
   gap: 8px;
 `;
-
-const DeleteList = styled.ul`
-  width: 100%;
-  height: inherit;
-  max-height: inherit;
-  overflow-y: scroll;
-`;
-
-const DeleteListItem = styled.li``;

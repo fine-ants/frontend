@@ -39,5 +39,5 @@ const StyledSignInLoadingPage = styled.div`
 `;
 
 const Text = styled.p`
-  font: ${designSystem.font.title3};
+  font: ${designSystem.font.title3.font};
 `;

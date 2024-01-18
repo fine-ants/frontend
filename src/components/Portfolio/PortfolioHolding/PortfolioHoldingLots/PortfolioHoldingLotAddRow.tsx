@@ -2,6 +2,7 @@ import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePo
 import DatePicker from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import { TableCell as MuiTableCell } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -110,7 +111,8 @@ export default function PortfolioHoldingLotAddRow({
 const StyledTableCell = styled(MuiTableCell)`
   height: 40px;
   padding: 0 8px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
+
   color: ${({ theme: { color } }) => color.neutral.gray900};
   text-align: center;
 `;
@@ -123,7 +125,7 @@ const Input = styled.input`
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 2px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &::placeholder {
@@ -144,7 +146,7 @@ const StyledTextArea = styled.textarea`
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 2px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
   text-align: left;
 
