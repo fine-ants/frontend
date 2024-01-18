@@ -5,6 +5,7 @@ import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
+import { Order } from "@components/common/Table/Table";
 import {
   Box,
   IconButton,
@@ -17,7 +18,6 @@ import {
 import { visuallyHidden } from "@mui/utils";
 import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
-import { Order } from "./WatchlistTable";
 
 type HeadCell = {
   id: keyof WatchlistItemType;

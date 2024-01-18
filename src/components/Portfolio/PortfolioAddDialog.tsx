@@ -231,7 +231,8 @@ export default function PortfolioAddDialog({
               <Select
                 size="h32"
                 selectedValue={securitiesFirm}
-                changeSelectedValue={handleChange}>
+                changeSelectedValue={handleChange}
+                menuMaxHeight="168px">
                 {SECURITIES_FIRM.map((option) => (
                   <SelectOption key={option} value={option}>
                     <SecuritiesFirmLogo

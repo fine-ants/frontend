@@ -1,4 +1,5 @@
 import { WatchlistItemType } from "@api/watchlist";
+import useWatchlistItemDeleteMutation from "@api/watchlist/queries/useWatchlistItemDeleteMutation";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
@@ -6,7 +7,7 @@ import { Icon } from "@components/common/Icon";
 import { IconButton, TableCell, TableRow } from "@mui/material";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -31,12 +32,14 @@ export default function WatchlistTableRow({
   isItemSelected,
   handleClick,
 }: Props) {
-  // const { mutate: watchlistItemDeleteMutate } =
-  //   useWatchlistItemDeleteMutation(tickerSymbol);
+  const { watchlistId } = useParams();
 
-  const onClick = () => {
-    // watchlistItemDeleteMutate();
-    //TODO: 관심 종목 삭제
+  const { mutate: watchlistItemDeleteMutate } = useWatchlistItemDeleteMutation(
+    Number(watchlistId)
+  );
+  const onFavoriteMarkClick = (event: MouseEvent<unknown>) => {
+    event.stopPropagation();
+    watchlistItemDeleteMutate([tickerSymbol]);
   };
 
   return (
@@ -62,7 +65,7 @@ export default function WatchlistTableRow({
           <IconButton
             sx={{ padding: 0 }}
             disableRipple={true}
-            onClick={onClick}>
+            onClick={onFavoriteMarkClick}>
             <Icon icon="favorite" size={16} color="blue500" />
           </IconButton>
         </CustomTooltip>

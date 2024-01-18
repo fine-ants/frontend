@@ -58,6 +58,7 @@ export default function TablePagination({
           input: (
             <Select
               size="h24"
+              menuMinHeight="auto"
               selectedValue={rowsPerPage.toString()}
               changeSelectedValue={onRowsPerPageChange}>
               {rowsPerPageOptions.map((option) => (

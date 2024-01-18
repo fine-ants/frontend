@@ -13,6 +13,11 @@ export type WatchlistItemType = {
   dateAdded: string;
 };
 
+export type WatchlistData = {
+  name: string;
+  watchStocks: WatchlistItemType[];
+};
+
 export type WatchlistsType = {
   id: number;
   name: string;
@@ -42,7 +47,7 @@ export const deleteWatchlists = async (watchlistIds: readonly number[]) => {
 //watchlist 단일 & 종목 api
 
 export const getWatchlist = async (watchlistId: number) => {
-  const res = await fetcher.get<Response<WatchlistItemType[]>>(
+  const res = await fetcher.get<Response<WatchlistData>>(
     `/watchlists/${watchlistId}`
   );
   return res.data;

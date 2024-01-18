@@ -2,6 +2,7 @@ import useWatchlistsAddMutation from "@api/watchlist/queries/useWatchlistsAddMut
 import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
+import { TextField } from "@components/common/TextField/TextField";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -21,6 +22,10 @@ export default function WatchlistAddDialog({ isOpen, onClose }: Props) {
     watchlistAddMutate(newWatchlistName);
   };
 
+  const onWatchlistNameClear = () => {
+    setNewWatchlistName("");
+  };
+
   return (
     <BaseDialog style={StyledDialog} isOpen={isOpen} onClose={onClose}>
       <div>
@@ -31,18 +36,18 @@ export default function WatchlistAddDialog({ isOpen, onClose }: Props) {
           </IconButton>
         </Upper>
         <InputWrapper>
-          <span>이름</span>
-          <input
-            type="text"
+          <p>이름</p>
+          <TextField
             value={newWatchlistName}
             onChange={(e) => setNewWatchlistName(e.target.value)}
+            clearValue={onWatchlistNameClear}
           />
         </InputWrapper>
       </div>
 
       <div style={{ marginLeft: "auto" }}>
         <Button variant="primary" size="h32" onClick={addItemToWatchlist}>
-          <span>추가</span>
+          <p>추가</p>
         </Button>
       </div>
     </BaseDialog>
@@ -84,7 +89,7 @@ const InputWrapper = styled.div`
   align-items: center;
   margin-top: 24px;
 
-  span {
+  p {
     display: flex;
     align-items: center;
     width: 120px;
@@ -94,23 +99,23 @@ const InputWrapper = styled.div`
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 
-  input {
-    width: 352px;
-    height: 32px;
-    border-radius: 3px;
-    border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-    padding: 4px 8px;
-    box-sizing: border-box;
-    font: ${({ theme: { font } }) => font.body3.font};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+  // input {
+  //   width: 352px;
+  //   height: 32px;
+  //   border-radius: 3px;
+  //   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  //   padding: 4px 8px;
+  //   box-sizing: border-box;
+  //   font: ${({ theme: { font } }) => font.body3.font};
+  //   color: ${({ theme: { color } }) => color.neutral.gray800};
 
-    &:focus {
-      outline: none;
-      border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
-    }
+  //   &:focus {
+  //     outline: none;
+  //     border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+  //   }
 
-    &::placeholder {
-      color: ${({ theme: { color } }) => color.neutral.gray400};
-    }
-  }
+  //   &::placeholder {
+  //     color: ${({ theme: { color } }) => color.neutral.gray400};
+  //   }
+  // }
 `;

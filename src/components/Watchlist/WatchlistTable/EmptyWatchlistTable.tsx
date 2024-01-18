@@ -5,7 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
 
-export default function EmptyWatchlistsTable() {
+export default function EmptyWatchlistTable() {
   const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
     useState(false);
   const onAddWatchlistButtonClick = () => {
