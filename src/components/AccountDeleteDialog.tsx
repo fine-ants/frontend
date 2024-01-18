@@ -22,7 +22,7 @@ export default function AccountDeleteDialog({ isOpen, onClose }: Props) {
     deleteAccountMutate();
   };
 
-  const isDeleteButtonDisabled = value !== "delete";
+  const isDeleteButtonDisabled = value !== "계정 삭제";
 
   return (
     <BaseDialog style={baseDialogStyle} isOpen={isOpen} onClose={onClose}>
@@ -36,7 +36,7 @@ export default function AccountDeleteDialog({ isOpen, onClose }: Props) {
       <Description>
         <p>데이터 및 계정과 관련된 모든 정보가 삭제됩니다</p>
         <p>
-          삭제를 진행하시려면 아래의 입력란에 <b>"delete"</b>을 입력하세요
+          삭제를 진행하시려면 아래의 입력란에 <b>"계정 삭제"</b>을 입력하세요
         </p>
       </Description>
 
