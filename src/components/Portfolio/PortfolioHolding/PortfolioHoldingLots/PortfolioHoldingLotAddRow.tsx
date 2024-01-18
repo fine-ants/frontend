@@ -5,6 +5,7 @@ import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -18,7 +19,9 @@ export default function PortfolioHoldingLotAddRow({
   portfolioHoldingId,
   onDeleteButtonClick,
 }: Props) {
-  const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
+  const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
+    dayjs(new Date())
+  );
   const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState("");
   const [newNumShares, setNewNumShares] = useState("");
   const [newMemo, setNewMemo] = useState("");

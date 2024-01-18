@@ -6,6 +6,7 @@ import Button from "@components/common/Buttons/Button";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -27,7 +28,9 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     null
   );
 
-  const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
+  const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
+    dayjs(new Date())
+  );
 
   const onSelectOption = (stock: StockSearchItem) => {
     setSelectedStock(stock);

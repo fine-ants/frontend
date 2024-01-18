@@ -1,12 +1,13 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers";
 import designSystem from "@styles/designSystem";
+import { Dayjs } from "dayjs";
 import { IconCalendar } from "../IconCalendar";
 
 type Props = {
   size: "small" | "big";
-  value: Date | null;
-  onChange: (newVal: Date | null) => void;
+  value: Dayjs | null;
+  onChange: (newVal: Dayjs | null) => void;
 };
 
 export default function DatePicker({ size, value, onChange }: Props) {

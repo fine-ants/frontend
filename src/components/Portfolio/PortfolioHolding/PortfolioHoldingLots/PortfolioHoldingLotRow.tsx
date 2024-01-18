@@ -2,18 +2,17 @@ import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/us
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
+import DatePicker from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { formatDate } from "@utils/date";
 import { thousandsDelimiter } from "@utils/delimiters";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconCalendar } from "../../../common/IconCalendar";
 
 type Props = {
   portfolioId: number;
@@ -51,8 +50,12 @@ export default function PortfolioHoldingStyledTableRow({
     useState(false);
 
   const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
-    dayjs(new Date())
+    dayjs(purchaseDate)
   );
+  // const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(
+  //   new Date(purchaseDate)
+  // );
+
   const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState(
     purchasePricePerShare.toString()
   );
@@ -106,15 +109,9 @@ export default function PortfolioHoldingStyledTableRow({
             scope="row"
             style={{ width: "143px" }}>
             <DatePicker
+              size="small"
               value={newPurchaseDate}
               onChange={(newVal) => setNewPurchaseDate(newVal)}
-              format="YYYY-MM-DD"
-              slotProps={{
-                textField: { placeholder: "매입 날짜" },
-              }}
-              slots={{
-                openPickerIcon: IconCalendar,
-              }}
             />
           </StyledTableCell>
           <StyledTableCell align="right" style={{ width: "119px" }}>
