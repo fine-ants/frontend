@@ -23,5 +23,9 @@ export default function useWatchlistItemAddMutation({
       });
       onCloseDialog();
     },
+    meta: {
+      tostSuccessMessage: "관심 종목을 추가했습니다",
+      toastErrorMessage: "관심 종목을 추가하는 중 오류가 발생했습니다",
+    },
   });
 }
