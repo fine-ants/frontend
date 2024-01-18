@@ -332,9 +332,9 @@ const ChangeableAmount = styled(Amount)<{
       case "none":
         return color.neutral.gray900;
       case "gain":
-        return color.state.green;
+        return color.state.green500;
       case "loss":
-        return color.state.red;
+        return color.state.red500;
       default:
         return color.neutral.gray900;
     }

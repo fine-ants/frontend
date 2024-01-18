@@ -374,7 +374,7 @@ const StyledSpan = styled.span`
   width: 120px;
   flex-shrink: 0;
   > span {
-    color: ${({ theme: { color } }) => color.state.red};
+    color: ${({ theme: { color } }) => color.state.red500};
   }
 `;
 

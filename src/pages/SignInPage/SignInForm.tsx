@@ -177,7 +177,7 @@ const TextInputLabel = styled.label`
 
 const TextInputError = styled.p`
   height: 18px;
-  color: ${designSystem.color.state.red};
+  color: ${designSystem.color.state.red500};
   font: ${designSystem.font.body4};
 `;
 

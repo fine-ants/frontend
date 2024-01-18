@@ -165,7 +165,7 @@ const SearchWrapper = styled.div`
     color: ${({ theme: { color } }) => color.neutral.gray800};
 
     > span {
-      color: ${({ theme: { color } }) => color.state.red};
+      color: ${({ theme: { color } }) => color.state.red500};
     }
   }
 `;
