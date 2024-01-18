@@ -195,14 +195,14 @@ export default function PortfolioHoldingRow({
         <HoldingTableCell style={{ width: "132px" }} component="th" scope="row">
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
-              style={{ font: designSystem.font.body3 }}
+              style={{ font: designSystem.font.body3.font }}
               to={`/stock/${tickerSymbol}`}>
               {companyName}
             </Link>
           </Typography>
           <Typography
             style={{
-              font: designSystem.font.body4,
+              font: designSystem.font.body4.font,
               color: designSystem.color.neutral.gray400,
             }}>
             {tickerSymbol}

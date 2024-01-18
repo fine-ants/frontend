@@ -5,6 +5,7 @@ import {
   Select as MuiSelect,
   SelectChangeEvent,
 } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
 
@@ -12,7 +13,8 @@ export type Size = "h24" | "h32" | "h40";
 
 type Props = {
   size: Size;
-  menuMinHeight?: number;
+  menuMinHeight?: string;
+  menuMaxHeight?: string;
   selectedValue: string;
   changeSelectedValue: (value: string) => void;
   children: ReactNode;
@@ -24,6 +26,7 @@ type Props = {
 export default function Select({
   size,
   menuMinHeight,
+  menuMaxHeight,
   selectedValue,
   changeSelectedValue,
   children,
@@ -50,7 +53,7 @@ export default function Select({
       IconComponent={() => (
         <StyledIconComponent src={isOpen ? chevronUp : chevronDown} />
       )}
-      MenuProps={{ sx: MenuSX(size, menuMinHeight) }}>
+      MenuProps={{ sx: MenuSX(size, menuMinHeight, menuMaxHeight) }}>
       {children}
     </MuiSelect>
   );
@@ -70,7 +73,7 @@ const BootstrapInput = styled(InputBase)<{ $size: Size; $isOpen: boolean }>`
       ${({ theme: { color }, $isOpen }) =>
         $isOpen ? color.primary.blue500 : color.neutral.gray200};
     border-radius: ${({ $size }) => ($size === "h24" ? 2 : 3)}px;
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font}
     color: ${({ theme: { color } }) => color.neutral.gray900};
 
     &:hover {
@@ -89,10 +92,16 @@ const StyledIconComponent = styled.img`
   pointer-events: none;
 `;
 
-const MenuSX = (size: Size, menuMinHeight?: number) => ({
+const MenuSX = (
+  size: Size,
+  menuMinHeight?: string,
+  menuMaxHeight?: string
+) => ({
   "& .MuiPaper-root": {
-    "height": menuMinHeight ? `${menuMinHeight}px` : "160px",
+    "minHeight": menuMinHeight ? menuMinHeight : "160px",
+    "maxHeight": menuMaxHeight ? menuMaxHeight : "240px",
     "minWidth": `${size === "h24" ? 56 : 80}px`,
+
     "marginTop": "2px",
     "padding": "4px",
 

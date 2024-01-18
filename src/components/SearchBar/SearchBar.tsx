@@ -201,7 +201,7 @@ const autocompleteSx = (variant: Variant) => ({
 
     "& .MuiInputBase-input": {
       "padding": "0",
-      "font": designSystem.font.body3,
+      "font": designSystem.font.body3.font,
       "color":
         variant === "default"
           ? designSystem.color.neutral.gray100

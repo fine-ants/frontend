@@ -36,24 +36,57 @@ export const colors = {
 };
 
 const font = {
-  heading1: "500 48px/58px 'IBMPlexSansKR-Regular', sans-serif",
-  heading2: "700 32px/39px 'IBMPlexSansKR-Regular', sans-serif",
-  heading3: "700 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
+  heading1: {
+    font: "500 48px/58px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  heading2: {
+    font: "700 32px/39px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  heading3: {
+    font: "700 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 
-  title1: "500 28px/34px 'IBMPlexSansKR-Regular', sans-serif",
-  title2: "500 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
-  title3: "500 20px/24px 'IBMPlexSansKR-Regular', sans-serif",
-  title4: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
-  title5: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
-  title6: "500 12px/14px 'IBMPlexSansKR-Regular', sans-serif",
+  title1: {
+    font: "500 28px/34px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title2: {
+    font: "500 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title3: {
+    font: "500 20px/24px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title4: {
+    font: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title5: {
+    font: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title6: {
+    font: "500 12px/14px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 
-  body1: "400 20px/30px 'IBMPlexSansKR-Regular', sans-serif",
-  body2: "400 16px/24px 'IBMPlexSansKR-Regular', sans-serif",
-  body3: "400 14px/21px 'IBMPlexSansKR-Regular', sans-serif",
-  body4: "400 12px/18px 'IBMPlexSansKR-Regular', sans-serif",
+  body1: { font: "400 20px/30px 'IBMPlexSansKR-Regular', sans-serif" },
+  body2: { font: "400 16px/24px 'IBMPlexSansKR-Regular', sans-serif" },
+  body3: { font: "400 14px/21px 'IBMPlexSansKR-Regular', sans-serif" },
+  body4: { font: "400 12px/18px 'IBMPlexSansKR-Regular', sans-serif" },
 
-  button1: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
-  button2: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
+  button1: {
+    font: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  button2: {
+    font: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 };
 
 export default {

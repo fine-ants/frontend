@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
@@ -65,8 +66,8 @@ const ItemTitle = styled.div`
   gap: 4px;
 
   > p {
-    font: ${({ theme: { font } }) => font.title5};
-    letter-spacing: -0.02em;
+    font: ${designSystem.font.title5.font}
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 `;
@@ -80,14 +81,14 @@ const ColorCircle = styled.div<{ color: string }>`
 
 const Percentage = styled.div`
   margin-left: auto;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
+  font: ${designSystem.font.title5.font}
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.primary.blue500};
 `;
 
 const GainValue = styled.p`
   display: flex;
   align-items: center;
-  font: ${({ theme: { font } }) => font.body4};
+  font: ${designSystem.font.body4.font}
   color: ${({ theme: { color } }) => color.state.green};
 `;

@@ -7,6 +7,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
 import Routes from "@router/Routes";
+import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
@@ -259,7 +260,8 @@ const FirmImage = styled.img`
 `;
 
 const Title = styled.span`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
 const ButtonWrapper = styled.div`
@@ -276,17 +278,20 @@ const ValuationContainer = styled.div`
   border-radius: 8px;
   color: ${({ theme: { color } }) => color.neutral.gray400};
   background-color: ${({ theme: { color } }) => color.neutral.gray800};
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
 `;
 
 const CurrentValuation = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title2};
+  font: ${designSystem.font.title2.font};
+  letter-spacing: ${designSystem.font.title2.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
   > span {
-    font: ${({ theme: { font } }) => font.title1};
+    font: ${designSystem.font.title1.font};
+    letter-spacing: ${designSystem.font.title1.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.white};
   }
 `;
@@ -297,7 +302,8 @@ const OverviewContainer = styled.div`
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
   border-radius: 8px;
   color: ${({ theme: { color } }) => color.neutral.gray600};
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   overflow: hidden;
 `;
 
@@ -331,7 +337,7 @@ const OverviewData = styled.div`
 
   height: 24px;
   > span {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;

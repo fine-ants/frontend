@@ -6,6 +6,7 @@ import Button from "@components/common/Buttons/Button";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -152,7 +153,8 @@ const Header = styled.header`
 `;
 
 const Title = styled.div`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
@@ -162,7 +164,8 @@ const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
 
   > div {
     color: ${({ theme: { color } }) => color.neutral.gray800};
@@ -183,7 +186,8 @@ const HoldingBox = styled.div`
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
   border: 1px solid ${({ theme: { color } }) => color.primary.blue50};
   border-radius: 8px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.primary.blue500};
 `;
 
@@ -193,7 +197,7 @@ const TitleWrapper = styled.div`
   gap: 8px;
   > span {
     color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${({ theme: { font } }) => font.body4};
+    font: ${designSystem.font.body4.font};
   }
 `;
 
@@ -215,7 +219,8 @@ const InputBox = styled.div`
     align-items: center;
     width: 120px;
     height: 24px;
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;
@@ -230,7 +235,7 @@ const InputWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray400};
 `;
 
@@ -243,7 +248,7 @@ const InputTextArea = styled.textarea`
   box-sizing: border-box;
   border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray400};
 
   &&::placeholder {
@@ -260,7 +265,7 @@ const Input = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 
   &&::placeholder {

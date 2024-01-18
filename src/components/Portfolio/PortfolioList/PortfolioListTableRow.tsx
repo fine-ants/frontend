@@ -2,6 +2,7 @@ import { PortfolioItem } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { TableCell, TableRow } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
@@ -103,7 +104,7 @@ const StyledTableCell = styled(TableCell)`
   height: 100%;
   padding: 0 8px;
   border-color: ${({ theme: { color } }) => color.neutral.gray100};
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &:first-of-type {
@@ -130,7 +131,7 @@ const StyledLink = styled(Link)`
   }
 
   .portfolioName {
-    font: ${({ theme: { font } }) => font.body2};
+    font: ${designSystem.font.body2.font};
     color: ${({ theme: { color } }) => color.neutral.gray800};
     overflow: hidden;
     white-space: nowrap;
