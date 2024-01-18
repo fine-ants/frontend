@@ -1,14 +1,16 @@
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
 import { PortfolioItem } from "@api/portfolio/types";
-import { useDropdown } from "@components/hooks/useDropdown";
+import { DropdownItemProps } from "@components/hooks/useDropdown";
 import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 
-export default function PortfoliosDropdownList() {
-  const navigate = useNavigate();
+type Props = {
+  DropdownItem: ({ sx, onClick, children }: DropdownItemProps) => JSX.Element;
+};
 
-  const { DropdownItem } = useDropdown();
+export default function PortfoliosDropdownList({ DropdownItem }: Props) {
+  const navigate = useNavigate();
 
   const { data: portfolioList } = usePortfolioListQuery();
 

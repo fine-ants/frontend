@@ -41,7 +41,7 @@ export function PortfoliosDropdown() {
         <AsyncBoundary
           SuspenseFallback={<PorfoliosDropdownListSkeleton />}
           ErrorFallback={PortfoliosDropdownListErrorFallback}>
-          <PortfoliosDropdownList />
+          <PortfoliosDropdownList DropdownItem={DropdownItem} />
         </AsyncBoundary>
 
         <DropdownItem
