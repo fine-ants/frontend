@@ -94,14 +94,11 @@ export default function PortfolioListTableToolBar({
           title="선택된 포트폴리오를 삭제 하시겠습니까?"
           onClose={onDeletePortfoliosAlertClose}
           onConfirm={onConfirmAction}>
-          {selected.length === 1 ? (
-            <span>{selected[0].name} 항목을 삭제하시겠습니까?</span>
-          ) : (
-            <span>
-              {selected[0].name} 외 {selected.length - 1} 개 항목을
-              삭제하시겠습니까?
-            </span>
-          )}
+          <span>
+            {`${selected[0].name}${
+              selected.length > 1 && ` 외 ${selected.length - 1}개`
+            } 항목을 삭제하시겠습니까?`}
+          </span>
         </ConfirmAlert>
       )}
     </StyledToolbar>

@@ -38,6 +38,7 @@ export default function WatchlistTableRow({
   const { mutate: watchlistItemDeleteMutate } = useWatchlistItemDeleteMutation(
     Number(watchlistId)
   );
+
   const onFavoriteMarkClick = (event: MouseEvent<unknown>) => {
     event.stopPropagation();
     watchlistItemDeleteMutate([tickerSymbol]);

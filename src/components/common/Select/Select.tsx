@@ -98,8 +98,8 @@ const MenuSX = (
   menuMaxHeight?: string
 ) => ({
   "& .MuiPaper-root": {
-    "minHeight": menuMinHeight ? `${menuMinHeight}` : "160px",
-    "maxHeight": menuMaxHeight ? `${menuMaxHeight}` : "240px",
+    "minHeight": menuMinHeight ? menuMinHeight : "160px",
+    "maxHeight": menuMaxHeight ? menuMaxHeight : "240px",
     "minWidth": `${size === "h24" ? 56 : 80}px`,
 
     "marginTop": "2px",

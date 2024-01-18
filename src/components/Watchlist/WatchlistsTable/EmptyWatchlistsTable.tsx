@@ -1,10 +1,10 @@
 import emptyWatchlistImage from "@assets/images/empty_watchlist.svg";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import WatchlistAddDialog from "../WatchlistAddDialog";
-import designSystem from "@styles/designSystem";
 export default function EmptyWatchlistsTable() {
   const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
     useState(false);
@@ -50,7 +50,6 @@ const StyledEmptyWatchlistsTable = styled.div`
   justify-content: center;
   margin: 0 auto;
   margin-top: 98px;
-
   width: 600px;
   height: 457px;
   gap: 48px;
