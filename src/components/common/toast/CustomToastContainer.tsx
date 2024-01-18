@@ -7,7 +7,6 @@ export function CustomToastContainer() {
   return <StyledToastContainer closeButton={CustomToastCloseButton} />;
 }
 
-// TODO : 디자인에 맞게 커스터마이징
 const StyledToastContainer = styled(ToastContainer)`
   .Toastify__toast {
     display: flex;
@@ -21,10 +20,6 @@ const StyledToastContainer = styled(ToastContainer)`
     flex-shrink: 0;
     color: ${designSystem.color.neutral.gray800};
     font: ${designSystem.font.title5};
-  }
-
-  .Toastify__toast-containert {
-    top: 8rem !important;
   }
 
   .Toastify__toast-icon {
