@@ -71,7 +71,7 @@ const getColors = (value: number, isDividendRateRate: boolean) => {
   // 배당금일시 바로 오렌지 색 리턴
   if (isDividendRateRate) {
     return {
-      color: designSystem.color.state.orange,
+      color: designSystem.color.state.orange500,
       bgColor: designSystem.color.state.orange16,
     };
   }

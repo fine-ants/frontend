@@ -33,8 +33,10 @@ export const colors = {
   red50: "#FEE2E2",
   red500: "#FD4949",
   red800: "#53353C",
-  orange: "#FE8B20",
   orange16: "#FE8B2028",
+  orange50: "#FFECDB",
+  orange500: "#FE8B20",
+  orange800: "#523F32",
   kakaoYellow: "#FEE500",
   naverGreen: "#02bd34",
 };
@@ -101,8 +103,10 @@ export default {
       red50: colors.red50,
       red500: colors.red500,
       red800: colors.red800,
-      orange: colors.orange,
       orange16: colors.orange16,
+      orange50: colors.orange50,
+      orange500: colors.orange500,
+      orange800: colors.orange800,
     },
     kakao: {
       primary: colors.kakaoYellow,
