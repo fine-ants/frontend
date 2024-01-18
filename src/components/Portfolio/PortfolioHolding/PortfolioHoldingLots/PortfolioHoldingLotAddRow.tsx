@@ -1,7 +1,10 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
 import DatePicker from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
-import { TableCell as MuiTableCell } from "@mui/material";
+import {
+  TableCell as MuiTableCell,
+  TableRow as MuiTableRow,
+} from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -49,7 +52,7 @@ export default function PortfolioHoldingLotAddRow({
   const isValid = newPurchaseDate && newPurchasePricePerShare && newNumShares;
 
   return (
-    <>
+    <MuiTableRow>
       <StyledTableCell
         component="th"
         scope="row"
@@ -103,7 +106,7 @@ export default function PortfolioHoldingLotAddRow({
           <Icon icon="remove" size={16} color={"gray600"} />
         </IconButton>
       </StyledTableCell>
-    </>
+    </MuiTableRow>
   );
 }
 
