@@ -1,5 +1,5 @@
 import { User } from "@api/auth";
-import Header from "@components/common/Header";
+import Header from "@components/common/Header/Header";
 import { Navigate, Outlet } from "react-router-dom";
 import Routes from "./Routes";
 

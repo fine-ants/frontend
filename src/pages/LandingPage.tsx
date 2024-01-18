@@ -6,7 +6,7 @@ import portfolioImage1 from "@assets/images/portfolio1.png";
 import portfolioImage2 from "@assets/images/portfolio2.png";
 import portfolioImage3 from "@assets/images/portfolio3.png";
 import Footer from "@components/common/Footer";
-import Header from "@components/common/Header";
+import Header from "@components/common/Header/Header";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 

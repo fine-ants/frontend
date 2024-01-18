@@ -1,11 +1,13 @@
 import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
 import { useDropdown } from "@components/hooks/useDropdown";
+import { UserContext } from "@context/UserContext";
 import { Divider } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { MouseEvent } from "react";
+import { MouseEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Icon } from "./Icon";
+import { Icon } from "../Icon";
 
 type Props = {
   portfolioDropdownItems:
@@ -22,12 +24,17 @@ export function PortfoliosDropdown({
   onPortfolioAddClick,
 }: Props) {
   const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
+
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 
   const { refetch: refetchPortfolioList } = usePortfolioListHeaderQuery();
 
   const onDropdownClick = (e: MouseEvent<HTMLButtonElement>) => {
-    refetchPortfolioList();
+    if (user) {
+      refetchPortfolioList();
+    }
     onOpen(e);
   };
 
@@ -55,7 +62,7 @@ export function PortfoliosDropdown({
 
         <DropdownItem
           sx={fixedDropdownItemSx}
-          onClick={() => navigate("/portfolios")}>
+          onClick={() => navigate(Routes.PORTFOLIOS)}>
           포트폴리오로 이동
         </DropdownItem>
         <DropdownItem sx={fixedDropdownItemSx} onClick={onPortfolioAddClick}>
@@ -82,8 +89,7 @@ const DropdownButton = styled.button<{ $isOpen: boolean }>`
   &:hover {
     color: ${designSystem.color.neutral.white};
 
-    // Icon Component
-    > div {
+    > .icon {
       background-color: ${designSystem.color.neutral.white};
     }
   }

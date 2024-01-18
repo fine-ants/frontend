@@ -226,7 +226,7 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "64px" }} align="right">
-          <Typography>{numShares}</Typography>
+          <HoldingTypography>{numShares}</HoldingTypography>
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">

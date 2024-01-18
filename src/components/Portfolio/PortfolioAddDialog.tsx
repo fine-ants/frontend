@@ -147,13 +147,9 @@ export default function PortfolioAddDialog({
   useEffect(() => {
     if (isBudgetEmpty) {
       clearInputs();
-    }
-
-    if (targetGain || targetReturnRate) {
+    } else if (targetGain || targetReturnRate) {
       onTargetGainHandler(targetGain);
-    }
-
-    if (maximumLoss || maximumLossRate) {
+    } else if (maximumLoss || maximumLossRate) {
       onMaximumLossHandler(maximumLoss);
     }
   }, [

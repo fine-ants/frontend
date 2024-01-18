@@ -1,6 +1,6 @@
 import RateBadge from "@components/common/Badges/RateBadge";
 import Button from "@components/common/Buttons/Button";
-import Header from "@components/common/Header";
+import Header from "@components/common/Header/Header";
 import { Icon } from "@components/common/Icon";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
