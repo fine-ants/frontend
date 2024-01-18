@@ -19,6 +19,7 @@ import folderAddIcon from "@assets/icons/ic_folder-add.svg";
 import helpIcon from "@assets/icons/ic_help.svg";
 import hideIcon from "@assets/icons/ic_hide.svg";
 import indetIcon from "@assets/icons/ic_indet.svg";
+import infoIcon from "@assets/icons/ic_info.svg";
 import noneIcon from "@assets/icons/ic_none.svg";
 import notificationIcon from "@assets/icons/ic_notification.svg";
 import removeIcon from "@assets/icons/ic_remove.svg";
@@ -31,6 +32,7 @@ import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import trashIcon from "@assets/icons/ic_trash.svg";
 import upIcon from "@assets/icons/ic_up.svg";
 import userIcon from "@assets/icons/ic_user.svg";
+import warningIcon from "@assets/icons/ic_warning.svg";
 
 import { colors } from "@styles/designSystem";
 import { styled } from "styled-components";
@@ -68,6 +70,7 @@ const icons = {
   "help": helpIcon,
   "hide": hideIcon,
   "indet": indetIcon,
+  "info": infoIcon,
   "none": noneIcon,
   "notification": notificationIcon,
   "remove": removeIcon,
@@ -80,6 +83,7 @@ const icons = {
   "trash": trashIcon,
   "up": upIcon,
   "user": userIcon,
+  "warning": warningIcon,
 };
 
 type IconType = keyof typeof icons;
