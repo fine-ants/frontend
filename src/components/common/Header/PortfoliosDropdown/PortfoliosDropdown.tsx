@@ -1,46 +1,35 @@
-import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
+import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import { useDropdown } from "@components/hooks/useDropdown";
-import { UserContext } from "@context/UserContext";
-import { Divider } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useContext } from "react";
+import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Icon } from "../Icon";
+import { Icon } from "../../Icon";
+import PortfoliosDropdownList from "./PortfoliosDropdownList";
+import PortfoliosDropdownListErrorFallback from "./PortfoliosDropdownListErrorFallback";
+import PorfoliosDropdownListSkeleton from "./PortfoliosDropdownListSkeleton";
 
-type Props = {
-  portfolioDropdownItems:
-    | {
-        name: string;
-        onClick: () => void;
-      }[]
-    | undefined;
-  onPortfolioAddClick: () => void;
-};
-
-export function PortfoliosDropdown({
-  portfolioDropdownItems,
-  onPortfolioAddClick,
-}: Props) {
+export function PortfoliosDropdown() {
   const navigate = useNavigate();
-
-  const { user } = useContext(UserContext);
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 
-  const { refetch: refetchPortfolioList } = usePortfolioListHeaderQuery();
+  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
+    useState(false);
 
-  const onDropdownClick = (e: MouseEvent<HTMLButtonElement>) => {
-    if (user) {
-      refetchPortfolioList();
-    }
+  const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     onOpen(e);
+  };
+
+  const onPortfolioAddClick = () => {
+    setIsPortfolioAddDialogOpen(true);
   };
 
   return (
     <>
-      <DropdownButton onClick={onDropdownClick} $isOpen={isOpen}>
+      <DropdownButton onClick={onDropdownButtonClick} $isOpen={isOpen}>
         <span>Portfolios</span>
         <Icon
           icon={isOpen ? "chevron-up" : "chevron-down"}
@@ -49,16 +38,11 @@ export function PortfoliosDropdown({
         />
       </DropdownButton>
       <DropdownMenu sx={dropdownMenuSx}>
-        {portfolioDropdownItems?.map((item) => (
-          <DropdownItem
-            key={item.name}
-            sx={portfolioDropdownItemSx}
-            onClick={item.onClick}>
-            {item.name}
-          </DropdownItem>
-        ))}
-
-        <Divider />
+        <AsyncBoundary
+          SuspenseFallback={<PorfoliosDropdownListSkeleton />}
+          ErrorFallback={PortfoliosDropdownListErrorFallback}>
+          <PortfoliosDropdownList />
+        </AsyncBoundary>
 
         <DropdownItem
           sx={fixedDropdownItemSx}
@@ -69,6 +53,13 @@ export function PortfoliosDropdown({
           포트폴리오 추가
         </DropdownItem>
       </DropdownMenu>
+
+      {isPortfolioAddDialogOpen && (
+        <PortfolioAddDialog
+          isOpen={isPortfolioAddDialogOpen}
+          onClose={() => setIsPortfolioAddDialogOpen(false)}
+        />
+      )}
     </>
   );
 }
@@ -101,22 +92,6 @@ const dropdownMenuSx = {
     "padding": "8px",
     "overflowY": "scroll",
 
-    // TODO: Globalize Scrollbar
-    "&::-webkit-scrollbar": {
-      width: "8px",
-    },
-    "::-webkit-scrollbar-track": {
-      backgroundColor: designSystem.color.neutral.white,
-      borderRadius: "inherit",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      width: "4px",
-      height: "156px",
-      backgroundColor: designSystem.color.neutral.gray200,
-      borderRadius: "4px",
-      border: `2px solid ${designSystem.color.neutral.white}`,
-    },
-
     ".MuiList-root": {
       "width": "100%",
       "padding": "0",
@@ -136,11 +111,6 @@ const dropdownMenuSx = {
       },
     },
   },
-};
-
-const portfolioDropdownItemSx = {
-  font: designSystem.font.body2,
-  color: designSystem.color.neutral.gray900,
 };
 
 const fixedDropdownItemSx = {

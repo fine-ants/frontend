@@ -1,4 +1,4 @@
-import usePortfolioListTableQuery from "@api/portfolio/queries/usePortfolioListTableQuery";
+import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
 import Table from "@components/common/Table/Table";
 import EmptyPortfolioListTable from "./EmptyPortfolioListTable";
 import PortfolioListTableBody from "./PortfolioListTableBody";
@@ -6,7 +6,7 @@ import PortfolioListTableHead from "./PortfolioListTableHead";
 import PortfolioListTableToolBar from "./PortfolioListTableToolBar";
 
 export default function PortfolioListTable() {
-  const { data } = usePortfolioListTableQuery();
+  const { data } = usePortfolioListQuery();
 
   return (
     <Table
