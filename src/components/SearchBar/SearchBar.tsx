@@ -1,168 +1,270 @@
-import { StockSearchResponse } from "@api/stock";
+import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
-import { createContext, useContext, useState } from "react";
-import styled from "styled-components";
+import { Icon } from "@components/common/Icon";
+import { useDebounce } from "@fineants/demolition";
+import { Autocomplete, SxProps, TextField } from "@mui/material";
+import designSystem from "@styles/designSystem";
+import { SyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import RenderOptionDefault from "./RenderOptionDefault";
+import RenderOptionSelect from "./RenderOptionSelect";
+import RenderOptionSelectMultiple from "./RenderOptionSelectMultiple";
 
-interface SearchBarContextProps {
-  value: string;
-  onSearchBarChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+type Variant = "default" | "select" | "select-multiple";
 
-const SearchBarContext = createContext<SearchBarContextProps>({
-  value: "",
-  onSearchBarChange: () => {},
-});
+type Props = {
+  variant?: Variant;
+  sx?: SxProps;
+  selectedOptions?: StockSearchItem[];
+  onSelectOption?: (item: StockSearchItem) => void;
+};
 
-export default function SearchBar({ children }: { children: React.ReactNode }) {
-  const [value, setValue] = useState("");
+/**
+ * @param {StockSearchItem[]} [selectedOptions] - Must be provided when variant is `"select-multiple"`.
+ * @param {Function} [onSelectOption] - Must be provided when variant is `"select"` or `"select-multiple"`.
+ */
+export default function SearchBar({
+  variant = "default",
+  sx,
+  selectedOptions,
+  onSelectOption,
+}: Props) {
+  if (variant === "select" && !onSelectOption) {
+    throw Error("`onSelectOption` must be passed in when variant is 'select'");
+  }
+  if (variant === "select-multiple" && !onSelectOption) {
+    throw Error(
+      "`onSelectOption` must be passed in when variant is 'select-multiple'"
+    );
+  }
+  if (variant === "select-multiple" && !selectedOptions) {
+    throw Error(
+      "`selectedOptions` must be passed in when variant is 'select-multiple'"
+    );
+  }
 
-  const onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const [searchInputValue, setSearchInputValue] = useState("");
+  const debouncedValue = useDebounce(searchInputValue, 250);
+
+  const { data: searchResults, isLoading } =
+    useStockSearchQuery(debouncedValue);
+
+  const onSearchInputChange = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: string
+  ) => {
+    setSearchInputValue(newValue as string);
+  };
+
+  const clearSearchInput = () => {
+    setSearchInputValue("");
+  };
+
+  const onClickOption = (option: string) => {
+    setSearchInputValue(option);
   };
 
   return (
-    <SearchBarContext.Provider value={{ value, onSearchBarChange }}>
-      <StyledSearchBar>{children}</StyledSearchBar>
-    </SearchBarContext.Provider>
+    <Autocomplete
+      id="stock-search-bar"
+      fullWidth
+      sx={{ ...autocompleteSx(variant), ...sx }}
+      inputValue={searchInputValue}
+      open={isOpen}
+      onOpen={onOpen}
+      onClose={onClose}
+      getOptionLabel={(option) => option.companyName} // Used to fill the input value.
+      onInputChange={onSearchInputChange}
+      isOptionEqualToValue={(option, value) =>
+        option.companyName === value.companyName
+      }
+      clearOnBlur={false}
+      options={searchResults ?? []}
+      loading={isLoading}
+      loadingText={"검색 중입니다"} // TODO: Replace with animated FA logo
+      noOptionsText={searchInputValue && "검색 결과가 없습니다"} // TODO: style this
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          placeholder="검색어를 입력하세요"
+          sx={{ height: "100%" }}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <Icon
+                icon="search"
+                size={16}
+                color={variant === "default" ? "gray400" : "gray600"}
+              />
+            ),
+          }}
+        />
+      )}
+      forcePopupIcon={searchInputValue !== ""}
+      popupIcon={
+        <Icon
+          icon="close"
+          size={16}
+          color={variant === "default" ? "gray100" : "gray600"}
+        />
+      }
+      componentsProps={{
+        popupIndicator: {
+          sx: popupIndicatorSx,
+          onClick: clearSearchInput,
+        },
+        popper: {
+          sx: popperSx(variant),
+        },
+      }}
+      renderOption={(props, option) => {
+        switch (variant) {
+          case "select":
+            return (
+              <RenderOptionSelect
+                key={option.tickerSymbol}
+                {...{
+                  props,
+                  option,
+                  onClick: () => {
+                    if (onSelectOption) onSelectOption(option);
+                    onClickOption(option.companyName);
+                    onClose();
+                  },
+                  searchValue: debouncedValue,
+                }}
+              />
+            );
+          case "select-multiple":
+            return (
+              <RenderOptionSelectMultiple
+                key={option.tickerSymbol}
+                {...{
+                  props,
+                  option,
+                  selectedOptions: selectedOptions ?? [],
+                  onClick: () => {
+                    if (onSelectOption) onSelectOption(option);
+                  },
+                  searchValue: debouncedValue,
+                }}
+              />
+            );
+          default:
+            return (
+              <RenderOptionDefault
+                key={option.tickerSymbol}
+                {...{
+                  props,
+                  option,
+                  onClick: () => navigate(`/stock/${option.tickerSymbol}`),
+                }}
+              />
+            );
+        }
+      }}
+    />
   );
-
-  // return (
-  //   <StyledSearchBar>
-  //     <InputContainer>
-  //       <Input
-  //         type="text"
-  //         value={value}
-  //         placeholder="종목 또는 지수 검색"
-  //         onChange={onSearchBarChange}
-  //       />
-  //     </InputContainer>
-
-  //     {isQuerySearched && (
-  //       <SearchList>
-  //         {searchResults.map((result) => (
-  //           <SearchItem key={result.stockCode} searchResult={result} />
-  //         ))}
-  //       </SearchList>
-  //     )}
-  //   </StyledSearchBar>
-  // );
 }
 
-function Input() {
-  const { value, onSearchBarChange } = useContext(SearchBarContext);
+const autocompleteSx = (variant: Variant) => ({
+  "height": variant === "default" ? "40px" : "32px",
 
-  return (
-    <InputContainer>
-      <StyledInput
-        type="text"
-        value={value}
-        placeholder="종목 또는 지수 검색"
-        onChange={onSearchBarChange}
-      />
-    </InputContainer>
-  );
-}
+  "& .MuiInputBase-root": {
+    "width": "100%",
+    "height": "100%",
+    "padding": "0 12px",
+    "gap": "8px",
+    "backgroundColor": "inherit",
 
-function SearchList({
-  onItemClick,
-}: {
-  onItemClick: (tickerSymbol: string) => void;
-}) {
-  const { value } = useContext(SearchBarContext);
+    "&:hover": {
+      fieldset: {
+        border: `1px solid ${
+          variant === "default"
+            ? designSystem.color.neutral.gray500
+            : designSystem.color.primary.blue500
+        }`,
+      },
+    },
 
-  const { data: searchResults } = useStockSearchQuery(value);
+    "& .MuiInputBase-input": {
+      "padding": "0",
+      "font": designSystem.font.body3,
+      "color":
+        variant === "default"
+          ? designSystem.color.neutral.gray100
+          : designSystem.color.neutral.gray900,
 
-  return (
-    searchResults && (
-      <StyledSearchList>
-        {searchResults.map((result) => (
-          <SearchItem
-            key={result.stockCode}
-            searchResult={result}
-            onClick={onItemClick}
-          />
-        ))}
-      </StyledSearchList>
-    )
-  );
-}
+      "&::placeholder": {
+        color: designSystem.color.neutral.gray400,
+      },
 
-function SearchItem({
-  searchResult,
-  onClick,
-}: {
-  searchResult: StockSearchResponse;
-  onClick: (tickerSymbol: string) => void;
-}) {
-  return (
-    <StyledSearchItem onClick={() => onClick(searchResult.tickerSymbol)}>
-      {searchResult.companyName}
-    </StyledSearchItem>
-  );
-}
+      "&:hover": {
+        "& ~ fieldset": {
+          border: `1px solid ${
+            variant === "default"
+              ? designSystem.color.neutral.gray500
+              : designSystem.color.primary.blue500
+          }`,
+        },
+      },
+    },
 
-SearchBar.Input = Input;
-SearchBar.SearchList = SearchList;
+    ".MuiAutocomplete-endAdornment": {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      right: "16px",
+      top: "50%",
+      transform: "translateY(-50%)",
+    },
 
-const StyledSearchBar = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-`;
+    "fieldset": {
+      border: `1px solid ${
+        variant === "default"
+          ? designSystem.color.neutral.gray700
+          : designSystem.color.neutral.gray200
+      }`,
+    },
+  },
+});
 
-const InputContainer = styled.div`
-  width: 360px;
-  height: 56px;
-  padding: 8px 24px;
-  border-radius: 12px;
-  background-color: #f2f2f2;
-  display: flex;
-  align-items: center;
-`;
+const popupIndicatorSx = {
+  width: "16px",
+  height: "16px",
+  padding: "0",
+};
 
-const StyledInput = styled.input`
-  width: 100%;
-  height: 16px;
-`;
+const popperSx = (variant: Variant) => ({
+  "marginTop": `${variant === "default" ? "8px" : "2px"} !important`,
 
-const StyledSearchList = styled.div`
-  position: absolute;
-  width: 300px;
-  height: 500px;
-  top: 62px;
-  background-color: white;
-  border-radius: 10px;
-  border: 1px solid #e5e5e5;
+  "& .MuiAutocomplete-listbox": {
+    "maxHeight": variant === "default" ? "484px" : "168px",
+    "padding": "4px",
 
-  overflow: scroll;
+    "& .MuiAutocomplete-option": {
+      "width": "100%",
+      "padding": "4px 8px",
+      "display": "flex",
+      "alignItems": "center",
+      "gap": "4px",
+      "borderRadius": "3px",
 
-  > :first-child {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-
-  > :last-child {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-`;
-
-const StyledSearchItem = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 50px;
-  padding: 10px 20px;
-  background-color: white;
-  font-weight: 400;
-
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-    right: 16px;
-    height: 1.5px;
-    background-color: #e5e5e5;
-  }
-`;
+      "&:hover": {
+        backgroundColor: designSystem.color.neutral.gray50,
+      },
+    },
+  },
+});

@@ -1,77 +1,104 @@
 import { postNicknameDuplicateCheck } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import useText from "@components/hooks/useText";
-import { validateNickname } from "@utils/authInputValidators";
+import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
+import {
+  AuthPageHeader,
+  AuthPageTitle,
+  AuthPageTitleCaption,
+  NextButton,
+} from "@components/auth/AuthPageCommon";
+import { TextField } from "@components/common/TextField/TextField";
+import { useDebounce, useText, validateNickname } from "@fineants/demolition";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SubPage from "./SubPage";
 
 type Props = {
+  onPrev: () => void;
   onNext: (data: string) => void;
 };
 
-export default function NicknameSubPage({ onNext }: Props) {
+const nicknameValidator = (nickname: string) =>
+  validateNickname(nickname, {
+    errorMessage: "영문/한글/숫자 (2~10자)",
+  });
+
+export default function NicknameSubPage({ onPrev, onNext }: Props) {
   const {
     value: nickname,
     isError,
     onChange,
   } = useText({
-    validators: [validateNickname],
+    validators: [nicknameValidator],
   });
-
-  const [isDuplicateChecked, setIsDuplicateChecked] = useState(false);
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
+  const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
+
+  const isDuplicateChecked = !duplicateCheckErrorMsg && isDuplicateComplete;
+  const errorText = isError
+    ? "영문/한글/숫자 (2~10자)으로 입력하세요."
+    : isDuplicateChecked
+    ? ""
+    : duplicateCheckErrorMsg;
+
+  const debouncedNickname = useDebounce(nickname, 400);
+
+  const onEmailClear = () => {
+    onChange("");
+  };
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
-    setIsDuplicateChecked(false);
+    setIsDuplicateComplete(false);
     setDuplicateCheckErrorMsg("");
   };
 
-  const onDuplicateCheckButtonClick = async () => {
-    try {
-      const res = await postNicknameDuplicateCheck(nickname);
+  useEffect(() => {
+    if (debouncedNickname === "" || isError) return;
 
-      if (res.code === HTTPSTATUS.success) {
-        setIsDuplicateChecked(true);
-        setDuplicateCheckErrorMsg("");
+    (async () => {
+      try {
+        const res = await postNicknameDuplicateCheck(debouncedNickname);
+        setIsDuplicateComplete(true);
+
+        if (res.code === HTTPSTATUS.success) {
+          setDuplicateCheckErrorMsg("");
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setDuplicateCheckErrorMsg(error.response?.data.message);
+        } else {
+          setDuplicateCheckErrorMsg((error as Error).message);
+        }
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setDuplicateCheckErrorMsg(error.response?.data.message);
-      } else {
-        setDuplicateCheckErrorMsg((error as Error).message);
-      }
-    }
-  };
+    })();
+  }, [debouncedNickname, isError]);
 
   return (
     <SubPage>
-      <label htmlFor="nicknameInput">닉네임</label>
-      <input
-        type="text"
+      <AuthOnPrevButton onPrev={onPrev} />
+
+      <AuthPageHeader>
+        <AuthPageTitle>닉네임</AuthPageTitle>
+        <AuthPageTitleCaption>
+          닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
+      <TextField
+        error={isError || !isDuplicateChecked}
         placeholder="닉네임"
-        id="nicknameInput"
         value={nickname}
+        errorText={errorText}
         onChange={onNicknameChange}
+        clearValue={onEmailClear}
       />
-      <button
+
+      <NextButton
+        disabled={isError || !isDuplicateChecked}
         type="button"
-        onClick={onDuplicateCheckButtonClick}
-        disabled={isError}>
-        중복 확인
-      </button>
-
-      <p>영문/한글/숫자 (2~10자)</p>
-
-      <p>{duplicateCheckErrorMsg}</p>
-
-      <button
-        type="button"
-        onClick={() => onNext(nickname)}
-        disabled={isError || !isDuplicateChecked}>
-        다음
-      </button>
+        onClick={() => onNext(nickname)}>
+        다음 단계
+      </NextButton>
     </SubPage>
   );
 }

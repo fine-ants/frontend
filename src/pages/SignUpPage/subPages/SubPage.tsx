@@ -10,7 +10,12 @@ export default function SubPage({ children }: Props) {
 }
 
 const StyledSubPage = styled.div`
-  width: 720px;
-  padding: 80px;
-  background-color: cyan;
+  width: 100%;
+  display: flex;
+  gap: 48px;
+  flex-direction: column;
+
+  > label {
+    font-size: 14px;
+  }
 `;

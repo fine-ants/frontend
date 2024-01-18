@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 let tvScriptLoadingPromise: Promise<void> | null = null;
 
@@ -10,12 +10,32 @@ declare global {
 }
 interface TVStockDetailWidgetProps {
   tickerSymbol: string;
+  width?: number;
+  height?: number;
 }
 
 const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
   tickerSymbol,
+  width,
+  height,
 }) => {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const matcher = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = () => {
+      setTheme(matcher.matches ? "dark" : "light");
+    };
+
+    matcher.addEventListener("change", onChange);
+    onChange();
+
+    return () => {
+      matcher.removeEventListener("change", onChange);
+      onLoadScriptRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     onLoadScriptRef.current = createWidget;
@@ -45,25 +65,31 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
         "TradingView" in window
       ) {
         new window.TradingView.widget({
-          autosize: true,
           symbol: `KRX:${tickerSymbol}`,
           interval: "D",
           timezone: "Etc/UTC",
-          theme: "light",
+          theme: theme,
           style: "1",
           locale: "kr",
           enable_publishing: false,
           allow_symbol_change: true,
           container_id: "tradingview_3efa6",
+          width: width,
+          height: height,
         });
       }
     }
-  }, [tickerSymbol]);
+  }, [tickerSymbol, theme, width, height]);
 
   return (
     <div
       className="tradingview-widget-container"
-      style={{ height: "100%", width: "100%" }}>
+      style={{
+        height: height,
+        width: width,
+        display: "flex",
+        alignItems: "center",
+      }}>
       <div
         id="tradingview_3efa6"
         style={{ height: "calc(100% - 32px)", width: "100%" }}
@@ -72,9 +98,8 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
         <a
           href="https://kr.tradingview.com/"
           rel="noopener noreferrer"
-          target="_blank">
-          <span className="blue-text">트레이딩뷰에서 모든 시장 추적</span>
-        </a>
+          target="_blank"
+        />
       </div>
     </div>
   );

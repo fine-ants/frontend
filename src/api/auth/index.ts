@@ -1,5 +1,5 @@
+import { Response } from "@api/types";
 import { CLIENT_URL } from "@constants/config";
-import { Response } from "api/types";
 import { fetcher } from "../fetcher";
 
 export type User = {
@@ -23,11 +23,12 @@ export type SignInData = {
 };
 
 export type SignUpData = {
+  [key: string]: string | File | null;
   nickname: string;
+  profileImage: File | null;
   email: string;
   password: string;
   passwordConfirm: string;
-  verificationCode: string;
 };
 
 export type OAuthProvider = "google" | "naver" | "kakao";
@@ -36,8 +37,12 @@ type AccessTokenData = {
   accessToken: string;
 };
 
-export const postSignUp = async (body: SignUpData) => {
-  const res = await fetcher.post<Response<null>>("/auth/signup", body);
+export const postSignUp = async (body: FormData) => {
+  const res = await fetcher.post<Response<null>>("/auth/signup", body, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return res.data;
 };
 
@@ -46,12 +51,31 @@ export const postSignIn = async (body: SignInCredentials) => {
   return res.data;
 };
 
+// Receive OAuth URL from server
+export const postOAuthUrl = async (provider: OAuthProvider) => {
+  const res = await fetcher.post<Response<{ authURL: string }>>(
+    `/auth/${provider}/authUrl`
+  );
+
+  if (process.env.NODE_ENV === "development") {
+    const tempURL = new URL(res.data.data.authURL);
+    tempURL.searchParams.set(
+      "redirect_uri",
+      `http://localhost:5173/signin/loading?provider=${provider}`
+    );
+    res.data.data.authURL = tempURL.toString();
+  }
+
+  return res.data;
+};
+
 export const postOAuthSignIn = async (
   provider: OAuthProvider,
-  authCode: string
+  authCode: string,
+  state: string
 ) => {
   const res = await fetcher.post<Response<SignInData>>(
-    `/auth/${provider}/login?code=${authCode}&redirectUrl=${CLIENT_URL}/signin?provider=${provider}`
+    `/auth/${provider}/login?code=${authCode}&state=${state}&redirectUrl=${CLIENT_URL}/signin/loading?provider=${provider}`
   );
   return res.data;
 };
@@ -83,17 +107,15 @@ export const patchUserInfo = async (body: FormData) => {
 };
 
 export const postNicknameDuplicateCheck = async (nickname: string) => {
-  const res = await fetcher.post<Response<null>>(
-    "/auth/signup/duplicationcheck/nickname",
-    { nickname }
+  const res = await fetcher.get<Response<null>>(
+    `/auth/signup/duplicationcheck/nickname/${nickname}`
   );
   return res.data;
 };
 
 export const postEmailDuplicateCheck = async (email: string) => {
-  const res = await fetcher.post<Response<null>>(
-    "/auth/signup/duplicationcheck/email",
-    { email }
+  const res = await fetcher.get<Response<null>>(
+    `/auth/signup/duplicationcheck/email/${email}`
   );
   return res.data;
 };
@@ -101,6 +123,20 @@ export const postEmailDuplicateCheck = async (email: string) => {
 export const postEmailVerification = async (email: string) => {
   const res = await fetcher.post<Response<null>>("/auth/signup/verifyEmail", {
     email,
+  });
+  return res.data;
+};
+
+export const postEmailCodeVerification = async ({
+  email,
+  code,
+}: {
+  email: string;
+  code: string;
+}) => {
+  const res = await fetcher.post("/auth/signup/verifyCode", {
+    email,
+    code,
   });
   return res.data;
 };

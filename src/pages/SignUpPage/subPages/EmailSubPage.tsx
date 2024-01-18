@@ -1,74 +1,104 @@
 import { postEmailDuplicateCheck } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import useText from "@components/hooks/useText";
-import { validateEmail } from "@utils/authInputValidators";
+import { AuthOnPrevButton } from "@components/auth/AuthOnPrevButton";
+import {
+  AuthPageHeader,
+  AuthPageTitle,
+  AuthPageTitleCaption,
+  NextButton,
+} from "@components/auth/AuthPageCommon";
+import { TextField } from "@components/common/TextField/TextField";
+import { useDebounce, useText, validateEmail } from "@fineants/demolition";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SubPage from "./SubPage";
 
 type Props = {
+  onPrev: () => void;
   onNext: (data: string) => void;
 };
 
-export default function EmailSubPage({ onNext }: Props) {
+const emailValidator = (email: string) =>
+  validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
+
+export default function EmailSubPage({ onPrev, onNext }: Props) {
   const {
     value: email,
     isError,
     onChange,
-  } = useText({ validators: [validateEmail] });
+  } = useText({
+    validators: [emailValidator],
+  });
 
-  const [isDuplicateChecked, setIsDuplicateChecked] = useState(false);
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
+  const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
+
+  const isDuplicateChecked = !duplicateCheckErrorMsg && isDuplicateComplete;
+  const errorText = isError
+    ? "올바른 형식의 이메일을 입력하세요."
+    : isDuplicateChecked
+    ? ""
+    : duplicateCheckErrorMsg;
+
+  const debouncedEmail = useDebounce(email, 400);
+
+  const onEmailClear = () => {
+    onChange("");
+  };
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value.trim());
-    setIsDuplicateChecked(false);
+    setIsDuplicateComplete(false);
     setDuplicateCheckErrorMsg("");
   };
 
-  const onDuplicateCheckButtonClick = async () => {
-    try {
-      const res = await postEmailDuplicateCheck(email);
+  useEffect(() => {
+    if (debouncedEmail === "" || isError) return;
 
-      if (res.code === HTTPSTATUS.success) {
-        setIsDuplicateChecked(true);
-        setDuplicateCheckErrorMsg("");
+    (async () => {
+      try {
+        const res = await postEmailDuplicateCheck(debouncedEmail);
+        setIsDuplicateComplete(true);
+
+        if (res.code === HTTPSTATUS.success) {
+          setDuplicateCheckErrorMsg("");
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setDuplicateCheckErrorMsg(error.response?.data.message);
+        } else {
+          setDuplicateCheckErrorMsg((error as Error).message);
+        }
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setDuplicateCheckErrorMsg(error.response?.data.message);
-      } else {
-        setDuplicateCheckErrorMsg((error as Error).message);
-      }
-    }
-  };
+    })();
+  }, [debouncedEmail, isError]);
 
   return (
     <SubPage>
-      <label htmlFor="emailInput">이메일</label>
-      <input
-        type="text"
+      <AuthOnPrevButton onPrev={onPrev} />
+
+      <AuthPageHeader>
+        <AuthPageTitle>이메일</AuthPageTitle>
+        <AuthPageTitleCaption>
+          올바른 형식의 이메일을 입력하세요 (example@email.com)
+        </AuthPageTitleCaption>
+      </AuthPageHeader>
+
+      <TextField
+        error={isError || !isDuplicateChecked}
         placeholder="이메일"
-        id="emailInput"
         value={email}
+        errorText={errorText}
         onChange={onEmailChange}
+        clearValue={onEmailClear}
       />
 
-      <button
-        type="button"
-        onClick={onDuplicateCheckButtonClick}
-        disabled={isError}>
-        중복 확인
-      </button>
-
-      <p>{duplicateCheckErrorMsg}</p>
-
-      <button
+      <NextButton
         type="button"
         onClick={() => onNext(email)}
         disabled={isError || !isDuplicateChecked}>
-        다음
-      </button>
+        다음 단계
+      </NextButton>
     </SubPage>
   );
 }

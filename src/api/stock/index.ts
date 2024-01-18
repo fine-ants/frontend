@@ -1,7 +1,7 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
 
-export type StockSearchResponse = {
+export type StockSearchItem = {
   stockCode: string;
   tickerSymbol: string;
   companyName: string;
@@ -10,7 +10,7 @@ export type StockSearchResponse = {
 };
 
 export const postStockSearch = async (query: string) => {
-  const res = await fetcher.post<Response<StockSearchResponse[]>>(
+  const res = await fetcher.post<Response<StockSearchItem[]>>(
     `/stocks/search/`,
     { searchTerm: query }
   );

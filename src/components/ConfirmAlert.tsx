@@ -1,21 +1,22 @@
 import { Button } from "@mui/material";
+import { ReactNode } from "react";
 import styled from "styled-components";
-import BaseModal from "./BaseModal";
+import BaseDialog from "./BaseDialog";
 
 type Props = {
   isOpen: boolean;
   title: string;
-  content: string;
   onClose: () => void;
   onConfirm: () => void;
+  children?: ReactNode;
 };
 
 export default function ConfirmAlert({
   isOpen,
   title,
-  content,
   onClose,
   onConfirm,
+  children,
 }: Props) {
   const onConfirmAlertClose = () => {
     onConfirm();
@@ -23,22 +24,23 @@ export default function ConfirmAlert({
   };
 
   return (
-    <BaseModal style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
+    <BaseDialog style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
       <Wrapper>
         <Title>{title}</Title>
-        <Body>{content}</Body>
+        <Body>{children}</Body>
         <ButtonWrapper>
           <CancelButton onClick={onClose}>취소</CancelButton>
           <Button onClick={onConfirmAlertClose}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
-    </BaseModal>
+    </BaseDialog>
   );
 }
 
 const ConfirmAlertStyle = {
   width: "400px",
-  height: "180px",
+  height: "auto",
+  maxHeight: "300px",
 };
 
 const Wrapper = styled.div`
@@ -58,6 +60,7 @@ const Title = styled.div`
 
 const Body = styled.div`
   width: 100%;
+  max-height: 120px;
 `;
 
 const ButtonWrapper = styled.div`

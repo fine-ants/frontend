@@ -11,11 +11,6 @@ export default function useStockSearchQuery(query: string) {
     staleTime: 1000 * 60 * 5,
     select: (res) => res.data,
     gcTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-
-    meta: {
-      errorMessage: "주식 검색을 불러오는데 실패했습니다",
-    },
   });
 }
