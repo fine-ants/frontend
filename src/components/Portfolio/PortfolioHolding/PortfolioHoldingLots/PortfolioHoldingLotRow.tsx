@@ -208,7 +208,7 @@ const StyledTableRow = styled(MuiTableRow)`
   box-sizing: border-box;
 
   & > .MuiTableCell-root {
-    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+    border-bottom: 1px solid ${designSystem.color.neutral.gray100};
   }
 
   & > :first-child {
@@ -222,14 +222,13 @@ const StyledTableRow = styled(MuiTableRow)`
 
 const StyledTableCell = styled(MuiTableCell)`
   padding: 4px 8px;
-
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  color: ${designSystem.color.neutral.gray900};
 
   &.MuiFormControl-root
     MuiTextField-root
     css-140751r-MuiFormControl-root-MuiTextField-root {
-    background-color: ${({ theme: { color } }) => color.primary.blue500};
+    background-color: ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -238,18 +237,18 @@ const Input = styled.input`
   height: 24px;
   padding: 0 8px;
   box-sizing: border-box;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  color: ${designSystem.color.neutral.gray900};
+  background-color: ${designSystem.color.neutral.white};
   border-radius: 2px;
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -258,19 +257,19 @@ const StyledTextArea = styled.textarea`
   width: 100%;
   height: 24px;
   padding: 0 8px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  color: ${designSystem.color.neutral.gray900};
+  background-color: ${designSystem.color.neutral.white};
   border-radius: 2px;
   box-sizing: border-box;
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 

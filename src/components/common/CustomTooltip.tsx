@@ -36,16 +36,17 @@ const StyledCustomTooltip = styled(
   & .${tooltipClasses.tooltip} {
     max-width: 400px;
     padding: ${({ $smallPadding }) => ($smallPadding ? "4px" : "8px")};
-    border-radius: 4px;
-    border: 1px solid ${designSystem.color.primary.blue100};
     background: ${designSystem.color.neutral.white};
+    border: 1px solid ${designSystem.color.primary.blue100};
+    border-radius: 4px;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
-    color: ${designSystem.color.neutral.gray800};
     font: ${designSystem.font.body4.font};
+    color: ${designSystem.color.neutral.gray800};
   }
 
   & .${tooltipClasses.arrow} {
     color: ${designSystem.color.neutral.white};
+
     &::before {
       border: 1px solid ${designSystem.color.primary.blue100};
     }

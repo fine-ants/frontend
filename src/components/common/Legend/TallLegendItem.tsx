@@ -23,7 +23,7 @@ const StyledLegendItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${designSystem.font.title5.font}
+  font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: #75767f;
 `;
@@ -36,7 +36,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Percent = styled.div`
-  color: ${({ theme: { color } }) => color.primary.blue500};
+  color: ${designSystem.color.primary.blue500};
 `;
 
 const LegendItemColor = styled.div<{ $color: string }>`

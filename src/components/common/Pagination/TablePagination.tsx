@@ -118,34 +118,33 @@ const StyledTablePagination = styled(MuiTablePagination)`
     display: flex;
     align-items: center;
     background-color: transparent;
-    border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+    border: 1px solid ${designSystem.color.neutral.gray200};
     border-radius: 2px;
-    font: ${designSystem.font.body3.font}
-    
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray900};
 
     &:hover {
-      border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+      border: 1px solid ${designSystem.color.primary.blue500};
     }
 
     &:active {
-      border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+      border: 1px solid ${designSystem.color.primary.blue500};
     }
   }
 
   & .${tablePaginationClasses.displayedRows} {
     margin: 0 auto 0 8px;
-    font: ${designSystem.font.body3.font}
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray600};
   }
 `;
 
 const StyledLabelRowsPerPage = styled.span`
   margin-right: 8px;
-  font: ${designSystem.font.body3.font}
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray600};
 
   > span {
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    color: ${designSystem.color.neutral.gray900};
   }
 `;

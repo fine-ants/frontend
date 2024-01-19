@@ -40,7 +40,7 @@ const StyledBreadcrumb = styled.div`
   display: flex;
 
   gap: 2.5px;
-  font: ${designSystem.font.title5.font}
+  font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
 
   > div {
@@ -48,20 +48,22 @@ const StyledBreadcrumb = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 2.5px;
-    color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${designSystem.font.title5.font}
+    font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
 const DepthTitle = styled.span<{ $isLast: boolean }>`
   text-decoration: ${({ $isLast }) => ($isLast ? "none" : "underline")};
-  text-decoration-color: ${({ theme: { color } }) => color.neutral.gray600};
-  color: ${({ theme: { color }, $isLast }) =>
-    $isLast ? color.neutral.gray800 : color.neutral.gray600};
+  text-decoration-color: ${designSystem.color.neutral.gray600};
+  color: ${({ $isLast }) =>
+    $isLast
+      ? designSystem.color.neutral.gray800
+      : designSystem.color.neutral.gray600};
 
   &:hover {
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
     cursor: pointer;
   }
 `;

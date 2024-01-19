@@ -119,7 +119,7 @@ const StyledTableRow = styled(TableRow)`
 const StyledTableCell = styled(TableCell)`
   height: 100%;
   padding: 0 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border: none;
 
   &:first-of-type {
@@ -142,10 +142,10 @@ const StyledTableCell = styled(TableCell)`
 
 const StyledTableSortLabel = styled(TableSortLabel)`
   &.Mui-active {
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   flex-direction: row;
   gap: 4px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;

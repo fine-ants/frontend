@@ -34,18 +34,18 @@ const StyledEmptyPortfolioMessage = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  border: ${({ theme: { color } }) => `1px dashed ${color.primary.blue100}`};
+  border: 1px dashed ${designSystem.color.primary.blue100};
   border-radius: 8px;
 
   > h1 {
-    font: ${designSystem.font.title3.font}
+    font: ${designSystem.font.title3.font};
     letter-spacing: ${designSystem.font.title3.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   > div {
-    font: ${designSystem.font.body3.font}
-    color: ${({ theme: { color } }) => color.neutral.gray500};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray500};
   }
 `;
 
@@ -59,17 +59,16 @@ const PortfolioAddButton = styled.div`
   gap: 4px;
   padding: 12px 8px;
   border-radius: 3px;
-  font: ${designSystem.font.button2.font}
+  font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
-
-  background-color: ${({ theme: { color } }) => color.primary.blue500};
+  background-color: ${designSystem.color.primary.blue500};
   cursor: pointer;
 
   > span {
-    color: ${({ theme: { color } }) => color.neutral.white};
+    color: ${designSystem.color.neutral.white};
   }
 
   &:hover {
-    background-color: ${({ theme: { color } }) => color.primary.blue700};
+    background-color: ${designSystem.color.primary.blue700};
   }
 `;

@@ -64,11 +64,11 @@ const TextContainer = styled.div`
   h1 {
     font: ${designSystem.font.heading3.font};
     letter-spacing: ${designSystem.font.heading3.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   span {
     font: ${designSystem.font.body2.font};
-    color: ${({ theme: { color } }) => color.neutral.gray500};
+    color: ${designSystem.color.neutral.gray500};
   }
 `;

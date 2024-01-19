@@ -9,14 +9,14 @@ export const AuthPageHeader = styled.div`
 `;
 
 export const AuthPageTitle = styled.h2`
-  color: ${designSystem.color.neutral.gray900};
   font: ${designSystem.font.heading2.font};
   letter-spacing: ${designSystem.font.heading2.letterSpacing};
+  color: ${designSystem.color.neutral.gray900};
 `;
 
 export const AuthPageTitleCaption = styled.div`
-  color: ${designSystem.color.neutral.gray600};
   font: ${designSystem.font.body2.font};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 export const NextButton = styled.button`

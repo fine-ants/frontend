@@ -152,7 +152,7 @@ const Header = styled.header`
 const Title = styled.div`
   font: ${designSystem.font.heading3.font};
   letter-spacing: ${designSystem.font.heading3.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const SearchWrapper = styled.div`
@@ -165,10 +165,10 @@ const SearchWrapper = styled.div`
   letter-spacing: ${designSystem.font.title5.letterSpacing};
 
   > div {
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
 
     > span {
-      color: ${({ theme: { color } }) => color.state.red};
+      color: ${designSystem.color.state.red};
     }
   }
 `;
@@ -180,21 +180,22 @@ const HoldingBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
-  border: 1px solid ${({ theme: { color } }) => color.primary.blue50};
+  background-color: ${designSystem.color.neutral.gray50};
+  border: 1px solid ${designSystem.color.primary.blue50};
   border-radius: 8px;
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${({ theme: { color } }) => color.primary.blue500};
+  color: ${designSystem.color.primary.blue500};
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
   > span {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
     font: ${designSystem.font.body4.font};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
@@ -211,29 +212,29 @@ const InputBox = styled.div`
   gap: 8px;
 
   > label {
+    width: 120px;
+    height: 24px;
     margin-top: 4px;
     display: flex;
     align-items: center;
-    width: 120px;
-    height: 24px;
     font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
   }
 `;
 
 const InputWrapper = styled.div`
   height: 32px;
   padding: 4px 8px;
-  flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex: 1;
   box-sizing: border-box;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 3px;
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const InputTextArea = styled.textarea`
@@ -243,17 +244,17 @@ const InputTextArea = styled.textarea`
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 3px;
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  color: ${designSystem.color.neutral.gray400};
 
   &&::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -263,9 +264,9 @@ const Input = styled.input`
   border: none;
   outline: none;
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
 
   &&::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;

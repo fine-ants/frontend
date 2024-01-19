@@ -131,7 +131,7 @@ const dropdownItemSx = {
   display: "flex",
   alignItems: "center",
   gap: "8px",
-  font: designSystem.font.body2,
+  font: designSystem.font.body2.font,
   color: designSystem.color.neutral.gray600,
   borderRadius: "4px",
 };
@@ -150,12 +150,13 @@ const ProfileImage = styled.img<{ $size: number }>`
 const UserDetails = styled.div`
   p:first-of-type {
     margin-bottom: 4px;
-    font: ${designSystem.font.title4};
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
     color: ${designSystem.color.neutral.gray800};
   }
 
   p:last-of-type {
-    font: ${designSystem.font.body3};
+    font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray600};
   }
 `;

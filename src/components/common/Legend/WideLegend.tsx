@@ -1,9 +1,9 @@
 import { chartColorPalette } from "@styles/chartColorPalette";
+import designSystem from "@styles/designSystem";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Props as PieChartLegendItemProps } from "./TallLegendItem";
 import WideLegendItem from "./WideLegendItem";
-import designSystem from "@styles/designSystem";
 
 type Props = {
   legendList: PieChartLegendItemProps[];
@@ -70,13 +70,13 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
 
 const StyledLegend = styled.div<{ $hasScroll: boolean }>`
   width: 400px;
-  box-sizing: border-box;
   height: 120px;
+  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 4px 16px 16px" : "16px")};
   display: flex;
   flex-wrap: wrap;
-  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 4px 16px 16px" : "16px")};
   gap: 8px 24px;
-  border: ${({ theme: { color } }) => `1px solid ${color.neutral.gray100}`};
+  box-sizing: border-box;
+  border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
   overflow-y: ${({ $hasScroll }) => ($hasScroll ? "scroll" : "none")};
 `;
@@ -86,7 +86,7 @@ const EtcListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const EtcList = styled.div`
@@ -95,14 +95,14 @@ const EtcList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border-left: 2px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border-left: 2px solid ${designSystem.color.neutral.gray200};
 `;
 
 const EtcItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${designSystem.font.title5.font}
+  font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;

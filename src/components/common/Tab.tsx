@@ -45,17 +45,21 @@ const StyledTab = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
   gap: 4px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const StyledTabButton = styled.button<{ $isSelected: boolean }>`
   width: 48px;
   height: 24px;
   border-radius: 4px;
-  color: ${({ theme: { color }, $isSelected }) =>
-    $isSelected ? color.primary.blue500 : color.neutral.gray600};
-  background-color: ${({ theme: { color }, $isSelected }) =>
-    $isSelected ? color.primary.blue50 : color.white};
-  font: ${designSystem.font.title5.font}
+  background-color: ${({ $isSelected }) =>
+    $isSelected
+      ? designSystem.color.primary.blue50
+      : designSystem.color.neutral.white};
+  font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${({ $isSelected }) =>
+    $isSelected
+      ? designSystem.color.primary.blue500
+      : designSystem.color.neutral.gray600};
 `;

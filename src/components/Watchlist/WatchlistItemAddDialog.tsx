@@ -129,7 +129,7 @@ const Header = styled.header`
 const Title = styled.h3`
   font: ${designSystem.font.heading3.font};
   letter-spacing: ${designSystem.font.heading3.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const SearchBarWrapper = styled.div`
@@ -141,7 +141,7 @@ const SearchBarWrapper = styled.div`
     &::after {
       content: "*";
       margin-left: 4px;
-      color: ${({ theme: { color } }) => color.state.red};
+      color: ${designSystem.color.state.red};
     }
   }
 `;

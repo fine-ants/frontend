@@ -62,7 +62,7 @@ const BasePage = styled.div`
   min-height: inherit;
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
 `;
 
 const LandingTopBG = styled.div`
@@ -99,7 +99,7 @@ const LandingBottom = styled.div`
   width: 1920px;
   height: auto;
   min-height: inherit;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const FeatureContainer = styled.div`
@@ -110,7 +110,8 @@ const FeatureContainer = styled.div`
 
 const FeatureTitle = styled.h3`
   margin-right: auto;
-  font: ${designSystem.font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.primary.blue500};
 `;
 

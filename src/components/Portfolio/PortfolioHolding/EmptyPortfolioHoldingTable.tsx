@@ -44,10 +44,10 @@ const StyledEmptyPortfolioHoldingTable = styled.div`
   align-items: center;
   gap: 24px;
   border-radius: 8px;
-  border: 1px dashed ${({ theme: { color } }) => color.primary.blue100};
+  border: 1px dashed ${designSystem.color.primary.blue100};
   font: ${designSystem.font.title3.font};
   letter-spacing: ${designSystem.font.title3.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const TextBox = styled.div`
@@ -58,6 +58,6 @@ const TextBox = styled.div`
 
   > span {
     font: ${designSystem.font.body3.font};
-    color: ${({ theme: { color } }) => color.neutral.gray500};
+    color: ${designSystem.color.neutral.gray500};
   }
 `;

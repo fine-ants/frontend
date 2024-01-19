@@ -50,5 +50,5 @@ const ChartContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font: ${designSystem.font.heading2};
+  font: ${designSystem.font.heading2.font};
 `;

@@ -26,20 +26,20 @@ const StyledDividendBarTooltip = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
   border-radius: 4px;
   padding: 8px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border: 1px solid ${designSystem.color.neutral.gray100};
   box-shadow: 0px 0px 12px 0px #00000014;
 
   > label {
     font: ${designSystem.font.body3.font};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   > span {
     font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
   }
 `;

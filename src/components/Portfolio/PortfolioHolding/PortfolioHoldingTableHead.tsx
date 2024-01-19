@@ -186,12 +186,12 @@ const CustomTableHead = styled(TableHead)`
   height: 48px;
   width: 100%;
   padding: 0 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border-radius: 8px;
 
   & .MuiTableCell-root {
     border-bottom: none;
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
     font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
@@ -220,7 +220,7 @@ const ColumnHeaderCell = styled(TableCell)`
 const StyledTableSortLabel = styled(TableSortLabel)`
   flex-direction: row;
   gap: 4px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const StyledTooltipContainer = styled.div`

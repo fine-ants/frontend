@@ -139,12 +139,13 @@ export default function SignInForm() {
 }
 
 const SignInContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
   width: 720px;
   height: 100%;
   padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
   > h2 {
     font-size: 42px;
     font-weight: bold;
@@ -169,30 +170,30 @@ const InputControl = styled.div`
 
 const TextInputLabel = styled.label`
   width: 100%;
+  margin-bottom: 12px;
   display: block;
-  color: ${designSystem.color.neutral.gray800};
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
-  margin-bottom: 12px;
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const TextInputError = styled.p`
   height: 18px;
-  color: ${designSystem.color.state.red};
   font: ${designSystem.font.body4.font};
+  color: ${designSystem.color.state.red};
 `;
 
 const SupportContainer = styled.div`
   width: 100%;
+  margin-top: 17.5px;
   display: flex;
   justify-content: space-between;
-  margin-top: 17.5px;
 `;
 
 const TextButton = styled(Button)`
-  color: ${designSystem.color.neutral.gray600};
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const FormControlLabel = styled.label`
@@ -203,9 +204,9 @@ const FormControlLabel = styled.label`
 
 const SignInButtonContainer = styled.div`
   width: 100%;
+  padding: 16px 0;
   display: flex;
   gap: 8px;
-  padding: 16px 0;
 
   button {
     flex: 1;
@@ -215,18 +216,18 @@ const SignInButtonContainer = styled.div`
 const SignInButton = styled.button`
   display: flex;
   width: 100%;
-  height: 44px;
   min-width: 128px;
+  height: 44px;
   padding: 0px 16px;
   justify-content: center;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
-  border-radius: 4px;
   background: ${designSystem.color.primary.blue500};
-  color: ${designSystem.color.neutral.white};
+  border-radius: 4px;
   font: ${designSystem.font.button1.font};
-  letter-spacing: ${designSystem.font.button1.letterSpacing}
+  letter-spacing: ${designSystem.font.button1.letterSpacing};
+  color: ${designSystem.color.neutral.white};
 
   &:disabled {
     background: ${designSystem.color.primary.blue200};
@@ -234,14 +235,14 @@ const SignInButton = styled.button`
 `;
 
 const SignUpButton = styled.button`
-  color: ${designSystem.color.primary.blue500};
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
+  color: ${designSystem.color.primary.blue500};
 `;
 
 const SignUpWrapper = styled.div`
   display: flex;
   gap: 6px;
-  color: ${designSystem.color.neutral.gray600};
   font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray600};
 `;

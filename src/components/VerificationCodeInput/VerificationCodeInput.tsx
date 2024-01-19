@@ -39,19 +39,17 @@ export default function VerificationCodeInput({
 
 const StyledVerificationCodeInput = styled.div<{ $isError: boolean }>`
   .character {
-    font-size: 20px;
-    border-radius: 8px;
-
     width: 44px;
     min-height: 44px;
-    color: #272729;
-    border-radius: 4px;
+    background: ${designSystem.color.neutral.white};
     border: 1px solid
       ${({ $isError }) =>
         $isError
           ? designSystem.color.state.red
           : designSystem.color.neutral.gray200};
-    background: ${designSystem.color.neutral.white};
+    border-radius: 4px;
+    font-size: 20px;
+    color: #272729;
   }
 
   .character--selected {
@@ -64,6 +62,6 @@ const StyledVerificationCodeInput = styled.div<{ $isError: boolean }>`
 `;
 
 const ErrorText = styled.div`
+  font: ${designSystem.font.body4.font};
   color: ${designSystem.color.state.red};
-  font: ${designSystem.font.body4};
 `;

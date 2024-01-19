@@ -61,16 +61,16 @@ const Title = styled.div`
   text-align: left;
   font: ${designSystem.font.heading3.font};
   letter-spacing: ${designSystem.font.heading3.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const Body = styled.div`
   margin-top: 32px;
   width: 100%;
   max-height: 120px;
-  font: ${designSystem.font.title5.font}
+  font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const ButtonWrapper = styled.div`

@@ -2,11 +2,11 @@ import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieCha
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import TallLegend from "@components/common/Legend/TallLegend";
 import { chartColorPalette } from "@styles/chartColorPalette";
+import designSystem from "@styles/designSystem";
 import { Suspense, useState } from "react";
 import styled from "styled-components";
 import PieChart from "../common/PieChart/PieChart";
 import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
-import designSystem from "@styles/designSystem";
 
 export default function DashboardPortfolioWeight() {
   const { data: pieChart } = useDashboardPieChartQuery();
@@ -81,6 +81,6 @@ const StyledDashboardPortfolioWeight = styled.div`
 `;
 
 const ChartTitle = styled.div`
-font: ${designSystem.font.heading3.font}
-letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;

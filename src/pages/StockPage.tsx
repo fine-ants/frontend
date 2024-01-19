@@ -103,7 +103,7 @@ const Main = styled.div`
   height: 796px;
   padding: 32px;
   border-radius: 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const TitleContainer = styled.div`
@@ -121,12 +121,12 @@ const NameWrapper = styled.div`
     font: ${designSystem.font.heading2.font};
     letter-spacing: ${designSystem.font.heading2.letterSpacing};
 
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    color: ${designSystem.color.neutral.gray900};
   }
   > span {
     font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
@@ -134,7 +134,7 @@ const Symbol = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: ${({ theme: { color } }) => color.primary.blue500};
+  background-color: ${designSystem.color.primary.blue500};
 `;
 
 const ButtonWrapper = styled.div`
@@ -157,13 +157,13 @@ const PriceWrapper = styled.div`
   > span {
     font: ${designSystem.font.title2.font};
     letter-spacing: ${designSystem.font.title2.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   > label {
     font: ${designSystem.font.title1.font};
     letter-spacing: ${designSystem.font.title1.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
   }
 `;
 
@@ -179,12 +179,12 @@ const StockInfo = styled.div`
   
   border-radius: 8px;
 
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 
   > label {
     font: ${designSystem.font.heading3.font};
     letter-spacing: ${designSystem.font.heading3.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
   }
 `;
 
@@ -201,7 +201,7 @@ const Info = styled.div`
   height: 24px;
   padding: 4px 24px;
   box-sizing: content-box;
-  border-right: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border-right: 1px solid ${designSystem.color.neutral.gray200};
 
   &:first-child {
     padding-left: 0;
@@ -215,11 +215,11 @@ const Info = styled.div`
   > label {
     font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   > span {
     font: ${designSystem.font.body3.font};
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    color: ${designSystem.color.neutral.gray900};
   }
 `;

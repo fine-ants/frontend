@@ -73,8 +73,8 @@ const StyledDashboardOverview = styled.div`
   align-items: center;
   gap: 24px;
   position: relative;
-  background-color: ${({ theme: { color } }) => color.neutral.gray800};
-  color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.gray800};
+  color: ${designSystem.color.neutral.white};
 `;
 
 const InnerWrapper = styled.div`
@@ -110,21 +110,21 @@ const TotalMainContentWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  color: ${({ theme: { color } }) => color.neutral.white};
+  color: ${designSystem.color.neutral.white};
 `;
 
 const MainTitle = styled.div`
   margin-right: auto;
 
-  font: ${designSystem.font.title3.font}
+  font: ${designSystem.font.title3.font};
   letter-spacing: ${designSystem.font.title3.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const MainWon = styled.div`
-font: ${designSystem.font.heading2.font}
-letter-spacing: ${designSystem.font.heading2.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.heading2.font};
+  letter-spacing: ${designSystem.font.heading2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const MainValueWrapper = styled.div`
@@ -135,8 +135,8 @@ const MainValueWrapper = styled.div`
 `;
 
 const MainValue = styled.div`
-font: ${designSystem.font.heading1.font}
-letter-spacing: ${designSystem.font.heading1.letterSpacing};
+  font: ${designSystem.font.heading1.font};
+  letter-spacing: ${designSystem.font.heading1.letterSpacing};
 `;
 
 const SubContentContainer = styled.div`
@@ -144,12 +144,12 @@ const SubContentContainer = styled.div`
   width: 830px;
   height: 157px;
   padding: 24px 0;
-  background-color: ${({ theme: { color } }) => color.neutral.white04};
+  background-color: ${designSystem.color.neutral.white04};
   border-radius: 8px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray700};
+  border: 1px solid ${designSystem.color.neutral.gray700};
 
   & > * {
-    border-right: 1px solid ${({ theme: { color } }) => color.neutral.gray700};
+    border-right: 1px solid ${designSystem.color.neutral.gray700};
   }
 
   & > *:last-child {
@@ -166,10 +166,9 @@ const TotalSubContentWrapper = styled.div`
 `;
 
 const Title = styled.div`
-font: ${designSystem.font.title4.font}
-letter-spacing: ${designSystem.font.title4.letterSpacing};
-
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  font: ${designSystem.font.title4.font};
+  letter-spacing: ${designSystem.font.title4.letterSpacing};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const ValueWrapper = styled.div`
@@ -179,12 +178,12 @@ const ValueWrapper = styled.div`
 `;
 
 const Won = styled.div`
-font: ${designSystem.font.title2.font}
-letter-spacing: ${designSystem.font.title2.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title2.font};
+  letter-spacing: ${designSystem.font.title2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const Value = styled.div`
-font: ${designSystem.font.title1.font}
-letter-spacing: ${designSystem.font.title1.letterSpacing};
+  font: ${designSystem.font.title1.font};
+  letter-spacing: ${designSystem.font.title1.letterSpacing};
 `;
