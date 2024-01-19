@@ -52,7 +52,7 @@ const StyledTableRow = styled(TableRow)`
   height: 64px;
 
   &.Mui-selected {
-    background-color: ${({ theme: { color } }) => color.neutral.gray50};
+    background-color: ${designSystem.color.neutral.gray50};
   }
   &:hover {
     background-color: white;
@@ -62,9 +62,9 @@ const StyledTableRow = styled(TableRow)`
 const StyledTableCell = styled(TableCell)`
   height: 100%;
   padding: 0 8px;
-  border-color: ${({ theme: { color } }) => color.neutral.gray100};
+  border-color: ${designSystem.color.neutral.gray100};
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  color: ${designSystem.color.neutral.gray900};
 
   &:first-of-type {
     padding-left: 16px;
@@ -83,12 +83,12 @@ const StyledLink = styled(Link)`
   align-items: center;
   gap: 8px;
   font: ${designSystem.font.body2.font};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 
   &:hover {
-    color: ${({ theme: { color } }) => color.primary.blue500};
+    color: ${designSystem.color.primary.blue500};
   }
 `;

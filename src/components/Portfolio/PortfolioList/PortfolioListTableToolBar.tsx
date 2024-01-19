@@ -51,7 +51,7 @@ export default function PortfolioListTableToolBar({
         {selected.length > 0 && (
           <>
             <Typography
-              sx={{ font: designSystem.font.body3 }}
+              sx={{ font: designSystem.font.body3.font }}
               color="inherit"
               variant="subtitle1"
               component="span">

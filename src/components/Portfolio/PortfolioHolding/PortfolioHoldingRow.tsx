@@ -312,7 +312,7 @@ const HoldingTableCell = styled(TableCell)`
 `;
 
 const HoldingTypography = styled(Typography)`
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
 `;
 

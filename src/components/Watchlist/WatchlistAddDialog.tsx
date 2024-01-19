@@ -82,7 +82,7 @@ const IconButton = styled.button`
 const Label = styled.label`
   font: ${designSystem.font.heading3.font};
   letter-spacing: ${designSystem.font.heading3.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const InputWrapper = styled.div`
@@ -97,6 +97,6 @@ const InputWrapper = styled.div`
     height: 24px;
     font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
   }
 `;

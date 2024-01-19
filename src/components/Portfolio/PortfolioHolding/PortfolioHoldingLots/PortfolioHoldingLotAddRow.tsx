@@ -119,7 +119,7 @@ const StyledTableCell = styled(MuiTableCell)`
   padding: 0 8px;
   font: ${designSystem.font.body3.font};
 
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  color: ${designSystem.color.neutral.gray900};
   text-align: center;
 `;
 
@@ -128,18 +128,18 @@ const Input = styled.input`
   height: 24px;
   padding: 0 8px;
   box-sizing: border-box;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  background-color: ${designSystem.color.neutral.white};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 2px;
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  color: ${designSystem.color.neutral.gray900};
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -149,19 +149,19 @@ const StyledTextArea = styled.textarea`
   margin-top: 7px;
   padding: 0 8px;
   box-sizing: border-box;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  background-color: ${designSystem.color.neutral.white};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 2px;
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  color: ${designSystem.color.neutral.gray900};
   text-align: left;
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 

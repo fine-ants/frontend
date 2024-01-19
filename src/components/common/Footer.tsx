@@ -28,27 +28,27 @@ export default function Footer() {
 const StyledFooter = styled.footer`
   width: 100%;
   height: 64px;
+  padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
   color: #959da5;
-  padding: 0 40px;
 `;
 
 const FooterLeft = styled.div`
   display: flex;
-  gap: 24px;
   align-items: center;
+  gap: 24px;
 `;
 
 const Copyright = styled.div`
-  color: ${({ theme: { color } }) => color.gray600};
   font: ${designSystem.font.body4.font};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const IconContainer = styled.div`
   display: flex;
-  gap: 16px;
   align-items: center;
+  gap: 16px;
 `;

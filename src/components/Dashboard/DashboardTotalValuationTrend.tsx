@@ -78,7 +78,7 @@ const EmptyLineChartMessage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px dashed ${({ theme: { color } }) => color.primary.blue100};
+  border: 1px dashed ${designSystem.color.primary.blue100};
   border-radius: 8px;
 `;
 
@@ -91,15 +91,15 @@ const MessageBox = styled.div`
   height: 82px;
 
   > h1 {
-    font: ${designSystem.font.title3.font}
+    font: ${designSystem.font.title3.font};
     letter-spacing: ${designSystem.font.title3.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   > span {
     text-align: center;
-    font: ${designSystem.font.body3.font}
-    color: ${({ theme: { color } }) => color.neutral.gray500};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray500};
   }
 `;
 
@@ -108,8 +108,8 @@ const TabWrapper = styled.div`
 `;
 
 const ChartTitle = styled.div`
-font: ${designSystem.font.heading3.font}
-letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
 const TooltipRemover = styled.div`
@@ -119,5 +119,5 @@ const TooltipRemover = styled.div`
   z-index: 1000;
   top: 11px;
   left: 10px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;

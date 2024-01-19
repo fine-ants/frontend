@@ -341,7 +341,7 @@ const HeaderWrapper = styled.div`
 const Header = styled.div`
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const StyledInput = styled.div`
@@ -351,12 +351,12 @@ const StyledInput = styled.div`
   height: 32px;
   box-sizing: border-box;
   padding: 4px 8px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray300};
+  border: 1px solid ${designSystem.color.neutral.gray300};
   border-radius: 3px;
 
   > span {
     font: ${designSystem.font.body3.font};
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
@@ -366,10 +366,10 @@ const Input = styled.input`
   border: none;
   outline: none;
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  color: ${designSystem.color.neutral.gray900};
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
@@ -417,5 +417,5 @@ const SecuritiesFirmLogo = styled.img`
 
 const SecuritiesFirmTitle = styled.span`
   font: ${designSystem.font.body3.font};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  color: ${designSystem.color.neutral.gray900};
 `;

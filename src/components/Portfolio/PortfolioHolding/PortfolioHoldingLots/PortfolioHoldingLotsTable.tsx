@@ -125,7 +125,7 @@ const StyledTableHead = styled(MuiTableHead)`
 
 const StyledTableHeadRow = styled(MuiTableRow)`
   width: 856px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border-radius: 8px;
 
   & > * {
@@ -150,7 +150,7 @@ const StyledTableHeadCell = styled(MuiTableCell)`
   padding: 4px 8px;
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const StyledTableBody = styled(MuiTableBody)`
@@ -165,7 +165,8 @@ const AddLotButton = styled.button`
   gap: 4px;
 
   span {
-    font: ${designSystem.font.button2};
+    font: ${designSystem.font.button2.font};
+    letter-spacing: ${designSystem.font.button2.letterSpacing};
     color: ${designSystem.color.primary.blue500};
   }
 `;

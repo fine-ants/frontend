@@ -68,16 +68,18 @@ const BootstrapInput = styled(InputBase)<{ $size: Size; $isOpen: boolean }>`
     align-items: center;
     gap: 4px;
     box-sizing: border-box;
-    background-color: ${({ theme: { color } }) => color.neutral.white};
+    background-color: ${designSystem.color.neutral.white};
     border: 1px solid
-      ${({ theme: { color }, $isOpen }) =>
-        $isOpen ? color.primary.blue500 : color.neutral.gray200};
+      ${({ $isOpen }) =>
+        $isOpen
+          ? designSystem.color.primary.blue500
+          : designSystem.color.neutral.gray200};
     border-radius: ${({ $size }) => ($size === "h24" ? 2 : 3)}px;
-    font: ${designSystem.font.body3.font}
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray900};
 
     &:hover {
-      border-color: ${({ theme: { color } }) => color.primary.blue500};
+      border-color: ${designSystem.color.primary.blue500};
     }
   }
 `;

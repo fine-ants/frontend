@@ -30,7 +30,7 @@ const StyledChartsPanelSkeleton = styled.div`
   width: 464px;
   height: 1061px;
   padding: 32px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const ChartLabel = styled.h1`

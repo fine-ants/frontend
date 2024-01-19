@@ -59,11 +59,11 @@ const EmptyPortfolioListTitle = styled.h3`
   margin-bottom: 16px;
   font: ${designSystem.font.heading3.font};
   letter-spacing: ${designSystem.font.heading3.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const EmptyPortfolioListDescription = styled.p`
   margin-bottom: 48px;
   font: ${designSystem.font.body2.font};
-  color: ${({ theme: { color } }) => color.neutral.gray500};
+  color: ${designSystem.color.neutral.gray500};
 `;

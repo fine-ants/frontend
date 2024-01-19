@@ -271,15 +271,15 @@ const ButtonWrapper = styled.div`
 
 const ValuationContainer = styled.div`
   height: 64px;
+  padding: 8px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px;
+  background-color: ${designSystem.color.neutral.gray800};
   border-radius: 8px;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
-  background-color: ${({ theme: { color } }) => color.neutral.gray800};
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const CurrentValuation = styled.div`
@@ -288,22 +288,23 @@ const CurrentValuation = styled.div`
   align-items: center;
   font: ${designSystem.font.title2.font};
   letter-spacing: ${designSystem.font.title2.letterSpacing};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
+
   > span {
     font: ${designSystem.font.title1.font};
     letter-spacing: ${designSystem.font.title1.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.white};
+    color: ${designSystem.color.neutral.white};
   }
 `;
 
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
   overflow: hidden;
 `;
 
@@ -312,7 +313,7 @@ const OverviewWrapper = styled.div`
 `;
 
 const OverviewTop = styled(OverviewWrapper)`
-  border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const OverviewBottom = styled(OverviewWrapper)``;
@@ -326,7 +327,7 @@ const Overview = styled.div`
   padding: 16px;
 
   &:first-child {
-    border-right: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+    border-right: 1px solid ${designSystem.color.neutral.gray100};
   }
 `;
 
@@ -338,6 +339,6 @@ const OverviewData = styled.div`
   height: 24px;
   > span {
     font: ${designSystem.font.body3.font};
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    color: ${designSystem.color.neutral.gray900};
   }
 `;

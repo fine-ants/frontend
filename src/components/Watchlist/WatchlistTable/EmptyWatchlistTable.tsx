@@ -1,10 +1,10 @@
 import emptyWatchlistImage from "@assets/images/empty_watchlistItem.svg";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
-import designSystem from "@styles/designSystem";
 
 export default function EmptyWatchlistTable() {
   const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
@@ -52,7 +52,7 @@ const StyledEmptyWatchlistsTable = styled.div`
   width: 1376px;
   height: 635px;
   border-radius: 8px;
-  border: 1px dashed ${({ theme: { color } }) => color.primary.blue100};
+  border: 1px dashed ${designSystem.color.primary.blue100};
 `;
 
 const Content = styled.div`
@@ -72,11 +72,11 @@ const TextContainer = styled.div`
   h1 {
     font: ${designSystem.font.heading3.font};
     letter-spacing: ${designSystem.font.heading3.letterSpacing};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   span {
     font: ${designSystem.font.body2.font};
-    color: ${({ theme: { color } }) => color.neutral.gray500};
+    color: ${designSystem.color.neutral.gray500};
   }
 `;
