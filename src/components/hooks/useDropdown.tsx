@@ -6,7 +6,7 @@ type DropdownMenuProps = {
   children: ReactNode;
 } & Omit<MenuProps, "open" | "onClose">;
 
-type DropdownItemProps = {
+export type DropdownItemProps = {
   sx?: SxProps;
   onClick: () => void;
   children: ReactNode;

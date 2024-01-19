@@ -1,29 +1,20 @@
-import usePortfolioListHeaderQuery from "@api/portfolio/queries/usePortfolioListHeaderQuery";
-import { PortfolioItem } from "@api/portfolio/types";
 import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
-import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { UserContext } from "@context/UserContext";
 import { Button } from "@mui/material";
 import Routes from "@router/Routes";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "../../NavBar";
 import SearchBar from "../../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../../TradingViewWidgets/TVTickerTape";
-import { PortfoliosDropdown } from "./PortfoliosDropdown";
+import { PortfoliosDropdown } from "./PortfoliosDropdown/PortfoliosDropdown";
 import UserControls from "./UserControls";
 
 export default function Header() {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
-
-  // TODO: Move into PortfoliosDropdown
-  const { data: portfolioList } = usePortfolioListHeaderQuery();
-
-  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
-    useState(false);
 
   const navItems = [
     {
@@ -33,21 +24,8 @@ export default function Header() {
     { name: "Indices", to: Routes.INDICES },
   ];
 
-  const portfolioDropdownItems = portfolioList?.portfolios?.map(
-    (portfolio: PortfolioItem) => ({
-      name: portfolio.name,
-      onClick: () => {
-        navigate(`/portfolio/${portfolio.id}`);
-      },
-    })
-  );
-
   const onLogoClick = () => {
     navigate(user ? Routes.DASHBOARD : Routes.LANDING);
-  };
-
-  const onPortfolioAddClick = () => {
-    setIsPortfolioAddDialogOpen(true);
   };
 
   const moveToSignInPage = () => {
@@ -67,10 +45,7 @@ export default function Header() {
           </StyledBrandIdentity>
           <NavBar>
             <NavBar.NavItem>
-              <PortfoliosDropdown
-                portfolioDropdownItems={portfolioDropdownItems}
-                onPortfolioAddClick={onPortfolioAddClick}
-              />
+              <PortfoliosDropdown />
             </NavBar.NavItem>
             {navItems.map((item) => (
               <NavBar.NavItem key={item.name} item={item} />
@@ -92,13 +67,6 @@ export default function Header() {
       </HeaderTop>
 
       <TVTickerTapeWidget />
-
-      {isPortfolioAddDialogOpen && (
-        <PortfolioAddDialog
-          isOpen={isPortfolioAddDialogOpen}
-          onClose={() => setIsPortfolioAddDialogOpen(false)}
-        />
-      )}
     </StyledHeader>
   );
 }

@@ -93,6 +93,7 @@ export function Icon({ size, icon, color, hoverColor }: Props) {
 
   return (
     <StyledIcon
+      className="icon"
       $size={size}
       $iconUrl={iconUrl}
       $color={colors[color]}

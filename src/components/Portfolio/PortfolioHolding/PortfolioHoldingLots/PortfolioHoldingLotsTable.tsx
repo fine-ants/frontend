@@ -78,19 +78,20 @@ export default function PortfolioHoldingLotsTable({
               onDeleteButtonClick={onDeleteLotButtonClick}
             />
           )}
-          <MuiTableFooter>
-            <MuiTableRow>
-              <MuiTableCell
-                colSpan={6}
-                sx={{ paddingInline: "8px", border: "none" }}>
-                <AddLotButton onClick={onAddLotButtonClick}>
-                  <Icon icon="add" size={16} color="blue500" />
-                  <span>항목 추가</span>
-                </AddLotButton>
-              </MuiTableCell>
-            </MuiTableRow>
-          </MuiTableFooter>
         </StyledTableBody>
+
+        <MuiTableFooter>
+          <MuiTableRow>
+            <MuiTableCell
+              colSpan={6}
+              sx={{ paddingInline: "8px", border: "none" }}>
+              <AddLotButton onClick={onAddLotButtonClick}>
+                <Icon icon="add" size={16} color="blue500" />
+                <span>항목 추가</span>
+              </AddLotButton>
+            </MuiTableCell>
+          </MuiTableRow>
+        </MuiTableFooter>
       </StyledTable>
     </StyledPortfolioHoldingLotsTable>
   );
