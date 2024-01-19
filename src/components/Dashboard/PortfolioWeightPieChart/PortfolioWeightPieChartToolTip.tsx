@@ -89,6 +89,6 @@ const Percentage = styled.div`
 const GainValue = styled.p`
   display: flex;
   align-items: center;
-  font: ${designSystem.font.body4.font}
-  color: ${({ theme: { color } }) => color.state.green};
+  font: ${designSystem.font.body4};
+  color: ${designSystem.color.state.green500};
 `;

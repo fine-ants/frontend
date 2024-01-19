@@ -178,8 +178,8 @@ const TextInputLabel = styled.label`
 
 const TextInputError = styled.p`
   height: 18px;
-  color: ${designSystem.color.state.red};
-  font: ${designSystem.font.body4.font};
+  color: ${designSystem.color.state.red500};
+  font: ${designSystem.font.body4};
 `;
 
 const SupportContainer = styled.div`
