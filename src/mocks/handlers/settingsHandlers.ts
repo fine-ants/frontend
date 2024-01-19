@@ -28,7 +28,7 @@ export default [
     });
   }),
 
-  http.delete("/api/account", () => {
+  http.delete<never, { refreshToken: string }>("/api/account", async () => {
     return HttpResponse.json(successfulPasswordEditData, {
       status: HTTPSTATUS.success,
     });

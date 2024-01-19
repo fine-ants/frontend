@@ -21,6 +21,8 @@ export const putNewPassword = async (body: {
 };
 
 export const deleteAccount = async () => {
-  const res = await fetcher.delete<Response<null>>("/account");
+  const res = await fetcher.delete<Response<null>>("/account", {
+    data: { refreshToken: localStorage.getItem("refreshToken") },
+  });
   return res.data;
 };
