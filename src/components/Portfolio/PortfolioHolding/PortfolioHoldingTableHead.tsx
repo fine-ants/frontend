@@ -192,7 +192,8 @@ const CustomTableHead = styled(TableHead)`
   & .MuiTableCell-root {
     border-bottom: none;
     color: ${({ theme: { color } }) => color.neutral.gray600};
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 `;
 

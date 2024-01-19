@@ -1,4 +1,5 @@
 import { chartColorPalette } from "@styles/chartColorPalette";
+import designSystem from "@styles/designSystem";
 import { CSSProperties } from "react";
 import styled from "styled-components";
 import PieChartLegendItem, {
@@ -119,6 +120,7 @@ const EtcItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font}
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;

@@ -1,17 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteWatchlistItem } from "..";
+import { deleteWatchlistStock } from "..";
 import { watchlistKeys } from "./queryKeys";
 
-export default function useWatchlistItemDeleteMutation(tickerSymbol: string) {
+export default function useWatchlistItemDeleteMutation(watchlistId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: watchlistKeys.deleteItem(tickerSymbol).queryKey,
-    mutationFn: () => deleteWatchlistItem(tickerSymbol),
+    mutationKey: watchlistKeys.deleteStock(watchlistId).queryKey,
+    mutationFn: (tickerSymbols: string[]) =>
+      deleteWatchlistStock({ watchlistId, tickerSymbols }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: watchlistKeys.list().queryKey,
+        queryKey: watchlistKeys.item(watchlistId).queryKey,
       });
+    },
+    meta: {
+      tostSuccessMessage: "관심 종목을 삭제했습니다",
+      toastErrorMessage: "관심 종목을 삭제하는 중 오류가 발생했습니다",
     },
   });
 }

@@ -6,6 +6,7 @@ import { Suspense, useState } from "react";
 import styled from "styled-components";
 import PieChart from "../common/PieChart/PieChart";
 import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
+import designSystem from "@styles/designSystem";
 
 export default function DashboardPortfolioWeight() {
   const { data: pieChart } = useDashboardPieChartQuery();
@@ -80,7 +81,6 @@ const StyledDashboardPortfolioWeight = styled.div`
 `;
 
 const ChartTitle = styled.div`
-  font-size: 24px;
-  line-height: 29px;
-  font-weight: bold;
+font: ${designSystem.font.heading3.font}
+letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;

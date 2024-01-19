@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export type Props = {
@@ -22,8 +23,8 @@ const StyledLegendItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
+  font: ${designSystem.font.title5.font}
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: #75767f;
 `;
 

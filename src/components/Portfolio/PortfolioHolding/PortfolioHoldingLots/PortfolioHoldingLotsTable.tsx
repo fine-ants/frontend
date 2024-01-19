@@ -147,7 +147,8 @@ const StyledTableHeadRow = styled(MuiTableRow)`
 const StyledTableHeadCell = styled(MuiTableCell)`
   height: 40px;
   padding: 4px 8px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;
 

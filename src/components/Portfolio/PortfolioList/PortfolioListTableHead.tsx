@@ -13,6 +13,7 @@ import {
   tableSortLabelClasses,
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
+import designSystem from "@styles/designSystem";
 import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
 
@@ -169,7 +170,8 @@ const StyledTableCell = styled(TableCell)`
   }
 
   & > .${tableSortLabelClasses.root} {
-    font: ${({ theme: { font } }) => font.body5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 `;
 

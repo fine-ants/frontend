@@ -1,4 +1,5 @@
 import iconChevronRight from "@assets/icons/ic_chevron-right.svg";
+import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -39,7 +40,8 @@ const StyledBreadcrumb = styled.div`
   display: flex;
 
   gap: 2.5px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font}
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
 
   > div {
     display: flex;
@@ -47,12 +49,14 @@ const StyledBreadcrumb = styled.div`
     justify-content: flex-start;
     gap: 2.5px;
     color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${designSystem.font.title5.font}
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 `;
 
 const DepthTitle = styled.span<{ $isLast: boolean }>`
   text-decoration: ${({ $isLast }) => ($isLast ? "none" : "underline")};
+  text-decoration-color: ${({ theme: { color } }) => color.neutral.gray600};
   color: ${({ theme: { color }, $isLast }) =>
     $isLast ? color.neutral.gray800 : color.neutral.gray600};
 

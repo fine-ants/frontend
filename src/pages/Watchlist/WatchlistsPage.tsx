@@ -1,22 +1,23 @@
-import WatchlistTable from "@components/Watchlist/WatchlistTable";
+import WatchlistsTable from "@components/Watchlist/WatchlistsTable/WatchlistsTable";
 import WatchlistTableErrorFallback from "@components/Watchlist/errorFallback/WatchlistTableErrorFallback";
 import WatchlistTableSkeleton from "@components/Watchlist/skeletons/WatchlistTableSkeleton";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import styled from "styled-components";
-import BasePage from "./BasePage";
+import BasePage from "../BasePage";
+import designSystem from "@styles/designSystem";
 
-export default function WatchlistPage() {
+export default function WatchlistsPage() {
   return (
     <BasePage>
       <Container>
         <Header>
-          <h1>관심 목록</h1>
+          <h1>전체 관심 종목 리스트</h1>
         </Header>
 
         <AsyncBoundary
           ErrorFallback={WatchlistTableErrorFallback}
           SuspenseFallback={<WatchlistTableSkeleton />}>
-          <WatchlistTable />
+          <WatchlistsTable />
         </AsyncBoundary>
       </Container>
     </BasePage>
@@ -26,6 +27,7 @@ export default function WatchlistPage() {
 const Container = styled.div`
   width: 100%;
   max-width: 1440px;
+  min-height: 796px;
   margin-top: 48px;
   padding: 32px;
   background-color: ${({ theme: { color } }) => color.neutral.white};
@@ -39,7 +41,8 @@ const Header = styled.header`
   justify-content: space-between;
 
   h1 {
-    font: ${({ theme: { font } }) => font.heading2};
+    font: ${designSystem.font.heading2.font};
+    letter-spacing: ${designSystem.font.heading2.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;
