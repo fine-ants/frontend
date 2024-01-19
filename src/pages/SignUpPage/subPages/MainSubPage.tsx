@@ -50,7 +50,7 @@ const ButtonContainer = styled.div`
   align-items: center;
   gap: 24px;
   color: ${designSystem.color.neutral.gray600};
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
 `;
 
 const OAuthButtonContainer = styled.div`
@@ -74,5 +74,6 @@ const EmailSignInButton = styled.button`
   border: 1px solid ${designSystem.color.primary.blue500};
   background: ${designSystem.color.neutral.white};
   color: ${designSystem.color.primary.blue500};
-  font: ${designSystem.font.button1};
+  font: ${designSystem.font.button1.font};
+  letter-spacing: ${designSystem.font.button1.letterSpacing};
 `;

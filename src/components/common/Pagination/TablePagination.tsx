@@ -3,6 +3,7 @@ import {
   TablePagination as MuiTablePagination,
   tablePaginationClasses,
 } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import { Select, SelectOption } from "../Select";
 import Pagination from "./Pagination";
@@ -58,6 +59,7 @@ export default function TablePagination({
           input: (
             <Select
               size="h24"
+              menuMinHeight="auto"
               selectedValue={rowsPerPage.toString()}
               changeSelectedValue={onRowsPerPageChange}>
               {rowsPerPageOptions.map((option) => (
@@ -118,7 +120,8 @@ const StyledTablePagination = styled(MuiTablePagination)`
     background-color: transparent;
     border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
     border-radius: 2px;
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font}
+    
     color: ${({ theme: { color } }) => color.neutral.gray900};
 
     &:hover {
@@ -132,14 +135,14 @@ const StyledTablePagination = styled(MuiTablePagination)`
 
   & .${tablePaginationClasses.displayedRows} {
     margin: 0 auto 0 8px;
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font}
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 `;
 
 const StyledLabelRowsPerPage = styled.span`
   margin-right: 8px;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font}
   color: ${({ theme: { color } }) => color.neutral.gray600};
 
   > span {

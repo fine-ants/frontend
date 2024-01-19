@@ -66,8 +66,8 @@ const ItemTitle = styled.div`
   gap: 4px;
 
   > p {
-    font: ${({ theme: { font } }) => font.title5};
-    letter-spacing: -0.02em;
+    font: ${designSystem.font.title5.font}
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 `;
@@ -81,8 +81,8 @@ const ColorCircle = styled.div<{ color: string }>`
 
 const Percentage = styled.div`
   margin-left: auto;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
+  font: ${designSystem.font.title5.font}
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.primary.blue500};
 `;
 

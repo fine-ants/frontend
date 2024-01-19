@@ -1,5 +1,6 @@
 import { PortfolioHoldingsSectorBarItem } from "@api/portfolio/types";
 import WideLegend from "@components/common/Legend/WideLegend";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import SectorBar from "./SectorBar";
 
@@ -45,5 +46,6 @@ const StyledSectorBarChartContainer = styled.div`
 `;
 
 const ChartLabel = styled.h1`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;

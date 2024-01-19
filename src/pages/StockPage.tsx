@@ -2,6 +2,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import Button from "@components/common/Buttons/Button";
 import Header from "@components/common/Header/Header";
 import { Icon } from "@components/common/Icon";
+import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TVStockDetailWidget from "../components/TradingViewWidgets/TVStockDetailWidget";
@@ -10,8 +11,12 @@ import BasePage from "./BasePage";
 export default function StockPage() {
   const { tickerSymbol } = useParams();
   // const {mutate: addWatchlistItemMutate} = useWatchlistItemAddMutation({tickerSymbol: tickerSymbol});
+  // const [isSelectOpen, setIsSelectOpen] = useState(false);
+  //TODO: API 기다리는 중
 
-  const onAddWatchlistButtonClick = () => {};
+  const onAddWatchlistButtonClick = () => {
+    // setIsSelectOpen(true);
+  };
 
   return (
     <>
@@ -92,14 +97,9 @@ export default function StockPage() {
   );
 }
 
-const Main = styled.main`
-  padding: 48px;
-  display: flex;
-  gap: 16px;
-`;
-
-const ChartContainer = styled.div`
-  width: 960px;
+const Main = styled.div`
+  margin-top: 48px;
+  width: 1440px;
   height: 796px;
   padding: 32px;
   border-radius: 8px;
@@ -118,11 +118,14 @@ const NameWrapper = styled.div`
   gap: 8px;
   align-items: center;
   > label {
-    font: ${({ theme: { font } }) => font.heading2};
+    font: ${designSystem.font.heading2.font};
+    letter-spacing: ${designSystem.font.heading2.letterSpacing};
+
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
   > span {
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
@@ -152,26 +155,35 @@ const PriceWrapper = styled.div`
   align-items: center;
 
   > span {
-    font: ${({ theme: { font } }) => font.title2};
+    font: ${designSystem.font.title2.font};
+    letter-spacing: ${designSystem.font.title2.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 
   > label {
-    font: ${({ theme: { font } }) => font.title1};
+    font: ${designSystem.font.title1.font};
+    letter-spacing: ${designSystem.font.title1.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;
 
+const ChartContainer = styled.div`
+  width: 100%;
+  height: 501px;
+  margin-bottom: 24px;
+`;
+
 const StockInfo = styled.div`
-  width: 464px;
-  height: 225px;
-  padding: 32px;
+  width: 100%
+  height: 85px;
+  
   border-radius: 8px;
 
   background-color: ${({ theme: { color } }) => color.neutral.white};
 
   > label {
-    font: ${({ theme: { font } }) => font.heading3};
+    font: ${designSystem.font.heading3.font};
+    letter-spacing: ${designSystem.font.heading3.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray800};
   }
 `;
@@ -179,23 +191,35 @@ const StockInfo = styled.div`
 const InfoContainer = styled.div`
   margin-top: 24px;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
 `;
 
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 308px;
   height: 24px;
+  padding: 4px 24px;
+  box-sizing: content-box;
+  border-right: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
 
   > label {
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${({ theme: { color } }) => color.neutral.gray600};
   }
 
   > span {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray900};
   }
 `;

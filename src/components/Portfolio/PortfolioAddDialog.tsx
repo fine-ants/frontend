@@ -228,7 +228,8 @@ export default function PortfolioAddDialog({
               <Select
                 size="h32"
                 selectedValue={securitiesFirm}
-                changeSelectedValue={handleChange}>
+                changeSelectedValue={handleChange}
+                menuMaxHeight="168px">
                 {SECURITIES_FIRM.map((option) => (
                   <SelectOption key={option} value={option}>
                     <SecuritiesFirmLogo
@@ -338,7 +339,8 @@ const HeaderWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray800};
 `;
 
@@ -353,7 +355,7 @@ const StyledInput = styled.div`
   border-radius: 3px;
 
   > span {
-    font: ${({ theme: { font } }) => font.body3};
+    font: ${designSystem.font.body3.font};
     color: ${({ theme: { color } }) => color.neutral.gray400};
   }
 `;
@@ -363,7 +365,7 @@ const Input = styled.input`
   height: 100%;
   border: none;
   outline: none;
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 
   &::placeholder {
@@ -413,6 +415,6 @@ const SecuritiesFirmLogo = styled.img`
 `;
 
 const SecuritiesFirmTitle = styled.span`
-  font: ${({ theme: { font } }) => font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${({ theme: { color } }) => color.neutral.gray900};
 `;

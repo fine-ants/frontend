@@ -3,6 +3,7 @@ import { CSSProperties, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Props as PieChartLegendItemProps } from "./TallLegendItem";
 import WideLegendItem from "./WideLegendItem";
+import designSystem from "@styles/designSystem";
 
 type Props = {
   legendList: PieChartLegendItemProps[];
@@ -101,6 +102,7 @@ const EtcItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font}
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${({ theme: { color } }) => color.neutral.gray600};
 `;

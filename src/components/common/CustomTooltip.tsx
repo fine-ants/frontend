@@ -41,7 +41,7 @@ const StyledCustomTooltip = styled(
     background: ${designSystem.color.neutral.white};
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
     color: ${designSystem.color.neutral.gray800};
-    font: ${designSystem.font.body4};
+    font: ${designSystem.font.body4.font};
   }
 
   & .${tooltipClasses.arrow} {
