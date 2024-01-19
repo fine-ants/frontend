@@ -376,6 +376,7 @@ const Input = styled.input`
 const StyledSpan = styled.span`
   width: 120px;
   flex-shrink: 0;
+
   > span {
     color: ${designSystem.color.state.red500};
   }

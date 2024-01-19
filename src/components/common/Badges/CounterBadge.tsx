@@ -16,7 +16,6 @@ export default function CounterBadge({ count }: Props) {
 
 const StyledCounterBadge = styled.div<{ $numLength: number }>`
   height: 16px;
-
   background-color: ${designSystem.color.state.red500};
   color: white;
   font-size: 10px;
