@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type Props = {
@@ -15,8 +16,7 @@ export default function CounterBadge({ count }: Props) {
 
 const StyledCounterBadge = styled.div<{ $numLength: number }>`
   height: 16px;
-
-  background-color: ${({ theme: { color } }) => color.state.red};
+  background-color: ${designSystem.color.state.red500};
   color: white;
   font-size: 10px;
   font-weight: bold;

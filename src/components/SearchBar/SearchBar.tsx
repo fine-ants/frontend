@@ -98,7 +98,7 @@ export default function SearchBar({
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="검색어를 입력하세요"
+          placeholder="종목을 검색하세요"
           sx={{ height: "100%" }}
           InputProps={{
             ...params.InputProps,

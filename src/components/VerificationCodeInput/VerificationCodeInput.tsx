@@ -45,7 +45,7 @@ const StyledVerificationCodeInput = styled.div<{ $isError: boolean }>`
     border: 1px solid
       ${({ $isError }) =>
         $isError
-          ? designSystem.color.state.red
+          ? designSystem.color.state.red500
           : designSystem.color.neutral.gray200};
     border-radius: 4px;
     font-size: 20px;
@@ -56,12 +56,12 @@ const StyledVerificationCodeInput = styled.div<{ $isError: boolean }>`
     border: 1px solid
       ${({ $isError }) =>
         $isError
-          ? designSystem.color.state.red
+          ? designSystem.color.state.red500
           : designSystem.color.primary.blue500};
   }
 `;
 
 const ErrorText = styled.div`
   font: ${designSystem.font.body4.font};
-  color: ${designSystem.color.state.red};
+  color: ${designSystem.color.state.red500};
 `;

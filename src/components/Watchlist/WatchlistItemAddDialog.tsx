@@ -141,7 +141,7 @@ const SearchBarWrapper = styled.div`
     &::after {
       content: "*";
       margin-left: 4px;
-      color: ${designSystem.color.state.red};
+      color: ${designSystem.color.state.red500};
     }
   }
 `;

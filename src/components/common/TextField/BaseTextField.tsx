@@ -49,6 +49,6 @@ const TextField = styled(OutlinedInput)<{ $size: Size }>`
   }
 
   &.Mui-error .MuiOutlinedInput-notchedOutline {
-    border: 1px solid ${designSystem.color.state.red};
+    border: 1px solid ${designSystem.color.state.red500};
   }
 `;

@@ -90,5 +90,5 @@ const GainValue = styled.p`
   display: flex;
   align-items: center;
   font: ${designSystem.font.body4.font};
-  color: ${designSystem.color.state.green};
+  color: ${designSystem.color.state.green500};
 `;

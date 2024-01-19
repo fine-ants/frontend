@@ -17,12 +17,8 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
     onSuccess: ({ data }) => {
       onSuccessCb && onSuccessCb(); // Ex: close dialog
 
-      // Invalidate Portfolio List Queries
       queryClient.invalidateQueries({
-        queryKey: [
-          portfolioKeys.list("header").queryKey,
-          portfolioKeys.list("table").queryKey,
-        ],
+        queryKey: [portfolioKeys.list().queryKey],
       });
 
       navigate(`/portfolio/${data.portfolioId}`);

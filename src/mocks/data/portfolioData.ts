@@ -499,7 +499,7 @@ const portfolioHoldingsSectorChart = [
   },
 ];
 
-export const successfulGetPortfolioResponse = {
+export const successfulGetPortfoliosResponse = {
   code: 200,
   status: "OK",
   message: "포트폴리오 목록 조회가 완료되었습니다",

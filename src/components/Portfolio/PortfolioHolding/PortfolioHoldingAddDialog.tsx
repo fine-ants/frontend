@@ -7,6 +7,7 @@ import { default as DatePicker } from "@components/common/DatePicker/DatePicker"
 import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -28,7 +29,9 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     null
   );
 
-  const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
+  const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
+    dayjs(new Date())
+  );
 
   const onSelectOption = (stock: StockSearchItem) => {
     setSelectedStock(stock);
@@ -168,7 +171,7 @@ const SearchWrapper = styled.div`
     color: ${designSystem.color.neutral.gray800};
 
     > span {
-      color: ${designSystem.color.state.red};
+      color: ${designSystem.color.state.red500};
     }
   }
 `;
