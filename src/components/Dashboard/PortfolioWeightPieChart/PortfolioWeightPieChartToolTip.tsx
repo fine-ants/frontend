@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
@@ -88,6 +89,6 @@ const Percentage = styled.div`
 const GainValue = styled.p`
   display: flex;
   align-items: center;
-  font: ${({ theme: { font } }) => font.body4};
-  color: ${({ theme: { color } }) => color.state.green500};
+  font: ${designSystem.font.body4};
+  color: ${designSystem.color.state.green500};
 `;

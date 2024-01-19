@@ -8,6 +8,7 @@ import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
 import { useText } from "@fineants/demolition";
 import { FormControl, IconButton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
@@ -374,7 +375,7 @@ const StyledSpan = styled.span`
   width: 120px;
   flex-shrink: 0;
   > span {
-    color: ${({ theme: { color } }) => color.state.red500};
+    color: ${designSystem.color.state.red500};
   }
 `;
 

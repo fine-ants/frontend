@@ -6,6 +6,7 @@ import Button from "@components/common/Buttons/Button";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -165,7 +166,7 @@ const SearchWrapper = styled.div`
     color: ${({ theme: { color } }) => color.neutral.gray800};
 
     > span {
-      color: ${({ theme: { color } }) => color.state.red500};
+      color: ${designSystem.color.state.red500};
     }
   }
 `;
