@@ -75,7 +75,10 @@ export default function ProfileSettingsSubPage() {
 
     const formData = new FormData();
     if (nicknameValue !== user?.nickname) {
-      formData.append("nickname", nicknameValue);
+      formData.append(
+        "profileInformation",
+        JSON.stringify({ nickname: nicknameValue })
+      );
     }
     if (profileImageFile) {
       formData.append("profileImageFile", profileImageFile);
