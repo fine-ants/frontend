@@ -2,18 +2,18 @@ import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/us
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
+import DatePicker from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import designSystem from "@styles/designSystem";
 import { formatDate } from "@utils/date";
 import { thousandsDelimiter } from "@utils/delimiters";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconCalendar } from "../../../common/IconCalendar";
 
 type Props = {
   portfolioId: number;
@@ -51,7 +51,7 @@ export default function PortfolioHoldingStyledTableRow({
     useState(false);
 
   const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
-    dayjs(new Date())
+    dayjs(purchaseDate)
   );
   const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState(
     purchasePricePerShare.toString()
@@ -106,15 +106,9 @@ export default function PortfolioHoldingStyledTableRow({
             scope="row"
             style={{ width: "143px" }}>
             <DatePicker
+              size="small"
               value={newPurchaseDate}
               onChange={(newVal) => setNewPurchaseDate(newVal)}
-              format="YYYY-MM-DD"
-              slotProps={{
-                textField: { placeholder: "매입 날짜" },
-              }}
-              slots={{
-                openPickerIcon: IconCalendar,
-              }}
             />
           </StyledTableCell>
           <StyledTableCell align="right" style={{ width: "119px" }}>
@@ -207,7 +201,7 @@ const StyledTableRow = styled(MuiTableRow)`
   box-sizing: border-box;
 
   & > .MuiTableCell-root {
-    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+    border-bottom: 1px solid ${designSystem.color.neutral.gray100};
   }
 
   & > :first-child {
@@ -221,14 +215,13 @@ const StyledTableRow = styled(MuiTableRow)`
 
 const StyledTableCell = styled(MuiTableCell)`
   padding: 4px 8px;
-
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
 
   &.MuiFormControl-root
     MuiTextField-root
     css-140751r-MuiFormControl-root-MuiTextField-root {
-    background-color: ${({ theme: { color } }) => color.primary.blue500};
+    background-color: ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -237,18 +230,18 @@ const Input = styled.input`
   height: 24px;
   padding: 0 8px;
   box-sizing: border-box;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  border: 1px solid ${designSystem.color.neutral.gray200};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
+  background-color: ${designSystem.color.neutral.white};
   border-radius: 2px;
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -257,19 +250,19 @@ const StyledTextArea = styled.textarea`
   width: 100%;
   height: 24px;
   padding: 0 8px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  border: 1px solid ${designSystem.color.neutral.gray200};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
+  background-color: ${designSystem.color.neutral.white};
   border-radius: 2px;
   box-sizing: border-box;
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 

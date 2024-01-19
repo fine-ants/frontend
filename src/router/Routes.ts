@@ -6,6 +6,7 @@ export default {
   SETTINGS: "/settings/:tab",
   DASHBOARD: "/dashboard",
   WATCHLISTS: "/watchlists",
+  WATCHLIST: "/watchlists/:watchlistId",
   PORTFOLIOS: "/portfolios",
   PORTFOLIO: "/portfolio/:portfolioId",
   PORTFOLIOHOLDING: "/portfolio/:id/holding/:holdingId",

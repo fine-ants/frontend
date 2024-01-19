@@ -8,7 +8,7 @@ import {
   portfolioHoldings,
   successfulGetPortfolioChartsResponse,
   successfulGetPortfolioDetailsResponse,
-  successfulGetPortfolioResponse,
+  successfulGetPortfoliosResponse,
   successfulPortfolioAddResponse,
   successfulPortfolioDeleteResponse,
   successfulPortfolioEditResponse,
@@ -25,7 +25,7 @@ const portfolioDetailsData = portfolioDetails;
 export default [
   // List of all Portfolios
   http.get("/api/portfolios", () => {
-    return HttpResponse.json(successfulGetPortfolioResponse, {
+    return HttpResponse.json(successfulGetPortfoliosResponse, {
       status: HTTPSTATUS.success,
     });
   }),

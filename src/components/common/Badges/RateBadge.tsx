@@ -62,8 +62,14 @@ const StyledRateBadge = styled.div<{
 
   > span {
     padding-top: 2px;
-    font: ${({ theme: { font }, $size }) =>
-      $size === 12 ? font.title6 : font.title5};
+    font: ${({ $size }) =>
+      $size === 12
+        ? designSystem.font.title6.font
+        : designSystem.font.title5.font};
+    letter-spacing: ${({ $size }) =>
+      $size === 12
+        ? designSystem.font.title6.letterSpacing
+        : designSystem.font.title5.letterSpacing};
   }
 `;
 
@@ -71,7 +77,7 @@ const getColors = (value: number, isDividendRateRate: boolean) => {
   // 배당금일시 바로 오렌지 색 리턴
   if (isDividendRateRate) {
     return {
-      color: designSystem.color.state.orange,
+      color: designSystem.color.state.orange500,
       bgColor: designSystem.color.state.orange16,
     };
   }
@@ -79,7 +85,7 @@ const getColors = (value: number, isDividendRateRate: boolean) => {
   // 배당금이 아닌 경우 상승 하락에 따른 색깔 리턴
   if (value > 0) {
     return {
-      color: designSystem.color.state.green,
+      color: designSystem.color.state.green500,
       bgColor: designSystem.color.state.green16,
     };
   } else if (value === 0) {
@@ -89,7 +95,7 @@ const getColors = (value: number, isDividendRateRate: boolean) => {
     };
   } else if (value < 0) {
     return {
-      color: designSystem.color.state.red,
+      color: designSystem.color.state.red500,
       bgColor: designSystem.color.state.red16,
     };
   } else {

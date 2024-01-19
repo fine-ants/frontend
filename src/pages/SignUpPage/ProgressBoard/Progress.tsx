@@ -106,11 +106,12 @@ const ProgressTitle = styled.div<{
   $currentStepNumber: number;
   $stepNumber: number;
 }>`
+  font: ${designSystem.font.title6.font};
+  letter-spacing: ${designSystem.font.title6.letterSpacing};
   color: ${({
     $currentStepNumber: $currentIndex,
     $stepNumber: $progressIndex,
   }) => getColorStyle($currentIndex, $progressIndex)};
-  font: ${designSystem.font.title6};
   text-align: center;
 `;
 

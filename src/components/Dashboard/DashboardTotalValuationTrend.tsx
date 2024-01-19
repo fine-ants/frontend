@@ -1,5 +1,6 @@
 import useDashboardTotalValuationTrendQuery from "@api/dashboard/queries/useDashboardLineChartQuery";
 import { Tab } from "@components/common/Tab";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import TotalValuationLineChart from "./TotalValuationLineChart";
@@ -77,7 +78,7 @@ const EmptyLineChartMessage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px dashed ${({ theme: { color } }) => color.primary.blue100};
+  border: 1px dashed ${designSystem.color.primary.blue100};
   border-radius: 8px;
 `;
 
@@ -90,14 +91,15 @@ const MessageBox = styled.div`
   height: 82px;
 
   > h1 {
-    font: ${({ theme: { font } }) => font.title3};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    font: ${designSystem.font.title3.font};
+    letter-spacing: ${designSystem.font.title3.letterSpacing};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   > span {
     text-align: center;
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray500};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray500};
   }
 `;
 
@@ -106,9 +108,8 @@ const TabWrapper = styled.div`
 `;
 
 const ChartTitle = styled.div`
-  font-size: 24px;
-  line-height: 29px;
-  font-weight: bold;
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
 const TooltipRemover = styled.div`
@@ -118,5 +119,5 @@ const TooltipRemover = styled.div`
   z-index: 1000;
   top: 11px;
   left: 10px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;

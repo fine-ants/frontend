@@ -2,6 +2,7 @@ import { PortfolioItem } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { TableCell, TableRow } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
@@ -95,16 +96,16 @@ const StyledTableRow = styled(TableRow)`
   height: 64px;
 
   &.Mui-selected {
-    background-color: ${({ theme: { color } }) => color.neutral.gray50};
+    background-color: ${designSystem.color.neutral.gray50};
   }
 `;
 
 const StyledTableCell = styled(TableCell)`
   height: 100%;
   padding: 0 8px;
-  border-color: ${({ theme: { color } }) => color.neutral.gray100};
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  border-color: ${designSystem.color.neutral.gray100};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
 
   &:first-of-type {
     padding-left: 16px;
@@ -125,13 +126,13 @@ const StyledLink = styled(Link)`
 
   &:hover {
     .portfolioName {
-      color: ${({ theme: { color } }) => color.primary.blue500};
+      color: ${designSystem.color.primary.blue500};
     }
   }
 
   .portfolioName {
-    font: ${({ theme: { font } }) => font.body2};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    font: ${designSystem.font.body2.font};
+    color: ${designSystem.color.neutral.gray800};
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

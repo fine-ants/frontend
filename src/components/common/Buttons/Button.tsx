@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import { ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
 
@@ -55,14 +56,20 @@ const StyledButton = styled.button<{
   justify-content: center;
   align-items: center;
   gap: ${({ $size }) => ($size === "h32" ? "4px" : "8px")};
-  background-color: ${({ theme: { color }, $variant, $disabled }) => {
+  background-color: ${({ $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
-        return $disabled ? color.primary.blue200 : color.primary.blue500;
+        return $disabled
+          ? designSystem.color.primary.blue200
+          : designSystem.color.primary.blue500;
       case "secondary":
-        return $disabled ? color.primary.blue50 : color.neutral.white;
+        return $disabled
+          ? designSystem.color.primary.blue50
+          : designSystem.color.neutral.white;
       case "tertiary":
-        return $disabled ? color.neutral.gray50 : color.neutral.white;
+        return $disabled
+          ? designSystem.color.neutral.gray50
+          : designSystem.color.neutral.white;
       case "text":
         return "inherit";
       default:
@@ -70,36 +77,48 @@ const StyledButton = styled.button<{
     }
   }};
   border-radius: ${({ $size }) => ($size === "h32" ? "3px" : "4px")};
-  border: ${({ theme: { color }, $variant, $disabled }) => {
+  border: ${({ $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
         return "none";
       case "secondary":
         return $disabled
-          ? `1px solid ${color.primary.blue200}`
-          : `1px solid ${color.primary.blue500}`;
+          ? `1px solid ${designSystem.color.primary.blue200}`
+          : `1px solid ${designSystem.color.primary.blue500}`;
       case "tertiary":
         return $disabled
-          ? `1px solid ${color.neutral.gray400}`
-          : `1px solid ${color.neutral.gray600}`;
+          ? `1px solid ${designSystem.color.neutral.gray400}`
+          : `1px solid ${designSystem.color.neutral.gray600}`;
       case "text":
         return "none";
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
   }};
-  font: ${({ $size, theme: { font } }) =>
-    $size === "h32" ? font.button2 : font.button1};
-  color: ${({ theme: { color }, $variant, $disabled }) => {
+  font: ${({ $size }) =>
+    $size === "h32"
+      ? designSystem.font.button2.font
+      : designSystem.font.button1.font};
+  letter-spacing: ${({ $size }) =>
+    $size === "h32"
+      ? designSystem.font.button2.letterSpacing
+      : designSystem.font.button1.letterSpacing};
+  color: ${({ $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
-        return color.neutral.white;
+        return designSystem.color.neutral.white;
       case "secondary":
-        return $disabled ? color.primary.blue200 : color.primary.blue500;
+        return $disabled
+          ? designSystem.color.primary.blue200
+          : designSystem.color.primary.blue500;
       case "tertiary":
-        return $disabled ? color.neutral.gray400 : color.neutral.gray600;
+        return $disabled
+          ? designSystem.color.neutral.gray400
+          : designSystem.color.neutral.gray600;
       case "text":
-        return $disabled ? color.neutral.gray600 : color.neutral.white;
+        return $disabled
+          ? designSystem.color.neutral.gray600
+          : designSystem.color.neutral.white;
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
@@ -107,16 +126,18 @@ const StyledButton = styled.button<{
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
 
   &:hover {
-    background-color: ${({ theme: { color }, $variant, $disabled }) => {
+    background-color: ${({ $variant, $disabled }) => {
       switch ($variant) {
         case "primary":
-          return $disabled ? color.primary.blue200 : color.primary.blue700;
+          return $disabled
+            ? designSystem.color.primary.blue200
+            : designSystem.color.primary.blue700;
         case "secondary":
-          return color.primary.blue50;
+          return designSystem.color.primary.blue50;
         case "tertiary":
-          return color.neutral.gray50;
+          return designSystem.color.neutral.gray50;
         case "text":
-          return $disabled ? "inherit" : color.neutral.gray800;
+          return $disabled ? "inherit" : designSystem.color.neutral.gray800;
         default:
           throw new Error("버튼 타입이 잘못되었습니다.");
       }

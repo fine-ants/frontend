@@ -7,6 +7,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
 import Routes from "@router/Routes";
+import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
@@ -259,7 +260,8 @@ const FirmImage = styled.img`
 `;
 
 const Title = styled.span`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
 const ButtonWrapper = styled.div`
@@ -269,35 +271,40 @@ const ButtonWrapper = styled.div`
 
 const ValuationContainer = styled.div`
   height: 64px;
+  padding: 8px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px;
+  background-color: ${designSystem.color.neutral.gray800};
   border-radius: 8px;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
-  background-color: ${({ theme: { color } }) => color.neutral.gray800};
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const CurrentValuation = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title2};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title2.font};
+  letter-spacing: ${designSystem.font.title2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
+
   > span {
-    font: ${({ theme: { font } }) => font.title1};
-    color: ${({ theme: { color } }) => color.neutral.white};
+    font: ${designSystem.font.title1.font};
+    letter-spacing: ${designSystem.font.title1.letterSpacing};
+    color: ${designSystem.color.neutral.white};
   }
 `;
 
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
   overflow: hidden;
 `;
 
@@ -306,7 +313,7 @@ const OverviewWrapper = styled.div`
 `;
 
 const OverviewTop = styled(OverviewWrapper)`
-  border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const OverviewBottom = styled(OverviewWrapper)``;
@@ -320,7 +327,7 @@ const Overview = styled.div`
   padding: 16px;
 
   &:first-child {
-    border-right: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+    border-right: 1px solid ${designSystem.color.neutral.gray100};
   }
 `;
 
@@ -331,7 +338,7 @@ const OverviewData = styled.div`
 
   height: 24px;
   > span {
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray900};
   }
 `;

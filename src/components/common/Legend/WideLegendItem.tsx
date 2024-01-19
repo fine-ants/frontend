@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export type Props = {
@@ -21,11 +22,9 @@ export default function WideLegendItem({ color, title, percent }: Props) {
 const StyledLegendItem = styled.div`
   width: 106px;
   display: flex;
-  // margin-right: 24px;
-  // margin-bottom: 8px;
   justify-content: space-between;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: #75767f;
 `;
 
@@ -38,7 +37,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Percent = styled.div`
-  color: ${({ theme: { color } }) => color.primary.blue500};
+  color: ${designSystem.color.primary.blue500};
 `;
 
 const LegendItemColor = styled.div<{ $color: string }>`

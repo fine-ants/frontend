@@ -78,19 +78,20 @@ export default function PortfolioHoldingLotsTable({
               onDeleteButtonClick={onDeleteLotButtonClick}
             />
           )}
-          <MuiTableFooter>
-            <MuiTableRow>
-              <MuiTableCell
-                colSpan={6}
-                sx={{ paddingInline: "8px", border: "none" }}>
-                <AddLotButton onClick={onAddLotButtonClick}>
-                  <Icon icon="add" size={16} color="blue500" />
-                  <span>항목 추가</span>
-                </AddLotButton>
-              </MuiTableCell>
-            </MuiTableRow>
-          </MuiTableFooter>
         </StyledTableBody>
+
+        <MuiTableFooter>
+          <MuiTableRow>
+            <MuiTableCell
+              colSpan={6}
+              sx={{ paddingInline: "8px", border: "none" }}>
+              <AddLotButton onClick={onAddLotButtonClick}>
+                <Icon icon="add" size={16} color="blue500" />
+                <span>항목 추가</span>
+              </AddLotButton>
+            </MuiTableCell>
+          </MuiTableRow>
+        </MuiTableFooter>
       </StyledTable>
     </StyledPortfolioHoldingLotsTable>
   );
@@ -124,7 +125,7 @@ const StyledTableHead = styled(MuiTableHead)`
 
 const StyledTableHeadRow = styled(MuiTableRow)`
   width: 856px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border-radius: 8px;
 
   & > * {
@@ -147,8 +148,9 @@ const StyledTableHeadRow = styled(MuiTableRow)`
 const StyledTableHeadCell = styled(MuiTableCell)`
   height: 40px;
   padding: 4px 8px;
-  font: ${({ theme: { font } }) => font.title5};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const StyledTableBody = styled(MuiTableBody)`
@@ -163,7 +165,8 @@ const AddLotButton = styled.button`
   gap: 4px;
 
   span {
-    font: ${designSystem.font.button2};
+    font: ${designSystem.font.button2.font};
+    letter-spacing: ${designSystem.font.button2.letterSpacing};
     color: ${designSystem.color.primary.blue500};
   }
 `;

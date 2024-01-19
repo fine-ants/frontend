@@ -100,7 +100,7 @@ export default function SearchBar({
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="검색어를 입력하세요"
+          placeholder="종목을 검색하세요"
           sx={{ height: "100%" }}
           InputProps={{
             ...params.InputProps,
@@ -204,7 +204,7 @@ const autocompleteSx = (variant: Variant) => ({
 
     "& .MuiInputBase-input": {
       "padding": "0",
-      "font": designSystem.font.body3,
+      "font": designSystem.font.body3.font,
       "color":
         variant === "default"
           ? designSystem.color.neutral.gray100

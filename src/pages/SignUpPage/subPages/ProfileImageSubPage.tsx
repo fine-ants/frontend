@@ -126,7 +126,8 @@ const CameraWrapper = styled.div`
 const TextButton = styled.button`
   padding: 0;
   color: ${designSystem.color.neutral.gray600};
-  font: ${designSystem.font.button2};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;
 
 const Container = styled.div`
