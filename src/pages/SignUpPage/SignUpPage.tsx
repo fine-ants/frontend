@@ -39,7 +39,6 @@ export default function SignUpPage() {
   const { currentStep, Funnel, changeStep } = useFunnel(stepList);
   const [signUpData, setSignUpData] = useState<SignUpData>({
     nickname: "",
-    profileImage: null,
     email: "",
     password: "",
     passwordConfirm: "",
@@ -64,7 +63,7 @@ export default function SignUpPage() {
                   setSignUpData((prev) => ({ ...prev, email: data }));
                   // Request server to send verification code
                   // TODO: handle error
-                  postEmailVerification(signUpData.email);
+                  postEmailVerification(data);
                   changeStep("verification");
                 }}
               />
@@ -92,7 +91,7 @@ export default function SignUpPage() {
                     password,
                     passwordConfirm,
                   }));
-                  changeStep("profileImage");
+                  changeStep("nickname");
                 }}
               />
             </Funnel.Step>
@@ -102,7 +101,7 @@ export default function SignUpPage() {
                 onPrev={() => changeStep("password")}
                 onNext={(data: string) => {
                   setSignUpData((prev) => ({ ...prev, nickname: data }));
-                  changeStep("email");
+                  changeStep("profileImage");
                 }}
               />
             </Funnel.Step>
@@ -111,8 +110,15 @@ export default function SignUpPage() {
               <ProfileImageSubPage
                 onPrev={() => changeStep("nickname")}
                 onNext={(data: File | null) => {
-                  setSignUpData((prev) => ({ ...prev, profileImage: data }));
-                  signUpMutate(createSignUpFormData(signUpData));
+                  // setSignUpData((prev) => ({ ...prev, profileImage: data }));
+                  signUpMutate(
+                    createSignUpFormData({
+                      signupData: new Blob([JSON.stringify(signUpData)], {
+                        type: "application/json",
+                      }),
+                      profileImageFile: data,
+                    })
+                  );
                 }}
               />
             </Funnel.Step>
@@ -162,7 +168,7 @@ const SubPageContainer = styled.div`
   align-items: center;
 `;
 
-const createSignUpFormData = (object: SignUpData) =>
+const createSignUpFormData = (object: { [key: string]: Blob | File | null }) =>
   Object.keys(object).reduce((formData, key) => {
     const value = object[key];
     if (value !== null) {
