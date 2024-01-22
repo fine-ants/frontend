@@ -11,12 +11,11 @@ export default function useProfileDetailsMutation() {
     mutationKey: settingsKeys.profileEdit().queryKey,
     mutationFn: putProfileDetails,
     onSuccess: (res) => {
-      onEditProfileDetails(res.data);
+      onEditProfileDetails(res.data.user);
     },
-    onError: (error) => {
-      // TODO: Handle error
-      // eslint-disable-next-line no-console
-      console.error(error);
+    meta: {
+      toastSuccessMessage: "프로필 설정을 완료했습니다",
+      toastErrorMessage: "프로필 설정을 실패했습니다",
     },
   });
 }

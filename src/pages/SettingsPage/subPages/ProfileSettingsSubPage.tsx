@@ -61,7 +61,7 @@ export default function ProfileSettingsSubPage() {
     updateIsDuplicateComplete,
   } = useNicknameDuplicateCheck({
     newNickname: debouncedNickname,
-    newNicknameIsError: nicknameIsError,
+    newNicknameIsError: nicknameIsError && debouncedNickname !== user?.nickname,
   });
 
   const onNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +77,9 @@ export default function ProfileSettingsSubPage() {
     if (nicknameValue !== user?.nickname) {
       formData.append(
         "profileInformation",
-        JSON.stringify({ nickname: nicknameValue })
+        new Blob([JSON.stringify({ nickname: nicknameValue })], {
+          type: "application/json",
+        })
       );
     }
     if (profileImageFile) {
