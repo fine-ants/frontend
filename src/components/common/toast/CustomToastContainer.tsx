@@ -8,13 +8,13 @@ export function CustomToastContainer() {
 }
 
 const StyledToastContainer = styled(ToastContainer)`
+  top: 30px;
+
   .Toastify__toast {
     display: flex;
     width: 328px;
     height: 64px;
     padding: 0px 16px;
-    top: 130px;
-    right: 16px;
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
