@@ -17,7 +17,10 @@ import "./index.css";
 import browserServiceWorker from "./mocks/browserServiceWorker.ts";
 
 async function initMSW() {
-  if (process.env.NODE_ENV === "development") {
+  if (
+    process.env.NODE_ENV === "development" &&
+    import.meta.env.VITE_API_URL_DEV === "http://localhost:5173"
+  ) {
     await browserServiceWorker.start({
       onUnhandledRequest: "bypass",
     });

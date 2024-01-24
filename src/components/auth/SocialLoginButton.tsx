@@ -67,6 +67,8 @@ export default function SocialLoginButton({ provider }: Props) {
       </StyledNaverSignInButton>
     );
   }
+
+  return null;
 }
 
 const StyledKakaoSignInButton = styled(BaseSignInButton)`
