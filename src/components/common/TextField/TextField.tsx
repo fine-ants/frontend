@@ -41,7 +41,7 @@ export function TextField({
   return (
     <StyledTextFieldWrapper>
       <BaseTextField
-        id={id}
+        id={id ?? undefined}
         size={size}
         error={isError}
         value={value}

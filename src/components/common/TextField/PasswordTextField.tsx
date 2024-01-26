@@ -38,7 +38,7 @@ export function PasswordTextField({
   return (
     <StyledPasswordTextField>
       <BaseTextField
-        id={id ?? ""}
+        id={id ?? undefined}
         size="h44"
         error={error}
         type={showPassword ? "text" : "password"}
