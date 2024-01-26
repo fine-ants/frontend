@@ -80,8 +80,6 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
           return;
         }
       }
-
-      setIsError(true);
     };
 
     eventSourceRef.current.addEventListener(eventTypeName, messageListener);

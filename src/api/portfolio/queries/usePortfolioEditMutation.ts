@@ -18,7 +18,7 @@ export default function usePortfolioEditMutation(portfolioId: number) {
       });
     },
     meta: {
-      tostSuccessMessage: "포트폴리오 수정을 성공했습니다",
+      toastSuccessMessage: "포트폴리오 수정을 성공했습니다",
     },
   });
 }

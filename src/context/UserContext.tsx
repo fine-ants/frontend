@@ -5,10 +5,12 @@ export const UserContext = createContext<{
   user: User | null;
   onSignIn: (signInData: SignInData) => void;
   onSignOut: () => void;
+  onEditProfileDetails: (user: User) => void;
 }>({
   user: null,
   onSignIn: () => {},
   onSignOut: () => {},
+  onEditProfileDetails: () => {},
 });
 
 export function UserProvider({ children }: { children: ReactNode }) {
@@ -36,8 +38,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
+  const onEditProfileDetails = (user: User) => {
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
+  };
+
   return (
-    <UserContext.Provider value={{ user, onSignIn, onSignOut }}>
+    <UserContext.Provider
+      value={{ user, onSignIn, onSignOut, onEditProfileDetails }}>
       {children}
     </UserContext.Provider>
   );

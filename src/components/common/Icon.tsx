@@ -22,6 +22,7 @@ import indetIcon from "@assets/icons/ic_indet.svg";
 import infoIcon from "@assets/icons/ic_info.svg";
 import noneIcon from "@assets/icons/ic_none.svg";
 import notificationIcon from "@assets/icons/ic_notification.svg";
+import refreshIcon from "@assets/icons/ic_refresh.svg";
 import removeIcon from "@assets/icons/ic_remove.svg";
 import searchIcon from "@assets/icons/ic_search.svg";
 import settingsIcon from "@assets/icons/ic_settings.svg";
@@ -73,6 +74,7 @@ const icons = {
   "info": infoIcon,
   "none": noneIcon,
   "notification": notificationIcon,
+  "refresh": refreshIcon,
   "remove": removeIcon,
   "search": searchIcon,
   "settings": settingsIcon,

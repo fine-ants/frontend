@@ -7,16 +7,18 @@ import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
+  id?: string;
   error?: boolean;
-  helperText?: string;
+  errorText?: string;
   placeholder?: string;
   password: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export function PasswordTextField({
+  id,
   error,
-  helperText,
+  errorText,
   placeholder,
   password,
   onChange,
@@ -31,9 +33,12 @@ export function PasswordTextField({
     event.preventDefault();
   };
 
+  const isError = password !== "" && error;
+
   return (
-    <TextFieldWrapper>
+    <StyledPasswordTextField>
       <BaseTextField
+        id={id ?? undefined}
         size="h44"
         error={error}
         type={showPassword ? "text" : "password"}
@@ -50,11 +55,12 @@ export function PasswordTextField({
           </InputAdornment>
         }
       />
-      {error && helperText && <ErrorText>{helperText}</ErrorText>}
-    </TextFieldWrapper>
+      {isError && errorText && <ErrorText>{errorText}</ErrorText>}
+    </StyledPasswordTextField>
   );
 }
 
-const TextFieldWrapper = styled.div`
+const StyledPasswordTextField = styled.div`
   width: 100%;
+  position: relative;
 `;

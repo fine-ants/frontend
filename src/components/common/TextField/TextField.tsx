@@ -6,6 +6,8 @@ import { BaseTextField } from "./BaseTextField";
 import { ErrorText } from "./ErrorText";
 
 type Props = {
+  id?: string;
+  size?: "h24" | "h32" | "h44";
   error?: boolean;
   errorText?: string;
   placeholder?: string;
@@ -15,6 +17,8 @@ type Props = {
 };
 
 export function TextField({
+  id,
+  size = "h44",
   error,
   errorText,
   placeholder,
@@ -22,7 +26,6 @@ export function TextField({
   onChange,
   clearValue,
 }: Props) {
-  const isError = value !== "" && error;
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -33,10 +36,13 @@ export function TextField({
     setIsFocused(false);
   };
 
+  const isError = value !== "" && error;
+
   return (
-    <TextFieldWrapper>
+    <StyledTextFieldWrapper>
       <BaseTextField
-        size="h44"
+        id={id ?? undefined}
+        size={size}
         error={isError}
         value={value}
         onChange={onChange}
@@ -53,11 +59,12 @@ export function TextField({
           )
         }
       />
-      {isError && <ErrorText>{errorText}</ErrorText>}
-    </TextFieldWrapper>
+      {isError && errorText && <ErrorText>{errorText}</ErrorText>}
+    </StyledTextFieldWrapper>
   );
 }
 
-const TextFieldWrapper = styled.div`
+const StyledTextFieldWrapper = styled.div`
   width: 100%;
+  position: relative;
 `;

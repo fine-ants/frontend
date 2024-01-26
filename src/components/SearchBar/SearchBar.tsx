@@ -76,6 +76,8 @@ export default function SearchBar({
     setSearchInputValue(option);
   };
 
+  const isTyping = searchInputValue !== "";
+
   return (
     <Autocomplete
       id="stock-search-bar"
@@ -126,7 +128,7 @@ export default function SearchBar({
           onClick: clearSearchInput,
         },
         popper: {
-          sx: popperSx(variant),
+          sx: popperSx(variant, isTyping),
         },
       }}
       renderOption={(props, option) => {
@@ -137,13 +139,13 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
+                  searchValue: debouncedValue,
                   option,
                   onClick: () => {
                     if (onSelectOption) onSelectOption(option);
                     onClickOption(option.companyName);
                     onClose();
                   },
-                  searchValue: debouncedValue,
                 }}
               />
             );
@@ -153,12 +155,12 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
+                  searchValue: debouncedValue,
                   option,
                   selectedOptions: selectedOptions ?? [],
                   onClick: () => {
                     if (onSelectOption) onSelectOption(option);
                   },
-                  searchValue: debouncedValue,
                 }}
               />
             );
@@ -168,6 +170,7 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
+                  searchValue: debouncedValue,
                   option,
                   onClick: () => navigate(`/stock/${option.tickerSymbol}`),
                 }}
@@ -247,8 +250,9 @@ const popupIndicatorSx = {
   padding: "0",
 };
 
-const popperSx = (variant: Variant) => ({
+const popperSx = (variant: Variant, isTyping: boolean) => ({
   "marginTop": `${variant === "default" ? "8px" : "2px"} !important`,
+  "display": isTyping ? "block" : "none",
 
   "& .MuiAutocomplete-listbox": {
     "maxHeight": variant === "default" ? "484px" : "168px",

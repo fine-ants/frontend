@@ -4,10 +4,10 @@ import DashboardPage from "@pages/DashboardPage";
 import GlobalErrorPage from "@pages/GlobalErrorPage";
 import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
-import MyProfilePage from "@pages/MyProfilePage";
 import NotFoundPage from "@pages/NotFoundPage";
 import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
 import PortfolioPage from "@pages/Portfolio/PortfolioPage";
+import SettingsPage from "@pages/SettingsPage/SettingsPage";
 import SignInLoadingPage from "@pages/SignInPage/SignInLoadingPage";
 import SignInPage from "@pages/SignInPage/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
@@ -33,8 +33,8 @@ const router = (user: User | null) =>
           <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
           <Route path={Routes.WATCHLISTS} element={<WatchlistsPage />} />
-          <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
-          <Route path={Routes.PROFILE} element={<MyProfilePage />} />
+          <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
+          <Route path={Routes.SETTINGS} element={<SettingsPage />} />
           <Route path={Routes.INDICES} element={<IndicesPage />} />
         </Route>
 
