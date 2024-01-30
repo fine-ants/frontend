@@ -9,6 +9,7 @@ import {
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
 import TablePagination from "../Pagination/TablePagination";
 import { getComparator } from "./utils";
+import { Order } from "./types";
 
 type Props<Item> = {
   tableTitle: string;
@@ -39,11 +40,9 @@ type Props<Item> = {
   EmptyTable: () => JSX.Element;
 };
 
-export type Order = "asc" | "desc";
-
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export default function Table<Item>({
+export default function SelectableTable<Item>({
   tableTitle,
   initialOrderBy,
   rowsPerPageOptions = defaultRowsPerPageOptions,

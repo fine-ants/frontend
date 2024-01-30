@@ -5,7 +5,7 @@ import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
-import { Order } from "@components/common/Table/Table";
+import { Order } from "@components/common/Table/types";
 import {
   Box,
   IconButton,
