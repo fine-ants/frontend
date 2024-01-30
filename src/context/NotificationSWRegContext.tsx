@@ -18,7 +18,7 @@ export function NotificationSWRegProvider({
       try {
         // Path is relative to the URL of the HTML file
         const swReg = await navigator.serviceWorker.register(
-          "./src/serviceWorkers/notificationServiceWorker.js"
+          "/notificationServiceWorker.js"
         );
         // eslint-disable-next-line no-console
         console.log("swReg", swReg);

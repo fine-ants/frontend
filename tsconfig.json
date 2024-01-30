@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "allowJs": true,
 
     "strict": true,
     "noUnusedLocals": true,
@@ -34,6 +35,9 @@
       "@router/*": ["src/router/*"]
     }
   },
-  "include": ["__tests__", "src", "svg.d.ts"],
+  "include": [
+    "src",
+    "svg.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
