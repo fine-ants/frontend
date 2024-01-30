@@ -20,7 +20,7 @@ if (import.meta.env.DEV) {
   const { default: mockServiceWorker } = await import(
     "./mocks/mockSetupWorker.ts"
   );
-  mockServiceWorker.start({ onUnhandledRequest: "bypass" });
+  await mockServiceWorker.start({ onUnhandledRequest: "bypass" });
 }
 
 const toast = createToast();
