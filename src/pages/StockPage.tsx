@@ -1,3 +1,5 @@
+import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
+import { HasStockDropdown } from "@components/Stock/HasStockDropdown";
 import RateBadge from "@components/common/Badges/RateBadge";
 import Button from "@components/common/Buttons/Button";
 import Header from "@components/common/Header/Header";
@@ -10,9 +12,10 @@ import BasePage from "./BasePage";
 
 export default function StockPage() {
   const { tickerSymbol } = useParams();
-  // const {mutate: addWatchlistItemMutate} = useWatchlistItemAddMutation({tickerSymbol: tickerSymbol});
-  // const [isSelectOpen, setIsSelectOpen] = useState(false);
-  //TODO: API 기다리는 중
+
+  const { data } = useStockSearchQuery(tickerSymbol || "");
+
+  const stockData = data ? data[0] : null;
 
   const onAddWatchlistButtonClick = () => {
     // setIsSelectOpen(true);
@@ -27,20 +30,26 @@ export default function StockPage() {
             <TitleContainer>
               <NameWrapper>
                 <Symbol />
-                <label>종목명</label>
+                <label>{stockData?.companyName}</label>
                 <span>{tickerSymbol}</span>
               </NameWrapper>
               <ButtonWrapper>
-                <Button variant="tertiary" size="h32">
-                  <Icon icon="favorite" size={16} color="gray600" />
-                  관심 종목 해제
-                </Button>
+                {tickerSymbol && (
+                  <>
+                    <HasStockDropdown
+                      tickerSymbol={tickerSymbol}
+                      type="remove"
+                    />
+                    <HasStockDropdown tickerSymbol={tickerSymbol} type="add" />
+                  </>
+                )}
+
                 <Button
                   variant="secondary"
                   size="h32"
                   onClick={onAddWatchlistButtonClick}>
-                  <Icon icon="favorite" size={16} color="blue500" />
-                  관심 종목 추가
+                  <Icon icon="notification" size={16} color="blue500" />
+                  알림 추가
                 </Button>
               </ButtonWrapper>
             </TitleContainer>
@@ -65,8 +74,8 @@ export default function StockPage() {
             {tickerSymbol && (
               <TVStockDetailWidget
                 tickerSymbol={tickerSymbol}
-                width={893}
-                height={366}
+                width={1376}
+                height={501}
               />
             )}
           </ChartContainer>
@@ -140,6 +149,7 @@ const Symbol = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 8px;
+  margin-left: auto;
 `;
 
 const ValuationContainer = styled.div`
@@ -169,14 +179,14 @@ const PriceWrapper = styled.div`
 
 const ChartContainer = styled.div`
   width: 100%;
-  height: 501px;
-  margin-bottom: 24px;
+
+  margin-bottom: 40px;
 `;
 
 const StockInfo = styled.div`
-  width: 100%
+  width: 100%;
   height: 85px;
-  
+
   border-radius: 8px;
 
   background-color: ${designSystem.color.neutral.white};

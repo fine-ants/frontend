@@ -15,6 +15,8 @@ import dividerIcon from "@assets/icons/ic_divider.svg";
 import downIcon from "@assets/icons/ic_down.svg";
 import editIcon from "@assets/icons/ic_edit.svg";
 import favoriteIcon from "@assets/icons/ic_favorite.svg";
+import favoriteAddIcon from "@assets/icons/ic_favorite_add.svg";
+import favoriteRemoveIcon from "@assets/icons/ic_favorite_remove.svg";
 import folderAddIcon from "@assets/icons/ic_folder-add.svg";
 import helpIcon from "@assets/icons/ic_help.svg";
 import hideIcon from "@assets/icons/ic_hide.svg";
@@ -67,6 +69,8 @@ const icons = {
   "down": downIcon,
   "edit": editIcon,
   "favorite": favoriteIcon,
+  "favorite-add": favoriteAddIcon,
+  "favorite-remove": favoriteRemoveIcon,
   "folder-add": folderAddIcon,
   "help": helpIcon,
   "hide": hideIcon,
