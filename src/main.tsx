@@ -16,6 +16,13 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
+if (import.meta.env.DEV) {
+  const { default: mockServiceWorker } = await import(
+    "./mocks/mockSetupWorker.ts"
+  );
+  mockServiceWorker.start({ onUnhandledRequest: "bypass" });
+}
+
 const toast = createToast();
 
 const queryClient = new QueryClient({
@@ -48,31 +55,19 @@ const queryClient = new QueryClient({
   }),
 });
 
-prepareMSW().then(() =>
-  ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-      <StyledEngineProvider injectFirst>
-        <QueryClientProvider client={queryClient}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <NotificationSWRegProvider>
-              <UserProvider>
-                <App />
-              </UserProvider>
-            </NotificationSWRegProvider>
-          </LocalizationProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </StyledEngineProvider>
-    </React.StrictMode>
-  )
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <StyledEngineProvider injectFirst>
+      <QueryClientProvider client={queryClient}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <NotificationSWRegProvider>
+            <UserProvider>
+              <App />
+            </UserProvider>
+          </NotificationSWRegProvider>
+        </LocalizationProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </StyledEngineProvider>
+  </React.StrictMode>
 );
-
-async function prepareMSW() {
-  if (import.meta.env.DEV) {
-    const { default: mockServiceWorker } = await import(
-      "./mocks/mockSetupWorker.ts"
-    );
-
-    return mockServiceWorker.start({ onUnhandledRequest: "bypass" });
-  }
-}
