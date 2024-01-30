@@ -1,4 +1,5 @@
 import { createToast } from "@components/common/toast";
+import { NotificationSWRegProvider } from "@context/NotificationSWRegContext.tsx";
 import { UserProvider } from "@context/UserContext.tsx";
 import { StyledEngineProvider } from "@mui/styled-engine";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -14,19 +15,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import browserServiceWorker from "./mocks/browserServiceWorker.ts";
-
-async function initMSW() {
-  if (
-    process.env.NODE_ENV === "development" &&
-    import.meta.env.VITE_API_URL_DEV === "http://localhost:5173"
-  ) {
-    await browserServiceWorker.start({
-      onUnhandledRequest: "bypass",
-    });
-  }
-}
-await initMSW();
 
 const toast = createToast();
 
@@ -60,17 +48,31 @@ const queryClient = new QueryClient({
   }),
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <UserProvider>
-            <App />
-          </UserProvider>
-        </LocalizationProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </StyledEngineProvider>
-  </React.StrictMode>
+prepareMSW().then(() =>
+  ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <StyledEngineProvider injectFirst>
+        <QueryClientProvider client={queryClient}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <NotificationSWRegProvider>
+              <UserProvider>
+                <App />
+              </UserProvider>
+            </NotificationSWRegProvider>
+          </LocalizationProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </StyledEngineProvider>
+    </React.StrictMode>
+  )
 );
+
+async function prepareMSW() {
+  if (import.meta.env.DEV) {
+    const { default: mockServiceWorker } = await import(
+      "./mocks/mockSetupWorker.ts"
+    );
+
+    return mockServiceWorker.start({ onUnhandledRequest: "bypass" });
+  }
+}
