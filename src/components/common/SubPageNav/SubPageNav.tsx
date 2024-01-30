@@ -10,8 +10,8 @@ export default function SubPageNav({ navItems }: Props) {
   return (
     <Nav>
       <ul>
-        {navItems.map((item) => (
-          <li>
+        {navItems.map((item, idx) => (
+          <li key={idx}>
             <NavLink to={item.to}>{item.title}</NavLink>
           </li>
         ))}
