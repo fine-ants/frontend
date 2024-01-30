@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 
-export default function TVIndicesWidget() {
+type Props = {
+  width: number;
+  height: number;
+};
+
+export default function TVIndicesWidget({ width, height }: Props) {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -15,8 +20,8 @@ export default function TVIndicesWidget() {
       isTransparent: false,
       showSymbolLogo: true,
       showFloatingTooltip: false,
-      width: "400",
-      height: "600",
+      width: width,
+      height: height,
       tabs: [
         {
           title: "지수",
@@ -155,7 +160,7 @@ export default function TVIndicesWidget() {
         container.removeChild(script);
       }
     };
-  }, []);
+  }, [width, height]);
 
   return (
     <div id="tradingview-widget-container">
