@@ -17,8 +17,8 @@ export default function StockPage() {
 
   const stockData = data ? data[0] : null;
 
-  const onAddWatchlistButtonClick = () => {
-    // setIsSelectOpen(true);
+  const onAddAlertClick = () => {
+    // 알림 기능 생긴 이후에 추가
   };
 
   return (
@@ -47,7 +47,7 @@ export default function StockPage() {
                 <Button
                   variant="secondary"
                   size="h32"
-                  onClick={onAddWatchlistButtonClick}>
+                  onClick={onAddAlertClick}>
                   <Icon icon="notification" size={16} color="blue500" />
                   알림 추가
                 </Button>
