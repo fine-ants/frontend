@@ -7,11 +7,27 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), svgr(), excludeMsw()],
+  plugins: [react(), tsconfigPaths(), svgr(), swEnvPlugin(), excludeMsw()],
   build: {
     target: "es2022",
   },
 });
+
+function swEnvPlugin() {
+  return {
+    name: "sw-env",
+    transform(code: string, id: string) {
+      if (id.endsWith("/firebase-messaging-service.js")) {
+        // Replace process.env variables with their actual values
+        return code.replace(
+          new RegExp(`process.env.(\\w+)`, "g"),
+          (match, varName) => `"${process.env[varName]}"`
+        );
+      }
+      return null;
+    },
+  };
+}
 
 function excludeMsw() {
   return {

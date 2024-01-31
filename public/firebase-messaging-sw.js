@@ -4,13 +4,13 @@ importScripts(
 );
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: "AIzaSyC5sdAwCt40OjlGw7MudjpyVF_qF8vQqoc",
-  authDomain: "fineants-398e6.firebaseapp.com",
-  projectId: "fineants-398e6",
-  storageBucket: "fineants-398e6.appspot.com",
-  messagingSenderId: "240214308399",
-  appId: "1:240214308399:web:92da28e18bfbd6f81d78da",
-  measurementId: "G-5VDLWJ38M1",
+  apiKey: "process.env.VITE_FCM_API_KEY",
+  authDomain: "process.env.VITE_FCM_AUTH_DOMAIN",
+  projectId: "process.env.VITE_FCM_PROJECT_ID",
+  storageBucket: "process.env.VITE_FCM_STORAGE_BUCKET",
+  messagingSenderId: "process.env.VITE_FCM_MESSAGING_SENDER_ID",
+  appId: "process.env.VITE_FCM_APP_ID",
+  measurementId: "process.env.VITE_FCM_MEASUREMENT_ID",
 });
 
 const messaging = firebase.messaging(firebaseApp);

@@ -8,13 +8,13 @@ import {
 } from "firebase/messaging";
 
 const firebaseApp = initializeApp({
-  apiKey: "AIzaSyC5sdAwCt40OjlGw7MudjpyVF_qF8vQqoc",
-  authDomain: "fineants-398e6.firebaseapp.com",
-  projectId: "fineants-398e6",
-  storageBucket: "fineants-398e6.appspot.com",
-  messagingSenderId: "240214308399",
-  appId: "1:240214308399:web:92da28e18bfbd6f81d78da",
-  measurementId: "G-5VDLWJ38M1",
+  apiKey: import.meta.env.VITE_FCM_API_KEY,
+  authDomain: import.meta.env.VITE_FCM_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FCM_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FCM_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FCM_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FCM_APP_ID,
+  measurementId: import.meta.env.VITE_FCM_MEASUREMENT_ID,
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
@@ -24,8 +24,7 @@ const messaging = getMessaging(firebaseApp);
 export const fetchToken = async () => {
   try {
     const token = await getToken(messaging, {
-      vapidKey:
-        "BJLg5PBPQwIdBEQQChYUWQCUJi0SJrwrvuCCtnE6by5ZJ8zlSgQDGV89kWWw-iLG1zTMdQy9iIkfYNLna4GW4Cg",
+      vapidKey: import.meta.env.VITE_FCM_VAPID_KEY,
     });
 
     if (token) {
