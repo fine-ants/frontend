@@ -17,8 +17,7 @@ const firebaseApp = initializeApp({
   measurementId: import.meta.env.VITE_FCM_MEASUREMENT_ID,
 });
 
-// Retrieve an instance of Firebase Messaging so that it can handle background
-// messages.
+// Retrieve an instance of Firebase Messaging so that it can handle background messages.
 const messaging = getMessaging(firebaseApp);
 
 export const fetchToken = async () => {
@@ -30,8 +29,7 @@ export const fetchToken = async () => {
     if (token) {
       console.log("current token for client: ", token);
       return token;
-      // Track the token -> client mapping, by sending to backend server
-      // show on the UI that permission is secured
+      // Track the token -> client mapping, by sending to backend server show on the UI that permission is secured
     } else {
       console.log(
         "No registration token available. Request permission to generate one."

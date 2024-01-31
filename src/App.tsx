@@ -6,7 +6,7 @@ import designSystem from "@styles/designSystem";
 import { useContext } from "react";
 import { RouterProvider } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import { fetchToken, onMessageListener } from "./firebase";
+import { fetchToken, onMessageListener } from "./api/firebase";
 
 export default function App() {
   const { user } = useContext(UserContext);

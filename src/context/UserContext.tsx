@@ -1,6 +1,6 @@
 import { SignInData, User } from "@api/auth";
+import { deleteToken, fetchToken } from "@api/firebase";
 import { ReactNode, createContext, useState } from "react";
-import { deleteToken, fetchToken } from "src/firebase";
 
 export const UserContext = createContext<{
   user: User | null;
