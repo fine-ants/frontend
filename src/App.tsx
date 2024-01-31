@@ -1,24 +1,26 @@
 import { CustomToastContainer } from "@components/common/toast";
-import { NotificationSWRegContext } from "@context/NotificationSWRegContext";
 import { UserContext } from "@context/UserContext";
 import router from "@router/router";
 import GlobalStyles from "@styles/GlobalStyles";
 import designSystem from "@styles/designSystem";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { RouterProvider } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
+import { fetchToken, onMessageListener } from "./firebase";
 
 export default function App() {
   const { user } = useContext(UserContext);
-  const { registerNotificationSW } = useContext(NotificationSWRegContext);
 
-  // console.log("app rendered");
+  // TODO: 토글 누를 시
+  fetchToken();
+  // Foreground listener
+  onMessageListener().then((payload) => {
+    // TODO: 토스트 메시지로 띄우기 및 알림 수 증가
+    // JSON.parse(payload);
 
-  // Push Notification Service Worker 등록
-  useEffect(() => {
-    registerNotificationSW();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line no-console
+    console.log(payload);
+  });
 
   return (
     <ThemeProvider theme={designSystem}>

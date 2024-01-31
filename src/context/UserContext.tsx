@@ -1,26 +1,24 @@
 import { SignInData, User } from "@api/auth";
-import { ReactNode, createContext, useContext, useState } from "react";
-import { NotificationSWRegContext } from "./NotificationSWRegContext";
+import { ReactNode, createContext, useState } from "react";
+import { deleteToken, fetchToken } from "src/firebase";
 
 export const UserContext = createContext<{
   user: User | null;
   onSignIn: (signInData: SignInData) => void;
   onSignOut: () => void;
   onEditProfileDetails: (user: User) => void;
-  onSubscribePushService: () => void;
-  onUnsubscribePushService: () => void;
+  onSubscribePushNotification: () => void;
+  onUnsubscribePushNotification: () => void;
 }>({
   user: null,
   onSignIn: () => {},
   onSignOut: () => {},
   onEditProfileDetails: () => {},
-  onSubscribePushService: () => {},
-  onUnsubscribePushService: () => {},
+  onSubscribePushNotification: () => {},
+  onUnsubscribePushNotification: () => {},
 });
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const { notificationSWReg } = useContext(NotificationSWRegContext);
-
   const getUser = () => {
     const user = localStorage.getItem("user");
     return user ? JSON.parse(user) : null;
@@ -50,18 +48,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setUser(user);
   };
 
-  // FE --> Push Service
-  // FE --> BE
-  const onSubscribePushService = async () => {
+  const onSubscribePushNotification = async () => {
     try {
-      const subscription = await notificationSWReg?.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: import.meta.env.PUSH_SERVICE_PUBLIC_KEY,
-      });
-      if (subscription) {
+      const token = await fetchToken();
+      if (token) {
         // server로 보내 (tanstack query meta toast로 성공/에러 처리)
-        // const {data: {user}} = await postPushServiceSubscription(subscription);
-        // setUser(user);
+        // await postPushServiceSubscription(subscription);
       }
     } catch (error) {
       // Subscription failed
@@ -70,18 +62,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const onUnsubscribePushService = async () => {
-    const subscription = await notificationSWReg?.pushManager.getSubscription();
-
-    if (!subscription) return;
+  const onUnsubscribePushNotification = async () => {
+    // Token을 서버로 보내기
+    // 200이 오면 token context 초기화
 
     try {
-      const res = await subscription.unsubscribe();
+      const res = await deleteToken();
 
       if (res) {
         // Inform the application server that the user has unsubscribed
-        // const {data: {user}} = await deletePushServiceSubscription(subscription);
-        // setUser(user);
+        // await deletePushServiceSubscription(subscription);
       } else {
         // Failed to unsubscribe
       }
@@ -99,8 +89,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
         onSignIn,
         onSignOut,
         onEditProfileDetails,
-        onSubscribePushService,
-        onUnsubscribePushService,
+        onSubscribePushNotification,
+        onUnsubscribePushNotification,
       }}>
       {children}
     </UserContext.Provider>
