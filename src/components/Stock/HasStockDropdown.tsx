@@ -1,23 +1,17 @@
-import { deleteWatchlistStock, postWatchlistStock } from "@api/watchlist";
-import { watchlistKeys } from "@api/watchlist/queries/queryKeys";
 import useWatchlistHasStockQuery from "@api/watchlist/queries/useWatchlistHasStockQuery";
 import Button from "@components/common/Buttons/Button";
-import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
 import designSystem from "@styles/designSystem";
-import { useQueryClient } from "@tanstack/react-query";
 import { MouseEvent } from "react";
 import styled from "styled-components";
+import HasStockDropdownItem from "./HasStockDropdownItem";
 
 type Props = {
   tickerSymbol: string;
-  type: "add" | "remove";
 };
 
-export function HasStockDropdown({ tickerSymbol, type }: Props) {
-  const queryClient = useQueryClient();
-
+export function HasStockDropdown({ tickerSymbol }: Props) {
   const { onOpen, DropdownMenu, DropdownItem } = useDropdown();
   const { data: hasStockData } = useWatchlistHasStockQuery(tickerSymbol);
 
@@ -25,85 +19,35 @@ export function HasStockDropdown({ tickerSymbol, type }: Props) {
     onOpen(e);
   };
 
-  const onDropdownItemClick = async (
-    tickerSymbol: string,
-    watchlistId: number,
-    hasStock: boolean
-  ) => {
-    if (type === "add" && !hasStock) {
-      const res = await postWatchlistStock({
-        watchlistId,
-        tickerSymbols: [tickerSymbol],
-      });
-
-      if (res.code === 200) {
-        queryClient.invalidateQueries({
-          queryKey: watchlistKeys.hasStock().queryKey,
-        });
-      }
-      return;
-    }
-    if (type === "remove" && hasStock) {
-      const res = await deleteWatchlistStock({
-        watchlistId,
-        tickerSymbols: [tickerSymbol],
-      });
-
-      if (res.code === 200) {
-        queryClient.invalidateQueries({
-          queryKey: watchlistKeys.hasStock().queryKey,
-        });
-      }
-      return;
-    }
-  };
-
   return (
     <>
-      <DropdownButton onClick={onDropdownButtonClick}>
-        {type === "add" ? (
-          <Button variant="secondary" size="h32">
-            <Icon icon="favorite-add" size={16} color="blue500" />
-            관심 종목으로 추가
-          </Button>
-        ) : (
-          <Button variant="tertiary" size="h32">
-            <Icon icon="favorite-remove" size={16} color="gray600" />
-            관심 종목에서 해제
-          </Button>
-        )}
-      </DropdownButton>
+      <div onClick={onDropdownButtonClick}>
+        <Button variant="secondary" size="h32">
+          <Icon icon="favorite" size={16} color="blue500" />
+          관심 종목 설정
+        </Button>
+      </div>
       <DropdownMenu sx={dropdownMenuSx}>
         {hasStockData?.map((watchlist) => (
-          <DropdownItem
+          <HasStockDropdownItem
             key={watchlist.id}
-            sx={fixedDropdownItemSx}
-            onClick={() =>
-              onDropdownItemClick(
-                tickerSymbol,
-                watchlist.id,
-                watchlist.hasStock
-              )
-            }>
-            <CheckBox size="h16" checked={watchlist.hasStock} />
-            {watchlist.name}
-          </DropdownItem>
+            DropdownItem={DropdownItem}
+            tickerSymbol={tickerSymbol}
+            watchlist={watchlist}
+          />
         ))}
         <Divider />
         <AddWatchlistBox>
-          {type === "add" && (
-            <div>
-              <Icon icon="folder-add" size={16} color="gray600" />새 리스트 추가
-            </div>
-          )}
-          <SubmitButton>{type === "add" ? "추가" : "해제"}</SubmitButton>
+          <div>
+            <Icon icon="folder-add" size={16} color="gray600" />새 리스트 추가
+          </div>
+
+          <SubmitButton>추가</SubmitButton>
         </AddWatchlistBox>
       </DropdownMenu>
     </>
   );
 }
-
-const DropdownButton = styled.div``;
 
 const dropdownMenuSx = {
   "& .MuiPaper-root": {
@@ -144,6 +88,7 @@ const dropdownMenuSx = {
     },
   },
 };
+
 const AddWatchlistBox = styled.div`
   display: flex;
   align-items: center;
@@ -174,11 +119,6 @@ const SubmitButton = styled.div`
   background-color: ${designSystem.color.primary.blue500};
   margin-left: auto;
 `;
-
-const fixedDropdownItemSx = {
-  font: designSystem.font.body3.font,
-  color: designSystem.color.neutral.gray900,
-};
 
 const Divider = styled.div`
   width: 336px;

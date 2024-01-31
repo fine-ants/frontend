@@ -2,6 +2,7 @@ import downIcon from "@assets/icons/ic_down.svg";
 import noneIcon from "@assets/icons/ic_none.svg";
 import upIcon from "@assets/icons/ic_up.svg";
 import designSystem from "@styles/designSystem";
+import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
 type Size = 12 | 16 | 24;
@@ -12,6 +13,7 @@ type Props = {
   iconStatus?: boolean;
   size: Size;
   isDividendRate?: boolean;
+  noPercent?: boolean;
 };
 
 export default function RateBadge({
@@ -22,6 +24,7 @@ export default function RateBadge({
   // TODO: 배당금 조건이 UI 데이터로 사용되지않는 방향으로
   // TODO: 숫자 + 나오는 로직 추가
   isDividendRate = false,
+  noPercent = false,
 }: Props) {
   const rateStatus = rate > 0 ? "Gain" : rate < 0 ? "Loss" : "None";
 
@@ -32,9 +35,15 @@ export default function RateBadge({
         $bgColorStatus={bgColorStatus}
         $size={size}>
         {iconStatus && (
-          <img src={getIconSrc(rate)} alt={`${rate}% ${rateStatus}`} />
+          <img
+            src={getIconSrc(rate)}
+            alt={`${rate}${noPercent ? "" : "%"} ${rateStatus}`}
+          />
         )}
-        <span>{rate}%</span>
+        <span>
+          {thousandsDelimiter(rate)}
+          {noPercent ? "" : "%"}
+        </span>
       </StyledRateBadge>
     </div>
   );

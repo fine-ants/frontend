@@ -19,17 +19,10 @@ export default function LandingPage() {
     <>
       <Header />
       <BasePage>
-        {/* <nav>
-        <ul>
-          <li onClick={() => navigate(Routes.SIGNIN)}>로그인</li>
-          <li onClick={() => navigate(Routes.SIGNUP)}>회원가입</li>
-        </ul>
-      </nav> */}
-        {/* <Typography variant="h1">Landing Page!</Typography> */}
         <LandingTopBG>
           <LandingTopText>
-            <div>주식 자산 관리를 더 쉽고 간편하게</div>
-            <p>실시간 자산 현황을 확인하고 똑똑한 투자 관리를 시작하세요</p>
+            <h1>주식 자산 관리를 더 쉽고 간편하게</h1>
+            <h2>실시간 자산 현황을 확인하고 똑똑한 투자 관리를 시작하세요</h2>
           </LandingTopText>
           <LandingTopChart src={landingTopChart} alt="landingTopChart" />
         </LandingTopBG>
@@ -64,9 +57,9 @@ export default function LandingPage() {
               </FeatureDescription>
             </FeatureLeft>
             <FeatureRight>
-              <FeatureImage src={featureImage1} alt="featureImage1" />
-              <FeatureImage src={featureImage2} alt="featureImage2" />
-              <FeatureImage src={featureImage3} alt="featureImage3" />
+              <FeatureImage src={featureImage1} alt="관심 종목" />
+              <FeatureImage src={featureImage2} alt="종목 상세 차트" />
+              <FeatureImage src={featureImage3} alt="손익 알림" />
             </FeatureRight>
           </ComfortContainer>
         </LandingBottom>
@@ -110,7 +103,7 @@ const LandingTopText = styled.div`
   top: 351px;
   left: 240px;
 
-  > div {
+  > h1 {
     width: 433px;
     font:
       700 64px/77px "IBMPlexSansKR-Regular",
@@ -119,7 +112,7 @@ const LandingTopText = styled.div`
     margin-bottom: 40px;
   }
 
-  > p {
+  > h2 {
     font: ${designSystem.font.body1.font};
     color: ${designSystem.color.neutral.white};
   }
@@ -173,7 +166,6 @@ const FeatureDescription = styled.p`
 
 const DashboardImage = styled.img`
   border-radius: 16px;
-  // width: 1140px;
   width: 100%;
   height: 640px;
   margin-top: 80px;
