@@ -1,4 +1,5 @@
 import { PortfolioHoldingsDividendChartItem } from "@api/portfolio/types";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import DividendBarChart from "./DividendBarChart";
 
@@ -22,5 +23,6 @@ const StyledDividendBarChartContainer = styled.div`
 `;
 
 const ChartLabel = styled.h1`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;

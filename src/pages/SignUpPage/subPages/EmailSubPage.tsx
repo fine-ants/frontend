@@ -29,7 +29,6 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
   } = useText({
     validators: [emailValidator],
   });
-
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
   const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
 
@@ -95,7 +94,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
 
       <NextButton
         type="button"
-        onClick={() => onNext(email)}
+        onClick={() => onNext(debouncedEmail)}
         disabled={isError || !isDuplicateChecked}>
         다음 단계
       </NextButton>

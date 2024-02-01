@@ -54,7 +54,9 @@ export default function UserDropdown() {
           vertical: "top",
           horizontal: "right",
         }}>
-        <DropdownItem sx={dropdownItemSx} onClick={() => navigate("/profile")}>
+        <DropdownItem
+          sx={dropdownItemSx}
+          onClick={() => navigate("/settings/profile")}>
           {user?.profileUrl ? (
             <ProfileImage
               src={user.profileUrl}
@@ -131,7 +133,7 @@ const dropdownItemSx = {
   display: "flex",
   alignItems: "center",
   gap: "8px",
-  font: designSystem.font.body2,
+  font: designSystem.font.body2.font,
   color: designSystem.color.neutral.gray600,
   borderRadius: "4px",
 };
@@ -139,6 +141,7 @@ const dropdownItemSx = {
 const ProfileImageWrapper = styled.div`
   background-color: ${designSystem.color.neutral.gray800};
   border-radius: 50%;
+  overflow: hidden;
 `;
 
 const ProfileImage = styled.img<{ $size: number }>`
@@ -150,12 +153,13 @@ const ProfileImage = styled.img<{ $size: number }>`
 const UserDetails = styled.div`
   p:first-of-type {
     margin-bottom: 4px;
-    font: ${designSystem.font.title4};
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
     color: ${designSystem.color.neutral.gray800};
   }
 
   p:last-of-type {
-    font: ${designSystem.font.body3};
+    font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray600};
   }
 `;

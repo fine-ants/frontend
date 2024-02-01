@@ -1,5 +1,5 @@
 import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
-import RateBadge from "@components/common/Badges/RateBadge";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
 import {
@@ -195,14 +195,14 @@ export default function PortfolioHoldingRow({
         <HoldingTableCell style={{ width: "132px" }} component="th" scope="row">
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
-              style={{ font: designSystem.font.body3 }}
+              style={{ font: designSystem.font.body3.font }}
               to={`/stock/${tickerSymbol}`}>
               {companyName}
             </Link>
           </Typography>
           <Typography
             style={{
-              font: designSystem.font.body4,
+              font: designSystem.font.body4.font,
               color: designSystem.color.neutral.gray400,
             }}>
             {tickerSymbol}
@@ -226,7 +226,7 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "64px" }} align="right">
-          <Typography>{numShares}</Typography>
+          <HoldingTypography>{numShares}</HoldingTypography>
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
@@ -235,7 +235,7 @@ export default function PortfolioHoldingRow({
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={dailyChangeRate ?? dailyChangeRate}
+            value={dailyChangeRate ?? dailyChangeRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -246,7 +246,7 @@ export default function PortfolioHoldingRow({
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={totalReturnRate ?? totalReturnRate}
+            value={totalReturnRate ?? totalReturnRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -262,7 +262,7 @@ export default function PortfolioHoldingRow({
           </HoldingTypography>
           <RateBadge
             size={12}
-            rate={annualDividendYield}
+            value={annualDividendYield}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -312,7 +312,7 @@ const HoldingTableCell = styled(TableCell)`
 `;
 
 const HoldingTypography = styled(Typography)`
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
 `;
 
@@ -332,9 +332,9 @@ const ChangeableAmount = styled(Amount)<{
       case "none":
         return color.neutral.gray900;
       case "gain":
-        return color.state.green;
+        return color.state.green500;
       case "loss":
-        return color.state.red;
+        return color.state.red500;
       default:
         return color.neutral.gray900;
     }

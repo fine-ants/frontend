@@ -5,8 +5,9 @@ import styled from "styled-components";
 export default styled(MuiMenuItem)`
   height: inherit;
   padding: 0 4px;
+  gap: 4px;
   background-color: ${designSystem.color.neutral.white};
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
 
   &:hover {

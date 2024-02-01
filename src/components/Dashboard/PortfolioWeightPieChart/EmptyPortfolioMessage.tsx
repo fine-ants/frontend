@@ -1,4 +1,5 @@
 import addIcon from "@assets/icons/ic_folder-add.svg";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type Props = {
@@ -33,17 +34,18 @@ const StyledEmptyPortfolioMessage = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  border: ${({ theme: { color } }) => `1px dashed ${color.primary.blue100}`};
+  border: 1px dashed ${designSystem.color.primary.blue100};
   border-radius: 8px;
 
   > h1 {
-    font: ${({ theme: { font } }) => font.title3};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    font: ${designSystem.font.title3.font};
+    letter-spacing: ${designSystem.font.title3.letterSpacing};
+    color: ${designSystem.color.neutral.gray600};
   }
 
   > div {
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray500};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray500};
   }
 `;
 
@@ -57,16 +59,16 @@ const PortfolioAddButton = styled.div`
   gap: 4px;
   padding: 12px 8px;
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.button2};
-
-  background-color: ${({ theme: { color } }) => color.primary.blue500};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
+  background-color: ${designSystem.color.primary.blue500};
   cursor: pointer;
 
   > span {
-    color: ${({ theme: { color } }) => color.neutral.white};
+    color: ${designSystem.color.neutral.white};
   }
 
   &:hover {
-    background-color: ${({ theme: { color } }) => color.primary.blue700};
+    background-color: ${designSystem.color.primary.blue700};
   }
 `;

@@ -4,15 +4,16 @@ import DashboardPage from "@pages/DashboardPage";
 import GlobalErrorPage from "@pages/GlobalErrorPage";
 import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
-import MyProfilePage from "@pages/MyProfilePage";
 import NotFoundPage from "@pages/NotFoundPage";
 import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
 import PortfolioPage from "@pages/Portfolio/PortfolioPage";
+import SettingsPage from "@pages/SettingsPage/SettingsPage";
 import SignInLoadingPage from "@pages/SignInPage/SignInLoadingPage";
 import SignInPage from "@pages/SignInPage/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
 import StockPage from "@pages/StockPage";
-import WatchlistPage from "@pages/WatchlistPage";
+import WatchlistPage from "@pages/Watchlist/WatchlistPage";
+import WatchlistsPage from "@pages/Watchlist/WatchlistsPage";
 import {
   Route,
   createBrowserRouter,
@@ -31,9 +32,9 @@ const router = (user: User | null) =>
           <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
           <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
-          <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
-          <Route path={Routes.PROFILE} element={<MyProfilePage />} />
-          <Route path={Routes.INDICES} element={<IndicesPage />} />
+          <Route path={Routes.WATCHLISTS} element={<WatchlistsPage />} />
+          <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
+          <Route path={Routes.SETTINGS} element={<SettingsPage />} />
         </Route>
 
         <Route
@@ -47,7 +48,7 @@ const router = (user: User | null) =>
           <Route path={Routes.SIGNIN} element={<SignInPage />} />
           <Route path={Routes.SIGNUP} element={<SignUpPage />} />
         </Route>
-
+        <Route path={Routes.INDICES} element={<IndicesPage />} />
         <Route path={Routes.STOCK} element={<StockPage />} />
         <Route path={Routes.FALLBACK} element={<NotFoundPage />} />
       </Route>

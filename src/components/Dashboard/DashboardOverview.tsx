@@ -1,5 +1,6 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
-import RateBadge from "@components/common/Badges/RateBadge";
+import RateBadge from "@components/common/Badges/DeltaBadge";
+import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
@@ -40,7 +41,7 @@ export default function DashboardOverview() {
                   {thousandsDelimiter(overviewData?.totalGain ?? 0)}
                 </Value>
               </ValueWrapper>
-              <RateBadge size={24} rate={overviewData?.totalGainRate ?? 0} />
+              <RateBadge size={24} value={overviewData?.totalGainRate ?? 0} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <Title>연 배당금</Title>
@@ -52,7 +53,7 @@ export default function DashboardOverview() {
               </ValueWrapper>
               <RateBadge
                 size={24}
-                rate={overviewData?.totalAnnualDividendYield ?? 0}
+                value={overviewData?.totalAnnualDividendYield ?? 0}
               />
             </TotalSubContentWrapper>
           </SubContentContainer>
@@ -72,8 +73,8 @@ const StyledDashboardOverview = styled.div`
   align-items: center;
   gap: 24px;
   position: relative;
-  background-color: ${({ theme: { color } }) => color.neutral.gray800};
-  color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.gray800};
+  color: ${designSystem.color.neutral.white};
 `;
 
 const InnerWrapper = styled.div`
@@ -96,8 +97,8 @@ const ContentContainer = styled.div`
 const PageTitle = styled.h1`
   width: 100%;
   display: flex;
-  font: ${({ theme: { font } }) => font.heading2};
-  letter-spacing: -0.02em;
+  font: ${designSystem.font.heading2.font}
+  letter-spacing: ${designSystem.font.heading2.letterSpacing};
 `;
 
 const TotalMainContentWrapper = styled.div`
@@ -109,21 +110,21 @@ const TotalMainContentWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  color: ${({ theme: { color } }) => color.neutral.white};
+  color: ${designSystem.color.neutral.white};
 `;
 
 const MainTitle = styled.div`
   margin-right: auto;
 
-  font: ${({ theme: { font } }) => font.title3};
-  letter-spacing: -0.02em;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  font: ${designSystem.font.title3.font};
+  letter-spacing: ${designSystem.font.title3.letterSpacing};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const MainWon = styled.div`
-  font: ${({ theme: { font } }) => font.heading2};
-  letter-spacing: -0.02em;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.heading2.font};
+  letter-spacing: ${designSystem.font.heading2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const MainValueWrapper = styled.div`
@@ -134,8 +135,8 @@ const MainValueWrapper = styled.div`
 `;
 
 const MainValue = styled.div`
-  font: ${({ theme: { font } }) => font.heading1};
-  letter-spacing: -0.02em;
+  font: ${designSystem.font.heading1.font};
+  letter-spacing: ${designSystem.font.heading1.letterSpacing};
 `;
 
 const SubContentContainer = styled.div`
@@ -143,12 +144,12 @@ const SubContentContainer = styled.div`
   width: 830px;
   height: 157px;
   padding: 24px 0;
-  background-color: ${({ theme: { color } }) => color.neutral.white04};
+  background-color: ${designSystem.color.neutral.white04};
   border-radius: 8px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray700};
+  border: 1px solid ${designSystem.color.neutral.gray700};
 
   & > * {
-    border-right: 1px solid ${({ theme: { color } }) => color.neutral.gray700};
+    border-right: 1px solid ${designSystem.color.neutral.gray700};
   }
 
   & > *:last-child {
@@ -165,9 +166,9 @@ const TotalSubContentWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font: ${({ theme: { font } }) => font.title4};
-  letter-spacing: -0.02em;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  font: ${designSystem.font.title4.font};
+  letter-spacing: ${designSystem.font.title4.letterSpacing};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const ValueWrapper = styled.div`
@@ -177,13 +178,12 @@ const ValueWrapper = styled.div`
 `;
 
 const Won = styled.div`
-  font: ${({ theme: { font } }) => font.title2};
-  letter-spacing: -0.02em;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title2.font};
+  letter-spacing: ${designSystem.font.title2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const Value = styled.div`
-  font: ${({ theme: { font } }) => font.title1};
-  letter-spacing: -0.02em;
-  line-height: 34px;
+  font: ${designSystem.font.title1.font};
+  letter-spacing: ${designSystem.font.title1.letterSpacing};
 `;

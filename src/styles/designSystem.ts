@@ -25,35 +25,74 @@ export const colors = {
   blue700: "#013DBE",
   blue800: "#001DA0",
   blue900: "#001DA0",
-  green: "#16C648",
   green16: "#16C64828",
-  red: "#FD4949",
+  green50: "#DAF6E2",
+  green500: "#16C648",
+  green800: "#375044",
   red16: "#FD494928",
-  orange: "#FE8B20",
+  red50: "#FEE2E2",
+  red500: "#FD4949",
+  red800: "#53353C",
   orange16: "#FE8B2028",
+  orange50: "#FFECDB",
+  orange500: "#FE8B20",
+  orange800: "#523F32",
   kakaoYellow: "#FEE500",
   naverGreen: "#02bd34",
 };
 
 const font = {
-  heading1: "500 48px/58px 'IBMPlexSansKR-Regular', sans-serif",
-  heading2: "700 32px/39px 'IBMPlexSansKR-Regular', sans-serif",
-  heading3: "700 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
+  heading1: {
+    font: "500 48px/58px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  heading2: {
+    font: "700 32px/39px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  heading3: {
+    font: "700 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 
-  title1: "500 28px/34px 'IBMPlexSansKR-Regular', sans-serif",
-  title2: "500 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
-  title3: "500 20px/24px 'IBMPlexSansKR-Regular', sans-serif",
-  title4: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
-  title5: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
-  title6: "500 12px/14px 'IBMPlexSansKR-Regular', sans-serif",
+  title1: {
+    font: "500 28px/34px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title2: {
+    font: "500 24px/29px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title3: {
+    font: "500 20px/24px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title4: {
+    font: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title5: {
+    font: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  title6: {
+    font: "500 12px/14px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 
-  body1: "400 20px/30px 'IBMPlexSansKR-Regular', sans-serif",
-  body2: "400 16px/24px 'IBMPlexSansKR-Regular', sans-serif",
-  body3: "400 14px/21px 'IBMPlexSansKR-Regular', sans-serif",
-  body4: "400 12px/18px 'IBMPlexSansKR-Regular', sans-serif",
+  body1: { font: "400 20px/30px 'IBMPlexSansKR-Regular', sans-serif" },
+  body2: { font: "400 16px/24px 'IBMPlexSansKR-Regular', sans-serif" },
+  body3: { font: "400 14px/21px 'IBMPlexSansKR-Regular', sans-serif" },
+  body4: { font: "400 12px/18px 'IBMPlexSansKR-Regular', sans-serif" },
 
-  button1: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
-  button2: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
+  button1: {
+    font: "500 16px/19px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  button2: {
+    font: "500 14px/17px 'IBMPlexSansKR-Regular', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 };
 
 export default {
@@ -89,12 +128,18 @@ export default {
       black: colors.black,
     },
     state: {
-      green: colors.green,
       green16: colors.green16,
-      red: colors.red,
+      green50: colors.green50,
+      green500: colors.green500,
+      green800: colors.green800,
       red16: colors.red16,
-      orange: colors.orange,
+      red50: colors.red50,
+      red500: colors.red500,
+      red800: colors.red800,
       orange16: colors.orange16,
+      orange50: colors.orange50,
+      orange500: colors.orange500,
+      orange800: colors.orange800,
     },
     kakao: {
       primary: colors.kakaoYellow,

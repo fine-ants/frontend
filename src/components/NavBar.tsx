@@ -48,8 +48,8 @@ const StyledNavBar = styled.nav`
     gap: 40px;
     alignitems: center;
     background-color: ${designSystem.color.neutral.gray900};
-    font: ${designSystem.font.title4};
-    letter-spacing: -0.02em;
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
   }
 `;
 
@@ -59,9 +59,9 @@ const StyledNavItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  font: ${designSystem.font.title4};
+  font: ${designSystem.font.title4.font};
+  letter-spacing: ${designSystem.font.title4.letterSpacing};
   color: ${designSystem.color.neutral.gray400};
-  letter-spacing: -0.02em;
   cursor: pointer;
 
   :hover {
@@ -74,6 +74,6 @@ const StyledNavItemContent = styled.div`
   gap: 40px;
   align-items: center;
   background-color: ${designSystem.color.neutral.gray900};
-  font: ${designSystem.font.title4};
-  letter-spacing: -0.02em;
+  font: ${designSystem.font.title4.font};
+  letter-spacing: ${designSystem.font.title4.letterSpacing};
 `;

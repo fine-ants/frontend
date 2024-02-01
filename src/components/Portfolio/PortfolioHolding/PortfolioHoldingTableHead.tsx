@@ -3,6 +3,8 @@ import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
+import { CustomTooltip } from "@components/common/CustomTooltip";
+import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/Table";
 import {
   Box,
@@ -82,7 +84,7 @@ const headCells: readonly HeadCell[] = [
     id: "annualDividend",
     numeric: true,
     label: "연 배당금",
-    size: "116px",
+    size: "140px",
   },
 ];
 
@@ -144,13 +146,28 @@ export default function PortfolioHoldingTableHead({
 
                 if (!isOrderBy) return <img src={sortNoneIcon} />;
 
-                if (order === "asc") {
-                  return <img src={sortAscendingIcon} />;
-                } else {
-                  return <img src={sortDescendingIcon} />;
-                }
+                return (
+                  <img
+                    src={
+                      order === "asc" ? sortAscendingIcon : sortDescendingIcon
+                    }
+                  />
+                );
               }}>
-              {headCell.label}
+              {headCell.label === "연 배당금" ? (
+                <CustomTooltip
+                  title="해당 값은 예상 연 배당금으로 실제와 다를 수 있습니다."
+                  placement="bottom-start"
+                  arrow>
+                  <StyledTooltipContainer>
+                    {headCell.label}
+                    <Icon icon="help" size={16} color="gray400" />
+                  </StyledTooltipContainer>
+                </CustomTooltip>
+              ) : (
+                <>{headCell.label}</>
+              )}
+
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
@@ -169,13 +186,14 @@ const CustomTableHead = styled(TableHead)`
   height: 48px;
   width: 100%;
   padding: 0 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border-radius: 8px;
 
   & .MuiTableCell-root {
     border-bottom: none;
-    color: ${({ theme: { color } }) => color.neutral.gray600};
-    font: ${({ theme: { font } }) => font.title5};
+    color: ${designSystem.color.neutral.gray600};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 `;
 
@@ -202,5 +220,10 @@ const ColumnHeaderCell = styled(TableCell)`
 const StyledTableSortLabel = styled(TableSortLabel)`
   flex-direction: row;
   gap: 4px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
+`;
+
+const StyledTooltipContainer = styled.div`
+  display: flex;
+  gap: 4px;
 `;

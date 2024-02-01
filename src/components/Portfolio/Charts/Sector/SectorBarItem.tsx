@@ -62,11 +62,13 @@ const TitleWrapper = styled("div")({
 });
 
 const SectorTitle = styled(Typography)({
-  font: designSystem.font.title5,
+  font: designSystem.font.title5.font,
+  letterSpacing: designSystem.font.title5.letterSpacing,
   color: designSystem.color.neutral.gray600,
 });
 
 const Percent = styled(Typography)({
-  font: designSystem.font.title5,
+  font: designSystem.font.title5.font,
+  letterSpacing: designSystem.font.title5.letterSpacing,
   color: designSystem.color.primary.blue500,
 });

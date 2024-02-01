@@ -40,12 +40,12 @@ const renderOptionSelectStyles = {
 };
 
 const CompanyName = styled.p`
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
 `;
 
 const TickerSymbol = styled.p`
-  font: ${designSystem.font.body4};
+  font: ${designSystem.font.body4.font};
   color: ${designSystem.color.neutral.gray400};
 `;
 

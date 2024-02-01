@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
@@ -38,22 +39,22 @@ export default function PortfolioWeightPieChartToolTip({
 }
 
 const TooltipBox = styled.div`
+  height: 80px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 80px;
   background-color: #ffffff;
   border: 1px solid #e0e2ec;
   border-radius: 4px;
-  padding: 8px;
   gap: 4px;
 `;
 
 const TooltipContainer = styled.div`
+  height: 17px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 17px;
   gap: 16px;
   font-size: 14px;
   line-height: 17px;
@@ -65,9 +66,9 @@ const ItemTitle = styled.div`
   gap: 4px;
 
   > p {
-    font: ${({ theme: { font } }) => font.title5};
-    letter-spacing: -0.02em;
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
+    color: ${designSystem.color.neutral.gray600};
   }
 `;
 
@@ -80,14 +81,14 @@ const ColorCircle = styled.div<{ color: string }>`
 
 const Percentage = styled.div`
   margin-left: auto;
-  font: ${({ theme: { font } }) => font.title5};
-  letter-spacing: -0.02em;
-  color: ${({ theme: { color } }) => color.primary.blue500};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.primary.blue500};
 `;
 
 const GainValue = styled.p`
   display: flex;
   align-items: center;
-  font: ${({ theme: { font } }) => font.body4};
-  color: ${({ theme: { color } }) => color.state.green};
+  font: ${designSystem.font.body4.font};
+  color: ${designSystem.color.state.green500};
 `;

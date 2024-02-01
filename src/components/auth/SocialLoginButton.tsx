@@ -67,23 +67,28 @@ export default function SocialLoginButton({ provider }: Props) {
       </StyledNaverSignInButton>
     );
   }
+
+  return null;
 }
 
 const StyledKakaoSignInButton = styled(BaseSignInButton)`
   background-color: ${designSystem.color.kakao.primary};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
   color: ${designSystem.color.neutral.black};
-  font: ${designSystem.font.button2};
 `;
 
 const StyledGoogleSignInButton = styled(BaseSignInButton)`
   background-color: ${designSystem.color.neutral.white};
   border: 1px solid ${designSystem.color.neutral.gray200};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
   color: ${designSystem.color.neutral.gray600};
-  font: ${designSystem.font.button2};
 `;
 
 const StyledNaverSignInButton = styled(BaseSignInButton)`
   background-color: ${designSystem.color.naver.primary};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
   color: ${designSystem.color.neutral.white};
-  font: ${designSystem.font.button2};
 `;

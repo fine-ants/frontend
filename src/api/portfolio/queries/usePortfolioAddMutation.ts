@@ -17,18 +17,14 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
     onSuccess: ({ data }) => {
       onSuccessCb && onSuccessCb(); // Ex: close dialog
 
-      // Invalidate Portfolio List Queries
       queryClient.invalidateQueries({
-        queryKey: [
-          portfolioKeys.list("header").queryKey,
-          portfolioKeys.list("table").queryKey,
-        ],
+        queryKey: [portfolioKeys.list().queryKey],
       });
 
       navigate(`/portfolio/${data.portfolioId}`);
     },
     meta: {
-      tostSuccessMessage: "포트폴리오 추가를 성공했습니다",
+      toastSuccessMessage: "포트폴리오 추가를 성공했습니다",
     },
   });
 }

@@ -1,7 +1,12 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
 import DatePicker from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
-import { TableCell as MuiTableCell } from "@mui/material";
+import {
+  TableCell as MuiTableCell,
+  TableRow as MuiTableRow,
+} from "@mui/material";
+import designSystem from "@styles/designSystem";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -15,7 +20,9 @@ export default function PortfolioHoldingLotAddRow({
   portfolioHoldingId,
   onDeleteButtonClick,
 }: Props) {
-  const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
+  const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
+    dayjs(new Date())
+  );
   const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState("");
   const [newNumShares, setNewNumShares] = useState("");
   const [newMemo, setNewMemo] = useState("");
@@ -49,7 +56,7 @@ export default function PortfolioHoldingLotAddRow({
   const isValid = newPurchaseDate && newPurchasePricePerShare && newNumShares;
 
   return (
-    <>
+    <MuiTableRow>
       <StyledTableCell
         component="th"
         scope="row"
@@ -103,15 +110,16 @@ export default function PortfolioHoldingLotAddRow({
           <Icon icon="remove" size={16} color={"gray600"} />
         </IconButton>
       </StyledTableCell>
-    </>
+    </MuiTableRow>
   );
 }
 
 const StyledTableCell = styled(MuiTableCell)`
   height: 40px;
   padding: 0 8px;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  font: ${designSystem.font.body3.font};
+
+  color: ${designSystem.color.neutral.gray900};
   text-align: center;
 `;
 
@@ -120,18 +128,18 @@ const Input = styled.input`
   height: 24px;
   padding: 0 8px;
   box-sizing: border-box;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  background-color: ${designSystem.color.neutral.white};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 2px;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -141,19 +149,19 @@ const StyledTextArea = styled.textarea`
   margin-top: 7px;
   padding: 0 8px;
   box-sizing: border-box;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  background-color: ${designSystem.color.neutral.white};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 2px;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
   text-align: left;
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 

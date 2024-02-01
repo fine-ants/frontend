@@ -1,4 +1,5 @@
 import { chartColorPalette } from "@styles/chartColorPalette";
+import designSystem from "@styles/designSystem";
 import { CSSProperties } from "react";
 import styled from "styled-components";
 import PieChartLegendItem, {
@@ -68,7 +69,7 @@ const StyledLegend = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 10px;
-  border: ${({ theme: { color } }) => `1px solid ${color.neutral.gray100}`};
+  border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
 `;
 
@@ -84,7 +85,7 @@ const Content = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme: { color } }) => color.neutral.gray200};
+    background-color: ${designSystem.color.neutral.gray200};
     border-radius: 2px; /* 스크롤바의 모서리를 둥글게 */
   }
 `;
@@ -94,8 +95,8 @@ const ItemsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  background-color: ${designSystem.color.neutral.white};
+  border-bottom: 1px solid ${designSystem.color.neutral.gray200};
 `;
 
 const EtcListContainer = styled.div`
@@ -103,7 +104,7 @@ const EtcListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const EtcList = styled.div`
@@ -112,13 +113,14 @@ const EtcList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border-left: 2px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border-left: 2px solid ${designSystem.color.neutral.gray200};
 `;
 
 const EtcItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title5};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;

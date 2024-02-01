@@ -10,17 +10,23 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import browserServiceWorker from "./mocks/browserServiceWorker.ts";
-import React from "react";
 
-if (process.env.NODE_ENV === "development") {
-  browserServiceWorker.start({
-    onUnhandledRequest: "bypass",
-  });
+async function initMSW() {
+  if (
+    process.env.NODE_ENV === "development" &&
+    import.meta.env.VITE_API_URL_DEV === "http://localhost:5173"
+  ) {
+    await browserServiceWorker.start({
+      onUnhandledRequest: "bypass",
+    });
+  }
 }
+await initMSW();
 
 const toast = createToast();
 
@@ -40,8 +46,8 @@ const queryClient = new QueryClient({
   }),
   mutationCache: new MutationCache({
     onSuccess: (_, __, ___, mutation) => {
-      if (mutation.meta?.tostSuccessMessage) {
-        toast.success(mutation.meta.tostSuccessMessage as string);
+      if (mutation.meta?.toastSuccessMessage) {
+        toast.success(mutation.meta.toastSuccessMessage as string);
         return;
       }
     },

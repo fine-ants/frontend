@@ -15,12 +15,16 @@ import dividerIcon from "@assets/icons/ic_divider.svg";
 import downIcon from "@assets/icons/ic_down.svg";
 import editIcon from "@assets/icons/ic_edit.svg";
 import favoriteIcon from "@assets/icons/ic_favorite.svg";
+import favoriteAddIcon from "@assets/icons/ic_favorite_add.svg";
+import favoriteRemoveIcon from "@assets/icons/ic_favorite_remove.svg";
 import folderAddIcon from "@assets/icons/ic_folder-add.svg";
 import helpIcon from "@assets/icons/ic_help.svg";
 import hideIcon from "@assets/icons/ic_hide.svg";
 import indetIcon from "@assets/icons/ic_indet.svg";
+import infoIcon from "@assets/icons/ic_info.svg";
 import noneIcon from "@assets/icons/ic_none.svg";
 import notificationIcon from "@assets/icons/ic_notification.svg";
+import refreshIcon from "@assets/icons/ic_refresh.svg";
 import removeIcon from "@assets/icons/ic_remove.svg";
 import searchIcon from "@assets/icons/ic_search.svg";
 import settingsIcon from "@assets/icons/ic_settings.svg";
@@ -31,6 +35,7 @@ import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import trashIcon from "@assets/icons/ic_trash.svg";
 import upIcon from "@assets/icons/ic_up.svg";
 import userIcon from "@assets/icons/ic_user.svg";
+import warningIcon from "@assets/icons/ic_warning.svg";
 
 import { colors } from "@styles/designSystem";
 import { styled } from "styled-components";
@@ -64,12 +69,16 @@ const icons = {
   "down": downIcon,
   "edit": editIcon,
   "favorite": favoriteIcon,
+  "favorite-add": favoriteAddIcon,
+  "favorite-remove": favoriteRemoveIcon,
   "folder-add": folderAddIcon,
   "help": helpIcon,
   "hide": hideIcon,
   "indet": indetIcon,
+  "info": infoIcon,
   "none": noneIcon,
   "notification": notificationIcon,
+  "refresh": refreshIcon,
   "remove": removeIcon,
   "search": searchIcon,
   "settings": settingsIcon,
@@ -80,6 +89,7 @@ const icons = {
   "trash": trashIcon,
   "up": upIcon,
   "user": userIcon,
+  "warning": warningIcon,
 };
 
 type IconType = keyof typeof icons;
@@ -89,6 +99,7 @@ export function Icon({ size, icon, color, hoverColor }: Props) {
 
   return (
     <StyledIcon
+      className="icon"
       $size={size}
       $iconUrl={iconUrl}
       $color={colors[color]}

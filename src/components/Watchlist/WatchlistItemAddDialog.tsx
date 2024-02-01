@@ -1,5 +1,6 @@
 import { StockSearchItem } from "@api/stock";
 import useWatchlistItemAddMutation from "@api/watchlist/queries/useWatchlistItemAddMutation";
+
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
@@ -7,6 +8,7 @@ import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -15,9 +17,12 @@ type Props = {
 };
 
 export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
+  const { watchlistId } = useParams();
+
   const [selectedStocks, setSelectedStocks] = useState<StockSearchItem[]>([]);
 
   const { mutate: watchlistItemAddMutate } = useWatchlistItemAddMutation({
+    watchlistId: Number(watchlistId),
     onCloseDialog: onClose,
   });
 
@@ -39,7 +44,9 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
 
   const onAddButtonClick = () => {
     // TODO: 관심종목 다수 추가 API 연결
-    watchlistItemAddMutate(selectedStocks[0].tickerSymbol);
+    const tickerSymbols = selectedStocks.map((stock) => stock.tickerSymbol);
+
+    watchlistItemAddMutate(tickerSymbols);
   };
 
   const onDeleteHoldingBoxClick = (tickerSymbol: string) => {
@@ -76,7 +83,7 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
         {selectedStocks.length > 0 && (
           <SelectedStocksList>
             {selectedStocks.map((stock) => (
-              <StockListItem>
+              <StockListItem key={stock.tickerSymbol}>
                 <StockDetails>
                   <p>{stock.companyName}</p>
                   <p>{stock.tickerSymbol}</p>
@@ -104,12 +111,12 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
 }
 
 const watchlistItemAddDialogStyles = {
-  "width": "544px",
-  "height": "605px",
-  "display": "flex",
-  "flex-direction": "column",
-  "justify-content": "space-between",
-  "gap": "24px",
+  width: "544px",
+  height: "605px",
+  display: "flex",
+  flexDirection: "column" as const,
+  justifyContent: "space-between" as const,
+  gap: "24px",
 };
 
 const Header = styled.header`
@@ -120,8 +127,9 @@ const Header = styled.header`
 `;
 
 const Title = styled.h3`
-  font: ${({ theme: { font } }) => font.heading3};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const SearchBarWrapper = styled.div`
@@ -133,7 +141,7 @@ const SearchBarWrapper = styled.div`
     &::after {
       content: "*";
       margin-left: 4px;
-      color: ${({ theme: { color } }) => color.state.red};
+      color: ${designSystem.color.state.red500};
     }
   }
 `;
@@ -163,12 +171,13 @@ const StockDetails = styled.div`
   gap: 8px;
 
   p:first-of-type {
-    font: ${designSystem.font.title5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${designSystem.color.primary.blue500};
   }
 
   p:last-of-type {
-    font: ${designSystem.font.body4};
+    font: ${designSystem.font.body4.font};
     color: ${designSystem.color.neutral.gray400};
   }
 `;

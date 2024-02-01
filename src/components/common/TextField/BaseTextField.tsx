@@ -39,8 +39,6 @@ const TextField = styled(OutlinedInput)<{ $size: Size }>`
     gap: 8px;
     box-sizing: border-box;
     background: ${designSystem.color.neutral.white};
-
-    box-sizing: border-box;
     font: ${designSystem.font.body3};
   }
 
@@ -51,6 +49,6 @@ const TextField = styled(OutlinedInput)<{ $size: Size }>`
   }
 
   &.Mui-error .MuiOutlinedInput-notchedOutline {
-    border: 1px solid ${designSystem.color.state.red};
+    border: 1px solid ${designSystem.color.state.red500};
   }
 `;

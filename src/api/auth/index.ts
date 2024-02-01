@@ -25,7 +25,6 @@ export type SignInData = {
 export type SignUpData = {
   [key: string]: string | File | null;
   nickname: string;
-  profileImage: File | null;
   email: string;
   password: string;
   passwordConfirm: string;
