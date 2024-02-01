@@ -1,20 +1,28 @@
 import TVIndicesWidget from "@components/TradingViewWidgets/TVIndicesWidget";
 import TVStockDetailWidget from "@components/TradingViewWidgets/TVStockDetailWidget";
 import Header from "@components/common/Header/Header";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
+import { Navigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import BasePage from "./BasePage";
 
 export default function IndicesPage() {
+  const { tickerSymbol } = useParams();
+
+  if (!tickerSymbol) {
+    return <Navigate to={Routes.FALLBACK} />;
+  }
+
   return (
     <>
       <Header />
       <BasePage>
         <Main>
           <LeftContainer>
-            <Title>KOSPI</Title>
+            <Title>{tickerSymbol}</Title>
             <TVStockDetailWidget
-              tickerSymbol="KRX:KOSPI"
+              tickerSymbol={tickerSymbol}
               width={1018}
               height={601}
             />

@@ -21,7 +21,7 @@ export default function Header() {
       name: "Watchlists",
       to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
     },
-    { name: "Indices", to: Routes.INDICES },
+    { name: "Indices", to: "/indices/KRX:KOSPI" },
   ];
 
   const onLogoClick = () => {
