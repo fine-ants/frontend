@@ -1,8 +1,10 @@
+import useStockItemQuery from "@api/stock/queries/useStockItemQeury";
+import AlertDropdown from "@components/Stock/AlertDropdown";
+import { HasStockDropdown } from "@components/Stock/HasStockDropdown";
 import RateBadge from "@components/common/Badges/RateBadge";
-import Button from "@components/common/Buttons/Button";
 import Header from "@components/common/Header/Header";
-import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TVStockDetailWidget from "../components/TradingViewWidgets/TVStockDetailWidget";
@@ -10,13 +12,13 @@ import BasePage from "./BasePage";
 
 export default function StockPage() {
   const { tickerSymbol } = useParams();
-  // const {mutate: addWatchlistItemMutate} = useWatchlistItemAddMutation({tickerSymbol: tickerSymbol});
-  // const [isSelectOpen, setIsSelectOpen] = useState(false);
-  //TODO: API 기다리는 중
 
-  const onAddWatchlistButtonClick = () => {
-    // setIsSelectOpen(true);
-  };
+  //TODO: 종목 상세정보 완성되면 변경
+  const { data: stockData } = useStockItemQuery(tickerSymbol || "");
+
+  // const onAddAlertClick = () => {
+  //   // 알림 기능 생긴 이후에 추가
+  // };
 
   return (
     <>
@@ -27,37 +29,35 @@ export default function StockPage() {
             <TitleContainer>
               <NameWrapper>
                 <Symbol />
-                <label>종목명</label>
+                <label>{stockData?.companyName}</label>
                 <span>{tickerSymbol}</span>
               </NameWrapper>
               <ButtonWrapper>
-                <Button variant="tertiary" size="h32">
-                  <Icon icon="favorite" size={16} color="gray600" />
-                  관심 종목 해제
-                </Button>
-                <Button
-                  variant="secondary"
-                  size="h32"
-                  onClick={onAddWatchlistButtonClick}>
-                  <Icon icon="favorite" size={16} color="blue500" />
-                  관심 종목 추가
-                </Button>
+                {tickerSymbol && (
+                  <>
+                    <HasStockDropdown tickerSymbol={tickerSymbol} />
+                    <AlertDropdown />
+                  </>
+                )}
               </ButtonWrapper>
             </TitleContainer>
             <ValuationContainer>
               <PriceWrapper>
                 <span>₩</span>
-                <label>종목 현재가</label>
+                <label>
+                  {thousandsDelimiter(stockData?.currentPrice ?? 0)}
+                </label>
               </PriceWrapper>
               <RateBadge
                 size={16}
-                rate={12800}
+                rate={stockData?.dailyChange ?? 0}
                 bgColorStatus={false}
                 iconStatus={true}
+                noPercent={true}
               />
               <RateBadge
                 size={24}
-                rate={23.19}
+                rate={stockData?.dailyChangeRate ?? 0}
                 bgColorStatus={true}
                 iconStatus={true}
               />
@@ -65,8 +65,8 @@ export default function StockPage() {
             {tickerSymbol && (
               <TVStockDetailWidget
                 tickerSymbol={tickerSymbol}
-                width={893}
-                height={366}
+                width={1376}
+                height={501}
               />
             )}
           </ChartContainer>
@@ -75,19 +75,19 @@ export default function StockPage() {
             <InfoContainer>
               <Info>
                 <label>섹터</label>
-                <span>종목의 섹터</span>
+                <span>{stockData?.sector}</span>
               </Info>
               <Info>
                 <label>배당금</label>
-                <span>종목의 배당금</span>
+                <span>{stockData?.annualDividend}</span>
               </Info>
               <Info>
                 <label>배당률</label>
-                <span>종목의 배당률</span>
+                <span>{stockData?.annualDividendYield}</span>
               </Info>
               <Info>
                 <label>배당주기</label>
-                <span>종목의 배당주기</span>
+                {stockData?.dividendMonths.map((month) => <span>{month}</span>)}
               </Info>
             </InfoContainer>
           </StockInfo>
@@ -140,6 +140,7 @@ const Symbol = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 8px;
+  margin-left: auto;
 `;
 
 const ValuationContainer = styled.div`
@@ -169,14 +170,14 @@ const PriceWrapper = styled.div`
 
 const ChartContainer = styled.div`
   width: 100%;
-  height: 501px;
-  margin-bottom: 24px;
+
+  margin-bottom: 40px;
 `;
 
 const StockInfo = styled.div`
-  width: 100%
+  width: 100%;
   height: 85px;
-  
+
   border-radius: 8px;
 
   background-color: ${designSystem.color.neutral.white};

@@ -4,7 +4,7 @@ import { watchlistKeys } from "./queryKeys";
 
 type Props = {
   watchlistId: number;
-  onCloseDialog: () => void;
+  onCloseDialog?: () => void;
 };
 
 export default function useWatchlistItemAddMutation({
@@ -21,10 +21,13 @@ export default function useWatchlistItemAddMutation({
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.item(watchlistId).queryKey,
       });
-      onCloseDialog();
+      queryClient.invalidateQueries({
+        queryKey: watchlistKeys.hasStock().queryKey,
+      });
+      onCloseDialog && onCloseDialog();
     },
     meta: {
-      tostSuccessMessage: "관심 종목을 추가했습니다",
+      toastSuccessMessage: "관심 종목을 추가했습니다",
       toastErrorMessage: "관심 종목을 추가하는 중 오류가 발생했습니다",
     },
   });
