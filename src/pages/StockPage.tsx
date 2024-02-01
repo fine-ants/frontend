@@ -1,7 +1,7 @@
-import useStockItemQuery from "@api/stock/queries/useStockItemQeury";
+import useStockItemQuery from "@api/stock/queries/useStockPageQeury";
 import AlertDropdown from "@components/Stock/AlertDropdown";
-import { HasStockDropdown } from "@components/Stock/HasStockDropdown";
-import RateBadge from "@components/common/Badges/RateBadge";
+import { WatchlistHasStockDropdown } from "@components/Stock/WatchlistHasStockDropdown";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import Header from "@components/common/Header/Header";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
@@ -35,7 +35,7 @@ export default function StockPage() {
               <ButtonWrapper>
                 {tickerSymbol && (
                   <>
-                    <HasStockDropdown tickerSymbol={tickerSymbol} />
+                    <WatchlistHasStockDropdown tickerSymbol={tickerSymbol} />
                     <AlertDropdown />
                   </>
                 )}
@@ -50,14 +50,14 @@ export default function StockPage() {
               </PriceWrapper>
               <RateBadge
                 size={16}
-                rate={stockData?.dailyChange ?? 0}
+                value={stockData?.dailyChange ?? 0}
                 bgColorStatus={false}
                 iconStatus={true}
                 noPercent={true}
               />
               <RateBadge
                 size={24}
-                rate={stockData?.dailyChangeRate ?? 0}
+                value={stockData?.dailyChangeRate ?? 0}
                 bgColorStatus={true}
                 iconStatus={true}
               />
@@ -117,6 +117,7 @@ const NameWrapper = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+
   > label {
     font: ${designSystem.font.heading2.font};
     letter-spacing: ${designSystem.font.heading2.letterSpacing};
@@ -170,16 +171,13 @@ const PriceWrapper = styled.div`
 
 const ChartContainer = styled.div`
   width: 100%;
-
   margin-bottom: 40px;
 `;
 
 const StockInfo = styled.div`
   width: 100%;
   height: 85px;
-
   border-radius: 8px;
-
   background-color: ${designSystem.color.neutral.white};
 
   > label {

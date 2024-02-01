@@ -2,8 +2,8 @@ import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDelet
 import { PortfolioDetails, PortfolioDetailsSSE } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import LabelBadge from "@components/common/Badges/LabelBadge";
-import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
 import Routes from "@router/Routes";
@@ -146,7 +146,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={data.targetReturnRate}
+                value={data.targetReturnRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -158,7 +158,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={-data.maximumLossRate}
+                value={-data.maximumLossRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -176,7 +176,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={sseData?.totalGainRate ?? data.totalGainRate}
+                value={sseData?.totalGainRate ?? data.totalGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -190,7 +190,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={sseData?.dailyGainRate ?? data.dailyGainRate}
+                value={sseData?.dailyGainRate ?? data.dailyGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -204,7 +204,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={data.annualDividendYield}
+                value={data.annualDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -213,7 +213,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               <div>투자대비 연 배당률</div>
               <RateBadge
                 size={16}
-                rate={data.annualInvestmentDividendYield}
+                value={data.annualInvestmentDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
               />

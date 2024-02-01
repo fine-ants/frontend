@@ -4,7 +4,7 @@ export const stockKeys = createQueryKeys("stock", {
   search: (query: string) => ({
     queryKey: [query],
   }),
-  item: (tickerSymbol: string) => ({
-    queryKey: ["item", tickerSymbol],
+  page: (tickerSymbol: string) => ({
+    queryKey: ["page", tickerSymbol],
   }),
 });

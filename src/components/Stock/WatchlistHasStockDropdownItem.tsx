@@ -11,12 +11,12 @@ type Props = {
   watchlist: WatchlistHasStockData;
 };
 
-export default function HasStockDropdownItem({
+export default function WatchlistHasStockDropdownItem({
   DropdownItem,
   tickerSymbol,
   watchlist,
 }: Props) {
-  const watchlistId = watchlist.id;
+  const { id: watchlistId, hasStock, name: watchlistName } = watchlist;
   const { mutate: watchlistItemAddMutate } = useWatchlistItemAddMutation({
     watchlistId,
   });
@@ -24,7 +24,7 @@ export default function HasStockDropdownItem({
     useWatchlistItemDeleteMutation(watchlistId);
 
   const onClickDropdownItem = () => {
-    if (watchlist.hasStock) {
+    if (hasStock) {
       watchlistItemDeleteMutate([tickerSymbol]);
     } else {
       watchlistItemAddMutate([tickerSymbol]);
@@ -33,11 +33,11 @@ export default function HasStockDropdownItem({
 
   return (
     <DropdownItem
-      key={watchlist.id}
+      key={watchlistId}
       sx={fixedDropdownItemSx}
       onClick={onClickDropdownItem}>
-      <CheckBox size="h16" checked={watchlist.hasStock} />
-      {watchlist.name}
+      <CheckBox size="h16" checked={hasStock} />
+      {watchlistName}
     </DropdownItem>
   );
 }

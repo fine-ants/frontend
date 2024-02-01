@@ -32,7 +32,7 @@ export const postStockSearch = async (query: string) => {
   return res.data;
 };
 
-export const getStockItem = async (tickerSymbol: string) => {
+export const getStockPage = async (tickerSymbol: string) => {
   const res = await fetcher.get<Response<StockItem>>(`/stocks/${tickerSymbol}`);
   return res.data;
 };

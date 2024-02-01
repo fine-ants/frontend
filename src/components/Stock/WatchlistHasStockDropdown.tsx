@@ -5,13 +5,13 @@ import { useDropdown } from "@components/hooks/useDropdown";
 import designSystem from "@styles/designSystem";
 import { MouseEvent } from "react";
 import styled from "styled-components";
-import HasStockDropdownItem from "./HasStockDropdownItem";
+import HasStockDropdownItem from "./WatchlistHasStockDropdownItem";
 
 type Props = {
   tickerSymbol: string;
 };
 
-export function HasStockDropdown({ tickerSymbol }: Props) {
+export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
   const { onOpen, DropdownMenu, DropdownItem } = useDropdown();
   const { data: hasStockData } = useWatchlistHasStockQuery(tickerSymbol);
 
