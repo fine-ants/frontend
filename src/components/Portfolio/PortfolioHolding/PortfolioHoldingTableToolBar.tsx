@@ -1,10 +1,10 @@
 import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@api/portfolio/types";
 import dividerIcon from "@assets/icons/ic_divider.svg";
-import addIcon from "@assets/icons/ic_folder-add.svg";
 import trashIcon from "@assets/icons/ic_trash.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
@@ -81,7 +81,7 @@ export default function PortfolioHoldingTableToolBar({ selected }: Props) {
       </SelectedInfoContainer>
 
       <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
-        <img src={addIcon} alt="종목 추가" />
+        <Icon icon="add" size={16} color="white" />
         <span>종목 추가</span>
       </Button>
 

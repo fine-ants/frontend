@@ -3,12 +3,13 @@ import useWatchlistsDeleteMutation from "@api/watchlist/queries/useWatchlistsDel
 import ConfirmAlert from "@components/ConfirmAlert";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 import Routes from "@router/Routes";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import WatchlistTable from "./WatchlistTable";
-import designSystem from "@styles/designSystem";
 
 export default function WatchlistContainer() {
   const { watchlistId } = useParams();
@@ -64,6 +65,7 @@ export default function WatchlistContainer() {
               size="h32"
               onClick={onDeleteWatchlistButtonClick}
               disabled={false}>
+              <Icon icon="trash" size={16} color="gray600" />
               삭제
             </Button>
             <Button
@@ -71,6 +73,7 @@ export default function WatchlistContainer() {
               size="h32"
               onClick={onFavoriteMarkClick}
               disabled={false}>
+              <Icon icon="edit" size={16} color="blue500" />
               이름 편집
             </Button>
           </ButtonWrapper>

@@ -19,9 +19,9 @@ export default function Header() {
   const navItems = [
     {
       name: "Watchlists",
-      to: Routes.WATCHLISTS,
+      to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
     },
-    { name: "Indices", to: Routes.INDICES },
+    { name: "Indices", to: "/indices/KRX:KOSPI" },
   ];
 
   const onLogoClick = () => {

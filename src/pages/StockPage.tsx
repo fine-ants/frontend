@@ -64,7 +64,10 @@ export default function StockPage() {
             </ValuationContainer>
             {tickerSymbol && (
               <TVStockDetailWidget
-                tickerSymbol={tickerSymbol}
+                tickerSymbol={widgetStockCode(
+                  stockData?.tickerSymbol ?? "KOSPI",
+                  stockData?.market ?? "KOSPI"
+                )}
                 width={1376}
                 height={501}
               />
@@ -96,6 +99,19 @@ export default function StockPage() {
     </>
   );
 }
+
+const widgetStockCode = (tickerSymbol: string, market: string) => {
+  switch (market) {
+    case "KOSPI":
+      return `KRX:${tickerSymbol}`;
+    case "KOSDAQ":
+      return `KRX:${tickerSymbol}`;
+    case "NASDAQ":
+      return `NASDAQ:${tickerSymbol}`;
+    default:
+      return `KRX:KOSPI`;
+  }
+};
 
 const Main = styled.div`
   margin-top: 48px;

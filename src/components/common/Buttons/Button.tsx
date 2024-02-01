@@ -49,6 +49,7 @@ const StyledButton = styled.button<{
   $size: Size;
   $disabled?: boolean;
 }>`
+  white-space: nowrap;
   min-width: ${({ $size }) => {
     switch ($size) {
       case "h24":

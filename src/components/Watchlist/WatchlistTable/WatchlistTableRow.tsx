@@ -83,7 +83,10 @@ export default function WatchlistTableRow({
         <RateBadge size={16} value={dailyChangeRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
-        {annualDividendYield.toString().padEnd(4, "0") ?? 0}%
+        {annualDividendYield === 0
+          ? 0
+          : annualDividendYield.toString().padEnd(4, "0")}
+        %
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
         {sector}

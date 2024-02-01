@@ -61,11 +61,11 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
 
     function createWidget() {
       if (
-        document.getElementById("tradingview_3efa6") &&
+        document.getElementById("tradingview_stock") &&
         "TradingView" in window
       ) {
         new window.TradingView.widget({
-          symbol: `KRX:${tickerSymbol}`,
+          symbol: tickerSymbol,
           interval: "D",
           timezone: "Etc/UTC",
           theme: theme,
@@ -73,7 +73,7 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
           locale: "kr",
           enable_publishing: false,
           allow_symbol_change: true,
-          container_id: "tradingview_3efa6",
+          container_id: "tradingview_stock",
           width: width,
           height: height,
         });
@@ -91,16 +91,9 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
         alignItems: "center",
       }}>
       <div
-        id="tradingview_3efa6"
+        id="tradingview_stock"
         style={{ height: "calc(100% - 32px)", width: "100%" }}
       />
-      <div className="tradingview-widget-copyright">
-        <a
-          href="https://kr.tradingview.com/"
-          rel="noopener noreferrer"
-          target="_blank"
-        />
-      </div>
     </div>
   );
 };

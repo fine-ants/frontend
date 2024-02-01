@@ -6,6 +6,7 @@ import RateBadge from "@components/common/Badges/DeltaBadge";
 import LabelBadge from "@components/common/Badges/LabelBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
@@ -90,6 +91,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               size="h32"
               onClick={onPortfolioRemove}
               disabled={false}>
+              <Icon icon="trash" size={16} color="gray600" />
               삭제
             </Button>
             <Button
@@ -97,6 +99,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               size="h32"
               onClick={onPortfolioEdit}
               disabled={false}>
+              <Icon icon="edit" size={16} color="blue500" />
               편집
             </Button>
           </ButtonWrapper>
