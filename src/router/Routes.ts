@@ -4,6 +4,7 @@ export default {
   SIGNIN: "/signin",
   SIGNINLOADING: "/signin/loading",
   SETTINGS: "/settings/:tab",
+  NOTIFICATIONS: "/notifications/:tab",
   DASHBOARD: "/dashboard",
   WATCHLISTS: "/watchlists",
   WATCHLIST: "/watchlists/:watchlistId",
