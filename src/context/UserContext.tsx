@@ -1,5 +1,5 @@
 import { SignInData, User } from "@api/auth";
-import { deleteToken, fetchToken } from "@api/firebase";
+import { deleteFCMRegToken, fetchFCMRegToken } from "@api/fcm";
 import { ReactNode, createContext, useState } from "react";
 
 export const UserContext = createContext<{
@@ -50,7 +50,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   const onSubscribePushNotification = async () => {
     try {
-      const token = await fetchToken();
+      const token = await fetchFCMRegToken();
       if (token) {
         // server로 보내 (tanstack query meta toast로 성공/에러 처리)
         // await postPushServiceSubscription(subscription);
@@ -63,22 +63,20 @@ export function UserProvider({ children }: { children: ReactNode }) {
   };
 
   const onUnsubscribePushNotification = async () => {
-    // Token을 서버로 보내기
-    // 200이 오면 token context 초기화
-
     try {
-      const res = await deleteToken();
-
-      if (res) {
-        // Inform the application server that the user has unsubscribed
-        // await deletePushServiceSubscription(subscription);
-      } else {
-        // Failed to unsubscribe
-      }
-    } catch (error) {
-      // Error during unsubscribe
+      const res = await deleteFCMRegToken();
       // eslint-disable-next-line no-console
-      console.error(error);
+      console.log(res);
+
+      // if (res) {
+      //   // 200이 오면 서버에 구독 취소를 알리기
+      //   // await deletePushServiceSubscription(subscription);
+      //   // 200이 오면 token context 초기화
+      // }
+    } catch (error) {
+      // Error during deleting token and unsubscribing
+      // eslint-disable-next-line no-console
+      console.log("An error occurred while deleting token. ", error);
     }
   };
 
