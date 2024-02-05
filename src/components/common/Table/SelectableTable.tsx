@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
 import TablePagination from "../Pagination/TablePagination";
-import { getComparator } from "./utils";
 import { Order } from "./types";
+import { getComparator } from "./utils";
 
 type Props<Item> = {
   tableTitle: string;
@@ -73,8 +73,10 @@ export default function SelectableTable<Item>({
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const numEmptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableRows.length) : 0;
+  const numEmptyRows = Math.max(
+    0,
+    (1 + page) * Math.min(5, rowsPerPage) - tableRows.length
+  );
 
   const visibleRows = useMemo(
     () =>
