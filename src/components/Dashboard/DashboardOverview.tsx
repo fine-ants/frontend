@@ -97,7 +97,7 @@ const ContentContainer = styled.div`
 const PageTitle = styled.h1`
   width: 100%;
   display: flex;
-  font: ${designSystem.font.heading2.font}
+  font: ${designSystem.font.heading2.font};
   letter-spacing: ${designSystem.font.heading2.letterSpacing};
 `;
 
@@ -116,8 +116,8 @@ const TotalMainContentWrapper = styled.div`
 const MainTitle = styled.div`
   margin-right: auto;
 
-  font: ${designSystem.font.title3.font};
-  letter-spacing: ${designSystem.font.title3.letterSpacing};
+  font: ${designSystem.font.title4.font};
+  letter-spacing: ${designSystem.font.title4.letterSpacing};
   color: ${designSystem.color.neutral.gray400};
 `;
 
