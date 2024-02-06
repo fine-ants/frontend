@@ -7,9 +7,15 @@ import StockNotificationListTableHead from "./StockNotificationListTableHead";
 export type StockNotification = {
   companyName: string;
   tickerSymbol: string;
-  targetPrices: { notificationId: number; targetPrice: number }[];
+  targetPrices: StockTargetPrice[];
   lastPrice: number;
   lastUpdated: string;
+};
+
+export type StockTargetPrice = {
+  notificationId: number;
+  targetPrice: number;
+  dateAdded: string;
 };
 
 type Props = {

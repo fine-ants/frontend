@@ -11,6 +11,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StockNotification } from "./StockNotificationListTable";
+import StockNotificationLotsTable from "./StockNotificationLotsTable/StockNotificationLotsTable";
 
 type Props = {
   row: StockNotification;
@@ -80,15 +81,9 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
       </StyledStockNotificationRow>
 
       <StyledLotRow>
-        <TableCell style={{ padding: "0", border: "none" }} colSpan={10}>
+        <TableCell style={{ padding: "0", border: "none" }} colSpan={4}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
-            <div>hello</div>
-            {/* TODO: StockNotificationLotsTable */}
-            {/* <PortfolioHoldingLotsTable
-              portfolioId={Number(portfolioId)}
-              portfolioHoldingId={portfolioHoldingId}
-              purchaseHistory={purchaseHistory}
-            /> */}
+            <StockNotificationLotsTable data={row.targetPrices} />
           </Collapse>
         </TableCell>
       </StyledLotRow>
@@ -127,4 +122,5 @@ const StyledLink = styled(Link)`
 
 const StyledLotRow = styled(TableRow)`
   width: 856px;
+  padding-top: 8px;
 `;
