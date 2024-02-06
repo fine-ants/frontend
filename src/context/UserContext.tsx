@@ -1,5 +1,6 @@
-import { SignInData, User } from "@api/auth";
+import { SignInData } from "@api/auth";
 import { deleteFCMRegToken, fetchFCMRegToken } from "@api/fcm";
+import { User } from "@api/user/types";
 import { ReactNode, createContext, useState } from "react";
 
 export const UserContext = createContext<{

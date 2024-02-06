@@ -1,19 +1,7 @@
 import { Response } from "@api/types";
+import { User } from "@api/user/types";
 import { CLIENT_URL } from "@constants/config";
 import { fetcher } from "../fetcher";
-
-export type User = {
-  id: number;
-  nickname: string;
-  email: string;
-  profileUrl: string;
-  notificationPreferences: {
-    browserNotify: boolean;
-    targetGainNotify: boolean;
-    maxLossNotify: boolean;
-    targetPriceNotify: boolean;
-  };
-};
 
 export type SignInCredentials = {
   email: string;

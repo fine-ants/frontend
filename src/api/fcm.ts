@@ -8,7 +8,7 @@ import {
   isSupported,
   onMessage,
 } from "firebase/messaging";
-import { User } from "./auth";
+import { User } from "./user/types";
 
 const firebaseApp = initializeApp({
   apiKey: import.meta.env.VITE_FCM_API_KEY,

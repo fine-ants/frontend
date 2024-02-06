@@ -1,4 +1,4 @@
-import useAccountDeleteMutation from "@api/settings/queries/useAccountDeleteMutation";
+import useAccountDeleteMutation from "@api/user/queries/useAccountDeleteMutation";
 import { useText } from "@fineants/demolition";
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";

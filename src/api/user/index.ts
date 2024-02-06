@@ -1,6 +1,11 @@
-import { User } from "@api/auth";
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
+import { User } from "./types";
+
+export const getUser = async () => {
+  const res = await fetcher.get<Response<{ user: User }>>("/profile");
+  return res.data;
+};
 
 export const putProfileDetails = async (body: FormData) => {
   const res = await fetcher.put<Response<{ user: User }>>("/profile", body, {

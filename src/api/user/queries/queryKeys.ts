@@ -1,6 +1,6 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
-export const settingsKeys = createQueryKeys("settings", {
+export const userKeys = createQueryKeys("user", {
   profileEdit: () => ({
     queryKey: ["profileEdit"],
   }),

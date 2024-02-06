@@ -2,13 +2,13 @@ import { UserContext } from "@context/UserContext";
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
 import { deleteAccount } from "..";
-import { settingsKeys } from "./queryKeys";
+import { userKeys } from "./queryKeys";
 
 export default function useAccountDeleteMutation() {
   const { onSignOut } = useContext(UserContext);
 
   return useMutation({
-    mutationKey: settingsKeys.deleteAccount().queryKey,
+    mutationKey: userKeys.deleteAccount().queryKey,
     mutationFn: deleteAccount,
     onSuccess: onSignOut,
     meta: {
