@@ -31,6 +31,7 @@ type Props<Item> = {
     }
   ) => JSX.Element;
   EmptyTable: () => JSX.Element;
+  enableTablePagination?: boolean;
 };
 
 export default function PlainTable<Item>({
@@ -41,6 +42,7 @@ export default function PlainTable<Item>({
   TableHead,
   TableBody,
   EmptyTable,
+  enableTablePagination = true,
 }: Props<Item>) {
   const [order, setOrder] = useState<Order>("desc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
@@ -62,10 +64,9 @@ export default function PlainTable<Item>({
     setPage(0);
   };
 
-  const numEmptyRows = Math.max(
-    0,
-    (1 + page) * Math.min(5, rowsPerPage) - tableRows.length
-  );
+  const numEmptyRows = enableTablePagination
+    ? Math.max(0, (1 + page) * Math.min(5, rowsPerPage) - tableRows.length)
+    : 0;
 
   const visibleRows = useMemo(
     () =>
@@ -102,14 +103,16 @@ export default function PlainTable<Item>({
             </MuiTable>
           </MuiTableContainer>
 
-          <TablePagination
-            count={tableRows.length}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={rowsPerPageOptions}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          {enableTablePagination && (
+            <TablePagination
+              count={tableRows.length}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              rowsPerPageOptions={rowsPerPageOptions}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          )}
         </>
       ) : (
         <EmptyTable />

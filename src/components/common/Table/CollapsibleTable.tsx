@@ -34,6 +34,7 @@ type Props<Item> = {
     }
   ) => JSX.Element;
   EmptyTable: () => JSX.Element;
+  enableTablePagination?: boolean;
 };
 
 export default function CollapsibleTable<Item>({
@@ -44,6 +45,7 @@ export default function CollapsibleTable<Item>({
   TableHead,
   TableBody,
   EmptyTable,
+  enableTablePagination = true,
 }: Props<Item>) {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
@@ -70,10 +72,9 @@ export default function CollapsibleTable<Item>({
     setIsAllRowsOpen(!isAllRowsOpen);
   };
 
-  const numEmptyRows = Math.max(
-    0,
-    (1 + page) * Math.min(5, rowsPerPage) - tableRows.length
-  );
+  const numEmptyRows = enableTablePagination
+    ? Math.max(0, (1 + page) * Math.min(5, rowsPerPage) - tableRows.length)
+    : 0;
 
   const visibleRows = useMemo(
     () =>

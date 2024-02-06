@@ -41,6 +41,7 @@ type Props<Item> = {
     }
   ) => JSX.Element;
   EmptyTable: () => JSX.Element;
+  enableTablePagination?: boolean;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
@@ -54,6 +55,7 @@ export default function CollapsibleSelectableTable<Item>({
   TableHead,
   TableBody,
   EmptyTable,
+  enableTablePagination = true,
 }: Props<Item>) {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
@@ -76,11 +78,9 @@ export default function CollapsibleSelectableTable<Item>({
     setSelected(newSelected);
   };
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const numEmptyRows = Math.max(
-    0,
-    (1 + page) * Math.min(5, rowsPerPage) - tableRows.length
-  );
+  const numEmptyRows = enableTablePagination
+    ? Math.max(0, (1 + page) * Math.min(5, rowsPerPage) - tableRows.length)
+    : 0;
 
   const visibleRows = useMemo(
     () =>
