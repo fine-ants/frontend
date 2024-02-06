@@ -1,7 +1,9 @@
+import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
 import Button from "./common/Buttons/Button";
+import { Icon } from "./common/Icon";
 
 type Props = {
   isOpen: boolean;
@@ -27,7 +29,12 @@ export default function ConfirmAlert({
     <BaseDialog style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
       <Wrapper>
         <div>
-          <Title>{title}</Title>
+          <Header>
+            <Title>{title}</Title>
+            <IconButton onClick={onClose}>
+              <Icon size={24} icon="close" color="gray600" />
+            </IconButton>
+          </Header>
           <Body>{children}</Body>
         </div>
         <ButtonWrapper>
@@ -56,7 +63,13 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Title = styled.div`
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.h3`
   width: 100%;
   text-align: left;
   font: ${designSystem.font.heading3.font};
@@ -65,9 +78,9 @@ const Title = styled.div`
 `;
 
 const Body = styled.div`
-  margin-top: 32px;
   width: 100%;
   max-height: 120px;
+  margin-top: 32px;
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
