@@ -1,4 +1,4 @@
-import usePasswordEditMutation from "@api/settings/queries/usePasswordEditMutation";
+import usePasswordEditMutation from "@api/user/queries/usePasswordEditMutation";
 import AccountDeleteDialog from "@components/AccountDeleteDialog";
 import Button from "@components/common/Buttons/Button";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";

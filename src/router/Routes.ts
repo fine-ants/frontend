@@ -3,7 +3,7 @@ export default {
   SIGNUP: "/signup",
   SIGNIN: "/signin",
   SIGNINLOADING: "/signin/loading",
-  SETTINGS: "/settings/:tab",
+  PROFILE: "/settings/:tab",
   NOTIFICATIONS: "/notifications/:tab",
   DASHBOARD: "/dashboard",
   WATCHLISTS: "/watchlists",

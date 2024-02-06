@@ -1,4 +1,4 @@
-import { User } from "@api/auth";
+import { User } from "@api/user/types";
 import { WindowProvider } from "@context/WindowContext";
 import ActiveNotificationsPage from "@pages/ActiveNotificationsPage/ActiveNotificationsPage";
 import DashboardPage from "@pages/DashboardPage";
@@ -8,7 +8,7 @@ import LandingPage from "@pages/LandingPage";
 import NotFoundPage from "@pages/NotFoundPage";
 import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
 import PortfolioPage from "@pages/Portfolio/PortfolioPage";
-import SettingsPage from "@pages/SettingsPage/SettingsPage";
+import ProfilePage from "@pages/ProfilePage/ProfilePage";
 import SignInLoadingPage from "@pages/SignInPage/SignInLoadingPage";
 import SignInPage from "@pages/SignInPage/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
@@ -39,7 +39,7 @@ const router = (user: User | null) =>
             path={Routes.NOTIFICATIONS}
             element={<ActiveNotificationsPage />}
           />
-          <Route path={Routes.SETTINGS} element={<SettingsPage />} />
+          <Route path={Routes.PROFILE} element={<ProfilePage />} />
         </Route>
 
         <Route

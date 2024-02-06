@@ -1,4 +1,4 @@
-import useProfileDetailsMutation from "@api/settings/queries/useProfileDetailsMutation";
+import useProfileDetailsMutation from "@api/user/queries/useProfileDetailsMutation";
 import defaultProfile from "@assets/images/defaultProfile.png";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";

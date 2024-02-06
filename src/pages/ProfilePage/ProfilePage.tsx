@@ -16,7 +16,7 @@ const subPageNavItems = [
   { title: "계정 설정", to: "/settings/account" },
 ];
 
-export default function SettingsPage() {
+export default function ProfilePage() {
   const { tab } = useParams();
 
   if (!isValidTab(tab)) {
@@ -30,8 +30,10 @@ export default function SettingsPage() {
 
         <SubPageNav navItems={subPageNavItems} />
 
-        {tab === "profile" && <ProfileSettingsSubPage />}
-        {tab === "account" && <AccountSettingsSubPage />}
+        <SubPageWrapper>
+          {tab === "profile" && <ProfileSettingsSubPage />}
+          {tab === "account" && <AccountSettingsSubPage />}
+        </SubPageWrapper>
       </Container>
     </BasePage>
   );
@@ -53,4 +55,12 @@ const Title = styled.div`
   font: ${designSystem.font.heading2.font};
   letter-spacing: ${designSystem.font.heading2.letterSpacing};
   color: ${designSystem.color.neutral.gray900};
+`;
+
+const SubPageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
 `;
