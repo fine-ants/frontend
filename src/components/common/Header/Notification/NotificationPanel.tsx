@@ -15,7 +15,10 @@ type Props = {
     content: string;
     timestamp: string;
     isRead: boolean;
+    type: "stock" | "portfolio";
+    referenceId: string;
   }[];
+
   handleClose: () => void;
 };
 
@@ -34,6 +37,10 @@ export function NotificationPanel({
   const closeDialog = () => {
     setIsOPenDialog(false);
   };
+
+  const navigateActivateNotify = () => [
+    // TODO
+  ];
 
   return (
     <>
@@ -55,7 +62,9 @@ export function NotificationPanel({
           <PanelHeader>
             <PanelTitle>알림</PanelTitle>
             <PanelButtonContainer>
-              <TextButton>활성화 알림 보기</TextButton>
+              <TextButton onClick={navigateActivateNotify}>
+                활성화 알림 보기
+              </TextButton>
               <Divider />
               <button onClick={openDialog}>
                 <Icon icon="settings" color="gray800" size={24} />
