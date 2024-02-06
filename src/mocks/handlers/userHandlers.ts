@@ -2,10 +2,16 @@ import { HTTPSTATUS } from "@api/types";
 import {
   successfulPasswordEditData,
   successfulProfileDetailsEditData,
-} from "@mocks/data/settingsData";
+  successfulUserData,
+} from "@mocks/data/userData";
 import { HttpResponse, http } from "msw";
 
 export default [
+  http.get("/api/profile", async () => {
+    return HttpResponse.json(successfulUserData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
   http.put("/api/profile", async ({ request }) => {
     const formData = await request.formData();
 

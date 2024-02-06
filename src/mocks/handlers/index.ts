@@ -3,8 +3,8 @@ import authHandlers from "./authHandlers";
 import dashboardHandlers from "./dashboardHandlers";
 import memberNotifications from "./notifications/memberNotifications";
 import portfolioHandlers from "./portfolioHandlers";
-import settingsHandlers from "./settingsHandlers";
 import stockHandlers from "./stockHandlers";
+import userHandlers from "./userHandlers";
 import watchlistHandlers from "./watchlistHandlers";
 
 export default [
@@ -15,7 +15,7 @@ export default [
   ...dashboardHandlers,
   ...portfolioHandlers,
   ...stockHandlers,
-  ...settingsHandlers,
+  ...userHandlers,
   ...watchlistHandlers,
   ...memberNotifications,
 ];

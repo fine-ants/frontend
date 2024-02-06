@@ -1,5 +1,25 @@
 import { HTTPSTATUS } from "@api/types";
 
+export const successfulUserData = {
+  code: HTTPSTATUS.success,
+  status: "Success",
+  message: "유저 정보를 성공적으로 가져왔습니다",
+  data: {
+    user: {
+      id: "1",
+      nickname: "Kakamotobi",
+      email: "d@d.com",
+      profileUrl: "https://avatars.githubusercontent.com/u/79886384?v=4",
+      notificationPreferences: {
+        browserNotify: true,
+        targetGainNotify: true,
+        maxLossNotify: true,
+        targetPriceNotify: true,
+      },
+    },
+  },
+};
+
 export const successfulProfileDetailsEditData = ({
   profileInformation,
   profileImageFile,
