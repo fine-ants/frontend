@@ -20,6 +20,7 @@ type Props = {
   purchaseHistory: PurchaseHistoryField[];
 };
 
+// TODO: PlainTable을 사용하도록 수정
 export default function PortfolioHoldingLotsTable({
   portfolioId,
   portfolioHoldingId,
