@@ -34,13 +34,12 @@ const router = (user: User | null) =>
           <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
           {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
           <Route path={Routes.WATCHLISTS} element={<WatchlistsPage />} />
-          <Route path={Routes.WATCHLISTS} element={<WatchlistPage />} />
+          <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
           <Route
             path={Routes.NOTIFICATIONS}
             element={<ActiveNotificationsPage />}
           />
           <Route path={Routes.SETTINGS} element={<SettingsPage />} />
-          <Route path={Routes.INDICES} element={<IndicesPage />} />
         </Route>
 
         <Route
@@ -54,7 +53,7 @@ const router = (user: User | null) =>
           <Route path={Routes.SIGNIN} element={<SignInPage />} />
           <Route path={Routes.SIGNUP} element={<SignUpPage />} />
         </Route>
-
+        <Route path={Routes.INDICES} element={<IndicesPage />} />
         <Route path={Routes.STOCK} element={<StockPage />} />
         <Route path={Routes.FALLBACK} element={<NotFoundPage />} />
       </Route>

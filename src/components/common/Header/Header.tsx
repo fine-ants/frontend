@@ -1,6 +1,5 @@
 import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
 import { UserContext } from "@context/UserContext";
-import { Button } from "@mui/material";
 import Routes from "@router/Routes";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +7,7 @@ import styled from "styled-components";
 import { NavBar } from "../../NavBar";
 import SearchBar from "../../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../../TradingViewWidgets/TVTickerTape";
+import Button from "../Buttons/Button";
 import { PortfoliosDropdown } from "./PortfoliosDropdown/PortfoliosDropdown";
 import UserControls from "./UserControls";
 
@@ -19,9 +19,9 @@ export default function Header() {
   const navItems = [
     {
       name: "Watchlists",
-      to: Routes.WATCHLISTS,
+      to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
     },
-    { name: "Indices", to: Routes.INDICES },
+    { name: "Indices", to: "/indices/KRX:KOSPI" },
   ];
 
   const onLogoClick = () => {
@@ -58,10 +58,14 @@ export default function Header() {
           {user ? (
             <UserControls />
           ) : (
-            <>
-              <Button onClick={moveToSignInPage}>로그인</Button>
-              <Button onClick={moveToSignUpPage}>회원가입</Button>
-            </>
+            <ButtonWrapper>
+              <Button variant="text" size="h32" onClick={moveToSignInPage}>
+                로그인
+              </Button>
+              <Button variant="primary" size="h32" onClick={moveToSignUpPage}>
+                회원가입
+              </Button>
+            </ButtonWrapper>
           )}
         </HeaderRight>
       </HeaderTop>
@@ -72,7 +76,6 @@ export default function Header() {
 }
 
 const StyledHeader = styled.header`
-  z-index: 10;
   color: ${({ theme: { color } }) => color.neutral.white};
   background-color: ${({ theme: { color } }) => color.neutral.gray900};
 `;
@@ -94,7 +97,7 @@ const HeaderLeft = styled.div`
 
 const HeaderRight = styled.div`
   display: flex;
-  gap: 38px;
+  gap: 14px;
   align-items: center;
   margin-left: auto;
 `;
@@ -108,4 +111,9 @@ const StyledBrandIdentity = styled.div`
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 8px;
 `;

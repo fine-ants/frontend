@@ -1,5 +1,5 @@
 import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
-import RateBadge from "@components/common/Badges/RateBadge";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
 import {
@@ -235,7 +235,7 @@ export default function PortfolioHoldingRow({
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={dailyChangeRate ?? dailyChangeRate}
+            value={dailyChangeRate ?? dailyChangeRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -246,7 +246,7 @@ export default function PortfolioHoldingRow({
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={totalReturnRate ?? totalReturnRate}
+            value={totalReturnRate ?? totalReturnRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -262,7 +262,7 @@ export default function PortfolioHoldingRow({
           </HoldingTypography>
           <RateBadge
             size={12}
-            rate={annualDividendYield}
+            value={annualDividendYield}
             bgColorStatus={false}
           />
         </HoldingTableCell>

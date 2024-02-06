@@ -83,7 +83,7 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
         {selectedStocks.length > 0 && (
           <SelectedStocksList>
             {selectedStocks.map((stock) => (
-              <StockListItem>
+              <StockListItem key={stock.tickerSymbol}>
                 <StockDetails>
                   <p>{stock.companyName}</p>
                   <p>{stock.tickerSymbol}</p>
@@ -111,12 +111,12 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
 }
 
 const watchlistItemAddDialogStyles = {
-  "width": "544px",
-  "height": "605px",
-  "display": "flex",
-  "flex-direction": "column",
-  "justify-content": "space-between",
-  "gap": "24px",
+  width: "544px",
+  height: "605px",
+  display: "flex",
+  flexDirection: "column" as const,
+  justifyContent: "space-between" as const,
+  gap: "24px",
 };
 
 const Header = styled.header`

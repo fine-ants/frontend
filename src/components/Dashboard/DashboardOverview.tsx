@@ -1,5 +1,5 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
-import RateBadge from "@components/common/Badges/RateBadge";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
@@ -41,7 +41,7 @@ export default function DashboardOverview() {
                   {thousandsDelimiter(overviewData?.totalGain ?? 0)}
                 </Value>
               </ValueWrapper>
-              <RateBadge size={24} rate={overviewData?.totalGainRate ?? 0} />
+              <RateBadge size={24} value={overviewData?.totalGainRate ?? 0} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <Title>연 배당금</Title>
@@ -53,7 +53,7 @@ export default function DashboardOverview() {
               </ValueWrapper>
               <RateBadge
                 size={24}
-                rate={overviewData?.totalAnnualDividendYield ?? 0}
+                value={overviewData?.totalAnnualDividendYield ?? 0}
               />
             </TotalSubContentWrapper>
           </SubContentContainer>
@@ -97,7 +97,7 @@ const ContentContainer = styled.div`
 const PageTitle = styled.h1`
   width: 100%;
   display: flex;
-  font: ${designSystem.font.heading2.font}
+  font: ${designSystem.font.heading2.font};
   letter-spacing: ${designSystem.font.heading2.letterSpacing};
 `;
 
@@ -116,8 +116,8 @@ const TotalMainContentWrapper = styled.div`
 const MainTitle = styled.div`
   margin-right: auto;
 
-  font: ${designSystem.font.title3.font};
-  letter-spacing: ${designSystem.font.title3.letterSpacing};
+  font: ${designSystem.font.title4.font};
+  letter-spacing: ${designSystem.font.title4.letterSpacing};
   color: ${designSystem.color.neutral.gray400};
 `;
 

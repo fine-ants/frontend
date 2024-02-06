@@ -26,4 +26,8 @@ export const watchlistKeys = createQueryKeys("watchlist", {
   deleteStock: (watchlistId: number) => ({
     queryKey: ["deleteStock", watchlistId],
   }),
+
+  hasStock: () => ({
+    queryKey: ["hasStock"],
+  }),
 });

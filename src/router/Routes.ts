@@ -11,7 +11,7 @@ export default {
   PORTFOLIOS: "/portfolios",
   PORTFOLIO: "/portfolio/:portfolioId",
   PORTFOLIOHOLDING: "/portfolio/:id/holding/:holdingId",
-  INDICES: "/indices",
+  INDICES: "/indices/:tickerSymbol",
   STOCK: "/stock/:tickerSymbol",
   FALLBACK: "*",
 };

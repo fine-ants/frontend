@@ -1,5 +1,5 @@
 import { PortfolioItem } from "@api/portfolio/types";
-import RateBadge from "@components/common/Badges/RateBadge";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { TableCell, TableRow } from "@mui/material";
 import designSystem from "@styles/designSystem";
@@ -76,11 +76,11 @@ export default function PortfolioListTableRow({
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
         <div>₩ {thousandsDelimiter(totalGain ?? 0)}</div>
-        <RateBadge size={16} rate={totalGainRate} bgColorStatus={false} />
+        <RateBadge size={16} value={totalGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
         <div>₩ {thousandsDelimiter(dailyGain ?? 0)}</div>
-        <RateBadge size={16} rate={dailyGainRate} bgColorStatus={false} />
+        <RateBadge size={16} value={dailyGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
         ₩ {thousandsDelimiter(expectedMonthlyDividend ?? 0)}

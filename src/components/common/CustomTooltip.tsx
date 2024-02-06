@@ -8,7 +8,7 @@ type Props = TooltipProps & { children: ReactElement; smallPadding?: boolean };
 export function CustomTooltip({ children, smallPadding, ...props }: Props) {
   return (
     <StyledCustomTooltip $smallPadding={smallPadding} {...props}>
-      {children}
+      <div>{children}</div>
     </StyledCustomTooltip>
   );
 }
