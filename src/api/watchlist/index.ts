@@ -23,6 +23,12 @@ export type WatchlistsType = {
   name: string;
 };
 
+export type WatchlistHasStockData = {
+  id: number;
+  name: string;
+  hasStock: boolean;
+};
+
 //watchlist 목록 api
 
 export const getWatchlists = async () => {
@@ -79,6 +85,13 @@ export const deleteWatchlistStock = async ({
     {
       data: { tickerSymbols },
     }
+  );
+  return res.data;
+};
+
+export const getWatchlistHasStock = async (tickerSymbol: string) => {
+  const res = await fetcher.get<Response<WatchlistHasStockData[]>>(
+    `/watchlists/stockExists/${tickerSymbol}`
   );
   return res.data;
 };

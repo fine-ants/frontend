@@ -1,5 +1,5 @@
 import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
-import RateBadge from "@components/common/Badges/RateBadge";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
 import {
@@ -27,17 +27,21 @@ type ChangeStatus = {
   totalReturnRate: GainOrLoss;
 };
 
+type Props = {
+  labelId: string;
+  row: PortfolioHolding;
+  isItemSelected: boolean;
+  isAllRowsOpen: boolean;
+  handleClick: (event: MouseEvent<unknown>, id: number) => void;
+};
+
 export default function PortfolioHoldingRow({
   labelId,
   row,
   isItemSelected,
+  isAllRowsOpen,
   handleClick,
-}: {
-  labelId: string;
-  row: PortfolioHolding;
-  isItemSelected: boolean;
-  handleClick: (event: MouseEvent<unknown>, id: number) => void;
-}) {
+}: Props) {
   const { portfolioId } = useParams();
 
   const {
@@ -58,7 +62,6 @@ export default function PortfolioHoldingRow({
   } = row;
 
   const [isRowOpen, setIsRowOpen] = useState(false);
-
   const [changeStatus, setChangeStatus] = useState<ChangeStatus>({
     currentValuation: "none",
     currentPrice: "none",
@@ -119,6 +122,13 @@ export default function PortfolioHoldingRow({
     totalReturnRate,
   ]);
 
+  const onExpandRowClick = (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    event.stopPropagation();
+    setIsRowOpen(!isRowOpen);
+  };
+
   useEffect(() => {
     const newStatus = {
       currentValuation: checkValuesChange("currentValuation"),
@@ -146,12 +156,10 @@ export default function PortfolioHoldingRow({
     resyncValues,
   ]);
 
-  const onExpandRowClick = (
-    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
-    event.stopPropagation();
-    setIsRowOpen(!isRowOpen);
-  };
+  // TODO: Reduce rendering (currently renders twice)
+  useEffect(() => {
+    setIsRowOpen(isAllRowsOpen);
+  }, [isAllRowsOpen]);
 
   return (
     <>
@@ -235,7 +243,7 @@ export default function PortfolioHoldingRow({
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={dailyChangeRate ?? dailyChangeRate}
+            value={dailyChangeRate ?? dailyChangeRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -246,7 +254,7 @@ export default function PortfolioHoldingRow({
           </ChangeableAmount>
           <RateBadge
             size={12}
-            rate={totalReturnRate ?? totalReturnRate}
+            value={totalReturnRate ?? totalReturnRate}
             bgColorStatus={false}
           />
         </HoldingTableCell>
@@ -262,7 +270,7 @@ export default function PortfolioHoldingRow({
           </HoldingTypography>
           <RateBadge
             size={12}
-            rate={annualDividendYield}
+            value={annualDividendYield}
             bgColorStatus={false}
           />
         </HoldingTableCell>

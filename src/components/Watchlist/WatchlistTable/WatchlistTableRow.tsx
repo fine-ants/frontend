@@ -1,6 +1,6 @@
 import { WatchlistItemType } from "@api/watchlist";
 import useWatchlistItemDeleteMutation from "@api/watchlist/queries/useWatchlistItemDeleteMutation";
-import RateBadge from "@components/common/Badges/RateBadge";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
@@ -80,10 +80,13 @@ export default function WatchlistTableRow({
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
         <div>₩ {thousandsDelimiter(dailyChange ?? 0)}</div>
-        <RateBadge size={16} rate={dailyChangeRate} bgColorStatus={false} />
+        <RateBadge size={16} value={dailyChangeRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
-        {annualDividendYield.toString().padEnd(4, "0") ?? 0}%
+        {annualDividendYield === 0
+          ? 0
+          : annualDividendYield.toString().padEnd(4, "0")}
+        %
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
         {sector}

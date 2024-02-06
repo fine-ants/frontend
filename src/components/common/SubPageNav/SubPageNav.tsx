@@ -23,7 +23,6 @@ export default function SubPageNav({ navItems }: Props) {
 const Nav = styled.nav`
   width: 100%;
   height: 40px;
-  margin-bottom: 40px;
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 
   > ul {

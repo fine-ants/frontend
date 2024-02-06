@@ -52,10 +52,13 @@ export default [
   ),
 
   // Watchlist 조회
-  http.get("/api/watchlists/:watchlistId", () => {
-    return HttpResponse.json(successfulGetWatchlistResponse, {
-      status: HTTPSTATUS.success,
-    });
+  http.get("/api/watchlists/:watchlistId", ({ params }) => {
+    return HttpResponse.json(
+      successfulGetWatchlistResponse(`My Watchlist ${params.watchlistId}`),
+      {
+        status: HTTPSTATUS.success,
+      }
+    );
   }),
 
   // Watchlist 종목 다수 추가

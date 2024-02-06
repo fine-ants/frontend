@@ -13,9 +13,12 @@ export default function useWatchlistItemDeleteMutation(watchlistId: number) {
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.item(watchlistId).queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: watchlistKeys.hasStock().queryKey,
+      });
     },
     meta: {
-      tostSuccessMessage: "관심 종목을 삭제했습니다",
+      toastSuccessMessage: "관심 종목을 삭제했습니다",
       toastErrorMessage: "관심 종목을 삭제하는 중 오류가 발생했습니다",
     },
   });

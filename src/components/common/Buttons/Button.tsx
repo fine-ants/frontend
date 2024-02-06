@@ -3,7 +3,7 @@ import { ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
 
 export type Variant = "primary" | "secondary" | "tertiary" | "text";
-type Size = "h32" | "h44";
+type Size = "h24" | "h32" | "h44";
 
 type Props = {
   variant: Variant;
@@ -49,8 +49,31 @@ const StyledButton = styled.button<{
   $size: Size;
   $disabled?: boolean;
 }>`
-  min-width: ${({ $size }) => ($size === "h32" ? "80px" : "128px")};
-  height: ${({ $size }) => `${$size === "h32" ? 32 : 44}px`};
+  white-space: nowrap;
+  min-width: ${({ $size }) => {
+    switch ($size) {
+      case "h24":
+        return "56px";
+      case "h32":
+        return "80px";
+      case "h44":
+        return "128px";
+      default:
+        throw new Error("버튼 사이즈가 잘못되었습니다.");
+    }
+  }};
+  height: ${({ $size }) => {
+    switch ($size) {
+      case "h24":
+        return "24px";
+      case "h32":
+        return "32px";
+      case "h44":
+        return "44px";
+      default:
+        throw new Error("버튼 사이즈가 잘못되었습니다.");
+    }
+  }};
   padding-inline: ${({ $size }) => ($size === "h32" ? "12px" : "16px")};
   display: flex;
   justify-content: center;
@@ -96,13 +119,13 @@ const StyledButton = styled.button<{
     }
   }};
   font: ${({ $size }) =>
-    $size === "h32"
-      ? designSystem.font.button2.font
-      : designSystem.font.button1.font};
+    $size === "h44"
+      ? designSystem.font.button1.font
+      : designSystem.font.button2.font};
   letter-spacing: ${({ $size }) =>
-    $size === "h32"
-      ? designSystem.font.button2.letterSpacing
-      : designSystem.font.button1.letterSpacing};
+    $size === "h44"
+      ? designSystem.font.button1.letterSpacing
+      : designSystem.font.button2.letterSpacing};
   color: ${({ $variant, $disabled }) => {
     switch ($variant) {
       case "primary":

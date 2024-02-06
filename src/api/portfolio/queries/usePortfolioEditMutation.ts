@@ -12,9 +12,11 @@ export default function usePortfolioEditMutation(portfolioId: number) {
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
-
       queryClient.invalidateQueries({
         queryKey: [portfolioKeys.list().queryKey],
+      });
+      queryClient.invalidateQueries({
+        queryKey: portfolioKeys.charts(portfolioId).queryKey,
       });
     },
     meta: {
