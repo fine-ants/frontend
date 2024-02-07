@@ -2,6 +2,7 @@ import { HttpResponse, http } from "msw";
 import authHandlers from "./authHandlers";
 import dashboardHandlers from "./dashboardHandlers";
 import memberNotifications from "./notifications/memberNotifications";
+import notificationSettingsHandlers from "./notifications/notificationSettingsHandlers";
 import portfolioHandlers from "./portfolioHandlers";
 import stockHandlers from "./stockHandlers";
 import userHandlers from "./userHandlers";
@@ -18,4 +19,5 @@ export default [
   ...userHandlers,
   ...watchlistHandlers,
   ...memberNotifications,
+  ...notificationSettingsHandlers,
 ];

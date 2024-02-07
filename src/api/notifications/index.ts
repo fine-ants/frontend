@@ -56,8 +56,8 @@ export const putMemberNotificationSettings = async ({
 
 // 종목 활성 알림 목록
 export const getPortfolioNotificationSettings = async () => {
-  const res = await fetcher.get<Response<PortfolioNotification[]>>(
-    `/portfolios/notification/settings`
-  );
+  const res = await fetcher.get<
+    Response<{ portfolios: PortfolioNotification[] }>
+  >(`/portfolios/notification/settings`);
   return res.data;
 };

@@ -1,5 +1,5 @@
+import { PortfolioNotification } from "@api/notifications/types";
 import { TableBody, TableCell, TableRow } from "@mui/material";
-import { PortfolioNotification } from "./PortfolioNotificationListTable";
 import PortfolioNotificationRow from "./PortfolioNotificationRow";
 
 type Props = {

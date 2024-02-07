@@ -1,9 +1,9 @@
+import { PortfolioNotification } from "@api/notifications/types";
 import { Icon } from "@components/common/Icon";
 import { IconButton, TableCell, TableRow, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { PortfolioNotification } from "./PortfolioNotificationListTable";
 
 type Props = {
   row: PortfolioNotification;
@@ -11,6 +11,16 @@ type Props = {
 
 export default function PortfolioNotificationRow({ row }: Props) {
   const { portfolioId, name, targetGainNotify, maxLossNotify } = row;
+
+  const onTargetGainNotifyButtonClick = () => {
+    // TODO: activate/deactivate notification
+    // Debounce
+  };
+
+  const onMaxLossNotifyButtonClick = () => {
+    // TODO: activate/deactivate notification
+    // Debounce
+  };
 
   return (
     <StyledPortfolioNotificationRow>
@@ -25,8 +35,7 @@ export default function PortfolioNotificationRow({ row }: Props) {
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "140px" }} align="center">
-        {/* TODO: onClick */}
-        <IconButton>
+        <IconButton onClick={onTargetGainNotifyButtonClick}>
           <Icon
             icon="notification"
             size={24}
@@ -36,8 +45,7 @@ export default function PortfolioNotificationRow({ row }: Props) {
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "140px" }} align="center">
-        {/* TODO: onClick */}
-        <IconButton>
+        <IconButton onClick={onMaxLossNotifyButtonClick}>
           <Icon
             icon="notification"
             size={24}
