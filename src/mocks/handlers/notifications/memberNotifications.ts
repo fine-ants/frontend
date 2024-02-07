@@ -5,9 +5,9 @@ import {
   successfulEditMemberNotificationsSettings,
   successfulMemberNotifications,
   successfulReadAllMemberNotifications,
-} from "@mocks/data/notificationsData";
+} from "@mocks/data/notifications/memberNotificationsData";
 import { HttpResponse, http } from "msw";
-import { successfulReadMemberNotification } from "./../../data/notificationsData";
+import { successfulReadMemberNotification } from "../../data/notifications/memberNotificationsData";
 
 //TODO : 요청에 맞게 데이터 조작 추가하기
 export default [

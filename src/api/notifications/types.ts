@@ -14,3 +14,11 @@ export type MemberNotificationsSettings = {
   maxLossNotify: boolean;
   targetPriceNotify: boolean;
 };
+
+export type PortfolioNotification = {
+  portfolioId: number;
+  name: string;
+  targetGainNotify: boolean;
+  maxLossNotify: boolean;
+  lastUpdated: string;
+};

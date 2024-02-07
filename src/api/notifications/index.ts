@@ -1,6 +1,10 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
-import { MemberNotifications, MemberNotificationsSettings } from "./types";
+import {
+  MemberNotifications,
+  MemberNotificationsSettings,
+  PortfolioNotification,
+} from "./types";
 
 export const getMemberNotifications = async (memberId: number) => {
   const res = await fetcher.get<Response<MemberNotifications>>(
@@ -46,6 +50,14 @@ export const putMemberNotificationSettings = async ({
   const res = await fetcher.patch<Response<MemberNotifications>>(
     `members/${memberId}/notification/settings`,
     body
+  );
+  return res.data;
+};
+
+// 종목 활성 알림 목록
+export const getPortfolioNotificationSettings = async () => {
+  const res = await fetcher.get<Response<PortfolioNotification[]>>(
+    `/portfolios/notification/settings`
   );
   return res.data;
 };
