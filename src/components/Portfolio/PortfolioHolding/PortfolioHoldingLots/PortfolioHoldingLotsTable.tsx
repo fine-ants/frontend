@@ -38,72 +38,81 @@ export default function PortfolioHoldingLotsTable({
 
   return (
     <StyledPortfolioHoldingLotsTable>
-      <StyledTable size="small" aria-label="purchases">
-        <StyledTableHead>
-          <StyledTableHeadRow>
-            <StyledTableHeadCell style={{ width: "151px" }}>
-              매입 날짜
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "119px" }} align="right">
-              매입가
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "119px" }} align="right">
-              개수
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "395px" }}>
-              메모
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "32px" }}>
-              <Icon icon="edit" size={16} color={"gray600"} />
-            </StyledTableHeadCell>
+      <Wrapper>
+        <StyledTable size="small" aria-label="purchases">
+          <StyledTableHead>
+            <StyledTableHeadRow>
+              <StyledTableHeadCell style={{ width: "151px" }}>
+                매입 날짜
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "119px" }} align="right">
+                매입가
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "119px" }} align="right">
+                개수
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "395px" }}>
+                메모
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "32px" }}>
+                <Icon icon="edit" size={16} color={"gray600"} />
+              </StyledTableHeadCell>
 
-            <StyledTableHeadCell style={{ width: "40px" }}>
-              <Icon icon="remove" size={16} color={"gray600"} />
-            </StyledTableHeadCell>
-          </StyledTableHeadRow>
-        </StyledTableHead>
+              <StyledTableHeadCell style={{ width: "40px" }}>
+                <Icon icon="remove" size={16} color={"gray600"} />
+              </StyledTableHeadCell>
+            </StyledTableHeadRow>
+          </StyledTableHead>
 
-        <StyledTableBody>
-          {purchaseHistory.map((lot) => (
-            <PortfolioHoldingLotRow
-              key={lot.purchaseHistoryId}
-              portfolioId={portfolioId}
-              portfolioHoldingId={portfolioHoldingId}
-              lot={lot}
-            />
-          ))}
-          {isAddLotMode && (
-            <PortfolioHoldingLotAddRow
-              portfolioId={portfolioId}
-              portfolioHoldingId={portfolioHoldingId}
-              onDeleteButtonClick={onDeleteLotButtonClick}
-            />
-          )}
-        </StyledTableBody>
+          <StyledTableBody>
+            {purchaseHistory.map((lot) => (
+              <PortfolioHoldingLotRow
+                key={lot.purchaseHistoryId}
+                portfolioId={portfolioId}
+                portfolioHoldingId={portfolioHoldingId}
+                lot={lot}
+              />
+            ))}
+            {isAddLotMode && (
+              <PortfolioHoldingLotAddRow
+                portfolioId={portfolioId}
+                portfolioHoldingId={portfolioHoldingId}
+                onDeleteButtonClick={onDeleteLotButtonClick}
+              />
+            )}
+          </StyledTableBody>
 
-        <MuiTableFooter>
-          <MuiTableRow>
-            <MuiTableCell
-              colSpan={6}
-              sx={{ paddingInline: "8px", border: "none" }}>
-              <AddLotButton onClick={onAddLotButtonClick}>
-                <Icon icon="add" size={16} color="blue500" />
-                <span>항목 추가</span>
-              </AddLotButton>
-            </MuiTableCell>
-          </MuiTableRow>
-        </MuiTableFooter>
-      </StyledTable>
+          <MuiTableFooter>
+            <MuiTableRow>
+              <MuiTableCell
+                colSpan={6}
+                sx={{ paddingInline: "8px", border: "none" }}>
+                <AddLotButton onClick={onAddLotButtonClick}>
+                  <Icon icon="add" size={16} color="blue500" />
+                  <span>항목 추가</span>
+                </AddLotButton>
+              </MuiTableCell>
+            </MuiTableRow>
+          </MuiTableFooter>
+        </StyledTable>
+      </Wrapper>
     </StyledPortfolioHoldingLotsTable>
   );
 }
 
 const StyledPortfolioHoldingLotsTable = styled.div`
+  padding-left: 24px;
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  padding-left: 16px;
+  border-left: 1px solid ${designSystem.color.primary.blue100};
 `;
 
 const StyledTable = styled(MuiTable)`
