@@ -15,14 +15,6 @@ export type MemberNotificationsSettings = {
   targetPriceNotify: boolean;
 };
 
-export type PortfolioNotification = {
-  portfolioId: number;
-  name: string;
-  targetGainNotify: boolean;
-  maxLossNotify: boolean;
-  lastUpdated: string;
-};
-
 export type StockNotification = {
   companyName: string;
   tickerSymbol: string;
@@ -35,4 +27,16 @@ export type StockTargetPrice = {
   notificationId: number;
   targetPrice: number;
   dateAdded: string;
+};
+
+export type PortfolioNotification = {
+  portfolioId: number;
+  name: string;
+  targetGainNotify: boolean;
+  maxLossNotify: boolean;
+  lastUpdated: string;
+};
+
+export type PortfolioNotificationSettingsPutBody = {
+  isActive: boolean;
 };

@@ -4,6 +4,7 @@ import {
   MemberNotifications,
   MemberNotificationsSettings,
   PortfolioNotification,
+  PortfolioNotificationSettingsPutBody,
   StockNotification,
 } from "./types";
 
@@ -55,7 +56,7 @@ export const putMemberNotificationSettings = async ({
   return res.data;
 };
 
-// 종목 활성 알림 목록
+// 종목 활성 알림
 export const getStockNotificationSettings = async () => {
   const res = await fetcher.get<Response<{ stocks: StockNotification[] }>>(
     `/stocks/notification/settings`
@@ -63,10 +64,26 @@ export const getStockNotificationSettings = async () => {
   return res.data;
 };
 
-// 포트폴리오 활성 알림 목록
+// 포트폴리오 활성 알림
 export const getPortfolioNotificationSettings = async () => {
   const res = await fetcher.get<
     Response<{ portfolios: PortfolioNotification[] }>
   >(`/portfolios/notification/settings`);
+  return res.data;
+};
+
+export const putPortfolioNotificationSettings = async ({
+  portfolioId,
+  notificationType,
+  body,
+}: {
+  portfolioId: number;
+  notificationType: "targetGain" | "maxLoss";
+  body: PortfolioNotificationSettingsPutBody;
+}) => {
+  const res = await fetcher.put<Response<null>>(
+    `/portfolio/${portfolioId}/notification/${notificationType}`,
+    body
+  );
   return res.data;
 };

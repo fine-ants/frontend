@@ -1,6 +1,13 @@
+import usePortfolioNotificationSettingsMutation from "@api/notifications/queries/usePortfolioNotificationSettingsMutation";
 import { PortfolioNotification } from "@api/notifications/types";
 import { Icon } from "@components/common/Icon";
-import { IconButton, TableCell, TableRow, Typography } from "@mui/material";
+import {
+  IconButton,
+  TableCell,
+  TableRow,
+  Typography,
+  debounce,
+} from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -12,15 +19,22 @@ type Props = {
 export default function PortfolioNotificationRow({ row }: Props) {
   const { portfolioId, name, targetGainNotify, maxLossNotify } = row;
 
-  const onTargetGainNotifyButtonClick = () => {
-    // TODO: activate/deactivate notification
-    // Debounce
-  };
+  const { mutate: editMutate } =
+    usePortfolioNotificationSettingsMutation(portfolioId);
 
-  const onMaxLossNotifyButtonClick = () => {
-    // TODO: activate/deactivate notification
-    // Debounce
-  };
+  const onTargetGainNotifyButtonClick = debounce(() => {
+    editMutate({
+      notificationType: "targetGain",
+      body: { isActive: !targetGainNotify },
+    });
+  }, 250);
+
+  const onMaxLossNotifyButtonClick = debounce(() => {
+    editMutate({
+      notificationType: "maxLoss",
+      body: { isActive: !maxLossNotify },
+    });
+  }, 250);
 
   return (
     <StyledPortfolioNotificationRow>

@@ -62,3 +62,10 @@ export const successfulPortfolioNotificationSettingsData = {
     ],
   },
 };
+
+export const successfulPortfolioNotificationSettingsPutData = {
+  code: 200,
+  status: "OK",
+  message: "알림 설정을 변경했습니다",
+  data: null,
+};

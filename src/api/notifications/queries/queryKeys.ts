@@ -7,6 +7,9 @@ export const notificationKeys = createQueryKeys("notifications", {
   portfolioNotificationSettings: () => ({
     queryKey: ["portfolioNotificationSettings"],
   }),
+  editPortfolioNotificationSettings: () => ({
+    queryKey: ["editPortfolioNotificationSettings"],
+  }),
   memberNotifications: () => ({
     queryKey: ["memberNotifications"],
   }),
