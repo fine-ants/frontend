@@ -54,13 +54,8 @@ export default function PortfolioHoldingLotsTable({
               <StyledTableHeadCell style={{ width: "395px" }}>
                 메모
               </StyledTableHeadCell>
-              <StyledTableHeadCell style={{ width: "32px" }}>
-                <Icon icon="edit" size={16} color={"gray600"} />
-              </StyledTableHeadCell>
-
-              <StyledTableHeadCell style={{ width: "40px" }}>
-                <Icon icon="remove" size={16} color={"gray600"} />
-              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "32px" }} />
+              <StyledTableHeadCell style={{ width: "40px" }} />
             </StyledTableHeadRow>
           </StyledTableHead>
 
