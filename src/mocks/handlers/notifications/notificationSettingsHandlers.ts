@@ -1,5 +1,6 @@
 import { HTTPSTATUS } from "@api/types";
 import {
+  successfulAllStockPriceTargetsDeleteData,
   successfulPortfolioNotificationSettingsData,
   successfulPortfolioNotificationSettingsPutData,
   successfulStockNotificationSettingsData,
@@ -17,6 +18,12 @@ export default [
 
   http.put("/api/stocks/:tickerSymbol/target-price/notifications", () => {
     return HttpResponse.json(successfulStockNotificationSettingsPutData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
+
+  http.delete("/api/stocks/:tickerSymbol/target-price/notifications", () => {
+    return HttpResponse.json(successfulAllStockPriceTargetsDeleteData, {
       status: HTTPSTATUS.success,
     });
   }),

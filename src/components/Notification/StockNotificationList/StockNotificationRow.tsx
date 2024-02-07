@@ -1,5 +1,7 @@
+import useAllStockPriceTargetsDeleteMutation from "@api/notifications/queries/useAllStockPriceTargetsDeleteMutation";
 import useStockNotificationSettingsMutation from "@api/notifications/queries/useStockNotificationSettingsMutation";
 import { StockNotification } from "@api/notifications/types";
+import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
 import {
   Button,
@@ -22,11 +24,34 @@ type Props = {
 };
 
 export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
-  const { companyName, tickerSymbol, lastPrice, isActive } = row;
+  const { companyName, tickerSymbol, targetPrices, lastPrice, isActive } = row;
 
-  const { mutate } = useStockNotificationSettingsMutation(tickerSymbol);
+  const { mutate: activationMutate } =
+    useStockNotificationSettingsMutation(tickerSymbol);
+  const { mutate: removeAllMutate } =
+    useAllStockPriceTargetsDeleteMutation(tickerSymbol);
 
   const [isRowOpen, setIsRowOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const onRemoveAllButtonClick = () => {
+    setIsConfirmOpen(true);
+  };
+
+  const onRemoveAllAlertClose = () => {
+    setIsConfirmOpen(false);
+  };
+
+  const onConfirmRemoveAll = () => {
+    const targetPriceNotificationIds = targetPrices.map(
+      (item) => item.notificationId
+    );
+    removeAllMutate(targetPriceNotificationIds);
+  };
+
+  const onNotificationButtonClick = debounce(() => {
+    activationMutate({ isActive: !isActive });
+  }, 250);
 
   const onExpandRowClick = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -34,10 +59,6 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
     event.stopPropagation();
     setIsRowOpen(!isRowOpen);
   };
-
-  const onNotificationButtonClick = debounce(() => {
-    mutate({ isActive: !isActive });
-  }, 250);
 
   // TODO: Reduce rendering (currently renders twice)
   useEffect(() => {
@@ -93,8 +114,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "120px" }} align="center">
-          {/* TODO: onClick */}
-          <Button onClick={() => {}}>
+          <Button onClick={onRemoveAllButtonClick}>
             <Icon icon="trash" size={16} color="gray600" />
             <DeleteText>전체 삭제</DeleteText>
           </Button>
@@ -105,11 +125,20 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
         <TableCell style={{ padding: "0", border: "none" }} colSpan={5}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
             <StockNotificationLotsTable
-              data={row.targetPrices.map((item) => ({ ...item, companyName }))}
+              data={targetPrices.map((item) => ({ ...item, companyName }))}
             />
           </Collapse>
         </TableCell>
       </StyledLotRow>
+
+      {isConfirmOpen && (
+        <ConfirmAlert
+          isOpen={isConfirmOpen}
+          title={`[${companyName}] 지정가 알림을 모두 삭제하시겠습니까?`}
+          onClose={onRemoveAllAlertClose}
+          onConfirm={onConfirmRemoveAll}
+        />
+      )}
     </>
   );
 }

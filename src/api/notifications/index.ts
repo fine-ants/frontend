@@ -1,6 +1,7 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
 import {
+  DeleteAllStockPriceTargetsBody,
   MemberNotifications,
   MemberNotificationsSettings,
   PortfolioNotification,
@@ -75,6 +76,20 @@ export const putStockNotificationSettings = async ({
   const res = await fetcher.put<Response<null>>(
     `/stocks/${tickerSymbol}/target-price/notifications`,
     body
+  );
+  return res.data;
+};
+
+export const deleteAllStockPriceTargets = async ({
+  tickerSymbol,
+  body,
+}: {
+  tickerSymbol: string;
+  body: DeleteAllStockPriceTargetsBody;
+}) => {
+  const res = await fetcher.delete<Response<null>>(
+    `/stocks/${tickerSymbol}/target-price/notifications`,
+    { data: body }
   );
   return res.data;
 };

@@ -48,6 +48,13 @@ export const successfulStockNotificationSettingsPutData = {
   data: null,
 };
 
+export const successfulAllStockPriceTargetsDeleteData = {
+  code: 200,
+  status: "OK",
+  message: "해당 종목 지정가 알림을 모두 제거했습니다",
+  data: null,
+};
+
 export const successfulPortfolioNotificationSettingsData = {
   code: 200,
   status: "OK",

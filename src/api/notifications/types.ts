@@ -34,6 +34,10 @@ export type StockNotificationSettingsPutBody = {
   isActive: boolean;
 };
 
+export type DeleteAllStockPriceTargetsBody = {
+  targetPriceNotificationIds: number[];
+};
+
 export type PortfolioNotification = {
   portfolioId: number;
   name: string;
