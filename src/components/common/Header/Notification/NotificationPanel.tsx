@@ -2,6 +2,7 @@ import { Icon } from "@components/common/Icon";
 import { Popover } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EmptyNotification } from "./EmptyNotification";
 import { NotificationItem } from "./NotificationItem";
@@ -29,19 +30,21 @@ export function NotificationPanel({
   notifications,
   handleClose,
 }: Props) {
-  const [isOpenDialog, setIsOPenDialog] = useState(false);
+  const navigate = useNavigate();
+
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   const openDialog = () => {
-    setIsOPenDialog(true);
+    setIsOpenDialog(true);
   };
 
   const closeDialog = () => {
-    setIsOPenDialog(false);
+    setIsOpenDialog(false);
   };
 
-  const navigateActivateNotify = () => [
-    // TODO
-  ];
+  const navigateActivateNotify = () => {
+    navigate("/notifications/stock");
+  };
 
   return (
     <>
@@ -64,7 +67,7 @@ export function NotificationPanel({
             <PanelTitle>알림</PanelTitle>
             <PanelButtonContainer>
               <TextButton onClick={navigateActivateNotify}>
-                활성화 알림 보기
+                활성 알림 보기
               </TextButton>
               <Divider />
               <button onClick={openDialog}>
