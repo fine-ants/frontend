@@ -7,6 +7,7 @@ export const successfulStockNotificationSettingsData = {
       {
         companyName: "삼성전자",
         tickerSymbol: "005930",
+        lastPrice: 80000,
         targetPrices: [
           {
             notificationId: 1,
@@ -19,12 +20,13 @@ export const successfulStockNotificationSettingsData = {
             dateAdded: "2024-01-29T10:10:10",
           },
         ],
-        lastPrice: 80000,
+        isActive: false,
         lastUpdated: "2024-01-29T10:10:10",
       },
       {
         companyName: "카카오",
         tickerSymbol: "035720",
+        lastPrice: 150000,
         targetPrices: [
           {
             notificationId: 3,
@@ -32,11 +34,18 @@ export const successfulStockNotificationSettingsData = {
             dateAdded: "2024-01-28T10:10:10",
           },
         ],
-        lastPrice: 150000,
+        isActive: true,
         lastUpdated: "2024-01-28T10:10:10",
       },
     ],
   },
+};
+
+export const successfulStockNotificationSettingsPutData = {
+  code: 200,
+  status: "OK",
+  message: "알림 설정을 변경했습니다",
+  data: null,
 };
 
 export const successfulPortfolioNotificationSettingsData = {

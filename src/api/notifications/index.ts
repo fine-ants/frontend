@@ -6,6 +6,7 @@ import {
   PortfolioNotification,
   PortfolioNotificationSettingsPutBody,
   StockNotification,
+  StockNotificationSettingsPutBody,
 } from "./types";
 
 export const getMemberNotifications = async (memberId: number) => {
@@ -60,6 +61,20 @@ export const putMemberNotificationSettings = async ({
 export const getStockNotificationSettings = async () => {
   const res = await fetcher.get<Response<{ stocks: StockNotification[] }>>(
     `/stocks/notification/settings`
+  );
+  return res.data;
+};
+
+export const putStockNotificationSettings = async ({
+  tickerSymbol,
+  body,
+}: {
+  tickerSymbol: string;
+  body: StockNotificationSettingsPutBody;
+}) => {
+  const res = await fetcher.put<Response<null>>(
+    `/stocks/${tickerSymbol}/target-price/notifications`,
+    body
   );
   return res.data;
 };

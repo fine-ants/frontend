@@ -19,18 +19,17 @@ type Props = {
 export default function PortfolioNotificationRow({ row }: Props) {
   const { portfolioId, name, targetGainNotify, maxLossNotify } = row;
 
-  const { mutate: editMutate } =
-    usePortfolioNotificationSettingsMutation(portfolioId);
+  const { mutate } = usePortfolioNotificationSettingsMutation(portfolioId);
 
   const onTargetGainNotifyButtonClick = debounce(() => {
-    editMutate({
+    mutate({
       notificationType: "targetGain",
       body: { isActive: !targetGainNotify },
     });
   }, 250);
 
   const onMaxLossNotifyButtonClick = debounce(() => {
-    editMutate({
+    mutate({
       notificationType: "maxLoss",
       body: { isActive: !maxLossNotify },
     });

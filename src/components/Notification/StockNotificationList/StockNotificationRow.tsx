@@ -1,3 +1,4 @@
+import useStockNotificationSettingsMutation from "@api/notifications/queries/useStockNotificationSettingsMutation";
 import { StockNotification } from "@api/notifications/types";
 import { Icon } from "@components/common/Icon";
 import {
@@ -6,6 +7,7 @@ import {
   TableCell,
   TableRow,
   Typography,
+  debounce,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useEffect, useState } from "react";
@@ -19,7 +21,9 @@ type Props = {
 };
 
 export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
-  const { companyName, tickerSymbol, lastPrice } = row;
+  const { companyName, tickerSymbol, lastPrice, isActive } = row;
+
+  const { mutate } = useStockNotificationSettingsMutation(tickerSymbol);
 
   const [isRowOpen, setIsRowOpen] = useState(false);
 
@@ -30,9 +34,9 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
     setIsRowOpen(!isRowOpen);
   };
 
-  const onNotificationButtonClick = () => {
-    // TODO: activate/deactivate notification
-  };
+  const onNotificationButtonClick = debounce(() => {
+    mutate({ isActive: !isActive });
+  }, 250);
 
   // TODO: Reduce rendering (currently renders twice)
   useEffect(() => {
@@ -79,7 +83,11 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
 
         <StyledTableCell style={{ width: "140px" }} align="center">
           <IconButton onClick={onNotificationButtonClick}>
-            <Icon icon="notification" size={24} color="blue500" />
+            <Icon
+              icon="notification"
+              size={24}
+              color={isActive ? "blue500" : "gray400"}
+            />
           </IconButton>
         </StyledTableCell>
       </StyledStockNotificationRow>

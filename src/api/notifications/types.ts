@@ -21,12 +21,17 @@ export type StockNotification = {
   targetPrices: StockTargetPrice[];
   lastPrice: number;
   lastUpdated: string;
+  isActive: boolean;
 };
 
 export type StockTargetPrice = {
   notificationId: number;
   targetPrice: number;
   dateAdded: string;
+};
+
+export type StockNotificationSettingsPutBody = {
+  isActive: boolean;
 };
 
 export type PortfolioNotification = {
