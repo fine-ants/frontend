@@ -1,4 +1,6 @@
-const memberNotificationsData = [
+import { MemberNotifications } from "@api/notifications/types";
+
+const memberNotificationsData: MemberNotifications = [
   {
     notificationId: 3,
     title: "포트폴리오",
@@ -27,9 +29,45 @@ const memberNotificationsData = [
     referenceId: "005930",
   },
 ];
+
 export const successfulMemberNotifications = {
   code: 200,
   status: "OK",
   message: "현재 알림 목록 조회를 성공했습니다",
   data: memberNotificationsData,
+};
+
+export const successfulReadMemberNotification = {
+  code: 200,
+  status: "OK",
+  message: "지정 알림을 읽음 처리했습니다",
+  data: null,
+};
+
+export const successfulReadAllMemberNotifications = {
+  code: 200,
+  status: "OK",
+  message: "알림을 모두 읽음 처리했습니다",
+  data: null,
+};
+
+export const successfulDeleteMemberNotification = {
+  code: 200,
+  status: "OK",
+  message: "알림 삭제를 성공하였습니다",
+  data: null,
+};
+
+export const successfulDeleteAllMemberNotifications = {
+  code: 200,
+  status: "OK",
+  message: "알림 전체 삭제를 성공하였습니다",
+  data: null,
+};
+
+export const successfulEditMemberNotificationsSettings = {
+  code: 200,
+  status: "OK",
+  message: "알림 설정을 변경했습니다",
+  data: null,
 };
