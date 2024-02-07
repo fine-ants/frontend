@@ -13,6 +13,7 @@ type Props = {
   isRead: boolean;
   type: "stock" | "portfolio";
   referenceId: string;
+  onClose: () => void;
 };
 
 export function NotificationItem({
@@ -23,6 +24,7 @@ export function NotificationItem({
   isRead,
   type,
   referenceId,
+  onClose,
 }: Props) {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
@@ -36,6 +38,7 @@ export function NotificationItem({
   };
 
   const navigateToPage = () => {
+    onClose();
     navigate(`/${type}/${referenceId}`);
   };
 

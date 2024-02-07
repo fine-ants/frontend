@@ -3,6 +3,7 @@ import { Popover } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
+import { EmptyNotification } from "./EmptyNotification";
 import { NotificationItem } from "./NotificationItem";
 import { NotificationSettingDialog } from "./NotificationSettingDialog";
 
@@ -72,9 +73,17 @@ export function NotificationPanel({
             </PanelButtonContainer>
           </PanelHeader>
           <PanelContent>
-            {notifications.map((data) => (
-              <NotificationItem key={data.notificationId} {...data} />
-            ))}
+            {notifications.length === 0 ? (
+              <EmptyNotification />
+            ) : (
+              notifications.map((data) => (
+                <NotificationItem
+                  key={data.notificationId}
+                  {...data}
+                  onClose={handleClose}
+                />
+              ))
+            )}
           </PanelContent>
           <PanelFooter>
             <NotificationDeleteAllButton>
