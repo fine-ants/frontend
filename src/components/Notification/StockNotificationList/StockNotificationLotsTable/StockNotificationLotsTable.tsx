@@ -6,7 +6,7 @@ import StockNotificationLotsTableBody from "./StockNotificationLotsTableBody";
 import StockNoficiationLotsTableHead from "./StockNotificationLotsTableHead";
 
 type Props = {
-  data: StockTargetPrice[];
+  data: (StockTargetPrice & { companyName: string })[];
 };
 
 export default function StockNotificationLotsTable({ data }: Props) {

@@ -1,4 +1,3 @@
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
 import {
   Collapse,
@@ -23,27 +22,16 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
   const { companyName, tickerSymbol, lastPrice } = row;
 
   const [isRowOpen, setIsRowOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  const onRemoveAllNotificationsButtonClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onRemoveAllNotificationsAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
-
-  const onConfirmAction = () => {
-    // TODO: request to remove all notifications
-    // const selectedPortfolioIds = selected.map((item) => item.id);
-    // stockNotificationAllDeleteMutate(tickerSymbol);
-  };
 
   const onExpandRowClick = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     event.stopPropagation();
     setIsRowOpen(!isRowOpen);
+  };
+
+  const onNotificationButtonClick = () => {
+    // TODO: activate/deactivate notification
   };
 
   // TODO: Reduce rendering (currently renders twice)
@@ -75,7 +63,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
           </IconButton>
         </StyledTableCell>
 
-        <StyledTableCell style={{ width: "132px" }} component="th" scope="row">
+        <StyledTableCell style={{ width: "948px" }} component="th" scope="row">
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <StyledLink
               style={{ font: designSystem.font.body3.font }}
@@ -90,7 +78,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "140px" }} align="center">
-          <IconButton onClick={onRemoveAllNotificationsButtonClick}>
+          <IconButton onClick={onNotificationButtonClick}>
             <Icon icon="notification" size={24} color="blue500" />
           </IconButton>
         </StyledTableCell>
@@ -99,19 +87,12 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
       <StyledLotRow>
         <TableCell style={{ padding: "0", border: "none" }} colSpan={4}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
-            <StockNotificationLotsTable data={row.targetPrices} />
+            <StockNotificationLotsTable
+              data={row.targetPrices.map((item) => ({ ...item, companyName }))}
+            />
           </Collapse>
         </TableCell>
       </StyledLotRow>
-
-      {isConfirmOpen && (
-        <ConfirmAlert
-          isOpen={isConfirmOpen}
-          title={`${companyName} 지정가 알림을 전부 삭제 하시겠습니까?`}
-          onClose={onRemoveAllNotificationsAlertClose}
-          onConfirm={onConfirmAction}
-        />
-      )}
     </>
   );
 }

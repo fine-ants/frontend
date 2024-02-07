@@ -1,27 +1,57 @@
+import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
 import { IconButton, TableCell, TableRow } from "@mui/material";
+import { useState } from "react";
 import styled from "styled-components";
 import { StockTargetPrice } from "../StockNotificationListTable";
 
 type Props = {
-  row: StockTargetPrice;
+  row: StockTargetPrice & { companyName: string };
 };
 
 export default function StockNotificationLotRow({ row }: Props) {
-  const { targetPrice } = row;
+  const { companyName, targetPrice } = row;
+
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const onRemoveNotificationButtonClick = () => {
+    setIsConfirmOpen(true);
+  };
+
+  const onRemoveNotificationAlertClose = () => {
+    setIsConfirmOpen(false);
+  };
+
+  const onConfirmRemove = () => {
+    // TODO: request to remove all notifications
+    // const selectedPortfolioIds = selected.map((item) => item.id);
+    // stockNotificationAllDeleteMutate(tickerSymbol);
+  };
 
   return (
     <StyledStockNotificationRow>
-      <StyledTableCell style={{ width: "1180px" }} align="left">
+      <StyledTableCell style={{ width: "948px" }} align="left">
         {targetPrice}
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "140px" }} align="center">
-        {/* TODO: onClick */}
-        <IconButton>
+        <p />
+      </StyledTableCell>
+
+      <StyledTableCell style={{ width: "140px" }} align="center">
+        <IconButton onClick={onRemoveNotificationButtonClick}>
           <Icon icon="trash" size={16} color="gray600" />
         </IconButton>
       </StyledTableCell>
+
+      {isConfirmOpen && (
+        <ConfirmAlert
+          isOpen={isConfirmOpen}
+          title={`[${companyName} ${targetPrice}KRW] 지정가 알림을 제거 하시겠습니까?`}
+          onClose={onRemoveNotificationAlertClose}
+          onConfirm={onConfirmRemove}
+        />
+      )}
     </StyledStockNotificationRow>
   );
 }

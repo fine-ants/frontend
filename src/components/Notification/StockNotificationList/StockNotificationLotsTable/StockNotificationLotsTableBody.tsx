@@ -4,7 +4,7 @@ import StockNotificationLotRow from "./StockNotificationLotRow";
 
 type Props = {
   numEmptyRows: number;
-  visibleRows: readonly StockTargetPrice[];
+  visibleRows: readonly (StockTargetPrice & { companyName: string })[];
 };
 
 export default function StockNotificationLotsTableBody({

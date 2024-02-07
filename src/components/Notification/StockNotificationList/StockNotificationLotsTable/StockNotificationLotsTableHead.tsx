@@ -6,13 +6,9 @@ export default function StockNoficiationLotsTableHead() {
   return (
     <StyledStockNoficiationLotsTableHead>
       <StyledTableRow>
-        <StyledTableCell sx={{ width: "1180px" }} align="left" colSpan={2}>
+        <StyledTableCell sx={{ width: "1180px" }} align="left" colSpan={3}>
           <span>지정가</span>
         </StyledTableCell>
-
-        {/* <StyledTableCell sx={{ width: "140px" }} align="center">
-          <span>삭제</span>
-        </StyledTableCell> */}
       </StyledTableRow>
 
       <TableRow sx={{ height: "8px" }} />
