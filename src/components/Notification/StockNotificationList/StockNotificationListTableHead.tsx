@@ -89,12 +89,16 @@ export default function StockNotificationListTableHead({
           </StyledTableSortLabel>
         </StyledTableCell>
 
-        <StyledTableCell sx={{ width: "140px" }} align="center">
+        <StyledTableCell sx={{ width: "120px" }} align="center">
           <span>이전 종가</span>
         </StyledTableCell>
 
-        <StyledTableCell sx={{ width: "140px" }} align="center">
+        <StyledTableCell sx={{ width: "120px" }} align="center">
           <span>지정가 알림</span>
+        </StyledTableCell>
+
+        <StyledTableCell sx={{ width: "120px" }} align="center">
+          <span>지정가 알림 삭제</span>
         </StyledTableCell>
       </StyledTableRow>
 

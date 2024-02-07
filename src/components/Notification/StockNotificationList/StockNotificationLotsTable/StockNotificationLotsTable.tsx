@@ -28,6 +28,7 @@ export default function StockNotificationLotsTable({ data }: Props) {
 }
 
 const StyledStockNotificationLotsTable = styled.div`
+  padding-left: 24px;
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;
@@ -36,5 +37,7 @@ const StyledStockNotificationLotsTable = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 1336px;
+  width: 100%;
+  padding-left: 16px;
+  border-left: 1px solid ${designSystem.color.primary.blue100};
 `;

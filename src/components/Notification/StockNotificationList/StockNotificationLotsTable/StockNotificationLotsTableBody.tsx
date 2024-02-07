@@ -21,7 +21,7 @@ export default function StockNotificationLotsTableBody({
           style={{
             height: 48 * numEmptyRows,
           }}>
-          <TableCell colSpan={4} />
+          <TableCell colSpan={5} />
         </TableRow>
       )}
     </TableBody>

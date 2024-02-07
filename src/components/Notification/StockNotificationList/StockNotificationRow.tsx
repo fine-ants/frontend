@@ -2,6 +2,7 @@ import useStockNotificationSettingsMutation from "@api/notifications/queries/use
 import { StockNotification } from "@api/notifications/types";
 import { Icon } from "@components/common/Icon";
 import {
+  Button,
   Collapse,
   IconButton,
   TableCell,
@@ -67,7 +68,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
           </IconButton>
         </StyledTableCell>
 
-        <StyledTableCell style={{ width: "948px" }} component="th" scope="row">
+        <StyledTableCell component="th" scope="row">
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <StyledLink
               style={{ font: designSystem.font.body3.font }}
@@ -77,11 +78,11 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
           </Typography>
         </StyledTableCell>
 
-        <StyledTableCell style={{ width: "140px" }} align="center">
+        <StyledTableCell style={{ width: "120px" }} align="center">
           <p>{lastPrice}</p>
         </StyledTableCell>
 
-        <StyledTableCell style={{ width: "140px" }} align="center">
+        <StyledTableCell style={{ width: "120px" }} align="center">
           <IconButton onClick={onNotificationButtonClick}>
             <Icon
               icon="notification"
@@ -90,10 +91,18 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
             />
           </IconButton>
         </StyledTableCell>
+
+        <StyledTableCell style={{ width: "120px" }} align="center">
+          {/* TODO: onClick */}
+          <Button onClick={() => {}}>
+            <Icon icon="trash" size={16} color="gray600" />
+            <DeleteText>전체 삭제</DeleteText>
+          </Button>
+        </StyledTableCell>
       </StyledStockNotificationRow>
 
       <StyledLotRow>
-        <TableCell style={{ padding: "0", border: "none" }} colSpan={4}>
+        <TableCell style={{ padding: "0", border: "none" }} colSpan={5}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
             <StockNotificationLotsTable
               data={row.targetPrices.map((item) => ({ ...item, companyName }))}
@@ -120,6 +129,14 @@ const StyledTableCell = styled(TableCell)`
   height: 48px;
   padding: 0px 8px;
 
+  &:first-of-type {
+    padding-left: 16px;
+  }
+
+  &:last-of-type {
+    padding-right: 16px;
+  }
+
   > button {
     padding: 0;
   }
@@ -132,6 +149,13 @@ const StyledLink = styled(Link)`
   &:hover {
     color: ${designSystem.color.primary.blue500};
   }
+`;
+
+const DeleteText = styled.span`
+  margin-left: 4px;
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const StyledLotRow = styled(TableRow)`

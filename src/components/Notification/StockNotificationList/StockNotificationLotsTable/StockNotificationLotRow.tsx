@@ -30,15 +30,9 @@ export default function StockNotificationLotRow({ row }: Props) {
 
   return (
     <StyledStockNotificationRow>
-      <StyledTableCell style={{ width: "948px" }} align="left">
-        {targetPrice}
-      </StyledTableCell>
+      <StyledTableCell align="left">{targetPrice}</StyledTableCell>
 
-      <StyledTableCell style={{ width: "140px" }} align="center">
-        <p />
-      </StyledTableCell>
-
-      <StyledTableCell style={{ width: "140px" }} align="center">
+      <StyledTableCell style={{ width: "120px" }} align="center">
         <IconButton onClick={onRemoveNotificationButtonClick}>
           <Icon icon="trash" size={16} color="gray600" />
         </IconButton>
@@ -76,7 +70,15 @@ const StyledStockNotificationRow = styled(TableRow)`
 
 const StyledTableCell = styled(TableCell)`
   height: 32px;
-  padding: 0 16px;
+  padding: 0 8px;
+
+  &:first-of-type {
+    padding-left: 16px;
+  }
+
+  &:last-of-type {
+    padding-right: 16px;
+  }
 
   > button {
     padding: 0;
