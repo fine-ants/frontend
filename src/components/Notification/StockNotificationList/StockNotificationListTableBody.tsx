@@ -1,5 +1,5 @@
+import { StockNotification } from "@api/notifications/types";
 import { TableBody, TableCell, TableRow } from "@mui/material";
-import { StockNotification } from "./StockNotificationListTable";
 import StockNotificationRow from "./StockNotificationRow";
 
 type Props = {

@@ -1,7 +1,7 @@
+import { StockTargetPrice } from "@api/notifications/types";
 import PlainTable from "@components/common/Table/PlainTable";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import { StockTargetPrice } from "../StockNotificationListTable";
 import StockNotificationLotsTableBody from "./StockNotificationLotsTableBody";
 import StockNoficiationLotsTableHead from "./StockNotificationLotsTableHead";
 

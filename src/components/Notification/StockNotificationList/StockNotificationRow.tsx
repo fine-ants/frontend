@@ -1,3 +1,4 @@
+import { StockNotification } from "@api/notifications/types";
 import { Icon } from "@components/common/Icon";
 import {
   Collapse,
@@ -10,7 +11,6 @@ import designSystem from "@styles/designSystem";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { StockNotification } from "./StockNotificationListTable";
 import StockNotificationLotsTable from "./StockNotificationLotsTable/StockNotificationLotsTable";
 
 type Props = {

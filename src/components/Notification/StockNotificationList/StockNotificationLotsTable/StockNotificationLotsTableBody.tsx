@@ -1,5 +1,5 @@
+import { StockTargetPrice } from "@api/notifications/types";
 import { TableBody, TableCell, TableRow } from "@mui/material";
-import { StockTargetPrice } from "../StockNotificationListTable";
 import StockNotificationLotRow from "./StockNotificationLotRow";
 
 type Props = {

@@ -1,9 +1,9 @@
+import { StockTargetPrice } from "@api/notifications/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
 import { IconButton, TableCell, TableRow } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
-import { StockTargetPrice } from "../StockNotificationListTable";
 
 type Props = {
   row: StockTargetPrice & { companyName: string };

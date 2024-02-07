@@ -22,3 +22,17 @@ export type PortfolioNotification = {
   maxLossNotify: boolean;
   lastUpdated: string;
 };
+
+export type StockNotification = {
+  companyName: string;
+  tickerSymbol: string;
+  targetPrices: StockTargetPrice[];
+  lastPrice: number;
+  lastUpdated: string;
+};
+
+export type StockTargetPrice = {
+  notificationId: number;
+  targetPrice: number;
+  dateAdded: string;
+};

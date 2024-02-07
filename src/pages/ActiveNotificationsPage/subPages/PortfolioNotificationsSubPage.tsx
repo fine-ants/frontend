@@ -14,6 +14,7 @@ export default function PortfolioNotificationsSubPage() {
             tableRowHeight={48}
           />
         }
+        // TODO: ErrorFallback
         ErrorFallback={() => <div>error</div>}>
         <PortfolioNotificationListTable />
       </AsyncBoundary>

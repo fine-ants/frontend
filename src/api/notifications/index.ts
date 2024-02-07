@@ -4,6 +4,7 @@ import {
   MemberNotifications,
   MemberNotificationsSettings,
   PortfolioNotification,
+  StockNotification,
 } from "./types";
 
 export const getMemberNotifications = async (memberId: number) => {
@@ -55,6 +56,14 @@ export const putMemberNotificationSettings = async ({
 };
 
 // 종목 활성 알림 목록
+export const getStockNotificationSettings = async () => {
+  const res = await fetcher.get<Response<{ stocks: StockNotification[] }>>(
+    `/stocks/notification/settings`
+  );
+  return res.data;
+};
+
+// 포트폴리오 활성 알림 목록
 export const getPortfolioNotificationSettings = async () => {
   const res = await fetcher.get<
     Response<{ portfolios: PortfolioNotification[] }>

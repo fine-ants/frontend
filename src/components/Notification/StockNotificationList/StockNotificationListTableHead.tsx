@@ -1,3 +1,4 @@
+import { StockNotification } from "@api/notifications/types";
 import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
@@ -15,7 +16,6 @@ import { visuallyHidden } from "@mui/utils";
 import designSystem from "@styles/designSystem";
 import { MouseEvent } from "react";
 import styled from "styled-components";
-import { StockNotification } from "./StockNotificationListTable";
 
 type Props = {
   order: Order;

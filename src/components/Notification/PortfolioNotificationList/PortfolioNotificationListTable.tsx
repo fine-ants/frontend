@@ -1,4 +1,4 @@
-import usePortfolioNotificationsQuery from "@api/notifications/queries/usePortfolioNotificationsQuery";
+import usePortfolioNotificationsQuery from "@api/notifications/queries/usePortfolioNotificationSettingsQuery";
 import PlainTable from "@components/common/Table/PlainTable";
 import EmptyNotificationListTable from "../EmptyNotificationListTable";
 import PortfolioNotificationListTableBody from "./PortfolioNotificationListTableBody";
