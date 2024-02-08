@@ -51,7 +51,9 @@ export default function AlertDropdown() {
           vertical: "top",
           horizontal: "right",
         }}>
-        <StockTargetPriceForm />
+        <li>
+          <StockTargetPriceForm />
+        </li>
 
         <Divider />
 
@@ -94,7 +96,7 @@ const dropdownMenuSx = {
   },
 };
 
-const Divider = styled.div`
+const Divider = styled.li`
   width: 100%;
   height: 1px;
   background-color: ${designSystem.color.neutral.gray200};
@@ -106,7 +108,7 @@ const AddedAlertTitle = styled.div`
   color: ${designSystem.color.neutral.gray600};
 `;
 
-const AlertContainer = styled.div`
+const AlertContainer = styled.li`
   display: flex;
   flex-direction: column;
   gap: 16px;
