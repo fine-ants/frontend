@@ -1,11 +1,13 @@
 import useWatchlistHasStockQuery from "@api/watchlist/queries/useWatchlistHasStockQuery";
+import NewWatchlistDialog from "@components/Watchlist/NewWatchlistDialog";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
+import { Button as MuiButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 import styled from "styled-components";
-import HasStockDropdownItem from "./WatchlistHasStockDropdownItem";
+import WatchlistHasStockDropdownItem from "./WatchlistHasStockDropdownItem";
 
 type Props = {
   tickerSymbol: string;
@@ -14,6 +16,17 @@ type Props = {
 export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
   const { onOpen, DropdownMenu, DropdownItem } = useDropdown();
   const { data: hasStockData } = useWatchlistHasStockQuery(tickerSymbol);
+
+  const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
+    useState(false);
+
+  const onAddNewWatchlistButtonClick = () => {
+    setIsNewWatchlistDialogOpen(true);
+  };
+
+  const onNewWatchlistDialogClose = () => {
+    setIsNewWatchlistDialogOpen(false);
+  };
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     onOpen(e);
@@ -36,23 +49,45 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
           vertical: "top",
           horizontal: "right",
         }}>
-        {hasStockData?.map((watchlist) => (
-          <HasStockDropdownItem
-            key={watchlist.id}
-            DropdownItem={DropdownItem}
-            tickerSymbol={tickerSymbol}
-            watchlist={watchlist}
-          />
-        ))}
-        <Divider />
-        <AddWatchlistBox>
-          <div>
-            <Icon icon="folder-add" size={16} color="gray600" />새 리스트 추가
-          </div>
+        {hasStockData && (
+          <li>
+            <HasStockList>
+              {hasStockData.map((watchlist) => (
+                <WatchlistHasStockDropdownItem
+                  key={watchlist.id}
+                  DropdownItem={DropdownItem}
+                  tickerSymbol={tickerSymbol}
+                  watchlist={watchlist}
+                />
+              ))}
+            </HasStockList>
+          </li>
+        )}
 
-          <SubmitButton>추가</SubmitButton>
-        </AddWatchlistBox>
+        {hasStockData && <Divider />}
+
+        <Footer>
+          <NewWatchlistButton
+            variant="text"
+            onClick={onAddNewWatchlistButtonClick}>
+            <Icon icon="folder-add" size={16} color="gray600" />
+            <span>새 리스트 추가</span>
+          </NewWatchlistButton>
+
+          {/* TODO: 기획 및 API 확인 필요 */}
+          {/* TODO: style */}
+          <Button variant="primary" size="h24">
+            저장
+          </Button>
+        </Footer>
       </DropdownMenu>
+
+      {isNewWatchlistDialogOpen && (
+        <NewWatchlistDialog
+          isOpen={isNewWatchlistDialogOpen}
+          onClose={onNewWatchlistDialogClose}
+        />
+      )}
     </>
   );
 }
@@ -62,7 +97,6 @@ const dropdownMenuSx = {
     "width": "352px",
     "height": "auto",
     "marginTop": "2px",
-    "padding": "4px",
     "display": "flex",
     "flexDirection": "column",
     "justifyContent": "center",
@@ -74,7 +108,7 @@ const dropdownMenuSx = {
 
     ".MuiList-root": {
       "width": "100%",
-      "padding": "0",
+      "padding": "4px 0 4px 4px",
 
       ".MuiMenuItem-root": {
         width: "336px",
@@ -98,39 +132,54 @@ const dropdownMenuSx = {
   },
 };
 
-const AddWatchlistBox = styled.div`
+const HasStockList = styled.ul`
+  width: 100%;
+  max-height: 160px;
   display: flex;
-  align-items: center;
-  width: 336px;
-  height: 32px;
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
-
-  > div {
-    height: 24px;
-    display: flex;
-    gap: 4px;
-    padding: 0px 8px;
-    align-items: center;
-  }
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
-const SubmitButton = styled.div`
-  width: 54px;
-  height: 24px;
-  border-radius: 2px;
-  display: flex;
-  justify-content: center;
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.white};
-  background-color: ${designSystem.color.primary.blue500};
-  margin-left: auto;
-`;
-
-const Divider = styled.div`
+const Divider = styled.li`
   width: 336px;
   height: 1px;
   background-color: ${designSystem.color.neutral.gray100};
 `;
+
+const Footer = styled.li`
+  width: 100%;
+  height: 32px;
+  padding-right: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
+`;
+
+const NewWatchlistButton = styled(MuiButton)`
+  display: flex;
+  gap: 4px;
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
+
+  &:hover {
+    background-color: transparent;
+  }
+`;
+
+// const SubmitButton = styled.div`
+//   width: 54px;
+//   height: 24px;
+//   border-radius: 2px;
+//   display: flex;
+//   justify-content: center;
+//   font: ${designSystem.font.button2.font};
+//   letter-spacing: ${designSystem.font.button2.letterSpacing};
+//   color: ${designSystem.color.neutral.white};
+//   background-color: ${designSystem.color.primary.blue500};
+//   margin-left: auto;
+// `;
