@@ -27,7 +27,16 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
           관심 종목 설정
         </Button>
       </div>
-      <DropdownMenu sx={dropdownMenuSx}>
+      <DropdownMenu
+        sx={dropdownMenuSx}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}>
         {hasStockData?.map((watchlist) => (
           <HasStockDropdownItem
             key={watchlist.id}
@@ -53,11 +62,12 @@ const dropdownMenuSx = {
   "& .MuiPaper-root": {
     "width": "352px",
     "height": "auto",
+    "marginTop": "2px",
+    "padding": "4px",
     "display": "flex",
     "flexDirection": "column",
-    "alignItems": "center",
     "justifyContent": "center",
-    "padding": "4px",
+    "alignItems": "center",
     "backgroundColor": designSystem.color.neutral.white,
     "border": `1px solid ${designSystem.color.neutral.gray200}`,
     "borderRadius": "3px",

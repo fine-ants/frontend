@@ -33,6 +33,10 @@ export default function AlertDropdown() {
     onOpen(e);
   };
 
+  const onAddAlertClick = () => {
+    // TODO
+  };
+
   return (
     <>
       <div onClick={onDropdownButtonClick}>
@@ -41,12 +45,22 @@ export default function AlertDropdown() {
           알림 설정
         </Button>
       </div>
-      <DropdownMenu sx={dropdownMenuSx}>
+      <DropdownMenu
+        sx={dropdownMenuSx}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}>
         <TitleAndInput>
           <label>
             지정가
             <CustomTooltip
               arrow
+              placement="bottom-start"
               title="종목 지정가 알림은 최대 5개까지 추가할 수 있습니다">
               <Icon icon="help" size={16} color="gray400" />
             </CustomTooltip>
@@ -55,7 +69,11 @@ export default function AlertDropdown() {
         </TitleAndInput>
 
         <AddButtonWrapper>
-          <Button style={{ marginLeft: "auto" }} variant="primary" size="h24">
+          <Button
+            style={{ marginLeft: "auto" }}
+            variant="primary"
+            size="h24"
+            onClick={onAddAlertClick}>
             추가
           </Button>
         </AddButtonWrapper>
@@ -81,10 +99,10 @@ const dropdownMenuSx = {
   "& .MuiPaper-root": {
     "width": "352px",
     "height": "auto",
-
-    "alignItems": "center",
-    "justifyContent": "center",
+    "marginTop": "2px",
     "padding": "16px",
+    "justifyContent": "center",
+    "alignItems": "center",
     "backgroundColor": designSystem.color.neutral.white,
     "border": `1px solid ${designSystem.color.neutral.gray200}`,
     "borderRadius": "3px",

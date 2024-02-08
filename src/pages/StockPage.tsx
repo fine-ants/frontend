@@ -16,10 +16,6 @@ export default function StockPage() {
   //TODO: 종목 상세정보 완성되면 변경
   const { data: stockData } = useStockItemQuery(tickerSymbol || "");
 
-  // const onAddAlertClick = () => {
-  //   // 알림 기능 생긴 이후에 추가
-  // };
-
   return (
     <>
       <Header />
