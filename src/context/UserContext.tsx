@@ -7,6 +7,7 @@ export const UserContext = createContext<{
   user: User | null;
   onSignIn: (signInData: SignInData) => void;
   onSignOut: () => void;
+  onGetUser: (user: User) => void;
   onEditProfileDetails: (user: User) => void;
   onSubscribePushNotification: () => void;
   onUnsubscribePushNotification: () => void;
@@ -14,6 +15,7 @@ export const UserContext = createContext<{
   user: null,
   onSignIn: () => {},
   onSignOut: () => {},
+  onGetUser: () => {},
   onEditProfileDetails: () => {},
   onSubscribePushNotification: () => {},
   onUnsubscribePushNotification: () => {},
@@ -27,14 +29,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   const [user, setUser] = useState<User | null>(getUser());
 
-  const onSignIn = ({
-    jwt: { accessToken, refreshToken },
-    user,
-  }: SignInData) => {
+  const onSignIn = ({ jwt: { accessToken, refreshToken } }: SignInData) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
   };
 
   const onSignOut = () => {
@@ -42,6 +39,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
     setUser(null);
+  };
+
+  const onGetUser = (user: User) => {
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
   };
 
   const onEditProfileDetails = (user: User) => {
@@ -87,6 +89,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         user,
         onSignIn,
         onSignOut,
+        onGetUser,
         onEditProfileDetails,
         onSubscribePushNotification,
         onUnsubscribePushNotification,

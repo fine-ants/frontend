@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function useOAuthSignInMutation() {
   const navigate = useNavigate();
-  const { onSignIn, onSignOut } = useContext(UserContext);
+  const { onSignIn, onSignOut, onGetUser } = useContext(UserContext);
 
   return useMutation({
     mutationFn: ({
@@ -21,12 +21,16 @@ export default function useOAuthSignInMutation() {
       state: string;
     }) => postOAuthSignIn(provider, authCode, state),
     onSuccess: async ({ data: { jwt } }) => {
+      onSignIn({ jwt });
+
       try {
         const {
           data: { user },
         } = await getUser();
 
-        onSignIn({ jwt, user });
+        onGetUser(user);
+
+        navigate(Routes.DASHBOARD);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("Failed to fetch user data");

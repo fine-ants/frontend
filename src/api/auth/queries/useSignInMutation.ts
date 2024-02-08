@@ -8,17 +8,19 @@ import { postSignIn } from "../index";
 
 export default function useSignInMutation() {
   const navigate = useNavigate();
-  const { onSignIn, onSignOut } = useContext(UserContext);
+  const { onSignIn, onSignOut, onGetUser } = useContext(UserContext);
 
   return useMutation({
     mutationFn: postSignIn,
     onSuccess: async ({ data: { jwt } }) => {
+      onSignIn({ jwt });
+
       try {
         const {
           data: { user },
         } = await getUser();
 
-        onSignIn({ jwt, user });
+        onGetUser(user);
 
         navigate(Routes.DASHBOARD);
       } catch (error) {

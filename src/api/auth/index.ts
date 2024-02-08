@@ -1,5 +1,4 @@
 import { Response } from "@api/types";
-import { User } from "@api/user/types";
 import { CLIENT_URL } from "@constants/config";
 import { fetcher } from "../fetcher";
 
@@ -13,7 +12,6 @@ export type SignInData = {
     accessToken: string;
     refreshToken: string;
   };
-  user: User;
 };
 
 export type SignUpData = {
