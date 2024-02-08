@@ -15,18 +15,17 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
   const { onOpen, DropdownMenu, DropdownItem } = useDropdown();
   const { data: hasStockData } = useWatchlistHasStockQuery(tickerSymbol);
 
-  const onDropdownButtonClick = (e: MouseEvent<HTMLElement>) => {
+  const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     onOpen(e);
   };
 
   return (
     <>
-      <div onClick={onDropdownButtonClick}>
-        <Button variant="secondary" size="h32">
-          <Icon icon="favorite" size={16} color="blue500" />
-          관심 종목 설정
-        </Button>
-      </div>
+      <Button variant="secondary" size="h32" onClick={onDropdownButtonClick}>
+        <Icon icon="favorite" size={16} color="blue500" />
+        관심 종목 설정
+      </Button>
+
       <DropdownMenu
         sx={dropdownMenuSx}
         anchorOrigin={{
