@@ -1,5 +1,6 @@
 import { HTTPSTATUS } from "@api/types";
 import {
+  portfolioNotifications,
   stockNotifications,
   successfulAllStockPriceTargetsDeleteData,
   successfulPortfolioNotificationSettingsData,
@@ -86,15 +87,45 @@ export default [
     });
   }),
 
-  http.put("/api/portfolio/:portfolioId/notification/targetGain", () => {
-    return HttpResponse.json(successfulPortfolioNotificationSettingsPutData, {
-      status: HTTPSTATUS.success,
-    });
-  }),
+  http.put<{ portfolioId: string }, { isActive: boolean }>(
+    "/api/portfolio/:portfolioId/notification/targetGain",
+    async ({ params, request }) => {
+      const { portfolioId } = params;
+      const { isActive } = await request.json();
 
-  http.put("/api/portfolio/:portfolioId/notification/maxLoss", () => {
-    return HttpResponse.json(successfulPortfolioNotificationSettingsPutData, {
-      status: HTTPSTATUS.success,
-    });
-  }),
+      const targetPortfolio = portfolioNotifications.find(
+        (portfolioNotification) =>
+          portfolioNotification.portfolioId === parseInt(portfolioId as string)
+      );
+
+      if (targetPortfolio) {
+        targetPortfolio.targetGainNotify = isActive;
+      }
+
+      return HttpResponse.json(successfulPortfolioNotificationSettingsPutData, {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
+
+  http.put<{ portfolioId: string }, { isActive: boolean }>(
+    "/api/portfolio/:portfolioId/notification/maxLoss",
+    async ({ params, request }) => {
+      const { portfolioId } = params;
+      const { isActive } = await request.json();
+
+      const targetPortfolio = portfolioNotifications.find(
+        (portfolioNotification) =>
+          portfolioNotification.portfolioId === parseInt(portfolioId as string)
+      );
+
+      if (targetPortfolio) {
+        targetPortfolio.maxLossNotify = isActive;
+      }
+
+      return HttpResponse.json(successfulPortfolioNotificationSettingsPutData, {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
 ];
