@@ -8,6 +8,7 @@ import {
   successfulStockNotificationSettingsData,
   successfulStockNotificationSettingsPutData,
   successfulStockPriceTargetDeleteData,
+  successfulStockPriceTargetPostData,
 } from "@mocks/data/notifications/notificationSettingsData";
 import { HttpResponse, http } from "msw";
 
@@ -34,6 +35,45 @@ export default [
       }
 
       return HttpResponse.json(successfulStockNotificationSettingsPutData, {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
+
+  http.post<{ tickerSymbol: string }, { targetPrice: number }>(
+    "/api/stocks/:tickerSymbol/target-price/notifications",
+    async ({ params, request }) => {
+      const { tickerSymbol } = params;
+      const { targetPrice } = await request.json();
+
+      const targetStock = stockNotifications.find(
+        (stockNotification) => stockNotification.tickerSymbol === tickerSymbol
+      );
+
+      if (targetStock) {
+        targetStock.targetPrices.push({
+          notificationId: stockNotifications.length + 1,
+          targetPrice,
+          dateAdded: new Date().toISOString(),
+        });
+      } else {
+        stockNotifications.push({
+          companyName: "blah",
+          tickerSymbol,
+          lastPrice: 1000,
+          targetPrices: [
+            {
+              notificationId: 1,
+              targetPrice,
+              dateAdded: new Date().toISOString(),
+            },
+          ],
+          isActive: true,
+          lastUpdated: new Date().toISOString(),
+        });
+      }
+
+      return HttpResponse.json(successfulStockPriceTargetPostData, {
         status: HTTPSTATUS.success,
       });
     }

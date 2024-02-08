@@ -43,6 +43,7 @@ export function NotificationPanel({
   };
 
   const navigateActivateNotify = () => {
+    closeDialog();
     navigate("/notifications/stock");
   };
 

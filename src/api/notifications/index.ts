@@ -80,6 +80,20 @@ export const putStockNotificationSettings = async ({
   return res.data;
 };
 
+export const postStockPriceTarget = async ({
+  tickerSymbol,
+  targetPrice,
+}: {
+  tickerSymbol: string;
+  targetPrice: number;
+}) => {
+  const res = await fetcher.post<Response<null>>(
+    `/stocks/${tickerSymbol}/target-price/notifications`,
+    { targetPrice }
+  );
+  return res.data;
+};
+
 export const deleteAllStockPriceTargets = async ({
   tickerSymbol,
   body,

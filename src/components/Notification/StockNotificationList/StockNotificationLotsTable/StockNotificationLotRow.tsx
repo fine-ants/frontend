@@ -1,8 +1,9 @@
-import useStockPriceTargetDeleteMutation from "@api/notifications/queries/useStockPriceTargetDeleteMutation";
+import useStockTargetPriceDeleteMutation from "@api/notifications/queries/useStockTargetPriceDeleteMutation";
 import { StockTargetPrice } from "@api/notifications/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
 import { IconButton, TableCell, TableRow } from "@mui/material";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -14,7 +15,7 @@ export default function StockNotificationLotRow({ row }: Props) {
   const { companyName, tickerSymbol, targetPrice, notificationId } = row;
 
   const { mutate: stockNotificationDeleteMutate } =
-    useStockPriceTargetDeleteMutation(tickerSymbol);
+    useStockTargetPriceDeleteMutation(tickerSymbol);
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
@@ -32,7 +33,9 @@ export default function StockNotificationLotRow({ row }: Props) {
 
   return (
     <StyledStockNotificationRow>
-      <StyledTableCell align="left">{targetPrice}</StyledTableCell>
+      <StyledTableCell align="left">
+        ₩{thousandsDelimiter(targetPrice)}
+      </StyledTableCell>
 
       <StyledTableCell style={{ width: "120px" }} align="center">
         <IconButton onClick={onRemoveNotificationButtonClick}>

@@ -67,6 +67,13 @@ export const successfulStockNotificationSettingsPutData = {
   data: null,
 };
 
+export const successfulStockPriceTargetPostData = {
+  code: 201,
+  status: "Created",
+  message: "해당 종목 지정가 알림을 추가했습니다",
+  data: null,
+};
+
 export const successfulAllStockPriceTargetsDeleteData = {
   code: 200,
   status: "OK",

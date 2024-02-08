@@ -1,20 +1,29 @@
+import useStockTargetPriceAddMutation from "@api/notifications/queries/useStockTargetPriceAddMutation";
 import Button from "@components/common/Buttons/Button";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
 import { InputAdornment, OutlinedInput } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export default function StockTargetPriceForm() {
+  const { tickerSymbol } = useParams();
+
+  const { mutate: addStockTargetPrice } = useStockTargetPriceAddMutation(
+    tickerSymbol as string
+  );
+
   const [targetPrice, setTargetPrice] = useState("");
 
   const onChangeTargetPrice = (e: ChangeEvent<HTMLInputElement>) => {
     setTargetPrice(e.target.value);
   };
 
-  const onSubmit = () => {
-    // TODO: add target price alert
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    addStockTargetPrice(Number(targetPrice));
   };
 
   return (

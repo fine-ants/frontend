@@ -13,6 +13,7 @@ import {
   debounce,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -100,7 +101,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "120px" }} align="center">
-          <p>{lastPrice}</p>
+          <p>₩{thousandsDelimiter(lastPrice)}</p>
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "120px" }} align="center">
