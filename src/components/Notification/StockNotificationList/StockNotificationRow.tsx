@@ -125,7 +125,11 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
         <TableCell style={{ padding: "0", border: "none" }} colSpan={5}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
             <StockNotificationLotsTable
-              data={targetPrices.map((item) => ({ ...item, companyName }))}
+              data={targetPrices.map((item) => ({
+                ...item,
+                companyName,
+                tickerSymbol,
+              }))}
             />
           </Collapse>
         </TableCell>

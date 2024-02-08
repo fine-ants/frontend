@@ -1,3 +1,4 @@
+import useStockPriceTargetDeleteMutation from "@api/notifications/queries/useStockPriceTargetDeleteMutation";
 import { StockTargetPrice } from "@api/notifications/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/common/Icon";
@@ -6,11 +7,14 @@ import { useState } from "react";
 import styled from "styled-components";
 
 type Props = {
-  row: StockTargetPrice & { companyName: string };
+  row: StockTargetPrice & { companyName: string; tickerSymbol: string };
 };
 
 export default function StockNotificationLotRow({ row }: Props) {
-  const { companyName, targetPrice } = row;
+  const { companyName, tickerSymbol, targetPrice, notificationId } = row;
+
+  const { mutate: stockNotificationDeleteMutate } =
+    useStockPriceTargetDeleteMutation(tickerSymbol);
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
@@ -23,9 +27,7 @@ export default function StockNotificationLotRow({ row }: Props) {
   };
 
   const onConfirmRemove = () => {
-    // TODO: request to remove all notifications
-    // const selectedPortfolioIds = selected.map((item) => item.id);
-    // stockNotificationAllDeleteMutate(tickerSymbol);
+    stockNotificationDeleteMutate(notificationId);
   };
 
   return (
@@ -41,7 +43,7 @@ export default function StockNotificationLotRow({ row }: Props) {
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}
-          title={`[${companyName} ${targetPrice}KRW] 지정가 알림을 제거 하시겠습니까?`}
+          title={`[${companyName} ${targetPrice}KRW] 지정가 알림을 삭제하시겠습니까?`}
           onClose={onRemoveNotificationAlertClose}
           onConfirm={onConfirmRemove}
         />

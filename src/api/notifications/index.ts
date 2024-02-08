@@ -94,6 +94,19 @@ export const deleteAllStockPriceTargets = async ({
   return res.data;
 };
 
+export const deleteStockPriceTarget = async ({
+  tickerSymbol,
+  targetNotificationId,
+}: {
+  tickerSymbol: string;
+  targetNotificationId: number;
+}) => {
+  const res = await fetcher.delete<Response<null>>(
+    `/stocks/${tickerSymbol}/target-price/notifications/${targetNotificationId}`
+  );
+  return res.data;
+};
+
 // 포트폴리오 활성 알림
 export const getPortfolioNotificationSettings = async () => {
   const res = await fetcher.get<
