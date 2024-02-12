@@ -1,7 +1,9 @@
+import useDeleteAllMemberNotificationsMutation from "@api/notifications/queries/useDeleteAllMemberNotificationsMutation";
 import { Icon } from "@components/common/Icon";
+import { UserContext } from "@context/UserContext";
 import { Popover } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EmptyNotification } from "./EmptyNotification";
@@ -31,8 +33,11 @@ export function NotificationPanel({
   handleClose,
 }: Props) {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);
+
+  const { mutate } = useDeleteAllMemberNotificationsMutation(user!.id);
 
   const openDialog = () => {
     setIsOpenDialog(true);
@@ -40,6 +45,12 @@ export function NotificationPanel({
 
   const closeDialog = () => {
     setIsOpenDialog(false);
+  };
+
+  const onClickDeleteAllNotifications = () => {
+    const ids = notifications.map((data) => data.notificationId);
+
+    mutate(ids);
   };
 
   const navigateActivateNotify = () => {
@@ -90,7 +101,8 @@ export function NotificationPanel({
             )}
           </PanelContent>
           <PanelFooter>
-            <NotificationDeleteAllButton>
+            <NotificationDeleteAllButton
+              onClick={onClickDeleteAllNotifications}>
               모든 알림 지우기
             </NotificationDeleteAllButton>
           </PanelFooter>

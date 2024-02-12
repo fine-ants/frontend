@@ -1,4 +1,5 @@
 import useMemberNotificationsQuery from "@api/notifications/queries/useMemberNotificationsQuery";
+import useReadAllMemberNotificationsMutation from "@api/notifications/queries/useReadAllMemberNotificationsMutation";
 import { UserContext } from "@context/UserContext";
 import designSystem from "@styles/designSystem";
 import { useContext, useEffect, useState } from "react";
@@ -9,9 +10,12 @@ import { NotificationPanel } from "./NotificationPanel";
 
 export function Notification() {
   const { user } = useContext(UserContext);
+
   const { data: notifications, isLoading } = useMemberNotificationsQuery(
     user!.id
   );
+
+  const { mutate } = useReadAllMemberNotificationsMutation(user!.id);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [count, setCount] = useState(0);
@@ -36,7 +40,10 @@ export function Notification() {
   };
 
   const handleClose = () => {
+    const notificationIds = notifications.map((data) => data.notificationId);
+
     setAnchorEl(null);
+    mutate(notificationIds);
   };
 
   return (
