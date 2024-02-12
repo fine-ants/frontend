@@ -17,16 +17,30 @@ export const getMemberNotifications = async (memberId: number) => {
   return res.data;
 };
 
-export const patchMemberNotificationsReadAll = async (memberId: number) => {
+export const patchMemberNotificationsReadAll = async ({
+  memberId,
+  body,
+}: {
+  memberId: number;
+  body: number[];
+}) => {
   const res = await fetcher.patch<Response<MemberNotifications>>(
-    `/members/${memberId}/notifications`
+    `/members/${memberId}/notifications`,
+    body
   );
   return res.data;
 };
 
-export const deleteMemberNotificationAll = async (memberId: number) => {
-  const res = await fetcher.patch<Response<MemberNotifications>>(
-    `members/${memberId}/notifications`
+export const deleteAllMemberNotification = async ({
+  memberId,
+  notificationIds,
+}: {
+  memberId: number;
+  notificationIds: number[];
+}) => {
+  const res = await fetcher.delete<Response<MemberNotifications>>(
+    `members/${memberId}/notifications`,
+    { data: { notificationIds } }
   );
   return res.data;
 };
