@@ -10,6 +10,21 @@ import {
   StockNotificationSettingsPutBody,
 } from "./types";
 
+export const postNotificationForTest = async (notification: {
+  title: string;
+  body: string;
+  type: "stock" | "portfolio";
+  referenceId: string;
+}) => {
+  const res = await fetcher.post<Response<null>>(
+    `/members/${
+      JSON.parse(localStorage.getItem("user") as string).id
+    }/notifications`,
+    notification
+  );
+  return res.data;
+};
+
 export const postFCMToken = async (fcmToken: string) => {
   const res = await fetcher.post<Response<{ fcmTokenId: number }>>(
     "/fcm/tokens",
