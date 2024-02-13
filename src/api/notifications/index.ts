@@ -62,7 +62,7 @@ export const deleteMemberNotification = async ({
   memberId: number;
   notificationId: number;
 }) => {
-  const res = await fetcher.patch<Response<MemberNotifications>>(
+  const res = await fetcher.delete<Response<MemberNotifications>>(
     `members/${memberId}/notifications/${notificationId}`
   );
   return res.data;
