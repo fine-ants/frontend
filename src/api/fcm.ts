@@ -46,9 +46,15 @@ export const sendTokenToServer = async (currentToken: string) => {
 
 // TODO: this.bgMessageHandler is not a function error when app is in background
 const messagePayloadListener = (payload: MessagePayload) => {
+  const { data } = payload;
+
+  if (!data) return;
+
+  const { title, body, type, referenceId, timestamp } = data;
+
   // TODO: 알림 UI 띄우기 및 알림 수 증가
   // eslint-disable-next-line no-console
-  console.log(payload);
+  console.log(title, body, type, referenceId, timestamp);
 };
 
 // Call upon app initialization
