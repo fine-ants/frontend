@@ -8,7 +8,6 @@ import {
   successfulReadAllMemberNotifications,
 } from "@mocks/data/notifications/memberNotificationsData";
 import { HttpResponse, http } from "msw";
-import { useParams } from "react-router-dom";
 import { successfulReadMemberNotification } from "../../data/notifications/memberNotificationsData";
 
 let notificationsData = memberNotificationsData;
@@ -60,20 +59,23 @@ export default [
   }),
 
   // Delete member notifications
-  http.delete("/api/members/:memberId/notifications/:notificationId", () => {
-    const { notificationId } = useParams();
+  http.delete(
+    "/api/members/:memberId/notifications/:notificationId",
+    ({ params }) => {
+      const { notificationId } = params;
 
-    notificationsData = notificationsData.filter(
-      (data) => data.notificationId !== Number(notificationId)
-    );
+      notificationsData = notificationsData.filter(
+        (data) => data.notificationId !== Number(notificationId)
+      );
 
-    return HttpResponse.json(
-      { ...successfulDeleteMemberNotification, data: notificationsData },
-      {
-        status: HTTPSTATUS.success,
-      }
-    );
-  }),
+      return HttpResponse.json(
+        { ...successfulDeleteMemberNotification, data: notificationsData },
+        {
+          status: HTTPSTATUS.success,
+        }
+      );
+    }
+  ),
 
   // Put member notifications settings
   http.put("/api/members/:memberId/notification/settings", () => {
