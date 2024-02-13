@@ -108,7 +108,12 @@ export function NotificationPanel({
           </PanelFooter>
         </StyledNotificationPanel>
       </StyledPopover>
-      <NotificationSettingDialog isOpen={isOpenDialog} onClose={closeDialog} />
+      {isOpenDialog && (
+        <NotificationSettingDialog
+          isOpen={isOpenDialog}
+          onClose={closeDialog}
+        />
+      )}
     </>
   );
 }

@@ -90,7 +90,7 @@ export const putMemberNotificationSettings = async ({
   memberId: number;
   body: MemberNotificationsSettings;
 }) => {
-  const res = await fetcher.patch<Response<MemberNotifications>>(
+  const res = await fetcher.put<Response<MemberNotifications>>(
     `members/${memberId}/notification/settings`,
     body
   );

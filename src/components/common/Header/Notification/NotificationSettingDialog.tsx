@@ -1,8 +1,12 @@
+import { useMemberNotificationsSettingMutation } from "@api/notifications/queries/useMemberNotificationsSettingMutation";
 import BaseDialog from "@components/BaseDialog";
 import ToggleSwitch from "@components/ToggleSwitch";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
+import { createToast } from "@components/common/toast";
+import { UserContext } from "@context/UserContext";
 import designSystem from "@styles/designSystem";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -10,16 +14,65 @@ type Props = {
   onClose: () => void;
 };
 
-// TODO : api 적용 후 삭제
-const data = {
-  browserNotify: true,
-  targetGainNotify: true,
-  maxLossNotify: true,
-  targetPriceNotify: false,
-};
-
 export function NotificationSettingDialog({ isOpen, onClose }: Props) {
   // TODO : api 적용하며 toggle 로직 구현
+  const toast = createToast();
+
+  const { user } = useContext(UserContext);
+
+  const preferences = user!.notificationPreferences;
+  const NotificationPermission = Notification.permission;
+
+  const [browserNotify, setBrowserNotify] = useState(preferences.browserNotify);
+  const [maxLossNotify, setMaxLossNotify] = useState(preferences.maxLossNotify);
+  const [targetGainNotify, setTargetGainNotify] = useState(
+    preferences.targetGainNotify
+  );
+  const [targetPriceNotify, setTargetPriceNotify] = useState(
+    preferences.targetPriceNotify
+  );
+
+  const { mutate } = useMemberNotificationsSettingMutation(user!.id);
+
+  const isDisabledButton =
+    preferences.browserNotify === browserNotify &&
+    preferences.maxLossNotify === maxLossNotify &&
+    preferences.targetGainNotify === targetGainNotify &&
+    preferences.targetPriceNotify === targetPriceNotify;
+
+  const onToggleBrowserNotify = async () => {
+    const permission = await Notification.requestPermission();
+
+    if (permission === "denied") {
+      const body = {
+        browserNotify: false,
+        maxLossNotify,
+        targetGainNotify,
+        targetPriceNotify,
+      };
+
+      toast.info("알림 권한이 차단하여 데스크탑 알림을 받을 수 없습니다");
+
+      mutate(body);
+    }
+
+    setBrowserNotify((prev) => !prev);
+  };
+
+  const onSubmit = () => {
+    if (isDisabledButton) return;
+
+    const body = {
+      browserNotify,
+      maxLossNotify,
+      targetGainNotify,
+      targetPriceNotify,
+    };
+
+    mutate(body);
+    onClose();
+    // onActivateNotification();
+  };
 
   return (
     <BaseDialog style={dialogStyle} isOpen={isOpen} onClose={onClose}>
@@ -33,10 +86,24 @@ export function NotificationSettingDialog({ isOpen, onClose }: Props) {
         <SettingContainer>
           <SubTitle>데스크탑 알림 설정</SubTitle>
           <ToggleList>
-            <ToggleTitle>
-              브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
-            </ToggleTitle>
-            <ToggleSwitch onToggle={() => {}} isChecked={data.browserNotify} />
+            {NotificationPermission === "denied" ? (
+              <div>
+                <ToggleTitle>알림 권한이 차단되어 있습니다</ToggleTitle>
+                <ToggleTitle>
+                  알림받기를 원하시면 브라우저에서 FineAnts 알림을 허용해 주세요
+                </ToggleTitle>
+              </div>
+            ) : (
+              <>
+                <ToggleTitle>
+                  브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
+                </ToggleTitle>
+                <ToggleSwitch
+                  onToggle={onToggleBrowserNotify}
+                  isChecked={browserNotify}
+                />
+              </>
+            )}
           </ToggleList>
         </SettingContainer>
         <Divider />
@@ -45,24 +112,31 @@ export function NotificationSettingDialog({ isOpen, onClose }: Props) {
           <ToggleList>
             <ToggleTitle>포트폴리오 목표 수익률 도달 알림</ToggleTitle>
             <ToggleSwitch
-              onToggle={() => {}}
-              isChecked={data.targetGainNotify}
+              onToggle={() => setTargetGainNotify((prev) => !prev)}
+              isChecked={targetGainNotify}
             />
           </ToggleList>
           <ToggleList>
             <ToggleTitle>포트폴리오 최대 손실율 도달 알림</ToggleTitle>
-            <ToggleSwitch onToggle={() => {}} isChecked={data.maxLossNotify} />
+            <ToggleSwitch
+              onToggle={() => setMaxLossNotify((prev) => !prev)}
+              isChecked={maxLossNotify}
+            />
           </ToggleList>
           <ToggleList>
             <ToggleTitle>종목 지정가 알림</ToggleTitle>
             <ToggleSwitch
-              onToggle={() => {}}
-              isChecked={data.targetPriceNotify}
+              onToggle={() => setTargetPriceNotify((prev) => !prev)}
+              isChecked={targetPriceNotify}
             />
           </ToggleList>
         </SettingContainer>
         <ButtonContainer>
-          <Button variant="primary" size="h32">
+          <Button
+            variant="primary"
+            size="h32"
+            disabled={isDisabledButton}
+            onClick={onSubmit}>
             저장
           </Button>
         </ButtonContainer>
