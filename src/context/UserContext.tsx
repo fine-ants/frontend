@@ -1,5 +1,5 @@
 import { SignInData } from "@api/auth";
-import { deleteFCMRegToken, fetchFCMRegToken } from "@api/fcm";
+import { fetchFCMRegToken } from "@api/fcm";
 import { User } from "@api/user/types";
 import { ReactNode, createContext, useState } from "react";
 
@@ -10,7 +10,6 @@ export const UserContext = createContext<{
   onGetUser: (user: User) => void;
   onEditProfileDetails: (user: User) => void;
   onSubscribePushNotification: () => void;
-  onUnsubscribePushNotification: () => void;
 }>({
   user: null,
   onSignIn: () => {},
@@ -18,7 +17,6 @@ export const UserContext = createContext<{
   onGetUser: () => {},
   onEditProfileDetails: () => {},
   onSubscribePushNotification: () => {},
-  onUnsubscribePushNotification: () => {},
 });
 
 export function UserProvider({ children }: { children: ReactNode }) {
@@ -65,24 +63,6 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const onUnsubscribePushNotification = async () => {
-    try {
-      const res = await deleteFCMRegToken();
-      // eslint-disable-next-line no-console
-      console.log(res);
-
-      // if (res) {
-      //   // 200이 오면 서버에 구독 취소를 알리기
-      //   // await deletePushServiceSubscription(subscription);
-      //   // 200이 오면 token context 초기화
-      // }
-    } catch (error) {
-      // Error during deleting token and unsubscribing
-      // eslint-disable-next-line no-console
-      console.log("An error occurred while deleting token. ", error);
-    }
-  };
-
   return (
     <UserContext.Provider
       value={{
@@ -92,7 +72,6 @@ export function UserProvider({ children }: { children: ReactNode }) {
         onGetUser,
         onEditProfileDetails,
         onSubscribePushNotification,
-        onUnsubscribePushNotification,
       }}>
       {children}
     </UserContext.Provider>

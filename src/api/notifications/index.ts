@@ -10,6 +10,16 @@ import {
   StockNotificationSettingsPutBody,
 } from "./types";
 
+export const postFCMToken = async (fcmToken: string) => {
+  const res = await fetcher.post<Response<{ fcmTokenId: number }>>(
+    "/fcm/tokens",
+    {
+      fcmToken,
+    }
+  );
+  return res.data;
+};
+
 export const getMemberNotifications = async (memberId: number) => {
   const res = await fetcher.get<Response<MemberNotifications>>(
     `/members/${memberId}/notifications`

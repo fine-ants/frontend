@@ -2,12 +2,13 @@
 import { initializeApp } from "firebase/app";
 import {
   MessagePayload,
-  deleteToken,
   getMessaging,
   getToken,
   isSupported,
   onMessage,
 } from "firebase/messaging";
+import { toast } from "src/main";
+import { postFCMToken } from "./notifications";
 import { User } from "./user/types";
 
 const firebaseApp = initializeApp({
@@ -35,31 +36,17 @@ export const fetchAndSendFCMRegToken = async () => {
 };
 
 export const sendTokenToServer = async (currentToken: string) => {
-  console.log("Sending token to server...", currentToken);
-  // TODO(developer): Send the current token to your server.
-};
-
-export const deleteFCMRegToken = async () => {
   try {
-    const currentToken = await getToken(messaging);
-
-    try {
-      if (currentToken) {
-        await deleteToken(messaging);
-        console.log("Token deleted: ", currentToken);
-        // TODO: send delete token request to server
-      }
-    } catch (error) {
-      console.error("Unable to delete token: ", error);
-    }
+    const res = await postFCMToken(currentToken);
+    res.data.fcmTokenId;
   } catch (error) {
-    console.error("Error retrieving registration token: ", error);
+    console.error("Error sending token to server: ", error);
   }
 };
 
 // TODO: this.bgMessageHandler is not a function error when app is in background
 const messagePayloadListener = (payload: MessagePayload) => {
-  // TODO: 토스트 메시지로 띄우기 및 알림 수 증가
+  // TODO: 알림 UI 띄우기 및 알림 수 증가
   // eslint-disable-next-line no-console
   console.log(payload);
 };
@@ -67,8 +54,7 @@ const messagePayloadListener = (payload: MessagePayload) => {
 // Call upon app initialization
 export const setupFCMToken = async (user: User) => {
   if (!isSupported()) {
-    console.log("FCM is not supported in this browser.");
-    // TODO: show user feedback (toast?)
+    toast.error("현재 사용하시는 브라우저가 알림 기능을 지원하지 않습니다");
     return;
   }
 
@@ -80,8 +66,7 @@ export const setupFCMToken = async (user: User) => {
       await fetchAndSendFCMRegToken();
       onMessage(messaging, messagePayloadListener);
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Error fetching and sending token: ", error);
+      toast.error("실시간 알림 서비스에 문제가 발생하여 새로고침이 필요합니다");
     }
   }
 
@@ -89,16 +74,14 @@ export const setupFCMToken = async (user: User) => {
     user?.notificationPreferences.browserNotify === true &&
     Notification.permission !== "granted"
   ) {
-    // TODO: User feedback (Ex: make sure to allow fineants.co to send notifications in your browser settings)
-    // Notification.permission === "denied" -> "you blocked notifications. Please allow fineants.co to send notifications in your browser settings"
+    toast.error("알림을 받기 위해서는 브라우저 설정에서 알림을 허용해주세요");
   }
 };
 
 // For toggle
 export const onActivateNotification = async () => {
   if (!isSupported()) {
-    console.log("FCM is not supported in this browser.");
-    // TODO: show user feedback (toast?)
+    toast.error("현재 사용하시는 브라우저가 알림 기능을 지원하지 않습니다");
     return;
   }
 

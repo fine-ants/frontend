@@ -21,7 +21,7 @@ if (import.meta.env.DEV) {
   await mockServiceWorker.start({ onUnhandledRequest: "bypass" });
 }
 
-const toast = createToast();
+export const toast = createToast();
 
 const queryClient = new QueryClient({
   defaultOptions: {
