@@ -16,16 +16,16 @@ const firebaseApp = firebase.initializeApp({
 const messaging = firebase.messaging(firebaseApp);
 
 messaging.onBackgroundMessage(messaging, (payload) => {
-  // Customize notification here
+  const {
+    notification: { body, timestamp },
+  } = payload;
+
   const notificationTitle = "FineAnts";
   const options = {
     icon: "https://avatars.githubusercontent.com/u/147464557?s=96&v=4",
     badge: "https://avatars.githubusercontent.com/u/147464557?s=96&v=4",
-    body: payload.content,
-    timestamp: new Date(payload.timestamp).getTime(),
-    data: {
-      entity: payload.entity,
-    },
+    body: body,
+    timestamp: new Date(timestamp).getTime(),
   };
 
   self.registration.showNotification(notificationTitle, options);
