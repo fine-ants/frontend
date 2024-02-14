@@ -1,4 +1,5 @@
 import { Skeleton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type Props = {
@@ -68,7 +69,7 @@ const TableHeadSkeleton = styled(Skeleton)<{ $tableHeadHeight: number }>`
 const TableRowSkeleton = styled(Skeleton)<{ $tableRowHeight: number }>`
   width: 100%;
   height: ${({ $tableRowHeight }) => $tableRowHeight}px;
-  border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const TablePaginationSkeleton = styled(Skeleton)<{

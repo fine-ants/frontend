@@ -1,5 +1,5 @@
-import useWatchlistHasStockQuery from "@api/watchlist/queries/useWatchlistHasStockQuery";
 import NewWatchlistDialog from "@components/Watchlist/NewWatchlistDialog";
+import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
@@ -7,15 +7,16 @@ import { Button as MuiButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useState } from "react";
 import styled from "styled-components";
-import WatchlistHasStockDropdownItem from "./WatchlistHasStockDropdownItem";
+import WatchlistHasStockList from "./WatchlistHasStockList";
+import WatchlistHasStockListError from "./errorFallback/WatchlistHasStockListErrorFallback";
+import WatchlistHasStockListSkeleton from "./skeleton/WatchlistHasStockListSkeleton";
 
 type Props = {
   tickerSymbol: string;
 };
 
 export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
-  const { onOpen, DropdownMenu, DropdownItem } = useDropdown();
-  const { data: hasStockData } = useWatchlistHasStockQuery(tickerSymbol);
+  const { onOpen, DropdownMenu } = useDropdown();
 
   const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
     useState(false);
@@ -49,22 +50,15 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
           vertical: "top",
           horizontal: "right",
         }}>
-        {hasStockData && (
-          <li>
-            <HasStockList>
-              {hasStockData.map((watchlist) => (
-                <WatchlistHasStockDropdownItem
-                  key={watchlist.id}
-                  DropdownItem={DropdownItem}
-                  tickerSymbol={tickerSymbol}
-                  watchlist={watchlist}
-                />
-              ))}
-            </HasStockList>
-          </li>
-        )}
+        <li>
+          <AsyncBoundary
+            SuspenseFallback={<WatchlistHasStockListSkeleton />}
+            ErrorFallback={WatchlistHasStockListError}>
+            <WatchlistHasStockList tickerSymbol={tickerSymbol} />
+          </AsyncBoundary>
+        </li>
 
-        {hasStockData && <Divider />}
+        <Divider />
 
         <Footer>
           <NewWatchlistButton
@@ -73,12 +67,6 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
             <Icon icon="folder-add" size={16} color="gray600" />
             <span>새 리스트 추가</span>
           </NewWatchlistButton>
-
-          {/* TODO: 기획 및 API 확인 필요 */}
-          {/* TODO: style */}
-          <Button variant="primary" size="h24">
-            저장
-          </Button>
         </Footer>
       </DropdownMenu>
 
@@ -132,15 +120,6 @@ const dropdownMenuSx = {
   },
 };
 
-const HasStockList = styled.ul`
-  width: 100%;
-  max-height: 160px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  overflow-x: hidden;
-`;
-
 const Divider = styled.li`
   width: 336px;
   height: 1px;
@@ -151,9 +130,6 @@ const Footer = styled.li`
   width: 100%;
   height: 32px;
   padding-right: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
   color: ${designSystem.color.neutral.gray600};
@@ -170,16 +146,3 @@ const NewWatchlistButton = styled(MuiButton)`
     background-color: transparent;
   }
 `;
-
-// const SubmitButton = styled.div`
-//   width: 54px;
-//   height: 24px;
-//   border-radius: 2px;
-//   display: flex;
-//   justify-content: center;
-//   font: ${designSystem.font.button2.font};
-//   letter-spacing: ${designSystem.font.button2.letterSpacing};
-//   color: ${designSystem.color.neutral.white};
-//   background-color: ${designSystem.color.primary.blue500};
-//   margin-left: auto;
-// `;

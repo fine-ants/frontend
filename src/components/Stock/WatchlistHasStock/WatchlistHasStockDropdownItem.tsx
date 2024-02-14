@@ -2,17 +2,15 @@ import { WatchlistHasStockData } from "@api/watchlist";
 import useWatchlistItemAddMutation from "@api/watchlist/queries/useWatchlistItemAddMutation";
 import useWatchlistItemDeleteMutation from "@api/watchlist/queries/useWatchlistItemDeleteMutation";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { DropdownItemProps } from "@components/hooks/useDropdown";
+import { MenuItem, debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
 
 type Props = {
-  DropdownItem: ({ sx, onClick, children }: DropdownItemProps) => JSX.Element;
   tickerSymbol: string;
   watchlist: WatchlistHasStockData;
 };
 
 export default function WatchlistHasStockDropdownItem({
-  DropdownItem,
   tickerSymbol,
   watchlist,
 }: Props) {
@@ -23,26 +21,23 @@ export default function WatchlistHasStockDropdownItem({
   const { mutate: watchlistItemDeleteMutate } =
     useWatchlistItemDeleteMutation(watchlistId);
 
-  const onClickDropdownItem = () => {
+  const onClickDropdownItem = debounce(() => {
     if (hasStock) {
-      watchlistItemDeleteMutate([tickerSymbol]);
+      watchlistItemDeleteMutate([tickerSymbol]); // Change this to single delete mutation
     } else {
       watchlistItemAddMutate([tickerSymbol]);
     }
-  };
+  }, 250);
 
   return (
-    <DropdownItem
-      key={watchlistId}
-      sx={fixedDropdownItemSx}
-      onClick={onClickDropdownItem}>
+    <MenuItem sx={menuItemSx} onClick={onClickDropdownItem}>
       <CheckBox size="h16" checked={hasStock} />
       {watchlistName}
-    </DropdownItem>
+    </MenuItem>
   );
 }
 
-const fixedDropdownItemSx = {
+const menuItemSx = {
   font: designSystem.font.body3.font,
   color: designSystem.color.neutral.gray900,
 };
