@@ -80,7 +80,7 @@ export const setupFCMToken = async (user: User) => {
     user?.notificationPreferences.browserNotify === true &&
     Notification.permission !== "granted"
   ) {
-    toast.error("알림을 받기 위해서는 브라우저 설정에서 알림을 허용해주세요");
+    toast.info("알림을 받기 위해서는 브라우저 설정에서 알림을 허용해주세요");
   }
 };
 

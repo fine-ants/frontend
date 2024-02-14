@@ -1,3 +1,4 @@
+import { onActivateNotification } from "@api/fcm";
 import { useMemberNotificationsSettingMutation } from "@api/notifications/queries/useMemberNotificationsSettingMutation";
 import BaseDialog from "@components/BaseDialog";
 import ToggleSwitch from "@components/ToggleSwitch";
@@ -52,8 +53,9 @@ export function NotificationSettingDialog({ isOpen, onClose }: Props) {
       };
 
       toast.info("알림 권한이 차단하여 데스크탑 알림을 받을 수 없습니다");
-
       mutate(body);
+
+      return;
     }
 
     setBrowserNotify((prev) => !prev);
@@ -71,7 +73,10 @@ export function NotificationSettingDialog({ isOpen, onClose }: Props) {
 
     mutate(body);
     onClose();
-    // onActivateNotification();
+
+    if (browserNotify) {
+      onActivateNotification();
+    }
   };
 
   return (
