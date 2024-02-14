@@ -6,6 +6,7 @@ import {
   successfulGetWatchlistsResponse,
   successfulPostWatchlistResponse,
   successfulPostWatchlistStocksResponse,
+  successfulWatchlistHasStockResponse,
   watchlistData,
   watchlistsData,
 } from "@mocks/data/watchlistData";
@@ -104,6 +105,16 @@ export default [
       });
 
       return HttpResponse.json(successfulDeleteWatchlistStocksResponse, {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
+
+  // Watchlist has stock 조회
+  http.get<{ tickerSymbol: string }>(
+    "/api/watchlists/stockExists/:tickerSymbol",
+    () => {
+      return HttpResponse.json(successfulWatchlistHasStockResponse, {
         status: HTTPSTATUS.success,
       });
     }
