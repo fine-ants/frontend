@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postWatchlistStock } from "..";
+import { postWatchlistStocks } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 type Props = {
@@ -16,7 +16,7 @@ export default function useWatchlistItemAddMutation({
   return useMutation({
     mutationKey: watchlistKeys.addStock(watchlistId).queryKey,
     mutationFn: (tickerSymbols: string[]) =>
-      postWatchlistStock({ watchlistId, tickerSymbols }),
+      postWatchlistStocks({ watchlistId, tickerSymbols }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.item(watchlistId).queryKey,

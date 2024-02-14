@@ -23,7 +23,7 @@ export default function WatchlistHasStockDropdownItem({
 
   const onClickDropdownItem = debounce(() => {
     if (hasStock) {
-      watchlistItemDeleteMutate([tickerSymbol]); // Change this to single delete mutation
+      watchlistItemDeleteMutate([tickerSymbol]);
     } else {
       watchlistItemAddMutate([tickerSymbol]);
     }
