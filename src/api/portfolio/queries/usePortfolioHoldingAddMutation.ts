@@ -14,7 +14,6 @@ export default function usePortfolioHoldingAddMutation({
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: portfolioKeys.addHolding(portfolioId).queryKey,
     mutationFn: postPortfolioHolding,
     onSuccess: () => {
       // TODO: toast

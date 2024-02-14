@@ -14,7 +14,6 @@ export default function useWatchlistItemAddMutation({
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: watchlistKeys.addStock(watchlistId).queryKey,
     mutationFn: (tickerSymbols: string[]) =>
       postWatchlistStock({ watchlistId, tickerSymbols }),
     onSuccess: () => {

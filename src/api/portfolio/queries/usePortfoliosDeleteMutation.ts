@@ -6,7 +6,6 @@ export default function usePortfoliosDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: portfolioKeys.deletePortfolios().queryKey,
     mutationFn: deletePortfolios,
     onSuccess: () => {
       queryClient.invalidateQueries({

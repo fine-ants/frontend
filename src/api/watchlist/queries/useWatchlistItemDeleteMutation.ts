@@ -6,7 +6,6 @@ export default function useWatchlistItemDeleteMutation(watchlistId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: watchlistKeys.deleteStock(watchlistId).queryKey,
     mutationFn: (tickerSymbols: string[]) =>
       deleteWatchlistStock({ watchlistId, tickerSymbols }),
     onSuccess: () => {

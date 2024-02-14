@@ -12,7 +12,6 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: portfolioKeys.addPortfolio().queryKey,
     mutationFn: postPortfolio,
     onSuccess: ({ data }) => {
       onSuccessCb && onSuccessCb(); // Ex: close dialog
