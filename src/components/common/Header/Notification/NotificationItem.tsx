@@ -1,13 +1,14 @@
 import useDeleteMemberNotificationsMutation from "@api/notifications/queries/useDeleteMemberNotificationsMutation";
+import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
-import { UserContext } from "@context/UserContext";
 import designSystem from "@styles/designSystem";
 import { getElapsedSince } from "@utils/getElapsedSince";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
+  user: User;
   notificationId: number;
   title: string;
   content: string;
@@ -19,6 +20,7 @@ type Props = {
 };
 
 export function NotificationItem({
+  user,
   notificationId,
   title,
   content,
@@ -28,12 +30,10 @@ export function NotificationItem({
   referenceId,
   onClose,
 }: Props) {
-  const { user } = useContext(UserContext);
-
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
 
-  const { mutate } = useDeleteMemberNotificationsMutation(user!.id);
+  const { mutate } = useDeleteMemberNotificationsMutation(user.id);
 
   const deleteNotification = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>

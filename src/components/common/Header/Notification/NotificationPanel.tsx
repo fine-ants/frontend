@@ -1,9 +1,10 @@
 import useDeleteAllMemberNotificationsMutation from "@api/notifications/queries/useDeleteAllMemberNotificationsMutation";
+import { MemberNotifications } from "@api/notifications/types";
+import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
-import { UserContext } from "@context/UserContext";
 import { Popover } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EmptyNotification } from "./EmptyNotification";
@@ -11,33 +12,25 @@ import { NotificationItem } from "./NotificationItem";
 import { NotificationSettingDialog } from "./NotificationSettingDialog";
 
 type Props = {
+  user: User;
   anchorEl: null | HTMLElement;
   open: boolean;
-  notifications: {
-    notificationId: number;
-    title: string;
-    content: string;
-    timestamp: string;
-    isRead: boolean;
-    type: "stock" | "portfolio";
-    referenceId: string;
-  }[];
-
+  notifications: MemberNotifications;
   handleClose: () => void;
 };
 
 export function NotificationPanel({
+  user,
   anchorEl,
   open,
   notifications,
   handleClose,
 }: Props) {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
-  const { mutate } = useDeleteAllMemberNotificationsMutation(user!.id);
+  const { mutate } = useDeleteAllMemberNotificationsMutation(user.id);
 
   const openDialog = () => {
     setIsOpenDialog(true);
@@ -94,6 +87,7 @@ export function NotificationPanel({
               notifications.map((data) => (
                 <NotificationItem
                   key={data.notificationId}
+                  user={user}
                   {...data}
                   onClose={handleClose}
                 />
@@ -110,6 +104,7 @@ export function NotificationPanel({
       </StyledPopover>
       {isOpenDialog && (
         <NotificationSettingDialog
+          user={user}
           isOpen={isOpenDialog}
           onClose={closeDialog}
         />

@@ -1,24 +1,19 @@
 import useMemberNotificationsQuery from "@api/notifications/queries/useMemberNotificationsQuery";
 import useReadAllMemberNotificationsMutation from "@api/notifications/queries/useReadAllMemberNotificationsMutation";
-import { UserContext } from "@context/UserContext";
+import { User } from "@api/user/types";
 import designSystem from "@styles/designSystem";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import CounterBadge from "../../Badges/CounterBadge";
 import { Icon } from "../../Icon";
 import { NotificationPanel } from "./NotificationPanel";
 
-export function Notification() {
-  const { user } = useContext(UserContext);
-
-  const { data: notifications, isLoading } = useMemberNotificationsQuery(
-    user!.id
-  );
-
-  const { mutate } = useReadAllMemberNotificationsMutation(user!.id);
-
+export function Notification({ user }: { user: User }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [count, setCount] = useState(0);
+
+  const { data: notifications } = useMemberNotificationsQuery(user.id);
+  const { mutate } = useReadAllMemberNotificationsMutation(user.id);
 
   useEffect(() => {
     if (!notifications) return;
@@ -28,11 +23,6 @@ export function Notification() {
     );
   }, [notifications]);
 
-  // TODO : ErrorBoundary, suspense 컴포넌트 구조 고민
-  if (isLoading || !notifications) {
-    return <div>로딩</div>;
-  }
-
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,6 +30,8 @@ export function Notification() {
   };
 
   const handleClose = () => {
+    if (!notifications) return;
+
     const notificationIds = notifications.map((data) => data.notificationId);
 
     setAnchorEl(null);
@@ -54,12 +46,15 @@ export function Notification() {
           {count > 0 && <CounterBadge count={count} />}
         </NotificationButton>
       </Control>
-      <NotificationPanel
-        anchorEl={anchorEl}
-        open={open}
-        notifications={notifications}
-        handleClose={handleClose}
-      />
+      {notifications && (
+        <NotificationPanel
+          user={user}
+          anchorEl={anchorEl}
+          open={open}
+          notifications={notifications}
+          handleClose={handleClose}
+        />
+      )}
     </>
   );
 }
