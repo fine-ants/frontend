@@ -80,7 +80,7 @@ export const setupFCMToken = async (user: User) => {
     user?.notificationPreferences.browserNotify === true &&
     Notification.permission !== "granted"
   ) {
-    toast.error("알림을 받기 위해서는 브라우저 설정에서 알림을 허용해주세요");
+    toast.info("알림을 받기 위해서는 브라우저 설정에서 알림을 허용해주세요");
   }
 };
 
@@ -91,7 +91,8 @@ export const onActivateNotification = async () => {
     return;
   }
 
-  const permission = await Notification.requestPermission();
+  const permission = Notification.permission;
+
   if (permission === "granted") {
     try {
       await fetchAndSendFCMRegToken();
@@ -100,7 +101,5 @@ export const onActivateNotification = async () => {
       // eslint-disable-next-line no-console
       console.error(error);
     }
-  } else {
-    // TODO: User feedback (Ex: You have disabled notifications)
   }
 };

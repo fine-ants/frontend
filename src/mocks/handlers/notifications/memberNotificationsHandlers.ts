@@ -1,3 +1,4 @@
+import { MemberNotificationsSettings } from "@api/notifications/types";
 import { HTTPSTATUS } from "@api/types";
 import {
   memberNotificationsData,
@@ -9,6 +10,7 @@ import {
 } from "@mocks/data/notifications/memberNotificationsData";
 import { HttpResponse, http } from "msw";
 import { successfulReadMemberNotification } from "../../data/notifications/memberNotificationsData";
+import { editNotificationPreferences } from "../userHandlers";
 
 let notificationsData = memberNotificationsData;
 
@@ -78,9 +80,16 @@ export default [
   ),
 
   // Put member notifications settings
-  http.put("/api/members/:memberId/notification/settings", () => {
-    return HttpResponse.json(successfulEditMemberNotificationsSettings, {
-      status: HTTPSTATUS.success,
-    });
-  }),
+  http.put(
+    "/api/members/:memberId/notification/settings",
+    async ({ request }) => {
+      const data = await request.json();
+
+      editNotificationPreferences(data as MemberNotificationsSettings);
+
+      return HttpResponse.json(successfulEditMemberNotificationsSettings, {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
 ];

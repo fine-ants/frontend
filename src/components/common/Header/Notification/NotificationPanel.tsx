@@ -54,7 +54,7 @@ export function NotificationPanel({
   };
 
   const navigateActivateNotify = () => {
-    closeDialog();
+    handleClose();
     navigate("/notifications/stock");
   };
 
@@ -108,7 +108,12 @@ export function NotificationPanel({
           </PanelFooter>
         </StyledNotificationPanel>
       </StyledPopover>
-      <NotificationSettingDialog isOpen={isOpenDialog} onClose={closeDialog} />
+      {isOpenDialog && (
+        <NotificationSettingDialog
+          isOpen={isOpenDialog}
+          onClose={closeDialog}
+        />
+      )}
     </>
   );
 }
@@ -122,7 +127,7 @@ const StyledPopover = styled(Popover)`
 
 const StyledNotificationPanel = styled.div`
   width: 384px;
-  min-height: 80vh;
+  max-height: 85vh;
   height: 820px;
   display: flex;
   flex-direction: column;

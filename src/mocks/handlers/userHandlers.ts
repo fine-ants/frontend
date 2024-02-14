@@ -1,3 +1,4 @@
+import { MemberNotificationsSettings } from "@api/notifications/types";
 import { HTTPSTATUS } from "@api/types";
 import {
   successfulPasswordEditData,
@@ -6,9 +7,17 @@ import {
 } from "@mocks/data/userData";
 import { HttpResponse, http } from "msw";
 
+const userData = successfulUserData;
+
+export const editNotificationPreferences = (
+  notificationPreferences: MemberNotificationsSettings
+) => {
+  userData.data.user.notificationPreferences = notificationPreferences;
+};
+
 export default [
   http.get("/api/profile", async () => {
-    return HttpResponse.json(successfulUserData, {
+    return HttpResponse.json(userData, {
       status: HTTPSTATUS.success,
     });
   }),
