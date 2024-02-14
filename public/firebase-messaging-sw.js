@@ -15,7 +15,7 @@ const firebaseApp = firebase.initializeApp({
 
 const messaging = firebase.messaging(firebaseApp);
 
-messaging.onBackgroundMessage(messaging, (payload) => {
+messaging.onBackgroundMessage((payload) => {
   const {
     notification: { body, timestamp },
   } = payload;
