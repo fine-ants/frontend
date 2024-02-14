@@ -1,11 +1,12 @@
+import { User } from "@api/user/types";
 import styled from "styled-components";
 import { Notification } from "./Notification/Notification";
 import UserDropdown from "./UserDropdown";
 
-export default function UserControls() {
+export default function UserControls({ user }: { user: User }) {
   return (
     <StyledUserControls>
-      <Notification />
+      <Notification user={user} />
       <UserDropdown />
     </StyledUserControls>
   );

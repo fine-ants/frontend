@@ -1,27 +1,25 @@
 import { onActivateNotification } from "@api/fcm";
 import { useMemberNotificationsSettingMutation } from "@api/notifications/queries/useMemberNotificationsSettingMutation";
+import { User } from "@api/user/types";
 import BaseDialog from "@components/BaseDialog";
 import ToggleSwitch from "@components/ToggleSwitch";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { createToast } from "@components/common/toast";
-import { UserContext } from "@context/UserContext";
 import designSystem from "@styles/designSystem";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 type Props = {
+  user: User;
   isOpen: boolean;
   onClose: () => void;
 };
 
-export function NotificationSettingDialog({ isOpen, onClose }: Props) {
-  // TODO : api 적용하며 toggle 로직 구현
+export function NotificationSettingDialog({ user, isOpen, onClose }: Props) {
   const toast = createToast();
 
-  const { user } = useContext(UserContext);
-
-  const preferences = user!.notificationPreferences;
+  const preferences = user.notificationPreferences;
   const NotificationPermission = Notification.permission;
 
   const [browserNotify, setBrowserNotify] = useState(preferences.browserNotify);
@@ -33,7 +31,7 @@ export function NotificationSettingDialog({ isOpen, onClose }: Props) {
     preferences.targetPriceNotify
   );
 
-  const { mutate } = useMemberNotificationsSettingMutation(user!.id);
+  const { mutate } = useMemberNotificationsSettingMutation(user.id);
 
   const isDisabledButton =
     preferences.browserNotify === browserNotify &&
