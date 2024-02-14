@@ -15,7 +15,7 @@ export default function StockNotificationLotRow({ row }: Props) {
   const { companyName, tickerSymbol, targetPrice, notificationId } = row;
 
   const { mutate: stockNotificationDeleteMutate } =
-    useStockTargetPriceDeleteMutation(tickerSymbol);
+    useStockTargetPriceDeleteMutation();
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
@@ -28,7 +28,10 @@ export default function StockNotificationLotRow({ row }: Props) {
   };
 
   const onConfirmRemove = () => {
-    stockNotificationDeleteMutate(notificationId);
+    stockNotificationDeleteMutate({
+      tickerSymbol,
+      targetNotificationId: notificationId,
+    });
   };
 
   return (

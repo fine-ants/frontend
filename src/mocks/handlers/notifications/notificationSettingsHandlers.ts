@@ -14,17 +14,16 @@ import { HttpResponse, http } from "msw";
 
 export default [
   // Stock Notification Settings
-  http.get("/api/stocks/notification/settings", () => {
+  http.get("/api/stocks/target-price/notifications", () => {
     return HttpResponse.json(successfulStockNotificationSettingsData, {
       status: HTTPSTATUS.success,
     });
   }),
 
-  http.put<{ tickerSymbol: string }, { isActive: boolean }>(
-    "/api/stocks/:tickerSymbol/target-price/notifications",
-    async ({ params, request }) => {
-      const { tickerSymbol } = params;
-      const { isActive } = await request.json();
+  http.put<never, { tickerSymbol: string; isActive: boolean }>(
+    "/api/stocks/target-price/notifications",
+    async ({ request }) => {
+      const { tickerSymbol, isActive } = await request.json();
 
       const targetStock = stockNotifications.find(
         (stockNotification) => stockNotification.tickerSymbol === tickerSymbol
@@ -40,11 +39,10 @@ export default [
     }
   ),
 
-  http.post<{ tickerSymbol: string }, { targetPrice: number }>(
-    "/api/stocks/:tickerSymbol/target-price/notifications",
-    async ({ params, request }) => {
-      const { tickerSymbol } = params;
-      const { targetPrice } = await request.json();
+  http.post<never, { tickerSymbol: string; targetPrice: number }>(
+    "/api/stocks/target-price/notifications",
+    async ({ request }) => {
+      const { tickerSymbol, targetPrice } = await request.json();
 
       const targetStock = stockNotifications.find(
         (stockNotification) => stockNotification.tickerSymbol === tickerSymbol
@@ -79,10 +77,10 @@ export default [
     }
   ),
 
-  http.delete(
-    "/api/stocks/:tickerSymbol/target-price/notifications",
-    ({ params }) => {
-      const { tickerSymbol } = params;
+  http.delete<never, { tickerSymbol: string }>(
+    "/api/stocks/target-price/notifications",
+    async ({ request }) => {
+      const { tickerSymbol } = await request.json();
 
       stockNotifications.splice(
         stockNotifications.findIndex(
@@ -97,10 +95,11 @@ export default [
     }
   ),
 
-  http.delete(
-    "/api/stocks/:tickerSymbol/target-price/notifications/:targetNotificationId",
-    ({ params }) => {
-      const { tickerSymbol, targetNotificationId } = params;
+  http.delete<{ targetNotificationId: string }, { tickerSymbol: string }>(
+    "/api/stocks/target-price/notifications/:targetNotificationId",
+    async ({ params, request }) => {
+      const { targetNotificationId } = params;
+      const { tickerSymbol } = await request.json();
 
       const targetStockNotification = stockNotifications.find(
         (stockNotification) => stockNotification.tickerSymbol === tickerSymbol

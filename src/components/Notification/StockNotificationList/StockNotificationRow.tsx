@@ -27,10 +27,8 @@ type Props = {
 export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
   const { companyName, tickerSymbol, targetPrices, lastPrice, isActive } = row;
 
-  const { mutate: activationMutate } =
-    useStockNotificationSettingsMutation(tickerSymbol);
-  const { mutate: removeAllMutate } =
-    useAllStockPriceTargetsDeleteMutation(tickerSymbol);
+  const { mutate: activationMutate } = useStockNotificationSettingsMutation();
+  const { mutate: removeAllMutate } = useAllStockPriceTargetsDeleteMutation();
 
   const [isRowOpen, setIsRowOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -47,11 +45,11 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
     const targetPriceNotificationIds = targetPrices.map(
       (item) => item.notificationId
     );
-    removeAllMutate(targetPriceNotificationIds);
+    removeAllMutate({ tickerSymbol, targetPriceNotificationIds });
   };
 
   const onNotificationButtonClick = debounce(() => {
-    activationMutate({ isActive: !isActive });
+    activationMutate({ tickerSymbol, isActive: !isActive });
   }, 250);
 
   const onExpandRowClick = (

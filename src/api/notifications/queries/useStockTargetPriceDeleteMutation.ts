@@ -2,17 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteStockPriceTarget } from "..";
 import { notificationKeys } from "./queryKeys";
 
-export default function useStockTargetPriceDeleteMutation(
-  tickerSymbol: string
-) {
+export default function useStockTargetPriceDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (targetNotificationId: number) =>
-      deleteStockPriceTarget({
-        tickerSymbol,
-        targetNotificationId,
-      }),
+    mutationFn: deleteStockPriceTarget,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: notificationKeys.stockNotificationSettings().queryKey,

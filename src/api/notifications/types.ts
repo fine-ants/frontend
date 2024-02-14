@@ -31,10 +31,12 @@ export type StockTargetPrice = {
 };
 
 export type StockNotificationSettingsPutBody = {
+  tickerSymbol: string;
   isActive: boolean;
 };
 
 export type DeleteAllStockPriceTargetsBody = {
+  tickerSymbol: string;
   targetPriceNotificationIds: number[];
 };
 

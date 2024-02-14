@@ -100,48 +100,37 @@ export const putMemberNotificationSettings = async ({
 // 종목 활성 알림
 export const getStockNotificationSettings = async () => {
   const res = await fetcher.get<Response<{ stocks: StockNotification[] }>>(
-    `/stocks/notification/settings`
+    `/stocks/target-price/notifications`
   );
   return res.data;
 };
 
-export const putStockNotificationSettings = async ({
-  tickerSymbol,
-  body,
-}: {
-  tickerSymbol: string;
-  body: StockNotificationSettingsPutBody;
-}) => {
+export const putStockNotificationSettings = async (
+  body: StockNotificationSettingsPutBody
+) => {
   const res = await fetcher.put<Response<null>>(
-    `/stocks/${tickerSymbol}/target-price/notifications`,
+    `/stocks/target-price/notifications`,
     body
   );
   return res.data;
 };
 
-export const postStockPriceTarget = async ({
-  tickerSymbol,
-  targetPrice,
-}: {
+export const postStockPriceTarget = async (body: {
   tickerSymbol: string;
   targetPrice: number;
 }) => {
   const res = await fetcher.post<Response<null>>(
-    `/stocks/${tickerSymbol}/target-price/notifications`,
-    { targetPrice }
+    `/stocks/target-price/notifications`,
+    body
   );
   return res.data;
 };
 
-export const deleteAllStockPriceTargets = async ({
-  tickerSymbol,
-  body,
-}: {
-  tickerSymbol: string;
-  body: DeleteAllStockPriceTargetsBody;
-}) => {
+export const deleteAllStockPriceTargets = async (
+  body: DeleteAllStockPriceTargetsBody
+) => {
   const res = await fetcher.delete<Response<null>>(
-    `/stocks/${tickerSymbol}/target-price/notifications`,
+    `/stocks/target-price/notifications`,
     { data: body }
   );
   return res.data;
@@ -155,7 +144,8 @@ export const deleteStockPriceTarget = async ({
   targetNotificationId: number;
 }) => {
   const res = await fetcher.delete<Response<null>>(
-    `/stocks/${tickerSymbol}/target-price/notifications/${targetNotificationId}`
+    `/stocks/target-price/notifications/${targetNotificationId}`,
+    { data: { tickerSymbol } }
   );
   return res.data;
 };

@@ -11,9 +11,7 @@ import styled from "styled-components";
 export default function StockTargetPriceForm() {
   const { tickerSymbol } = useParams();
 
-  const { mutate: addStockTargetPrice } = useStockTargetPriceAddMutation(
-    tickerSymbol as string
-  );
+  const { mutate: addStockTargetPrice } = useStockTargetPriceAddMutation();
 
   const [targetPrice, setTargetPrice] = useState("");
 
@@ -23,7 +21,10 @@ export default function StockTargetPriceForm() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    addStockTargetPrice(Number(targetPrice));
+    addStockTargetPrice({
+      tickerSymbol: tickerSymbol as string,
+      targetPrice: Number(targetPrice),
+    });
   };
 
   return (
