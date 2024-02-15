@@ -3,6 +3,7 @@ import arrowLeftIcon from "@assets/icons/ic_arrow-left.svg";
 import ascendingIcon from "@assets/icons/ic_ascending.svg";
 import calendarIcon from "@assets/icons/ic_calendar.svg";
 import cameraIcon from "@assets/icons/ic_camera.svg";
+import caption from "@assets/icons/ic_caption.svg";
 import checkOutlineIcon from "@assets/icons/ic_check-outline.svg";
 import checkIcon from "@assets/icons/ic_check.svg";
 import chevronDownIcon from "@assets/icons/ic_chevron-down.svg";
@@ -57,6 +58,7 @@ const icons = {
   "ascending": ascendingIcon,
   "calendar": calendarIcon,
   "camera": cameraIcon,
+  "caption": caption,
   "check-outline": checkOutlineIcon,
   "check": checkIcon,
   "chevron-down": chevronDownIcon,
