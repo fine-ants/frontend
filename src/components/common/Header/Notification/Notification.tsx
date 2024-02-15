@@ -12,6 +12,7 @@ export function Notification({ user }: { user: User }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [count, setCount] = useState(0);
 
+  // TODO : error, loading handling
   const { data: notifications } = useMemberNotificationsQuery(user.id);
   const { mutate } = useReadAllMemberNotificationsMutation(user.id);
 

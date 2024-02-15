@@ -88,15 +88,23 @@ export function NotificationSettingDialog({ user, isOpen, onClose }: Props) {
       <StyledContent>
         <SettingContainer>
           <SubTitle>데스크탑 알림 설정</SubTitle>
-          <ToggleList>
-            {NotificationPermission === "denied" ? (
+          {NotificationPermission === "denied" ? (
+            <DeniedSign>
               <div>
-                <ToggleTitle>알림 권한이 차단되어 있습니다</ToggleTitle>
-                <ToggleTitle>
-                  알림받기를 원하시면 브라우저에서 FineAnts 알림을 허용해 주세요
-                </ToggleTitle>
+                <Icon icon="caption" color="gray400" size={16} />
               </div>
-            ) : (
+              <DeniedSignContent>
+                <DeniedSignText>
+                  브라우저 알림 권한이 차단되어 있습니다
+                </DeniedSignText>
+                <DeniedSignText>
+                  알림 받기를 원하시면 브라우저에서 FineAnts 알림을 허용해
+                  주세요
+                </DeniedSignText>
+              </DeniedSignContent>
+            </DeniedSign>
+          ) : (
+            <ToggleList>
               <>
                 <ToggleTitle>
                   브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
@@ -106,8 +114,8 @@ export function NotificationSettingDialog({ user, isOpen, onClose }: Props) {
                   isChecked={browserNotify}
                 />
               </>
-            )}
-          </ToggleList>
+            </ToggleList>
+          )}
         </SettingContainer>
         <Divider />
         <SettingContainer>
@@ -150,7 +158,8 @@ export function NotificationSettingDialog({ user, isOpen, onClose }: Props) {
 
 const dialogStyle = {
   width: "544px",
-  height: "428px",
+  minHeight: "428px",
+  height: "auto",
 };
 
 const StyledHeader = styled.header`
@@ -209,4 +218,25 @@ const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: right;
+`;
+
+const DeniedSign = styled.div`
+  width: 100%;
+  height: 66px;
+  display: flex;
+  gap: 8px;
+  border-radius: 4px;
+  background-color: ${designSystem.color.neutral.gray50};
+  padding: 14px 12px;
+`;
+
+const DeniedSignContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+const DeniedSignText = styled.div`
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray600};
 `;
