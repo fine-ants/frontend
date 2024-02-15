@@ -44,7 +44,6 @@ export const sendTokenToServer = async (currentToken: string) => {
   }
 };
 
-// TODO: this.bgMessageHandler is not a function error when app is in background
 const messagePayloadListener = (payload: MessagePayload) => {
   const { data } = payload;
 
