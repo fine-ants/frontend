@@ -77,14 +77,16 @@ export default [
     }
   ),
 
-  http.delete<never, { tickerSymbol: string }>(
+  http.delete<never, { targetPriceNotificationIds: number[] }>(
     "/api/stocks/target-price/notifications",
     async ({ request }) => {
-      const { tickerSymbol } = await request.json();
+      const { targetPriceNotificationIds } = await request.json();
 
       stockNotifications.splice(
-        stockNotifications.findIndex(
-          (stockNotification) => stockNotification.tickerSymbol === tickerSymbol
+        stockNotifications.findIndex((stockNotification) =>
+          stockNotification.targetPrices.some((targetPrice) =>
+            targetPriceNotificationIds.includes(targetPrice.notificationId)
+          )
         ),
         1
       );
@@ -100,7 +102,7 @@ export default [
     ({ params }) => {
       const { targetNotificationId } = params;
 
-      stockNotifications.forEach((stockNotification) => {
+      stockNotifications.forEach((stockNotification, idx) => {
         const targetPriceIndex = stockNotification.targetPrices.findIndex(
           (targetPrice) =>
             targetPrice.notificationId ===
@@ -109,6 +111,9 @@ export default [
 
         if (targetPriceIndex !== -1) {
           stockNotification.targetPrices.splice(targetPriceIndex, 1);
+          if (stockNotification.targetPrices.length === 0) {
+            stockNotifications.splice(idx, 1);
+          }
         }
       });
 
