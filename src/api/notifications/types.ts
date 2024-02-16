@@ -6,7 +6,7 @@ export type MemberNotifications = {
   isRead: boolean;
   type: "stock" | "portfolio";
   referenceId: string;
-}[];
+};
 
 export type MemberNotificationsSettings = {
   browserNotify: boolean;

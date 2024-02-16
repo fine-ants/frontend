@@ -15,7 +15,7 @@ type Props = {
   user: User;
   anchorEl: null | HTMLElement;
   open: boolean;
-  notifications: MemberNotifications;
+  notifications: MemberNotifications[];
   handleClose: () => void;
 };
 
