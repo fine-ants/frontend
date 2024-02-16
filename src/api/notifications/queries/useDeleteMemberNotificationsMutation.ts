@@ -13,5 +13,9 @@ export default function useDeleteMemberNotificationsMutation(memberId: number) {
         queryKey: notificationKeys.memberNotifications().queryKey,
       });
     },
+    meta: {
+      toastSuccessMessage: "알림 목록을 삭제 했습니다",
+      toastErrorMessage: "알림 목록 삭제를 실패했습니다",
+    },
   });
 }
