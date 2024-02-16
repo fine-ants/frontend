@@ -14,10 +14,10 @@ import {
   LineStyle,
   createChart,
 } from "lightweight-charts";
-import { useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 
 type Props = {
-  chartContainerRef: React.RefObject<HTMLDivElement>;
+  chartContainerRef: RefObject<HTMLDivElement>;
   data: LineData[];
   currentRange: string;
 };
@@ -118,7 +118,7 @@ export function useLCLineChart({
 
 type setupTooltipProps = {
   chart: IChartApi;
-  chartContainerRef: React.RefObject<HTMLDivElement>;
+  chartContainerRef: RefObject<HTMLDivElement>;
   series: ISeriesApi<"Line">;
 };
 

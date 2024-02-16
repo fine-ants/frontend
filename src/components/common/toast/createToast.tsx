@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function createToast({
-  autoCloseDelay = 4000,
+  autoCloseDelay = 2500,
   toastPosition = "top-center",
 }: Props = {}) {
   const toastOptions = {

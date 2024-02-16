@@ -56,7 +56,7 @@ export default function Header() {
           <SearchBar sx={{ width: "328px" }} />
 
           {user ? (
-            <UserControls />
+            <UserControls user={user} />
           ) : (
             <ButtonWrapper>
               <Button variant="text" size="h32" onClick={moveToSignInPage}>

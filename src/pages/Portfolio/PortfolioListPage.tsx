@@ -1,7 +1,7 @@
 import PortfolioListTable from "@components/Portfolio/PortfolioList/PortfolioListTable";
 import { PortfolioListTableErrorFallback } from "@components/Portfolio/PortfolioList/errorFallback/PortfolioListTableErrorFallback";
-import PortfolioListTableSkeleton from "@components/Portfolio/PortfolioList/skeletons/PortfolioListTableSkeleton";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
+import TableSkeleton from "@components/common/Table/TableSkeleton";
 import BasePage from "@pages/BasePage";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
@@ -16,7 +16,7 @@ export default function PortfolioListPage() {
 
         <AsyncBoundary
           ErrorFallback={PortfolioListTableErrorFallback}
-          SuspenseFallback={<PortfolioListTableSkeleton />}>
+          SuspenseFallback={<TableSkeleton />}>
           <PortfolioListTable />
         </AsyncBoundary>
       </Container>

@@ -3,7 +3,7 @@ import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { Order } from "@components/common/Table/Table";
+import { Order } from "@components/common/Table/types";
 import {
   Box,
   TableCell,

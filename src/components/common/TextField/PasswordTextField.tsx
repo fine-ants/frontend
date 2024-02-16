@@ -3,7 +3,7 @@ import showIcon from "@assets/icons/ic_show.svg";
 import { BaseTextField } from "@components/common/TextField/BaseTextField";
 import { ErrorText } from "@components/common/TextField/ErrorText";
 import { IconButton, InputAdornment } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -27,9 +27,7 @@ export function PasswordTextField({
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 

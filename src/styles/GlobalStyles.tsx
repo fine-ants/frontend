@@ -81,7 +81,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
     
     scrollbar-width: thin;
-    scrollbar-color: ${designSystem.color.neutral.gray200} ${designSystem.color.neutral.white};
+    scrollbar-color: ${designSystem.color.neutral.gray200} transparent;
   
     &::-webkit-scrollbar {
       width: 8px;

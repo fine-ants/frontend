@@ -14,18 +14,18 @@ const Switch = styled(BaseSwitch)`
   font-size: 0;
   position: relative;
   display: inline-block;
-  width: 32px;
-  height: 20px;
+  width: 28px;
+  height: 16px;
   background: #b3c3d3;
   border-radius: 10px;
   cursor: pointer;
 
   & .${switchClasses.thumb} {
     display: block;
-    width: 14px;
-    height: 14px;
-    top: 3px;
-    left: 3px;
+    width: 12px;
+    height: 12px;
+    top: 2px;
+    left: 2px;
     border-radius: 16px;
     background-color: #fff;
     position: relative;
@@ -54,7 +54,6 @@ const Switch = styled(BaseSwitch)`
 
     & .${switchClasses.thumb} {
       left: 14px;
-      top: 3px;
       background-color: #fff;
     }
   }
