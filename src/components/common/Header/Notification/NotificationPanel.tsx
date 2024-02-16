@@ -1,5 +1,5 @@
 import useDeleteAllMemberNotificationsMutation from "@api/notifications/queries/useDeleteAllMemberNotificationsMutation";
-import { MemberNotifications } from "@api/notifications/types";
+import { MemberNotification } from "@api/notifications/types";
 import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
 import { Popover } from "@mui/material";
@@ -15,7 +15,7 @@ type Props = {
   user: User;
   anchorEl: null | HTMLElement;
   open: boolean;
-  notifications: MemberNotifications[];
+  notifications: MemberNotification[];
   handleClose: () => void;
 };
 
@@ -86,7 +86,7 @@ export function NotificationPanel({
                 <NotificationItem
                   key={data.notificationId}
                   user={user}
-                  memberNotifications={data}
+                  memberNotification={data}
                   onClose={handleClose}
                 />
               ))

@@ -1,7 +1,7 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
 import {
-  MemberNotifications,
+  MemberNotification,
   MemberNotificationsSettings,
   NotificationType,
   PortfolioNotification,
@@ -35,7 +35,7 @@ export const postFCMToken = async (fcmToken: string) => {
 };
 
 export const getMemberNotifications = async (memberId: number) => {
-  const res = await fetcher.get<Response<MemberNotifications[]>>(
+  const res = await fetcher.get<Response<MemberNotification[]>>(
     `/members/${memberId}/notifications`
   );
   return res.data;
@@ -48,7 +48,7 @@ export const patchMemberNotificationsReadAll = async ({
   memberId: number;
   body: number[];
 }) => {
-  const res = await fetcher.patch<Response<MemberNotifications>>(
+  const res = await fetcher.patch<Response<MemberNotification>>(
     `/members/${memberId}/notifications`,
     body
   );
@@ -62,7 +62,7 @@ export const deleteAllMemberNotification = async ({
   memberId: number;
   notificationIds: number[];
 }) => {
-  const res = await fetcher.delete<Response<MemberNotifications>>(
+  const res = await fetcher.delete<Response<MemberNotification>>(
     `members/${memberId}/notifications`,
     { data: { notificationIds } }
   );
@@ -76,7 +76,7 @@ export const deleteMemberNotification = async ({
   memberId: number;
   notificationId: number;
 }) => {
-  const res = await fetcher.delete<Response<MemberNotifications>>(
+  const res = await fetcher.delete<Response<MemberNotification>>(
     `members/${memberId}/notifications/${notificationId}`
   );
   return res.data;
@@ -89,7 +89,7 @@ export const putMemberNotificationSettings = async ({
   memberId: number;
   body: MemberNotificationsSettings;
 }) => {
-  const res = await fetcher.put<Response<MemberNotifications>>(
+  const res = await fetcher.put<Response<MemberNotification>>(
     `members/${memberId}/notification/settings`,
     body
   );

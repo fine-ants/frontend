@@ -1,5 +1,5 @@
 import useDeleteMemberNotificationsMutation from "@api/notifications/queries/useDeleteMemberNotificationsMutation";
-import { MemberNotifications } from "@api/notifications/types";
+import { MemberNotification } from "@api/notifications/types";
 import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
@@ -10,29 +10,18 @@ import styled from "styled-components";
 
 type Props = {
   user: User;
-  memberNotifications: MemberNotifications;
+  memberNotification: MemberNotification;
   onClose: () => void;
 };
 
-export function NotificationItem({
-  user,
-  memberNotifications,
-  onClose,
-}: Props) {
+export function NotificationItem({ user, memberNotification, onClose }: Props) {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
 
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
 
-  const {
-    content,
-    isRead,
-    notificationId,
-    referenceId,
-    timestamp,
-    title,
-    type,
-  } = memberNotifications;
+  const { body, isRead, notificationId, referenceId, timestamp, title, type } =
+    memberNotification;
 
   const deleteNotification = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -52,7 +41,7 @@ export function NotificationItem({
       <StyledItemContainer>
         <LeftContainer>
           <StyledTitle>{title}</StyledTitle>
-          <StyledContent>{content}</StyledContent>
+          <StyledContent>{body}</StyledContent>
           <StyledTimestamp>
             {getElapsedSince(new Date(timestamp))}
           </StyledTimestamp>
