@@ -43,14 +43,14 @@ export const getMemberNotifications = async (memberId: number) => {
 
 export const patchMemberNotificationsReadAll = async ({
   memberId,
-  body,
+  notificationIds,
 }: {
   memberId: number;
-  body: number[];
+  notificationIds: number[];
 }) => {
   const res = await fetcher.patch<Response<MemberNotification>>(
     `/members/${memberId}/notifications`,
-    body
+    { notificationIds }
   );
   return res.data;
 };
