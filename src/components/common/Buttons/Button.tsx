@@ -1,5 +1,11 @@
 import designSystem from "@styles/designSystem";
-import { ForwardedRef, forwardRef } from "react";
+import {
+  CSSProperties,
+  ForwardedRef,
+  MouseEvent,
+  ReactNode,
+  forwardRef,
+} from "react";
 import styled from "styled-components";
 
 export type Variant = "primary" | "secondary" | "tertiary" | "text";
@@ -10,9 +16,9 @@ type Props = {
   size: Size;
   type?: "button" | "submit";
   disabled?: boolean;
-  onClick?: () => void;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  children: ReactNode;
+  style?: CSSProperties;
 };
 
 export default forwardRef(function Button(

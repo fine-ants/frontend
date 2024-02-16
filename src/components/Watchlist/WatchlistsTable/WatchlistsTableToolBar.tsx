@@ -9,7 +9,7 @@ import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
-import WatchlistAddDialog from "../WatchlistAddDialog";
+import NewWatchlistDialog from "../NewWatchlistDialog";
 
 interface Props {
   selected: readonly WatchlistsType[];
@@ -18,16 +18,16 @@ interface Props {
 export default function WatchlistsTableToolBar({ selected }: Props) {
   const { mutate: watchlistsDeleteMutate } = useWatchlistsDeleteMutation();
 
-  const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
+  const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
     useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-  const onAddWatchlistItemButtonClick = () => {
-    setIsAddWatchlistDialogOpen(true);
+  const onAddNewWatchlistButtonClick = () => {
+    setIsNewWatchlistDialogOpen(true);
   };
 
-  const onAddWatchlistItemDialogClose = () => {
-    setIsAddWatchlistDialogOpen(false);
+  const onNewWatchlistDialogClose = () => {
+    setIsNewWatchlistDialogOpen(false);
   };
 
   const onDeleteWatchlistsButtonClick = () => {
@@ -78,15 +78,15 @@ export default function WatchlistsTableToolBar({ selected }: Props) {
       <Button
         variant="primary"
         size="h32"
-        onClick={onAddWatchlistItemButtonClick}>
+        onClick={onAddNewWatchlistButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>새 리스트 추가</span>
       </Button>
 
-      {isAddWatchlistDialogOpen && (
-        <WatchlistAddDialog
-          isOpen={isAddWatchlistDialogOpen}
-          onClose={onAddWatchlistItemDialogClose}
+      {isNewWatchlistDialogOpen && (
+        <NewWatchlistDialog
+          isOpen={isNewWatchlistDialogOpen}
+          onClose={onNewWatchlistDialogClose}
         />
       )}
 
@@ -110,8 +110,8 @@ export default function WatchlistsTableToolBar({ selected }: Props) {
 const StyledToolbar = styled(Toolbar)`
   height: 32px;
   min-height: 32px;
-  padding: 0;
   margin-bottom: 16px;
+  padding: 0;
   display: flex;
   justify-content: space-between;
 `;

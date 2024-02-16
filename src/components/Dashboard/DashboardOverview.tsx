@@ -44,7 +44,7 @@ export default function DashboardOverview() {
               <RateBadge size={24} value={overviewData?.totalGainRate ?? 0} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
-              <Title>연 배당금</Title>
+              <Title>예상 연 배당금</Title>
               <ValueWrapper>
                 <Won>₩</Won>
                 <Value>

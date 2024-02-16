@@ -29,8 +29,7 @@ export type WatchlistHasStockData = {
   hasStock: boolean;
 };
 
-//watchlist 목록 api
-
+// Watchlist 목록 API
 export const getWatchlists = async () => {
   const res = await fetcher.get<Response<WatchlistsType[]>>("/watchlists");
   return res.data;
@@ -50,8 +49,7 @@ export const deleteWatchlists = async (watchlistIds: readonly number[]) => {
   return res.data;
 };
 
-//watchlist 단일 & 종목 api
-
+// 단일 Watchlist API
 export const getWatchlist = async (watchlistId: number) => {
   const res = await fetcher.get<Response<WatchlistData>>(
     `/watchlists/${watchlistId}`
@@ -59,7 +57,15 @@ export const getWatchlist = async (watchlistId: number) => {
   return res.data;
 };
 
-export const postWatchlistStock = async ({
+// 단일 Watchlist 종목 관련 API
+export const getWatchlistHasStock = async (tickerSymbol: string) => {
+  const res = await fetcher.get<Response<WatchlistHasStockData[]>>(
+    `/watchlists/stockExists/${tickerSymbol}`
+  );
+  return res.data;
+};
+
+export const postWatchlistStocks = async ({
   watchlistId,
   tickerSymbols,
 }: {
@@ -73,7 +79,7 @@ export const postWatchlistStock = async ({
   return res.data;
 };
 
-export const deleteWatchlistStock = async ({
+export const deleteWatchlistStocks = async ({
   watchlistId,
   tickerSymbols,
 }: {
@@ -85,13 +91,6 @@ export const deleteWatchlistStock = async ({
     {
       data: { tickerSymbols },
     }
-  );
-  return res.data;
-};
-
-export const getWatchlistHasStock = async (tickerSymbol: string) => {
-  const res = await fetcher.get<Response<WatchlistHasStockData[]>>(
-    `/watchlists/stockExists/${tickerSymbol}`
   );
   return res.data;
 };

@@ -2,13 +2,6 @@ import { Response } from "@api/types";
 import { CLIENT_URL } from "@constants/config";
 import { fetcher } from "../fetcher";
 
-export type User = {
-  id: number;
-  nickname: string;
-  email: string;
-  profileUrl: string;
-};
-
 export type SignInCredentials = {
   email: string;
   password: string;
@@ -19,7 +12,6 @@ export type SignInData = {
     accessToken: string;
     refreshToken: string;
   };
-  user: User;
 };
 
 export type SignUpData = {

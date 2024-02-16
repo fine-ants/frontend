@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteWatchlistStock } from "..";
+import { deleteWatchlistStocks } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 export default function useWatchlistItemDeleteMutation(watchlistId: number) {
@@ -7,7 +7,7 @@ export default function useWatchlistItemDeleteMutation(watchlistId: number) {
 
   return useMutation({
     mutationFn: (tickerSymbols: string[]) =>
-      deleteWatchlistStock({ watchlistId, tickerSymbols }),
+      deleteWatchlistStocks({ watchlistId, tickerSymbols }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.item(watchlistId).queryKey,

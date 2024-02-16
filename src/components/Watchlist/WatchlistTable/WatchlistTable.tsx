@@ -1,5 +1,5 @@
 import { WatchlistItemType } from "@api/watchlist";
-import Table from "@components/common/Table/Table";
+import SelectableTable from "@components/common/Table/SelectableTable";
 import EmptyWatchlistTable from "./EmptyWatchlistTable";
 import WatchlistTableBody from "./WatchlistTableBody";
 import WatchlistTableHead from "./WatchlistTableHead";
@@ -11,7 +11,7 @@ type Props = {
 
 export default function WatchlistTable({ data }: Props) {
   return (
-    <Table
+    <SelectableTable
       tableTitle="관심 종목"
       initialOrderBy="dateAdded"
       TableToolBar={WatchlistTableToolBar}
