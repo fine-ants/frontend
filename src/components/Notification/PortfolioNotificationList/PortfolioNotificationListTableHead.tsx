@@ -50,18 +50,18 @@ export default function PortfolioNotificationListTableHead({
 
               if (!isOrderBy) return <img src={sortNoneIcon} />;
 
-              if (order === "asc") {
-                return <img src={sortAscendingIcon} />;
-              } else {
-                return <img src={sortDescendingIcon} />;
-              }
+              return (
+                <img
+                  src={order === "asc" ? sortAscendingIcon : sortDescendingIcon}
+                />
+              );
             }}>
             포트폴리오 이름
-            {orderBy === "name" ? (
+            {orderBy === "name" && (
               <Box component="span" sx={visuallyHidden}>
                 {order === "desc" ? "sorted descending" : "sorted ascending"}
               </Box>
-            ) : null}
+            )}
           </StyledTableSortLabel>
         </StyledTableCell>
 
