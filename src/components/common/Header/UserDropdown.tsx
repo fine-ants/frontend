@@ -140,6 +140,8 @@ const dropdownItemSx = {
 
 const ProfileImageWrapper = styled.div`
   background-color: ${designSystem.color.neutral.gray800};
+  display: flex;
+  align-items: center;
   border-radius: 50%;
   overflow: hidden;
 `;

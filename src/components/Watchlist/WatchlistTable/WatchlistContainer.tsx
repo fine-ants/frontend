@@ -9,6 +9,7 @@ import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import WatchlistNameEditDialog from "../WatchlistNameEditDialog";
 import WatchlistTable from "./WatchlistTable";
 
 export default function WatchlistContainer() {
@@ -16,10 +17,9 @@ export default function WatchlistContainer() {
   const { data: watchlistData } = useWatchlistQuery(Number(watchlistId));
   const { mutate: watchlistsDeleteMutate } = useWatchlistsDeleteMutation();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isNameEditDialogOpen, setIsNameEditDialogOpen] = useState(false);
 
   const navigate = useNavigate();
-
-  const onFavoriteMarkClick = () => {};
 
   const onDeleteWatchlistButtonClick = () => {
     setIsConfirmOpen(true);
@@ -34,8 +34,19 @@ export default function WatchlistContainer() {
     navigate(Routes.WATCHLISTS);
   };
 
+  const onFavoriteMarkClick = () => {
+    setIsNameEditDialogOpen(true);
+  };
+
   return (
     <Container>
+      {isNameEditDialogOpen && (
+        <WatchlistNameEditDialog
+          currentWatchlistName={watchlistData.name}
+          isOpen={isNameEditDialogOpen}
+          onClose={() => setIsNameEditDialogOpen(false)}
+        />
+      )}
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}

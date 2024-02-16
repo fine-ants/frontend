@@ -80,14 +80,14 @@ export default createGlobalStyle`
   * {
     box-sizing: border-box;
     
-    scrollbar-width: thin;
-    scrollbar-color: ${designSystem.color.neutral.gray200} ${designSystem.color.neutral.white};
-  
+    -moz-scrollbar-width: thin;
+    -moz-scrollbar-color: ${designSystem.color.neutral.gray200} ${designSystem.color.neutral.white};
+
     &::-webkit-scrollbar {
       width: 8px;
     }
     &::-webkit-scrollbar-track {
-      background-color: ${designSystem.color.neutral.white};
+      background-color: transparent;
       border-radius: inherit;
     }
 

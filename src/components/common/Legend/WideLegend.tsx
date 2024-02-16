@@ -71,14 +71,15 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
 const StyledLegend = styled.div<{ $hasScroll: boolean }>`
   width: 400px;
   height: 120px;
-  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 4px 16px 16px" : "16px")};
+  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 8px 16px 16px" : "16px")};
   display: flex;
   flex-wrap: wrap;
   gap: 8px 24px;
   box-sizing: border-box;
   border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
-  overflow-y: ${({ $hasScroll }) => ($hasScroll ? "scroll" : "none")};
+  // overflow-y: ${({ $hasScroll }) => ($hasScroll ? "scroll" : "none")};
+  overflow-y: scroll;
 `;
 
 const EtcListContainer = styled.div`

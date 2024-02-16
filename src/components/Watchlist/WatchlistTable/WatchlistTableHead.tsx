@@ -3,12 +3,9 @@ import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { CustomTooltip } from "@components/common/CustomTooltip";
-import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/Table";
 import {
   Box,
-  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -79,10 +76,6 @@ export default function WatchlistTableHead({
       onRequestSort(event, property);
     };
 
-  const onFavoriteIconClick = () => {
-    //TODO: 삭제 뮤테이션
-  };
-
   return (
     <StyledPortfolioListTableHead>
       <StyledTableRow>
@@ -97,16 +90,7 @@ export default function WatchlistTableHead({
             }}
           />
         </StyledTableCell>
-        <StyledTableCell padding="none" sx={{ width: "32px" }}>
-          <CustomTooltip title="관심 종목 삭제" placement="bottom-start">
-            <IconButton
-              sx={{ padding: 0 }}
-              disableRipple={true}
-              onClick={onFavoriteIconClick}>
-              <Icon icon="favorite" size={16} color="blue500" />
-            </IconButton>
-          </CustomTooltip>
-        </StyledTableCell>
+        <StyledTableCell padding="none" sx={{ width: "32px" }} />
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
