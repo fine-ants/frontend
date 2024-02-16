@@ -1,5 +1,6 @@
 import StockNotificationListTable from "@components/Notification/StockNotificationList/StockNotificationListTable";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
+import { ErrorFallbackContent } from "@components/common/ErrorFallbackContent";
 import TableSkeleton from "@components/common/Table/TableSkeleton";
 import styled from "styled-components";
 
@@ -14,8 +15,7 @@ export default function StockNotificationsSubPage() {
             tableRowHeight={48}
           />
         }
-        // TODO: ErrorFallback
-        ErrorFallback={() => <div>error</div>}>
+        ErrorFallback={ErrorFallbackContent}>
         <StockNotificationListTable />
       </AsyncBoundary>
     </StyledStockNotificationsSubPage>
@@ -23,5 +23,9 @@ export default function StockNotificationsSubPage() {
 }
 
 const StyledStockNotificationsSubPage = styled.div`
+  min-height: 300px;
   margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
