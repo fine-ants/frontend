@@ -8,11 +8,11 @@ import { useState } from "react";
 import styled from "styled-components";
 
 type Props = {
-  row: StockTargetPrice & { companyName: string; tickerSymbol: string };
+  row: StockTargetPrice & { companyName: string };
 };
 
 export default function StockNotificationLotRow({ row }: Props) {
-  const { companyName, tickerSymbol, targetPrice, notificationId } = row;
+  const { companyName, targetPrice, notificationId } = row;
 
   const { mutate: stockNotificationDeleteMutate } =
     useStockTargetPriceDeleteMutation();
@@ -29,7 +29,6 @@ export default function StockNotificationLotRow({ row }: Props) {
 
   const onConfirmRemove = () => {
     stockNotificationDeleteMutate({
-      tickerSymbol,
       targetNotificationId: notificationId,
     });
   };

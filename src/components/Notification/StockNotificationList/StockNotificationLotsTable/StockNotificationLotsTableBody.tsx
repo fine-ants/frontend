@@ -6,7 +6,6 @@ type Props = {
   numEmptyRows: number;
   visibleRows: readonly (StockTargetPrice & {
     companyName: string;
-    tickerSymbol: string;
   })[];
 };
 

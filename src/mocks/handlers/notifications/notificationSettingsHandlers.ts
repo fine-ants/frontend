@@ -95,23 +95,22 @@ export default [
     }
   ),
 
-  http.delete<{ targetNotificationId: string }, { tickerSymbol: string }>(
+  http.delete<{ targetNotificationId: string }>(
     "/api/stocks/target-price/notifications/:targetNotificationId",
-    async ({ params, request }) => {
+    ({ params }) => {
       const { targetNotificationId } = params;
-      const { tickerSymbol } = await request.json();
 
-      const targetStockNotification = stockNotifications.find(
-        (stockNotification) => stockNotification.tickerSymbol === tickerSymbol
-      );
-      targetStockNotification?.targetPrices.splice(
-        targetStockNotification.targetPrices.findIndex(
+      stockNotifications.forEach((stockNotification) => {
+        const targetPriceIndex = stockNotification.targetPrices.findIndex(
           (targetPrice) =>
             targetPrice.notificationId ===
             parseInt(targetNotificationId as string)
-        ),
-        1
-      );
+        );
+
+        if (targetPriceIndex !== -1) {
+          stockNotification.targetPrices.splice(targetPriceIndex, 1);
+        }
+      });
 
       return HttpResponse.json(successfulStockPriceTargetDeleteData, {
         status: HTTPSTATUS.success,
