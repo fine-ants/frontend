@@ -12,7 +12,10 @@ const userData = successfulUserData;
 export const editNotificationPreferences = (
   notificationPreferences: MemberNotificationsSettings
 ) => {
-  userData.data.user.notificationPreferences = notificationPreferences;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { fcmTokenId: _, ...newNotificationPreferences } =
+    notificationPreferences;
+  userData.data.user.notificationPreferences = newNotificationPreferences;
 };
 
 export default [

@@ -6,8 +6,9 @@ import ToggleSwitch from "@components/ToggleSwitch";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { createToast } from "@components/common/toast";
+import { UserContext } from "@context/UserContext";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -18,6 +19,8 @@ type Props = {
 
 export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
   const toast = createToast();
+
+  const { fcmTokenId } = useContext(UserContext);
 
   const { browserNotify, maxLossNotify, targetGainNotify, targetPriceNotify } =
     user.notificationPreferences;
@@ -46,6 +49,7 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
         maxLossNotify,
         targetGainNotify,
         targetPriceNotify,
+        fcmTokenId,
       };
 
       toast.info("알림 권한이 차단하여 데스크탑 알림을 받을 수 없습니다");
@@ -65,6 +69,7 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
       maxLossNotify,
       targetGainNotify,
       targetPriceNotify,
+      fcmTokenId,
     };
 
     mutate(body);

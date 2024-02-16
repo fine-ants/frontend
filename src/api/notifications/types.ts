@@ -15,6 +15,7 @@ export type MemberNotificationsSettings = {
   targetGainNotify: boolean;
   maxLossNotify: boolean;
   targetPriceNotify: boolean;
+  fcmTokenId: number | null;
 };
 
 export type StockNotification = {
