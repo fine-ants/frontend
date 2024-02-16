@@ -9,10 +9,15 @@ import styled, { ThemeProvider } from "styled-components";
 import { setupFCMToken } from "./api/fcm";
 
 export default function App() {
-  const { user } = useContext(UserContext);
+  const { user, onSubscribePushNotification } = useContext(UserContext);
 
   if (user) {
-    setupFCMToken(user);
+    (async () => {
+      const fcmTokenId = await setupFCMToken(user);
+      if (fcmTokenId) {
+        onSubscribePushNotification(fcmTokenId);
+      }
+    })();
   }
 
   return (

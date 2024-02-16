@@ -32,13 +32,14 @@ export const fetchFCMRegToken = async () => {
 
 export const fetchAndSendFCMRegToken = async () => {
   const regToken = await fetchFCMRegToken();
-  await sendTokenToServer(regToken);
+  const fcmTokenId = await sendTokenToServer(regToken);
+  return fcmTokenId;
 };
 
 export const sendTokenToServer = async (currentToken: string) => {
   try {
     const res = await postFCMToken(currentToken);
-    res.data.fcmTokenId;
+    return res.data.fcmTokenId;
   } catch (error) {
     console.error("Error sending token to server: ", error);
   }
@@ -52,7 +53,6 @@ const messagePayloadListener = (payload: MessagePayload) => {
   const { title, body, type, referenceId, timestamp } = data;
 
   // TODO: 알림 UI 띄우기 및 알림 수 증가
-  // eslint-disable-next-line no-console
   console.log(title, body, type, referenceId, timestamp);
 };
 
@@ -68,8 +68,9 @@ export const setupFCMToken = async (user: User) => {
     Notification.permission === "granted"
   ) {
     try {
-      await fetchAndSendFCMRegToken();
+      const fcmTokenId = await fetchAndSendFCMRegToken();
       onMessage(messaging, messagePayloadListener);
+      return fcmTokenId;
     } catch (error) {
       toast.error("실시간 알림 서비스에 문제가 발생하여 새로고침이 필요합니다");
     }
@@ -94,10 +95,10 @@ export const onActivateNotification = async () => {
 
   if (permission === "granted") {
     try {
-      await fetchAndSendFCMRegToken();
+      const fcmTokenId = await fetchAndSendFCMRegToken();
       onMessage(messaging, messagePayloadListener);
+      return fcmTokenId;
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(error);
     }
   }
