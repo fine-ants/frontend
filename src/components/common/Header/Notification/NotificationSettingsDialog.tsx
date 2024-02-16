@@ -19,25 +19,23 @@ type Props = {
 export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
   const toast = createToast();
 
-  const preferences = user.notificationPreferences;
-  const NotificationPermission = Notification.permission;
+  const { browserNotify, maxLossNotify, targetGainNotify, targetPriceNotify } =
+    user.notificationPreferences;
+  const notificationPermission = Notification.permission;
 
-  const [browserNotify, setBrowserNotify] = useState(preferences.browserNotify);
-  const [maxLossNotify, setMaxLossNotify] = useState(preferences.maxLossNotify);
-  const [targetGainNotify, setTargetGainNotify] = useState(
-    preferences.targetGainNotify
-  );
-  const [targetPriceNotify, setTargetPriceNotify] = useState(
-    preferences.targetPriceNotify
-  );
+  const [newBrowserNotify, setBrowserNotify] = useState(browserNotify);
+  const [newMaxLossNotify, setMaxLossNotify] = useState(maxLossNotify);
+  const [newTargetGainNotify, setTargetGainNotify] = useState(targetGainNotify);
+  const [newTargetPriceNotify, setTargetPriceNotify] =
+    useState(targetPriceNotify);
 
   const { mutate } = useMemberNotificationsSettingMutation(user.id);
 
   const isDisabledButton =
-    preferences.browserNotify === browserNotify &&
-    preferences.maxLossNotify === maxLossNotify &&
-    preferences.targetGainNotify === targetGainNotify &&
-    preferences.targetPriceNotify === targetPriceNotify;
+    browserNotify === newBrowserNotify &&
+    maxLossNotify === newMaxLossNotify &&
+    targetGainNotify === newTargetGainNotify &&
+    targetPriceNotify === newTargetPriceNotify;
 
   const onToggleBrowserNotify = async () => {
     const permission = await Notification.requestPermission();
@@ -88,7 +86,7 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
       <StyledContent>
         <SettingContainer>
           <SubTitle>데스크탑 알림 설정</SubTitle>
-          {NotificationPermission === "denied" ? (
+          {notificationPermission === "denied" ? (
             <DeniedSign>
               <div>
                 <Icon icon="caption" color="gray400" size={16} />
