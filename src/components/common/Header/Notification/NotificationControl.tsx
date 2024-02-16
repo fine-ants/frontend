@@ -2,7 +2,7 @@ import useMemberNotificationsQuery from "@api/notifications/queries/useMemberNot
 import useReadAllMemberNotificationsMutation from "@api/notifications/queries/useReadAllMemberNotificationsMutation";
 import { User } from "@api/user/types";
 import designSystem from "@styles/designSystem";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import CounterBadge from "../../Badges/CounterBadge";
 import { Icon } from "../../Icon";
@@ -26,7 +26,7 @@ export function NotificationControl({ user }: { user: User }) {
 
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 

@@ -3,7 +3,7 @@ import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
 import { getElapsedSince } from "@utils/getElapsedSince";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -35,9 +35,7 @@ export function NotificationItem({
 
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
 
-  const deleteNotification = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const deleteNotification = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     mutate(notificationId);
   };
