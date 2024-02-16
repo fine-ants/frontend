@@ -83,7 +83,7 @@ export default function WatchlistTableToolBar({ selected }: Props) {
         variant="primary"
         size="h32"
         onClick={onAddWatchlistItemButtonClick}>
-        <Icon icon="add" size={12} color="white" />
+        <Icon icon="favorite-add" size={16} color="white" />
         <span>관심 종목 추가</span>
       </Button>
 

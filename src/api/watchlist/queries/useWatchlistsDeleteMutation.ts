@@ -6,7 +6,6 @@ export default function useWatchlistsDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: watchlistKeys.deleteList().queryKey,
     mutationFn: deleteWatchlists,
     onSuccess: () => {
       queryClient.invalidateQueries({

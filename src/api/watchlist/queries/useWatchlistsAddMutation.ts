@@ -10,7 +10,6 @@ export default function useWatchlistsAddMutation({ onCloseDialog }: Props) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: watchlistKeys.addList().queryKey,
     mutationFn: postWatchlists,
     onSuccess: () => {
       queryClient.invalidateQueries({

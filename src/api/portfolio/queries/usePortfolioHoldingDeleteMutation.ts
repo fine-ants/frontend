@@ -6,7 +6,6 @@ export default function usePortfolioHoldingDeleteMutation(portfolioId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: portfolioKeys.deleteHolding(portfolioId).queryKey,
     mutationFn: deletePortfolioHoldings,
     onSuccess: () => {
       // TODO: toast

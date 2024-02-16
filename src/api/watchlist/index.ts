@@ -94,3 +94,16 @@ export const deleteWatchlistStocks = async ({
   );
   return res.data;
 };
+
+export const putWatchlistName = async ({
+  watchlistId,
+  name,
+}: {
+  watchlistId: number;
+  name: string;
+}) => {
+  const res = await fetcher.put<Response<null>>(`/watchlists/${watchlistId}`, {
+    name,
+  });
+  return res.data;
+};

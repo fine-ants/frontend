@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postWatchlistStocks } from "..";
+import { putWatchlistName } from "..";
 import { watchlistKeys } from "./queryKeys";
 
 type Props = {
@@ -7,27 +7,24 @@ type Props = {
   onCloseDialog?: () => void;
 };
 
-export default function useWatchlistItemAddMutation({
+export default function useWatchlistNameEditMutation({
   watchlistId,
   onCloseDialog,
 }: Props) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (tickerSymbols: string[]) =>
-      postWatchlistStocks({ watchlistId, tickerSymbols }),
+    mutationFn: (newName: string) =>
+      putWatchlistName({ watchlistId, name: newName }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.item(watchlistId).queryKey,
       });
-      queryClient.invalidateQueries({
-        queryKey: watchlistKeys.hasStock().queryKey,
-      });
       onCloseDialog && onCloseDialog();
     },
     meta: {
-      toastSuccessMessage: "관심 종목을 추가했습니다",
-      toastErrorMessage: "관심 종목을 추가하는 중 오류가 발생했습니다",
+      toastSuccessMessage: "와치리스트 이름이 변경되었습니다.",
+      toastErrorMessage: "이름 변경에 실패했습니다",
     },
   });
 }
