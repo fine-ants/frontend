@@ -57,10 +57,8 @@ export function NotificationPanel({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        anchorReference="anchorPosition"
-        anchorPosition={{ top: 70, left: window.innerWidth - 30 }}
         anchorOrigin={{
-          vertical: "top",
+          vertical: "bottom",
           horizontal: "right",
         }}
         transformOrigin={{
@@ -117,6 +115,8 @@ const StyledPopover = styled(Popover)`
   .MuiPaper-root {
     border: 1px solid ${designSystem.color.neutral.gray100};
     border-radius: 8px;
+    left: auto !important;
+    right: 30px !important;
   }
 `;
 
