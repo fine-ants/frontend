@@ -1,10 +1,12 @@
+export type NotificationType = "stock" | "portfolio";
+
 export type MemberNotifications = {
   notificationId: number;
   title: string;
   content: string;
   timestamp: string;
   isRead: boolean;
-  type: "stock" | "portfolio";
+  type: NotificationType;
   referenceId: string;
 };
 
@@ -28,16 +30,6 @@ export type StockTargetPrice = {
   notificationId: number;
   targetPrice: number;
   dateAdded: string;
-};
-
-export type StockNotificationSettingsPutBody = {
-  tickerSymbol: string;
-  isActive: boolean;
-};
-
-export type DeleteAllStockPriceTargetsBody = {
-  tickerSymbol: string;
-  targetPriceNotificationIds: number[];
 };
 
 export type PortfolioNotification = {

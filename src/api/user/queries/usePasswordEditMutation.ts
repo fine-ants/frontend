@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 import { putNewPassword } from "..";
-import { userKeys } from "./queryKeys";
 
 type Props = {
   onSuccess: () => void;
@@ -8,7 +7,6 @@ type Props = {
 
 export default function usePasswordEditMutation({ onSuccess }: Props) {
   return useMutation({
-    mutationKey: userKeys.passwordEdit().queryKey,
     mutationFn: putNewPassword,
     onSuccess,
     meta: {

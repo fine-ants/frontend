@@ -21,6 +21,7 @@ export default [
       status: HTTPSTATUS.success,
     });
   }),
+
   http.put("/api/profile", async ({ request }) => {
     const formData = await request.formData();
 

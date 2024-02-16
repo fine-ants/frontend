@@ -19,7 +19,6 @@ export default function StockNotificationLotsTable({ data }: Props) {
           data={data}
           TableHead={StockNoficiationLotsTableHead}
           TableBody={StockNotificationLotsTableBody}
-          EmptyTable={() => <></>}
           enableTablePagination={false}
         />
       </Wrapper>

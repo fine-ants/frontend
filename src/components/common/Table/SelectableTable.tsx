@@ -37,7 +37,7 @@ type Props<Item> = {
       updateSelected: (newSelected: readonly Item[]) => void;
     }
   ) => JSX.Element;
-  EmptyTable: () => JSX.Element;
+  EmptyTable?: () => JSX.Element;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
@@ -50,7 +50,7 @@ export default function SelectableTable<Item>({
   TableToolBar,
   TableHead,
   TableBody,
-  EmptyTable,
+  EmptyTable = () => <></>,
 }: Props<Item>) {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);

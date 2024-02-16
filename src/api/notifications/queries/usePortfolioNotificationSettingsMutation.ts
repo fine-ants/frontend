@@ -14,7 +14,6 @@ export default function usePortfolioNotificationSettingsMutation(
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: notificationKeys.editPortfolioNotificationSettings().queryKey,
     mutationFn: ({ notificationType, body }: MutationFnProps) =>
       putPortfolioNotificationSettings({ portfolioId, notificationType, body }),
     onSuccess: () => {

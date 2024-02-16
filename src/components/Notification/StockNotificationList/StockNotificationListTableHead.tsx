@@ -74,18 +74,18 @@ export default function StockNotificationListTableHead({
 
               if (!isOrderBy) return <img src={sortNoneIcon} />;
 
-              if (order === "asc") {
-                return <img src={sortAscendingIcon} />;
-              } else {
-                return <img src={sortDescendingIcon} />;
-              }
+              return (
+                <img
+                  src={order === "asc" ? sortAscendingIcon : sortDescendingIcon}
+                />
+              );
             }}>
             종목 이름
-            {orderBy === "companyName" ? (
+            {orderBy === "companyName" && (
               <Box component="span" sx={visuallyHidden}>
                 {order === "desc" ? "sorted descending" : "sorted ascending"}
               </Box>
-            ) : null}
+            )}
           </StyledTableSortLabel>
         </StyledTableCell>
 
