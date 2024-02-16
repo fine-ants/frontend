@@ -30,7 +30,7 @@ type Props<Item> = {
       visibleRows: readonly Item[];
     }
   ) => JSX.Element;
-  EmptyTable: () => JSX.Element;
+  EmptyTable?: () => JSX.Element;
   enableTablePagination?: boolean;
 };
 
@@ -41,7 +41,7 @@ export default function PlainTable<Item>({
   data: tableRows,
   TableHead,
   TableBody,
-  EmptyTable,
+  EmptyTable = () => <></>,
   enableTablePagination = true,
 }: Props<Item>) {
   const [order, setOrder] = useState<Order>("desc");

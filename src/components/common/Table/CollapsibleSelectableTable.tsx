@@ -40,7 +40,7 @@ type Props<Item> = {
       isAllRowsOpen: boolean;
     }
   ) => JSX.Element;
-  EmptyTable: () => JSX.Element;
+  EmptyTable?: () => JSX.Element;
   enableTablePagination?: boolean;
 };
 
@@ -54,7 +54,7 @@ export default function CollapsibleSelectableTable<Item>({
   TableToolBar,
   TableHead,
   TableBody,
-  EmptyTable,
+  EmptyTable = () => <></>,
   enableTablePagination = true,
 }: Props<Item>) {
   const [order, setOrder] = useState<Order>("asc");
