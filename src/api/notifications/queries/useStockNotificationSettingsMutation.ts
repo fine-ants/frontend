@@ -6,7 +6,6 @@ export default function useStockNotificationSettingsMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: notificationKeys.editStockNotificationSettings().queryKey,
     mutationFn: putStockNotificationSettings,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -15,6 +14,7 @@ export default function useStockNotificationSettingsMutation() {
     },
     meta: {
       toastSuccessMessage: "알림 설정을 변경했습니다",
+      toastErrorMessage: "알림 설정을 변경하는데 실패했습니다",
     },
   });
 }

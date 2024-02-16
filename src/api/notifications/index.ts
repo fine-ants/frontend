@@ -1,13 +1,11 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
 import {
-  DeleteAllStockPriceTargetsBody,
   MemberNotifications,
   MemberNotificationsSettings,
   PortfolioNotification,
   PortfolioNotificationSettingsPutBody,
   StockNotification,
-  StockNotificationSettingsPutBody,
 } from "./types";
 
 export const postNotificationForTest = async (notification: {
@@ -105,9 +103,10 @@ export const getStockNotificationSettings = async () => {
   return res.data;
 };
 
-export const putStockNotificationSettings = async (
-  body: StockNotificationSettingsPutBody
-) => {
+export const putStockNotificationSettings = async (body: {
+  tickerSymbol: string;
+  isActive: boolean;
+}) => {
   const res = await fetcher.put<Response<null>>(
     `/stocks/target-price/notifications`,
     body
@@ -126,9 +125,10 @@ export const postStockPriceTarget = async (body: {
   return res.data;
 };
 
-export const deleteAllStockPriceTargets = async (
-  body: DeleteAllStockPriceTargetsBody
-) => {
+export const deleteAllStockPriceTargets = async (body: {
+  tickerSymbol: string;
+  targetPriceNotificationIds: number[];
+}) => {
   const res = await fetcher.delete<Response<null>>(
     `/stocks/target-price/notifications`,
     { data: body }

@@ -30,16 +30,6 @@ export type StockTargetPrice = {
   dateAdded: string;
 };
 
-export type StockNotificationSettingsPutBody = {
-  tickerSymbol: string;
-  isActive: boolean;
-};
-
-export type DeleteAllStockPriceTargetsBody = {
-  tickerSymbol: string;
-  targetPriceNotificationIds: number[];
-};
-
 export type PortfolioNotification = {
   portfolioId: number;
   name: string;
