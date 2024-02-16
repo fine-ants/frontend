@@ -8,7 +8,7 @@ import CounterBadge from "../../Badges/CounterBadge";
 import { Icon } from "../../Icon";
 import { NotificationPanel } from "./NotificationPanel";
 
-export function Notification({ user }: { user: User }) {
+export function NotificationControl({ user }: { user: User }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [count, setCount] = useState(0);
 
