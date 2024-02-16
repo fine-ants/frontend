@@ -23,7 +23,7 @@ export default function useWatchlistNameEditMutation({
       onCloseDialog && onCloseDialog();
     },
     meta: {
-      toastSuccessMessage: "성공적으로 이름이 변경되었습니다",
+      toastSuccessMessage: "와치리스트 이름이 변경되었습니다.",
       toastErrorMessage: "이름 변경에 실패했습니다",
     },
   });

@@ -1,6 +1,6 @@
 import { chartColorPalette } from "@styles/chartColorPalette";
 import designSystem from "@styles/designSystem";
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, useRef } from "react";
 import styled from "styled-components";
 import { Props as PieChartLegendItemProps } from "./TallLegendItem";
 import WideLegendItem from "./WideLegendItem";
@@ -16,7 +16,6 @@ type Props = {
 
 export default function WideLegend({ legendList, etcOptions, style }: Props) {
   const legendBoxRef = useRef<HTMLDivElement>(null);
-  const [hasScroll, setHasScroll] = useState(false);
 
   const displayedLegendList = [...legendList];
 
@@ -27,17 +26,8 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
 
   const etcPercent = etcList?.reduce((acc, item) => acc + item.percent, 0);
 
-  useEffect(() => {
-    const { clientHeight, scrollHeight } = legendBoxRef.current ?? {
-      clientHeight: 0,
-      scrollHeight: 0,
-    };
-
-    setHasScroll(clientHeight < scrollHeight);
-  }, []);
-
   return (
-    <StyledLegend $hasScroll={hasScroll} ref={legendBoxRef} style={style}>
+    <StyledLegend ref={legendBoxRef} style={style}>
       {displayedLegendList.map((item, idx) => (
         <WideLegendItem
           key={idx}
@@ -68,17 +58,17 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
   );
 }
 
-const StyledLegend = styled.div<{ $hasScroll: boolean }>`
+const StyledLegend = styled.div`
   width: 400px;
   height: 120px;
-  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 8px 16px 16px" : "16px")};
+  padding: 16px 8px 16px 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px 24px;
   box-sizing: border-box;
   border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
-  // overflow-y: ${({ $hasScroll }) => ($hasScroll ? "scroll" : "none")};
+
   overflow-y: scroll;
 `;
 

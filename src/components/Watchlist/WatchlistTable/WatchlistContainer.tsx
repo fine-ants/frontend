@@ -40,22 +40,6 @@ export default function WatchlistContainer() {
 
   return (
     <Container>
-      {isNameEditDialogOpen && (
-        <WatchlistNameEditDialog
-          currentWatchlistName={watchlistData.name}
-          isOpen={isNameEditDialogOpen}
-          onClose={() => setIsNameEditDialogOpen(false)}
-        />
-      )}
-      {isConfirmOpen && (
-        <ConfirmAlert
-          isOpen={isConfirmOpen}
-          title="관심 종목 목록 삭제"
-          onClose={onDeleteWatchlistAlertClose}
-          onConfirm={onConfirmAction}>
-          <p>'{watchlistData.name}'을 삭제하시겠습니까?</p>
-        </ConfirmAlert>
-      )}
       <TitleContainer>
         <Breadcrumb
           depthData={[
@@ -91,6 +75,22 @@ export default function WatchlistContainer() {
         </TitleContent>
       </TitleContainer>
       <WatchlistTable data={watchlistData.watchStocks} />
+      {isNameEditDialogOpen && (
+        <WatchlistNameEditDialog
+          currentWatchlistName={watchlistData.name}
+          isOpen={isNameEditDialogOpen}
+          onClose={() => setIsNameEditDialogOpen(false)}
+        />
+      )}
+      {isConfirmOpen && (
+        <ConfirmAlert
+          isOpen={isConfirmOpen}
+          title="관심 종목 목록 삭제"
+          onClose={onDeleteWatchlistAlertClose}
+          onConfirm={onConfirmAction}>
+          <p>'{watchlistData.name}'을 삭제하시겠습니까?</p>
+        </ConfirmAlert>
+      )}
     </Container>
   );
 }

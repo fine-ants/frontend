@@ -43,7 +43,7 @@ export default function WatchlistNameEditDialog({
   };
 
   return (
-    <BaseDialog style={StyledDialog} isOpen={isOpen} onClose={onClose}>
+    <BaseDialog style={styledDialog} isOpen={isOpen} onClose={onClose}>
       <div>
         <Upper>
           <Label>리스트 이름 편집</Label>
@@ -62,16 +62,18 @@ export default function WatchlistNameEditDialog({
         </InputWrapper>
       </div>
 
-      <div style={{ marginLeft: "auto", bottom: "0" }}>
-        <Button variant="primary" size="h32" onClick={onEditButtonClick}>
-          저장
-        </Button>
-      </div>
+      <Button
+        style={{ marginLeft: "auto" }}
+        variant="primary"
+        size="h32"
+        onClick={onEditButtonClick}>
+        저장
+      </Button>
     </BaseDialog>
   );
 }
 
-const StyledDialog = {
+const styledDialog = {
   width: "544px",
   height: "280px",
   borderRadius: "8px",
