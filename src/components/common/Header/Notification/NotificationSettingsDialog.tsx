@@ -16,7 +16,7 @@ type Props = {
   onClose: () => void;
 };
 
-export function NotificationSettingDialog({ user, isOpen, onClose }: Props) {
+export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
   const toast = createToast();
 
   const preferences = user.notificationPreferences;

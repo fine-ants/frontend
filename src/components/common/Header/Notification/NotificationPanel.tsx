@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EmptyNotification } from "./EmptyNotification";
 import { NotificationItem } from "./NotificationItem";
-import { NotificationSettingDialog } from "./NotificationSettingDialog";
+import { NotificationSettingsDialog } from "./NotificationSettingsDialog";
 
 type Props = {
   user: User;
@@ -103,7 +103,7 @@ export function NotificationPanel({
         </StyledNotificationPanel>
       </StyledPopover>
       {isOpenDialog && (
-        <NotificationSettingDialog
+        <NotificationSettingsDialog
           user={user}
           isOpen={isOpenDialog}
           onClose={closeDialog}
