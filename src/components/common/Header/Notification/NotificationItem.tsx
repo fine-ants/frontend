@@ -1,4 +1,5 @@
 import useDeleteMemberNotificationsMutation from "@api/notifications/queries/useDeleteMemberNotificationsMutation";
+import { MemberNotifications } from "@api/notifications/types";
 import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
@@ -9,31 +10,29 @@ import styled from "styled-components";
 
 type Props = {
   user: User;
-  notificationId: number;
-  title: string;
-  content: string;
-  timestamp: string;
-  isRead: boolean;
-  type: "stock" | "portfolio";
-  referenceId: string;
+  memberNotifications: MemberNotifications;
   onClose: () => void;
 };
 
 export function NotificationItem({
   user,
-  notificationId,
-  title,
-  content,
-  timestamp,
-  isRead,
-  type,
-  referenceId,
+  memberNotifications,
   onClose,
 }: Props) {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
 
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
+
+  const {
+    content,
+    isRead,
+    notificationId,
+    referenceId,
+    timestamp,
+    title,
+    type,
+  } = memberNotifications;
 
   const deleteNotification = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();

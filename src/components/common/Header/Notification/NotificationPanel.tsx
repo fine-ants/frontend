@@ -88,7 +88,7 @@ export function NotificationPanel({
                 <NotificationItem
                   key={data.notificationId}
                   user={user}
-                  {...data}
+                  memberNotifications={data}
                   onClose={handleClose}
                 />
               ))
