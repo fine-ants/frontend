@@ -1,10 +1,12 @@
+export type NotificationType = "stock" | "portfolio";
+
 export type MemberNotifications = {
   notificationId: number;
   title: string;
   content: string;
   timestamp: string;
   isRead: boolean;
-  type: "stock" | "portfolio";
+  type: NotificationType;
   referenceId: string;
 };
 

@@ -3,6 +3,7 @@ import { Response } from "@api/types";
 import {
   MemberNotifications,
   MemberNotificationsSettings,
+  NotificationType,
   PortfolioNotification,
   PortfolioNotificationSettingsPutBody,
   StockNotification,
@@ -11,7 +12,7 @@ import {
 export const postNotificationForTest = async (notification: {
   title: string;
   body: string;
-  type: "stock" | "portfolio";
+  type: NotificationType;
   referenceId: string;
 }) => {
   const res = await fetcher.post<Response<null>>(
