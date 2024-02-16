@@ -1,5 +1,6 @@
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { ReactNode } from "react";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
 import Button from "./common/Buttons/Button";
@@ -10,7 +11,7 @@ type Props = {
   title: string;
   onClose: () => void;
   onConfirm: () => void;
-  children?: React.ReactNode;
+  children?: ReactNode;
 };
 
 export default function ConfirmAlert({

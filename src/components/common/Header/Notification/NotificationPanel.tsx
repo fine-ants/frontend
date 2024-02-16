@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EmptyNotification } from "./EmptyNotification";
 import { NotificationItem } from "./NotificationItem";
-import { NotificationSettingDialog } from "./NotificationSettingDialog";
+import { NotificationSettingsDialog } from "./NotificationSettingsDialog";
 
 type Props = {
   user: User;
   anchorEl: null | HTMLElement;
   open: boolean;
-  notifications: MemberNotifications;
+  notifications: MemberNotifications[];
   handleClose: () => void;
 };
 
@@ -88,7 +88,7 @@ export function NotificationPanel({
                 <NotificationItem
                   key={data.notificationId}
                   user={user}
-                  {...data}
+                  memberNotifications={data}
                   onClose={handleClose}
                 />
               ))
@@ -103,7 +103,7 @@ export function NotificationPanel({
         </StyledNotificationPanel>
       </StyledPopover>
       {isOpenDialog && (
-        <NotificationSettingDialog
+        <NotificationSettingsDialog
           user={user}
           isOpen={isOpenDialog}
           onClose={closeDialog}

@@ -1,6 +1,6 @@
 import { MemberNotifications } from "@api/notifications/types";
 
-export const memberNotificationsData: MemberNotifications = [
+export const memberNotificationsData: MemberNotifications[] = [
   {
     notificationId: 3,
     title: "포트폴리오",
