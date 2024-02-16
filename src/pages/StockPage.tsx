@@ -1,6 +1,6 @@
 import useStockItemQuery from "@api/stock/queries/useStockPageQeury";
 import AlertDropdown from "@components/Stock/AlertDropdown";
-import { WatchlistHasStockDropdown } from "@components/Stock/WatchlistHasStockDropdown";
+import { WatchlistHasStockDropdown } from "@components/Stock/WatchlistHasStock/WatchlistHasStockDropdown";
 import RateBadge from "@components/common/Badges/DeltaBadge";
 import Header from "@components/common/Header/Header";
 import designSystem from "@styles/designSystem";
@@ -15,10 +15,6 @@ export default function StockPage() {
 
   //TODO: 종목 상세정보 완성되면 변경
   const { data: stockData } = useStockItemQuery(tickerSymbol || "");
-
-  // const onAddAlertClick = () => {
-  //   // 알림 기능 생긴 이후에 추가
-  // };
 
   return (
     <>

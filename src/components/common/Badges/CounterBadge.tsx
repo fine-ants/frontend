@@ -24,8 +24,8 @@ const StyledCounterBadge = styled.div<{ $numLength: number }>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 2px;
-  right: 1px;
+  top: 4px;
+  right: 4px;
   width: ${({ $numLength }) => {
     switch ($numLength) {
       case 1:

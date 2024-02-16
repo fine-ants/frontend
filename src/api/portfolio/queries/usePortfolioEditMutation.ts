@@ -6,7 +6,6 @@ export default function usePortfolioEditMutation(portfolioId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: portfolioKeys.details(portfolioId).queryKey,
     mutationFn: putPortfolio,
     onSuccess: () => {
       queryClient.invalidateQueries({

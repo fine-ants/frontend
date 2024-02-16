@@ -1,5 +1,5 @@
 import usePortfolioListQuery from "@api/portfolio/queries/usePortfolioListQuery";
-import Table from "@components/common/Table/Table";
+import SelectableTable from "@components/common/Table/SelectableTable";
 import EmptyPortfolioListTable from "./EmptyPortfolioListTable";
 import PortfolioListTableBody from "./PortfolioListTableBody";
 import PortfolioListTableHead from "./PortfolioListTableHead";
@@ -9,7 +9,7 @@ export default function PortfolioListTable() {
   const { data } = usePortfolioListQuery();
 
   return (
-    <Table
+    <SelectableTable
       tableTitle="포트폴리오 목록"
       initialOrderBy="dateCreated"
       TableToolBar={PortfolioListTableToolBar}

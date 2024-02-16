@@ -25,9 +25,7 @@ type Props = {
 export default function PortfolioOverview({ data, sseData }: Props) {
   const navigate = useNavigate();
   const { portfolioId } = useParams();
-  const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation(
-    Number(portfolioId)
-  );
+  const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);

@@ -1,4 +1,4 @@
-import { Order } from "./Table";
+import { Order } from "./types";
 
 // Natural sorting algorithm to account for numbers in strings
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {

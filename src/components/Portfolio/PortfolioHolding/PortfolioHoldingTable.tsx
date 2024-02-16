@@ -1,5 +1,5 @@
 import { PortfolioHolding } from "@api/portfolio/types";
-import Table from "@components/common/Table/Table";
+import CollapsibleSelectableTable from "@components/common/Table/CollapsibleSelectableTable";
 import EmptyPortfolioHoldingTable from "./EmptyPortfolioHoldingTable";
 import PortfolioHoldingTableBody from "./PortfolioHoldingTableBody";
 import PortfolioHoldingTableHead from "./PortfolioHoldingTableHead";
@@ -11,7 +11,7 @@ type Props = {
 
 export default function PortfolioHoldingTable({ data }: Props) {
   return (
-    <Table
+    <CollapsibleSelectableTable
       tableTitle="매입 종목 목록"
       initialOrderBy="dateCreated"
       TableToolBar={PortfolioHoldingTableToolBar}

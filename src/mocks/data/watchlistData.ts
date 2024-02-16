@@ -89,6 +89,19 @@ export const watchlistData = [
   },
 ];
 
+export const watchlistHasStockData = [
+  {
+    id: 1,
+    name: "My Watchlist 1",
+    hasStock: true,
+  },
+  {
+    id: 2,
+    name: "My Watchlist 2",
+    hasStock: false,
+  },
+];
+
 export const successfulGetWatchlistsResponse = {
   code: 200,
   status: "OK",
@@ -112,12 +125,15 @@ export const successfulDeleteWatchlistsResponse = {
   data: null,
 };
 
-export const successfulGetWatchlistResponse = {
+export const successfulGetWatchlistResponse = (watchlistName: string) => ({
   code: 200,
   status: "OK",
   message: "관심종목 목록 조회가 완료되었습니다",
-  data: watchlistData,
-};
+  data: {
+    name: watchlistName,
+    watchStocks: watchlistData,
+  },
+});
 
 export const successfulPostWatchlistStocksResponse = {
   code: 200,
@@ -131,4 +147,11 @@ export const successfulDeleteWatchlistStocksResponse = {
   status: "OK",
   message: "관심종목 목록에서 삭제되었습니다",
   data: null,
+};
+
+export const successfulWatchlistHasStockResponse = {
+  code: 200,
+  status: "OK",
+  message: "관심종목 목록 조회가 완료되었습니다",
+  data: watchlistHasStockData,
 };

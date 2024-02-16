@@ -1,10 +1,10 @@
 import WatchlistsTable from "@components/Watchlist/WatchlistsTable/WatchlistsTable";
 import WatchlistTableErrorFallback from "@components/Watchlist/errorFallback/WatchlistTableErrorFallback";
-import WatchlistTableSkeleton from "@components/Watchlist/skeletons/WatchlistTableSkeleton";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
+import TableSkeleton from "@components/common/Table/TableSkeleton";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import BasePage from "../BasePage";
-import designSystem from "@styles/designSystem";
 
 export default function WatchlistsPage() {
   return (
@@ -16,7 +16,7 @@ export default function WatchlistsPage() {
 
         <AsyncBoundary
           ErrorFallback={WatchlistTableErrorFallback}
-          SuspenseFallback={<WatchlistTableSkeleton />}>
+          SuspenseFallback={<TableSkeleton />}>
           <WatchlistsTable />
         </AsyncBoundary>
       </Container>

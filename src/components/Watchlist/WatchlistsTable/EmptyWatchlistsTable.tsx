@@ -4,16 +4,17 @@ import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
-import WatchlistAddDialog from "../WatchlistAddDialog";
+import NewWatchlistDialog from "../NewWatchlistDialog";
 export default function EmptyWatchlistsTable() {
-  const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
+  const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
     useState(false);
-  const onAddWatchlistButtonClick = () => {
-    setIsAddWatchlistDialogOpen(true);
+
+  const onAddNewWatchlistButtonClick = () => {
+    setIsNewWatchlistDialogOpen(true);
   };
 
-  const onAddWatchlistDialogClose = () => {
-    setIsAddWatchlistDialogOpen(false);
+  const onNewWatchlistDialogClose = () => {
+    setIsNewWatchlistDialogOpen(false);
   };
 
   return (
@@ -28,15 +29,15 @@ export default function EmptyWatchlistsTable() {
         style={{ gap: "8px" }}
         variant="primary"
         size="h32"
-        onClick={onAddWatchlistButtonClick}>
+        onClick={onAddNewWatchlistButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>새 리스트 추가</span>
       </Button>
 
-      {isAddWatchlistDialogOpen && (
-        <WatchlistAddDialog
-          isOpen={isAddWatchlistDialogOpen}
-          onClose={onAddWatchlistDialogClose}
+      {isNewWatchlistDialogOpen && (
+        <NewWatchlistDialog
+          isOpen={isNewWatchlistDialogOpen}
+          onClose={onNewWatchlistDialogClose}
         />
       )}
     </StyledEmptyWatchlistsTable>
@@ -44,14 +45,13 @@ export default function EmptyWatchlistsTable() {
 }
 
 const StyledEmptyWatchlistsTable = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 98px;
   width: 600px;
   height: 457px;
+  margin: 98px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 48px;
 `;
 

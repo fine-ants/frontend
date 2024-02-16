@@ -106,7 +106,7 @@ const LandingTopText = styled.div`
   > h1 {
     width: 433px;
     font:
-      700 64px/77px "IBMPlexSansKR-Regular",
+      900 64px/77px "IBM Plex Sans",
       sans-serif;
     color: ${designSystem.color.neutral.white};
     margin-bottom: 40px;

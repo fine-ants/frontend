@@ -9,6 +9,7 @@ import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import WatchlistNameEditDialog from "../WatchlistNameEditDialog";
 import WatchlistTable from "./WatchlistTable";
 
 export default function WatchlistContainer() {
@@ -16,10 +17,9 @@ export default function WatchlistContainer() {
   const { data: watchlistData } = useWatchlistQuery(Number(watchlistId));
   const { mutate: watchlistsDeleteMutate } = useWatchlistsDeleteMutation();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isNameEditDialogOpen, setIsNameEditDialogOpen] = useState(false);
 
   const navigate = useNavigate();
-
-  const onFavoriteMarkClick = () => {};
 
   const onDeleteWatchlistButtonClick = () => {
     setIsConfirmOpen(true);
@@ -34,17 +34,12 @@ export default function WatchlistContainer() {
     navigate(Routes.WATCHLISTS);
   };
 
+  const onFavoriteMarkClick = () => {
+    setIsNameEditDialogOpen(true);
+  };
+
   return (
     <Container>
-      {isConfirmOpen && (
-        <ConfirmAlert
-          isOpen={isConfirmOpen}
-          title="관심 종목 목록 삭제"
-          onClose={onDeleteWatchlistAlertClose}
-          onConfirm={onConfirmAction}>
-          <p>'{watchlistData.name}'을 삭제하시겠습니까?</p>
-        </ConfirmAlert>
-      )}
       <TitleContainer>
         <Breadcrumb
           depthData={[
@@ -80,6 +75,22 @@ export default function WatchlistContainer() {
         </TitleContent>
       </TitleContainer>
       <WatchlistTable data={watchlistData.watchStocks} />
+      {isNameEditDialogOpen && (
+        <WatchlistNameEditDialog
+          currentWatchlistName={watchlistData.name}
+          isOpen={isNameEditDialogOpen}
+          onClose={() => setIsNameEditDialogOpen(false)}
+        />
+      )}
+      {isConfirmOpen && (
+        <ConfirmAlert
+          isOpen={isConfirmOpen}
+          title="관심 종목 목록 삭제"
+          onClose={onDeleteWatchlistAlertClose}
+          onConfirm={onConfirmAction}>
+          <p>'{watchlistData.name}'을 삭제하시겠습니까?</p>
+        </ConfirmAlert>
+      )}
     </Container>
   );
 }
