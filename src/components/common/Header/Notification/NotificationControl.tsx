@@ -35,8 +35,8 @@ export function NotificationControl({ user }: { user: User }) {
 
     const notificationIds = notifications.map((data) => data.notificationId);
 
-    setAnchorEl(null);
     mutate(notificationIds);
+    setAnchorEl(null);
   };
 
   return (
