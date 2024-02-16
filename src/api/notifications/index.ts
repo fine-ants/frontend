@@ -35,9 +35,9 @@ export const postFCMToken = async (fcmToken: string) => {
 };
 
 export const getMemberNotifications = async (memberId: number) => {
-  const res = await fetcher.get<Response<MemberNotification[]>>(
-    `/members/${memberId}/notifications`
-  );
+  const res = await fetcher.get<
+    Response<{ notifications: MemberNotification[] }>
+  >(`/members/${memberId}/notifications`);
   return res.data;
 };
 

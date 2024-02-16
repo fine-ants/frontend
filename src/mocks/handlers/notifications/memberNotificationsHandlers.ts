@@ -19,7 +19,10 @@ export default [
   // Get member notifications
   http.get("/api/members/:memberId/notifications", () => {
     return HttpResponse.json(
-      { ...successfulMemberNotifications, data: notificationsData },
+      {
+        ...successfulMemberNotifications,
+        data: { notifications: notificationsData },
+      },
       {
         status: HTTPSTATUS.success,
       }
