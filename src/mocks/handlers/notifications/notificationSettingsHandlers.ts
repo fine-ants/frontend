@@ -3,6 +3,8 @@ import {
   portfolioNotifications,
   stockNotifications,
   successfulAllStockPriceTargetsDeleteData,
+  successfulFCMTokenDeletionData,
+  successfulFCMTokenRegistrationData,
   successfulPortfolioNotificationSettingsData,
   successfulPortfolioNotificationSettingsPutData,
   successfulStockNotificationSettingsData,
@@ -14,19 +16,15 @@ import { HttpResponse, http } from "msw";
 
 export default [
   http.post("/api/fcm/tokens", () => {
-    return HttpResponse.json(
-      {
-        code: 200,
-        status: "OK",
-        message: "토큰을 등록했습니다",
-        data: {
-          stocks: stockNotifications,
-        },
-      },
-      {
-        status: HTTPSTATUS.success,
-      }
-    );
+    return HttpResponse.json(successfulFCMTokenRegistrationData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
+
+  http.delete("/api/fcm/tokens/:fcmIdToken", () => {
+    return HttpResponse.json(successfulFCMTokenDeletionData, {
+      status: HTTPSTATUS.success,
+    });
   }),
 
   // Stock Notification Settings
