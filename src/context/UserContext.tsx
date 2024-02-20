@@ -10,7 +10,7 @@ export const UserContext = createContext<{
   onGetUser: (user: User) => void;
   onEditProfileDetails: (user: User) => void;
   onSubscribePushNotification: (fcmTokenId: number) => void;
-  onUnSubscribePushNotification: () => void;
+  onUnsubscribePushNotification: () => void;
 }>({
   user: null,
   fcmTokenId: null,
@@ -19,7 +19,7 @@ export const UserContext = createContext<{
   onGetUser: () => {},
   onEditProfileDetails: () => {},
   onSubscribePushNotification: () => {},
-  onUnSubscribePushNotification: () => {},
+  onUnsubscribePushNotification: () => {},
 });
 
 export function UserProvider({ children }: { children: ReactNode }) {
@@ -57,7 +57,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setFcmTokenId(fcmTokenId);
   };
 
-  const onUnSubscribePushNotification = async () => {
+  const onUnsubscribePushNotification = async () => {
     setFcmTokenId(null);
   };
 
@@ -71,7 +71,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         onGetUser,
         onEditProfileDetails,
         onSubscribePushNotification,
-        onUnSubscribePushNotification,
+        onUnsubscribePushNotification,
       }}>
       {children}
     </UserContext.Provider>
