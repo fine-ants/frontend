@@ -13,6 +13,22 @@ import {
 import { HttpResponse, http } from "msw";
 
 export default [
+  http.post("/api/fcm/tokens", () => {
+    return HttpResponse.json(
+      {
+        code: 200,
+        status: "OK",
+        message: "토큰을 등록했습니다",
+        data: {
+          stocks: stockNotifications,
+        },
+      },
+      {
+        status: HTTPSTATUS.success,
+      }
+    );
+  }),
+
   // Stock Notification Settings
   http.get("/api/stocks/target-price/notifications", () => {
     return HttpResponse.json(successfulStockNotificationSettingsData, {
