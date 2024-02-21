@@ -20,8 +20,19 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
 
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
 
-  const { body, isRead, notificationId, referenceId, timestamp, title, type } =
-    memberNotification;
+  const {
+    name,
+    target,
+    isRead,
+    notificationId,
+    referenceId,
+    timestamp,
+    title,
+    type,
+  } = memberNotification;
+
+  const priceText = type === "stock" ? "가격이" : "";
+  const achievementStatus = target === "목표 수익률" ? "달성" : "도달";
 
   const deleteNotification = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -41,7 +52,10 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
       <StyledItemContainer>
         <LeftContainer>
           <StyledTitle>{title}</StyledTitle>
-          <StyledContent>{body}</StyledContent>
+          <StyledContent>
+            <BoldText>{name}</BoldText>의 {priceText}
+            <BoldText> {target}</BoldText>에 {achievementStatus}했습니다
+          </StyledContent>
           <StyledTimestamp>
             {getElapsedSince(new Date(timestamp))}
           </StyledTimestamp>
@@ -95,6 +109,7 @@ const StyledTitle = styled.div`
 `;
 
 const StyledContent = styled.div`
+  display: flex;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
 `;
@@ -121,4 +136,9 @@ const Divider = styled.div`
   height: 1px;
   margin: 8px 0;
   background-color: ${designSystem.color.neutral.gray100};
+`;
+
+const BoldText = styled.pre`
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
 `;
