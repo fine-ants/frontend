@@ -7,6 +7,7 @@ import {
   PortfolioNotification,
   PortfolioNotificationSettingsPutBody,
   StockNotification,
+  StockTargetPrice,
 } from "./types";
 
 export const postNotificationForTest = async (notification: {
@@ -100,6 +101,13 @@ export const putMemberNotificationSettings = async ({
 export const getStockNotificationSettings = async () => {
   const res = await fetcher.get<Response<{ stocks: StockNotification[] }>>(
     `/stocks/target-price/notifications`
+  );
+  return res.data;
+};
+
+export const getSpecificStockTargetPrices = async (tickerSymbol: string) => {
+  const res = await fetcher.get<Response<{ targetPrices: StockTargetPrice[] }>>(
+    `/stocks/${tickerSymbol}/target-price/notifications`
   );
   return res.data;
 };
