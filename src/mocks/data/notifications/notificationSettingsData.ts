@@ -68,6 +68,22 @@ export const portfolioNotifications = [
   },
 ];
 
+export const successfulFCMTokenRegistrationData = {
+  code: 200,
+  status: "OK",
+  message: "토큰을 등록했습니다",
+  data: {
+    fcmTokenId: 1,
+  },
+};
+
+export const successfulFCMTokenDeletionData = {
+  code: 200,
+  status: "OK",
+  message: "토큰을 제거했습니다",
+  data: null,
+};
+
 export const successfulStockNotificationSettingsData = {
   code: 200,
   status: "OK",
