@@ -3,7 +3,8 @@ export type NotificationType = "stock" | "portfolio";
 export type MemberNotification = {
   notificationId: number;
   title: string;
-  body: string;
+  name: string;
+  target: string;
   timestamp: string;
   isRead: boolean;
   type: NotificationType;
