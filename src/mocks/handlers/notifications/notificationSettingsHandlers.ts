@@ -3,6 +3,8 @@ import {
   portfolioNotifications,
   stockNotifications,
   successfulAllStockPriceTargetsDeleteData,
+  successfulFCMTokenDeletionData,
+  successfulFCMTokenRegistrationData,
   successfulPortfolioNotificationSettingsData,
   successfulPortfolioNotificationSettingsPutData,
   successfulStockNotificationSettingsData,
@@ -13,6 +15,18 @@ import {
 import { HttpResponse, http } from "msw";
 
 export default [
+  http.post("/api/fcm/tokens", () => {
+    return HttpResponse.json(successfulFCMTokenRegistrationData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
+
+  http.delete("/api/fcm/tokens/:fcmIdToken", () => {
+    return HttpResponse.json(successfulFCMTokenDeletionData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
+
   // Stock Notification Settings
   http.get("/api/stocks/target-price/notifications", () => {
     return HttpResponse.json(successfulStockNotificationSettingsData, {

@@ -34,6 +34,11 @@ export const postFCMToken = async (fcmToken: string) => {
   return res.data;
 };
 
+export const deleteFCMToken = async (fcmTokenId: number) => {
+  const res = await fetcher.delete<Response<null>>(`/fcm/tokens/${fcmTokenId}`);
+  return res.data;
+};
+
 export const getMemberNotifications = async (memberId: number) => {
   const res = await fetcher.get<
     Response<{ notifications: MemberNotification[] }>
