@@ -1,8 +1,8 @@
-![Group 22](https://github.com/fine-ants/frontend/assets/114852081/2be2569b-448a-481f-ab49-d1eb53452683)
+![FineAnts Logo](https://github.com/fine-ants/frontend/assets/114852081/2be2569b-448a-481f-ab49-d1eb53452683)
 
 <br>
 
-**LINK:** https://release.d2bbt1tai3je0q.amplifyapp.com/
+**LINK:** https://fineants.co
 
 ## About
 
