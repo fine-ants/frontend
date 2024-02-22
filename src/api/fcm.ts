@@ -52,9 +52,7 @@ const messagePayloadListener = (payload: MessagePayload) => {
 
   const { title, body } = data;
 
-  new Notification(title, {
-    body: body,
-  });
+  new Notification(title, { body });
 };
 
 // Call upon app initialization

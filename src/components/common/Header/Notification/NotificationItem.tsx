@@ -138,7 +138,8 @@ const Divider = styled.div`
   background-color: ${designSystem.color.neutral.gray100};
 `;
 
-const BoldText = styled.pre`
+const BoldText = styled.b`
   font: ${designSystem.font.body3.font};
+  font-weight: bold;
   color: ${designSystem.color.neutral.gray900};
 `;
