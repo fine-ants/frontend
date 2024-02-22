@@ -7,6 +7,7 @@ import {
   successfulFCMTokenRegistrationData,
   successfulPortfolioNotificationSettingsData,
   successfulPortfolioNotificationSettingsPutData,
+  successfulSpecificStockTargetPricesData,
   successfulStockNotificationSettingsData,
   successfulStockNotificationSettingsPutData,
   successfulStockPriceTargetDeleteData,
@@ -33,6 +34,19 @@ export default [
       status: HTTPSTATUS.success,
     });
   }),
+
+  http.get<{ tickerSymbol: string }>(
+    "/api/stocks/:tickerSymbol/target-price/notifications",
+    ({ params }) => {
+      const { tickerSymbol } = params;
+      return HttpResponse.json(
+        successfulSpecificStockTargetPricesData(tickerSymbol),
+        {
+          status: HTTPSTATUS.success,
+        }
+      );
+    }
+  ),
 
   http.put<never, { tickerSymbol: string; isActive: boolean }>(
     "/api/stocks/target-price/notifications",
