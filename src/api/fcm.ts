@@ -60,10 +60,11 @@ export const setupFCMToken = async (user: User) => {
     return;
   }
 
-  if (
-    user.notificationPreferences.browserNotify === true &&
-    Notification.permission === "granted"
-  ) {
+  const userEnabledNotifications = Object.values(
+    user?.notificationPreferences ?? []
+  ).some((value) => value === true);
+
+  if (userEnabledNotifications && Notification.permission === "granted") {
     try {
       const fcmTokenId = await fetchAndSendFCMRegToken();
       onMessage(messaging, messagePayloadListener);
