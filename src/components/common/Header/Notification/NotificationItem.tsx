@@ -3,6 +3,7 @@ import { MemberNotification } from "@api/notifications/types";
 import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
+import { thousandsDelimiter } from "@utils/delimiters";
 import { getElapsedSince } from "@utils/getElapsedSince";
 import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +32,8 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
     type,
   } = memberNotification;
 
-  const priceText = type === "stock" ? "가격이" : "";
+  const isStock = type === "stock";
+  const priceText = isStock ? "가격이 " : "";
   const achievementStatus = target === "목표 수익률" ? "달성" : "도달";
 
   const deleteNotification = (event: MouseEvent<HTMLButtonElement>) => {
@@ -54,7 +56,12 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
           <StyledTitle>{title}</StyledTitle>
           <StyledContent>
             <BoldText>{name}</BoldText>의 {priceText}
-            <BoldText> {target}</BoldText>에 {achievementStatus}했습니다
+            <BoldText>
+              {isStock
+                ? ` ₩${thousandsDelimiter(Number(target))}`
+                : ` ${target}`}
+            </BoldText>
+            에 {achievementStatus}했습니다
           </StyledContent>
           <StyledTimestamp>
             {getElapsedSince(new Date(timestamp))}
@@ -138,7 +145,7 @@ const Divider = styled.div`
   background-color: ${designSystem.color.neutral.gray100};
 `;
 
-const BoldText = styled.b`
+const BoldText = styled.pre`
   font: ${designSystem.font.body3.font};
   font-weight: bold;
   color: ${designSystem.color.neutral.gray900};
