@@ -48,10 +48,9 @@ const messagePayloadListener = (payload: MessagePayload) => {
 
   if (!data) return;
 
-  const { title, body, type, referenceId, timestamp } = data;
+  const { title, body } = data;
 
-  // TODO: 알림 UI 띄우기 및 알림 수 증가
-  console.log(title, body, type, referenceId, timestamp);
+  new Notification(title, { body });
 };
 
 // Call upon app initialization
