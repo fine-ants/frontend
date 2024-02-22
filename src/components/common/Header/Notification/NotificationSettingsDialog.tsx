@@ -85,12 +85,11 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
       await mutateAsyncNotificationSettings(newSettingsBody);
 
       try {
-        const isAtleastOneActive = Object.values(newSettingsBody).some(
-          (val) => val === true
+        const notifyValues = Object.values(newSettingsBody).filter(
+          (val) => typeof val === "boolean"
         );
-        const isAllInactive = Object.values(newSettingsBody).every(
-          (val) => val === false
-        );
+        const isAtleastOneActive = notifyValues.some((val) => val === true);
+        const isAllInactive = notifyValues.every((val) => val === false);
 
         if (isAtleastOneActive) {
           // 알림 설정이 하나라도 true면 FCM에 subscribe하고 서버에 토큰 등록
