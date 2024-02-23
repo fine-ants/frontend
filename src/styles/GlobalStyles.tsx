@@ -81,31 +81,31 @@ export default createGlobalStyle`
     box-sizing: border-box;
     
     scrollbar-width: thin;
-    scrollbar-color: ${designSystem.color.neutral.gray200} ${designSystem.color.neutral.white};
-  
+    scrollbar-color: ${designSystem.color.neutral.gray200} transparent;
+    
     &::-webkit-scrollbar {
       width: 8px;
     }
     &::-webkit-scrollbar-track {
-      background-color: ${designSystem.color.neutral.white};
+      background-color: transparent;
       border-radius: inherit;
     }
-
+    
     &::-webkit-scrollbar-track:active {
       background-color: ${designSystem.color.neutral.gray50};
       border-radius: inherit;
     }
-
+    
     &::-webkit-scrollbar-thumb {
       width: 4px;
       background-color: ${designSystem.color.neutral.gray200};
       border-radius: 4px;
-      border: 2px solid ${designSystem.color.neutral.white}; 
+      border: 2px solid ${designSystem.color.neutral.white};
     }
-
+    
     &::-webkit-scrollbar-thumb:active {
       background-color: ${designSystem.color.neutral.gray400};
-      border: 2px solid ${designSystem.color.neutral.gray50}; 
+      border: 2px solid ${designSystem.color.neutral.gray50};
     }
   }
 `;

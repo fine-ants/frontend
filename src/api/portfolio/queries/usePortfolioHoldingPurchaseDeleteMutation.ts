@@ -10,7 +10,6 @@ export default function usePortfolioHoldingPurchaseDeleteMutation(filters: {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: portfolioKeys.editHoldingPurchase(filters).queryKey,
     mutationFn: deletePortfolioHoldingPurchase,
     onSuccess: () => {
       // TODO: toast

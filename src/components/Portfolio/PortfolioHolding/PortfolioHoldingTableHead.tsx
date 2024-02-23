@@ -5,9 +5,10 @@ import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
-import { Order } from "@components/common/Table/Table";
+import { Order } from "@components/common/Table/types";
 import {
   Box,
+  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -28,6 +29,8 @@ type Props = {
     property: keyof PortfolioHolding
   ) => void;
   onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+  isAllRowsOpen: boolean;
+  onExpandOrCollapseAllRows: (event: MouseEvent) => void;
 };
 
 type HeadCell = {
@@ -95,6 +98,8 @@ export default function PortfolioHoldingTableHead({
   rowCount,
   onRequestSort,
   onSelectAllClick,
+  isAllRowsOpen,
+  onExpandOrCollapseAllRows,
 }: Props) {
   const createSortHandler =
     (property: keyof PortfolioHolding) => (event: MouseEvent<unknown>) => {
@@ -102,19 +107,30 @@ export default function PortfolioHoldingTableHead({
     };
 
   return (
-    <CustomTableHead>
-      <ColumnHeader
+    <StyledTableHead>
+      <StyledTableRow
         style={{
           backgroundColor: designSystem.color.neutral.gray50,
         }}>
-        <ColumnHeaderCell
-          style={{
-            width: "32px",
-            boxSizing: "border-box",
-            borderRadius: "8px 0 0 8px",
-          }}
-        />
-        <ColumnHeaderCell style={{ width: "32px" }}>
+        <StyledTableCell sx={{ width: "32px" }} padding="none">
+          <IconButton
+            style={{
+              width: "16px",
+              height: "16px",
+              padding: "0",
+            }}
+            aria-label="expand row"
+            size="small"
+            onClick={(event) => onExpandOrCollapseAllRows(event)}>
+            <Icon
+              icon={isAllRowsOpen ? "chevron-down" : "chevron-right"}
+              size={16}
+              color={"gray400"}
+            />
+          </IconButton>
+        </StyledTableCell>
+
+        <StyledTableCell style={{ width: "32px" }}>
           <CheckBox
             size="h16"
             checkType="indet"
@@ -124,9 +140,10 @@ export default function PortfolioHoldingTableHead({
               "aria-label": "select all desserts",
             }}
           />
-        </ColumnHeaderCell>
+        </StyledTableCell>
+
         {headCells.map((headCell, index) => (
-          <ColumnHeaderCell
+          <StyledTableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             style={{
@@ -174,29 +191,31 @@ export default function PortfolioHoldingTableHead({
                 </Box>
               ) : null}
             </StyledTableSortLabel>
-          </ColumnHeaderCell>
+          </StyledTableCell>
         ))}
-      </ColumnHeader>
+      </StyledTableRow>
+
       <TableRow sx={{ height: "8px" }} />
-    </CustomTableHead>
+    </StyledTableHead>
   );
 }
 
-const CustomTableHead = styled(TableHead)`
+const StyledTableHead = styled(TableHead)`
   height: 48px;
   width: 100%;
   padding: 0 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border-radius: 8px;
 
   & .MuiTableCell-root {
     border-bottom: none;
-    color: ${({ theme: { color } }) => color.neutral.gray600};
-    font: ${({ theme: { font } }) => font.title5};
+    color: ${designSystem.color.neutral.gray600};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 `;
 
-const ColumnHeader = styled(TableRow)`
+const StyledTableRow = styled(TableRow)`
   width: 100%;
   background-color: #f6f6f8;
 
@@ -206,10 +225,15 @@ const ColumnHeader = styled(TableRow)`
   }
 `;
 
-const ColumnHeaderCell = styled(TableCell)`
+const StyledTableCell = styled(TableCell)`
+  height: 48px;
   padding: 4px 8px;
 
-  height: 48px;
+  &:first-of-type {
+    padding-left: 16px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
 
   > span {
     width: auto;
@@ -219,7 +243,7 @@ const ColumnHeaderCell = styled(TableCell)`
 const StyledTableSortLabel = styled(TableSortLabel)`
   flex-direction: row;
   gap: 4px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const StyledTooltipContainer = styled.div`

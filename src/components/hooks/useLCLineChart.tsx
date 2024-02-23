@@ -14,10 +14,10 @@ import {
   LineStyle,
   createChart,
 } from "lightweight-charts";
-import { useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 
 type Props = {
-  chartContainerRef: React.RefObject<HTMLDivElement>;
+  chartContainerRef: RefObject<HTMLDivElement>;
   data: LineData[];
   currentRange: string;
 };
@@ -118,7 +118,7 @@ export function useLCLineChart({
 
 type setupTooltipProps = {
   chart: IChartApi;
-  chartContainerRef: React.RefObject<HTMLDivElement>;
+  chartContainerRef: RefObject<HTMLDivElement>;
   series: ISeriesApi<"Line">;
 };
 
@@ -168,16 +168,21 @@ function setupTooltip({ chart, chartContainerRef, series }: setupTooltipProps) {
         if (data && "value" in data) {
           const price = data.value;
           toolTip.innerHTML = `
-          <div style="color: ${designSystem.color.neutral.gray600}; font: ${
-            designSystem.font.title5
-          };">
-            ${dateStr}
-          </div>
-          <div style="font: ${designSystem.font.title5}; color: ${
-            designSystem.color.neutral.gray800
-          };">
-            ₩${thousandsDelimiter(Math.round(100 * price) / 100)}
-          </div>`;
+            <div style="
+              font: ${designSystem.font.title5.font};
+              letterSpacing: ${designSystem.font.title5.letterSpacing};
+              color: ${designSystem.color.neutral.gray600};
+            ">
+              ${dateStr}
+            </div>
+            <div style="
+              font: ${designSystem.font.title5.font};
+              letterSpacing: ${designSystem.font.title5.letterSpacing};
+              color: ${designSystem.color.neutral.gray800};
+            ">
+              ₩${thousandsDelimiter(Math.round(100 * price) / 100)}
+            </div>
+          `;
 
           let left = param.point.x + 15;
           if (left > chartContainerRef.current.clientWidth - 80) {

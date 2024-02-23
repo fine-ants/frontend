@@ -1,6 +1,7 @@
 import DividendBarChartSkeleton from "@components/Portfolio/Charts/skeletons/DividendBarChartSkeleton";
 import HoldingsPieChartSkeleton from "@components/Portfolio/Charts/skeletons/HoldingsPieChartSkeleton";
 import SectorBarSkeleton from "@components/Portfolio/Charts/skeletons/SectorBarSkeleton";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export default function ChartsPanelSkeleton() {
@@ -29,12 +30,13 @@ const StyledChartsPanelSkeleton = styled.div`
   width: 464px;
   height: 1061px;
   padding: 32px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const ChartLabel = styled.h1`
   margin-right: auto;
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
 const SkeletonContainer = styled.div`

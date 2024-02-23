@@ -1,15 +1,17 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 
 export const watchlistKeys = createQueryKeys("watchlist", {
+  //watchlist 목록
   list: () => ({
     queryKey: ["list"],
   }),
 
-  addItem: () => ({
-    queryKey: ["addItem"],
+  //watchlist 단일 & 종목
+  item: (watchlistId: number) => ({
+    queryKey: ["item", watchlistId],
   }),
 
-  deleteItem: (tickerSymbol: string) => ({
-    queryKey: ["deleteItem", tickerSymbol],
+  hasStock: () => ({
+    queryKey: ["hasStock"],
   }),
 });

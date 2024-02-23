@@ -1,12 +1,13 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers";
 import designSystem from "@styles/designSystem";
+import { Dayjs } from "dayjs";
 import { IconCalendar } from "../IconCalendar";
 
 type Props = {
   size: "small" | "big";
-  value: Date | null;
-  onChange: (newVal: Date | null) => void;
+  value: Dayjs | null;
+  onChange: (newVal: Dayjs | null) => void;
 };
 
 export default function DatePicker({ size, value, onChange }: Props) {
@@ -93,7 +94,7 @@ const bigDatePickerTheme = createTheme({
           "justifyContent": "center",
           "width": "352px",
           "height": "32px",
-          "font": designSystem.font.body3,
+          "font": designSystem.font.body3.font,
           "color": designSystem.color.neutral.gray400,
           "borderColor": designSystem.color.neutral.gray100,
           "backgroundColor": designSystem.color.neutral.white,
@@ -114,7 +115,7 @@ const bigDatePickerTheme = createTheme({
           "width": "304px",
           "height": "21px",
           "padding": "0 0 0 0",
-          "font": designSystem.font.body3,
+          "font": designSystem.font.body3.font,
           "color": designSystem.color.neutral.gray900,
           "::placeholder": {
             color: designSystem.color.neutral.gray700,
@@ -185,7 +186,7 @@ const smallDatePickerTheme = createTheme({
           justifyContent: "center",
           width: "127px",
           height: "24px",
-          font: designSystem.font.body3,
+          font: designSystem.font.body3.font,
           backgroundColor: designSystem.color.neutral.white,
           textAlign: "left",
         },
@@ -200,7 +201,7 @@ const smallDatePickerTheme = createTheme({
         input: {
           width: "87px",
           padding: "0 0 0 0",
-          font: designSystem.font.body3,
+          font: designSystem.font.body3.font,
         },
       },
     },

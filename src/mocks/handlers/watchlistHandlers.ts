@@ -6,6 +6,7 @@ import {
   successfulGetWatchlistsResponse,
   successfulPostWatchlistResponse,
   successfulPostWatchlistStocksResponse,
+  successfulWatchlistHasStockResponse,
   watchlistData,
   watchlistsData,
 } from "@mocks/data/watchlistData";
@@ -52,10 +53,13 @@ export default [
   ),
 
   // Watchlist 조회
-  http.get("/api/watchlists/:watchlistId", () => {
-    return HttpResponse.json(successfulGetWatchlistResponse, {
-      status: HTTPSTATUS.success,
-    });
+  http.get("/api/watchlists/:watchlistId", ({ params }) => {
+    return HttpResponse.json(
+      successfulGetWatchlistResponse(`My Watchlist ${params.watchlistId}`),
+      {
+        status: HTTPSTATUS.success,
+      }
+    );
   }),
 
   // Watchlist 종목 다수 추가
@@ -101,6 +105,16 @@ export default [
       });
 
       return HttpResponse.json(successfulDeleteWatchlistStocksResponse, {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
+
+  // Watchlist has stock 조회
+  http.get<{ tickerSymbol: string }>(
+    "/api/watchlists/stockExists/:tickerSymbol",
+    () => {
+      return HttpResponse.json(successfulWatchlistHasStockResponse, {
         status: HTTPSTATUS.success,
       });
     }

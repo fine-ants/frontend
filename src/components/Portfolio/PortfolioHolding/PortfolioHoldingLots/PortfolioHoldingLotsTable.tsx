@@ -20,6 +20,7 @@ type Props = {
   purchaseHistory: PurchaseHistoryField[];
 };
 
+// TODO: PlainTable을 사용하도록 수정
 export default function PortfolioHoldingLotsTable({
   portfolioId,
   portfolioHoldingId,
@@ -37,47 +38,45 @@ export default function PortfolioHoldingLotsTable({
 
   return (
     <StyledPortfolioHoldingLotsTable>
-      <StyledTable size="small" aria-label="purchases">
-        <StyledTableHead>
-          <StyledTableHeadRow>
-            <StyledTableHeadCell style={{ width: "151px" }}>
-              매입 날짜
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "119px" }} align="right">
-              매입가
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "119px" }} align="right">
-              개수
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "395px" }}>
-              메모
-            </StyledTableHeadCell>
-            <StyledTableHeadCell style={{ width: "32px" }}>
-              <Icon icon="edit" size={16} color={"gray600"} />
-            </StyledTableHeadCell>
+      <Wrapper>
+        <StyledTable size="small" aria-label="purchases">
+          <StyledTableHead>
+            <StyledTableHeadRow>
+              <StyledTableHeadCell style={{ width: "151px" }}>
+                매입 날짜
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "119px" }} align="right">
+                매입가
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "119px" }} align="right">
+                개수
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "395px" }}>
+                메모
+              </StyledTableHeadCell>
+              <StyledTableHeadCell style={{ width: "32px" }} />
+              <StyledTableHeadCell style={{ width: "40px" }} />
+            </StyledTableHeadRow>
+          </StyledTableHead>
 
-            <StyledTableHeadCell style={{ width: "40px" }}>
-              <Icon icon="remove" size={16} color={"gray600"} />
-            </StyledTableHeadCell>
-          </StyledTableHeadRow>
-        </StyledTableHead>
+          <StyledTableBody>
+            {purchaseHistory.map((lot) => (
+              <PortfolioHoldingLotRow
+                key={lot.purchaseHistoryId}
+                portfolioId={portfolioId}
+                portfolioHoldingId={portfolioHoldingId}
+                lot={lot}
+              />
+            ))}
+            {isAddLotMode && (
+              <PortfolioHoldingLotAddRow
+                portfolioId={portfolioId}
+                portfolioHoldingId={portfolioHoldingId}
+                onDeleteButtonClick={onDeleteLotButtonClick}
+              />
+            )}
+          </StyledTableBody>
 
-        <StyledTableBody>
-          {purchaseHistory.map((lot) => (
-            <PortfolioHoldingLotRow
-              key={lot.purchaseHistoryId}
-              portfolioId={portfolioId}
-              portfolioHoldingId={portfolioHoldingId}
-              lot={lot}
-            />
-          ))}
-          {isAddLotMode && (
-            <PortfolioHoldingLotAddRow
-              portfolioId={portfolioId}
-              portfolioHoldingId={portfolioHoldingId}
-              onDeleteButtonClick={onDeleteLotButtonClick}
-            />
-          )}
           <MuiTableFooter>
             <MuiTableRow>
               <MuiTableCell
@@ -90,18 +89,25 @@ export default function PortfolioHoldingLotsTable({
               </MuiTableCell>
             </MuiTableRow>
           </MuiTableFooter>
-        </StyledTableBody>
-      </StyledTable>
+        </StyledTable>
+      </Wrapper>
     </StyledPortfolioHoldingLotsTable>
   );
 }
 
 const StyledPortfolioHoldingLotsTable = styled.div`
+  padding-left: 24px;
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  padding-left: 16px;
+  border-left: 1px solid ${designSystem.color.primary.blue100};
 `;
 
 const StyledTable = styled(MuiTable)`
@@ -124,7 +130,7 @@ const StyledTableHead = styled(MuiTableHead)`
 
 const StyledTableHeadRow = styled(MuiTableRow)`
   width: 856px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border-radius: 8px;
 
   & > * {
@@ -147,8 +153,9 @@ const StyledTableHeadRow = styled(MuiTableRow)`
 const StyledTableHeadCell = styled(MuiTableCell)`
   height: 40px;
   padding: 4px 8px;
-  font: ${({ theme: { font } }) => font.title5};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const StyledTableBody = styled(MuiTableBody)`
@@ -163,7 +170,8 @@ const AddLotButton = styled.button`
   gap: 4px;
 
   span {
-    font: ${designSystem.font.button2};
+    font: ${designSystem.font.button2.font};
+    letter-spacing: ${designSystem.font.button2.letterSpacing};
     color: ${designSystem.color.primary.blue500};
   }
 `;

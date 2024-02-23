@@ -1,4 +1,5 @@
 import iconChevronRight from "@assets/icons/ic_chevron-right.svg";
+import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -39,25 +40,30 @@ const StyledBreadcrumb = styled.div`
   display: flex;
 
   gap: 2.5px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
 
   > div {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 2.5px;
-    color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${({ theme: { font } }) => font.title5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
 const DepthTitle = styled.span<{ $isLast: boolean }>`
   text-decoration: ${({ $isLast }) => ($isLast ? "none" : "underline")};
-  color: ${({ theme: { color }, $isLast }) =>
-    $isLast ? color.neutral.gray800 : color.neutral.gray600};
+  text-decoration-color: ${designSystem.color.neutral.gray600};
+  color: ${({ $isLast }) =>
+    $isLast
+      ? designSystem.color.neutral.gray800
+      : designSystem.color.neutral.gray600};
 
   &:hover {
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
     cursor: pointer;
   }
 `;

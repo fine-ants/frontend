@@ -3,7 +3,7 @@ import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { Order } from "@components/common/Table/Table";
+import { Order } from "@components/common/Table/types";
 import {
   Box,
   TableCell,
@@ -13,6 +13,7 @@ import {
   tableSortLabelClasses,
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
+import designSystem from "@styles/designSystem";
 import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
 
@@ -153,7 +154,7 @@ const StyledTableRow = styled(TableRow)`
 const StyledTableCell = styled(TableCell)`
   height: 100%;
   padding: 0 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
   border: none;
 
   &:first-of-type {
@@ -169,12 +170,13 @@ const StyledTableCell = styled(TableCell)`
   }
 
   & > .${tableSortLabelClasses.root} {
-    font: ${({ theme: { font } }) => font.body5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 `;
 
 const StyledTableSortLabel = styled(TableSortLabel)`
   flex-direction: row;
   gap: 4px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  color: ${designSystem.color.neutral.gray600};
 `;

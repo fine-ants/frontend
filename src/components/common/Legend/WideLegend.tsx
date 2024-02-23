@@ -1,5 +1,6 @@
 import { chartColorPalette } from "@styles/chartColorPalette";
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import designSystem from "@styles/designSystem";
+import { CSSProperties, useRef } from "react";
 import styled from "styled-components";
 import { Props as PieChartLegendItemProps } from "./TallLegendItem";
 import WideLegendItem from "./WideLegendItem";
@@ -15,7 +16,6 @@ type Props = {
 
 export default function WideLegend({ legendList, etcOptions, style }: Props) {
   const legendBoxRef = useRef<HTMLDivElement>(null);
-  const [hasScroll, setHasScroll] = useState(false);
 
   const displayedLegendList = [...legendList];
 
@@ -26,17 +26,8 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
 
   const etcPercent = etcList?.reduce((acc, item) => acc + item.percent, 0);
 
-  useEffect(() => {
-    const { clientHeight, scrollHeight } = legendBoxRef.current ?? {
-      clientHeight: 0,
-      scrollHeight: 0,
-    };
-
-    setHasScroll(clientHeight < scrollHeight);
-  }, []);
-
   return (
-    <StyledLegend $hasScroll={hasScroll} ref={legendBoxRef} style={style}>
+    <StyledLegend ref={legendBoxRef} style={style}>
       {displayedLegendList.map((item, idx) => (
         <WideLegendItem
           key={idx}
@@ -67,17 +58,18 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
   );
 }
 
-const StyledLegend = styled.div<{ $hasScroll: boolean }>`
+const StyledLegend = styled.div`
   width: 400px;
-  box-sizing: border-box;
   height: 120px;
+  padding: 16px 8px 16px 16px;
   display: flex;
   flex-wrap: wrap;
-  padding: ${({ $hasScroll }) => ($hasScroll ? "16px 4px 16px 16px" : "16px")};
   gap: 8px 24px;
-  border: ${({ theme: { color } }) => `1px solid ${color.neutral.gray100}`};
+  box-sizing: border-box;
+  border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
-  overflow-y: ${({ $hasScroll }) => ($hasScroll ? "scroll" : "none")};
+
+  overflow-y: scroll;
 `;
 
 const EtcListContainer = styled.div`
@@ -85,7 +77,7 @@ const EtcListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const EtcList = styled.div`
@@ -94,13 +86,14 @@ const EtcList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border-left: 2px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border-left: 2px solid ${designSystem.color.neutral.gray200};
 `;
 
 const EtcItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title5};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;

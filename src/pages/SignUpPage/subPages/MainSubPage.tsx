@@ -49,8 +49,8 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
-  font: ${designSystem.font.body3};
 `;
 
 const OAuthButtonContainer = styled.div`
@@ -62,17 +62,18 @@ const OAuthButtonContainer = styled.div`
 `;
 
 const EmailSignInButton = styled.button`
-  display: flex;
   width: 100%;
-  height: 44px;
   min-width: 128px;
+  height: 44px;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
-  border-radius: 4px;
-  border: 1px solid ${designSystem.color.primary.blue500};
   background: ${designSystem.color.neutral.white};
+  border: 1px solid ${designSystem.color.primary.blue500};
+  border-radius: 4px;
+  font: ${designSystem.font.button1.font};
+  letter-spacing: ${designSystem.font.button1.letterSpacing};
   color: ${designSystem.color.primary.blue500};
-  font: ${designSystem.font.button1};
 `;

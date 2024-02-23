@@ -13,21 +13,97 @@ export type WatchlistItemType = {
   dateAdded: string;
 };
 
-export const getWatchlist = async () => {
-  const res = await fetcher.get<Response<WatchlistItemType[]>>("/watchlists");
+export type WatchlistData = {
+  name: string;
+  watchStocks: WatchlistItemType[];
+};
+
+export type WatchlistsType = {
+  id: number;
+  name: string;
+};
+
+export type WatchlistHasStockData = {
+  id: number;
+  name: string;
+  hasStock: boolean;
+};
+
+// Watchlist 목록 API
+export const getWatchlists = async () => {
+  const res = await fetcher.get<Response<WatchlistsType[]>>("/watchlists");
   return res.data;
 };
 
-export const postWatchlistItem = async (tickerSymbol: string) => {
+export const postWatchlists = async (newWatchlistName: string) => {
   const res = await fetcher.post<Response<null>>("/watchlists", {
-    tickerSymbol,
+    name: newWatchlistName,
   });
   return res.data;
 };
 
-export const deleteWatchlistItem = async (tickerSymbol: string) => {
-  const res = await fetcher.delete<Response<null>>(
-    `/watchlists/${tickerSymbol}`
+export const deleteWatchlists = async (watchlistIds: readonly number[]) => {
+  const res = await fetcher.delete<Response<null>>("/watchlists", {
+    data: { watchlistIds },
+  });
+  return res.data;
+};
+
+// 단일 Watchlist API
+export const getWatchlist = async (watchlistId: number) => {
+  const res = await fetcher.get<Response<WatchlistData>>(
+    `/watchlists/${watchlistId}`
   );
+  return res.data;
+};
+
+// 단일 Watchlist 종목 관련 API
+export const getWatchlistHasStock = async (tickerSymbol: string) => {
+  const res = await fetcher.get<Response<WatchlistHasStockData[]>>(
+    `/watchlists/stockExists/${tickerSymbol}`
+  );
+  return res.data;
+};
+
+export const postWatchlistStocks = async ({
+  watchlistId,
+  tickerSymbols,
+}: {
+  watchlistId: number;
+  tickerSymbols: string[];
+}) => {
+  const res = await fetcher.post<Response<null>>(
+    `/watchlists/${watchlistId}/stock`,
+    { tickerSymbols }
+  );
+  return res.data;
+};
+
+export const deleteWatchlistStocks = async ({
+  watchlistId,
+  tickerSymbols,
+}: {
+  watchlistId: number;
+  tickerSymbols: string[];
+}) => {
+  const res = await fetcher.delete<Response<null>>(
+    `/watchlists/${watchlistId}/stock`,
+    {
+      data: { tickerSymbols },
+    }
+  );
+  return res.data;
+};
+
+export const putWatchlistName = async ({
+  watchlistId,
+  name,
+}: {
+  watchlistId: number;
+  name: string;
+}) => {
+  const res = await fetcher.put<Response<null>>(`/watchlists/${watchlistId}`, {
+    name,
+  });
   return res.data;
 };

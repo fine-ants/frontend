@@ -8,6 +8,7 @@ import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
 import { useText } from "@fineants/demolition";
 import { FormControl, IconButton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
@@ -227,7 +228,8 @@ export default function PortfolioAddDialog({
               <Select
                 size="h32"
                 selectedValue={securitiesFirm}
-                changeSelectedValue={handleChange}>
+                changeSelectedValue={handleChange}
+                menuMaxHeight="168px">
                 {SECURITIES_FIRM.map((option) => (
                   <SelectOption key={option} value={option}>
                     <SecuritiesFirmLogo
@@ -337,8 +339,9 @@ const HeaderWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  font: ${({ theme: { font } }) => font.heading3};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const StyledInput = styled.div`
@@ -348,12 +351,12 @@ const StyledInput = styled.div`
   height: 32px;
   box-sizing: border-box;
   padding: 4px 8px;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray300};
+  border: 1px solid ${designSystem.color.neutral.gray300};
   border-radius: 3px;
 
   > span {
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
@@ -362,19 +365,20 @@ const Input = styled.input`
   height: 100%;
   border: none;
   outline: none;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
 
   &::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
 const StyledSpan = styled.span`
   width: 120px;
   flex-shrink: 0;
+
   > span {
-    color: ${({ theme: { color } }) => color.state.red};
+    color: ${designSystem.color.state.red500};
   }
 `;
 
@@ -412,6 +416,6 @@ const SecuritiesFirmLogo = styled.img`
 `;
 
 const SecuritiesFirmTitle = styled.span`
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray900};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
 `;

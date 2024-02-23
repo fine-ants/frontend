@@ -2,11 +2,13 @@ import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDelet
 import { PortfolioDetails, PortfolioDetailsSSE } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
+import RateBadge from "@components/common/Badges/DeltaBadge";
 import LabelBadge from "@components/common/Badges/LabelBadge";
-import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 import Routes from "@router/Routes";
+import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
   SecuritiesFirm,
 } from "@styles/securitiesFirmLogos";
@@ -23,9 +25,7 @@ type Props = {
 export default function PortfolioOverview({ data, sseData }: Props) {
   const navigate = useNavigate();
   const { portfolioId } = useParams();
-  const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation(
-    Number(portfolioId)
-  );
+  const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -89,6 +89,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               size="h32"
               onClick={onPortfolioRemove}
               disabled={false}>
+              <Icon icon="trash" size={16} color="gray600" />
               삭제
             </Button>
             <Button
@@ -96,6 +97,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               size="h32"
               onClick={onPortfolioEdit}
               disabled={false}>
+              <Icon icon="edit" size={16} color="blue500" />
               편집
             </Button>
           </ButtonWrapper>
@@ -145,7 +147,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={data.targetReturnRate}
+                value={data.targetReturnRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -157,7 +159,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={-data.maximumLossRate}
+                value={-data.maximumLossRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -175,7 +177,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={sseData?.totalGainRate ?? data.totalGainRate}
+                value={sseData?.totalGainRate ?? data.totalGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -189,7 +191,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={sseData?.dailyGainRate ?? data.dailyGainRate}
+                value={sseData?.dailyGainRate ?? data.dailyGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -203,7 +205,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                rate={data.annualDividendYield}
+                value={data.annualDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -212,7 +214,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               <div>투자대비 연 배당률</div>
               <RateBadge
                 size={16}
-                rate={data.annualInvestmentDividendYield}
+                value={data.annualInvestmentDividendYield}
                 bgColorStatus={false}
                 iconStatus={false}
               />
@@ -259,7 +261,8 @@ const FirmImage = styled.img`
 `;
 
 const Title = styled.span`
-  font: ${({ theme: { font } }) => font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
 const ButtonWrapper = styled.div`
@@ -269,35 +272,40 @@ const ButtonWrapper = styled.div`
 
 const ValuationContainer = styled.div`
   height: 64px;
+  padding: 8px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px;
+  background-color: ${designSystem.color.neutral.gray800};
   border-radius: 8px;
-  color: ${({ theme: { color } }) => color.neutral.gray400};
-  background-color: ${({ theme: { color } }) => color.neutral.gray800};
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const CurrentValuation = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
-  font: ${({ theme: { font } }) => font.title2};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title2.font};
+  letter-spacing: ${designSystem.font.title2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
+
   > span {
-    font: ${({ theme: { font } }) => font.title1};
-    color: ${({ theme: { color } }) => color.neutral.white};
+    font: ${designSystem.font.title1.font};
+    letter-spacing: ${designSystem.font.title1.letterSpacing};
+    color: ${designSystem.color.neutral.white};
   }
 `;
 
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
   overflow: hidden;
 `;
 
@@ -306,7 +314,7 @@ const OverviewWrapper = styled.div`
 `;
 
 const OverviewTop = styled(OverviewWrapper)`
-  border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+  border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const OverviewBottom = styled(OverviewWrapper)``;
@@ -320,7 +328,7 @@ const Overview = styled.div`
   padding: 16px;
 
   &:first-child {
-    border-right: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+    border-right: 1px solid ${designSystem.color.neutral.gray100};
   }
 `;
 
@@ -331,7 +339,7 @@ const OverviewData = styled.div`
 
   height: 24px;
   > span {
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray900};
   }
 `;

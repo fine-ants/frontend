@@ -14,18 +14,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import browserServiceWorker from "./mocks/browserServiceWorker.ts";
 
-async function initMSW() {
-  if (process.env.NODE_ENV === "development") {
-    await browserServiceWorker.start({
-      onUnhandledRequest: "bypass",
-    });
-  }
+if (import.meta.env.DEV) {
+  const { default: mockServiceWorker } = await import(
+    "./mocks/mockSetupWorker.ts"
+  );
+  await mockServiceWorker.start({ onUnhandledRequest: "bypass" });
 }
-await initMSW();
 
-const toast = createToast();
+export const toast = createToast();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,8 +40,8 @@ const queryClient = new QueryClient({
   }),
   mutationCache: new MutationCache({
     onSuccess: (_, __, ___, mutation) => {
-      if (mutation.meta?.tostSuccessMessage) {
-        toast.success(mutation.meta.tostSuccessMessage as string);
+      if (mutation.meta?.toastSuccessMessage) {
+        toast.success(mutation.meta.toastSuccessMessage as string);
         return;
       }
     },

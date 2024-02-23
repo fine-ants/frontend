@@ -1,6 +1,7 @@
 import addIcon from "@assets/icons/ic_folder-add.svg";
 import emptyPortfolioImg from "@assets/images/empty_portfolio.svg";
 import Button from "@components/common/Buttons/Button";
+import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
 import PortfolioAddDialog from "../PortfolioAddDialog";
@@ -56,12 +57,13 @@ const EmptyPortfolioListImage = styled.img`
 
 const EmptyPortfolioListTitle = styled.h3`
   margin-bottom: 16px;
-  font: ${({ theme: { font } }) => font.heading3};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const EmptyPortfolioListDescription = styled.p`
   margin-bottom: 48px;
-  font: ${({ theme: { font } }) => font.body2};
-  color: ${({ theme: { color } }) => color.neutral.gray500};
+  font: ${designSystem.font.body2.font};
+  color: ${designSystem.color.neutral.gray500};
 `;

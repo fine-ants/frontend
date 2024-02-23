@@ -79,8 +79,8 @@ export default function VerificationCodeSubPage({
 }
 
 const EmailText = styled.span`
-  color: ${designSystem.color.neutral.gray900};
   font: ${designSystem.font.body3};
+  color: ${designSystem.color.neutral.gray900};
 `;
 
 const CodeInputWrapper = styled.div`
@@ -91,6 +91,7 @@ const CodeInputWrapper = styled.div`
 
 const TextButton = styled.button`
   padding: 0;
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
   color: ${designSystem.color.primary.blue500};
-  font: ${designSystem.font.button2};
 `;

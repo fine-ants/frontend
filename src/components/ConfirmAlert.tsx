@@ -1,7 +1,10 @@
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
+import Button from "./common/Buttons/Button";
+import { Icon } from "./common/Icon";
 
 type Props = {
   isOpen: boolean;
@@ -26,11 +29,22 @@ export default function ConfirmAlert({
   return (
     <BaseDialog style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
       <Wrapper>
-        <Title>{title}</Title>
-        <Body>{children}</Body>
+        <div>
+          <Header>
+            <Title>{title}</Title>
+            <IconButton onClick={onClose}>
+              <Icon size={24} icon="close" color="gray600" />
+            </IconButton>
+          </Header>
+          <Body>{children}</Body>
+        </div>
         <ButtonWrapper>
-          <CancelButton onClick={onClose}>취소</CancelButton>
-          <Button onClick={onConfirmAlertClose}>확인</Button>
+          <Button variant="tertiary" size="h32" onClick={onClose}>
+            <span>취소</span>
+          </Button>
+          <Button variant="primary" size="h32" onClick={onConfirmAlertClose}>
+            <span>확인</span>
+          </Button>
         </ButtonWrapper>
       </Wrapper>
     </BaseDialog>
@@ -38,9 +52,8 @@ export default function ConfirmAlert({
 }
 
 const ConfirmAlertStyle = {
-  width: "400px",
-  height: "auto",
-  maxHeight: "300px",
+  width: "544px",
+  height: "280px",
 };
 
 const Wrapper = styled.div`
@@ -51,23 +64,31 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Title = styled.div`
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.h3`
   width: 100%;
   text-align: left;
-  font-size: 16px;
-  font-weight: bold;
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const Body = styled.div`
   width: 100%;
   max-height: 120px;
+  margin-top: 32px;
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const ButtonWrapper = styled.div`
-  width: 100%;
-  text-align: right;
-`;
-
-const CancelButton = styled(Button)`
-  color: red;
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
 `;

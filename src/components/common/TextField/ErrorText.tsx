@@ -3,7 +3,8 @@ import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export const ErrorText = styled(FormHelperText)`
-  color: ${designSystem.color.state.red};
-  font: ${designSystem.font.body4};
   margin: 0;
+  position: absolute;
+  font: ${designSystem.font.body4.font};
+  color: ${designSystem.color.state.red500};
 `;

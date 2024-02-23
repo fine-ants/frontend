@@ -6,6 +6,8 @@ import Button from "@components/common/Buttons/Button";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
 import { IconButton } from "@mui/material";
+import designSystem from "@styles/designSystem";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -27,7 +29,9 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     null
   );
 
-  const [newPurchaseDate, setNewPurchaseDate] = useState<Date | null>(null);
+  const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
+    dayjs(new Date())
+  );
 
   const onSelectOption = (stock: StockSearchItem) => {
     setSelectedStock(stock);
@@ -149,8 +153,9 @@ const Header = styled.header`
 `;
 
 const Title = styled.div`
-  font: ${({ theme: { font } }) => font.heading3};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  color: ${designSystem.color.neutral.gray800};
 `;
 
 const SearchWrapper = styled.div`
@@ -159,13 +164,14 @@ const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font: ${({ theme: { font } }) => font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
 
   > div {
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    color: ${designSystem.color.neutral.gray800};
 
     > span {
-      color: ${({ theme: { color } }) => color.state.red};
+      color: ${designSystem.color.state.red500};
     }
   }
 `;
@@ -177,20 +183,22 @@ const HoldingBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
-  border: 1px solid ${({ theme: { color } }) => color.primary.blue50};
+  background-color: ${designSystem.color.neutral.gray50};
+  border: 1px solid ${designSystem.color.primary.blue50};
   border-radius: 8px;
-  font: ${({ theme: { font } }) => font.title5};
-  color: ${({ theme: { color } }) => color.primary.blue500};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.primary.blue500};
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
   > span {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
-    font: ${({ theme: { font } }) => font.body4};
+    font: ${designSystem.font.body4.font};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;
 
@@ -207,28 +215,29 @@ const InputBox = styled.div`
   gap: 8px;
 
   > label {
+    width: 120px;
+    height: 24px;
     margin-top: 4px;
     display: flex;
     align-items: center;
-    width: 120px;
-    height: 24px;
-    font: ${({ theme: { font } }) => font.title5};
-    color: ${({ theme: { color } }) => color.neutral.gray800};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
+    color: ${designSystem.color.neutral.gray800};
   }
 `;
 
 const InputWrapper = styled.div`
   height: 32px;
   padding: 4px 8px;
-  flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex: 1;
   box-sizing: border-box;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const InputTextArea = styled.textarea`
@@ -238,17 +247,17 @@ const InputTextArea = styled.textarea`
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+  border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 3px;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray400};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray400};
 
   &&::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 
   &:focus {
-    border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+    border: 1px solid ${designSystem.color.primary.blue500};
   }
 `;
 
@@ -257,10 +266,10 @@ const Input = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray800};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray800};
 
   &&::placeholder {
-    color: ${({ theme: { color } }) => color.neutral.gray400};
+    color: ${designSystem.color.neutral.gray400};
   }
 `;

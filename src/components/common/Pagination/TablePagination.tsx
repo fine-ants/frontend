@@ -3,6 +3,7 @@ import {
   TablePagination as MuiTablePagination,
   tablePaginationClasses,
 } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import { Select, SelectOption } from "../Select";
 import Pagination from "./Pagination";
@@ -58,6 +59,7 @@ export default function TablePagination({
           input: (
             <Select
               size="h24"
+              menuMinHeight="auto"
               selectedValue={rowsPerPage.toString()}
               changeSelectedValue={onRowsPerPageChange}>
               {rowsPerPageOptions.map((option) => (
@@ -116,33 +118,33 @@ const StyledTablePagination = styled(MuiTablePagination)`
     display: flex;
     align-items: center;
     background-color: transparent;
-    border: 1px solid ${({ theme: { color } }) => color.neutral.gray200};
+    border: 1px solid ${designSystem.color.neutral.gray200};
     border-radius: 2px;
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray900};
 
     &:hover {
-      border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+      border: 1px solid ${designSystem.color.primary.blue500};
     }
 
     &:active {
-      border: 1px solid ${({ theme: { color } }) => color.primary.blue500};
+      border: 1px solid ${designSystem.color.primary.blue500};
     }
   }
 
   & .${tablePaginationClasses.displayedRows} {
     margin: 0 auto 0 8px;
-    font: ${({ theme: { font } }) => font.body3};
-    color: ${({ theme: { color } }) => color.neutral.gray600};
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray600};
   }
 `;
 
 const StyledLabelRowsPerPage = styled.span`
   margin-right: 8px;
-  font: ${({ theme: { font } }) => font.body3};
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray600};
 
   > span {
-    color: ${({ theme: { color } }) => color.neutral.gray900};
+    color: ${designSystem.color.neutral.gray900};
   }
 `;

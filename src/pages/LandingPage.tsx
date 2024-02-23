@@ -1,10 +1,12 @@
-import dashboard from "@assets/images/dashboard.png";
-import landingTopBG from "@assets/images/landingTop.png";
+import dashboard from "@assets/images/dashboard.svg";
+import featureImage1 from "@assets/images/feature1.svg";
+import featureImage2 from "@assets/images/feature2.svg";
+import featureImage3 from "@assets/images/feature3.svg";
+import portfolioImage1 from "@assets/images/img_portfolio1.svg";
+import portfolioImage2 from "@assets/images/img_portfolio2.svg";
+import portfolioImage3 from "@assets/images/img_portfolio3.svg";
+import landingTopBG from "@assets/images/landingTop.svg";
 import landingTopChart from "@assets/images/landingTopChart.png";
-import landingTopText from "@assets/images/landingTopText.png";
-import portfolioImage1 from "@assets/images/portfolio1.png";
-import portfolioImage2 from "@assets/images/portfolio2.png";
-import portfolioImage3 from "@assets/images/portfolio3.png";
 import Footer from "@components/common/Footer";
 import Header from "@components/common/Header/Header";
 import designSystem from "@styles/designSystem";
@@ -15,17 +17,13 @@ export default function LandingPage() {
 
   return (
     <>
+      <Header />
       <BasePage>
-        <Header />
-        {/* <nav>
-        <ul>
-          <li onClick={() => navigate(Routes.SIGNIN)}>로그인</li>
-          <li onClick={() => navigate(Routes.SIGNUP)}>회원가입</li>
-        </ul>
-      </nav> */}
-        {/* <Typography variant="h1">Landing Page!</Typography> */}
         <LandingTopBG>
-          <LandingTopText src={landingTopText} alt="landingTopText" />
+          <LandingTopText>
+            <h1>주식 자산 관리를 더 쉽고 간편하게</h1>
+            <h2>실시간 자산 현황을 확인하고 똑똑한 투자 관리를 시작하세요</h2>
+          </LandingTopText>
           <LandingTopChart src={landingTopChart} alt="landingTopChart" />
         </LandingTopBG>
         <LandingBottom>
@@ -49,6 +47,21 @@ export default function LandingPage() {
               <PortfolioImage src={portfolioImage3} alt="portfolio3" />
             </PortfolioImageContainer>
           </FeatureContainer>
+          <ComfortContainer>
+            <FeatureLeft>
+              <FeatureTitle>편의 기능</FeatureTitle>
+              <FeatureDescription>
+                성공적인 투자 관리를 위한
+                <br />
+                다양한 기능을 지원합니다
+              </FeatureDescription>
+            </FeatureLeft>
+            <FeatureRight>
+              <FeatureImage src={featureImage1} alt="관심 종목" />
+              <FeatureImage src={featureImage2} alt="종목 상세 차트" />
+              <FeatureImage src={featureImage3} alt="손익 알림" />
+            </FeatureRight>
+          </ComfortContainer>
         </LandingBottom>
         <Footer />
       </BasePage>
@@ -62,24 +75,47 @@ const BasePage = styled.div`
   min-height: inherit;
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  align-items: center;
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const LandingTopBG = styled.div`
   margin: 0 auto;
   position: relative;
   display: flex;
-  width: 1920px;
-  height: 956px;
+  width: 100vw;
+  height: 100vh;
+  max-width: 1920px;
+  max-height: 956px;
   background-image: url(${landingTopBG});
+  background-size: cover;
+  background-position: center;
+
+  @media (min-width: 1920px) {
+    background-size: contain;
+  }
 `;
 
-const LandingTopText = styled.img`
-  width: 494px;
+const LandingTopText = styled.div`
+  width: auto;
   height: 224px;
   position: absolute;
   top: 351px;
   left: 240px;
+
+  > h1 {
+    width: 433px;
+    font:
+      900 64px/77px "IBM Plex Sans",
+      sans-serif;
+    color: ${designSystem.color.neutral.white};
+    margin-bottom: 40px;
+  }
+
+  > h2 {
+    font: ${designSystem.font.body1.font};
+    color: ${designSystem.color.neutral.white};
+  }
 `;
 
 const LandingTopChart = styled.img`
@@ -88,18 +124,22 @@ const LandingTopChart = styled.img`
   position: absolute;
   top: 138px;
   right: 208px;
+  pointer-events: none;
 `;
 
 const LandingBottom = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 200px;
   margin: 0 auto;
+  margin-bottom: 200px;
   padding: 120px 240px 0 240px;
-  width: 1920px;
+  width: 100%;
+  max-width: 1920px;
   height: auto;
   min-height: inherit;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
 `;
 
 const FeatureContainer = styled.div`
@@ -110,7 +150,8 @@ const FeatureContainer = styled.div`
 
 const FeatureTitle = styled.h3`
   margin-right: auto;
-  font: ${designSystem.font.heading3};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.primary.blue500};
 `;
 
@@ -125,9 +166,10 @@ const FeatureDescription = styled.p`
 
 const DashboardImage = styled.img`
   border-radius: 16px;
-  width: 1140px;
+  width: 100%;
   height: 640px;
   margin-top: 80px;
+  pointer-events: none;
 `;
 
 const PortfolioImageContainer = styled.div`
@@ -140,4 +182,26 @@ const PortfolioImage = styled.img`
   width: 464px;
   height: 464px;
   border-radius: 16px;
+  pointer-events: none;
+`;
+
+const ComfortContainer = styled(FeatureContainer)`
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+const FeatureLeft = styled.div``;
+const FeatureRight = styled.div`
+  display: flex;
+  gap: 24px;
+  margin-top: 45px;
+`;
+
+const FeatureImage = styled.img`
+  width: 224px;
+  height: 224px;
+  border-radius: 16px;
+  pointer-events: none;
 `;

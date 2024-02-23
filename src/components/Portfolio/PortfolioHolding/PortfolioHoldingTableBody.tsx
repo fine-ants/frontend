@@ -8,6 +8,7 @@ type Props = {
   visibleRows: readonly PortfolioHolding[];
   selected: readonly PortfolioHolding[];
   updateSelected: (selected: readonly PortfolioHolding[]) => void;
+  isAllRowsOpen: boolean;
 };
 
 export default function PortfolioHoldingTableBody({
@@ -15,6 +16,7 @@ export default function PortfolioHoldingTableBody({
   visibleRows,
   selected,
   updateSelected,
+  isAllRowsOpen,
 }: Props) {
   const handleClick = (_: MouseEvent<unknown>, id: number) => {
     const selectedItem = selected.find(
@@ -60,6 +62,7 @@ export default function PortfolioHoldingTableBody({
             labelId={labelId}
             row={row}
             isItemSelected={isItemSelected}
+            isAllRowsOpen={isAllRowsOpen}
             handleClick={handleClick}
           />
         );
