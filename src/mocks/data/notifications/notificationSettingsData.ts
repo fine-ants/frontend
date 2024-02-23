@@ -35,7 +35,7 @@ export const stockNotifications = [
   {
     companyName: "삼성SDI보통주",
     tickerSymbol: "006400",
-    LastPrice: 200000,
+    lastPrice: 200000,
     targetPrices: [
       {
         notificationId: 4,

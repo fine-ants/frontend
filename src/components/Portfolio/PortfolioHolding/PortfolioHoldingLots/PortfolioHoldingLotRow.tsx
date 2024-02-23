@@ -217,12 +217,6 @@ const StyledTableCell = styled(MuiTableCell)`
   padding: 4px 8px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
-
-  &.MuiFormControl-root
-    MuiTextField-root
-    css-140751r-MuiFormControl-root-MuiTextField-root {
-    background-color: ${designSystem.color.primary.blue500};
-  }
 `;
 
 const Input = styled.input`

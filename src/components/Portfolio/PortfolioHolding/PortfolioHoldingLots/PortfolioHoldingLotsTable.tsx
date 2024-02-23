@@ -96,6 +96,7 @@ export default function PortfolioHoldingLotsTable({
 }
 
 const StyledPortfolioHoldingLotsTable = styled.div`
+  width: 896px;
   padding-left: 24px;
   display: flex;
   justify-content: flex-end;
@@ -105,13 +106,12 @@ const StyledPortfolioHoldingLotsTable = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: inherit;
   padding-left: 16px;
   border-left: 1px solid ${designSystem.color.primary.blue100};
 `;
 
 const StyledTable = styled(MuiTable)`
-  width: 856px;
   display: flex;
   flex-direction: column;
   gap: 8px;
