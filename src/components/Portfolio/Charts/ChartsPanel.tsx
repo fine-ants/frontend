@@ -56,4 +56,5 @@ const StyledChartsPanel = styled.div`
   gap: 48px;
   width: 464px;
   padding: 32px;
+  border-radius: 8px;
 `;
