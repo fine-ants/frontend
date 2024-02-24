@@ -2,7 +2,7 @@
 
 <br>
 
-**LINK:** https://release.d2bbt1tai3je0q.amplifyapp.com/
+**LINK:** [https://www.fineants.co](https://www.fineants.co/)
 
 ## About
 
