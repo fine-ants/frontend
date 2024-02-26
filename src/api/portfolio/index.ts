@@ -69,6 +69,12 @@ export const postPortfolioHolding = async ({
   portfolioId: number;
   body: {
     tickerSymbol: string;
+    purchaseHistory?: {
+      purchasedDate: string;
+      numShares: number;
+      purchasePricePerShare: number;
+      memo: string;
+    };
   };
 }) => {
   const res = await fetcher.post<Response<null>>(

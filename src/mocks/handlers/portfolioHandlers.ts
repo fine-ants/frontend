@@ -2,6 +2,7 @@ import {
   PortfolioDetails,
   PortfolioHolding,
   PortfolioReqBody,
+  PurchaseHistoryField,
 } from "@api/portfolio/types";
 import { HTTPSTATUS } from "@api/types";
 import {
@@ -151,16 +152,25 @@ export default [
 
   // Add Portfolio Holding
   http.post<
-    never,
+    { portfolioId: string },
     {
-      portfolioId: number;
-      body: {
-        tickerSymbol: string;
+      tickerSymbol: string;
+      purchaseHistory: {
+        purchasedDate: string;
+        numShares: number;
+        purchasePricePerShare: number;
+        memo: string | null;
       };
     }
   >("/api/portfolio/:portfolioId/holdings", async ({ request }) => {
-    const { tickerSymbol } = (await request.json()).body;
-
+    const { tickerSymbol, purchaseHistory } = await request.json();
+    const purchaseHistoryArray: PurchaseHistoryField[] = [
+      {
+        purchaseHistoryId: portfolioHoldings.length,
+        ...purchaseHistory,
+        purchaseDate: purchaseHistory.purchasedDate,
+      },
+    ];
     const newPortfolioHoldingId = portfolioHoldings.length + 1;
     const data: PortfolioHolding = {
       companyName: "새로추가한주식",
@@ -176,10 +186,11 @@ export default [
       totalReturnRate: 16,
       annualDividend: 6000,
       annualDividendYield: 10,
-      purchaseHistory: [],
+      purchaseHistory: purchaseHistoryArray,
       dateCreated: "2021-01-01",
     };
 
+    // TODO purchaseHistory type 확인 필요
     portfolioHoldings.push(data);
 
     return HttpResponse.json(
