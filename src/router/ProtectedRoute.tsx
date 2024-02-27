@@ -3,7 +3,11 @@ import Header from "@components/common/Header/Header";
 import { Navigate, Outlet } from "react-router-dom";
 import Routes from "./Routes";
 
-export default function ProtectedRoute({ user }: { user: User | null }) {
+export default function ProtectedRoute({
+  user,
+}: {
+  user: User | null | undefined;
+}) {
   return user ? (
     <>
       <Header />

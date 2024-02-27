@@ -1,5 +1,6 @@
+import useUserQuery from "@api/user/queries/useUserQuery";
 import { CustomToastContainer } from "@components/common/toast";
-import { UserContext } from "@context/UserContext";
+import { FCMContext } from "@context/FCMContext";
 import router from "@router/router";
 import GlobalStyles from "@styles/GlobalStyles";
 import designSystem from "@styles/designSystem";
@@ -9,7 +10,11 @@ import styled, { ThemeProvider } from "styled-components";
 import { setupFCMToken } from "./api/fcm";
 
 export default function App() {
-  const { user, onSubscribePushNotification } = useContext(UserContext);
+  const { onSubscribePushNotification } = useContext(FCMContext);
+
+  const { data: user } = useUserQuery();
+  // eslint-disable-next-line no-console
+  console.log("user rendering in App:", user);
 
   const userEnabledNotifications = Object.values(
     user?.notificationPreferences ?? []

@@ -4,6 +4,7 @@ import {
   successfulPasswordEditData,
   successfulProfileDetailsEditData,
   successfulUserData,
+  unsuccessfulUserData,
 } from "@mocks/data/userData";
 import { HttpResponse, http } from "msw";
 
@@ -19,10 +20,17 @@ export const editNotificationPreferences = (
 };
 
 export default [
-  http.get("/api/profile", async () => {
-    return HttpResponse.json(userData, {
-      status: HTTPSTATUS.success,
-    });
+  http.get("/api/profile", async ({ request }) => {
+    const authorizationHeader = request.headers.get("Authorization");
+    if (authorizationHeader === "Bearer iamaccesstoken") {
+      return HttpResponse.json(userData, {
+        status: HTTPSTATUS.success,
+      });
+    } else {
+      return HttpResponse.json(unsuccessfulUserData, {
+        status: HTTPSTATUS.unAuthorized,
+      });
+    }
   }),
 
   http.put("/api/profile", async ({ request }) => {

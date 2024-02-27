@@ -24,7 +24,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import PublicOnlyRoute from "./PublicOnlyRoute";
 import Routes from "./Routes";
 
-const router = (user: User | null) =>
+const router = (user: User | null | undefined) =>
   createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" errorElement={<GlobalErrorPage />}>

@@ -1,18 +1,23 @@
 import { postSignOut } from "@api/auth";
-import { UserContext } from "@context/UserContext";
+import { userKeys } from "@api/user/queries/queryKeys";
 import Routes from "@router/Routes";
-import { useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 export default function useSignOutMutation() {
   const navigate = useNavigate();
-  const { onSignOut } = useContext(UserContext);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: postSignOut,
     onSuccess: () => {
-      onSignOut();
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      queryClient.resetQueries({
+        queryKey: userKeys.details().queryKey,
+        exact: true,
+      });
+
       navigate(Routes.LANDING);
     },
   });

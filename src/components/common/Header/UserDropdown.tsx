@@ -1,9 +1,9 @@
 import useSignOutMutation from "@api/auth/queries/useSignOutMutation";
+import useUserQuery from "@api/user/queries/useUserQuery";
 import { useDropdown } from "@components/hooks/useDropdown";
-import { UserContext } from "@context/UserContext";
 import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useContext } from "react";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../Icon";
@@ -11,8 +11,7 @@ import { Icon } from "../Icon";
 export default function UserDropdown() {
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
-
+  const { data: user } = useUserQuery();
   const { mutate: signOutMutate } = useSignOutMutation();
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();

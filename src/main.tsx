@@ -10,10 +10,11 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import React from "react";
+// import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { FCMProvider } from "@context/FCMContext.tsx";
 
 if (import.meta.env.DEV) {
   const { default: mockServiceWorker } = await import(
@@ -55,16 +56,18 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <UserProvider>
+  // <React.StrictMode>
+  <StyledEngineProvider injectFirst>
+    <QueryClientProvider client={queryClient}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <UserProvider>
+          <FCMProvider>
             <App />
-          </UserProvider>
-        </LocalizationProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </StyledEngineProvider>
-  </React.StrictMode>
+          </FCMProvider>
+        </UserProvider>
+      </LocalizationProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </StyledEngineProvider>
+  // </React.StrictMode>
 );

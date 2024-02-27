@@ -1,32 +1,37 @@
-import { getUser } from "@api/user";
-import { UserContext } from "@context/UserContext";
+import { userKeys } from "@api/user/queries/queryKeys";
+import useUserQuery from "@api/user/queries/useUserQuery";
 import Routes from "@router/Routes";
-import { useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { postSignIn } from "../index";
 
 export default function useSignInMutation() {
   const navigate = useNavigate();
-  const { onSignIn, onSignOut, onGetUser } = useContext(UserContext);
+  const queryClient = useQueryClient();
+
+  const { refetch: refetchUser } = useUserQuery();
 
   return useMutation({
     mutationFn: postSignIn,
     onSuccess: async ({ data: { jwt } }) => {
-      onSignIn({ jwt });
+      localStorage.setItem("accessToken", jwt.accessToken);
+      localStorage.setItem("refreshToken", jwt.refreshToken);
 
       try {
-        const {
-          data: { user },
-        } = await getUser();
-
-        onGetUser(user);
+        await refetchUser();
 
         navigate(Routes.DASHBOARD);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("Failed to fetch user data");
-        onSignOut();
+
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        queryClient.removeQueries({
+          queryKey: userKeys.details().queryKey,
+          exact: true,
+        });
+
         navigate(Routes.SIGNIN);
       }
     },

@@ -1,8 +1,8 @@
 import { postNicknameDuplicateCheck } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
-import { UserContext } from "@context/UserContext";
+import useUserQuery from "@api/user/queries/useUserQuery";
 import { AxiosError } from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   newNickname: string;
@@ -13,7 +13,7 @@ export default function useNicknameDuplicateCheck({
   newNickname,
   newNicknameIsError,
 }: Props) {
-  const { user } = useContext(UserContext);
+  const { data: user } = useUserQuery();
 
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
   const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);

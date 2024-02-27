@@ -1,5 +1,6 @@
 import { fetcher } from "@api/fetcher";
 import { Response } from "@api/types";
+import { User } from "@api/user/types";
 import {
   MemberNotification,
   MemberNotificationsSettings,
@@ -10,16 +11,20 @@ import {
   StockTargetPrice,
 } from "./types";
 
-export const postNotificationForTest = async (notification: {
-  title: string;
-  body: string;
-  type: NotificationType;
-  referenceId: string;
+export const postNotificationForTest = async ({
+  user,
+  notification,
+}: {
+  user: User;
+  notification: {
+    title: string;
+    body: string;
+    type: NotificationType;
+    referenceId: string;
+  };
 }) => {
   const res = await fetcher.post<Response<null>>(
-    `/members/${
-      JSON.parse(localStorage.getItem("user") as string).id
-    }/notifications`,
+    `/members/${user.id}/notifications`,
     notification
   );
   return res.data;
@@ -95,7 +100,7 @@ export const putMemberNotificationSettings = async ({
   memberId: number;
   body: MemberNotificationsSettings;
 }) => {
-  const res = await fetcher.put<Response<MemberNotification>>(
+  const res = await fetcher.put<Response<null>>(
     `members/${memberId}/notification/settings`,
     body
   );

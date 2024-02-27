@@ -1,7 +1,6 @@
+import useUserQuery from "@api/user/queries/useUserQuery";
 import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
-import { UserContext } from "@context/UserContext";
 import Routes from "@router/Routes";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "../../NavBar";
@@ -14,7 +13,7 @@ import UserControls from "./UserControls";
 export default function Header() {
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { data: user } = useUserQuery();
 
   const navItems = [
     {

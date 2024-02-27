@@ -6,7 +6,7 @@ import ToggleSwitch from "@components/ToggleSwitch";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { createToast } from "@components/common/toast";
-import { UserContext } from "@context/UserContext";
+import { FCMContext } from "@context/FCMContext";
 import designSystem from "@styles/designSystem";
 import retryFn from "@utils/retryFn";
 import { useContext, useState } from "react";
@@ -25,7 +25,7 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
     fcmTokenId,
     onSubscribePushNotification,
     onUnsubscribePushNotification,
-  } = useContext(UserContext);
+  } = useContext(FCMContext);
 
   const { browserNotify, maxLossNotify, targetGainNotify, targetPriceNotify } =
     user.notificationPreferences;

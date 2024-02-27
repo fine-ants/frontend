@@ -1,10 +1,10 @@
+import useUserQuery from "@api/user/queries/useUserQuery";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import { useDropdown } from "@components/hooks/useDropdown";
-import { UserContext } from "@context/UserContext";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useContext, useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../Icon";
@@ -15,7 +15,7 @@ import PorfoliosDropdownListSkeleton from "./PortfoliosDropdownListSkeleton";
 export function PortfoliosDropdown() {
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { data: user } = useUserQuery();
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 

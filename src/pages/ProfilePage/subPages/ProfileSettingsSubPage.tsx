@@ -1,9 +1,9 @@
 import useProfileDetailsMutation from "@api/user/queries/useProfileDetailsMutation";
+import useUserQuery from "@api/user/queries/useUserQuery";
 import defaultProfile from "@assets/images/defaultProfile.png";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { TextField } from "@components/common/TextField/TextField";
-import { UserContext } from "@context/UserContext";
 import {
   useDebounce,
   useImageInput,
@@ -14,7 +14,7 @@ import useNicknameDuplicateCheck from "@hooks/useNicknameDuplicateCheck";
 import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { ChangeEvent, FormEvent, useContext } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -26,7 +26,7 @@ const nicknameValidator = (nickname: string) =>
 export default function ProfileSettingsSubPage() {
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { data: user } = useUserQuery();
 
   const { mutate: profileDetailsMutate } = useProfileDetailsMutation();
 

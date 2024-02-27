@@ -1,13 +1,13 @@
+import useUserQuery from "@api/user/queries/useUserQuery";
 import Button from "@components/common/Buttons/Button";
-import { UserContext } from "@context/UserContext";
 import Routes from "@router/Routes";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 // TODO: Design
 export default function NotFoundPage() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+
+  const { data: user } = useUserQuery();
 
   return (
     <div>

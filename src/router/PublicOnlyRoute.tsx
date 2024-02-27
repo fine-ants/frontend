@@ -2,6 +2,10 @@ import { User } from "@api/user/types";
 import { Navigate, Outlet } from "react-router-dom";
 import Routes from "./Routes";
 
-export default function PublicOnlyRoute({ user }: { user: User | null }) {
+export default function PublicOnlyRoute({
+  user,
+}: {
+  user: User | null | undefined;
+}) {
   return user ? <Navigate to={Routes.DASHBOARD} /> : <Outlet />;
 }

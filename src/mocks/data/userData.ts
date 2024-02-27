@@ -6,7 +6,7 @@ export const successfulUserData = {
   message: "유저 정보를 성공적으로 가져왔습니다",
   data: {
     user: {
-      id: "1",
+      id: 1,
       nickname: "Kakamotobi",
       email: "d@d.com",
       profileUrl: "https://avatars.githubusercontent.com/u/79886384?v=4",
@@ -18,6 +18,13 @@ export const successfulUserData = {
       },
     },
   },
+};
+
+export const unsuccessfulUserData = {
+  code: HTTPSTATUS.unAuthorized,
+  status: "Unauthorized",
+  message: "Access Token이 유효하지 않습니다",
+  data: {},
 };
 
 export const successfulProfileDetailsEditData = ({
