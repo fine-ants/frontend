@@ -155,7 +155,7 @@ export default [
     { portfolioId: string },
     {
       tickerSymbol: string;
-      purchaseHistory: {
+      purchaseHistory?: {
         purchasedDate: string;
         numShares: number;
         purchasePricePerShare: number;
@@ -164,13 +164,16 @@ export default [
     }
   >("/api/portfolio/:portfolioId/holdings", async ({ request }) => {
     const { tickerSymbol, purchaseHistory } = await request.json();
-    const purchaseHistoryArray: PurchaseHistoryField[] = [
-      {
-        purchaseHistoryId: portfolioHoldings.length,
-        ...purchaseHistory,
-        purchaseDate: purchaseHistory.purchasedDate,
-      },
-    ];
+    const purchaseHistoryArray: PurchaseHistoryField[] = purchaseHistory
+      ? [
+          {
+            purchaseHistoryId: portfolioHoldings.length,
+            ...purchaseHistory,
+            purchaseDate: purchaseHistory.purchasedDate,
+          },
+        ]
+      : [];
+
     const newPortfolioHoldingId = portfolioHoldings.length + 1;
     const data: PortfolioHolding = {
       companyName: "새로추가한주식",
