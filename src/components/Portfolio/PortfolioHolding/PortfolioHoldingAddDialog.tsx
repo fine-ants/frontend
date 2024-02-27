@@ -8,6 +8,7 @@ import { Icon } from "@components/common/Icon";
 import { useText } from "@fineants/demolition";
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { executeIfNumeric } from "@utils/executeIfNumeric";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -40,12 +41,6 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     onChange: onPurchasePricePerShareChange,
   } = useText();
   const { value: memo, onChange: onMemoChange } = useText();
-
-  const executeIfNumeric = (value: string, func: (value: string) => void) => {
-    if (!isNaN(Number(value)) || value === "") {
-      func(value);
-    }
-  };
 
   const onSelectOption = (stock: StockSearchItem) => {
     setSelectedStock(stock);
