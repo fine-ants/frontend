@@ -102,6 +102,13 @@ export type PurchaseHistoryField = {
   memo: string | null;
 };
 
+export type PurchaseHistory = {
+  purchaseDate: string;
+  numShares: number;
+  purchasePricePerShare: number;
+  memo: string;
+};
+
 export type PortfolioReqBody = {
   name: string;
   securitiesFirm: SecuritiesFirm;

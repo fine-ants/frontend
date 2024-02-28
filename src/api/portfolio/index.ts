@@ -70,7 +70,7 @@ export const postPortfolioHolding = async ({
   body: {
     tickerSymbol: string;
     purchaseHistory?: {
-      purchasedDate: string;
+      purchaseDate: string;
       numShares: number;
       purchasePricePerShare: number;
       memo: string;

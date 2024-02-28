@@ -2,6 +2,7 @@ import {
   PortfolioDetails,
   PortfolioHolding,
   PortfolioReqBody,
+  PurchaseHistory,
   PurchaseHistoryField,
 } from "@api/portfolio/types";
 import { HTTPSTATUS } from "@api/types";
@@ -155,12 +156,7 @@ export default [
     { portfolioId: string },
     {
       tickerSymbol: string;
-      purchaseHistory?: {
-        purchasedDate: string;
-        numShares: number;
-        purchasePricePerShare: number;
-        memo: string | null;
-      };
+      purchaseHistory?: PurchaseHistory;
     }
   >("/api/portfolio/:portfolioId/holdings", async ({ request }) => {
     const { tickerSymbol, purchaseHistory } = await request.json();
@@ -169,7 +165,7 @@ export default [
           {
             purchaseHistoryId: portfolioHoldings.length,
             ...purchaseHistory,
-            purchaseDate: purchaseHistory.purchasedDate,
+            purchaseDate: purchaseHistory.purchaseDate,
           },
         ]
       : [];
@@ -233,12 +229,7 @@ export default [
     {
       portfolioId: number;
       portfolioHoldingId: number;
-      body: {
-        purchaseDate: string;
-        numShares: number;
-        purchasePricePerShare: number;
-        memo: string;
-      };
+      body: PurchaseHistory;
     }
   >(
     "/api/portfolio/:portfolioId/holdings/:portfolioHoldingId/purchaseHistory",

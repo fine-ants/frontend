@@ -48,7 +48,9 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
 
   const addStockToPortfolio = (stock: StockSearchItem) => {
     const purchaseHistory = {
-      purchasedDate: newPurchaseDate ? newPurchaseDate?.toString() : "",
+      purchaseDate: newPurchaseDate
+        ? newPurchaseDate.format("YYYY-MM-DDTHH:mm:ss")
+        : "",
       numShares: Number(numShares),
       purchasePricePerShare: Number(purchasePricePerShare),
       memo,
