@@ -1,33 +1,16 @@
+import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
 import styled from "styled-components";
-import StockTargetPriceForm from "./StockTargetPriceForm";
+import StockTargetPriceForm from "../StockTargetPriceForm";
+import TargetPricesList from "./TargetPricesList";
+import TargetPricesListErrorFallback from "./errorFallback/TargetPricesListErrorFallback";
+import TargetPricesListSkeleton from "./skeleton/TargetPricesListSkeleton";
 
-// TODO: msw 구현
-const alertData = [
-  {
-    id: 1,
-    targetPrice: 80000,
-  },
-  {
-    id: 2,
-    targetPrice: 90000,
-  },
-  {
-    id: 3,
-    targetPrice: 100000,
-  },
-  {
-    id: 4,
-    targetPrice: 110000,
-  },
-];
-
-export default function AlertDropdown() {
+export default function TargetPriceAlertDropdown() {
   const { onOpen, DropdownMenu } = useDropdown();
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -57,18 +40,15 @@ export default function AlertDropdown() {
 
         <Divider />
 
-        <AlertContainer>
-          <AddedAlertTitle>추가된 알림</AddedAlertTitle>
+        <TargetPricesListContainer>
+          <TargetPricesListTitle>추가된 알림</TargetPricesListTitle>
 
-          <TargetPriceAlertList>
-            {alertData.map((alert) => (
-              <TargetPriceAlertItem key={alert.id}>
-                <span>₩{thousandsDelimiter(alert.targetPrice)}</span>
-                <Icon icon="remove" size={16} color="gray600" />
-              </TargetPriceAlertItem>
-            ))}
-          </TargetPriceAlertList>
-        </AlertContainer>
+          <AsyncBoundary
+            SuspenseFallback={<TargetPricesListSkeleton />}
+            ErrorFallback={TargetPricesListErrorFallback}>
+            <TargetPricesList />
+          </AsyncBoundary>
+        </TargetPricesListContainer>
       </DropdownMenu>
     </>
   );
@@ -102,31 +82,14 @@ const Divider = styled.li`
   background-color: ${designSystem.color.neutral.gray200};
 `;
 
-const AddedAlertTitle = styled.div`
+const TargetPricesListTitle = styled.div`
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray600};
 `;
 
-const AlertContainer = styled.li`
+const TargetPricesListContainer = styled.li`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`;
-
-const TargetPriceAlertList = styled.ul`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const TargetPriceAlertItem = styled.li`
-  width: 100%;
-  height: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray900};
 `;

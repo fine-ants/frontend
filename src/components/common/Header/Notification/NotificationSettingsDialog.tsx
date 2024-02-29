@@ -1,4 +1,4 @@
-import { onActivateNotification } from "@api/fcm";
+import { onActivateNotification, onDeactivateAllNotifications } from "@api/fcm";
 import { useMemberNotificationsSettingMutation } from "@api/notifications/queries/useMemberNotificationsSettingMutation";
 import { User } from "@api/user/types";
 import BaseDialog from "@components/BaseDialog";
@@ -8,6 +8,7 @@ import { Icon } from "@components/common/Icon";
 import { createToast } from "@components/common/toast";
 import { UserContext } from "@context/UserContext";
 import designSystem from "@styles/designSystem";
+import retryFn from "@utils/retryFn";
 import { useContext, useState } from "react";
 import styled from "styled-components";
 
@@ -20,19 +21,27 @@ type Props = {
 export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
   const toast = createToast();
 
-  const { fcmTokenId } = useContext(UserContext);
+  const {
+    fcmTokenId,
+    onSubscribePushNotification,
+    onUnsubscribePushNotification,
+  } = useContext(UserContext);
 
   const { browserNotify, maxLossNotify, targetGainNotify, targetPriceNotify } =
     user.notificationPreferences;
   const notificationPermission = Notification.permission;
 
-  const [newBrowserNotify, setBrowserNotify] = useState(browserNotify);
-  const [newMaxLossNotify, setMaxLossNotify] = useState(maxLossNotify);
-  const [newTargetGainNotify, setTargetGainNotify] = useState(targetGainNotify);
-  const [newTargetPriceNotify, setTargetPriceNotify] =
+  const [newBrowserNotify, setNewBrowserNotify] = useState(browserNotify);
+  const [newMaxLossNotify, setNewMaxLossNotify] = useState(maxLossNotify);
+  const [newTargetGainNotify, setNewTargetGainNotify] =
+    useState(targetGainNotify);
+  const [newTargetPriceNotify, setNewTargetPriceNotify] =
     useState(targetPriceNotify);
 
-  const { mutate } = useMemberNotificationsSettingMutation(user.id);
+  const {
+    mutate: mutateNotificationSettings,
+    mutateAsync: mutateAsyncNotificationSettings,
+  } = useMemberNotificationsSettingMutation(user.id);
 
   const isDisabledButton =
     browserNotify === newBrowserNotify &&
@@ -53,30 +62,66 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
       };
 
       toast.info("알림 권한이 차단하여 데스크탑 알림을 받을 수 없습니다");
-      mutate(body);
+      mutateNotificationSettings(body);
 
       return;
     }
 
-    setBrowserNotify((prev) => !prev);
+    setNewBrowserNotify((prev) => !prev);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (isDisabledButton) return;
 
-    const body = {
-      browserNotify,
-      maxLossNotify,
-      targetGainNotify,
-      targetPriceNotify,
-      fcmTokenId,
-    };
+    try {
+      const newSettingsBody = {
+        browserNotify: newBrowserNotify,
+        maxLossNotify: newMaxLossNotify,
+        targetGainNotify: newTargetGainNotify,
+        targetPriceNotify: newTargetPriceNotify,
+        fcmTokenId,
+      };
 
-    mutate(body);
-    onClose();
+      await mutateAsyncNotificationSettings(newSettingsBody);
 
-    if (browserNotify) {
-      onActivateNotification();
+      try {
+        const notifyValues = Object.values(newSettingsBody).filter(
+          (val) => typeof val === "boolean"
+        );
+        const isAtleastOneActive = notifyValues.some((val) => val === true);
+        const isAllInactive = notifyValues.every((val) => val === false);
+
+        if (isAtleastOneActive) {
+          // 알림 설정이 하나라도 true면 FCM에 subscribe하고 서버에 토큰 등록
+          const newFCMTokenId = await retryFn<number | undefined>(
+            onActivateNotification
+          );
+          if (newFCMTokenId) {
+            onSubscribePushNotification(newFCMTokenId);
+            toast.success("알림 설정을 변경했습니다");
+          }
+        } else if (isAllInactive && fcmTokenId) {
+          // 알림 설정이 모두 false라면 FCM에서 unsubscribe하고 서버에서 토큰 제거
+          await retryFn(() => onDeactivateAllNotifications(fcmTokenId));
+          onUnsubscribePushNotification();
+          toast.success("알림 설정을 해제했습니다");
+        }
+      } catch (error) {
+        // Rollback
+        const prevSettingsBody = {
+          browserNotify,
+          maxLossNotify,
+          targetGainNotify,
+          targetPriceNotify,
+          fcmTokenId,
+        };
+        await mutateAsyncNotificationSettings(prevSettingsBody);
+        toast.error("알림 설정을 변경하는데 문제가 발생했습니다");
+      }
+
+      onClose();
+    } catch (error) {
+      toast.error("알림 설정을 변경하는데 문제가 발생했습니다");
     }
   };
 
@@ -114,7 +159,7 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
                 </ToggleTitle>
                 <ToggleSwitch
                   onToggle={onToggleBrowserNotify}
-                  isChecked={browserNotify}
+                  isChecked={newBrowserNotify}
                 />
               </>
             </ToggleList>
@@ -126,22 +171,22 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
           <ToggleList>
             <ToggleTitle>포트폴리오 목표 수익률 도달 알림</ToggleTitle>
             <ToggleSwitch
-              onToggle={() => setTargetGainNotify((prev) => !prev)}
-              isChecked={targetGainNotify}
+              onToggle={() => setNewTargetGainNotify((prev) => !prev)}
+              isChecked={newTargetGainNotify}
             />
           </ToggleList>
           <ToggleList>
             <ToggleTitle>포트폴리오 최대 손실율 도달 알림</ToggleTitle>
             <ToggleSwitch
-              onToggle={() => setMaxLossNotify((prev) => !prev)}
-              isChecked={maxLossNotify}
+              onToggle={() => setNewMaxLossNotify((prev) => !prev)}
+              isChecked={newMaxLossNotify}
             />
           </ToggleList>
           <ToggleList>
             <ToggleTitle>종목 지정가 알림</ToggleTitle>
             <ToggleSwitch
-              onToggle={() => setTargetPriceNotify((prev) => !prev)}
-              isChecked={targetPriceNotify}
+              onToggle={() => setNewTargetPriceNotify((prev) => !prev)}
+              isChecked={newTargetPriceNotify}
             />
           </ToggleList>
         </SettingContainer>

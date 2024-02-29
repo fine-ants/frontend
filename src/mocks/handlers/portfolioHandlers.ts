@@ -2,6 +2,8 @@ import {
   PortfolioDetails,
   PortfolioHolding,
   PortfolioReqBody,
+  PurchaseHistory,
+  PurchaseHistoryField,
 } from "@api/portfolio/types";
 import { HTTPSTATUS } from "@api/types";
 import {
@@ -151,15 +153,22 @@ export default [
 
   // Add Portfolio Holding
   http.post<
-    never,
+    { portfolioId: string },
     {
-      portfolioId: number;
-      body: {
-        tickerSymbol: string;
-      };
+      tickerSymbol: string;
+      purchaseHistory?: PurchaseHistory;
     }
   >("/api/portfolio/:portfolioId/holdings", async ({ request }) => {
-    const { tickerSymbol } = (await request.json()).body;
+    const { tickerSymbol, purchaseHistory } = await request.json();
+    const purchaseHistoryArray: PurchaseHistoryField[] = purchaseHistory
+      ? [
+          {
+            purchaseHistoryId: portfolioHoldings.length,
+            ...purchaseHistory,
+            purchaseDate: purchaseHistory.purchaseDate,
+          },
+        ]
+      : [];
 
     const newPortfolioHoldingId = portfolioHoldings.length + 1;
     const data: PortfolioHolding = {
@@ -176,10 +185,11 @@ export default [
       totalReturnRate: 16,
       annualDividend: 6000,
       annualDividendYield: 10,
-      purchaseHistory: [],
+      purchaseHistory: purchaseHistoryArray,
       dateCreated: "2021-01-01",
     };
 
+    // TODO purchaseHistory type 확인 필요
     portfolioHoldings.push(data);
 
     return HttpResponse.json(
@@ -219,12 +229,7 @@ export default [
     {
       portfolioId: number;
       portfolioHoldingId: number;
-      body: {
-        purchaseDate: string;
-        numShares: number;
-        purchasePricePerShare: number;
-        memo: string;
-      };
+      body: PurchaseHistory;
     }
   >(
     "/api/portfolio/:portfolioId/holdings/:portfolioHoldingId/purchaseHistory",

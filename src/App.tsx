@@ -11,7 +11,11 @@ import { setupFCMToken } from "./api/fcm";
 export default function App() {
   const { user, onSubscribePushNotification } = useContext(UserContext);
 
-  if (user) {
+  const userEnabledNotifications = Object.values(
+    user?.notificationPreferences ?? []
+  ).some((value) => value === true);
+
+  if (user && userEnabledNotifications) {
     (async () => {
       const fcmTokenId = await setupFCMToken(user);
       if (fcmTokenId) {

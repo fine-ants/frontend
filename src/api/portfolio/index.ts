@@ -5,6 +5,7 @@ import {
   PortfolioPageCharts,
   PortfolioReqBody,
   PortfoliosList,
+  PurchaseHistory,
 } from "./types";
 
 export const getPortfoliosList = async () => {
@@ -69,6 +70,7 @@ export const postPortfolioHolding = async ({
   portfolioId: number;
   body: {
     tickerSymbol: string;
+    purchaseHistory?: PurchaseHistory;
   };
 }) => {
   const res = await fetcher.post<Response<null>>(

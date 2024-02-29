@@ -23,4 +23,5 @@ const StyledEmptyNotification = styled.div`
 
 const Text = styled.div`
   font: ${designSystem.font.body2.font};
+  color: ${designSystem.color.neutral.gray600};
 `;

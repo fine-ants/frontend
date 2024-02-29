@@ -7,6 +7,7 @@ import {
   PortfolioNotification,
   PortfolioNotificationSettingsPutBody,
   StockNotification,
+  StockTargetPrice,
 } from "./types";
 
 export const postNotificationForTest = async (notification: {
@@ -34,6 +35,11 @@ export const postFCMToken = async (fcmToken: string) => {
   return res.data;
 };
 
+export const deleteFCMToken = async (fcmTokenId: number) => {
+  const res = await fetcher.delete<Response<null>>(`/fcm/tokens/${fcmTokenId}`);
+  return res.data;
+};
+
 export const getMemberNotifications = async (memberId: number) => {
   const res = await fetcher.get<
     Response<{ notifications: MemberNotification[] }>
@@ -43,14 +49,14 @@ export const getMemberNotifications = async (memberId: number) => {
 
 export const patchMemberNotificationsReadAll = async ({
   memberId,
-  body,
+  notificationIds,
 }: {
   memberId: number;
-  body: number[];
+  notificationIds: number[];
 }) => {
   const res = await fetcher.patch<Response<MemberNotification>>(
     `/members/${memberId}/notifications`,
-    body
+    { notificationIds }
   );
   return res.data;
 };
@@ -100,6 +106,13 @@ export const putMemberNotificationSettings = async ({
 export const getStockNotificationSettings = async () => {
   const res = await fetcher.get<Response<{ stocks: StockNotification[] }>>(
     `/stocks/target-price/notifications`
+  );
+  return res.data;
+};
+
+export const getSpecificStockTargetPrices = async (tickerSymbol: string) => {
+  const res = await fetcher.get<Response<{ targetPrices: StockTargetPrice[] }>>(
+    `/stocks/${tickerSymbol}/target-price/notifications`
   );
   return res.data;
 };

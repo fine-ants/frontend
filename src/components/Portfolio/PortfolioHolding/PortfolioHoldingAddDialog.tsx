@@ -5,8 +5,10 @@ import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
+import { useText } from "@fineants/demolition";
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { executeIfNumeric } from "@utils/executeIfNumeric";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -33,17 +35,40 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     dayjs(new Date())
   );
 
+  const { value: numShares, onChange: onNumSharesChange } = useText();
+  const {
+    value: purchasePricePerShare,
+    onChange: onPurchasePricePerShareChange,
+  } = useText();
+  const { value: memo, onChange: onMemoChange } = useText();
+
   const onSelectOption = (stock: StockSearchItem) => {
     setSelectedStock(stock);
   };
 
   const addStockToPortfolio = (stock: StockSearchItem) => {
+    const purchaseHistory = {
+      purchaseDate: newPurchaseDate
+        ? newPurchaseDate.format("YYYY-MM-DDTHH:mm:ss")
+        : "",
+      numShares: Number(numShares),
+      purchasePricePerShare: Number(purchasePricePerShare),
+      memo,
+    };
+
+    const hasPurchaseHistory =
+      newPurchaseDate?.toString() !== "" &&
+      numShares !== "" &&
+      purchasePricePerShare !== "";
+
     portfolioHoldingAddMutate({
       portfolioId: Number(portfolioId),
       body: {
         tickerSymbol: stock.tickerSymbol,
+        purchaseHistory: hasPurchaseHistory ? purchaseHistory : undefined,
       },
     });
+
     setSelectedStock(null);
   };
 
@@ -109,7 +134,17 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
         <InputBox>
           <label>매입가</label>
           <InputWrapper>
-            <Input type="text" placeholder="매입가를 입력하세요" />
+            <Input
+              type="text"
+              placeholder="매입가를 입력하세요"
+              value={purchasePricePerShare}
+              onChange={(e) =>
+                executeIfNumeric(
+                  e.target.value.trim(),
+                  onPurchasePricePerShareChange
+                )
+              }
+            />
             <div>₩</div>
           </InputWrapper>
         </InputBox>
@@ -117,13 +152,24 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
         <InputBox>
           <label>매입 개수</label>
           <InputWrapper>
-            <Input type="text" placeholder="매입 개수를 입력하세요" />
+            <Input
+              type="text"
+              placeholder="매입 개수를 입력하세요"
+              value={numShares}
+              onChange={(e) =>
+                executeIfNumeric(e.target.value.trim(), onNumSharesChange)
+              }
+            />
           </InputWrapper>
         </InputBox>
 
         <InputBox>
           <label>메모</label>
-          <InputTextArea placeholder="메모를 입력하세요" />
+          <InputTextArea
+            placeholder="메모를 입력하세요"
+            value={memo}
+            onChange={(e) => onMemoChange(e.target.value.trim())}
+          />
         </InputBox>
       </InputContainer>
 

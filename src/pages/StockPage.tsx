@@ -1,5 +1,5 @@
 import useStockItemQuery from "@api/stock/queries/useStockPageQeury";
-import AlertDropdown from "@components/Stock/AlertDropdown";
+import AlertDropdown from "@components/Stock/TargetPriceAlertDropdown/TargetPriceAlertDropdown";
 import { WatchlistHasStockDropdown } from "@components/Stock/WatchlistHasStock/WatchlistHasStockDropdown";
 import RateBadge from "@components/common/Badges/DeltaBadge";
 import Header from "@components/common/Header/Header";
