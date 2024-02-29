@@ -73,7 +73,9 @@ export default function VerificationCodeSubPage({
             onComplete={onDigitsFilled}
           />
           <div>
-            <TextButton onClick={onEmailCodeResend}>인증번호 재발송</TextButton>
+            <TextButton type="button" onClick={onEmailCodeResend}>
+              인증번호 재발송
+            </TextButton>
           </div>
         </CodeInputWrapper>
 

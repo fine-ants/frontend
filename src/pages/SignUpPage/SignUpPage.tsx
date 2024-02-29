@@ -21,6 +21,8 @@ import ProfileImageSubPage from "./subPages/ProfileImageSubPage";
 export default function SignUpPage() {
   const navigate = useNavigate();
 
+  const { mutate: signUpMutate } = useSignUpMutation();
+
   const stepList = [
     "main",
     "email",
@@ -44,8 +46,6 @@ export default function SignUpPage() {
     passwordConfirm: "",
   });
 
-  const { mutate: signUpMutate } = useSignUpMutation();
-
   return (
     <AuthBasePage>
       <SignUpContainer>
@@ -59,11 +59,9 @@ export default function SignUpPage() {
             <Funnel.Step name="email">
               <EmailSubPage
                 onPrev={() => changeStep("main")}
-                onNext={(data: string) => {
+                onNext={async (data: string) => {
                   setSignUpData((prev) => ({ ...prev, email: data }));
-                  // Request server to send verification code
-                  // TODO: handle error
-                  postEmailVerification(data);
+                  await postEmailVerification(data);
                   changeStep("verification");
                 }}
               />
