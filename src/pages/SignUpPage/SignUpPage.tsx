@@ -110,7 +110,6 @@ export default function SignUpPage() {
               <ProfileImageSubPage
                 onPrev={() => changeStep("nickname")}
                 onNext={(data: File | null) => {
-                  // setSignUpData((prev) => ({ ...prev, profileImage: data }));
                   signUpMutate(
                     createSignUpFormData({
                       signupData: new Blob([JSON.stringify(signUpData)], {

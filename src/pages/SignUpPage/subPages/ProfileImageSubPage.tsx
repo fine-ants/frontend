@@ -28,8 +28,8 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
     errorMessages: { sizeLimit: "이미지 2MB 이하" },
   });
 
-  const submit = () => {
-    onNext(profileImageFile);
+  const submit = ({ shouldSkipImage }: { shouldSkipImage: boolean }) => {
+    onNext(shouldSkipImage ? null : profileImageFile);
   };
 
   return (
@@ -64,11 +64,13 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
       <ButtonsContainer>
         <NextButton
           type="button"
-          onClick={submit}
+          onClick={() => submit({ shouldSkipImage: false })}
           disabled={profileImageFile === null}>
           등록 완료
         </NextButton>
-        <TextButton onClick={submit}>지금은 건너뛰기</TextButton>
+        <TextButton onClick={() => submit({ shouldSkipImage: true })}>
+          지금은 건너뛰기
+        </TextButton>
       </ButtonsContainer>
     </SubPage>
   );
