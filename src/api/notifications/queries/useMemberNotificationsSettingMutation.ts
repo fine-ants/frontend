@@ -29,5 +29,9 @@ export function useMemberNotificationsSettingMutation(memberId: number) {
         navigate(Routes.SIGNIN);
       }
     },
+    meta: {
+      toastSuccessMessage: "알림 설정을 변경했습니다",
+      toastErrorMessage: "알림 설정에 실패했습니다",
+    },
   });
 }
