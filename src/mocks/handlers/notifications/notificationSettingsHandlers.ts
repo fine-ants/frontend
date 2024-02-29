@@ -3,8 +3,11 @@ import {
   portfolioNotifications,
   stockNotifications,
   successfulAllStockPriceTargetsDeleteData,
+  successfulFCMTokenDeletionData,
+  successfulFCMTokenRegistrationData,
   successfulPortfolioNotificationSettingsData,
   successfulPortfolioNotificationSettingsPutData,
+  successfulSpecificStockTargetPricesData,
   successfulStockNotificationSettingsData,
   successfulStockNotificationSettingsPutData,
   successfulStockPriceTargetDeleteData,
@@ -13,12 +16,37 @@ import {
 import { HttpResponse, http } from "msw";
 
 export default [
+  http.post("/api/fcm/tokens", () => {
+    return HttpResponse.json(successfulFCMTokenRegistrationData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
+
+  http.delete("/api/fcm/tokens/:fcmIdToken", () => {
+    return HttpResponse.json(successfulFCMTokenDeletionData, {
+      status: HTTPSTATUS.success,
+    });
+  }),
+
   // Stock Notification Settings
   http.get("/api/stocks/target-price/notifications", () => {
     return HttpResponse.json(successfulStockNotificationSettingsData, {
       status: HTTPSTATUS.success,
     });
   }),
+
+  http.get<{ tickerSymbol: string }>(
+    "/api/stocks/:tickerSymbol/target-price/notifications",
+    ({ params }) => {
+      const { tickerSymbol } = params;
+      return HttpResponse.json(
+        successfulSpecificStockTargetPricesData(tickerSymbol),
+        {
+          status: HTTPSTATUS.success,
+        }
+      );
+    }
+  ),
 
   http.put<never, { tickerSymbol: string; isActive: boolean }>(
     "/api/stocks/target-price/notifications",

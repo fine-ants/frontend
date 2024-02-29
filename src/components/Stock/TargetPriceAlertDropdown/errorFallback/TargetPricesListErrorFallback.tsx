@@ -3,7 +3,7 @@ import designSystem from "@styles/designSystem";
 import { FallbackProps } from "react-error-boundary";
 import styled from "styled-components";
 
-export default function WatchlistHasStockListErrorFallback({
+export default function TargetPricesListErrorFallback({
   resetErrorBoundary,
 }: FallbackProps) {
   return (
@@ -18,8 +18,7 @@ export default function WatchlistHasStockListErrorFallback({
 
 const StyledTargetPricesListErrorFallback = styled.div`
   width: 100%;
-  max-height: 160px;
-  padding: 12px 0 16px 0;
+  max-height: 90px;
   text-align: center;
 `;
 

@@ -32,6 +32,23 @@ export const stockNotifications = [
     isActive: true,
     lastUpdated: "2024-01-28T10:10:10",
   },
+  {
+    companyName: "삼성SDI보통주",
+    tickerSymbol: "006400",
+    lastPrice: 200000,
+    targetPrices: [
+      {
+        notificationId: 4,
+        targetPrice: 250000,
+        dateAdded: "2024-01-27T10:10:10",
+      },
+      {
+        notificationId: 5,
+        targetPrice: 280000,
+        dateAdded: "2024-01-27T10:10:10",
+      },
+    ],
+  },
 ];
 
 export const portfolioNotifications = [
@@ -51,6 +68,22 @@ export const portfolioNotifications = [
   },
 ];
 
+export const successfulFCMTokenRegistrationData = {
+  code: 200,
+  status: "OK",
+  message: "토큰을 등록했습니다",
+  data: {
+    fcmTokenId: 1,
+  },
+};
+
+export const successfulFCMTokenDeletionData = {
+  code: 200,
+  status: "OK",
+  message: "토큰을 제거했습니다",
+  data: null,
+};
+
 export const successfulStockNotificationSettingsData = {
   code: 200,
   status: "OK",
@@ -58,6 +91,23 @@ export const successfulStockNotificationSettingsData = {
   data: {
     stocks: stockNotifications,
   },
+};
+
+export const successfulSpecificStockTargetPricesData = (
+  tickerSymbol: string
+) => {
+  const targetPrices = stockNotifications.find(
+    (stock) => stock.tickerSymbol === tickerSymbol
+  )?.targetPrices;
+
+  return {
+    code: 200,
+    status: "OK",
+    message: "해당 종목 지정가 알림 조회를 성공했습니다",
+    data: {
+      targetPrices,
+    },
+  };
 };
 
 export const successfulStockNotificationSettingsPutData = {

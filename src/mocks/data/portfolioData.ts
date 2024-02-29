@@ -366,28 +366,28 @@ const portfolioHoldingsPieChart = [
   {
     name: "삼성전자보통주",
     valuation: 600000,
-    weight: 22,
+    weight: 32,
     totalGain: 100000,
     totalGainRate: 10,
   },
   {
     name: "NAVER",
     valuation: 1475200,
-    weight: 18,
+    weight: 20,
     totalGain: 275200,
     totalGainRate: 22.93,
   },
   {
     name: "카카오",
     valuation: 1000000,
-    weight: 12,
+    weight: 17,
     totalGain: 0,
     totalGainRate: 0,
   },
   {
     name: "SK하이닉스",
     valuation: 500000,
-    weight: 10,
+    weight: 15,
     totalGain: 0,
     totalGainRate: 0,
   },
@@ -423,51 +423,51 @@ const portfolioHoldingsPieChart = [
 
 const portfolioHoldingsDividendChart = [
   {
-    name: "1월",
+    month: 1,
     amount: 50000,
   },
   {
-    name: "2월",
+    month: 2,
     amount: 22100,
   },
   {
-    name: "3월",
+    month: 3,
     amount: 13500,
   },
   {
-    name: "4월",
+    month: 4,
     amount: 45000,
   },
   {
-    name: "5월",
+    month: 5,
     amount: 75000,
   },
   {
-    name: "6월",
+    month: 6,
     amount: 0,
   },
   {
-    name: "7월",
+    month: 7,
     amount: 21000,
   },
   {
-    name: "8월",
+    month: 8,
     amount: 35000,
   },
   {
-    name: "9월",
+    month: 9,
     amount: 12000,
   },
   {
-    name: "10월",
+    month: 10,
     amount: 45000,
   },
   {
-    name: "11월",
+    month: 11,
     amount: 89000,
   },
   {
-    name: "12월",
+    month: 12,
     amount: 35000,
   },
 ];
@@ -475,27 +475,27 @@ const portfolioHoldingsDividendChart = [
 const portfolioHoldingsSectorChart = [
   {
     sector: "전기전자",
-    sectorWeight: 22,
+    sectorWeight: 25,
   },
   {
     sector: "서비스업",
-    sectorWeight: 18,
+    sectorWeight: 25,
   },
   {
     sector: "증권",
-    sectorWeight: 12,
+    sectorWeight: 20,
   },
   {
     sector: "은행",
-    sectorWeight: 10,
+    sectorWeight: 15,
   },
   {
     sector: "기계",
-    sectorWeight: 6,
+    sectorWeight: 15,
   },
   {
     sector: "의료정밀",
-    sectorWeight: 4,
+    sectorWeight: 5,
   },
 ];
 

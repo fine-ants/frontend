@@ -4,6 +4,9 @@ export const notificationKeys = createQueryKeys("notifications", {
   stockNotificationSettings: () => ({
     queryKey: ["stockNotificationSettings"],
   }),
+  specificStockTargetPrices: (tickerSymbol: string) => ({
+    queryKey: [tickerSymbol],
+  }),
   portfolioNotificationSettings: () => ({
     queryKey: ["portfolioNotificationSettings"],
   }),

@@ -2,13 +2,17 @@
 import { initializeApp } from "firebase/app";
 import {
   MessagePayload,
+  deleteToken,
   getMessaging,
   getToken,
   isSupported,
   onMessage,
 } from "firebase/messaging";
 import { toast } from "src/main";
-import { postFCMToken } from "./notifications";
+import {
+  deleteFCMToken as deleteFCMTokenFromServer,
+  postFCMToken as sendFCMTokenToServer,
+} from "./notifications";
 import { User } from "./user/types";
 
 const firebaseApp = initializeApp({
@@ -32,17 +36,11 @@ export const fetchFCMRegToken = async () => {
 
 export const fetchAndSendFCMRegToken = async () => {
   const regToken = await fetchFCMRegToken();
-  const fcmTokenId = await sendTokenToServer(regToken);
-  return fcmTokenId;
-};
 
-export const sendTokenToServer = async (currentToken: string) => {
-  try {
-    const res = await postFCMToken(currentToken);
-    return res.data.fcmTokenId;
-  } catch (error) {
-    console.error("Error sending token to server: ", error);
-  }
+  const {
+    data: { fcmTokenId },
+  } = await sendFCMTokenToServer(regToken);
+  return fcmTokenId;
 };
 
 const messagePayloadListener = (payload: MessagePayload) => {
@@ -50,10 +48,9 @@ const messagePayloadListener = (payload: MessagePayload) => {
 
   if (!data) return;
 
-  const { title, body, type, referenceId, timestamp } = data;
+  const { title, body } = data;
 
-  // TODO: 알림 UI 띄우기 및 알림 수 증가
-  console.log(title, body, type, referenceId, timestamp);
+  new Notification(title, { body });
 };
 
 // Call upon app initialization
@@ -63,10 +60,11 @@ export const setupFCMToken = async (user: User) => {
     return;
   }
 
-  if (
-    user.notificationPreferences.browserNotify === true &&
-    Notification.permission === "granted"
-  ) {
+  const userEnabledNotifications = Object.values(
+    user?.notificationPreferences ?? []
+  ).some((value) => value === true);
+
+  if (userEnabledNotifications && Notification.permission === "granted") {
     try {
       const fcmTokenId = await fetchAndSendFCMRegToken();
       onMessage(messaging, messagePayloadListener);
@@ -101,5 +99,13 @@ export const onActivateNotification = async () => {
     } catch (error) {
       console.error(error);
     }
+  }
+};
+
+export const onDeactivateAllNotifications = async (fcmTokenId: number) => {
+  const isTokenUnregisteredFromFCM = await deleteToken(messaging);
+
+  if (isTokenUnregisteredFromFCM) {
+    await deleteFCMTokenFromServer(fcmTokenId);
   }
 };

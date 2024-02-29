@@ -8,8 +8,8 @@ export default function useReadAllMemberNotificationsMutation(
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (body: number[]) =>
-      patchMemberNotificationsReadAll({ memberId, body }),
+    mutationFn: (notificationIds: number[]) =>
+      patchMemberNotificationsReadAll({ memberId, notificationIds }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: notificationKeys.memberNotifications().queryKey,
