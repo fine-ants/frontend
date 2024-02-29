@@ -10,7 +10,8 @@ import {
 import { TextField } from "@components/common/TextField/TextField";
 import { useDebounce, useText, validateEmail } from "@fineants/demolition";
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import styled from "styled-components";
 import SubPage from "./SubPage";
 
 type Props = {
@@ -51,6 +52,11 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
     setDuplicateCheckErrorMsg("");
   };
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onNext(debouncedEmail);
+  };
+
   useEffect(() => {
     if (debouncedEmail === "" || isError) return;
 
@@ -83,21 +89,26 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         </AuthPageTitleCaption>
       </AuthPageHeader>
 
-      <TextField
-        error={isError || !isDuplicateChecked}
-        placeholder="이메일"
-        value={email}
-        errorText={errorText}
-        onChange={onEmailChange}
-        clearValue={onEmailClear}
-      />
+      <Form onSubmit={onSubmit}>
+        <TextField
+          error={isError || !isDuplicateChecked}
+          placeholder="이메일"
+          value={email}
+          errorText={errorText}
+          onChange={onEmailChange}
+          clearValue={onEmailClear}
+        />
 
-      <NextButton
-        type="button"
-        onClick={() => onNext(debouncedEmail)}
-        disabled={isError || !isDuplicateChecked}>
-        다음 단계
-      </NextButton>
+        <NextButton type="submit" disabled={isError || !isDuplicateChecked}>
+          다음 단계
+        </NextButton>
+      </Form>
     </SubPage>
   );
 }
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 58px;
+`;

@@ -8,7 +8,8 @@ import {
 import { TextField } from "@components/common/TextField/TextField";
 import { useDebounce, useText, validateNickname } from "@fineants/demolition";
 import useNicknameDuplicateCheck from "@hooks/useNicknameDuplicateCheck";
-import { ChangeEvent } from "react";
+import { ChangeEvent, FormEvent } from "react";
+import styled from "styled-components";
 import SubPage from "./SubPage";
 
 type Props = {
@@ -58,6 +59,11 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
     ? ""
     : duplicateCheckErrorMsg;
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onNext(nickname);
+  };
+
   return (
     <SubPage>
       <AuthOnPrevButton onPrev={onPrev} />
@@ -68,21 +74,27 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
           닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다
         </AuthPageTitleCaption>
       </AuthPageHeader>
-      <TextField
-        error={isError || !isDuplicateChecked}
-        placeholder="닉네임"
-        value={nickname}
-        errorText={errorText}
-        onChange={onNicknameChange}
-        clearValue={onNicknameClear}
-      />
 
-      <NextButton
-        disabled={isError || !isDuplicateChecked}
-        type="button"
-        onClick={() => onNext(nickname)}>
-        다음 단계
-      </NextButton>
+      <Form onSubmit={onSubmit}>
+        <TextField
+          error={isError || !isDuplicateChecked}
+          placeholder="닉네임"
+          value={nickname}
+          errorText={errorText}
+          onChange={onNicknameChange}
+          clearValue={onNicknameClear}
+        />
+
+        <NextButton disabled={isError || !isDuplicateChecked} type="submit">
+          다음 단계
+        </NextButton>
+      </Form>
     </SubPage>
   );
 }
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 58px;
+`;

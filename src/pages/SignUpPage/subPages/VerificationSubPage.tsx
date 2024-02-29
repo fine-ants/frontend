@@ -8,7 +8,7 @@ import {
   NextButton,
 } from "@components/auth/AuthPageCommon";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import SubPage from "./SubPage";
 
@@ -47,6 +47,11 @@ export default function VerificationCodeSubPage({
     resendVerificationEmail();
   };
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onNext();
+  };
+
   return (
     <SubPage>
       <AuthPageHeader>
@@ -58,25 +63,33 @@ export default function VerificationCodeSubPage({
           입력하세요
         </AuthPageTitleCaption>
       </AuthPageHeader>
-      <CodeInputWrapper>
-        <VerificationCodeInput
-          value={digits}
-          inputLength={verificationCodeInputLength}
-          isError={isError}
-          onChange={onDigitsChange}
-          onComplete={onDigitsFilled}
-        />
-        <div>
-          <TextButton onClick={onEmailCodeResend}>인증번호 재발송</TextButton>
-        </div>
-      </CodeInputWrapper>
+      <Form onSubmit={onSubmit}>
+        <CodeInputWrapper>
+          <VerificationCodeInput
+            value={digits}
+            inputLength={verificationCodeInputLength}
+            isError={isError}
+            onChange={onDigitsChange}
+            onComplete={onDigitsFilled}
+          />
+          <div>
+            <TextButton onClick={onEmailCodeResend}>인증번호 재발송</TextButton>
+          </div>
+        </CodeInputWrapper>
 
-      <NextButton type="button" disabled={!isButtonDisabled} onClick={onNext}>
-        다음 단계
-      </NextButton>
+        <NextButton type="submit" disabled={!isButtonDisabled}>
+          다음 단계
+        </NextButton>
+      </Form>
     </SubPage>
   );
 }
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 58px;
+`;
 
 const EmailText = styled.span`
   font: ${designSystem.font.body3};
