@@ -20,15 +20,15 @@ export const successfulUserData = {
   },
 };
 
-export const successfulProfileDetailsEditData = ({
+export const successfulProfileDetailsEditData = async ({
   profileInformation,
   profileImageFile,
 }: {
-  profileInformation?: string;
-  profileImageFile?: File;
+  profileInformation?: Blob;
+  profileImageFile?: File | "";
 }) => {
   const parsedProfileInformation = profileInformation
-    ? JSON.parse(profileInformation)
+    ? await JSON.parse(await profileInformation.text())
     : null;
 
   return {
@@ -42,6 +42,8 @@ export const successfulProfileDetailsEditData = ({
         email: "d@d.com",
         profileUrl: profileImageFile
           ? URL.createObjectURL(profileImageFile)
+          : profileImageFile === ""
+          ? null
           : "https://avatars.githubusercontent.com/u/79886384?v=4",
       },
     },

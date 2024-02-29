@@ -82,8 +82,8 @@ export default function ProfileSettingsSubPage() {
         })
       );
     }
-    if (profileImageFile) {
-      formData.append("profileImageFile", profileImageFile);
+    if (profileImageUrl !== user?.profileUrl) {
+      formData.append("profileImageFile", profileImageFile ?? "");
     }
 
     profileDetailsMutate(formData);
@@ -96,6 +96,7 @@ export default function ProfileSettingsSubPage() {
     : duplicateCheckErrorMsg;
 
   const isSaveButtonDisabled =
+    nicknameValue === "" ||
     (nicknameValue === user?.nickname &&
       profileImageUrl === user?.profileUrl) ||
     (nicknameValue !== user?.nickname && !isDuplicateChecked) ||

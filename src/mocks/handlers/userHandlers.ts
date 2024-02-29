@@ -36,7 +36,7 @@ export default [
       {}
     );
 
-    return HttpResponse.json(successfulProfileDetailsEditData(data), {
+    return HttpResponse.json(await successfulProfileDetailsEditData(data), {
       status: HTTPSTATUS.success,
     });
   }),
