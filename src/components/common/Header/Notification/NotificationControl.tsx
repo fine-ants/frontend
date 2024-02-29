@@ -33,9 +33,14 @@ export function NotificationControl({ user }: { user: User }) {
   const handleClose = () => {
     if (!notifications) return;
 
-    const notificationIds = notifications.map((data) => data.notificationId);
+    const unreadNotificationIds = notifications
+      .filter((data) => !data.isRead)
+      .map((obj) => obj.notificationId);
 
-    mutate(notificationIds);
+    if (unreadNotificationIds.length > 0) {
+      mutate(unreadNotificationIds);
+    }
+
     setAnchorEl(null);
   };
 
