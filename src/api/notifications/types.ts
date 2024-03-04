@@ -1,3 +1,5 @@
+import { SecuritiesFirm } from "@styles/securitiesFirmLogos";
+
 export type NotificationType = "stock" | "portfolio";
 
 export type MemberNotification = {
@@ -36,6 +38,7 @@ export type StockTargetPrice = {
 
 export type PortfolioNotification = {
   portfolioId: number;
+  securitiesFirm: SecuritiesFirm;
   name: string;
   targetGainNotify: boolean;
   maxLossNotify: boolean;
