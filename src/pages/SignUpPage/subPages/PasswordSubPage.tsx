@@ -7,6 +7,8 @@ import {
 } from "@components/auth/AuthPageCommon";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { useText, validatePassword } from "@fineants/demolition";
+import { FormEvent } from "react";
+import styled from "styled-components";
 import SubPage from "./SubPage";
 
 type Props = {
@@ -37,7 +39,18 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
     validators: [passwordValidator],
   });
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onNext(password, passwordConfirm);
+  };
+
   const isPasswordMismatch = password !== passwordConfirm;
+
+  const isButtonDisabled =
+    isPasswordError ||
+    isPasswordConfirmError ||
+    password !== passwordConfirm ||
+    password === "";
 
   return (
     <SubPage>
@@ -50,32 +63,41 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
         </AuthPageTitleCaption>
       </AuthPageHeader>
 
-      <PasswordTextField
-        error={isPasswordError && password !== ""}
-        password={password}
-        onChange={(e) => onPasswordChange(e.target.value.trim())}
-        placeholder="비밀번호"
-        errorText={error}
-      />
+      <Form onSubmit={onSubmit}>
+        <TextFieldsWrapper>
+          <PasswordTextField
+            error={isPasswordError && password !== ""}
+            password={password}
+            onChange={(e) => onPasswordChange(e.target.value.trim())}
+            placeholder="비밀번호"
+            errorText={error}
+          />
 
-      <PasswordTextField
-        error={isPasswordMismatch && passwordConfirm !== ""}
-        password={passwordConfirm}
-        onChange={(e) => onPasswordConfirmChange(e.target.value.trim())}
-        placeholder="비밀번호 확인"
-        errorText="비밀번호가 일치하지 않습니다"
-      />
+          <PasswordTextField
+            error={isPasswordMismatch && passwordConfirm !== ""}
+            password={passwordConfirm}
+            onChange={(e) => onPasswordConfirmChange(e.target.value.trim())}
+            placeholder="비밀번호 확인"
+            errorText="비밀번호가 일치하지 않습니다"
+          />
+        </TextFieldsWrapper>
 
-      <NextButton
-        type="button"
-        onClick={() => onNext(password, passwordConfirm)}
-        disabled={
-          isPasswordError ||
-          isPasswordConfirmError ||
-          password !== passwordConfirm
-        }>
-        다음
-      </NextButton>
+        <NextButton type="submit" disabled={isButtonDisabled}>
+          다음
+        </NextButton>
+      </Form>
     </SubPage>
   );
 }
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 58px;
+`;
+
+const TextFieldsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+`;
