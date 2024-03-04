@@ -34,10 +34,12 @@ export function NotificationControl({ user }: { user: User }) {
     if (!notifications) return;
 
     const unreadNotificationIds = notifications.reduce(
-      (accumulator: number[], currentValue) => (
-        !currentValue.isRead && accumulator.push(currentValue.notificationId),
-        accumulator
-      ),
+      (accumulator: number[], currentValue) => {
+        if (!currentValue.isRead) {
+          accumulator.push(currentValue.notificationId);
+        }
+        return accumulator;
+      },
       []
     );
 
