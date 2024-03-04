@@ -21,6 +21,8 @@ import ProfileImageSubPage from "./subPages/ProfileImageSubPage";
 export default function SignUpPage() {
   const navigate = useNavigate();
 
+  const { mutate: signUpMutate } = useSignUpMutation();
+
   const stepList = [
     "main",
     "email",
@@ -44,8 +46,6 @@ export default function SignUpPage() {
     passwordConfirm: "",
   });
 
-  const { mutate: signUpMutate } = useSignUpMutation();
-
   return (
     <AuthBasePage>
       <SignUpContainer>
@@ -61,8 +61,6 @@ export default function SignUpPage() {
                 onPrev={() => changeStep("main")}
                 onNext={(data: string) => {
                   setSignUpData((prev) => ({ ...prev, email: data }));
-                  // Request server to send verification code
-                  // TODO: handle error
                   postEmailVerification(data);
                   changeStep("verification");
                 }}
@@ -110,7 +108,6 @@ export default function SignUpPage() {
               <ProfileImageSubPage
                 onPrev={() => changeStep("nickname")}
                 onNext={(data: File | null) => {
-                  // setSignUpData((prev) => ({ ...prev, profileImage: data }));
                   signUpMutate(
                     createSignUpFormData({
                       signupData: new Blob([JSON.stringify(signUpData)], {

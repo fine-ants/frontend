@@ -1,7 +1,7 @@
 import fineAntsLogo from "@assets/icons/logo/fineAnts.svg";
 import Routes from "@router/Routes";
 import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -9,17 +9,13 @@ type Props = {
 };
 
 export default function AuthBasePage({ children }: Props) {
-  const navigate = useNavigate();
-
-  const onLogoClick = () => {
-    navigate(Routes.LANDING);
-  };
-
   return (
     <StyledBasePage>
-      <StyledSignInHeader onClick={onLogoClick}>
-        <img src={fineAntsLogo} alt="FineAnts 로고 이미지" />
-      </StyledSignInHeader>
+      <Header>
+        <Link to={Routes.LANDING}>
+          <img src={fineAntsLogo} alt="FineAnts 로고 이미지" />
+        </Link>
+      </Header>
       {children}
     </StyledBasePage>
   );
@@ -34,8 +30,7 @@ const StyledBasePage = styled.div`
   background-color: ${({ theme: { color } }) => color.neutral.gray50};
 `;
 
-const StyledSignInHeader = styled.header`
+const Header = styled.header`
   width: 100%;
   padding: 28px 0 0 40px;
-  cursor: pointer;
 `;
