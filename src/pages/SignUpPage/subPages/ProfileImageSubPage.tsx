@@ -112,7 +112,6 @@ const ImageInput = styled.input`
 `;
 
 const ErrorCaption = styled.p`
-  // align-self: center;
   position: absolute;
   right: -120px;
   bottom: 0;
