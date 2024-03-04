@@ -59,9 +59,9 @@ export default function SignUpPage() {
             <Funnel.Step name="email">
               <EmailSubPage
                 onPrev={() => changeStep("main")}
-                onNext={async (data: string) => {
+                onNext={(data: string) => {
                   setSignUpData((prev) => ({ ...prev, email: data }));
-                  await postEmailVerification(data);
+                  postEmailVerification(data);
                   changeStep("verification");
                 }}
               />
