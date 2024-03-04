@@ -33,9 +33,13 @@ export function NotificationControl({ user }: { user: User }) {
   const handleClose = () => {
     if (!notifications) return;
 
-    const unreadNotificationIds = notifications
-      .filter((data) => !data.isRead)
-      .map((obj) => obj.notificationId);
+    const unreadNotificationIds = notifications.reduce(
+      (accumulator: number[], currentValue) => (
+        !currentValue.isRead && accumulator.push(currentValue.notificationId),
+        accumulator
+      ),
+      []
+    );
 
     if (unreadNotificationIds.length > 0) {
       mutate(unreadNotificationIds);
