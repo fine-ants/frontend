@@ -27,7 +27,16 @@ export function PortfoliosDropdown() {
   };
 
   const onPortfolioAddClick = () => {
+    if (!user) {
+      navigate(Routes.SIGNIN);
+      return;
+    }
+
     setIsPortfolioAddDialogOpen(true);
+  };
+
+  const moveToPortfolioPage = () => {
+    navigate(user ? Routes.PORTFOLIOS : Routes.SIGNIN);
   };
 
   return (
@@ -49,9 +58,7 @@ export function PortfoliosDropdown() {
           </AsyncBoundary>
         )}
 
-        <DropdownItem
-          sx={fixedDropdownItemSx}
-          onClick={() => navigate(Routes.PORTFOLIOS)}>
+        <DropdownItem sx={fixedDropdownItemSx} onClick={moveToPortfolioPage}>
           포트폴리오로 이동
         </DropdownItem>
         <DropdownItem sx={fixedDropdownItemSx} onClick={onPortfolioAddClick}>
