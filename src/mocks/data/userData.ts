@@ -25,7 +25,7 @@ export const successfulProfileDetailsEditData = async ({
   profileImageFile,
 }: {
   profileInformation?: Blob;
-  profileImageFile?: File | "";
+  profileImageFile?: File;
 }) => {
   const parsedProfileInformation = profileInformation
     ? await JSON.parse(await profileInformation.text())
@@ -40,11 +40,12 @@ export const successfulProfileDetailsEditData = async ({
         id: "1",
         nickname: parsedProfileInformation?.nickname ?? "Kakamotobi",
         email: "d@d.com",
-        profileUrl: profileImageFile
-          ? URL.createObjectURL(profileImageFile)
-          : profileImageFile === ""
-          ? null
-          : "https://avatars.githubusercontent.com/u/79886384?v=4",
+        profileUrl:
+          profileImageFile && profileImageFile.size > 0
+            ? URL.createObjectURL(profileImageFile)
+            : profileImageFile?.size === 0 // empty file to indicate default image
+            ? null
+            : "https://avatars.githubusercontent.com/u/79886384?v=4",
       },
     },
   };

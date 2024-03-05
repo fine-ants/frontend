@@ -7,8 +7,8 @@ export const getUser = async () => {
   return res.data;
 };
 
-export const putProfileDetails = async (body: FormData) => {
-  const res = await fetcher.put<Response<{ user: User }>>("/profile", body, {
+export const postProfileDetails = async (body: FormData) => {
+  const res = await fetcher.post<Response<{ user: User }>>("/profile", body, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

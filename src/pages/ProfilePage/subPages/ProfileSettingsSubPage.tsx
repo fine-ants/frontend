@@ -83,7 +83,8 @@ export default function ProfileSettingsSubPage() {
       );
     }
     if (profileImageUrl !== user?.profileUrl) {
-      formData.append("profileImageFile", profileImageFile ?? "");
+      // Empty file indicates default image
+      formData.append("profileImageFile", profileImageFile ?? new File([], ""));
     }
 
     profileDetailsMutate(formData);

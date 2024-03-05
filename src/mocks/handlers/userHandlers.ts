@@ -25,7 +25,7 @@ export default [
     });
   }),
 
-  http.put("/api/profile", async ({ request }) => {
+  http.post("/api/profile", async ({ request }) => {
     const formData = await request.formData();
 
     const data = [...formData.keys()].reduce(
