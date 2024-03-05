@@ -14,7 +14,7 @@ import SubPage from "./SubPage";
 
 type Props = {
   onPrev: () => void;
-  onNext: (data: File | null) => void;
+  onNext: (data: File) => void;
 };
 
 export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
@@ -28,8 +28,9 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
     errorMessages: { sizeLimit: "이미지 2MB 이하" },
   });
 
-  const submit = ({ shouldSkipImage }: { shouldSkipImage: boolean }) => {
-    onNext(shouldSkipImage ? null : profileImageFile);
+  const submit = () => {
+    // Empty file indicates default image
+    onNext(profileImageFile ?? new File([], ""));
   };
 
   return (
@@ -64,13 +65,11 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
       <ButtonsContainer>
         <NextButton
           type="button"
-          onClick={() => submit({ shouldSkipImage: false })}
+          onClick={submit}
           disabled={profileImageFile === null}>
           등록 완료
         </NextButton>
-        <TextButton onClick={() => submit({ shouldSkipImage: true })}>
-          지금은 건너뛰기
-        </TextButton>
+        <TextButton onClick={submit}>지금은 건너뛰기</TextButton>
       </ButtonsContainer>
     </SubPage>
   );
