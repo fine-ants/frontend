@@ -107,7 +107,7 @@ export default function SignUpPage() {
             <Funnel.Step name="profileImage">
               <ProfileImageSubPage
                 onPrev={() => changeStep("nickname")}
-                onNext={(data: File | null) => {
+                onNext={(data: File) => {
                   signUpMutate(
                     createSignUpFormData({
                       signupData: new Blob([JSON.stringify(signUpData)], {
