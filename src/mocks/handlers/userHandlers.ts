@@ -1,6 +1,7 @@
 import { MemberNotificationsSettings } from "@api/notifications/types";
 import { HTTPSTATUS } from "@api/types";
 import {
+  successfulAccountDeleteData,
   successfulPasswordEditData,
   successfulProfileDetailsEditData,
   successfulUserData,
@@ -48,7 +49,7 @@ export default [
   }),
 
   http.delete<never, { refreshToken: string }>("/api/account", async () => {
-    return HttpResponse.json(successfulPasswordEditData, {
+    return HttpResponse.json(successfulAccountDeleteData, {
       status: HTTPSTATUS.success,
     });
   }),
