@@ -24,7 +24,7 @@ export default function PortfolioNotificationsSubPage() {
 
 const StyledPortfolioNotificationsSubPage = styled.div`
   min-height: 300px;
-  margin-top: 40px;
+  margin-top: 24px;
   display: flex;
   justify-content: center;
   align-items: center;

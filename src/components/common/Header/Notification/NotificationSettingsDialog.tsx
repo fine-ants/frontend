@@ -98,7 +98,6 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
           );
           if (newFCMTokenId) {
             onSubscribePushNotification(newFCMTokenId);
-            toast.success("알림 설정을 변경했습니다");
           }
         } else if (isAllInactive && fcmTokenId) {
           // 알림 설정이 모두 false라면 FCM에서 unsubscribe하고 서버에서 토큰 제거

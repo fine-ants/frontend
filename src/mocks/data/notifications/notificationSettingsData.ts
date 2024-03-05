@@ -54,6 +54,7 @@ export const stockNotifications = [
 export const portfolioNotifications = [
   {
     portfolioId: 1,
+    securitiesFirm: "KB증권",
     name: "포트폴리오 1",
     targetGainNotify: true,
     maxLossNotify: true,
@@ -61,6 +62,7 @@ export const portfolioNotifications = [
   },
   {
     portfolioId: 2,
+    securitiesFirm: "토스증권",
     name: "포트폴리오 2",
     targetGainNotify: true,
     maxLossNotify: false,
