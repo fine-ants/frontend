@@ -13,7 +13,7 @@ export default function useWatchlistsDeleteMutation() {
       });
     },
     meta: {
-      tostSuccessMessage: "관심 종목 목록을 삭제했습니다",
+      toastSuccessMessage: "관심 종목 목록을 삭제했습니다",
       toastErrorMessage: "관심 종목 목록을 삭제하는 중 오류가 발생했습니다",
     },
   });
