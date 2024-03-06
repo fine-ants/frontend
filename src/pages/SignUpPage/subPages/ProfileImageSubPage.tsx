@@ -14,7 +14,7 @@ import SubPage from "./SubPage";
 
 type Props = {
   onPrev: () => void;
-  onNext: (data: File) => void;
+  onNext: (data: File | null) => void;
 };
 
 export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
@@ -30,7 +30,7 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
 
   const submit = () => {
     // Empty file indicates default image
-    onNext(profileImageFile ?? new File([], ""));
+    onNext(profileImageFile);
   };
 
   return (

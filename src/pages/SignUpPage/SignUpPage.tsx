@@ -107,15 +107,20 @@ export default function SignUpPage() {
             <Funnel.Step name="profileImage">
               <ProfileImageSubPage
                 onPrev={() => changeStep("nickname")}
-                onNext={(data: File) => {
-                  signUpMutate(
-                    createSignUpFormData({
-                      signupData: new Blob([JSON.stringify(signUpData)], {
-                        type: "application/json",
-                      }),
-                      profileImageFile: data,
-                    })
-                  );
+                onNext={(data: File | null) => {
+                  const signUpFormData = data
+                    ? createSignUpFormData({
+                        signupData: new Blob([JSON.stringify(signUpData)], {
+                          type: "application/json",
+                        }),
+                        profileImageFile: data,
+                      })
+                    : createSignUpFormData({
+                        signupData: new Blob([JSON.stringify(signUpData)], {
+                          type: "application/json",
+                        }),
+                      });
+                  signUpMutate(signUpFormData);
                 }}
               />
             </Funnel.Step>
