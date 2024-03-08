@@ -226,6 +226,14 @@ const autocompleteSx = (variant: Variant) => ({
       top: "50%",
       transform: "translateY(-50%)",
     },
+
+    "fieldset": {
+      border: `1px solid ${
+        variant === "default"
+          ? designSystem.color.neutral.gray700
+          : designSystem.color.neutral.gray200
+      }`,
+    },
   },
 });
 
