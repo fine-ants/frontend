@@ -17,7 +17,10 @@ type Props<Item> = {
   rowsPerPageOptions?: number[];
   data: Item[];
   TableToolBar?: (
-    props: MuiToolbarProps & { selected: readonly Item[] }
+    props: MuiToolbarProps & {
+      selected: readonly Item[];
+      updateSelected: (newSelected: readonly Item[]) => void;
+    }
   ) => JSX.Element;
   TableHead: (
     props: MuiTableHeadProps & {
@@ -112,7 +115,9 @@ export default function SelectableTable<Item>({
     <MuiBox sx={{ width: "100%" }}>
       {tableRows.length > 0 ? (
         <>
-          {TableToolBar && <TableToolBar selected={selected} />}
+          {TableToolBar && (
+            <TableToolBar selected={selected} updateSelected={updateSelected} />
+          )}
 
           <MuiTableContainer>
             <MuiTable

@@ -13,10 +13,15 @@ import NewWatchlistDialog from "../NewWatchlistDialog";
 
 interface Props {
   selected: readonly WatchlistsType[];
+  updateSelected: (newSelected: readonly WatchlistsType[]) => void;
 }
 
-export default function WatchlistsTableToolBar({ selected }: Props) {
-  const { mutate: watchlistsDeleteMutate } = useWatchlistsDeleteMutation();
+export default function WatchlistsTableToolBar({
+  selected,
+  updateSelected,
+}: Props) {
+  const { mutateAsync: watchlistsDeleteMutateAsync } =
+    useWatchlistsDeleteMutation();
 
   const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
     useState(false);
@@ -38,10 +43,10 @@ export default function WatchlistsTableToolBar({ selected }: Props) {
     setIsConfirmOpen(false);
   };
 
-  const onConfirmAction = () => {
+  const onConfirmAction = async () => {
     const selectedWatchlistIds = selected.map((item) => item.id);
-
-    watchlistsDeleteMutate(selectedWatchlistIds);
+    await watchlistsDeleteMutateAsync(selectedWatchlistIds);
+    updateSelected([]);
   };
 
   return (
