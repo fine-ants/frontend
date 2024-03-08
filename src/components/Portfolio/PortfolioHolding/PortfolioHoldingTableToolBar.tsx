@@ -14,12 +14,16 @@ import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
 
 type Props = {
   selected: readonly PortfolioHolding[];
+  updateSelected: (newSelected: readonly PortfolioHolding[]) => void;
 };
 
-export default function PortfolioHoldingTableToolBar({ selected }: Props) {
+export default function PortfolioHoldingTableToolBar({
+  selected,
+  updateSelected,
+}: Props) {
   const { portfolioId } = useParams();
 
-  const { mutate: portfolioHoldingDeleteMutate } =
+  const { mutateAsync: portfolioHoldingDeleteMutateAsync } =
     usePortfolioHoldingDeleteMutation(Number(portfolioId));
 
   const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
@@ -41,12 +45,13 @@ export default function PortfolioHoldingTableToolBar({ selected }: Props) {
     setIsConfirmOpen(false);
   };
 
-  const onConfirmAction = () => {
+  const onConfirmAction = async () => {
     const selectedHoldingIds = selected.map((item) => item.portfolioHoldingId);
-    portfolioHoldingDeleteMutate({
+    await portfolioHoldingDeleteMutateAsync({
       portfolioId: Number(portfolioId),
       body: { portfolioHoldingIds: selectedHoldingIds },
     });
+    updateSelected([]);
   };
 
   return (
