@@ -85,28 +85,24 @@ export default function PortfolioHoldingTableToolBar({ selected }: Props) {
         <span>종목 추가</span>
       </Button>
 
-      {isAddHoldingDialogOpen && (
-        <PortfolioHoldingAddDialog
-          isOpen={isAddHoldingDialogOpen}
-          onClose={onAddHoldingDialogClose}
-        />
-      )}
+      <PortfolioHoldingAddDialog
+        isOpen={isAddHoldingDialogOpen}
+        onClose={onAddHoldingDialogClose}
+      />
 
-      {isConfirmOpen && (
-        <ConfirmAlert
-          isOpen={isConfirmOpen}
-          title="선택된 종목을 삭제 하시겠습니까?"
-          onClose={onDeleteHoldingsAlertClose}
-          onConfirm={onConfirmAction}>
-          <DeleteList>
-            {selected.map((item) => (
-              <DeleteListItem key={item.portfolioHoldingId}>
-                {item.companyName}
-              </DeleteListItem>
-            ))}
-          </DeleteList>
-        </ConfirmAlert>
-      )}
+      <ConfirmAlert
+        isOpen={isConfirmOpen}
+        title="선택된 종목을 삭제 하시겠습니까?"
+        onClose={onDeleteHoldingsAlertClose}
+        onConfirm={onConfirmAction}>
+        <DeleteList>
+          {selected.map((item) => (
+            <DeleteListItem key={item.portfolioHoldingId}>
+              {item.companyName}
+            </DeleteListItem>
+          ))}
+        </DeleteList>
+      </ConfirmAlert>
     </StyledToolbar>
   );
 }
