@@ -13,12 +13,15 @@ import PortfolioAddDialog from "../PortfolioAddDialog";
 
 interface PortfolioListTableToolBarProps {
   selected: readonly PortfolioItem[];
+  updateSelected: (newSelected: readonly PortfolioItem[]) => void;
 }
 
 export default function PortfolioListTableToolBar({
   selected,
+  updateSelected,
 }: PortfolioListTableToolBarProps) {
-  const { mutate: portfoliosDeleteMutate } = usePortfoliosDeleteMutation();
+  const { mutateAsync: portfoliosDeleteMutateAsync } =
+    usePortfoliosDeleteMutation();
 
   const [isAddPortfolioDialogOpen, setIsAddPortfolioDialogOpen] =
     useState(false);
@@ -40,9 +43,10 @@ export default function PortfolioListTableToolBar({
     setIsConfirmOpen(false);
   };
 
-  const onConfirmAction = () => {
+  const onConfirmAction = async () => {
     const selectedPortfolioIds = selected.map((item) => item.id);
-    portfoliosDeleteMutate(selectedPortfolioIds);
+    await portfoliosDeleteMutateAsync(selectedPortfolioIds);
+    updateSelected([]);
   };
 
   return (

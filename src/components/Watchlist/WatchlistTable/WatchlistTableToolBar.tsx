@@ -14,14 +14,17 @@ import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
 
 interface Props {
   selected: readonly WatchlistItemType[];
+  updateSelected: (newSelected: readonly WatchlistItemType[]) => void;
 }
 
-export default function WatchlistTableToolBar({ selected }: Props) {
+export default function WatchlistTableToolBar({
+  selected,
+  updateSelected,
+}: Props) {
   const { watchlistId } = useParams();
 
-  const { mutate: watchlistItemDeleteMutate } = useWatchlistItemDeleteMutation(
-    Number(watchlistId)
-  );
+  const { mutateAsync: watchlistItemDeleteMutateAsync } =
+    useWatchlistItemDeleteMutation(Number(watchlistId));
 
   const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
     useState(false);
@@ -43,9 +46,10 @@ export default function WatchlistTableToolBar({ selected }: Props) {
     setIsConfirmOpen(false);
   };
 
-  const onConfirmAction = () => {
+  const onConfirmAction = async () => {
     const tickerSymbols = selected.map((item) => item.tickerSymbol);
-    watchlistItemDeleteMutate(tickerSymbols);
+    await watchlistItemDeleteMutateAsync(tickerSymbols);
+    updateSelected([]);
   };
 
   return (

@@ -6,15 +6,22 @@ import { IconCalendar } from "../IconCalendar";
 
 type Props = {
   size: "small" | "big";
+  disabled?: boolean;
   value: Dayjs | null;
   onChange: (newVal: Dayjs | null) => void;
 };
 
-export default function DatePicker({ size, value, onChange }: Props) {
+export default function DatePicker({
+  size,
+  disabled = false,
+  value,
+  onChange,
+}: Props) {
   return (
     <ThemeProvider
       theme={size === "small" ? smallDatePickerTheme : bigDatePickerTheme}>
       <MuiDatePicker
+        disabled={disabled}
         value={value}
         onChange={onChange}
         format="YYYY-MM-DD"
@@ -89,28 +96,28 @@ const bigDatePickerTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          "display": "flex",
-          "padding": "4px 8px",
-          "justifyContent": "center",
-          "width": "352px",
-          "height": "32px",
-          "font": designSystem.font.body3.font,
-          "color": designSystem.color.neutral.gray400,
-          "borderColor": designSystem.color.neutral.gray100,
-          "backgroundColor": designSystem.color.neutral.white,
-          "&:focus": {
-            borderColor: designSystem.color.primary.blue500,
-          },
-          "&:hover": {
-            borderColor: designSystem.color.neutral.gray100,
-          },
+          display: "flex",
+          padding: "4px 8px",
+          justifyContent: "center",
+          width: "352px",
+          height: "32px",
+          font: designSystem.font.body3.font,
+          color: designSystem.color.neutral.gray400,
+          borderColor: designSystem.color.neutral.gray100,
+          backgroundColor: designSystem.color.neutral.white,
         },
-        input: {},
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: {},
+        root: {
+          "&:hover, &:focus-within": {
+            ".MuiOutlinedInput-notchedOutline": {
+              borderWidth: "1px",
+              borderColor: designSystem.color.primary.blue500,
+            },
+          },
+        },
         input: {
           "width": "304px",
           "height": "21px",
@@ -196,7 +203,13 @@ const smallDatePickerTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          padding: "0",
+          "padding": "0",
+          "&:hover, &:focus-within": {
+            ".MuiOutlinedInput-notchedOutline": {
+              borderWidth: "1px",
+              borderColor: designSystem.color.primary.blue500,
+            },
+          },
         },
         input: {
           width: "87px",

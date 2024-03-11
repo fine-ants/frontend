@@ -1,5 +1,5 @@
+import Spinner from "@components/common/Spinner";
 import { CLIENT_URL } from "@constants/config";
-import { CircularProgress } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -19,10 +19,7 @@ export default function SignInLoadingPage() {
 
   return (
     <StyledSignInLoadingPage>
-      <CircularProgress
-        sx={{ color: designSystem.color.primary.blue500 }}
-        size={85}
-      />
+      <Spinner size={85} sx={{ color: designSystem.color.primary.blue500 }} />
       <Text>로그인 중입니다.</Text>
     </StyledSignInLoadingPage>
   );
