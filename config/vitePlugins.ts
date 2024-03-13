@@ -5,7 +5,7 @@ export function swEnvPlugin() {
   return {
     name: "sw-env",
     transform(code: string, id: string) {
-      if (id.endsWith("/firebase-messaging-service.js")) {
+      if (id.endsWith("/firebase-messaging-sw.js")) {
         // Replace process.env variables with their actual values
         return code.replace(
           new RegExp(`process.env.(\\w+)`, "g"),
