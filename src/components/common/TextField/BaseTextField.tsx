@@ -39,7 +39,7 @@ const TextField = styled(OutlinedInput)<{ $size: Size }>`
     gap: 8px;
     box-sizing: border-box;
     background: ${designSystem.color.neutral.white};
-    font: ${designSystem.font.body3};
+    font: ${designSystem.font.body3.font};
   }
 
   &.Mui-focused .MuiOutlinedInput-notchedOutline,
