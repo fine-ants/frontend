@@ -2,8 +2,8 @@ import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDelet
 import { PortfolioDetails, PortfolioDetailsSSE } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
-import RateBadge from "@components/common/Badges/DeltaBadge";
 import LabelBadge from "@components/common/Badges/LabelBadge";
+import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
