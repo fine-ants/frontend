@@ -1,5 +1,5 @@
 import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
-import RateBadge from "@components/common/Badges/DeltaBadge";
+import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { Icon } from "@components/common/Icon";
 import {

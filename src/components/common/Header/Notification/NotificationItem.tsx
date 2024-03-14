@@ -22,8 +22,7 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
 
   const {
-    name,
-    target,
+    body: { name, target },
     isRead,
     notificationId,
     referenceId,

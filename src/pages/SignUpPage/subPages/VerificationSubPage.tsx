@@ -94,7 +94,7 @@ const Form = styled.form`
 `;
 
 const EmailText = styled.span`
-  font: ${designSystem.font.body3};
+  font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
 `;
 
