@@ -98,7 +98,6 @@ export default function WatchlistContainer() {
 const Container = styled.div`
   width: 100%;
   max-width: 1440px;
-  min-height: 796px;
   margin-top: 48px;
   padding: 32px;
   background-color: ${({ theme: { color } }) => color.neutral.white};
