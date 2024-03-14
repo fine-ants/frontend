@@ -3,6 +3,7 @@ import AccountDeleteDialog from "@components/AccountDeleteDialog";
 import Button from "@components/common/Buttons/Button";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { useText, validatePassword } from "@fineants/demolition";
+import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useState } from "react";
@@ -157,9 +158,13 @@ export default function AccountSettingsSubPage() {
         </Button>
       </ButtonsContainer>
 
-      <AccountDeleteButton onClick={onAccountDeleteClick}>
+      <MuiButton
+        type="button"
+        variant="text"
+        sx={accountDeactivationButtonSx}
+        onClick={onAccountDeleteClick}>
         계정 삭제하기
-      </AccountDeleteButton>
+      </MuiButton>
 
       {isAccountDeleteDialogOpen && (
         <AccountDeleteDialog
@@ -209,21 +214,20 @@ const ButtonsContainer = styled.div`
   gap: 8px;
 `;
 
-const AccountDeleteButton = styled.button`
+const accountDeactivationButtonSx = {
   // 줄바뀜이 되지 않도록 임시로 auto로 설정
-  width: auto;
-  height: 17px;
-  margin-inline: auto;
-  padding: 0;
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
-
-  &:hover {
-    background-color: "inherit";
-    text-decoration: underline;
-  }
-`;
+  "width": "auto",
+  "height": "17px",
+  "marginInline": "auto",
+  "padding": 0,
+  "font": designSystem.font.button2.font,
+  "letterSpacing": designSystem.font.button2.letterSpacing,
+  "color": designSystem.color.neutral.gray600,
+  "&:hover": {
+    backgroundColor: "inherit",
+    textDecoration: "underline",
+  },
+};
 
 const buttonStyles = {
   flexGrow: 1,
