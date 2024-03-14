@@ -78,7 +78,7 @@ const Header = styled.header`
 const Title = styled.div`
   font: ${designSystem.font.heading3};
   color: ${designSystem.color.neutral.gray800};
-  letter-spacing: -0.02rem;s
+  letter-spacing: -0.02rem;
 `;
 
 const Description = styled.div`
