@@ -2,7 +2,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers";
 import designSystem from "@styles/designSystem";
 import { Dayjs } from "dayjs";
-import { IconCalendar } from "../IconCalendar";
+import { Icon } from "../Icon";
 
 type Props = {
   size: "small" | "big";
@@ -29,7 +29,9 @@ export default function DatePicker({
           textField: { placeholder: "매입 날짜" },
         }}
         slots={{
-          openPickerIcon: IconCalendar,
+          openPickerIcon: () => {
+            return <Icon icon="calendar" color="gray600" size={16} />;
+          },
         }}
       />
     </ThemeProvider>
