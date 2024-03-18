@@ -6,12 +6,11 @@ import LabelBadge from "@components/common/Badges/LabelBadge";
 import RateBadge from "@components/common/Badges/RateBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
+import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import securitiesFirmLogos, {
-  SecuritiesFirm,
-} from "@styles/securitiesFirmLogos";
+import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -77,13 +76,11 @@ export default function PortfolioOverview({ data, sseData }: Props) {
         />
         <TitleContent>
           <TitleWrapper>
-            <FirmImage
-              src={securitiesFirmLogos[data.securitiesFirm as SecuritiesFirm]}
-            />
+            <FirmImage src={securitiesFirmLogos[data.securitiesFirm]} />
             <Title>{data.name}</Title>
             <LabelBadge title={data.securitiesFirm} />
           </TitleWrapper>
-          <ButtonWrapper>
+          <ButtonsWrapper>
             <Button
               variant="tertiary"
               size="h32"
@@ -100,7 +97,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               <Icon icon="edit" size={16} color="blue500" />
               편집
             </Button>
-          </ButtonWrapper>
+          </ButtonsWrapper>
         </TitleContent>
       </TitleContainer>
       <ValuationContainer>
@@ -114,9 +111,9 @@ export default function PortfolioOverview({ data, sseData }: Props) {
           </span>
         </CurrentValuation>
       </ValuationContainer>
-      <OverviewContainer>
+      <Overview>
         <OverviewTop>
-          <Overview>
+          <OverviewSection>
             <OverviewData>
               <div>예산</div>
               <span>₩{thousandsDelimiter(data.budget ?? 0)}</span>
@@ -130,7 +127,21 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               <span>₩{thousandsDelimiter(data.balance ?? 0)}</span>
             </OverviewData>
             <OverviewData>
-              <div>잠정 손실잔고</div>
+              <CustomTooltip
+                arrow
+                placement="bottom-start"
+                title={
+                  <p>
+                    손실 종목을 매도 시 현재 잔고의 감당력을 표현하는 것으로
+                    매도 후 실제 잔고를 나타내는 것이 아닙니다
+                    <br />
+                    잔고 - 손실 종목의 손실 합
+                  </p>
+                }>
+                <div style={{ display: "flex", gap: "4px" }}>
+                  잠정 손실 잔고 <Icon icon="help" size={16} color="gray400" />
+                </div>
+              </CustomTooltip>
               <span>
                 ₩
                 {thousandsDelimiter(
@@ -138,8 +149,8 @@ export default function PortfolioOverview({ data, sseData }: Props) {
                 )}
               </span>
             </OverviewData>
-          </Overview>
-          <Overview>
+          </OverviewSection>
+          <OverviewSection>
             <OverviewData>
               <div>목표 수익률</div>
               <span>₩{thousandsDelimiter(data.targetGain ?? 0)}</span>
@@ -164,10 +175,10 @@ export default function PortfolioOverview({ data, sseData }: Props) {
                 iconStatus={false}
               />
             </div>
-          </Overview>
+          </OverviewSection>
         </OverviewTop>
         <OverviewBottom>
-          <Overview>
+          <OverviewSection>
             <OverviewData>
               <div>총 손익</div>
               <span>
@@ -196,8 +207,8 @@ export default function PortfolioOverview({ data, sseData }: Props) {
                 iconStatus={false}
               />
             </div>
-          </Overview>
-          <Overview>
+          </OverviewSection>
+          <OverviewSection>
             <OverviewData>
               <div>총 연배당금</div>
               <span>₩{thousandsDelimiter(data.annualDividend)}</span>
@@ -211,7 +222,20 @@ export default function PortfolioOverview({ data, sseData }: Props) {
               />
             </div>
             <OverviewData>
-              <div>투자대비 연 배당률</div>
+              <CustomTooltip
+                arrow
+                placement="bottom-start"
+                title={
+                  <p style={{ font: designSystem.font.body4.font }}>
+                    총 투자금액 대비 연배당률
+                    <br />연 배당금 / 투자금액 * 100%
+                  </p>
+                }>
+                <div style={{ display: "flex", gap: "4px" }}>
+                  투자대비 연 배당률{" "}
+                  <Icon icon="help" size={16} color="gray400" />
+                </div>
+              </CustomTooltip>
               <RateBadge
                 size={16}
                 value={data.annualInvestmentDividendYield}
@@ -219,9 +243,9 @@ export default function PortfolioOverview({ data, sseData }: Props) {
                 iconStatus={false}
               />
             </OverviewData>
-          </Overview>
+          </OverviewSection>
         </OverviewBottom>
-      </OverviewContainer>
+      </Overview>
     </StyledPortfolioOverview>
   );
 }
@@ -265,7 +289,7 @@ const Title = styled.span`
   letter-spacing: ${designSystem.font.heading3.letterSpacing};
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonsWrapper = styled.div`
   display: flex;
   gap: 8px;
 `;
@@ -298,7 +322,7 @@ const CurrentValuation = styled.div`
   }
 `;
 
-const OverviewContainer = styled.div`
+const Overview = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid ${designSystem.color.neutral.gray100};
@@ -309,17 +333,16 @@ const OverviewContainer = styled.div`
   overflow: hidden;
 `;
 
-const OverviewWrapper = styled.div`
+const OverviewTop = styled.div`
   display: flex;
-`;
-
-const OverviewTop = styled(OverviewWrapper)`
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
-const OverviewBottom = styled(OverviewWrapper)``;
+const OverviewBottom = styled.div`
+  display: flex;
+`;
 
-const Overview = styled.div`
+const OverviewSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -333,11 +356,11 @@ const Overview = styled.div`
 `;
 
 const OverviewData = styled.div`
+  height: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  height: 24px;
   > span {
     font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray900};
