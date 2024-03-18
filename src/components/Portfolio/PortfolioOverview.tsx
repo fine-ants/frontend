@@ -138,7 +138,8 @@ export default function PortfolioOverview({ data, sseData }: Props) {
                     잔고 - 손실 종목의 손실 합
                   </p>
                 }>
-                <div style={{ display: "flex", gap: "4px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                   잠정 손실 잔고 <Icon icon="help" size={16} color="gray400" />
                 </div>
               </CustomTooltip>
@@ -231,8 +232,9 @@ export default function PortfolioOverview({ data, sseData }: Props) {
                     <br />연 배당금 / 투자금액 * 100%
                   </p>
                 }>
-                <div style={{ display: "flex", gap: "4px" }}>
-                  투자대비 연 배당률{" "}
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                  투자대비 연 배당률
                   <Icon icon="help" size={16} color="gray400" />
                 </div>
               </CustomTooltip>
