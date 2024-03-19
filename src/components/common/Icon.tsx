@@ -94,7 +94,7 @@ const icons = {
   "warning": warningIcon,
 };
 
-type IconType = keyof typeof icons;
+export type IconType = keyof typeof icons;
 
 export function Icon({ size, icon, color, hoverColor }: Props) {
   const iconUrl = icons[icon];
