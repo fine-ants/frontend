@@ -1,23 +1,15 @@
-import { colors } from "@styles/designSystem";
+import { ColorType, getColor } from "@styles/designSystem";
 import { MouseEvent, useState } from "react";
 import styled from "styled-components";
 import { Icon, IconType } from "../Icon";
-
-type DesignSystemColorType = keyof typeof colors;
+import { ColorObjectType, ColorTableType, DefaultColorType } from "./types";
 
 type SizeType = "h24" | "h40";
-
-type DefaultColorType = "primary" | "gray" | "white";
-
-type ColorObjectType = {
-  iconColor: DesignSystemColorType;
-  hoverColor: DesignSystemColorType;
-};
 
 type DefaultProps = {
   icon: IconType;
   iconColor?: DefaultColorType;
-  hoverIconColor?: DesignSystemColorType;
+  hoverIconColor?: ColorType;
   hoverIcon?: IconType;
   size: SizeType;
   type?: "button" | "submit";
@@ -28,7 +20,7 @@ type DefaultProps = {
 type CustomProps = {
   icon: IconType;
   iconColor: "custom";
-  hoverIconColor?: DesignSystemColorType;
+  hoverIconColor?: ColorType;
   hoverIcon?: IconType;
   customColor: ColorObjectType;
   size: SizeType;
@@ -38,8 +30,6 @@ type CustomProps = {
 };
 
 type Props = DefaultProps | CustomProps;
-
-type ColorTableType = Record<DefaultColorType, ColorObjectType>;
 
 export function IconButton(props: Props) {
   const {
@@ -65,15 +55,15 @@ export function IconButton(props: Props) {
 
   const colorTable: ColorTableType = {
     primary: {
-      iconColor: "blue500",
+      color: "blue500",
       hoverColor: "blue50",
     },
     gray: {
-      iconColor: "gray600",
+      color: "gray600",
       hoverColor: "gray50",
     },
     white: {
-      iconColor: "white",
+      color: "white",
       hoverColor: "gray800",
     },
   };
@@ -96,9 +86,7 @@ export function IconButton(props: Props) {
       <Icon
         icon={isHovered && hoverIcon ? hoverIcon : icon}
         size={size === "h24" ? 16 : 24}
-        color={
-          isHovered && hoverIconColor ? hoverIconColor : colorObject.iconColor
-        }
+        color={isHovered && hoverIconColor ? hoverIconColor : colorObject.color}
       />
     </StyledButton>
   );
@@ -107,8 +95,8 @@ export function IconButton(props: Props) {
 const StyledButton = styled.button<{
   $size: SizeType;
   $colorObject: {
-    iconColor: DesignSystemColorType;
-    hoverColor: DesignSystemColorType;
+    color: ColorType;
+    hoverColor: ColorType;
   };
   $disabled: boolean;
 }>`
@@ -118,10 +106,11 @@ const StyledButton = styled.button<{
   width: ${({ $size }) => ($size === "h24" ? "24px" : "40px")};
   height: ${({ $size }) => ($size === "h24" ? "24px" : "40px")};
   border-radius: 4px;
-  color: ${({ $colorObject }) => colors[$colorObject.iconColor]};
+  color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
 
   &:hover {
-    background-color: ${({ $colorObject }) => colors[$colorObject.hoverColor]};
+    background-color: ${({ $colorObject }) =>
+      getColor($colorObject.hoverColor)};
   }
 `;

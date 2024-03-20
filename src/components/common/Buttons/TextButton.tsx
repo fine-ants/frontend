@@ -1,19 +1,11 @@
-import designSystem, { colors } from "@styles/designSystem";
+import { ColorType, getColor } from "@styles/designSystem";
 import { MouseEvent, ReactNode } from "react";
 import styled from "styled-components";
-
-type DesignSystemColorType = keyof typeof colors;
+import { ColorObjectType, ColorTableType, DefaultColorType } from "./types";
 
 type SizeType = "h24" | "h32";
 
 type VariantType = "default" | "underline";
-
-type DefaultColorType = "primary" | "gray" | "white";
-
-type CustomColorType = {
-  color: DesignSystemColorType;
-  hoverColor: DesignSystemColorType;
-};
 
 type DefaultProps = {
   variant?: VariantType;
@@ -28,7 +20,7 @@ type DefaultProps = {
 type CustomProps = {
   variant?: VariantType;
   color: "custom";
-  customColor: CustomColorType;
+  customColor: ColorObjectType;
   size: SizeType;
   children: ReactNode;
   type?: "button" | "submit";
@@ -49,24 +41,24 @@ export function TextButton(props: Props) {
     onClick,
   } = props;
 
-  const colorTable = {
+  const colorTable: ColorTableType = {
     primary: {
-      color: designSystem.color.primary.blue500,
-      hoverColor: designSystem.color.primary.blue50,
+      color: "blue500",
+      hoverColor: "blue50",
     },
     gray: {
-      color: designSystem.color.neutral.gray600,
-      hoverColor: designSystem.color.neutral.gray50,
+      color: "gray600",
+      hoverColor: "gray50",
     },
     white: {
-      color: designSystem.color.neutral.white,
-      hoverColor: designSystem.color.neutral.gray800,
+      color: "white",
+      hoverColor: "gray800",
     },
   };
 
   const colorObject =
     color === "custom" && "customColor" in props
-      ? getCustomColorTable(props.customColor)
+      ? props.customColor
       : colorTable[color as DefaultColorType];
 
   return (
@@ -83,19 +75,12 @@ export function TextButton(props: Props) {
   );
 }
 
-const getCustomColorTable = (customColor: CustomColorType) => {
-  return {
-    color: colors[customColor.color],
-    hoverColor: colors[customColor.hoverColor],
-  };
-};
-
 const StyledButton = styled.button<{
   $size: SizeType;
   $variant: VariantType;
   $colorObject: {
-    color: string;
-    hoverColor: string;
+    color: ColorType;
+    hoverColor: ColorType;
   };
   $disabled: boolean;
 }>`
@@ -107,13 +92,13 @@ const StyledButton = styled.button<{
   height: ${({ $size }) => ($size === "h24" ? "24px" : "32px")};
   padding-inline: ${({ $size }) => ($size === "h24" ? "8px" : "12px")};
   border-radius: ${({ $size }) => ($size === "h24" ? "2px" : "3px")};
-  color: ${({ $colorObject }) => $colorObject.color};
+  color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
 
   &:hover {
     ${({ $variant, $colorObject }) =>
       $variant === "default"
-        ? `background-color: ${$colorObject.hoverColor};`
+        ? `background-color: ${getColor($colorObject.hoverColor)};`
         : "text-decoration: underline;"}
   }
 `;
