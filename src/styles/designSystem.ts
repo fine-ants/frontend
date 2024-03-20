@@ -151,3 +151,36 @@ export default {
 
   font,
 };
+
+type RGB =
+  | `rgb(${number}, ${number}, ${number})`
+  | `rgb(${number},${number},${number})`;
+
+type RGBA =
+  | `rgba(${number}, ${number}, ${number}, ${number})`
+  | `rgba(${number},${number},${number},${number})`;
+
+type HEX = `#${string}`;
+
+export type DesignSystemColorType = keyof typeof colors;
+
+export type ColorType = DesignSystemColorType | RGB | RGBA | HEX;
+
+export function validateColor(color: ColorType): boolean {
+  const colorRegex =
+    /^(#([A-Fa-f0-9]{6}([A-Fa-f0-9]{2})?|[A-Fa-f0-9]{3})|rgb\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)|rgba\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(0|1|0?\.\d+)\s*\))$/;
+
+  return colorRegex.test(color);
+}
+
+export function getColor(color: ColorType) {
+  const colorValue = colors[color as DesignSystemColorType];
+
+  if (validateColor(color)) {
+    return color;
+  } else if (colorValue) {
+    return colorValue;
+  }
+
+  throw new Error(`"${color}"은 유효하지 않은 색상 값입니다.`);
+}

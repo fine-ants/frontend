@@ -38,10 +38,12 @@ import upIcon from "@assets/icons/ic_up.svg";
 import userIcon from "@assets/icons/ic_user.svg";
 import warningIcon from "@assets/icons/ic_warning.svg";
 
-import { colors } from "@styles/designSystem";
+import {
+  ColorType,
+  DesignSystemColorType,
+  getColor,
+} from "@styles/designSystem";
 import { styled } from "styled-components";
-
-type ColorType = keyof typeof colors;
 
 type IconSize = 12 | 16 | 24 | 32 | 48;
 
@@ -49,7 +51,7 @@ type Props = {
   size: IconSize;
   icon: IconType;
   color: ColorType;
-  hoverColor?: ColorType;
+  hoverColor?: DesignSystemColorType;
 };
 
 const icons = {
@@ -99,12 +101,14 @@ export type IconType = keyof typeof icons;
 export function Icon({ size, icon, color, hoverColor }: Props) {
   const iconUrl = icons[icon];
 
+  const colorValue = getColor(color);
+
   return (
     <StyledIcon
       className="icon"
       $size={size}
       $iconUrl={iconUrl}
-      $color={colors[color]}
+      $color={colorValue}
       $hoverColor={hoverColor}
     />
   );
