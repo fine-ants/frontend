@@ -38,11 +38,7 @@ import upIcon from "@assets/icons/ic_up.svg";
 import userIcon from "@assets/icons/ic_user.svg";
 import warningIcon from "@assets/icons/ic_warning.svg";
 
-import {
-  ColorType,
-  DesignSystemColorType,
-  getColor,
-} from "@styles/designSystem";
+import { ColorType, getColor } from "@styles/designSystem";
 import { styled } from "styled-components";
 
 type IconSize = 12 | 16 | 24 | 32 | 48;
@@ -51,7 +47,7 @@ type Props = {
   size: IconSize;
   icon: IconType;
   color: ColorType;
-  hoverColor?: DesignSystemColorType;
+  hoverColor?: ColorType;
 };
 
 const icons = {
