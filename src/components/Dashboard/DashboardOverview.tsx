@@ -1,5 +1,5 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
-import RateBadge from "@components/common/Badges/DeltaBadge";
+import RateBadge from "@components/common/Badges/RateBadge";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
@@ -54,6 +54,7 @@ export default function DashboardOverview() {
               <RateBadge
                 size={24}
                 value={overviewData?.totalAnnualDividendYield ?? 0}
+                iconStatus={false}
               />
             </TotalSubContentWrapper>
           </SubContentContainer>

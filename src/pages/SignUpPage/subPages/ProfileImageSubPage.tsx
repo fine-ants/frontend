@@ -23,9 +23,13 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
     imageFile: profileImageFile,
     error: imageFileError,
     onChange: onProfilePictureChange,
-  } = useImageInput({ sizeLimit: 2000000 });
+  } = useImageInput({
+    sizeLimit: 2000000,
+    errorMessages: { sizeLimit: "이미지 2MB 이하" },
+  });
 
   const submit = () => {
+    // Empty file indicates default image
     onNext(profileImageFile);
   };
 
@@ -35,10 +39,9 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
         <AuthOnPrevButton onPrev={onPrev} />
 
         <AuthPageTitle>프로필 이미지 등록</AuthPageTitle>
-        <AuthPageTitleCaption>
-          2MB 이하의프로필 이미지를 등록하세요
-        </AuthPageTitleCaption>
+        <AuthPageTitleCaption>프로필 이미지를 등록하세요</AuthPageTitleCaption>
       </AuthPageHeader>
+
       <ImageInputWrapper>
         <Profile>
           <CameraWrapper>
@@ -54,20 +57,20 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
             accept="image/*"
             onChange={onProfilePictureChange}
           />
+
+          <ErrorCaption>{imageFileError}</ErrorCaption>
         </Profile>
       </ImageInputWrapper>
 
-      <ErrorCaption>{imageFileError}</ErrorCaption>
-
-      <NextButton
-        type="button"
-        onClick={submit}
-        disabled={profileImageFile === null}>
-        등록 완료
-      </NextButton>
-      <Container>
+      <ButtonsContainer>
+        <NextButton
+          type="button"
+          onClick={submit}
+          disabled={profileImageFile === null}>
+          등록 완료
+        </NextButton>
         <TextButton onClick={submit}>지금은 건너뛰기</TextButton>
-      </Container>
+      </ButtonsContainer>
     </SubPage>
   );
 }
@@ -76,6 +79,24 @@ const ImageInputWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+`;
+
+const Profile = styled.div`
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border: 1px solid #dedee0;
+  border-radius: 50%;
+`;
+
+const Image = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 `;
 
 const ImageInput = styled.input`
@@ -89,22 +110,11 @@ const ImageInput = styled.input`
   z-index: 2;
 `;
 
-const Profile = styled.div`
-  position: relative;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 1px solid #dedee0;
-`;
-
-const Image = styled.img`
+const ErrorCaption = styled.p`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+  right: -120px;
+  bottom: 0;
+  color: red;
 `;
 
 const CameraWrapper = styled.div`
@@ -130,12 +140,10 @@ const TextButton = styled.button`
   letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;
 
-const Container = styled.div`
+const ButtonsContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const ErrorCaption = styled.p`
-  color: red;
+  gap: 24px;
 `;

@@ -70,7 +70,6 @@ const StyledRateBadge = styled.div<{
   border-radius: 4px;
 
   > span {
-    padding-top: 2px;
     font: ${({ $size }) =>
       $size === 12
         ? designSystem.font.title6.font

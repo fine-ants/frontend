@@ -17,6 +17,7 @@ type Props = {
   sx?: SxProps;
   selectedOptions?: StockSearchItem[];
   onSelectOption?: (item: StockSearchItem) => void;
+  disabled?: boolean;
 };
 
 /**
@@ -28,6 +29,7 @@ export default function SearchBar({
   sx,
   selectedOptions,
   onSelectOption,
+  disabled = false,
 }: Props) {
   if (variant === "select" && !onSelectOption) {
     throw Error("`onSelectOption` must be passed in when variant is 'select'");
@@ -83,6 +85,7 @@ export default function SearchBar({
       id="stock-search-bar"
       fullWidth
       sx={{ ...autocompleteSx(variant), ...sx }}
+      disabled={disabled}
       inputValue={searchInputValue}
       open={isOpen}
       onOpen={onOpen}
@@ -192,7 +195,7 @@ const autocompleteSx = (variant: Variant) => ({
     "gap": "8px",
     "backgroundColor": "inherit",
 
-    "&:hover": {
+    "&:hover, &:focus-within": {
       fieldset: {
         border: `1px solid ${
           variant === "default"
@@ -212,16 +215,6 @@ const autocompleteSx = (variant: Variant) => ({
 
       "&::placeholder": {
         color: designSystem.color.neutral.gray400,
-      },
-
-      "&:hover": {
-        "& ~ fieldset": {
-          border: `1px solid ${
-            variant === "default"
-              ? designSystem.color.neutral.gray500
-              : designSystem.color.primary.blue500
-          }`,
-        },
       },
     },
 

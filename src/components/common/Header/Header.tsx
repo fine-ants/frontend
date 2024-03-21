@@ -8,6 +8,7 @@ import { NavBar } from "../../NavBar";
 import SearchBar from "../../SearchBar/SearchBar";
 import TVTickerTapeWidget from "../../TradingViewWidgets/TVTickerTape";
 import Button from "../Buttons/Button";
+import { TextButton } from "../Buttons/TextButton";
 import { PortfoliosDropdown } from "./PortfoliosDropdown/PortfoliosDropdown";
 import UserControls from "./UserControls";
 
@@ -59,9 +60,9 @@ export default function Header() {
             <UserControls user={user} />
           ) : (
             <ButtonWrapper>
-              <Button variant="text" size="h32" onClick={moveToSignInPage}>
+              <TextButton size="h32" color="white" onClick={moveToSignInPage}>
                 로그인
-              </Button>
+              </TextButton>
               <Button variant="primary" size="h32" onClick={moveToSignUpPage}>
                 회원가입
               </Button>

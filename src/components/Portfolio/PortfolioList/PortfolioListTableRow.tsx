@@ -1,5 +1,5 @@
 import { PortfolioItem } from "@api/portfolio/types";
-import RateBadge from "@components/common/Badges/DeltaBadge";
+import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { TableCell, TableRow } from "@mui/material";
 import designSystem from "@styles/designSystem";

@@ -193,7 +193,8 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${designSystem.font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 
   > p {
@@ -213,19 +214,21 @@ const ButtonsContainer = styled.div`
   gap: 8px;
 `;
 
-const buttonStyles = {
-  flexGrow: 1,
-};
-
 const accountDeactivationButtonSx = {
-  "width": "82px",
+  // 줄바뀜이 되지 않도록 임시로 auto로 설정
+  "width": "auto",
   "height": "17px",
   "marginInline": "auto",
   "padding": 0,
-  "font": designSystem.font.button2,
+  "font": designSystem.font.button2.font,
+  "letterSpacing": designSystem.font.button2.letterSpacing,
   "color": designSystem.color.neutral.gray600,
   "&:hover": {
     backgroundColor: "inherit",
     textDecoration: "underline",
   },
+};
+
+const buttonStyles = {
+  flexGrow: 1,
 };

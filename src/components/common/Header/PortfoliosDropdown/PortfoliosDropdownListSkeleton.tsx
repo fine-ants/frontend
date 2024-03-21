@@ -1,17 +1,18 @@
-import { CircularProgress, Divider } from "@mui/material";
+import Spinner from "@components/common/Spinner";
+import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export default function PorfoliosDropdownListSkeleton() {
   return (
     <StyledPortfoliosDropdownListSkeleton>
-      <CircularProgress
+      <Spinner
+        size={30}
         sx={{
           display: "block",
           margin: "0 auto 12px auto",
           color: designSystem.color.primary.blue500,
         }}
-        size={30}
       />
 
       <Divider />

@@ -82,8 +82,9 @@ export default function ProfileSettingsSubPage() {
         })
       );
     }
-    if (profileImageFile) {
-      formData.append("profileImageFile", profileImageFile);
+    if (profileImageUrl !== user?.profileUrl) {
+      // Empty file indicates default image
+      formData.append("profileImageFile", profileImageFile ?? new File([], ""));
     }
 
     profileDetailsMutate(formData);
@@ -96,6 +97,7 @@ export default function ProfileSettingsSubPage() {
     : duplicateCheckErrorMsg;
 
   const isSaveButtonDisabled =
+    nicknameValue === "" ||
     (nicknameValue === user?.nickname &&
       profileImageUrl === user?.profileUrl) ||
     (nicknameValue !== user?.nickname && !isDuplicateChecked) ||
@@ -184,7 +186,8 @@ const LabelsWrapper = styled.div`
 const ProfileImageLabel = styled.label`
   display: flex;
   gap: 8px;
-  font: ${designSystem.font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 
   > p:first-of-type {
@@ -247,7 +250,8 @@ const ErrorCaption = styled.p`
 const ClearImageButton = styled(MuiButton)`
   height: 24px;
   padding: 0 8px;
-  font: ${designSystem.font.button2};
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
   color: ${designSystem.color.primary.blue500};
   text-align: right;
   transition: 250ms;
@@ -261,7 +265,8 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${designSystem.font.title5};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 
   > p {

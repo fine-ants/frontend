@@ -2,14 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postStockPriceTarget } from "..";
 import { notificationKeys } from "./queryKeys";
 
-export default function useStockTargetPriceAddMutation() {
+export default function useStockTargetPriceAddMutation(tickerSymbol: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: postStockPriceTarget,
+    mutationFn: (targetPrice: number) => {
+      return postStockPriceTarget({ tickerSymbol, targetPrice: targetPrice });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.stockNotificationSettings().queryKey,
+        queryKey:
+          notificationKeys.specificStockTargetPrices(tickerSymbol).queryKey,
       });
     },
     meta: {

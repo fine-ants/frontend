@@ -36,7 +36,6 @@ export default function WideLegend({ legendList, etcOptions, style }: Props) {
           percent={Math.floor(item.percent)}
         />
       ))}
-
       {etcOptions && etcList && etcPercent && (
         <EtcListContainer>
           <WideLegendItem
@@ -68,7 +67,6 @@ const StyledLegend = styled.div`
   box-sizing: border-box;
   border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
-
   overflow-y: scroll;
 `;
 

@@ -19,12 +19,16 @@ export default function NewWatchlistDialog({ isOpen, onClose }: Props) {
 
   const [newWatchlistName, setNewWatchlistName] = useState("");
 
-  const addItemToWatchlist = () => {
-    watchlistAddMutate(newWatchlistName);
-  };
+  const isInputEmpty = newWatchlistName === "";
 
   const onWatchlistNameClear = () => {
     setNewWatchlistName("");
+  };
+
+  const addItemToWatchlist = () => {
+    if (!isInputEmpty) {
+      watchlistAddMutate(newWatchlistName);
+    }
   };
 
   return (
@@ -47,7 +51,11 @@ export default function NewWatchlistDialog({ isOpen, onClose }: Props) {
       </div>
 
       <div style={{ marginLeft: "auto" }}>
-        <Button variant="primary" size="h32" onClick={addItemToWatchlist}>
+        <Button
+          variant="primary"
+          size="h32"
+          disabled={isInputEmpty}
+          onClick={addItemToWatchlist}>
           <p>추가</p>
         </Button>
       </div>

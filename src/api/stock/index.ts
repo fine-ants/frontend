@@ -26,7 +26,7 @@ export type StockItem = {
 
 export const postStockSearch = async (query: string) => {
   const res = await fetcher.post<Response<StockSearchItem[]>>(
-    `/stocks/search/`,
+    `/stocks/search`,
     { searchTerm: query }
   );
   return res.data;

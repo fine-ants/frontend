@@ -31,6 +31,8 @@ export default function useNicknameDuplicateCheck({
   useEffect(() => {
     if (
       newNickname === "" ||
+      newNickname.length < 2 ||
+      newNickname.length > 10 ||
       newNickname === user?.nickname ||
       newNicknameIsError
     )
