@@ -35,6 +35,6 @@
       "@router/*": ["src/router/*"]
     }
   },
-  "include": ["src", "svg.d.ts", "public/firebase-messaging-sw.js"],
+  "include": ["src", "svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
