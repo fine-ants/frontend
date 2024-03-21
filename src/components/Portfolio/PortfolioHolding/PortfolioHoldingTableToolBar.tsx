@@ -14,12 +14,16 @@ import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
 
 type Props = {
   selected: readonly PortfolioHolding[];
+  updateSelected: (newSelected: readonly PortfolioHolding[]) => void;
 };
 
-export default function PortfolioHoldingTableToolBar({ selected }: Props) {
+export default function PortfolioHoldingTableToolBar({
+  selected,
+  updateSelected,
+}: Props) {
   const { portfolioId } = useParams();
 
-  const { mutate: portfolioHoldingDeleteMutate } =
+  const { mutateAsync: portfolioHoldingDeleteMutateAsync } =
     usePortfolioHoldingDeleteMutation(Number(portfolioId));
 
   const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
@@ -41,12 +45,13 @@ export default function PortfolioHoldingTableToolBar({ selected }: Props) {
     setIsConfirmOpen(false);
   };
 
-  const onConfirmAction = () => {
+  const onConfirmAction = async () => {
     const selectedHoldingIds = selected.map((item) => item.portfolioHoldingId);
-    portfolioHoldingDeleteMutate({
+    await portfolioHoldingDeleteMutateAsync({
       portfolioId: Number(portfolioId),
       body: { portfolioHoldingIds: selectedHoldingIds },
     });
+    updateSelected([]);
   };
 
   return (
@@ -85,28 +90,24 @@ export default function PortfolioHoldingTableToolBar({ selected }: Props) {
         <span>종목 추가</span>
       </Button>
 
-      {isAddHoldingDialogOpen && (
-        <PortfolioHoldingAddDialog
-          isOpen={isAddHoldingDialogOpen}
-          onClose={onAddHoldingDialogClose}
-        />
-      )}
+      <PortfolioHoldingAddDialog
+        isOpen={isAddHoldingDialogOpen}
+        onClose={onAddHoldingDialogClose}
+      />
 
-      {isConfirmOpen && (
-        <ConfirmAlert
-          isOpen={isConfirmOpen}
-          title="선택된 종목을 삭제 하시겠습니까?"
-          onClose={onDeleteHoldingsAlertClose}
-          onConfirm={onConfirmAction}>
-          <DeleteList>
-            {selected.map((item) => (
-              <DeleteListItem key={item.portfolioHoldingId}>
-                {item.companyName}
-              </DeleteListItem>
-            ))}
-          </DeleteList>
-        </ConfirmAlert>
-      )}
+      <ConfirmAlert
+        isOpen={isConfirmOpen}
+        title="선택된 종목을 삭제 하시겠습니까?"
+        onClose={onDeleteHoldingsAlertClose}
+        onConfirm={onConfirmAction}>
+        <DeleteList>
+          {selected.map((item) => (
+            <DeleteListItem key={item.portfolioHoldingId}>
+              {item.companyName}
+            </DeleteListItem>
+          ))}
+        </DeleteList>
+      </ConfirmAlert>
     </StyledToolbar>
   );
 }

@@ -35,7 +35,8 @@ const Nav = styled.nav`
       width: 120px;
       height: 100%;
       margin-bottom: -2px;
-      font: ${designSystem.font.title4};
+      font: ${designSystem.font.title4.font};
+      letter-spacing: ${designSystem.font.title4.letterSpacing};
       color: ${designSystem.color.neutral.gray600};
 
       > a {

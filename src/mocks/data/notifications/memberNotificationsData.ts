@@ -4,8 +4,7 @@ export const memberNotificationsData: MemberNotification[] = [
   {
     notificationId: 3,
     title: "포트폴리오",
-    name: "포트폴리오2",
-    target: "최대 손실율",
+    body: { name: "포트폴리오2", target: "최대 손실율" },
     timestamp: "2024-01-24T10:10:10",
     isRead: false,
     type: "portfolio",
@@ -14,8 +13,7 @@ export const memberNotificationsData: MemberNotification[] = [
   {
     notificationId: 2,
     title: "포트폴리오",
-    name: "포트폴리오1",
-    target: "목표 수익률",
+    body: { name: "포트폴리오1", target: "목표 수익률" },
     timestamp: "2024-01-23T10:10:10",
     isRead: false,
     type: "portfolio",
@@ -24,8 +22,7 @@ export const memberNotificationsData: MemberNotification[] = [
   {
     notificationId: 1,
     title: "지정가",
-    name: "삼성전자",
-    target: "60000",
+    body: { name: "삼성전자", target: "60000" },
     timestamp: "2024-01-22T10:10:10",
     isRead: true,
     type: "stock",

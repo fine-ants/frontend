@@ -9,6 +9,7 @@ import {
   debounce,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -17,7 +18,8 @@ type Props = {
 };
 
 export default function PortfolioNotificationRow({ row }: Props) {
-  const { portfolioId, name, targetGainNotify, maxLossNotify } = row;
+  const { portfolioId, securitiesFirm, name, targetGainNotify, maxLossNotify } =
+    row;
 
   const { mutate } = usePortfolioNotificationSettingsMutation(portfolioId);
 
@@ -42,7 +44,13 @@ export default function PortfolioNotificationRow({ row }: Props) {
           <StyledLink
             style={{ font: designSystem.font.body3.font }}
             to={`/portfolio/${portfolioId}`}>
-            {name}
+            <img
+              src={securitiesFirmLogos[securitiesFirm]}
+              alt={securitiesFirm}
+              width="32px"
+              height="32px"
+            />
+            <span className="portfolioName">{name}</span>
           </StyledLink>
         </Typography>
       </StyledTableCell>
@@ -91,6 +99,9 @@ const StyledTableCell = styled(TableCell)`
 `;
 
 const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray800};
 

@@ -3,9 +3,12 @@ import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
+import { UserContext } from "@context/UserContext";
 import { Button as MuiButton } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import WatchlistHasStockList from "./WatchlistHasStockList";
 import WatchlistHasStockListError from "./errorFallback/WatchlistHasStockListErrorFallback";
@@ -16,6 +19,10 @@ type Props = {
 };
 
 export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
+  const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
+
   const { onOpen, DropdownMenu } = useDropdown();
 
   const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
@@ -30,6 +37,11 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
   };
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (!user) {
+      navigate(Routes.SIGNIN);
+      return;
+    }
+
     onOpen(e);
   };
 

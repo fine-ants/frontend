@@ -8,7 +8,7 @@ import {
 } from "react";
 import styled from "styled-components";
 
-export type Variant = "primary" | "secondary" | "tertiary" | "text";
+export type Variant = "primary" | "secondary" | "tertiary";
 type Size = "h24" | "h32" | "h44";
 
 type Props = {
@@ -99,8 +99,6 @@ const StyledButton = styled.button<{
         return $disabled
           ? designSystem.color.neutral.gray50
           : designSystem.color.neutral.white;
-      case "text":
-        return "inherit";
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
@@ -118,8 +116,6 @@ const StyledButton = styled.button<{
         return $disabled
           ? `1px solid ${designSystem.color.neutral.gray400}`
           : `1px solid ${designSystem.color.neutral.gray600}`;
-      case "text":
-        return "none";
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
@@ -144,10 +140,6 @@ const StyledButton = styled.button<{
         return $disabled
           ? designSystem.color.neutral.gray400
           : designSystem.color.neutral.gray600;
-      case "text":
-        return $disabled
-          ? designSystem.color.neutral.gray600
-          : designSystem.color.neutral.white;
       default:
         throw new Error("버튼 타입이 잘못되었습니다.");
     }
@@ -165,8 +157,6 @@ const StyledButton = styled.button<{
           return designSystem.color.primary.blue50;
         case "tertiary":
           return designSystem.color.neutral.gray50;
-        case "text":
-          return $disabled ? "inherit" : designSystem.color.neutral.gray800;
         default:
           throw new Error("버튼 타입이 잘못되었습니다.");
       }

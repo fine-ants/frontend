@@ -19,7 +19,8 @@ const StyledToastContainer = styled(ToastContainer)`
     align-items: center;
     flex-shrink: 0;
     color: ${designSystem.color.neutral.gray800};
-    font: ${designSystem.font.title5};
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
   }
 
   .Toastify__toast-icon {

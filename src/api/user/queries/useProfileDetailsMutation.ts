@@ -1,13 +1,13 @@
 import { UserContext } from "@context/UserContext";
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
-import { putProfileDetails } from "..";
+import { postProfileDetails } from "..";
 
 export default function useProfileDetailsMutation() {
   const { onEditProfileDetails } = useContext(UserContext);
 
   return useMutation({
-    mutationFn: putProfileDetails,
+    mutationFn: postProfileDetails,
     onSuccess: (res) => {
       onEditProfileDetails(res.data.user);
     },

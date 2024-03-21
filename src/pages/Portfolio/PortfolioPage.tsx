@@ -32,7 +32,8 @@ export default function PortfolioPage() {
 }
 
 const Container = styled.div`
-  display: flex;
   padding: 40px 150px;
+  display: flex;
+  align-items: flex-start;
   gap: 32px;
 `;

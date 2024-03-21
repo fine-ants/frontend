@@ -2,8 +2,11 @@ import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
+import { UserContext } from "@context/UserContext";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { MouseEvent } from "react";
+import { MouseEvent, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import StockTargetPriceForm from "../StockTargetPriceForm";
 import TargetPricesList from "./TargetPricesList";
@@ -11,9 +14,18 @@ import TargetPricesListErrorFallback from "./errorFallback/TargetPricesListError
 import TargetPricesListSkeleton from "./skeleton/TargetPricesListSkeleton";
 
 export default function TargetPriceAlertDropdown() {
+  const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
+
   const { onOpen, DropdownMenu } = useDropdown();
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (!user) {
+      navigate(Routes.SIGNIN);
+      return;
+    }
+
     onOpen(e);
   };
 

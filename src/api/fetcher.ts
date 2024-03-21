@@ -28,7 +28,7 @@ fetcher.interceptors.response.use(
   (res) => res,
   async (error) => {
     const originalRequest = error.config;
-    // If the access token expired, attempt to refresh it.
+    // Access token expired. Attempt to refresh it and retry the original request.
     if (
       error.response.status === HTTPSTATUS.forbidden &&
       !originalRequest._retry
@@ -46,7 +46,6 @@ fetcher.interceptors.response.use(
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
 
-      // TODO: navigate the user to `/signin` while displaying the toast
       window.location.href = Routes.SIGNIN;
     }
     return Promise.reject(error);

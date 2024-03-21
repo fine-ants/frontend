@@ -1,6 +1,7 @@
 import { MemberNotificationsSettings } from "@api/notifications/types";
 import { HTTPSTATUS } from "@api/types";
 import {
+  successfulAccountDeleteData,
   successfulPasswordEditData,
   successfulProfileDetailsEditData,
   successfulUserData,
@@ -25,7 +26,7 @@ export default [
     });
   }),
 
-  http.put("/api/profile", async ({ request }) => {
+  http.post("/api/profile", async ({ request }) => {
     const formData = await request.formData();
 
     const data = [...formData.keys()].reduce(
@@ -36,7 +37,7 @@ export default [
       {}
     );
 
-    return HttpResponse.json(successfulProfileDetailsEditData(data), {
+    return HttpResponse.json(await successfulProfileDetailsEditData(data), {
       status: HTTPSTATUS.success,
     });
   }),
@@ -48,7 +49,7 @@ export default [
   }),
 
   http.delete<never, { refreshToken: string }>("/api/account", async () => {
-    return HttpResponse.json(successfulPasswordEditData, {
+    return HttpResponse.json(successfulAccountDeleteData, {
       status: HTTPSTATUS.success,
     });
   }),

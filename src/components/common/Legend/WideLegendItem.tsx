@@ -20,7 +20,7 @@ export default function WideLegendItem({ color, title, percent }: Props) {
 }
 
 const StyledLegendItem = styled.div`
-  width: 106px;
+  width: 105px;
   display: flex;
   justify-content: space-between;
   font: ${designSystem.font.title5.font};
