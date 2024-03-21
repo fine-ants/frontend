@@ -176,10 +176,10 @@ export function validateColor(color: ColorType): boolean {
 export function getColor(color: ColorType) {
   const colorValue = colors[color as DesignSystemColorType];
 
-  if (validateColor(color)) {
-    return color;
-  } else if (colorValue) {
+  if (colorValue) {
     return colorValue;
+  } else if (validateColor(color)) {
+    return color;
   }
 
   throw new Error(`"${color}"은 유효하지 않은 색상 값입니다.`);
