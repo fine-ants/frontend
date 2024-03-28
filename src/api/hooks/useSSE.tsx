@@ -31,6 +31,15 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
   const eventSourceRef = useRef<EventSourcePolyfill>();
 
+  const onClose = useCallback(() => {
+    setData(undefined);
+    setIsLoading(true);
+    setIsError(false);
+    setShouldReconnect(true);
+
+    eventSourceRef.current?.close();
+  }, []);
+
   const messageListener = useMemo(
     () => ({
       handleEvent: (event: MessageEvent) => {
@@ -52,7 +61,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
         onClose();
       },
     }),
-    []
+    [onClose]
   );
 
   const initEventSource = useCallback(() => {
@@ -86,6 +95,13 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     eventSourceRef.current.addEventListener("complete", completeHandler);
   }, [url, eventTypeName, messageListener, completeHandler]);
 
+  const reconnect = useCallback(() => {
+    onClose();
+    setIsError(false);
+    setIsLoading(true);
+    initEventSource();
+  }, [onClose, initEventSource]);
+
   useEffect(() => {
     if (!shouldReconnect) return;
 
@@ -94,18 +110,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
   useEffect(() => {
     return onClose;
-  }, []);
-
-  const onClose = () => {
-    eventSourceRef.current?.close();
-  };
-
-  const reconnect = () => {
-    onClose();
-    setIsError(false);
-    setIsLoading(true);
-    initEventSource();
-  };
+  }, [onClose]);
 
   return { data, isLoading, isError, reconnect };
 }
