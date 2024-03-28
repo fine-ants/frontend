@@ -9,7 +9,7 @@ export default function usePortfoliosDeleteMutation() {
     mutationFn: deletePortfolios,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [portfolioKeys.list().queryKey],
+        queryKey: portfolioKeys.list().queryKey,
       });
     },
     meta: {
