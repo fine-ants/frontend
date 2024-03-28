@@ -14,7 +14,7 @@ export default function LegendItem({ color, title, percent }: Props) {
         <LegendItemColor $color={color} />
         {title}
       </TitleWrapper>
-      <Percent>{Math.floor(percent)}%</Percent>
+      <Percent>{percent}%</Percent>
     </StyledLegendItem>
   );
 }
