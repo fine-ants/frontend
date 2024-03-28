@@ -112,5 +112,5 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     return onClose;
   }, [onClose]);
 
-  return { data, isLoading, isError, reconnect, onClose };
+  return { data, isLoading, isError, reconnect };
 }

@@ -2,7 +2,6 @@ import { useSSE } from "@api/hooks/useSSE";
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
 import { PortfolioSSE } from "@api/portfolio/types";
 import { Box } from "@mui/material";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import EmptyPortfolioHoldingTable from "./PortfolioHolding/EmptyPortfolioHoldingTable";
@@ -17,16 +16,11 @@ export default function MainPanel() {
     data: portfolioSSE,
     isLoading,
     isError,
-    onClose,
     //TODO: SSE 에러일때 핸들링처리
   } = useSSE<PortfolioSSE>({
     url: `/api/portfolio/${portfolioId}/holdings/realtime`,
     eventTypeName: "portfolioDetails",
   });
-
-  useEffect(() => {
-    return onClose;
-  }, [portfolioId, onClose]);
 
   // Static Data
   const { portfolioDetails, portfolioHoldings } = portfolio;
