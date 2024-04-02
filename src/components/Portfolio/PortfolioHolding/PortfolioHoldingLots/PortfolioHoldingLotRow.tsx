@@ -134,7 +134,7 @@ export default function PortfolioHoldingStyledTableRow({
           <StyledTableCell align="left" style={{ width: "395px" }}>
             <StyledTextArea
               value={newMemo}
-              onChange={(e) => setNewMemo(e.target.value.trim())}
+              onChange={(e) => setNewMemo(e.target.value)}
             />
           </StyledTableCell>
 
