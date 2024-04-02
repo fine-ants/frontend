@@ -67,8 +67,8 @@ export default [
       annualDividendYield: 0,
       annualInvestmentDividendYield: 0,
       provisionalLossBalance: 0,
-      targetGainNotification: false,
-      maxLossNotification: false,
+      targetGainNotify: false,
+      maxLossNotify: false,
     };
 
     portfolioDetailsData.push(data);
