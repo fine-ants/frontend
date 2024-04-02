@@ -13,6 +13,7 @@ import {
   successfulStockPriceTargetDeleteData,
   successfulStockPriceTargetPostData,
 } from "@mocks/data/notifications/notificationSettingsData";
+import { portfolioDetails } from "@mocks/data/portfolioDetailsData";
 import { HttpResponse, http } from "msw";
 
 export default [
@@ -164,13 +165,19 @@ export default [
       const { portfolioId } = params;
       const { isActive } = await request.json();
 
-      const targetPortfolio = portfolioNotifications.find(
+      const targetPortfolioNotification = portfolioNotifications.find(
         (portfolioNotification) =>
           portfolioNotification.portfolioId === parseInt(portfolioId as string)
       );
+      const targetPortfolioDetails = portfolioDetails.find(
+        (portfolio) => portfolio.id === parseInt(portfolioId as string)
+      );
 
-      if (targetPortfolio) {
-        targetPortfolio.targetGainNotify = isActive;
+      if (targetPortfolioNotification) {
+        targetPortfolioNotification.targetGainNotify = isActive;
+      }
+      if (targetPortfolioDetails) {
+        targetPortfolioDetails.targetGainNotify = isActive;
       }
 
       return HttpResponse.json(successfulPortfolioNotificationSettingsPutData, {
@@ -185,13 +192,19 @@ export default [
       const { portfolioId } = params;
       const { isActive } = await request.json();
 
-      const targetPortfolio = portfolioNotifications.find(
+      const targetPortfolioNotification = portfolioNotifications.find(
         (portfolioNotification) =>
           portfolioNotification.portfolioId === parseInt(portfolioId as string)
       );
+      const targetPortfolioDetails = portfolioDetails.find(
+        (portfolio) => portfolio.id === parseInt(portfolioId as string)
+      );
 
-      if (targetPortfolio) {
-        targetPortfolio.maxLossNotify = isActive;
+      if (targetPortfolioNotification) {
+        targetPortfolioNotification.maxLossNotify = isActive;
+      }
+      if (targetPortfolioDetails) {
+        targetPortfolioDetails.maxLossNotify = isActive;
       }
 
       return HttpResponse.json(successfulPortfolioNotificationSettingsPutData, {

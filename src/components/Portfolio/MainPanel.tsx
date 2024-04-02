@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import EmptyPortfolioHoldingTable from "./PortfolioHolding/EmptyPortfolioHoldingTable";
 import PortfolioHoldingTable from "./PortfolioHolding/PortfolioHoldingTable";
-import PortfolioOverview from "./PortfolioOverview";
+import PortfolioOverview from "./PortfolioOverview/PortfolioOverview";
 
 export default function MainPanel() {
   const { portfolioId } = useParams();
