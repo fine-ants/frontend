@@ -39,7 +39,7 @@ export default function PortfolioHoldingLotAddRow({
         purchaseDate: newPurchaseDate?.toISOString() ?? "",
         purchasePricePerShare: Number(newPurchasePricePerShare),
         numShares: Number(newNumShares),
-        memo: newMemo,
+        memo: newMemo.trim(),
       },
     });
     onPurchaseValuesRemove();
