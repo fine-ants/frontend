@@ -1,11 +1,13 @@
-import { Theme, ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers";
 import designSystem from "@styles/designSystem";
 import { Dayjs } from "dayjs";
 import { Icon } from "../Icon";
 
+type SizeType = "small" | "big";
+
 type Props = {
-  size: "small" | "big";
+  size: SizeType;
   disabled?: boolean;
   value: Dayjs | null;
   onChange: (newVal: Dayjs | null) => void;
@@ -18,8 +20,7 @@ export default function DatePicker({
   onChange,
 }: Props) {
   return (
-    <ThemeProvider
-      theme={size === "small" ? smallDatePickerTheme : bigDatePickerTheme}>
+    <ThemeProvider theme={datePickerTheme(size)}>
       <MuiDatePicker
         disabled={disabled}
         value={value}
@@ -38,43 +39,14 @@ export default function DatePicker({
   );
 }
 
-const bigDatePickerTheme = (theme: Theme) =>
+const datePickerTheme = (size: SizeType) =>
   createTheme({
-    ...theme,
     components: {
       MuiInputBase: {
         styleOverrides: {
           root: {
-            "width": "352px",
-            "height": "32px",
-            "padding": "0 0 0 8px",
-            "font": designSystem.font.body3.font,
-            "&:hover, &:focus-within": {
-              fieldset: {
-                border: `1px solid ${designSystem.color.primary.blue500} !important`,
-              },
-            },
-            "fieldset": {
-              border: `1px solid ${designSystem.color.neutral.gray200}`,
-            },
-          },
-          input: {
-            padding: "0 !important",
-          },
-        },
-      },
-    },
-  });
-
-const smallDatePickerTheme = (theme: Theme) =>
-  createTheme({
-    ...theme,
-    components: {
-      MuiInputBase: {
-        styleOverrides: {
-          root: {
-            "width": "127px",
-            "height": "24px",
+            "width": size === "small" ? "127px" : "352px",
+            "height": size === "small" ? "24px" : "32px",
             "padding": "0 0 0 8px",
             "font": designSystem.font.body3.font,
             "&:hover, &:focus-within": {
