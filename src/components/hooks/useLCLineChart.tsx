@@ -1,6 +1,6 @@
+import { formatUnit } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
-import formatTickValue from "@utils/formatTickValue";
 import { getBarSpacings } from "@utils/getBarSpacings";
 import {
   ChartOptions,
@@ -91,7 +91,7 @@ export function useLCLineChart({
         priceFormat: {
           type: "custom",
           formatter: (price: number) =>
-            formatTickValue(Math.floor(price)).toString(),
+            formatUnit(Math.floor(price)).toString(),
         },
       };
       const series = chart.addLineSeries(seriesOptions);

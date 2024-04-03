@@ -2,9 +2,9 @@ import useDeleteMemberNotificationsMutation from "@api/notifications/queries/use
 import { MemberNotification } from "@api/notifications/types";
 import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
+import { getElapsedSince } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
-import { getElapsedSince } from "@utils/getElapsedSince";
 import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -63,7 +63,7 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
             에 {achievementStatus}했습니다
           </StyledContent>
           <StyledTimestamp>
-            {getElapsedSince(new Date(timestamp))}
+            {getElapsedSince({ fromDate: new Date(timestamp), language: "ko" })}
           </StyledTimestamp>
         </LeftContainer>
         <RightContainer>
