@@ -41,15 +41,15 @@ export default function PortfolioOverviewBody({ data, sseData }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>예산</div>
-            <span>₩{thousandsDelimiter(data.budget ?? 0)}</span>
+            <span>₩{thousandsDelimiter(data.budget)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <div>투자금액</div>
-            <span>₩{thousandsDelimiter(data.investedAmount ?? 0)}</span>
+            <span>₩{thousandsDelimiter(data.investedAmount)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <div>잔고</div>
-            <span>₩{thousandsDelimiter(data.balance ?? 0)}</span>
+            <span>₩{thousandsDelimiter(data.balance)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <CustomTooltip
@@ -88,7 +88,7 @@ export default function PortfolioOverviewBody({ data, sseData }: Props) {
                 />
               </NotificationIconButton>
             </NotificationLabel>
-            <span>₩{thousandsDelimiter(data.targetGain ?? 0)}</span>
+            <span>₩{thousandsDelimiter(data.targetGain)}</span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
@@ -114,7 +114,7 @@ export default function PortfolioOverviewBody({ data, sseData }: Props) {
                 />
               </NotificationIconButton>
             </NotificationLabel>
-            <span>₩{thousandsDelimiter(data.maximumLoss ?? 0)}</span>
+            <span>₩{thousandsDelimiter(data.maximumLoss)}</span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
