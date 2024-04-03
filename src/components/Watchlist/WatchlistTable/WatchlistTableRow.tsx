@@ -76,10 +76,10 @@ export default function WatchlistTableRow({
         <StyledLink to={`/stock/${tickerSymbol}`}>{companyName}</StyledLink>
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
-        ₩ {thousandsDelimiter(currentPrice ?? 0)}
+        ₩ {thousandsDelimiter(currentPrice)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
-        <div>₩ {thousandsDelimiter(dailyChange ?? 0)}</div>
+        <div>₩ {thousandsDelimiter(dailyChange)}</div>
         <RateBadge size={16} value={dailyChangeRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
