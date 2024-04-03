@@ -1,5 +1,5 @@
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
-import { PortfolioDetails, PortfolioDetailsSSE } from "@api/portfolio/types";
+import { PortfolioDetails } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import LabelBadge from "@components/common/Badges/LabelBadge";
@@ -18,10 +18,9 @@ import styled from "styled-components";
 
 type Props = {
   data: PortfolioDetails;
-  sseData: PortfolioDetailsSSE | null;
 };
 
-export default function PortfolioOverview({ data, sseData }: Props) {
+export default function PortfolioOverview({ data }: Props) {
   const navigate = useNavigate();
   const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
@@ -103,12 +102,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
       <ValuationContainer>
         <div>평가금액</div>
         <CurrentValuation>
-          ₩
-          <span>
-            {thousandsDelimiter(
-              sseData?.currentValuation ?? data.currentValuation
-            )}
-          </span>
+          ₩<span>{thousandsDelimiter(data.currentValuation)}</span>
         </CurrentValuation>
       </ValuationContainer>
       <Overview>
@@ -143,12 +137,7 @@ export default function PortfolioOverview({ data, sseData }: Props) {
                   잠정 손실 잔고 <Icon icon="help" size={16} color="gray400" />
                 </div>
               </CustomTooltip>
-              <span>
-                ₩
-                {thousandsDelimiter(
-                  sseData?.provisionalLossBalance ?? data.provisionalLossBalance
-                )}
-              </span>
+              <span>₩{thousandsDelimiter(data.provisionalLossBalance)}</span>
             </OverviewData>
           </OverviewSection>
           <OverviewSection>
@@ -182,28 +171,24 @@ export default function PortfolioOverview({ data, sseData }: Props) {
           <OverviewSection>
             <OverviewData>
               <div>총 손익</div>
-              <span>
-                ₩{thousandsDelimiter(sseData?.totalGain ?? data.totalGain)}
-              </span>
+              <span>₩{thousandsDelimiter(data.totalGain)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                value={sseData?.totalGainRate ?? data.totalGainRate}
+                value={data.totalGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />
             </div>
             <OverviewData>
               <div>당일 손익</div>
-              <span>
-                ₩{thousandsDelimiter(sseData?.dailyGain ?? data.dailyGain)}
-              </span>
+              <span>₩{thousandsDelimiter(data.dailyGain)}</span>
             </OverviewData>
             <div style={{ marginLeft: "auto" }}>
               <RateBadge
                 size={16}
-                value={sseData?.dailyGainRate ?? data.dailyGainRate}
+                value={data.dailyGainRate}
                 bgColorStatus={false}
                 iconStatus={false}
               />

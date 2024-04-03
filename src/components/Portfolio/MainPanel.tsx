@@ -30,7 +30,7 @@ export default function MainPanel() {
     portfolioHoldings: portfolioHoldingsSSE,
   } = portfolioSSE ?? { portfolioDetails: null, portfolioHoldings: [] };
 
-  // Merge static data with realtime data
+  // Merge static data with realtime data for holdings
   const freshPortfolioHoldingsData =
     !isLoading && !isError
       ? portfolioHoldings.map((holding, index) => ({
@@ -39,15 +39,18 @@ export default function MainPanel() {
         }))
       : portfolioHoldings;
 
+  // Merge static data with realtime data for details
+  const freshPortfolioDetailsData = {
+    ...portfolioDetailsSSE,
+    ...portfolioDetails,
+  };
+
   const hasNoHoldings = portfolioHoldings.length === 0;
 
   return (
     <StyledMainPanel>
       <PortfolioOverviewContainer>
-        <PortfolioOverview
-          data={portfolioDetails}
-          sseData={portfolioDetailsSSE}
-        />
+        <PortfolioOverview data={freshPortfolioDetailsData} />
       </PortfolioOverviewContainer>
 
       {hasNoHoldings ? (
