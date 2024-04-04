@@ -73,7 +73,7 @@ export default function PortfolioHoldingStyledTableRow({
         purchaseDate: newPurchaseDate?.toISOString() ?? "",
         purchasePricePerShare: Number(newPurchasePricePerShare),
         numShares: Number(newNumShares),
-        memo: newMemo,
+        memo: newMemo.trim(),
       },
     });
 
@@ -134,7 +134,7 @@ export default function PortfolioHoldingStyledTableRow({
           <StyledTableCell align="left" style={{ width: "395px" }}>
             <StyledTextArea
               value={newMemo}
-              onChange={(e) => setNewMemo(e.target.value.trim())}
+              onChange={(e) => setNewMemo(e.target.value)}
             />
           </StyledTableCell>
 

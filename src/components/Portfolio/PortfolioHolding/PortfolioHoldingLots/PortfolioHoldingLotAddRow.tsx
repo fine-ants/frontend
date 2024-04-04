@@ -39,7 +39,7 @@ export default function PortfolioHoldingLotAddRow({
         purchaseDate: newPurchaseDate?.toISOString() ?? "",
         purchasePricePerShare: Number(newPurchasePricePerShare),
         numShares: Number(newNumShares),
-        memo: newMemo,
+        memo: newMemo.trim(),
       },
     });
     onPurchaseValuesRemove();
@@ -91,7 +91,7 @@ export default function PortfolioHoldingLotAddRow({
         <StyledTextArea
           value={newMemo}
           placeholder="메모를 입력하세요"
-          onChange={(e) => setNewMemo(e.target.value.trim())}
+          onChange={(e) => setNewMemo(e.target.value)}
         />
       </StyledTableCell>
 

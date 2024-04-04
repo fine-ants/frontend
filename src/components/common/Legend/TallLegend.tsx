@@ -35,7 +35,7 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
               key={idx}
               color={item.color}
               title={item.title}
-              percent={Math.floor(item.percent)}
+              percent={item.percent}
             />
           ))}
         </ItemsList>
@@ -54,7 +54,7 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
                 {etcList.map((item, idx) => (
                   <EtcItem key={idx}>
                     <span>{item.title}</span>
-                    <span>{Math.floor(item.percent)}%</span>
+                    <span>{item.percent}%</span>
                   </EtcItem>
                 ))}
               </EtcList>

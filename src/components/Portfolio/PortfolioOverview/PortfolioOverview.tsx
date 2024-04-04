@@ -1,5 +1,5 @@
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
-import { PortfolioDetails, PortfolioDetailsSSE } from "@api/portfolio/types";
+import { PortfolioDetails } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
 import LabelBadge from "@components/common/Badges/LabelBadge";
@@ -17,10 +17,9 @@ import PortfolioOverviewBody from "./PortfolioOverviewBody";
 
 type Props = {
   data: PortfolioDetails;
-  sseData: PortfolioDetailsSSE | null;
 };
 
-export default function PortfolioOverview({ data, sseData }: Props) {
+export default function PortfolioOverview({ data }: Props) {
   const navigate = useNavigate();
   const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
@@ -88,16 +87,11 @@ export default function PortfolioOverview({ data, sseData }: Props) {
       <ValuationContainer>
         <div>평가금액</div>
         <CurrentValuation>
-          ₩
-          <span>
-            {thousandsDelimiter(
-              sseData?.currentValuation ?? data.currentValuation
-            )}
-          </span>
+          ₩<span>{thousandsDelimiter(data.currentValuation)}</span>
         </CurrentValuation>
       </ValuationContainer>
 
-      <PortfolioOverviewBody data={data} sseData={sseData} />
+      <PortfolioOverviewBody data={data} />
 
       {isDialogOpen && (
         <PortfolioAddDialog

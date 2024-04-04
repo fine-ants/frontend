@@ -2,19 +2,17 @@ import { postOAuthUrl } from "@api/auth";
 import googleLogo from "@assets/icons/logo/ic_google.svg";
 import kakaoLogo from "@assets/icons/logo/ic_kakao.svg";
 import naverLogo from "@assets/icons/logo/ic_naver.svg";
-import { createToast } from "@components/common/toast";
 import { WindowContext } from "@context/WindowContext";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
+import { toast } from "src/main";
 import styled from "styled-components";
 import { BaseSignInButton } from "./BaseSignInButton";
 
 type Props = {
   provider: "google" | "kakao" | "naver";
 };
-
-const toast = createToast();
 
 export default function SocialLoginButton({ provider }: Props) {
   const { onOpenPopUpWindow } = useContext(WindowContext);
