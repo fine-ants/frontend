@@ -316,7 +316,7 @@ const InputTextArea = styled.textarea`
   border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 3px;
   font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray400};
+  color: ${designSystem.color.neutral.gray800};
 
   &&::placeholder {
     color: ${designSystem.color.neutral.gray400};
