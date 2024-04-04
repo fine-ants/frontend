@@ -13,23 +13,7 @@ const firebaseApp = firebase.initializeApp({
   measurementId: import.meta.env.VITE_FCM_MEASUREMENT_ID,
 });
 
-const messaging = firebase.messaging(firebaseApp);
-
-messaging.onBackgroundMessage((payload) => {
-  const {
-    notification: { body, timestamp },
-  } = payload;
-
-  const notificationTitle = "FineAnts";
-  const options = {
-    icon: "https://avatars.githubusercontent.com/u/147464557?s=96&v=4",
-    badge: "https://avatars.githubusercontent.com/u/147464557?s=96&v=4",
-    body: body,
-    timestamp: new Date(timestamp).getTime(),
-  };
-
-  self.registration.showNotification(notificationTitle, options);
-});
+firebase.messaging(firebaseApp);
 
 self.addEventListener("install", () => {
   // eslint-disable-next-line no-console

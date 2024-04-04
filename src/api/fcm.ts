@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { initializeApp } from "firebase/app";
 import {
   MessagePayload,
@@ -43,14 +42,12 @@ export const fetchAndSendFCMRegToken = async () => {
   return fcmTokenId;
 };
 
-const messagePayloadListener = (payload: MessagePayload) => {
-  const { data } = payload;
+const messagePayloadListener = async ({ notification }: MessagePayload) => {
+  if (!notification) return;
 
-  if (!data) return;
+  const { title, body } = notification as { title: string; body: string };
 
-  const { title, body } = data;
-
-  new Notification(title, { body });
+  return new Notification(title, { body });
 };
 
 // Call upon app initialization
@@ -97,6 +94,7 @@ export const onActivateNotification = async () => {
       onMessage(messaging, messagePayloadListener);
       return fcmTokenId;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }
