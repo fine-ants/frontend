@@ -1,11 +1,12 @@
 import useMemberNotificationsQuery from "@api/notifications/queries/useMemberNotificationsQuery";
 import useReadAllMemberNotificationsMutation from "@api/notifications/queries/useReadAllMemberNotificationsMutation";
 import { User } from "@api/user/types";
+import CounterBadge from "@components/common/Badges/CounterBadge";
+import { IconButton } from "@components/common/Buttons/IconButton";
+import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import CounterBadge from "../../Badges/CounterBadge";
-import { Icon } from "../../Icon";
 import { NotificationPanel } from "./NotificationPanel";
 
 export function NotificationControl({ user }: { user: User }) {
@@ -53,10 +54,16 @@ export function NotificationControl({ user }: { user: User }) {
   return (
     <>
       <Control>
-        <NotificationButton onClick={handleClick}>
-          <Icon icon="notification" color="gray400" size={48} />
+        <Wrapper>
+          <NotificationButton
+            icon="notification"
+            size="h40"
+            iconColor="gray"
+            onClick={handleClick}
+          />
+          <Icon icon="notification" color="gray100" size={24} />
           {count > 0 && <CounterBadge count={count} />}
-        </NotificationButton>
+        </Wrapper>
       </Control>
       {notifications && (
         <NotificationPanel
@@ -86,6 +93,8 @@ const Control = styled.div`
   }
 `;
 
-const NotificationButton = styled.button`
+const NotificationButton = styled(IconButton)``;
+
+const Wrapper = styled.div`
   position: relative;
 `;

@@ -50,7 +50,7 @@ type Props = {
   hoverColor?: ColorType;
 };
 
-const icons = {
+export const icons = {
   "add": addIcon,
   "arrow-left": arrowLeftIcon,
   "ascending": ascendingIcon,
@@ -98,6 +98,7 @@ export function Icon({ size, icon, color, hoverColor }: Props) {
   const iconUrl = icons[icon];
 
   const colorValue = getColor(color);
+  const hoverColorValue = getColor(hoverColor ?? color);
 
   return (
     <StyledIcon
@@ -105,7 +106,7 @@ export function Icon({ size, icon, color, hoverColor }: Props) {
       $size={size}
       $iconUrl={iconUrl}
       $color={colorValue}
-      $hoverColor={hoverColor}
+      $hoverColor={hoverColorValue}
     />
   );
 }
@@ -129,6 +130,6 @@ const StyledIcon = styled.div<{
   -webkit-mask-repeat: no-repeat;
 
   &:hover {
-    background-color: ${({ $color, $hoverColor }) => $hoverColor ?? $color};
+    background-color: ${({ $hoverColor }) => $hoverColor};
   }
 `;

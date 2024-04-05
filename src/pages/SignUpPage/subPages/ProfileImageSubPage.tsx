@@ -4,8 +4,8 @@ import {
   AuthPageHeader,
   AuthPageTitle,
   AuthPageTitleCaption,
-  NextButton,
 } from "@components/auth/AuthPageCommon";
+import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { useImageInput } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
@@ -63,12 +63,13 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
       </ImageInputWrapper>
 
       <ButtonsContainer>
-        <NextButton
-          type="button"
+        <Button
+          variant="primary"
+          size="h44"
           onClick={submit}
           disabled={profileImageFile === null}>
           등록 완료
-        </NextButton>
+        </Button>
         <TextButton onClick={submit}>지금은 건너뛰기</TextButton>
       </ButtonsContainer>
     </SubPage>

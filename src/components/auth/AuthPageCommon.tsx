@@ -18,15 +18,3 @@ export const AuthPageTitleCaption = styled.div`
   font: ${designSystem.font.body2.font};
   color: ${designSystem.color.neutral.gray600};
 `;
-
-export const NextButton = styled.button`
-  width: 100%;
-  height: 48px;
-  background: ${designSystem.color.primary.blue500};
-  border-radius: 8px;
-  color: white;
-
-  &:disabled {
-    background: ${designSystem.color.primary.blue200};
-  }
-`;

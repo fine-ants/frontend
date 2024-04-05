@@ -8,7 +8,6 @@ import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext } from "react";
 import { toast } from "src/main";
 import styled from "styled-components";
-import { BaseSignInButton } from "./BaseSignInButton";
 
 type Props = {
   provider: "google" | "kakao" | "naver";
@@ -68,6 +67,18 @@ export default function SocialLoginButton({ provider }: Props) {
 
   return null;
 }
+
+const BaseSignInButton = styled.button`
+  display: flex;
+  min-width: 154px;
+  height: 44px;
+  padding: 0px 12px;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+`;
 
 const StyledKakaoSignInButton = styled(BaseSignInButton)`
   background-color: ${designSystem.color.kakao.primary};

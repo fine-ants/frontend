@@ -3,8 +3,8 @@ import {
   AuthPageHeader,
   AuthPageTitle,
   AuthPageTitleCaption,
-  NextButton,
 } from "@components/auth/AuthPageCommon";
+import Button from "@components/common/Buttons/Button";
 import { TextField } from "@components/common/TextField/TextField";
 import { useDebounce, useText, validateNickname } from "@fineants/demolition";
 import useNicknameDuplicateCheck from "@hooks/useNicknameDuplicateCheck";
@@ -85,9 +85,13 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
           clearValue={onNicknameClear}
         />
 
-        <NextButton disabled={isError || !isDuplicateChecked} type="submit">
+        <Button
+          variant="primary"
+          size="h44"
+          disabled={isError || !isDuplicateChecked}
+          type="submit">
           다음 단계
-        </NextButton>
+        </Button>
       </Form>
     </SubPage>
   );
