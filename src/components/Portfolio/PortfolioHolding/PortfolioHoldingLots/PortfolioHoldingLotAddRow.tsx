@@ -30,14 +30,14 @@ export default function PortfolioHoldingLotAddRow({
     value: newPurchasePricePerShare,
     onChange: onNewPurchasePricePerShareChange,
   } = useText();
-  const onChangeNewPurchasePricePerShare = (
+  const newPurchasePricePerShareHandler = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
     executeIfNumeric(e.target.value.trim(), onNewPurchasePricePerShareChange);
   };
 
   const { value: newNumShares, onChange: onNewNumSharesChange } = useText();
-  const onChangeNewNumShares = (e: ChangeEvent<HTMLInputElement>) => {
+  const newNumSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
     executeIfNumeric(e.target.value.trim(), onNewNumSharesChange);
   };
 
@@ -87,7 +87,7 @@ export default function PortfolioHoldingLotAddRow({
           style={{ width: "100px", textAlign: "left" }}
           placeholder="매입가"
           value={newPurchasePricePerShare}
-          onChange={onChangeNewPurchasePricePerShare}
+          onChange={newPurchasePricePerShareHandler}
         />
       </StyledTableCell>
 
@@ -96,7 +96,7 @@ export default function PortfolioHoldingLotAddRow({
           style={{ width: "100px", textAlign: "left" }}
           placeholder="매입 개수"
           value={newNumShares}
-          onChange={onChangeNewNumShares}
+          onChange={newNumSharesHandler}
         />
       </StyledTableCell>
 

@@ -4,6 +4,7 @@ import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import DatePicker from "@components/common/DatePicker/DatePicker";
 import { Icon } from "@components/common/Icon";
+import { useText } from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
@@ -11,8 +12,9 @@ import {
 import designSystem from "@styles/designSystem";
 import { formatDate } from "@utils/date";
 import { thousandsDelimiter } from "@utils/delimiters";
+import { executeIfNumeric } from "@utils/executeIfNumeric";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -53,10 +55,26 @@ export default function PortfolioHoldingStyledTableRow({
   const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
     dayjs(purchaseDate)
   );
-  const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState(
-    purchasePricePerShare.toString()
-  );
-  const [newNumShares, setNewNumShares] = useState(numShares.toString());
+
+  const {
+    value: newPurchasePricePerShare,
+    onChange: onNewPurchasePricePerShareChange,
+  } = useText({
+    initialValue: thousandsDelimiter(purchasePricePerShare),
+  });
+  const newPurchasePricePerShareHandler = (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    executeIfNumeric(e.target.value.trim(), onNewPurchasePricePerShareChange);
+  };
+
+  const { value: newNumShares, onChange: onNewNumSharesChange } = useText({
+    initialValue: thousandsDelimiter(numShares),
+  });
+  const newNumSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeIfNumeric(e.target.value.trim(), onNewNumSharesChange);
+  };
+
   const [newMemo, setNewMemo] = useState(memo ?? "");
 
   const onEditClick = () => {
@@ -114,20 +132,16 @@ export default function PortfolioHoldingStyledTableRow({
           <StyledTableCell align="right" style={{ width: "119px" }}>
             <Input
               style={{ width: "100px", textAlign: "left" }}
-              type="number"
               value={newPurchasePricePerShare}
-              onChange={(e) =>
-                setNewPurchasePricePerShare(e.target.value.trim())
-              }
+              onChange={(e) => newPurchasePricePerShareHandler(e)}
             />
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "119px" }}>
             <Input
               style={{ width: "100px", textAlign: "left" }}
-              type="number"
               value={newNumShares}
-              onChange={(e) => setNewNumShares(e.target.value.trim())}
+              onChange={(e) => newNumSharesHandler(e)}
             />
           </StyledTableCell>
 

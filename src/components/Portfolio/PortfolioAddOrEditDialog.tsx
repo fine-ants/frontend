@@ -60,7 +60,7 @@ export default function PortfolioAddOrEditDialog({
   const { value: budget, onChange: onBudgetChange } = useText({
     initialValue: portfolioDetails?.budget.toString(),
   });
-  const onBudgetInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const budgetHandler = (e: ChangeEvent<HTMLInputElement>) => {
     executeIfNumeric(e.target.value.trim(), onBudgetChange);
   };
 
@@ -257,7 +257,7 @@ export default function PortfolioAddOrEditDialog({
               <Input
                 placeholder="예산을 입력하세요"
                 value={budget}
-                onChange={onBudgetInputChange}
+                onChange={budgetHandler}
               />
               <span>KRW</span>
             </StyledInput>

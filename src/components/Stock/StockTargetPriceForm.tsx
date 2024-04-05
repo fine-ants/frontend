@@ -19,8 +19,7 @@ export default function StockTargetPriceForm() {
   );
 
   const { value: targetPrice, onChange: onTargetPriceChange } = useText();
-
-  const onChangeTargetPrice = (e: ChangeEvent<HTMLInputElement>) => {
+  const targetPriceHandler = (e: ChangeEvent<HTMLInputElement>) => {
     executeIfNumeric(e.target.value.trim(), onTargetPriceChange);
   };
 
@@ -46,7 +45,7 @@ export default function StockTargetPriceForm() {
           sx={outlinedInputSx}
           placeholder="지정가를 입력하세요"
           value={targetPrice}
-          onChange={onChangeTargetPrice}
+          onChange={targetPriceHandler}
           endAdornment={
             <InputAdornment position="end">
               <Currency $isTyping={!!targetPrice}>₩</Currency>
