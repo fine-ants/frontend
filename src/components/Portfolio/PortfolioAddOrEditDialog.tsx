@@ -17,6 +17,7 @@ import {
   calculateRate,
   calculateValueFromRate,
 } from "@utils/calculations";
+import { thousandsDelimiter } from "@utils/delimiters";
 import excludeDelimiters from "@utils/excludeDelimiters";
 import { executeIfNumeric } from "@utils/executeIfNumeric";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
@@ -58,7 +59,7 @@ export default function PortfolioAddOrEditDialog({
   });
 
   const { value: budget, onChange: onBudgetChange } = useText({
-    initialValue: portfolioDetails?.budget.toString(),
+    initialValue: thousandsDelimiter(portfolioDetails?.budget ?? 0),
   });
   const budgetHandler = (e: ChangeEvent<HTMLInputElement>) => {
     executeIfNumeric(e.target.value.trim(), onBudgetChange);
@@ -342,11 +343,12 @@ const Wrapper = styled.div`
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Header = styled.div`
-  font: ${designSystem.font.title5.font};
-  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 `;
 
