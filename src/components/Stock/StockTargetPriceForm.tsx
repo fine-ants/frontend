@@ -5,6 +5,7 @@ import { Icon } from "@components/common/Icon";
 import { useText } from "@fineants/demolition";
 import { InputAdornment, OutlinedInput } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import excludeDelimiters from "@utils/excludeDelimiters";
 import { executeIfNumeric } from "@utils/executeIfNumeric";
 import { ChangeEvent, FormEvent } from "react";
 import { useParams } from "react-router-dom";
@@ -25,7 +26,7 @@ export default function StockTargetPriceForm() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    addStockTargetPrice(Number(targetPrice));
+    addStockTargetPrice(Number(excludeDelimiters(targetPrice)));
   };
 
   return (

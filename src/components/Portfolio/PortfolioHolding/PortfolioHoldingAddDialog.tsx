@@ -9,6 +9,7 @@ import Spinner from "@components/common/Spinner";
 import { useText } from "@fineants/demolition";
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import excludeDelimiters from "@utils/excludeDelimiters";
 import { executeIfNumeric } from "@utils/executeIfNumeric";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
@@ -55,8 +56,8 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       purchaseDate: newPurchaseDate
         ? newPurchaseDate.format("YYYY-MM-DDTHH:mm:ss")
         : "",
-      numShares: Number(numShares),
-      purchasePricePerShare: Number(purchasePricePerShare),
+      numShares: Number(excludeDelimiters(numShares)),
+      purchasePricePerShare: Number(excludeDelimiters(purchasePricePerShare)),
       memo,
     };
 
