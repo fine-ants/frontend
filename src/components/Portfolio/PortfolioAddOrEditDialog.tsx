@@ -59,7 +59,9 @@ export default function PortfolioAddOrEditDialog({
   });
 
   const { value: budget, onChange: onBudgetChange } = useText({
-    initialValue: thousandsDelimiter(portfolioDetails?.budget ?? 0),
+    initialValue: portfolioDetails?.budget
+      ? thousandsDelimiter(portfolioDetails?.budget)
+      : "",
   });
   const budgetHandler = (e: ChangeEvent<HTMLInputElement>) => {
     executeIfNumeric(e.target.value.trim(), onBudgetChange);

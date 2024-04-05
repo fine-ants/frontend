@@ -6,7 +6,11 @@ export const executeIfNumeric = (
   commas: boolean = true
 ) => {
   const parsedValue = value.replace(/,/g, "");
-  if (!isNaN(Number(parsedValue)) || parsedValue === "") {
+  if (parsedValue === "") {
+    func(parsedValue);
+    return;
+  }
+  if (!isNaN(Number(parsedValue))) {
     func(commas ? thousandsDelimiter(Number(parsedValue)) : parsedValue);
   }
 };
