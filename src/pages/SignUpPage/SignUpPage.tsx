@@ -1,7 +1,7 @@
 import { SignUpData, postEmailVerification } from "@api/auth";
 import useSignUpMutation from "@api/auth/queries/useSignUpMutation";
+import { TextButton } from "@components/common/Buttons/TextButton";
 import { useFunnel } from "@fineants/demolition";
-import { Button } from "@mui/material";
 import AuthBasePage from "@pages/AuthBasePage";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
@@ -128,9 +128,12 @@ export default function SignUpPage() {
         </SubPageContainer>
         <SupportContainer>
           이미 회원이신가요?
-          <TextButton onClick={() => navigate(Routes.SIGNIN)}>
+          <StyledTextButton
+            size="h24"
+            color="primary"
+            onClick={() => navigate(Routes.SIGNIN)}>
             로그인하기
-          </TextButton>
+          </StyledTextButton>
         </SupportContainer>
       </SignUpContainer>
     </AuthBasePage>
@@ -146,11 +149,9 @@ const SupportContainer = styled.div`
   color: ${designSystem.color.neutral.gray600};
 `;
 
-const TextButton = styled(Button)`
-  padding: 0;
+const StyledTextButton = styled(TextButton)`
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.primary.blue500};
 `;
 
 const SignUpContainer = styled.div`
