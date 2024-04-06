@@ -192,7 +192,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
         </InputBox>
       </InputContainer>
 
-      <Button
+      <AddButton
         variant="primary"
         size="h32"
         style={{ marginLeft: "auto" }}
@@ -203,7 +203,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
         ) : (
           "추가"
         )}
-      </Button>
+      </AddButton>
     </BaseDialog>
   );
 }
@@ -347,4 +347,8 @@ const Input = styled.input`
   &&::placeholder {
     color: ${designSystem.color.neutral.gray400};
   }
+`;
+
+const AddButton = styled(Button)`
+  width: 80px;
 `;

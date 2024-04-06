@@ -27,10 +27,13 @@ export default function EmptyPortfolioListTable() {
       <EmptyPortfolioListDescription>
         포트폴리오를 추가하여 보유한 자산을 효율적으로 관리하세요
       </EmptyPortfolioListDescription>
-      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
+      <AddPortfolioButton
+        variant="primary"
+        size="h44"
+        onClick={onAddPortfolioButtonClick}>
         <img src={addIcon} alt="포트폴리오 추가" />
         <span>포트폴리오 추가</span>
-      </Button>
+      </AddPortfolioButton>
 
       {isAddPortfolioDialogOpen && (
         <PortfolioAddDialog
@@ -66,4 +69,8 @@ const EmptyPortfolioListDescription = styled.p`
   margin-bottom: 48px;
   font: ${designSystem.font.body2.font};
   color: ${designSystem.color.neutral.gray500};
+`;
+
+const AddPortfolioButton = styled(Button)`
+  width: 161px;
 `;

@@ -80,13 +80,13 @@ export default function WatchlistsTableToolBar({
         )}
       </SelectedInfoContainer>
 
-      <Button
+      <AddNewWatchlistButton
         variant="primary"
         size="h32"
         onClick={onAddNewWatchlistButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>새 리스트 추가</span>
-      </Button>
+      </AddNewWatchlistButton>
 
       {isNewWatchlistDialogOpen && (
         <NewWatchlistDialog
@@ -125,4 +125,8 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+`;
+
+const AddNewWatchlistButton = styled(Button)`
+  width: 126px;
 `;

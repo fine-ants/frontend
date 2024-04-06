@@ -83,13 +83,13 @@ export default function WatchlistTableToolBar({
         )}
       </SelectedInfoContainer>
 
-      <Button
+      <AddWatchlistItemButton
         variant="primary"
         size="h32"
         onClick={onAddWatchlistItemButtonClick}>
         <Icon icon="favorite-add" size={16} color="white" />
         <span>관심 종목 추가</span>
-      </Button>
+      </AddWatchlistItemButton>
 
       {isAddWatchlistDialogOpen && (
         <WatchlistItemAddDialog
@@ -128,4 +128,8 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+`;
+
+const AddWatchlistItemButton = styled(Button)`
+  width: 126px;
 `;
