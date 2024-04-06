@@ -1,14 +1,8 @@
 import { PortfolioHolding, PortfolioHoldingsSSE } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { Icon } from "@components/common/Icon";
-import {
-  Collapse,
-  IconButton,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Collapse, TableCell, TableRow, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent, useCallback, useEffect, useRef, useState } from "react";
@@ -174,19 +168,15 @@ export default function PortfolioHoldingRow({
             padding: "0 8px 0 16px",
           }}>
           <IconButton
-            style={{
-              width: "16px",
-              height: "16px",
+            icon={isRowOpen ? "chevron-down" : "chevron-right"}
+            size="h24"
+            iconColor="custom"
+            customColor={{
+              color: "gray400",
+              hoverColor: "gray200",
             }}
-            aria-label="expand row"
-            size="small"
-            onClick={(event) => onExpandRowClick(event)}>
-            <Icon
-              icon={isRowOpen ? "chevron-down" : "chevron-right"}
-              size={16}
-              color={"gray400"}
-            />
-          </IconButton>
+            onClick={(event) => onExpandRowClick(event)}
+          />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "32px", padding: "0" }}>

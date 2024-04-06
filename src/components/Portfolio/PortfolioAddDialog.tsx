@@ -3,11 +3,11 @@ import usePortfolioEditMutation from "@api/portfolio/queries/usePortfolioEditMut
 import { PortfolioDetails } from "@api/portfolio/types";
 import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
-import { Icon } from "@components/common/Icon";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
 import { useText } from "@fineants/demolition";
-import { FormControl, IconButton } from "@mui/material";
+import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
   SecuritiesFirm,
@@ -203,9 +203,12 @@ export default function PortfolioAddDialog({
       <Wrapper>
         <HeaderWrapper>
           <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
-          <IconButton onClick={onClose}>
-            <Icon size={24} icon="close" color={"gray600"} />
-          </IconButton>
+          <IconButton
+            icon="close"
+            size="h40"
+            iconColor="gray"
+            onClick={onClose}
+          />
         </HeaderWrapper>
         <Body>
           <Row>

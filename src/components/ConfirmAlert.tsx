@@ -1,10 +1,9 @@
-import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
 import Button from "./common/Buttons/Button";
-import { Icon } from "./common/Icon";
+import { IconButton } from "./common/Buttons/IconButton";
 
 type Props = {
   isOpen: boolean;
@@ -32,9 +31,7 @@ export default function ConfirmAlert({
         <div>
           <Header>
             <Title>{title}</Title>
-            <IconButton onClick={onClose}>
-              <Icon size={24} icon="close" color="gray600" />
-            </IconButton>
+            <IconButton icon="close" size="h40" iconColor="gray" />
           </Header>
           <Body>{children}</Body>
         </div>

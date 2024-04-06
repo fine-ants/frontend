@@ -3,11 +3,10 @@ import { StockSearchItem } from "@api/stock";
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
-import { Icon } from "@components/common/Icon";
 import Spinner from "@components/common/Spinner";
 import { useText } from "@fineants/demolition";
-import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { executeIfNumeric } from "@utils/executeIfNumeric";
 import dayjs, { Dayjs } from "dayjs";
@@ -97,9 +96,12 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       onClose={onDialogClose}>
       <Header>
         <Title>종목 추가</Title>
-        <IconButton onClick={onDialogClose}>
-          <Icon icon="close" size={24} color="gray600" />
-        </IconButton>
+        <IconButton
+          icon="close"
+          size="h40"
+          iconColor="gray"
+          onClick={onDialogClose}
+        />
       </Header>
 
       <SearchWrapper>
@@ -121,10 +123,16 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
             <span>{selectedStock.tickerSymbol}</span>
           </TitleWrapper>
           <IconButton
+            icon="close"
+            size="h24"
+            iconColor="custom"
+            customColor={{
+              color: "blue200",
+              hoverColor: "blue50",
+            }}
             disabled={isPortfolioHoldingAddMutatePending}
-            onClick={onDeleteHoldingBoxClick}>
-            <Icon icon="close" size={16} color="blue200" />
-          </IconButton>
+            onClick={onDeleteHoldingBoxClick}
+          />
         </HoldingBox>
       )}
 

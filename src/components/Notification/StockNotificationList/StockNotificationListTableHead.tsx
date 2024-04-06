@@ -2,11 +2,10 @@ import { StockNotification } from "@api/notifications/types";
 import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
-import { Icon } from "@components/common/Icon";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { Order } from "@components/common/Table/types";
 import {
   Box,
-  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -45,20 +44,12 @@ export default function StockNotificationListTableHead({
       <StyledTableRow>
         <StyledTableCell sx={{ width: "32px" }} padding="none">
           <IconButton
-            style={{
-              width: "16px",
-              height: "16px",
-              padding: "0",
-            }}
-            aria-label="expand row"
-            size="small"
-            onClick={(event) => onExpandOrCollapseAllRows(event)}>
-            <Icon
-              icon={isAllRowsOpen ? "chevron-down" : "chevron-right"}
-              size={16}
-              color={"gray400"}
-            />
-          </IconButton>
+            icon={isAllRowsOpen ? "chevron-down" : "chevron-right"}
+            iconColor="custom"
+            size="h24"
+            customColor={{ color: "gray400", hoverColor: "gray100" }}
+            onClick={(event) => onExpandOrCollapseAllRows(event)}
+          />
         </StyledTableCell>
 
         <StyledTableCell

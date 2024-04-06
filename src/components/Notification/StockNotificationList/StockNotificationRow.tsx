@@ -2,11 +2,11 @@ import useAllStockPriceTargetsDeleteMutation from "@api/notifications/queries/us
 import useStockNotificationSettingsMutation from "@api/notifications/queries/useStockNotificationSettingsMutation";
 import { StockNotification } from "@api/notifications/types";
 import ConfirmAlert from "@components/ConfirmAlert";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { Icon } from "@components/common/Icon";
 import {
   Button,
   Collapse,
-  IconButton,
   TableCell,
   TableRow,
   Typography,
@@ -73,19 +73,12 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
             padding: "0 8px 0 16px",
           }}>
           <IconButton
-            style={{
-              width: "16px",
-              height: "16px",
-            }}
-            aria-label="expand row"
-            size="small"
-            onClick={(event) => onExpandRowClick(event)}>
-            <Icon
-              icon={isRowOpen ? "chevron-down" : "chevron-right"}
-              size={16}
-              color={"gray400"}
-            />
-          </IconButton>
+            icon={isAllRowsOpen ? "chevron-down" : "chevron-right"}
+            iconColor="custom"
+            size="h24"
+            customColor={{ color: "gray400", hoverColor: "gray200" }}
+            onClick={(event) => onExpandRowClick(event)}
+          />
         </StyledTableCell>
 
         <StyledTableCell component="th" scope="row">
@@ -103,13 +96,18 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "120px" }} align="center">
-          <IconButton onClick={onNotificationButtonClick}>
-            <Icon
+          <div>
+            <IconButton
               icon="notification"
-              size={24}
-              color={isActive ? "blue500" : "gray400"}
+              size="h24"
+              iconColor="custom"
+              customColor={{
+                color: isActive ? "blue500" : "gray400",
+                hoverColor: "gray100",
+              }}
+              onClick={onNotificationButtonClick}
             />
-          </IconButton>
+          </div>
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "120px" }} align="center">

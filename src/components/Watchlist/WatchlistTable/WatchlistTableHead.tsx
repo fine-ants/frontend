@@ -2,13 +2,12 @@ import { WatchlistItemType } from "@api/watchlist";
 import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
 import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
 import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
-import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/types";
 import {
   Box,
-  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -100,11 +99,15 @@ export default function WatchlistTableHead({
         <StyledTableCell padding="none" sx={{ width: "32px" }}>
           <CustomTooltip title="관심 종목 삭제" placement="bottom-start">
             <IconButton
-              sx={{ padding: 0 }}
-              disableRipple={true}
-              onClick={onFavoriteIconClick}>
-              <Icon icon="favorite" size={16} color="blue500" />
-            </IconButton>
+              icon="favorite"
+              size="h24"
+              iconColor="custom"
+              customColor={{
+                color: "blue500",
+                hoverColor: "blue50",
+              }}
+              onClick={onFavoriteIconClick}
+            />
           </CustomTooltip>
         </StyledTableCell>
         {headCells.map((headCell) => (
