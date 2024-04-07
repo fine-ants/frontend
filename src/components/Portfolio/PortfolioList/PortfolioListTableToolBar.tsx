@@ -9,7 +9,7 @@ import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
-import PortfolioAddDialog from "../PortfolioAddDialog";
+import PortfolioAddDialog from "../PortfolioAddOrEditDialog";
 
 interface PortfolioListTableToolBarProps {
   selected: readonly PortfolioItem[];

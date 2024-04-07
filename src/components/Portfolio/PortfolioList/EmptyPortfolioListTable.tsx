@@ -4,7 +4,7 @@ import Button from "@components/common/Buttons/Button";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
-import PortfolioAddDialog from "../PortfolioAddDialog";
+import PortfolioAddDialog from "../PortfolioAddOrEditDialog";
 
 export default function EmptyPortfolioListTable() {
   const [isAddPortfolioDialogOpen, setIsAddPortfolioDialogOpen] =

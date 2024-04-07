@@ -1,5 +1,5 @@
 import useDashboardPieChartQuery from "@api/dashboard/queries/useDashboardPieChartQuery";
-import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioAddOrEditDialog";
 import TallLegend from "@components/common/Legend/TallLegend";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import designSystem from "@styles/designSystem";

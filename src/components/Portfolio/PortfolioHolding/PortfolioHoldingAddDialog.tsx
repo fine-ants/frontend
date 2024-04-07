@@ -9,9 +9,10 @@ import Spinner from "@components/common/Spinner";
 import { useText } from "@fineants/demolition";
 import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import excludeDelimiters from "@utils/excludeDelimiters";
 import { executeIfNumeric } from "@utils/executeIfNumeric";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -39,11 +40,19 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     dayjs(new Date())
   );
 
-  const { value: numShares, onChange: onNumSharesChange } = useText();
   const {
     value: purchasePricePerShare,
     onChange: onPurchasePricePerShareChange,
   } = useText();
+  const purchasePricePerShareHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeIfNumeric(e.target.value.trim(), onPurchasePricePerShareChange);
+  };
+
+  const { value: numShares, onChange: onNumSharesChange } = useText();
+  const numSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeIfNumeric(e.target.value.trim(), onNumSharesChange);
+  };
+
   const { value: memo, onChange: onMemoChange } = useText();
 
   const onSelectOption = (stock: StockSearchItem) => {
@@ -55,8 +64,8 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       purchaseDate: newPurchaseDate
         ? newPurchaseDate.format("YYYY-MM-DDTHH:mm:ss")
         : "",
-      numShares: Number(numShares),
-      purchasePricePerShare: Number(purchasePricePerShare),
+      numShares: Number(excludeDelimiters(numShares)),
+      purchasePricePerShare: Number(excludeDelimiters(purchasePricePerShare)),
       memo,
     };
 
@@ -147,12 +156,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
               placeholder="매입가를 입력하세요"
               disabled={isPortfolioHoldingAddMutatePending}
               value={purchasePricePerShare}
-              onChange={(e) =>
-                executeIfNumeric(
-                  e.target.value.trim(),
-                  onPurchasePricePerShareChange
-                )
-              }
+              onChange={purchasePricePerShareHandler}
             />
             <div>₩</div>
           </InputWrapper>
@@ -166,9 +170,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
               placeholder="매입 개수를 입력하세요"
               disabled={isPortfolioHoldingAddMutatePending}
               value={numShares}
-              onChange={(e) =>
-                executeIfNumeric(e.target.value.trim(), onNumSharesChange)
-              }
+              onChange={numSharesHandler}
             />
           </InputWrapper>
         </InputBox>
@@ -316,7 +318,7 @@ const InputTextArea = styled.textarea`
   border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 3px;
   font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray400};
+  color: ${designSystem.color.neutral.gray800};
 
   &&::placeholder {
     color: ${designSystem.color.neutral.gray400};

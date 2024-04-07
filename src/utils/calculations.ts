@@ -1,25 +1,37 @@
-export const calculateRate = (num1: number, num2: number) => {
-  const rate = ((num1 - num2) / num2) * 100;
+import { thousandsDelimiter } from "./delimiters";
+import excludeDelimiters from "./excludeDelimiters";
 
-  return rate;
+export const calculateRate = (val1: string, val2: string) => {
+  const parsedVal1 = Number(excludeDelimiters(val1));
+  const parsedVal2 = Number(excludeDelimiters(val2));
+
+  const rate = ((parsedVal1 - parsedVal2) / parsedVal2) * 100;
+
+  return thousandsDelimiter(applyDecimals(rate));
 };
 
-export const calculateLossRate = (num1: number, num2: number) => {
-  const rate = ((num1 - num2) / num1) * 100;
+export const calculateLossRate = (val1: string, val2: string) => {
+  const parsedVal1 = Number(excludeDelimiters(val1));
+  const parsedVal2 = Number(excludeDelimiters(val2));
 
-  return formatToRate(rate);
+  const rate = ((parsedVal1 - parsedVal2) / parsedVal1) * 100;
+
+  return thousandsDelimiter(applyDecimals(rate));
 };
 
-export const calculateValue = (rate: number, base: number) => {
-  const value = base + (rate / 100) * base;
+export const calculateValueFromRate = (rate: string, base: string) => {
+  const parsedRate = Number(excludeDelimiters(rate));
+  const parsedBase = Number(excludeDelimiters(base));
 
-  return formatToRate(value);
+  const value = parsedBase + (parsedRate / 100) * parsedBase;
+
+  return thousandsDelimiter(applyDecimals(value));
 };
 
-export function formatToRate(value: number) {
+export function applyDecimals(value: number, decimalPlaces: number = 2) {
   if (value % 1 === 0) {
-    return value.toString();
+    return value;
   } else {
-    return parseFloat(value.toFixed(2)).toString();
+    return parseFloat(value.toFixed(decimalPlaces));
   }
 }
