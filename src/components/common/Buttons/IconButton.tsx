@@ -100,7 +100,7 @@ const StyledButton = styled.button<{
   };
   $disabled: boolean;
 }>`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: ${({ $size }) => ($size === "h24" ? "24px" : "40px")};

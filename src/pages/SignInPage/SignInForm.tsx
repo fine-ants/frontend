@@ -6,13 +6,14 @@ import {
   AuthPageTitleCaption,
 } from "@components/auth/AuthPageCommon";
 import SocialLoginButton from "@components/auth/SocialLoginButton";
+import Button from "@components/common/Buttons/Button";
+import { TextButton } from "@components/common/Buttons/TextButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { TextField } from "@components/common/TextField/TextField";
 import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
 import { useText, validateEmail } from "@fineants/demolition";
-import { Button } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useContext, useEffect } from "react";
@@ -109,13 +110,19 @@ export default function SignInForm() {
             <FormControlLabel>
               <CheckBox size="h20" />내 정보 기억하기
             </FormControlLabel>
-            <TextButton>비밀번호를 잊으셨나요?</TextButton>
+            <SupportTextButton size="h24" color="gray">
+              비밀번호를 잊으셨나요?
+            </SupportTextButton>
           </SupportContainer>
         </InputControl>
 
-        <SignInButton type="submit" disabled={!isAllFieldsFilled}>
+        <Button
+          variant="primary"
+          size="h44"
+          type="submit"
+          disabled={!isAllFieldsFilled}>
           로그인
-        </SignInButton>
+        </Button>
       </Form>
 
       <SignInButtonContainer>
@@ -125,7 +132,10 @@ export default function SignInForm() {
       </SignInButtonContainer>
       <SignUpWrapper>
         아직 계정이 없으신가요?
-        <SignUpButton type="button" onClick={() => navigate(Routes.SIGNUP)}>
+        <SignUpButton
+          size="h24"
+          color="primary"
+          onClick={() => navigate(Routes.SIGNUP)}>
           회원가입하기
         </SignUpButton>
       </SignUpWrapper>
@@ -179,10 +189,9 @@ const SupportContainer = styled.div`
   justify-content: space-between;
 `;
 
-const TextButton = styled(Button)`
+const SupportTextButton = styled(TextButton)`
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
 `;
 
 const FormControlLabel = styled.label`
@@ -202,31 +211,9 @@ const SignInButtonContainer = styled.div`
   }
 `;
 
-const SignInButton = styled.button`
-  display: flex;
-  width: 100%;
-  min-width: 128px;
-  height: 44px;
-  padding: 0px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  background: ${designSystem.color.primary.blue500};
-  border-radius: 4px;
-  font: ${designSystem.font.button1.font};
-  letter-spacing: ${designSystem.font.button1.letterSpacing};
-  color: ${designSystem.color.neutral.white};
-
-  &:disabled {
-    background: ${designSystem.color.primary.blue200};
-  }
-`;
-
-const SignUpButton = styled.button`
+const SignUpButton = styled(TextButton)`
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.primary.blue500};
 `;
 
 const SignUpWrapper = styled.div`

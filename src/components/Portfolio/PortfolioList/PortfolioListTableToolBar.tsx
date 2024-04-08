@@ -1,10 +1,10 @@
 import usePortfoliosDeleteMutation from "@api/portfolio/queries/usePortfoliosDeleteMutation";
 import { PortfolioItem } from "@api/portfolio/types";
 import dividerIcon from "@assets/icons/ic_divider.svg";
-import addIcon from "@assets/icons/ic_folder-add.svg";
 import trashIcon from "@assets/icons/ic_trash.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
@@ -80,10 +80,13 @@ export default function PortfolioListTableToolBar({
         )}
       </SelectedInfoContainer>
 
-      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
-        <img src={addIcon} alt="포트폴리오 추가" />
+      <AddPortfolioButton
+        variant="primary"
+        size="h32"
+        onClick={onAddPortfolioButtonClick}>
+        <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
-      </Button>
+      </AddPortfolioButton>
 
       {isAddPortfolioDialogOpen && (
         <PortfolioAddDialog
@@ -122,4 +125,9 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+`;
+
+const AddPortfolioButton = styled(Button)`
+  width: 136px;
+  gap: 4px;
 `;

@@ -1,7 +1,8 @@
 import useDeleteAllMemberNotificationsMutation from "@api/notifications/queries/useDeleteAllMemberNotificationsMutation";
 import { MemberNotification } from "@api/notifications/types";
 import { User } from "@api/user/types";
-import { Icon } from "@components/common/Icon";
+import { IconButton } from "@components/common/Buttons/IconButton";
+import { TextButton } from "@components/common/Buttons/TextButton";
 import { Popover } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
@@ -69,13 +70,20 @@ export function NotificationPanel({
           <PanelHeader>
             <PanelTitle>알림</PanelTitle>
             <PanelButtonContainer>
-              <TextButton onClick={navigateActivateNotify}>
+              <TextButton size="h24" onClick={navigateActivateNotify}>
                 활성 알림 보기
               </TextButton>
               <Divider />
-              <button onClick={openDialog}>
-                <Icon icon="settings" color="gray800" size={24} />
-              </button>
+              <IconButton
+                icon="settings"
+                size="h40"
+                iconColor="custom"
+                customColor={{
+                  color: "gray800",
+                  hoverColor: "gray50",
+                }}
+                onClick={openDialog}
+              />
             </PanelButtonContainer>
           </PanelHeader>
           <PanelContent>
@@ -93,10 +101,12 @@ export function NotificationPanel({
             )}
           </PanelContent>
           <PanelFooter>
-            <NotificationDeleteAllButton
+            <TextButton
+              color="gray"
+              size="h24"
               onClick={onClickDeleteAllNotifications}>
               모든 알림 지우기
-            </NotificationDeleteAllButton>
+            </TextButton>
           </PanelFooter>
         </StyledNotificationPanel>
       </StyledPopover>
@@ -150,12 +160,6 @@ const PanelButtonContainer = styled.div`
   gap: 12px;
 `;
 
-const TextButton = styled.button`
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.primary.blue500};
-`;
-
 const Divider = styled.div`
   width: 1px;
   height: 12px;
@@ -178,10 +182,4 @@ const PanelFooter = styled.div`
   box-sizing: border-box;
   padding: 0 24px;
   border-top: 1px solid ${designSystem.color.neutral.gray200};
-`;
-
-const NotificationDeleteAllButton = styled.button`
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
 `;

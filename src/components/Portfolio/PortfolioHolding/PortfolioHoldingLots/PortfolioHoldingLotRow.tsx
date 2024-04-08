@@ -2,8 +2,8 @@ import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/us
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
-import { Icon } from "@components/common/Icon";
 import { useText } from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
@@ -153,15 +153,20 @@ export default function PortfolioHoldingStyledTableRow({
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "32px" }}>
-            <IconButton onClick={onSaveClick}>
-              <Icon icon="check" size={16} color={"blue500"} />
-            </IconButton>
+            <StyledIconButton icon="check" size="h24" onClick={onSaveClick} />
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "32px" }}>
-            <IconButton onClick={onOpenDeleteConfirmAlert}>
-              <Icon icon="remove" size={16} color={"gray400"} />
-            </IconButton>
+            <StyledIconButton
+              icon="remove"
+              size="h24"
+              iconColor="custom"
+              customColor={{
+                color: "gray400",
+                hoverColor: "gray50",
+              }}
+              onClick={onOpenDeleteConfirmAlert}
+            />
           </StyledTableCell>
         </>
       ) : (
@@ -184,16 +189,22 @@ export default function PortfolioHoldingStyledTableRow({
           <StyledTableCell style={{ width: "395px" }}>{memo}</StyledTableCell>
 
           <StyledTableCell style={{ width: "32px" }}>
-            <IconButton onClick={onEditClick}>
-              <Icon icon="edit" size={16} color={"gray600"} />
-            </IconButton>
+            <StyledIconButton
+              icon="edit"
+              size="h24"
+              iconColor="gray"
+              onClick={onEditClick}
+            />
           </StyledTableCell>
           <StyledTableCell
             align="right"
             style={{ width: "40px !important", boxSizing: "border-box" }}>
-            <IconButton onClick={onOpenDeleteConfirmAlert}>
-              <Icon icon="remove" size={16} color={"gray600"} />
-            </IconButton>
+            <IconButton
+              icon="remove"
+              size="h24"
+              iconColor="gray"
+              onClick={onOpenDeleteConfirmAlert}
+            />
           </StyledTableCell>
 
           <ConfirmAlert
@@ -274,6 +285,6 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
-const IconButton = styled.button`
-  width: 100%;
+const StyledIconButton = styled(IconButton)`
+  min-width: 100%;
 `;

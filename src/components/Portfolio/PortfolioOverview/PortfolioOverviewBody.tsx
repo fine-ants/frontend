@@ -1,9 +1,10 @@
 import usePortfolioNotificationSettingsMutation from "@api/notifications/queries/usePortfolioNotificationSettingsMutation";
 import { PortfolioDetails } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
-import { IconButton, debounce } from "@mui/material";
+import { debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { useParams } from "react-router-dom";
@@ -73,14 +74,17 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <NotificationLabel>
-              목표 수익률{" "}
-              <NotificationIconButton onClick={onTargetGainNotifyButtonClick}>
-                <Icon
-                  icon="notification"
-                  size={24}
-                  color={data.targetGainNotify ? "blue500" : "gray400"}
-                />
-              </NotificationIconButton>
+              목표 수익률
+              <IconButton
+                icon="notification"
+                size="h24"
+                iconColor="custom"
+                customColor={{
+                  color: data.targetGainNotify ? "blue500" : "gray400",
+                  hoverColor: "gray50",
+                }}
+                onClick={onTargetGainNotifyButtonClick}
+              />
             </NotificationLabel>
             <span>₩{thousandsDelimiter(data.targetGain)}</span>
           </OverviewBodyData>
@@ -94,19 +98,17 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </div>
           <OverviewBodyData>
             <NotificationLabel>
-              최대 손실율{" "}
-              <NotificationIconButton
+              최대 손실율
+              <IconButton
+                icon="notification"
+                size="h24"
+                iconColor="custom"
+                customColor={{
+                  color: data.targetGainNotify ? "blue500" : "gray400",
+                  hoverColor: "gray50",
+                }}
                 onClick={onMaxLossNotifyButtonClick}
-                sx={{
-                  height: "24px",
-                  padding: "0",
-                }}>
-                <Icon
-                  icon="notification"
-                  size={24}
-                  color={data.maxLossNotify ? "blue500" : "gray400"}
-                />
-              </NotificationIconButton>
+              />
             </NotificationLabel>
             <span>₩{thousandsDelimiter(data.maximumLoss)}</span>
           </OverviewBodyData>
@@ -239,9 +241,4 @@ const NotificationLabel = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
-`;
-
-const NotificationIconButton = styled(IconButton)`
-  height: 24px;
-  padding: 0;
 `;

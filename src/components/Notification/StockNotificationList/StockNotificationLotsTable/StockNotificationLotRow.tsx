@@ -1,8 +1,8 @@
 import useStockTargetPriceDeleteMutation from "@api/notifications/queries/useStockTargetPriceDeleteMutation";
 import { StockTargetPrice } from "@api/notifications/types";
 import ConfirmAlert from "@components/ConfirmAlert";
-import { Icon } from "@components/common/Icon";
-import { IconButton, TableCell, TableRow } from "@mui/material";
+import { IconButton } from "@components/common/Buttons/IconButton";
+import { TableCell, TableRow } from "@mui/material";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { useState } from "react";
 import styled from "styled-components";
@@ -40,9 +40,12 @@ export default function StockNotificationLotRow({ row }: Props) {
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "120px" }} align="center">
-        <IconButton onClick={onRemoveNotificationButtonClick}>
-          <Icon icon="trash" size={16} color="gray600" />
-        </IconButton>
+        <IconButton
+          icon="trash"
+          size="h24"
+          iconColor="gray"
+          onClick={onRemoveNotificationButtonClick}
+        />
       </StyledTableCell>
 
       {isConfirmOpen && (

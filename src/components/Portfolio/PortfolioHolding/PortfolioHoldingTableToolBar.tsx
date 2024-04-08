@@ -85,10 +85,13 @@ export default function PortfolioHoldingTableToolBar({
         )}
       </SelectedInfoContainer>
 
-      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
+      <AddPortfolioButton
+        variant="primary"
+        size="h32"
+        onClick={onAddPortfolioButtonClick}>
         <Icon icon="add" size={16} color="white" />
         <span>종목 추가</span>
-      </Button>
+      </AddPortfolioButton>
 
       <PortfolioHoldingAddDialog
         isOpen={isAddHoldingDialogOpen}
@@ -135,3 +138,7 @@ const DeleteList = styled.ul`
 `;
 
 const DeleteListItem = styled.li``;
+
+const AddPortfolioButton = styled(Button)`
+  width: 98px;
+`;

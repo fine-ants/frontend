@@ -6,6 +6,7 @@ import {
   AuthPageTitleCaption,
 } from "@components/auth/AuthPageCommon";
 import Button from "@components/common/Buttons/Button";
+import { TextButton } from "@components/common/Buttons/TextButton";
 import { Icon } from "@components/common/Icon";
 import { useImageInput } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
@@ -70,7 +71,9 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
           disabled={profileImageFile === null}>
           등록 완료
         </Button>
-        <TextButton onClick={submit}>지금은 건너뛰기</TextButton>
+        <StyledTextButton size="h24" color="gray" onClick={submit}>
+          지금은 건너뛰기
+        </StyledTextButton>
       </ButtonsContainer>
     </SubPage>
   );
@@ -134,9 +137,7 @@ const CameraWrapper = styled.div`
   z-index: 1;
 `;
 
-const TextButton = styled.button`
-  padding: 0;
-  color: ${designSystem.color.neutral.gray600};
+const StyledTextButton = styled(TextButton)`
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;

@@ -1,6 +1,6 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
-import { Icon } from "@components/common/Icon";
 import { useText } from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
@@ -109,19 +109,21 @@ export default function PortfolioHoldingLotAddRow({
       </StyledTableCell>
 
       <StyledTableCell align="right" sx={{ width: "32px" }}>
-        <IconButton disabled={!isValid} onClick={onSaveClick}>
-          <Icon
-            icon="check"
-            size={16}
-            color={isValid ? "blue500" : "gray400"}
-          />
-        </IconButton>
+        <StyledIconButton
+          icon="check"
+          size="h24"
+          iconColor="custom"
+          customColor={{
+            color: isValid ? "blue500" : "gray400",
+            hoverColor: "gray50",
+          }}
+          disabled={!isValid}
+          onClick={onSaveClick}
+        />
       </StyledTableCell>
 
       <StyledTableCell align="right" sx={{ width: "32px" }}>
-        <IconButton onClick={onPurchaseValuesRemove}>
-          <Icon icon="remove" size={16} color={"gray600"} />
-        </IconButton>
+        <StyledIconButton icon="remove" size="h24" iconColor="gray" />
       </StyledTableCell>
     </MuiTableRow>
   );
@@ -178,6 +180,6 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
-const IconButton = styled.button`
-  width: 100%;
+const StyledIconButton = styled(IconButton)`
+  min-width: 100%;
 `;

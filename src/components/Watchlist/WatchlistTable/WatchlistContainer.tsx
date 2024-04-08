@@ -55,22 +55,22 @@ export default function WatchlistContainer() {
             <h1>{watchlistData.name}</h1>
           </Header>
           <ButtonWrapper>
-            <Button
+            <StyledButton
               variant="tertiary"
               size="h32"
               onClick={onDeleteWatchlistButtonClick}
               disabled={false}>
               <Icon icon="trash" size={16} color="gray600" />
               삭제
-            </Button>
-            <Button
+            </StyledButton>
+            <StyledButton
               variant="secondary"
               size="h32"
               onClick={onFavoriteMarkClick}
               disabled={false}>
               <Icon icon="edit" size={16} color="blue500" />
               이름 편집
-            </Button>
+            </StyledButton>
           </ButtonWrapper>
         </TitleContent>
       </TitleContainer>
@@ -133,4 +133,8 @@ const TitleContent = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 8px;
+`;
+
+const StyledButton = styled(Button)`
+  width: 98px;
 `;
