@@ -61,15 +61,14 @@ export default function StockNotificationListTableHead({
             IconComponent={() => {
               const isOrderBy = orderBy === "companyName";
 
-              if (!isOrderBy)
-                return <Icon icon="sort_none" size={16} color="gray600" />;
-
-              return (
+              return isOrderBy ? (
                 <Icon
                   icon={order === "asc" ? "sort_ascending" : "sort_descending"}
                   size={16}
                   color="#373840"
                 />
+              ) : (
+                <Icon icon="sort_none" size={16} color="gray600" />
               );
             }}>
             종목 이름

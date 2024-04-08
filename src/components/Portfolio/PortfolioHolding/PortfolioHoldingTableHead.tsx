@@ -153,10 +153,7 @@ export default function PortfolioHoldingTableHead({
               IconComponent={() => {
                 const isOrderBy = orderBy === headCell.id;
 
-                if (!isOrderBy)
-                  return <Icon icon="sort_none" size={16} color="gray600" />;
-
-                return (
+                return isOrderBy ? (
                   <Icon
                     icon={
                       order === "asc" ? "sort_ascending" : "sort_descending"
@@ -164,6 +161,8 @@ export default function PortfolioHoldingTableHead({
                     size={16}
                     color="#373840"
                   />
+                ) : (
+                  <Icon icon="sort_none" size={16} color="gray600" />
                 );
               }}>
               {headCell.label === "연 배당금" ? (
