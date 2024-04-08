@@ -1,11 +1,10 @@
 import useAccountDeleteMutation from "@api/user/queries/useAccountDeleteMutation";
 import { useText } from "@fineants/demolition";
-import { IconButton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
 import Button from "./common/Buttons/Button";
-import { Icon } from "./common/Icon";
+import { IconButton } from "./common/Buttons/IconButton";
 import { TextField } from "./common/TextField/TextField";
 
 type Props = {
@@ -28,9 +27,12 @@ export default function AccountDeleteDialog({ isOpen, onClose }: Props) {
     <BaseDialog style={baseDialogStyle} isOpen={isOpen} onClose={onClose}>
       <Header>
         <Title>계정 삭제</Title>
-        <IconButton onClick={onClose}>
-          <Icon icon="close" size={24} color="gray600" />
-        </IconButton>
+        <IconButton
+          icon="close"
+          size="h40"
+          iconColor="gray"
+          onClick={onClose}
+        />
       </Header>
 
       <Description>

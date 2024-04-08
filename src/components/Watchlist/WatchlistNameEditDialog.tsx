@@ -1,7 +1,7 @@
 import useWatchlistNameEditMutation from "@api/watchlist/queries/useWatchlistNameEditMutation";
 import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
-import { Icon } from "@components/common/Icon";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { TextField } from "@components/common/TextField/TextField";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
@@ -47,9 +47,12 @@ export default function WatchlistNameEditDialog({
       <div>
         <Upper>
           <Label>리스트 이름 편집</Label>
-          <IconButton onClick={onClose}>
-            <Icon icon="close" size={24} color="gray600" />
-          </IconButton>
+          <IconButton
+            icon="close"
+            size="h40"
+            iconColor="gray"
+            onClick={onClose}
+          />
         </Upper>
         <InputWrapper>
           <p>이름</p>
@@ -88,18 +91,6 @@ const Upper = styled.div`
   align-items: center;
   height: 40px;
   margin-bottom: 29px;
-`;
-
-const IconButton = styled.button`
-  position: relative;
-  right: -6px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
 `;
 
 const InputWrapper = styled.div`

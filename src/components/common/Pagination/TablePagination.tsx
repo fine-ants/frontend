@@ -1,10 +1,10 @@
-import dividerIcon from "@assets/icons/ic_divider.svg";
 import {
   TablePagination as MuiTablePagination,
   tablePaginationClasses,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
+import { Icon } from "../Icon";
 import { Select, SelectOption } from "../Select";
 import Pagination from "./Pagination";
 import calculateStartAndEndRows from "./utils/calculateStartAndEndRows";
@@ -50,7 +50,7 @@ export default function TablePagination({
                 : count}
             </span>
           </StyledLabelRowsPerPage>
-          <img src={dividerIcon} alt="" />
+          <Icon icon="divider" size={12} color="gray100" />
         </>
       }
       labelDisplayedRows={() => (rowsPerPage === -1 ? "" : "개 씩 보기")}

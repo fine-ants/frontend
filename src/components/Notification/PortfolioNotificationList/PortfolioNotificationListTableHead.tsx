@@ -1,7 +1,5 @@
 import { PortfolioNotification } from "@api/notifications/types";
-import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
-import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
-import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
+import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/types";
 import {
   Box,
@@ -48,12 +46,14 @@ export default function PortfolioNotificationListTableHead({
             IconComponent={() => {
               const isOrderBy = orderBy === "name";
 
-              if (!isOrderBy) return <img src={sortNoneIcon} />;
-
-              return (
-                <img
-                  src={order === "asc" ? sortAscendingIcon : sortDescendingIcon}
+              return isOrderBy ? (
+                <Icon
+                  icon={order === "asc" ? "sort_ascending" : "sort_descending"}
+                  size={16}
+                  color="#373840"
                 />
+              ) : (
+                <Icon icon="sort_none" size={16} color="gray600" />
               );
             }}>
             포트폴리오 이름

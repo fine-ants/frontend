@@ -1,10 +1,10 @@
 import { WatchlistItemType } from "@api/watchlist";
 import useWatchlistItemDeleteMutation from "@api/watchlist/queries/useWatchlistItemDeleteMutation";
 import RateBadge from "@components/common/Badges/RateBadge";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
-import { Icon } from "@components/common/Icon";
-import { IconButton, TableCell, TableRow } from "@mui/material";
+import { TableCell, TableRow } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
@@ -65,11 +65,15 @@ export default function WatchlistTableRow({
       <StyledTableCell padding="none" sx={{ width: "16px" }}>
         <CustomTooltip title="관심 종목 삭제" placement="bottom-start">
           <IconButton
-            sx={{ padding: 0 }}
-            disableRipple={true}
-            onClick={onFavoriteMarkClick}>
-            <Icon icon="favorite" size={16} color="blue500" />
-          </IconButton>
+            icon="favorite"
+            size="h24"
+            iconColor="custom"
+            customColor={{
+              color: "blue500",
+              hoverColor: "blue50",
+            }}
+            onClick={onFavoriteMarkClick}
+          />
         </CustomTooltip>
       </StyledTableCell>
       <StyledTableCell align="left" sx={{ width: "332px" }}>

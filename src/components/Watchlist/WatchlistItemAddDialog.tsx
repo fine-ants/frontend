@@ -4,8 +4,7 @@ import useWatchlistItemAddMutation from "@api/watchlist/queries/useWatchlistItem
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
 import Button from "@components/common/Buttons/Button";
-import { Icon } from "@components/common/Icon";
-import { IconButton } from "@mui/material";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -64,9 +63,12 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
         <Header>
           <Title>관심 종목 추가</Title>
 
-          <IconButton onClick={onClose}>
-            <Icon icon="close" size={24} color="gray600" />
-          </IconButton>
+          <IconButton
+            icon="close"
+            size="h40"
+            iconColor="gray"
+            onClick={onClose}
+          />
         </Header>
 
         <SearchBarWrapper>
@@ -89,9 +91,15 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
                   <p>{stock.tickerSymbol}</p>
                 </StockDetails>
                 <IconButton
-                  onClick={() => onDeleteHoldingBoxClick(stock.tickerSymbol)}>
-                  <Icon icon="close" size={16} color="blue200" />
-                </IconButton>
+                  icon="close"
+                  size="h24"
+                  iconColor="custom"
+                  customColor={{
+                    color: "blue200",
+                    hoverColor: "blue50",
+                  }}
+                  onClick={() => onDeleteHoldingBoxClick(stock.tickerSymbol)}
+                />
               </StockListItem>
             ))}
           </SelectedStocksList>

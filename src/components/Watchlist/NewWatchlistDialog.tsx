@@ -1,7 +1,7 @@
 import useWatchlistsAddMutation from "@api/watchlist/queries/useWatchlistsAddMutation";
 import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
-import { Icon } from "@components/common/Icon";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { TextField } from "@components/common/TextField/TextField";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
@@ -36,9 +36,12 @@ export default function NewWatchlistDialog({ isOpen, onClose }: Props) {
       <div>
         <Upper>
           <Label>새 리스트 추가</Label>
-          <IconButton onClick={onClose}>
-            <Icon icon="close" size={24} color="gray600" />
-          </IconButton>
+          <IconButton
+            icon="close"
+            size="h40"
+            iconColor="gray"
+            onClick={onClose}
+          />
         </Upper>
         <InputWrapper>
           <p>이름</p>
@@ -76,15 +79,6 @@ const Upper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const IconButton = styled.button`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 `;
 
 const Label = styled.label`

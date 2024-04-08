@@ -1,7 +1,7 @@
-import closeIcon from "@assets/icons/ic_close.svg";
-import { IconButton, InputAdornment } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+import { IconButton } from "../Buttons/IconButton";
 import { BaseTextField } from "./BaseTextField";
 import { ErrorText } from "./ErrorText";
 
@@ -52,9 +52,16 @@ export function TextField({
         endAdornment={
           isFocused && (
             <InputAdornment position="end">
-              <IconButton onMouseDown={clearValue}>
-                <img src={closeIcon} />
-              </IconButton>
+              <IconButton
+                icon="close"
+                size="h24"
+                iconColor="custom"
+                customColor={{
+                  color: "gray600",
+                  hoverColor: "gray50",
+                }}
+                onClick={clearValue}
+              />
             </InputAdornment>
           )
         }

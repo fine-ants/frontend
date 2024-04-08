@@ -1,11 +1,9 @@
 import { WatchlistsType } from "@api/watchlist";
 import useWatchlistsDeleteMutation from "@api/watchlist/queries/useWatchlistsDeleteMutation";
-import dividerIcon from "@assets/icons/ic_divider.svg";
-import trashIcon from "@assets/icons/ic_trash.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
-import { Toolbar, Tooltip, Typography } from "@mui/material";
+import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
@@ -65,28 +63,26 @@ export default function WatchlistsTableToolBar({
               </span>
             </Typography>
 
-            <img src={dividerIcon} alt="" />
+            <Icon icon="divider" size={12} color="gray100" />
 
-            <Tooltip title="포트폴리오 삭제">
-              <Button
-                variant="tertiary"
-                size="h32"
-                onClick={onDeleteWatchlistsButtonClick}>
-                <img src={trashIcon} alt="선택된 포트폴리오 삭제" />
-                <span>삭제</span>
-              </Button>
-            </Tooltip>
+            <DeleteWatchlistsButton
+              variant="tertiary"
+              size="h32"
+              onClick={onDeleteWatchlistsButtonClick}>
+              <Icon icon="trash" size={16} color="gray600" />
+              <span>삭제</span>
+            </DeleteWatchlistsButton>
           </>
         )}
       </SelectedInfoContainer>
 
-      <Button
+      <AddNewWatchlistButton
         variant="primary"
         size="h32"
         onClick={onAddNewWatchlistButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>새 리스트 추가</span>
-      </Button>
+      </AddNewWatchlistButton>
 
       {isNewWatchlistDialogOpen && (
         <NewWatchlistDialog
@@ -122,7 +118,16 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 const SelectedInfoContainer = styled.div`
+  width: auto;
   display: flex;
   align-items: center;
   gap: 8px;
+`;
+
+const AddNewWatchlistButton = styled(Button)`
+  width: auto;
+`;
+
+const DeleteWatchlistsButton = styled(Button)`
+  width: auto;
 `;

@@ -1,4 +1,5 @@
-import addIcon from "@assets/icons/ic_folder-add.svg";
+import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -17,8 +18,12 @@ export default function EmptyPortfolioMessage({
         <br />
         여기에 표시됩니다
       </div>
-      <PortfolioAddButton onClick={onPortfolioAddButtonClick}>
-        <img src={addIcon} alt="add-icon" />
+
+      <PortfolioAddButton
+        variant="primary"
+        size="h32"
+        onClick={onPortfolioAddButtonClick}>
+        <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
       </PortfolioAddButton>
     </StyledEmptyPortfolioMessage>
@@ -49,26 +54,6 @@ const StyledEmptyPortfolioMessage = styled.div`
   }
 `;
 
-const PortfolioAddButton = styled.div`
-  display: flex;
-  margin-inline: auto;
-  min-width: 80px;
-  height: 32px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  padding: 12px 8px;
-  border-radius: 3px;
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  background-color: ${designSystem.color.primary.blue500};
-  cursor: pointer;
-
-  > span {
-    color: ${designSystem.color.neutral.white};
-  }
-
-  &:hover {
-    background-color: ${designSystem.color.primary.blue700};
-  }
+const PortfolioAddButton = styled(Button)`
+  width: auto;
 `;

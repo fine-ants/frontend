@@ -18,14 +18,13 @@ const StyledCounterBadge = styled.div<{ $numLength: number }>`
   height: 16px;
   background-color: ${designSystem.color.state.red500};
   color: white;
-  font-size: 10px;
-  font-weight: bold;
+  font: ${designSystem.font.body4.font};
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 2px;
+  right: 2px;
   width: ${({ $numLength }) => {
     switch ($numLength) {
       case 1:
