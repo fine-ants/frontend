@@ -153,11 +153,11 @@ export default function PortfolioHoldingStyledTableRow({
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "32px" }}>
-            <StyledIconButton icon="check" size="h24" onClick={onSaveClick} />
+            <IconButton icon="check" size="h24" onClick={onSaveClick} />
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "32px" }}>
-            <StyledIconButton
+            <IconButton
               icon="remove"
               size="h24"
               iconColor="custom"
@@ -189,7 +189,7 @@ export default function PortfolioHoldingStyledTableRow({
           <StyledTableCell style={{ width: "395px" }}>{memo}</StyledTableCell>
 
           <StyledTableCell style={{ width: "32px" }}>
-            <StyledIconButton
+            <IconButton
               icon="edit"
               size="h24"
               iconColor="gray"
@@ -283,8 +283,4 @@ const StyledTextArea = styled.textarea`
   &:focus {
     border: 1px solid ${designSystem.color.primary.blue500};
   }
-`;
-
-const StyledIconButton = styled(IconButton)`
-  min-width: 100%;
 `;

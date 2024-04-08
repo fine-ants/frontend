@@ -109,7 +109,7 @@ export default function PortfolioHoldingLotAddRow({
       </StyledTableCell>
 
       <StyledTableCell align="right" sx={{ width: "32px" }}>
-        <StyledIconButton
+        <IconButton
           icon="check"
           size="h24"
           iconColor="custom"
@@ -123,7 +123,12 @@ export default function PortfolioHoldingLotAddRow({
       </StyledTableCell>
 
       <StyledTableCell align="right" sx={{ width: "32px" }}>
-        <StyledIconButton icon="remove" size="h24" iconColor="gray" />
+        <IconButton
+          icon="remove"
+          size="h24"
+          iconColor="gray"
+          onClick={onPurchaseValuesRemove}
+        />
       </StyledTableCell>
     </MuiTableRow>
   );
@@ -178,8 +183,4 @@ const StyledTextArea = styled.textarea`
   &:focus {
     border: 1px solid ${designSystem.color.primary.blue500};
   }
-`;
-
-const StyledIconButton = styled(IconButton)`
-  min-width: 100%;
 `;

@@ -97,9 +97,4 @@ const Control = styled.div`
 
 const Wrapper = styled.div`
   position: relative;
-
-  div {
-    top: 2px;
-    right: 2px;
-  }
 `;

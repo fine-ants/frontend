@@ -50,7 +50,7 @@ type Props = {
   hoverColor?: ColorType;
 };
 
-export const icons = {
+const icons = {
   "add": addIcon,
   "arrow-left": arrowLeftIcon,
   "ascending": ascendingIcon,
