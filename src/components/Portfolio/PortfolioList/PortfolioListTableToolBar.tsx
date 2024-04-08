@@ -1,7 +1,5 @@
 import usePortfoliosDeleteMutation from "@api/portfolio/queries/usePortfoliosDeleteMutation";
 import { PortfolioItem } from "@api/portfolio/types";
-import dividerIcon from "@assets/icons/ic_divider.svg";
-import trashIcon from "@assets/icons/ic_trash.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
@@ -65,28 +63,28 @@ export default function PortfolioListTableToolBar({
               </span>
             </Typography>
 
-            <img src={dividerIcon} alt="" />
+            <Icon icon="divider" size={12} color="gray100" />
 
             <Tooltip title="포트폴리오 삭제">
-              <Button
+              <StyledButton
                 variant="tertiary"
                 size="h32"
                 onClick={onDeletePortfoliosButtonClick}>
-                <img src={trashIcon} alt="선택된 포트폴리오 삭제" />
+                <Icon icon="trash" size={16} color="gray600" />
                 <span>삭제</span>
-              </Button>
+              </StyledButton>
             </Tooltip>
           </>
         )}
       </SelectedInfoContainer>
 
-      <AddPortfolioButton
+      <StyledButton
         variant="primary"
         size="h32"
         onClick={onAddPortfolioButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
-      </AddPortfolioButton>
+      </StyledButton>
 
       {isAddPortfolioDialogOpen && (
         <PortfolioAddDialog
@@ -127,6 +125,6 @@ const SelectedInfoContainer = styled.div`
   gap: 8px;
 `;
 
-const AddPortfolioButton = styled(Button)`
+const StyledButton = styled(Button)`
   width: auto;
 `;

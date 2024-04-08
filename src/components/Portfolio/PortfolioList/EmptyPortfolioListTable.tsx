@@ -1,6 +1,6 @@
-import addIcon from "@assets/icons/ic_folder-add.svg";
 import emptyPortfolioImg from "@assets/images/empty_portfolio.svg";
 import Button from "@components/common/Buttons/Button";
+import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
@@ -31,7 +31,7 @@ export default function EmptyPortfolioListTable() {
         variant="primary"
         size="h44"
         onClick={onAddPortfolioButtonClick}>
-        <img src={addIcon} alt="포트폴리오 추가" />
+        <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
       </AddPortfolioButton>
 

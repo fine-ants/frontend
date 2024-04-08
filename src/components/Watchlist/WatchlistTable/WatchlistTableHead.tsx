@@ -1,10 +1,8 @@
 import { WatchlistItemType } from "@api/watchlist";
-import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
-import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
-import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
+import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/types";
 import {
   Box,
@@ -125,13 +123,18 @@ export default function WatchlistTableHead({
               IconComponent={() => {
                 const isOrderBy = orderBy === headCell.id;
 
-                if (!isOrderBy) return <img src={sortNoneIcon} />;
+                if (!isOrderBy)
+                  return <Icon icon="sort_none" size={16} color="gray600" />;
 
-                if (order === "asc") {
-                  return <img src={sortAscendingIcon} />;
-                } else {
-                  return <img src={sortDescendingIcon} />;
-                }
+                return (
+                  <Icon
+                    icon={
+                      order === "asc" ? "sort_ascending" : "sort_descending"
+                    }
+                    size={16}
+                    color="#373840"
+                  />
+                );
               }}>
               {headCell.label}
               {orderBy === headCell.id ? (

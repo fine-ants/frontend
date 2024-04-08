@@ -1,8 +1,6 @@
 import { StockNotification } from "@api/notifications/types";
-import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
-import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
-import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import { IconButton } from "@components/common/Buttons/IconButton";
+import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/types";
 import {
   Box,
@@ -63,11 +61,14 @@ export default function StockNotificationListTableHead({
             IconComponent={() => {
               const isOrderBy = orderBy === "companyName";
 
-              if (!isOrderBy) return <img src={sortNoneIcon} />;
+              if (!isOrderBy)
+                return <Icon icon="sort_none" size={16} color="gray600" />;
 
               return (
-                <img
-                  src={order === "asc" ? sortAscendingIcon : sortDescendingIcon}
+                <Icon
+                  icon={order === "asc" ? "sort_ascending" : "sort_descending"}
+                  size={16}
+                  color="#373840"
                 />
               );
             }}>

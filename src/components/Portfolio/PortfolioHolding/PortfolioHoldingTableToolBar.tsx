@@ -1,6 +1,5 @@
 import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@api/portfolio/types";
-import dividerIcon from "@assets/icons/ic_divider.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
@@ -69,7 +68,7 @@ export default function PortfolioHoldingTableToolBar({
               </span>
             </Typography>
 
-            <img src={dividerIcon} alt="" />
+            <Icon icon="divider" size={12} color="gray100" />
 
             <StyledButton
               variant="tertiary"

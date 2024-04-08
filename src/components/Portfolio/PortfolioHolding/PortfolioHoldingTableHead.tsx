@@ -1,7 +1,4 @@
 import { PortfolioHolding } from "@api/portfolio/types";
-import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
-import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
-import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
@@ -156,13 +153,16 @@ export default function PortfolioHoldingTableHead({
               IconComponent={() => {
                 const isOrderBy = orderBy === headCell.id;
 
-                if (!isOrderBy) return <img src={sortNoneIcon} />;
+                if (!isOrderBy)
+                  return <Icon icon="sort_none" size={16} color="gray600" />;
 
                 return (
-                  <img
-                    src={
-                      order === "asc" ? sortAscendingIcon : sortDescendingIcon
+                  <Icon
+                    icon={
+                      order === "asc" ? "sort_ascending" : "sort_descending"
                     }
+                    size={16}
+                    color="#373840"
                   />
                 );
               }}>

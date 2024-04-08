@@ -1,7 +1,5 @@
 import { WatchlistsType } from "@api/watchlist";
 import useWatchlistsDeleteMutation from "@api/watchlist/queries/useWatchlistsDeleteMutation";
-import dividerIcon from "@assets/icons/ic_divider.svg";
-import trashIcon from "@assets/icons/ic_trash.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
@@ -65,13 +63,13 @@ export default function WatchlistsTableToolBar({
               </span>
             </Typography>
 
-            <img src={dividerIcon} alt="" />
+            <Icon icon="divider" size={12} color="gray100" />
 
             <DeleteWatchlistsButton
               variant="tertiary"
               size="h32"
               onClick={onDeleteWatchlistsButtonClick}>
-              <img src={trashIcon} alt="선택된 포트폴리오 삭제" />
+              <Icon icon="trash" size={16} color="gray600" />
               <span>삭제</span>
             </DeleteWatchlistsButton>
           </>

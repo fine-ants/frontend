@@ -1,6 +1,5 @@
 import { WatchlistItemType } from "@api/watchlist";
 import useWatchlistItemDeleteMutation from "@api/watchlist/queries/useWatchlistItemDeleteMutation";
-import dividerIcon from "@assets/icons/ic_divider.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
@@ -67,7 +66,7 @@ export default function WatchlistTableToolBar({
               </span>
             </Typography>
 
-            <img src={dividerIcon} alt="" />
+            <Icon icon="divider" size={12} color="gray100" />
 
             <Tooltip title="선택된 종목 삭제">
               <Button
