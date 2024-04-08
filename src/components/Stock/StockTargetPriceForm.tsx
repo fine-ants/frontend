@@ -57,13 +57,9 @@ export default function StockTargetPriceForm() {
         />
       </InputContainer>
 
-      <Button
-        type="submit"
-        size="h24"
-        variant="primary"
-        style={{ marginLeft: "auto" }}>
+      <SubmitButton type="submit" size="h24" variant="primary">
         추가
-      </Button>
+      </SubmitButton>
     </Form>
   );
 }
@@ -125,4 +121,9 @@ const Currency = styled.span<{ $isTyping: boolean }>`
     $isTyping
       ? designSystem.color.neutral.gray900
       : designSystem.color.neutral.gray400};
+`;
+
+const SubmitButton = styled(Button)`
+  width: "auto";
+  margin-left: "auto";
 `;

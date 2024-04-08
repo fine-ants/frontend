@@ -163,5 +163,5 @@ const NewWatchlistButton = styled(MuiButton)`
 `;
 
 const DropdownButton = styled(Button)`
-  width: 126px;
+  width: auto;
 `;

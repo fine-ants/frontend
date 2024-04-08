@@ -136,5 +136,5 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  width: 98px;
+  width: auto;
 `;

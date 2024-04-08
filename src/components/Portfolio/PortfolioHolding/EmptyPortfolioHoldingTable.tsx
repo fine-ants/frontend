@@ -65,5 +65,5 @@ const TextBox = styled.div`
 `;
 
 const AddHoldingDialogButton = styled(Button)`
-  width: 98px;
+  width: auto;
 `;

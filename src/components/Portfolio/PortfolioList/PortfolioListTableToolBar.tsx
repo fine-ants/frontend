@@ -128,6 +128,5 @@ const SelectedInfoContainer = styled.div`
 `;
 
 const AddPortfolioButton = styled(Button)`
-  width: 136px;
-  gap: 4px;
+  width: auto;
 `;

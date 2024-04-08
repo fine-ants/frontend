@@ -72,5 +72,5 @@ const EmptyPortfolioListDescription = styled.p`
 `;
 
 const AddPortfolioButton = styled(Button)`
-  width: 161px;
+  width: auto;
 `;

@@ -110,5 +110,5 @@ const TargetPricesListContainer = styled.li`
 `;
 
 const DropdownButton = styled(Button)`
-  width: 98px;
+  width: auto;
 `;

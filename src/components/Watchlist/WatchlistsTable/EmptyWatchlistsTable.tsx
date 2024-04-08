@@ -74,5 +74,5 @@ const TextContainer = styled.div`
 `;
 
 const AddNewWatchlistButton = styled(Button)`
-  width: 150px;
+  width: auto;
 `;

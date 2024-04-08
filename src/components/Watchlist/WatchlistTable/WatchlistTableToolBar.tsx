@@ -131,5 +131,5 @@ const SelectedInfoContainer = styled.div`
 `;
 
 const AddWatchlistItemButton = styled(Button)`
-  width: 126px;
+  width: auto;
 `;
