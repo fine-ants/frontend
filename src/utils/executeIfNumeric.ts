@@ -1,8 +1,16 @@
+import { thousandsDelimiter } from "./delimiters";
+
 export const executeIfNumeric = (
   value: string,
-  func: (value: string) => void
+  func: (value: string) => void,
+  commas: boolean = true
 ) => {
-  if (!isNaN(Number(value)) || value === "") {
-    func(value);
+  const parsedValue = value.replace(/,/g, "");
+  if (parsedValue === "") {
+    func(parsedValue);
+    return;
+  }
+  if (!isNaN(Number(parsedValue))) {
+    func(commas ? thousandsDelimiter(Number(parsedValue)) : parsedValue);
   }
 };

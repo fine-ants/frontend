@@ -44,7 +44,9 @@ export default [
     const { name, securitiesFirm, budget, targetGain, maximumLoss } =
       await request.json();
 
-    const targetReturnRate = calculateRate(targetGain, budget);
+    const targetReturnRate = Number(
+      calculateRate(targetGain.toString(), budget.toString())
+    );
     const maximumLossRate = ((budget - maximumLoss) / budget) * 100;
 
     const data: PortfolioDetails = {
@@ -132,7 +134,9 @@ export default [
     const { portfolioId } = params;
     const { budget, targetGain, maximumLoss } = (await request.json()).body;
 
-    const targetReturnRate = calculateRate(targetGain, budget);
+    const targetReturnRate = Number(
+      calculateRate(targetGain.toString(), budget.toString())
+    );
     const maximumLossRate = ((budget - maximumLoss) / budget) * 100;
 
     portfolioDetailsData[Number(portfolioId) - 1] = {

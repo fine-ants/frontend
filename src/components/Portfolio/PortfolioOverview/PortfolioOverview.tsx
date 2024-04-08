@@ -1,7 +1,7 @@
 import usePortfolioDeleteMutation from "@api/portfolio/queries/usePortfolioDeleteMutation";
 import { PortfolioDetails } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
-import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
+import PortfolioEditDialog from "@components/Portfolio/PortfolioAddOrEditDialog";
 import LabelBadge from "@components/common/Badges/LabelBadge";
 import Breadcrumb from "@components/common/Breadcrumb";
 import Button from "@components/common/Buttons/Button";
@@ -94,7 +94,7 @@ export default function PortfolioOverview({ data }: Props) {
       <PortfolioOverviewBody data={data} />
 
       {isDialogOpen && (
-        <PortfolioAddDialog
+        <PortfolioEditDialog
           isOpen={isDialogOpen}
           onClose={onDialogClose}
           portfolioDetails={data}
