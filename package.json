@@ -27,6 +27,7 @@
     "@types/recharts": "^1.8.26",
     "axios": "^1.5.1",
     "dayjs": "^1.11.10",
+    "dotenv": "^16.4.5",
     "event-source-polyfill": "^1.0.31",
     "firebase": "^10.7.2",
     "immutability-helper": "^3.1.1",
