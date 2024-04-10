@@ -12,7 +12,7 @@ import ProfilePage from "@pages/ProfilePage/ProfilePage";
 import SignInLoadingPage from "@pages/SignInPage/SignInLoadingPage";
 import SignInPage from "@pages/SignInPage/SignInPage";
 import SignUpPage from "@pages/SignUpPage/SignUpPage";
-import StockPage from "@pages/StockPage";
+import StockPage from "@pages/StockPage/StockPage";
 import WatchlistPage from "@pages/Watchlist/WatchlistPage";
 import WatchlistsPage from "@pages/Watchlist/WatchlistsPage";
 import {
