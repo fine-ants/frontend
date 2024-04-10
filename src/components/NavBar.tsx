@@ -46,7 +46,6 @@ const StyledNavBar = styled.nav`
   > ul {
     display: flex;
     gap: 40px;
-    alignitems: center;
     background-color: ${designSystem.color.neutral.gray900};
     font: ${designSystem.font.title4.font};
     letter-spacing: ${designSystem.font.title4.letterSpacing};
