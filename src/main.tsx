@@ -12,7 +12,6 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "src/firebase-messaging-sw.js"; // Necessary due to tree-shaking in dev mode
 import App from "./App.tsx";
 import "./index.css";
 
