@@ -11,7 +11,7 @@ export default function useStockTargetPriceDeleteMutation(
     mutationFn: deleteStockPriceTarget,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.stockNotificationSettings().queryKey,
+        queryKey: notificationKeys.stockNotificationSettings.queryKey,
       });
       if (tickerSymbol) {
         queryClient.invalidateQueries({

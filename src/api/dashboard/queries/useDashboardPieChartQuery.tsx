@@ -4,7 +4,7 @@ import { dashboardKeys } from "./queryKeys";
 
 export default function useDashboardPieChartQuery() {
   return useSuspenseQuery({
-    queryKey: dashboardKeys.pieChart().queryKey,
+    queryKey: dashboardKeys.pieChart.queryKey,
     queryFn: getPortfoliosWeightPieChart,
     select: (res) => res.data,
     retry: 0,

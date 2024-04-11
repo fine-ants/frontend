@@ -9,7 +9,7 @@ export default function useStockNotificationSettingsMutation() {
     mutationFn: putStockNotificationSettings,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.stockNotificationSettings().queryKey,
+        queryKey: notificationKeys.stockNotificationSettings.queryKey,
       });
     },
     meta: {

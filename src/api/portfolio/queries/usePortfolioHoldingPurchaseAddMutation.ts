@@ -13,7 +13,6 @@ export default function usePortfolioHoldingPurchaseAddMutation(
   return useMutation({
     mutationFn: postPortfolioHoldingPurchase,
     onSuccess: () => {
-      // TODO: toast
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
@@ -25,6 +24,9 @@ export default function usePortfolioHoldingPurchaseAddMutation(
       const message = (error as AxiosError<Response<null>>).response?.data
         ?.message as string;
       toast.error(message);
+    },
+    meta: {
+      toastSuccessMessage: "매입 이력을 추가했습니다",
     },
   });
 }

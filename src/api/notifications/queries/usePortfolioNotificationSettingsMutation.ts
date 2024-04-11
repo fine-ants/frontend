@@ -19,7 +19,7 @@ export default function usePortfolioNotificationSettingsMutation(
       putPortfolioNotificationSettings({ portfolioId, notificationType, body }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.portfolioNotificationSettings().queryKey,
+        queryKey: notificationKeys.portfolioNotificationSettings.queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
