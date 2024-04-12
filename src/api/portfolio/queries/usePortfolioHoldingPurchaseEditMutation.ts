@@ -17,5 +17,9 @@ export default function usePortfolioHoldingPurchaseEditMutation(filters: {
         queryKey: portfolioKeys.details(filters.portfolioId).queryKey,
       });
     },
+    meta: {
+      toastSuccessMessage: "매입 이력을 수정했습니다",
+      toastErrorMessage: "매입 이력 수정을 실패했습니다",
+    },
   });
 }

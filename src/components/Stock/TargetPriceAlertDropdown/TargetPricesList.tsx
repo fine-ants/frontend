@@ -1,9 +1,8 @@
 import useSpecificStockTargetPricesQuery from "@api/notifications/queries/useSpecificStockTargetPricesQuery";
 import useStockTargetPriceDeleteMutation from "@api/notifications/queries/useStockTargetPriceDeleteMutation";
-import { Icon } from "@components/common/Icon";
-import { IconButton } from "@mui/material";
+import { IconButton } from "@components/common/Buttons/IconButton";
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -30,9 +29,12 @@ export default function TargetPricesList() {
       {sortedTargetPrices.map((item) => (
         <TargetPriceItem key={item.notificationId}>
           <span>₩{thousandsDelimiter(item.targetPrice)}</span>
-          <IconButton onClick={() => onRemoveButtonClick(item.notificationId)}>
-            <Icon icon="remove" size={16} color="gray600" />
-          </IconButton>
+          <IconButton
+            icon="remove"
+            iconColor="gray"
+            size="h24"
+            onClick={() => onRemoveButtonClick(item.notificationId)}
+          />
         </TargetPriceItem>
       ))}
     </StyledTargetPricesList>

@@ -1,3 +1,4 @@
+import { portfolioKeys } from "@api/portfolio/queries/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { putPortfolioNotificationSettings } from "..";
 import { PortfolioNotificationSettingsPutBody } from "../types";
@@ -18,7 +19,10 @@ export default function usePortfolioNotificationSettingsMutation(
       putPortfolioNotificationSettings({ portfolioId, notificationType, body }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.portfolioNotificationSettings().queryKey,
+        queryKey: notificationKeys.portfolioNotificationSettings.queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
     },
     meta: {

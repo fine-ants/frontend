@@ -2,7 +2,7 @@ import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
 import { UserContext } from "@context/UserContext";
 import Routes from "@router/Routes";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NavBar } from "../../NavBar";
 import SearchBar from "../../SearchBar/SearchBar";
@@ -25,10 +25,6 @@ export default function Header() {
     { name: "Indices", to: "/indices/KRX:KOSPI" },
   ];
 
-  const onLogoClick = () => {
-    navigate(user ? Routes.DASHBOARD : Routes.LANDING);
-  };
-
   const moveToSignInPage = () => {
     navigate(Routes.SIGNIN);
   };
@@ -41,9 +37,10 @@ export default function Header() {
     <StyledHeader>
       <HeaderTop>
         <HeaderLeft>
-          <StyledBrandIdentity onClick={onLogoClick}>
+          <StyledBrandIdentityLink
+            to={user ? Routes.DASHBOARD : Routes.LANDING}>
             <img src={BIImage} alt="FineAnts" />
-          </StyledBrandIdentity>
+          </StyledBrandIdentityLink>
           <NavBar>
             <NavBar.NavItem>
               <PortfoliosDropdown />
@@ -103,7 +100,7 @@ const HeaderRight = styled.div`
   margin-left: auto;
 `;
 
-const StyledBrandIdentity = styled.div`
+const StyledBrandIdentityLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;

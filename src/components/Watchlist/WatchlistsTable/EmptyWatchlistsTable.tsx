@@ -25,14 +25,14 @@ export default function EmptyWatchlistsTable() {
         <h1>관심 종목 리스트를 추가하세요</h1>
         <span>관심 종목 리스트를 추가하고 관심 종목을 담아보세요</span>
       </TextContainer>
-      <Button
+      <AddNewWatchlistButton
         style={{ gap: "8px" }}
         variant="primary"
-        size="h32"
+        size="h44"
         onClick={onAddNewWatchlistButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>새 리스트 추가</span>
-      </Button>
+      </AddNewWatchlistButton>
 
       {isNewWatchlistDialogOpen && (
         <NewWatchlistDialog
@@ -71,4 +71,8 @@ const TextContainer = styled.div`
     font: ${designSystem.font.body2.font};
     color: ${designSystem.color.neutral.gray500};
   }
+`;
+
+const AddNewWatchlistButton = styled(Button)`
+  width: auto;
 `;

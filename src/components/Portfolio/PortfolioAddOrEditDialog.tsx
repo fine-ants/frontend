@@ -3,11 +3,16 @@ import usePortfolioEditMutation from "@api/portfolio/queries/usePortfolioEditMut
 import { PortfolioDetails } from "@api/portfolio/types";
 import BaseDialog from "@components/BaseDialog";
 import Button from "@components/common/Buttons/Button";
-import { Icon } from "@components/common/Icon";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
-import { useText } from "@fineants/demolition";
-import { FormControl, IconButton } from "@mui/material";
+import {
+  executeCbIfNumeric,
+  removeThousandsDelimiter,
+  thousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
+import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
   SecuritiesFirm,
@@ -15,10 +20,15 @@ import securitiesFirmLogos, {
 import {
   calculateLossRate,
   calculateRate,
-  calculateValue,
-  formatToRate,
+  calculateValueFromRate,
 } from "@utils/calculations";
-import { useCallback, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -28,7 +38,7 @@ type Props = {
   portfolioDetails?: PortfolioDetails;
 };
 
-export default function PortfolioAddDialog({
+export default function PortfolioAddOrEditDialog({
   isOpen,
   onClose,
   portfolioDetails,
@@ -48,13 +58,27 @@ export default function PortfolioAddDialog({
   const [securitiesFirm, setSecuritiesFirm] = useState(
     portfolioDetails ? portfolioDetails.securitiesFirm : "FineAnts"
   );
+  const onChangeSecuritiesFirm = (value: string) => {
+    setSecuritiesFirm(value as SecuritiesFirm);
+  };
 
   const { value: name, onChange: onNameChange } = useText({
     initialValue: portfolioDetails?.name,
   });
+
   const { value: budget, onChange: onBudgetChange } = useText({
-    initialValue: portfolioDetails?.budget.toString(),
+    initialValue: portfolioDetails?.budget
+      ? thousandsDelimiter(portfolioDetails?.budget)
+      : "",
   });
+  const budgetHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onBudgetChange,
+    });
+  };
+
+  // Target Gain states
   const { value: targetGain, onChange: onTargetGainChange } = useText({
     initialValue: portfolioDetails?.targetGain.toString(),
   });
@@ -62,6 +86,32 @@ export default function PortfolioAddDialog({
     useText({
       initialValue: portfolioDetails?.targetReturnRate.toString(),
     });
+  const targetGainHandler = useCallback(
+    (value: string) => {
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onTargetGainChange(val);
+          onTargetReturnRateChange(calculateRate(val, budget));
+        },
+      });
+    },
+    [budget, onTargetGainChange, onTargetReturnRateChange]
+  );
+  const targetReturnRateHandler = useCallback(
+    (value: string) => {
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onTargetReturnRateChange(val);
+          onTargetGainChange(calculateValueFromRate(val, budget));
+        },
+      });
+    },
+    [budget, onTargetGainChange, onTargetReturnRateChange]
+  );
+
+  // Maximum Loss states
   const { value: maximumLoss, onChange: onMaximumLossChange } = useText({
     initialValue: portfolioDetails?.maximumLoss.toString(),
   });
@@ -69,6 +119,30 @@ export default function PortfolioAddDialog({
     {
       initialValue: portfolioDetails?.maximumLossRate.toString(),
     }
+  );
+  const maximumLossHandler = useCallback(
+    (value: string) => {
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onMaximumLossChange(val);
+          onMaximumLossRateChange(calculateLossRate(budget, val));
+        },
+      });
+    },
+    [budget, onMaximumLossChange, onMaximumLossRateChange]
+  );
+  const maximumLossRateHandler = useCallback(
+    (value: string) => {
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onMaximumLossRateChange(val);
+          onMaximumLossChange(calculateValueFromRate(`-${val}`, budget));
+        },
+      });
+    },
+    [budget, onMaximumLossChange, onMaximumLossRateChange]
   );
 
   const clearInputs = useCallback(() => {
@@ -86,59 +160,19 @@ export default function PortfolioAddDialog({
   const isEditMode = !!portfolioDetails;
   const isBudgetEmpty = budget === "0" || budget === "";
 
-  const changeIfNumberOnly =
-    (handler: (value: string) => void) => (value: string) => {
-      if (!isNaN(Number(value)) || value === "") {
-        handler(value);
-      }
-    };
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
-  const onBudgetInputChange = changeIfNumberOnly((value: string) => {
-    onBudgetChange(value);
-  });
-
-  const onTargetGainHandler = changeIfNumberOnly((value: string) => {
-    const budgetNumber = Number(budget);
-
-    onTargetGainChange(value);
-    onTargetReturnRateChange(
-      formatToRate(calculateRate(Number(value), budgetNumber))
-    );
-  });
-
-  const onTargetReturnRateHandler = changeIfNumberOnly((value: string) => {
-    onTargetReturnRateChange(value);
-    onTargetGainChange(calculateValue(Number(value), Number(budget)));
-  });
-
-  const onMaximumLossHandler = changeIfNumberOnly((value: string) => {
-    const budgetNumber = Number(budget);
-    const valueNumber = Number(value);
-
-    onMaximumLossChange(value);
-    onMaximumLossRateChange(calculateLossRate(budgetNumber, valueNumber));
-  });
-
-  const maximumLossRateHandler = changeIfNumberOnly((value: string) => {
-    onMaximumLossRateChange(value);
-    onMaximumLossChange(calculateValue(-Number(value), Number(budget)));
-  });
-
-  const handleChange = (value: string) => {
-    setSecuritiesFirm(value as SecuritiesFirm);
-  };
-
-  const onSubmit = async () => {
     const body = {
-      name: name,
-      securitiesFirm: securitiesFirm,
-      budget: Number(budget),
-      targetGain: Number(targetGain),
-      maximumLoss: Number(maximumLoss),
+      name,
+      securitiesFirm,
+      budget: Number(removeThousandsDelimiter(budget)),
+      targetGain: Number(removeThousandsDelimiter(targetGain)),
+      maximumLoss: Number(removeThousandsDelimiter(maximumLoss)),
     };
 
     if (isEditMode) {
-      editMutate({ portfolioId: Number(portfolioId), body: body });
+      editMutate({ portfolioId: Number(portfolioId), body });
     } else {
       addMutate(body);
     }
@@ -148,21 +182,21 @@ export default function PortfolioAddDialog({
   useEffect(() => {
     if (isBudgetEmpty) {
       clearInputs();
-    } else if (targetGain || targetReturnRate) {
-      onTargetGainHandler(targetGain);
-    } else if (maximumLoss || maximumLossRate) {
-      onMaximumLossHandler(maximumLoss);
+      return;
+    }
+    if (targetReturnRate) {
+      targetReturnRateHandler(targetReturnRate);
+    }
+    if (maximumLossRate) {
+      maximumLossRateHandler(maximumLossRate);
     }
   }, [
-    budget,
     isBudgetEmpty,
-    targetGain,
     targetReturnRate,
-    maximumLoss,
     maximumLossRate,
     clearInputs,
-    onMaximumLossHandler,
-    onTargetGainHandler,
+    targetReturnRateHandler,
+    maximumLossRateHandler,
   ]);
 
   useEffect(() => {
@@ -200,12 +234,15 @@ export default function PortfolioAddDialog({
       style={PortfolioAddDialogStyle}
       isOpen={isOpen}
       onClose={onClose}>
-      <Wrapper>
+      <Form onSubmit={onSubmit}>
         <HeaderWrapper>
           <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
-          <IconButton onClick={onClose}>
-            <Icon size={24} icon="close" color={"gray600"} />
-          </IconButton>
+          <IconButton
+            icon="close"
+            size="h40"
+            iconColor="gray"
+            onClick={onClose}
+          />
         </HeaderWrapper>
         <Body>
           <Row>
@@ -228,7 +265,7 @@ export default function PortfolioAddDialog({
               <Select
                 size="h32"
                 selectedValue={securitiesFirm}
-                changeSelectedValue={handleChange}
+                changeSelectedValue={onChangeSecuritiesFirm}
                 menuMaxHeight="168px">
                 {SECURITIES_FIRM.map((option) => (
                   <SelectOption key={option} value={option}>
@@ -251,7 +288,7 @@ export default function PortfolioAddDialog({
               <Input
                 placeholder="예산을 입력하세요"
                 value={budget}
-                onChange={(e) => onBudgetInputChange(e.target.value.trim())}
+                onChange={budgetHandler}
               />
               <span>KRW</span>
             </StyledInput>
@@ -264,7 +301,7 @@ export default function PortfolioAddDialog({
                   disabled={isBudgetEmpty}
                   value={targetReturnRate}
                   onChange={(e) =>
-                    onTargetReturnRateHandler(e.target.value.trim())
+                    targetReturnRateHandler(e.target.value.trim())
                   }
                 />
                 <span>%</span>
@@ -274,7 +311,7 @@ export default function PortfolioAddDialog({
                 <Input
                   disabled={isBudgetEmpty}
                   value={targetGain}
-                  onChange={(e) => onTargetGainHandler(e.target.value.trim())}
+                  onChange={(e) => targetGainHandler(e.target.value.trim())}
                 />
                 <span>₩</span>
               </StyledInput>
@@ -299,7 +336,7 @@ export default function PortfolioAddDialog({
                 <Input
                   disabled={isBudgetEmpty}
                   value={maximumLoss}
-                  onChange={(e) => onMaximumLossHandler(e.target.value.trim())}
+                  onChange={(e) => maximumLossHandler(e.target.value.trim())}
                 />
                 <span>₩</span>
               </StyledInput>
@@ -307,15 +344,15 @@ export default function PortfolioAddDialog({
           </Row>
         </Body>
         <ButtonWrapper>
-          <Button
+          <StyledSubmitButton
             variant="primary"
             size="h32"
-            onClick={onSubmit}
+            type="submit"
             disabled={!isFormValid()}>
             {isEditMode ? `수정` : `추가`}
-          </Button>
+          </StyledSubmitButton>
         </ButtonWrapper>
-      </Wrapper>
+      </Form>
     </BaseDialog>
   );
 }
@@ -326,7 +363,7 @@ const PortfolioAddDialogStyle = {
   padding: "32px",
 };
 
-const Wrapper = styled.div`
+const Form = styled.form`
   width: 100%;
   height: 100%;
   display: flex;
@@ -336,11 +373,12 @@ const Wrapper = styled.div`
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Header = styled.div`
-  font: ${designSystem.font.title5.font};
-  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 `;
 
@@ -418,4 +456,8 @@ const SecuritiesFirmLogo = styled.img`
 const SecuritiesFirmTitle = styled.span`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
+`;
+
+const StyledSubmitButton = styled(Button)`
+  width: 80px;
 `;

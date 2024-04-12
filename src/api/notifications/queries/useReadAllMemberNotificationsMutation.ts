@@ -12,7 +12,7 @@ export default function useReadAllMemberNotificationsMutation(
       patchMemberNotificationsReadAll({ memberId, notificationIds }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.memberNotifications().queryKey,
+        queryKey: notificationKeys.memberNotifications.queryKey,
       });
     },
   });

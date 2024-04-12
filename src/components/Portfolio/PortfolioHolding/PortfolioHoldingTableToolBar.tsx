@@ -1,11 +1,9 @@
 import usePortfolioHoldingDeleteMutation from "@api/portfolio/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@api/portfolio/types";
-import dividerIcon from "@assets/icons/ic_divider.svg";
-import trashIcon from "@assets/icons/ic_trash.svg";
 import ConfirmAlert from "@components/ConfirmAlert";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
-import { Toolbar, Tooltip, Typography } from "@mui/material";
+import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -70,25 +68,26 @@ export default function PortfolioHoldingTableToolBar({
               </span>
             </Typography>
 
-            <img src={dividerIcon} alt="" />
+            <Icon icon="divider" size={12} color="gray100" />
 
-            <Tooltip title="종목 삭제">
-              <Button
-                variant="tertiary"
-                size="h32"
-                onClick={onDeleteHoldingsButtonClick}>
-                <img src={trashIcon} alt="선택된 종목 삭제" />
-                <span>삭제</span>
-              </Button>
-            </Tooltip>
+            <StyledButton
+              variant="tertiary"
+              size="h32"
+              onClick={onDeleteHoldingsButtonClick}>
+              <Icon icon="trash" size={16} color="gray600" />
+              <span>삭제</span>
+            </StyledButton>
           </>
         )}
       </SelectedInfoContainer>
 
-      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
+      <StyledButton
+        variant="primary"
+        size="h32"
+        onClick={onAddPortfolioButtonClick}>
         <Icon icon="add" size={16} color="white" />
         <span>종목 추가</span>
-      </Button>
+      </StyledButton>
 
       <PortfolioHoldingAddDialog
         isOpen={isAddHoldingDialogOpen}
@@ -102,9 +101,7 @@ export default function PortfolioHoldingTableToolBar({
         onConfirm={onConfirmAction}>
         <DeleteList>
           {selected.map((item) => (
-            <DeleteListItem key={item.portfolioHoldingId}>
-              {item.companyName}
-            </DeleteListItem>
+            <li key={item.portfolioHoldingId}>{item.companyName}</li>
           ))}
         </DeleteList>
       </ConfirmAlert>
@@ -134,4 +131,6 @@ const DeleteList = styled.ul`
   overflow-y: scroll;
 `;
 
-const DeleteListItem = styled.li``;
+const StyledButton = styled(Button)`
+  width: auto;
+`;

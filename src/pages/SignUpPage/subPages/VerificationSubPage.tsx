@@ -5,8 +5,9 @@ import {
   AuthPageHeader,
   AuthPageTitle,
   AuthPageTitleCaption,
-  NextButton,
 } from "@components/auth/AuthPageCommon";
+import Button from "@components/common/Buttons/Button";
+import { TextButton } from "@components/common/Buttons/TextButton";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
@@ -73,15 +74,22 @@ export default function VerificationCodeSubPage({
             onComplete={onDigitsFilled}
           />
           <div>
-            <TextButton type="button" onClick={onEmailCodeResend}>
+            <StyledTextButton
+              color="primary"
+              size="h24"
+              onClick={onEmailCodeResend}>
               인증번호 재발송
-            </TextButton>
+            </StyledTextButton>
           </div>
         </CodeInputWrapper>
 
-        <NextButton type="submit" disabled={!isButtonDisabled}>
+        <Button
+          variant="primary"
+          size="h44"
+          type="submit"
+          disabled={!isButtonDisabled}>
           다음 단계
-        </NextButton>
+        </Button>
       </Form>
     </SubPage>
   );
@@ -104,7 +112,7 @@ const CodeInputWrapper = styled.div`
   gap: 24px;
 `;
 
-const TextButton = styled.button`
+const StyledTextButton = styled(TextButton)`
   padding: 0;
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};

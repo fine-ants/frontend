@@ -4,7 +4,7 @@ import { watchlistKeys } from "./queryKeys";
 
 export default function useWatchlistsQuery() {
   return useSuspenseQuery({
-    queryKey: watchlistKeys.list().queryKey,
+    queryKey: watchlistKeys.list.queryKey,
     queryFn: () => getWatchlists(),
     retry: false,
     select: (res) => res.data,

@@ -1,4 +1,4 @@
-import PortfolioAddDialog from "@components/Portfolio/PortfolioAddDialog";
+import PortfolioAddDialog from "@components/Portfolio/PortfolioAddOrEditDialog";
 import { AsyncBoundary } from "@components/common/AsyncBoundary";
 import { useDropdown } from "@components/hooks/useDropdown";
 import { UserContext } from "@context/UserContext";

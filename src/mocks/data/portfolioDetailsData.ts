@@ -1,4 +1,6 @@
-export const portfolioDetails = [
+import { PortfolioDetails } from "@api/portfolio/types";
+
+export const portfolioDetails: PortfolioDetails[] = [
   {
     id: 1,
     securitiesFirm: "KB증권",
@@ -19,6 +21,8 @@ export const portfolioDetails = [
     annualDividendYield: 3,
     annualInvestmentDividendYield: 3,
     provisionalLossBalance: 0,
+    targetGainNotify: true,
+    maxLossNotify: true,
   },
   {
     id: 2,
@@ -40,6 +44,8 @@ export const portfolioDetails = [
     annualDividendYield: 3,
     annualInvestmentDividendYield: 3,
     provisionalLossBalance: 0,
+    targetGainNotify: false,
+    maxLossNotify: true,
   },
   {
     id: 3,
@@ -61,5 +67,7 @@ export const portfolioDetails = [
     annualDividendYield: 3,
     annualInvestmentDividendYield: 3,
     provisionalLossBalance: 0,
+    targetGainNotify: true,
+    maxLossNotify: false,
   },
 ];

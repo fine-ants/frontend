@@ -71,8 +71,8 @@ export type PortfolioDetails = {
   annualDividendYield: number;
   annualInvestmentDividendYield: number;
   provisionalLossBalance: number;
-  targetGainNotification: boolean;
-  maxLossNotification: boolean;
+  targetGainNotify: boolean;
+  maxLossNotify: boolean;
 };
 
 export type PortfolioHolding = {

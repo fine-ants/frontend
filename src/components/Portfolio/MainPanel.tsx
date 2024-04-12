@@ -1,12 +1,17 @@
 import { useSSE } from "@api/hooks/useSSE";
 import usePortfolioDetailsQuery from "@api/portfolio/queries/usePortfolioDetailsQuery";
-import { PortfolioSSE } from "@api/portfolio/types";
+import {
+  PortfolioDetails,
+  PortfolioHolding,
+  PortfolioSSE,
+} from "@api/portfolio/types";
 import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import EmptyPortfolioHoldingTable from "./PortfolioHolding/EmptyPortfolioHoldingTable";
 import PortfolioHoldingTable from "./PortfolioHolding/PortfolioHoldingTable";
-import PortfolioOverview from "./PortfolioOverview";
+import PortfolioOverview from "./PortfolioOverview/PortfolioOverview";
 
 export default function MainPanel() {
   const { portfolioId } = useParams();
@@ -14,8 +19,6 @@ export default function MainPanel() {
   const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
   const {
     data: portfolioSSE,
-    isLoading,
-    isError,
     //TODO: SSE 에러일때 핸들링처리
   } = useSSE<PortfolioSSE>({
     url: `/api/portfolio/${portfolioId}/holdings/realtime`,
@@ -30,24 +33,49 @@ export default function MainPanel() {
     portfolioHoldings: portfolioHoldingsSSE,
   } = portfolioSSE ?? { portfolioDetails: null, portfolioHoldings: [] };
 
-  // Merge static data with realtime data
-  const freshPortfolioHoldingsData =
-    !isLoading && !isError
-      ? portfolioHoldings.map((holding, index) => ({
-          ...holding,
-          ...portfolioHoldingsSSE[index],
-        }))
-      : portfolioHoldings;
+  const [freshPortfolioDetailsData, setFreshPortfolioDetailsData] =
+    useState<PortfolioDetails>(portfolio.portfolioDetails);
+
+  const [freshPortfolioHoldingsData, setFreshPortfolioHoldingsData] = useState<
+    PortfolioHolding[]
+  >(portfolio.portfolioHoldings);
+
+  useEffect(() => {
+    setFreshPortfolioDetailsData({
+      ...portfolioDetails,
+      ...portfolioDetailsSSE,
+    });
+
+    setFreshPortfolioHoldingsData(
+      portfolioHoldings.map((holding, index) => ({
+        ...holding,
+        ...portfolioHoldingsSSE[index],
+      }))
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [portfolioSSE]);
+
+  useEffect(() => {
+    setFreshPortfolioDetailsData({
+      ...portfolioDetailsSSE,
+      ...portfolioDetails,
+    });
+
+    setFreshPortfolioHoldingsData(
+      portfolioHoldings.map((holding, index) => ({
+        ...portfolioHoldingsSSE[index],
+        ...holding,
+      }))
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [portfolio]);
 
   const hasNoHoldings = portfolioHoldings.length === 0;
 
   return (
     <StyledMainPanel>
       <PortfolioOverviewContainer>
-        <PortfolioOverview
-          data={portfolioDetails}
-          sseData={portfolioDetailsSSE}
-        />
+        <PortfolioOverview data={freshPortfolioDetailsData} />
       </PortfolioOverviewContainer>
 
       {hasNoHoldings ? (

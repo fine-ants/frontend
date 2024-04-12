@@ -12,7 +12,7 @@ export default function useDeleteAllMemberNotificationsMutation(
       deleteAllMemberNotification({ memberId, notificationIds }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.memberNotifications().queryKey,
+        queryKey: notificationKeys.memberNotifications.queryKey,
       });
     },
     meta: {

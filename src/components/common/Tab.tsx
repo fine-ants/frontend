@@ -40,7 +40,7 @@ const StyledTab = styled.div`
   width: 264px;
   height: 32px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   border-radius: 8px;
@@ -52,6 +52,7 @@ const StyledTabButton = styled.button<{ $isSelected: boolean }>`
   width: 48px;
   height: 24px;
   border-radius: 4px;
+  box-sizing: border-box;
   background-color: ${({ $isSelected }) =>
     $isSelected
       ? designSystem.color.primary.blue50

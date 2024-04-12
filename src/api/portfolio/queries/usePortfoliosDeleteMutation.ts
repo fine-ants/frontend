@@ -9,11 +9,12 @@ export default function usePortfoliosDeleteMutation() {
     mutationFn: deletePortfolios,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [portfolioKeys.list().queryKey],
+        queryKey: portfolioKeys.list.queryKey,
       });
     },
     meta: {
       toastSuccessMessage: "포트폴리오 삭제를 성공했습니다",
+      toastErrorMessage: "포트폴리오 삭제를 실패했습니다",
     },
   });
 }
