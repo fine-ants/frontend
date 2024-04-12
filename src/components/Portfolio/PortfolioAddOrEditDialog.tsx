@@ -6,7 +6,11 @@ import Button from "@components/common/Buttons/Button";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
-import { thousandsDelimiter, useText } from "@fineants/demolition";
+import {
+  executeCbIfNumeric,
+  thousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
@@ -18,7 +22,6 @@ import {
   calculateValueFromRate,
 } from "@utils/calculations";
 import excludeDelimiters from "@utils/excludeDelimiters";
-import { executeIfNumeric } from "@utils/executeIfNumeric";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -63,7 +66,10 @@ export default function PortfolioAddOrEditDialog({
       : "",
   });
   const budgetHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    executeIfNumeric(e.target.value.trim(), onBudgetChange);
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onBudgetChange,
+    });
   };
 
   // Target Gain states
@@ -76,18 +82,24 @@ export default function PortfolioAddOrEditDialog({
     });
   const targetGainHandler = useCallback(
     (value: string) => {
-      executeIfNumeric(value, (val: string) => {
-        onTargetGainChange(val);
-        onTargetReturnRateChange(calculateRate(val, budget));
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onTargetGainChange(val);
+          onTargetReturnRateChange(calculateRate(val, budget));
+        },
       });
     },
     [budget, onTargetGainChange, onTargetReturnRateChange]
   );
   const targetReturnRateHandler = useCallback(
     (value: string) => {
-      executeIfNumeric(value, (val: string) => {
-        onTargetReturnRateChange(val);
-        onTargetGainChange(calculateValueFromRate(val, budget));
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onTargetReturnRateChange(val);
+          onTargetGainChange(calculateValueFromRate(val, budget));
+        },
       });
     },
     [budget, onTargetGainChange, onTargetReturnRateChange]
@@ -104,18 +116,24 @@ export default function PortfolioAddOrEditDialog({
   );
   const maximumLossHandler = useCallback(
     (value: string) => {
-      executeIfNumeric(value, (val: string) => {
-        onMaximumLossChange(val);
-        onMaximumLossRateChange(calculateLossRate(budget, val));
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onMaximumLossChange(val);
+          onMaximumLossRateChange(calculateLossRate(budget, val));
+        },
       });
     },
     [budget, onMaximumLossChange, onMaximumLossRateChange]
   );
   const maximumLossRateHandler = useCallback(
     (value: string) => {
-      executeIfNumeric(value, (val: string) => {
-        onMaximumLossRateChange(val);
-        onMaximumLossChange(calculateValueFromRate(`-${val}`, budget));
+      executeCbIfNumeric({
+        value,
+        callback: (val: string) => {
+          onMaximumLossRateChange(val);
+          onMaximumLossChange(calculateValueFromRate(`-${val}`, budget));
+        },
       });
     },
     [budget, onMaximumLossChange, onMaximumLossRateChange]
