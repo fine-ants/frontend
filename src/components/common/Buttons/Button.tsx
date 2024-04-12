@@ -11,7 +11,7 @@ import styled from "styled-components";
 export type Variant = "primary" | "secondary" | "tertiary";
 type Size = "h24" | "h32" | "h44";
 
-type Props = {
+export type ButtonProps = {
   variant: Variant;
   size: Size;
   type?: "button" | "submit";
@@ -31,7 +31,7 @@ export default forwardRef(function Button(
     children,
     style,
     ...props
-  }: Props,
+  }: ButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
   return (
@@ -56,6 +56,7 @@ const StyledButton = styled.button<{
   $disabled?: boolean;
 }>`
   white-space: nowrap;
+  width: 100%;
   min-width: ${({ $size }) => {
     switch ($size) {
       case "h24":

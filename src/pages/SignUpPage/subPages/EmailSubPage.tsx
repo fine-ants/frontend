@@ -5,8 +5,8 @@ import {
   AuthPageHeader,
   AuthPageTitle,
   AuthPageTitleCaption,
-  NextButton,
 } from "@components/auth/AuthPageCommon";
+import Button from "@components/common/Buttons/Button";
 import { TextField } from "@components/common/TextField/TextField";
 import { useDebounce, useText, validateEmail } from "@fineants/demolition";
 import axios from "axios";
@@ -99,9 +99,13 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
           clearValue={onEmailClear}
         />
 
-        <NextButton type="submit" disabled={isError || !isDuplicateChecked}>
+        <Button
+          variant="primary"
+          size="h44"
+          type="submit"
+          disabled={isError || !isDuplicateChecked}>
           다음 단계
-        </NextButton>
+        </Button>
       </Form>
     </SubPage>
   );

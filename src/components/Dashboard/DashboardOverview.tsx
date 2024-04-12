@@ -1,7 +1,7 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
 import RateBadge from "@components/common/Badges/RateBadge";
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
 export default function DashboardOverview() {
@@ -10,7 +10,7 @@ export default function DashboardOverview() {
   return (
     <StyledDashboardOverview>
       <InnerWrapper>
-        <PageTitle>{overviewData?.username} 님의 대시보드</PageTitle>
+        <PageTitle>{overviewData.username} 님의 대시보드</PageTitle>
 
         <ContentContainer>
           <TotalMainContentWrapper>
@@ -18,7 +18,7 @@ export default function DashboardOverview() {
             <MainValueWrapper>
               <MainWon>₩</MainWon>
               <MainValue>
-                {thousandsDelimiter(overviewData?.totalValuation ?? 0)}
+                {thousandsDelimiter(overviewData.totalValuation)}
               </MainValue>
             </MainValueWrapper>
           </TotalMainContentWrapper>
@@ -29,7 +29,7 @@ export default function DashboardOverview() {
               <ValueWrapper>
                 <Won>₩</Won>
                 <Value>
-                  {thousandsDelimiter(overviewData?.totalInvestment ?? 0)}
+                  {thousandsDelimiter(overviewData.totalInvestment)}
                 </Value>
               </ValueWrapper>
             </TotalSubContentWrapper>
@@ -37,23 +37,21 @@ export default function DashboardOverview() {
               <Title>총 손익</Title>
               <ValueWrapper>
                 <Won>₩</Won>
-                <Value>
-                  {thousandsDelimiter(overviewData?.totalGain ?? 0)}
-                </Value>
+                <Value>{thousandsDelimiter(overviewData.totalGain)}</Value>
               </ValueWrapper>
-              <RateBadge size={24} value={overviewData?.totalGainRate ?? 0} />
+              <RateBadge size={24} value={overviewData.totalGainRate} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <Title>예상 연 배당금</Title>
               <ValueWrapper>
                 <Won>₩</Won>
                 <Value>
-                  {thousandsDelimiter(overviewData?.totalAnnualDividend ?? 0)}
+                  {thousandsDelimiter(overviewData.totalAnnualDividend)}
                 </Value>
               </ValueWrapper>
               <RateBadge
                 size={24}
-                value={overviewData?.totalAnnualDividendYield ?? 0}
+                value={overviewData.totalAnnualDividendYield}
                 iconStatus={false}
               />
             </TotalSubContentWrapper>

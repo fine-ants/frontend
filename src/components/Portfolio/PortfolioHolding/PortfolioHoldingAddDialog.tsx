@@ -2,16 +2,18 @@ import usePortfolioHoldingAddMutation from "@api/portfolio/queries/usePortfolioH
 import { StockSearchItem } from "@api/stock";
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
-import Button from "@components/common/Buttons/Button";
+import AsyncButton from "@components/common/Buttons/AsyncButton";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
-import { Icon } from "@components/common/Icon";
-import Spinner from "@components/common/Spinner";
-import { useText } from "@fineants/demolition";
-import { IconButton } from "@mui/material";
+import {
+  executeCbIfNumeric,
+  removeThousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { executeIfNumeric } from "@utils/executeIfNumeric";
+
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -39,11 +41,25 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     dayjs(new Date())
   );
 
-  const { value: numShares, onChange: onNumSharesChange } = useText();
   const {
     value: purchasePricePerShare,
     onChange: onPurchasePricePerShareChange,
   } = useText();
+  const purchasePricePerShareHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onPurchasePricePerShareChange,
+    });
+  };
+
+  const { value: numShares, onChange: onNumSharesChange } = useText();
+  const numSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNumSharesChange,
+    });
+  };
+
   const { value: memo, onChange: onMemoChange } = useText();
 
   const onSelectOption = (stock: StockSearchItem) => {
@@ -55,8 +71,10 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       purchaseDate: newPurchaseDate
         ? newPurchaseDate.format("YYYY-MM-DDTHH:mm:ss")
         : "",
-      numShares: Number(numShares),
-      purchasePricePerShare: Number(purchasePricePerShare),
+      numShares: Number(removeThousandsDelimiter(numShares)),
+      purchasePricePerShare: Number(
+        removeThousandsDelimiter(purchasePricePerShare)
+      ),
       memo,
     };
 
@@ -76,7 +94,8 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     setSelectedStock(null);
   };
 
-  const onAddButtonClick = () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
     if (!selectedStock) return;
     addStockToPortfolio(selectedStock);
   };
@@ -97,9 +116,12 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       onClose={onDialogClose}>
       <Header>
         <Title>종목 추가</Title>
-        <IconButton onClick={onDialogClose}>
-          <Icon icon="close" size={24} color="gray600" />
-        </IconButton>
+        <IconButton
+          icon="close"
+          size="h40"
+          iconColor="gray"
+          onClick={onDialogClose}
+        />
       </Header>
 
       <SearchWrapper>
@@ -114,88 +136,86 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
         />
       </SearchWrapper>
 
-      {selectedStock && (
-        <HoldingBox>
-          <TitleWrapper>
-            <label>{selectedStock.companyName}</label>
-            <span>{selectedStock.tickerSymbol}</span>
-          </TitleWrapper>
-          <IconButton
-            disabled={isPortfolioHoldingAddMutatePending}
-            onClick={onDeleteHoldingBoxClick}>
-            <Icon icon="close" size={16} color="blue200" />
-          </IconButton>
-        </HoldingBox>
-      )}
-
-      <InputContainer>
-        <InputBox>
-          <label>매입 날짜</label>
-          <DatePicker
-            size="big"
-            disabled={isPortfolioHoldingAddMutatePending}
-            value={newPurchaseDate}
-            onChange={(newVal) => setNewPurchaseDate(newVal)}
-          />
-        </InputBox>
-
-        <InputBox>
-          <label>매입가</label>
-          <InputWrapper>
-            <Input
-              type="text"
-              placeholder="매입가를 입력하세요"
+      <Form onSubmit={onSubmit}>
+        {selectedStock && (
+          <HoldingBox>
+            <TitleWrapper>
+              <label>{selectedStock.companyName}</label>
+              <span>{selectedStock.tickerSymbol}</span>
+            </TitleWrapper>
+            <IconButton
+              icon="close"
+              size="h24"
+              iconColor="custom"
+              customColor={{
+                color: "blue200",
+                hoverColor: "blue50",
+              }}
               disabled={isPortfolioHoldingAddMutatePending}
-              value={purchasePricePerShare}
-              onChange={(e) =>
-                executeIfNumeric(
-                  e.target.value.trim(),
-                  onPurchasePricePerShareChange
-                )
-              }
+              onClick={onDeleteHoldingBoxClick}
             />
-            <div>₩</div>
-          </InputWrapper>
-        </InputBox>
-
-        <InputBox>
-          <label>매입 개수</label>
-          <InputWrapper>
-            <Input
-              type="text"
-              placeholder="매입 개수를 입력하세요"
-              disabled={isPortfolioHoldingAddMutatePending}
-              value={numShares}
-              onChange={(e) =>
-                executeIfNumeric(e.target.value.trim(), onNumSharesChange)
-              }
-            />
-          </InputWrapper>
-        </InputBox>
-
-        <InputBox>
-          <label>메모</label>
-          <InputTextArea
-            placeholder="메모를 입력하세요"
-            disabled={isPortfolioHoldingAddMutatePending}
-            value={memo}
-            onChange={(e) => onMemoChange(e.target.value.trim())}
-          />
-        </InputBox>
-      </InputContainer>
-
-      <Button
-        variant="primary"
-        size="h32"
-        style={{ marginLeft: "auto" }}
-        disabled={!selectedStock || isPortfolioHoldingAddMutatePending}
-        onClick={onAddButtonClick}>
-        {isPortfolioHoldingAddMutatePending ? (
-          <Spinner size={15} color={designSystem.color.neutral.white} />
-        ) : (
-          "추가"
+          </HoldingBox>
         )}
-      </Button>
+
+        <InputContainer>
+          <InputBox>
+            <label>매입 날짜</label>
+            <DatePicker
+              size="big"
+              disabled={isPortfolioHoldingAddMutatePending}
+              value={newPurchaseDate}
+              onChange={(newVal) => setNewPurchaseDate(newVal)}
+            />
+          </InputBox>
+
+          <InputBox>
+            <label>매입가</label>
+            <InputWrapper>
+              <Input
+                type="text"
+                placeholder="매입가를 입력하세요"
+                disabled={isPortfolioHoldingAddMutatePending}
+                value={purchasePricePerShare}
+                onChange={purchasePricePerShareHandler}
+              />
+              <div>₩</div>
+            </InputWrapper>
+          </InputBox>
+
+          <InputBox>
+            <label>매입 개수</label>
+            <InputWrapper>
+              <Input
+                type="text"
+                placeholder="매입 개수를 입력하세요"
+                disabled={isPortfolioHoldingAddMutatePending}
+                value={numShares}
+                onChange={numSharesHandler}
+              />
+            </InputWrapper>
+          </InputBox>
+
+          <InputBox>
+            <label>메모</label>
+            <InputTextArea
+              placeholder="메모를 입력하세요"
+              disabled={isPortfolioHoldingAddMutatePending}
+              value={memo}
+              onChange={(e) => onMemoChange(e.target.value.trim())}
+            />
+          </InputBox>
+        </InputContainer>
+
+        <AsyncButton
+          variant="primary"
+          size="h32"
+          style={{ width: "80px", marginLeft: "auto" }}
+          type="submit"
+          disabled={!selectedStock || isPortfolioHoldingAddMutatePending}
+          isPending={isPortfolioHoldingAddMutatePending}>
+          추가
+        </AsyncButton>
+      </Form>
     </BaseDialog>
   );
 }
@@ -235,6 +255,10 @@ const SearchWrapper = styled.div`
       color: ${designSystem.color.state.red500};
     }
   }
+`;
+
+const Form = styled.form`
+  width: 100%;
 `;
 
 const HoldingBox = styled.div`
@@ -316,7 +340,7 @@ const InputTextArea = styled.textarea`
   border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 3px;
   font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray400};
+  color: ${designSystem.color.neutral.gray800};
 
   &&::placeholder {
     color: ${designSystem.color.neutral.gray400};

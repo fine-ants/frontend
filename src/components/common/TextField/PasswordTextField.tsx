@@ -1,10 +1,9 @@
-import hideIcon from "@assets/icons/ic_hide.svg";
-import showIcon from "@assets/icons/ic_show.svg";
 import { BaseTextField } from "@components/common/TextField/BaseTextField";
 import { ErrorText } from "@components/common/TextField/ErrorText";
 import { IconButton, InputAdornment } from "@mui/material";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import styled from "styled-components";
+import { Icon } from "../Icon";
 
 type Props = {
   id?: string;
@@ -48,7 +47,11 @@ export function PasswordTextField({
             <IconButton
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}>
-              {showPassword ? <img src={hideIcon} /> : <img src={showIcon} />}
+              <Icon
+                icon={showPassword ? "hide" : "show"}
+                size={16}
+                color="gray600"
+              />
             </IconButton>
           </InputAdornment>
         }

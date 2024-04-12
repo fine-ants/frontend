@@ -1,5 +1,4 @@
-import arrowIcon from "@assets/icons/ic_arrow-left.svg";
-import styled from "styled-components";
+import { IconButton } from "@components/common/Buttons/IconButton";
 
 type Props = {
   onPrev: () => void;
@@ -8,20 +7,13 @@ type Props = {
 export function AuthOnPrevButton({ onPrev }: Props) {
   return (
     <div>
-      <StyledButton onClick={onPrev}>
-        <img src={arrowIcon} />
-      </StyledButton>
+      <IconButton
+        icon="arrow-left"
+        size="h24"
+        iconColor="custom"
+        customColor={{ color: "gray800", hoverColor: "gray100" }}
+        onClick={onPrev}
+      />
     </div>
   );
 }
-
-const StyledButton = styled.button`
-  display: flex;
-  width: 24px;
-  height: 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  padding: 0;
-`;

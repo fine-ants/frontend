@@ -2,17 +2,22 @@ import usePortfolioHoldingPurchaseDeleteMutation from "@api/portfolio/queries/us
 import usePortfolioHoldingPurchaseEditMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
-import { Icon } from "@components/common/Icon";
+import {
+  executeCbIfNumeric,
+  thousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { formatDate } from "@utils/date";
-import { thousandsDelimiter } from "@utils/delimiters";
+
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -53,10 +58,32 @@ export default function PortfolioHoldingStyledTableRow({
   const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
     dayjs(purchaseDate)
   );
-  const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState(
-    purchasePricePerShare.toString()
-  );
-  const [newNumShares, setNewNumShares] = useState(numShares.toString());
+
+  const {
+    value: newPurchasePricePerShare,
+    onChange: onNewPurchasePricePerShareChange,
+  } = useText({
+    initialValue: thousandsDelimiter(purchasePricePerShare),
+  });
+  const newPurchasePricePerShareHandler = (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNewPurchasePricePerShareChange,
+    });
+  };
+
+  const { value: newNumShares, onChange: onNewNumSharesChange } = useText({
+    initialValue: thousandsDelimiter(numShares),
+  });
+  const newNumSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNewNumSharesChange,
+    });
+  };
+
   const [newMemo, setNewMemo] = useState(memo ?? "");
 
   const onEditClick = () => {
@@ -73,7 +100,7 @@ export default function PortfolioHoldingStyledTableRow({
         purchaseDate: newPurchaseDate?.toISOString() ?? "",
         purchasePricePerShare: Number(newPurchasePricePerShare),
         numShares: Number(newNumShares),
-        memo: newMemo,
+        memo: newMemo.trim(),
       },
     });
 
@@ -114,40 +141,41 @@ export default function PortfolioHoldingStyledTableRow({
           <StyledTableCell align="right" style={{ width: "119px" }}>
             <Input
               style={{ width: "100px", textAlign: "left" }}
-              type="number"
               value={newPurchasePricePerShare}
-              onChange={(e) =>
-                setNewPurchasePricePerShare(e.target.value.trim())
-              }
+              onChange={(e) => newPurchasePricePerShareHandler(e)}
             />
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "119px" }}>
             <Input
               style={{ width: "100px", textAlign: "left" }}
-              type="number"
               value={newNumShares}
-              onChange={(e) => setNewNumShares(e.target.value.trim())}
+              onChange={(e) => newNumSharesHandler(e)}
             />
           </StyledTableCell>
 
           <StyledTableCell align="left" style={{ width: "395px" }}>
             <StyledTextArea
               value={newMemo}
-              onChange={(e) => setNewMemo(e.target.value.trim())}
+              onChange={(e) => setNewMemo(e.target.value)}
             />
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "32px" }}>
-            <IconButton onClick={onSaveClick}>
-              <Icon icon="check" size={16} color={"blue500"} />
-            </IconButton>
+            <IconButton icon="check" size="h24" onClick={onSaveClick} />
           </StyledTableCell>
 
           <StyledTableCell align="right" style={{ width: "32px" }}>
-            <IconButton onClick={onOpenDeleteConfirmAlert}>
-              <Icon icon="remove" size={16} color={"gray400"} />
-            </IconButton>
+            <IconButton
+              icon="remove"
+              size="h24"
+              iconColor="custom"
+              customColor={{
+                color: "gray400",
+                hoverColor: "gray50",
+              }}
+              onClick={onOpenDeleteConfirmAlert}
+            />
           </StyledTableCell>
         </>
       ) : (
@@ -170,16 +198,22 @@ export default function PortfolioHoldingStyledTableRow({
           <StyledTableCell style={{ width: "395px" }}>{memo}</StyledTableCell>
 
           <StyledTableCell style={{ width: "32px" }}>
-            <IconButton onClick={onEditClick}>
-              <Icon icon="edit" size={16} color={"gray600"} />
-            </IconButton>
+            <IconButton
+              icon="edit"
+              size="h24"
+              iconColor="gray"
+              onClick={onEditClick}
+            />
           </StyledTableCell>
           <StyledTableCell
             align="right"
             style={{ width: "40px !important", boxSizing: "border-box" }}>
-            <IconButton onClick={onOpenDeleteConfirmAlert}>
-              <Icon icon="remove" size={16} color={"gray600"} />
-            </IconButton>
+            <IconButton
+              icon="remove"
+              size="h24"
+              iconColor="gray"
+              onClick={onOpenDeleteConfirmAlert}
+            />
           </StyledTableCell>
 
           <ConfirmAlert
@@ -258,8 +292,4 @@ const StyledTextArea = styled.textarea`
   &:focus {
     border: 1px solid ${designSystem.color.primary.blue500};
   }
-`;
-
-const IconButton = styled.button`
-  width: 100%;
 `;

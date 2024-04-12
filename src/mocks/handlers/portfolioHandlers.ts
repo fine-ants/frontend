@@ -44,18 +44,20 @@ export default [
     const { name, securitiesFirm, budget, targetGain, maximumLoss } =
       await request.json();
 
-    const targetReturnRate = calculateRate(targetGain, budget);
+    const targetReturnRate = Number(
+      calculateRate(targetGain.toString(), budget.toString())
+    );
     const maximumLossRate = ((budget - maximumLoss) / budget) * 100;
 
     const data: PortfolioDetails = {
       id: portfolioDetails.length + 1,
       securitiesFirm: securitiesFirm,
       name: name,
-      budget: budget,
-      targetGain: targetGain,
-      targetReturnRate: targetReturnRate,
-      maximumLoss: maximumLoss,
-      maximumLossRate: maximumLossRate,
+      budget,
+      targetGain,
+      targetReturnRate: isNaN(targetReturnRate) ? 0 : targetReturnRate,
+      maximumLoss,
+      maximumLossRate: isNaN(maximumLossRate) ? 0 : maximumLossRate,
       currentValuation: 0,
       investedAmount: 0,
       totalGain: 0,
@@ -67,8 +69,8 @@ export default [
       annualDividendYield: 0,
       annualInvestmentDividendYield: 0,
       provisionalLossBalance: 0,
-      targetGainNotification: false,
-      maxLossNotification: false,
+      targetGainNotify: false,
+      maxLossNotify: false,
     };
 
     portfolioDetailsData.push(data);
@@ -132,7 +134,9 @@ export default [
     const { portfolioId } = params;
     const { budget, targetGain, maximumLoss } = (await request.json()).body;
 
-    const targetReturnRate = calculateRate(targetGain, budget);
+    const targetReturnRate = Number(
+      calculateRate(targetGain.toString(), budget.toString())
+    );
     const maximumLossRate = ((budget - maximumLoss) / budget) * 100;
 
     portfolioDetailsData[Number(portfolioId) - 1] = {

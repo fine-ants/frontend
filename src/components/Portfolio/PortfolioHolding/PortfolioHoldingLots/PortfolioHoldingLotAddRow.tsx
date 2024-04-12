@@ -1,13 +1,15 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
-import { Icon } from "@components/common/Icon";
+import { executeCbIfNumeric, useText } from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
+
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -23,15 +25,34 @@ export default function PortfolioHoldingLotAddRow({
   const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
     dayjs(new Date())
   );
-  const [newPurchasePricePerShare, setNewPurchasePricePerShare] = useState("");
-  const [newNumShares, setNewNumShares] = useState("");
+
+  const {
+    value: newPurchasePricePerShare,
+    onChange: onNewPurchasePricePerShareChange,
+  } = useText();
+  const newPurchasePricePerShareHandler = (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNewPurchasePricePerShareChange,
+    });
+  };
+
+  const { value: newNumShares, onChange: onNewNumSharesChange } = useText();
+  const newNumSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNewNumSharesChange,
+    });
+  };
+
   const [newMemo, setNewMemo] = useState("");
 
   const { mutate: portfolioHoldingPurchaseAddMutate } =
     usePortfolioHoldingPurchaseAddMutation(portfolioId);
 
   const onSaveClick = () => {
-    // TODO: Handle error
     portfolioHoldingPurchaseAddMutate({
       portfolioId,
       portfolioHoldingId,
@@ -39,7 +60,7 @@ export default function PortfolioHoldingLotAddRow({
         purchaseDate: newPurchaseDate?.toISOString() ?? "",
         purchasePricePerShare: Number(newPurchasePricePerShare),
         numShares: Number(newNumShares),
-        memo: newMemo,
+        memo: newMemo.trim(),
       },
     });
     onPurchaseValuesRemove();
@@ -47,8 +68,8 @@ export default function PortfolioHoldingLotAddRow({
 
   const onPurchaseValuesRemove = () => {
     setNewPurchaseDate(null);
-    setNewPurchasePricePerShare("");
-    setNewNumShares("");
+    onNewPurchasePricePerShareChange("");
+    onNewNumSharesChange("");
     setNewMemo("");
     onDeleteButtonClick();
   };
@@ -70,20 +91,18 @@ export default function PortfolioHoldingLotAddRow({
       <StyledTableCell align="right" style={{ width: "119px" }}>
         <Input
           style={{ width: "100px", textAlign: "left" }}
-          type="number"
           placeholder="매입가"
           value={newPurchasePricePerShare}
-          onChange={(e) => setNewPurchasePricePerShare(e.target.value.trim())}
+          onChange={newPurchasePricePerShareHandler}
         />
       </StyledTableCell>
 
       <StyledTableCell align="right" style={{ width: "119px" }}>
         <Input
           style={{ width: "100px", textAlign: "left" }}
-          type="number"
           placeholder="매입 개수"
           value={newNumShares}
-          onChange={(e) => setNewNumShares(e.target.value.trim())}
+          onChange={newNumSharesHandler}
         />
       </StyledTableCell>
 
@@ -91,24 +110,31 @@ export default function PortfolioHoldingLotAddRow({
         <StyledTextArea
           value={newMemo}
           placeholder="메모를 입력하세요"
-          onChange={(e) => setNewMemo(e.target.value.trim())}
+          onChange={(e) => setNewMemo(e.target.value)}
         />
       </StyledTableCell>
 
       <StyledTableCell align="right" sx={{ width: "32px" }}>
-        <IconButton disabled={!isValid} onClick={onSaveClick}>
-          <Icon
-            icon="check"
-            size={16}
-            color={isValid ? "blue500" : "gray400"}
-          />
-        </IconButton>
+        <IconButton
+          icon="check"
+          size="h24"
+          iconColor="custom"
+          customColor={{
+            color: isValid ? "blue500" : "gray400",
+            hoverColor: "gray50",
+          }}
+          disabled={!isValid}
+          onClick={onSaveClick}
+        />
       </StyledTableCell>
 
       <StyledTableCell align="right" sx={{ width: "32px" }}>
-        <IconButton onClick={onPurchaseValuesRemove}>
-          <Icon icon="remove" size={16} color={"gray600"} />
-        </IconButton>
+        <IconButton
+          icon="remove"
+          size="h24"
+          iconColor="gray"
+          onClick={onPurchaseValuesRemove}
+        />
       </StyledTableCell>
     </MuiTableRow>
   );
@@ -163,8 +189,4 @@ const StyledTextArea = styled.textarea`
   &:focus {
     border: 1px solid ${designSystem.color.primary.blue500};
   }
-`;
-
-const IconButton = styled.button`
-  width: 100%;
 `;

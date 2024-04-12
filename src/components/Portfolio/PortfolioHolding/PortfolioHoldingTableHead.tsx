@@ -1,14 +1,11 @@
 import { PortfolioHolding } from "@api/portfolio/types";
-import sortAscendingIcon from "@assets/icons/ic_sort_ascending.svg";
-import sortDescendingIcon from "@assets/icons/ic_sort_descending.svg";
-import sortNoneIcon from "@assets/icons/ic_sort_none.svg";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/types";
 import {
   Box,
-  IconButton,
   TableCell,
   TableHead,
   TableRow,
@@ -114,20 +111,15 @@ export default function PortfolioHoldingTableHead({
         }}>
         <StyledTableCell sx={{ width: "32px" }} padding="none">
           <IconButton
-            style={{
-              width: "16px",
-              height: "16px",
-              padding: "0",
+            icon={isAllRowsOpen ? "chevron-down" : "chevron-right"}
+            size="h24"
+            iconColor="custom"
+            customColor={{
+              color: "gray400",
+              hoverColor: "gray100",
             }}
-            aria-label="expand row"
-            size="small"
-            onClick={(event) => onExpandOrCollapseAllRows(event)}>
-            <Icon
-              icon={isAllRowsOpen ? "chevron-down" : "chevron-right"}
-              size={16}
-              color={"gray400"}
-            />
-          </IconButton>
+            onClick={(event) => onExpandOrCollapseAllRows(event)}
+          />
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "32px" }}>
@@ -161,14 +153,16 @@ export default function PortfolioHoldingTableHead({
               IconComponent={() => {
                 const isOrderBy = orderBy === headCell.id;
 
-                if (!isOrderBy) return <img src={sortNoneIcon} />;
-
-                return (
-                  <img
-                    src={
-                      order === "asc" ? sortAscendingIcon : sortDescendingIcon
+                return isOrderBy ? (
+                  <Icon
+                    icon={
+                      order === "asc" ? "sort_ascending" : "sort_descending"
                     }
+                    size={16}
+                    color="#373840"
                   />
+                ) : (
+                  <Icon icon="sort_none" size={16} color="gray600" />
                 );
               }}>
               {headCell.label === "연 배당금" ? (

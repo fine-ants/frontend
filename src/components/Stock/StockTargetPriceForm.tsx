@@ -2,9 +2,15 @@ import useStockTargetPriceAddMutation from "@api/notifications/queries/useStockT
 import Button from "@components/common/Buttons/Button";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
+import {
+  executeCbIfNumeric,
+  removeThousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import { InputAdornment, OutlinedInput } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { ChangeEvent, FormEvent, useState } from "react";
+
+import { ChangeEvent, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -15,15 +21,17 @@ export default function StockTargetPriceForm() {
     tickerSymbol as string
   );
 
-  const [targetPrice, setTargetPrice] = useState("");
-
-  const onChangeTargetPrice = (e: ChangeEvent<HTMLInputElement>) => {
-    setTargetPrice(e.target.value);
+  const { value: targetPrice, onChange: onTargetPriceChange } = useText();
+  const targetPriceHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onTargetPriceChange,
+    });
   };
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    addStockTargetPrice(Number(targetPrice));
+    addStockTargetPrice(Number(removeThousandsDelimiter(targetPrice)));
   };
 
   return (
@@ -43,7 +51,7 @@ export default function StockTargetPriceForm() {
           sx={outlinedInputSx}
           placeholder="지정가를 입력하세요"
           value={targetPrice}
-          onChange={onChangeTargetPrice}
+          onChange={targetPriceHandler}
           endAdornment={
             <InputAdornment position="end">
               <Currency $isTyping={!!targetPrice}>₩</Currency>
@@ -55,13 +63,9 @@ export default function StockTargetPriceForm() {
         />
       </InputContainer>
 
-      <Button
-        type="submit"
-        size="h24"
-        variant="primary"
-        style={{ marginLeft: "auto" }}>
+      <SubmitButton type="submit" size="h24" variant="primary">
         추가
-      </Button>
+      </SubmitButton>
     </Form>
   );
 }
@@ -123,4 +127,9 @@ const Currency = styled.span<{ $isTyping: boolean }>`
     $isTyping
       ? designSystem.color.neutral.gray900
       : designSystem.color.neutral.gray400};
+`;
+
+const SubmitButton = styled(Button)`
+  width: auto;
+  margin-left: auto;
 `;

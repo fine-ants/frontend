@@ -24,3 +24,6 @@ dist-ssr
 
 .DS_Store
 .env
+
+# FCM (this file is only used for dev mode purposes)
+public/firebase-messaging-sw.js

@@ -5,11 +5,11 @@ import BaseDialog from "@components/BaseDialog";
 import ToggleSwitch from "@components/ToggleSwitch";
 import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
-import { createToast } from "@components/common/toast";
 import { UserContext } from "@context/UserContext";
+import { retryFn } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import retryFn from "@utils/retryFn";
 import { useContext, useState } from "react";
+import { toast } from "src/main";
 import styled from "styled-components";
 
 type Props = {
@@ -19,8 +19,6 @@ type Props = {
 };
 
 export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
-  const toast = createToast();
-
   const {
     fcmTokenId,
     onSubscribePushNotification,
@@ -190,13 +188,13 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
           </ToggleList>
         </SettingContainer>
         <ButtonContainer>
-          <Button
+          <StyledSubmitButton
             variant="primary"
             size="h32"
             disabled={isDisabledButton}
             onClick={onSubmit}>
             저장
-          </Button>
+          </StyledSubmitButton>
         </ButtonContainer>
       </StyledContent>
     </BaseDialog>
@@ -286,4 +284,8 @@ const DeniedSignContent = styled.div`
 const DeniedSignText = styled.div`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
+`;
+
+const StyledSubmitButton = styled(Button)`
+  width: 80px;
 `;

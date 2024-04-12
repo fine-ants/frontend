@@ -1,10 +1,10 @@
 import { PortfolioItem } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
+import { thousandsDelimiter } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -69,24 +69,24 @@ export default function PortfolioListTableRow({
         </StyledLink>
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        ₩ {thousandsDelimiter(currentValuation ?? 0)}
+        ₩{thousandsDelimiter(currentValuation)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        ₩ {thousandsDelimiter(budget ?? 0)}
+        ₩{thousandsDelimiter(budget)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        <div>₩ {thousandsDelimiter(totalGain ?? 0)}</div>
+        <div>₩{thousandsDelimiter(totalGain)}</div>
         <RateBadge size={16} value={totalGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        <div>₩ {thousandsDelimiter(dailyGain ?? 0)}</div>
+        <div>₩{thousandsDelimiter(dailyGain)}</div>
         <RateBadge size={16} value={dailyGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        ₩ {thousandsDelimiter(expectedMonthlyDividend ?? 0)}
+        ₩{thousandsDelimiter(expectedMonthlyDividend)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "136px" }}>
-        {thousandsDelimiter(numShares ?? 0)}
+        {thousandsDelimiter(numShares)}
       </StyledTableCell>
     </StyledTableRow>
   );

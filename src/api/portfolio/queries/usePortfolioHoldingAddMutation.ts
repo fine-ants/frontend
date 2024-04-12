@@ -1,4 +1,7 @@
+import { Response } from "@api/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { toast } from "src/main";
 import { postPortfolioHolding } from "..";
 import { portfolioKeys } from "./queryKeys";
 
@@ -26,8 +29,9 @@ export default function usePortfolioHoldingAddMutation({
       onClose();
     },
     onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      const message = (error as AxiosError<Response<null>>).response?.data
+        ?.message as string;
+      toast.error(message);
     },
   });
 }

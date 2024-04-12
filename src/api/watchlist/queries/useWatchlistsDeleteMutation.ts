@@ -9,7 +9,7 @@ export default function useWatchlistsDeleteMutation() {
     mutationFn: deleteWatchlists,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: watchlistKeys.list().queryKey,
+        queryKey: watchlistKeys.list.queryKey,
       });
     },
     meta: {

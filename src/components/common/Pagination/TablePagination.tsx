@@ -1,10 +1,10 @@
-import dividerIcon from "@assets/icons/ic_divider.svg";
 import {
   TablePagination as MuiTablePagination,
   tablePaginationClasses,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
+import { Icon } from "../Icon";
 import { Select, SelectOption } from "../Select";
 import Pagination from "./Pagination";
 import calculateStartAndEndRows from "./utils/calculateStartAndEndRows";
@@ -39,7 +39,7 @@ export default function TablePagination({
       page={page}
       rowsPerPage={rowsPerPage}
       labelRowsPerPage={
-        <>
+        <LabelRowsPerPageWrapper>
           <StyledLabelRowsPerPage>
             전체 <span>{count}</span> 중{" "}
             <span>
@@ -50,8 +50,8 @@ export default function TablePagination({
                 : count}
             </span>
           </StyledLabelRowsPerPage>
-          <img src={dividerIcon} alt="" />
-        </>
+          <Icon icon="divider" size={12} color="gray100" />
+        </LabelRowsPerPageWrapper>
       }
       labelDisplayedRows={() => (rowsPerPage === -1 ? "" : "개 씩 보기")}
       slotProps={{
@@ -137,6 +137,11 @@ const StyledTablePagination = styled(MuiTablePagination)`
     font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray600};
   }
+`;
+
+const LabelRowsPerPageWrapper = styled.span`
+  display: flex;
+  align-items: center;
 `;
 
 const StyledLabelRowsPerPage = styled.span`

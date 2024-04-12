@@ -1,4 +1,5 @@
 import { PurchaseHistoryField } from "@api/portfolio/types";
+import { TextButton } from "@components/common/Buttons/TextButton";
 import { Icon } from "@components/common/Icon";
 import {
   Table as MuiTable,
@@ -82,7 +83,7 @@ export default function PortfolioHoldingLotsTable({
               <MuiTableCell
                 colSpan={6}
                 sx={{ paddingInline: "8px", border: "none" }}>
-                <AddLotButton onClick={onAddLotButtonClick}>
+                <AddLotButton size="h24" onClick={onAddLotButtonClick}>
                   <Icon icon="add" size={16} color="blue500" />
                   <span>항목 추가</span>
                 </AddLotButton>
@@ -162,13 +163,7 @@ const StyledTableBody = styled(MuiTableBody)`
   width: 100%;
 `;
 
-const AddLotButton = styled.button`
-  height: 24px;
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
+const AddLotButton = styled(TextButton)`
   span {
     font: ${designSystem.font.button2.font};
     letter-spacing: ${designSystem.font.button2.letterSpacing};

@@ -85,10 +85,8 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
     <div
       className="tradingview-widget-container"
       style={{
-        height: height,
-        width: width,
-        display: "flex",
-        alignItems: "center",
+        width,
+        height,
       }}>
       <div
         id="tradingview_stock"

@@ -1,13 +1,7 @@
 import usePortfolioNotificationSettingsMutation from "@api/notifications/queries/usePortfolioNotificationSettingsMutation";
 import { PortfolioNotification } from "@api/notifications/types";
-import { Icon } from "@components/common/Icon";
-import {
-  IconButton,
-  TableCell,
-  TableRow,
-  Typography,
-  debounce,
-} from "@mui/material";
+import { IconButton } from "@components/common/Buttons/IconButton";
+import { TableCell, TableRow, Typography, debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
 import { Link } from "react-router-dom";
@@ -56,23 +50,29 @@ export default function PortfolioNotificationRow({ row }: Props) {
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "140px" }} align="center">
-        <IconButton onClick={onTargetGainNotifyButtonClick}>
-          <Icon
-            icon="notification"
-            size={24}
-            color={targetGainNotify ? "blue500" : "gray400"}
-          />
-        </IconButton>
+        <IconButton
+          icon="notification"
+          size="h24"
+          iconColor="custom"
+          customColor={{
+            color: targetGainNotify ? "blue500" : "gray400",
+            hoverColor: "gray200",
+          }}
+          onClick={onTargetGainNotifyButtonClick}
+        />
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "140px" }} align="center">
-        <IconButton onClick={onMaxLossNotifyButtonClick}>
-          <Icon
-            icon="notification"
-            size={24}
-            color={maxLossNotify ? "blue500" : "gray400"}
-          />
-        </IconButton>
+        <IconButton
+          icon="notification"
+          size="h24"
+          iconColor="custom"
+          customColor={{
+            color: targetGainNotify ? "blue500" : "gray400",
+            hoverColor: "gray200",
+          }}
+          onClick={onMaxLossNotifyButtonClick}
+        />
       </StyledTableCell>
     </StyledPortfolioNotificationRow>
   );

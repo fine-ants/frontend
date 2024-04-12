@@ -6,6 +6,7 @@ import designSystem from "@styles/designSystem";
 import { MouseEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Button from "../Buttons/Button";
 import { Icon } from "../Icon";
 
 export default function UserDropdown() {
@@ -28,7 +29,7 @@ export default function UserDropdown() {
 
   return (
     <>
-      <DropdownButton onClick={onDropdownClick} $isOpen={isOpen}>
+      <DropdownButton variant="primary" size="h32" onClick={onDropdownClick}>
         {user?.profileUrl ? (
           <ProfileImageWrapper>
             <ProfileImage
@@ -82,8 +83,8 @@ export default function UserDropdown() {
   );
 }
 
-const DropdownButton = styled.button<{ $isOpen: boolean }>`
-  width: 40px;
+const DropdownButton = styled(Button)<{ $isOpen: boolean }>`
+  min-width: 40px;
   height: 40px;
   padding: 4px;
   display: flex;
