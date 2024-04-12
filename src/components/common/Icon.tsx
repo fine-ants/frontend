@@ -111,7 +111,7 @@ export function Icon({ size, icon, color, hoverColor }: Props) {
   );
 }
 
-const StyledIcon = styled.div<{
+const StyledIcon = styled.span<{
   $iconUrl: string;
   $size: IconSize;
   $color: string;
