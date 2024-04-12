@@ -22,8 +22,13 @@ import {
   calculateRate,
   calculateValueFromRate,
 } from "@utils/calculations";
-
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -155,7 +160,9 @@ export default function PortfolioAddOrEditDialog({
   const isEditMode = !!portfolioDetails;
   const isBudgetEmpty = budget === "0" || budget === "";
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
     const body = {
       name,
       securitiesFirm,
@@ -227,7 +234,7 @@ export default function PortfolioAddOrEditDialog({
       style={PortfolioAddDialogStyle}
       isOpen={isOpen}
       onClose={onClose}>
-      <Wrapper>
+      <Form onSubmit={onSubmit}>
         <HeaderWrapper>
           <Header>포트폴리오 {isEditMode ? `수정` : `추가`}</Header>
           <IconButton
@@ -340,12 +347,12 @@ export default function PortfolioAddOrEditDialog({
           <StyledSubmitButton
             variant="primary"
             size="h32"
-            onClick={onSubmit}
+            type="submit"
             disabled={!isFormValid()}>
             {isEditMode ? `수정` : `추가`}
           </StyledSubmitButton>
         </ButtonWrapper>
-      </Wrapper>
+      </Form>
     </BaseDialog>
   );
 }
@@ -356,7 +363,7 @@ const PortfolioAddDialogStyle = {
   padding: "32px",
 };
 
-const Wrapper = styled.div`
+const Form = styled.form`
   width: 100%;
   height: 100%;
   display: flex;

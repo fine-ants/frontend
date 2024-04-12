@@ -36,7 +36,7 @@ export function IconButton(props: Props) {
     icon,
     iconColor = "primary",
     size,
-    type,
+    type = "button",
     disabled = false,
     hoverIcon,
     hoverIconColor,

@@ -39,7 +39,7 @@ export default function TablePagination({
       page={page}
       rowsPerPage={rowsPerPage}
       labelRowsPerPage={
-        <>
+        <LabelRowsPerPageWrapper>
           <StyledLabelRowsPerPage>
             전체 <span>{count}</span> 중{" "}
             <span>
@@ -51,7 +51,7 @@ export default function TablePagination({
             </span>
           </StyledLabelRowsPerPage>
           <Icon icon="divider" size={12} color="gray100" />
-        </>
+        </LabelRowsPerPageWrapper>
       }
       labelDisplayedRows={() => (rowsPerPage === -1 ? "" : "개 씩 보기")}
       slotProps={{
@@ -137,6 +137,11 @@ const StyledTablePagination = styled(MuiTablePagination)`
     font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray600};
   }
+`;
+
+const LabelRowsPerPageWrapper = styled.span`
+  display: flex;
+  align-items: center;
 `;
 
 const StyledLabelRowsPerPage = styled.span`
