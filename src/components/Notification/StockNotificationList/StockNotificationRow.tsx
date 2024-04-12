@@ -4,6 +4,7 @@ import { StockNotification } from "@api/notifications/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { Icon } from "@components/common/Icon";
+import { thousandsDelimiter } from "@fineants/demolition";
 import {
   Button,
   Collapse,
@@ -13,7 +14,6 @@ import {
   debounce,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

@@ -4,9 +4,9 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
+import { thousandsDelimiter } from "@fineants/demolition";
 import { debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 

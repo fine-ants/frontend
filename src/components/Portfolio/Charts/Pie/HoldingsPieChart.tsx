@@ -1,6 +1,6 @@
 import WideLegend from "@components/common/Legend/WideLegend";
 import { PieChartData } from "@components/common/PieChart/PieChart";
-import { thousandsDelimiter } from "@utils/delimiters";
+import { thousandsDelimiter } from "@fineants/demolition";
 import { useCallback, useState } from "react";
 import { Pie, PieChart, Sector } from "recharts";
 import styled from "styled-components";

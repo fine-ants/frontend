@@ -6,7 +6,7 @@ import Button from "@components/common/Buttons/Button";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
-import { useText } from "@fineants/demolition";
+import { thousandsDelimiter, useText } from "@fineants/demolition";
 import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos, {
@@ -17,7 +17,6 @@ import {
   calculateRate,
   calculateValueFromRate,
 } from "@utils/calculations";
-import { thousandsDelimiter } from "@utils/delimiters";
 import excludeDelimiters from "@utils/excludeDelimiters";
 import { executeIfNumeric } from "@utils/executeIfNumeric";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";

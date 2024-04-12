@@ -1,8 +1,8 @@
 import downIcon from "@assets/icons/ic_down.svg";
 import noneIcon from "@assets/icons/ic_none.svg";
 import upIcon from "@assets/icons/ic_up.svg";
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
 type Size = 12 | 16 | 24;

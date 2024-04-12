@@ -1,5 +1,5 @@
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
 export default function PortfolioWeightPieChartToolTip({

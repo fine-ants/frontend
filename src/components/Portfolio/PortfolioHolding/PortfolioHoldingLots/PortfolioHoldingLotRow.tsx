@@ -4,14 +4,13 @@ import { PurchaseHistoryField } from "@api/portfolio/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
-import { useText } from "@fineants/demolition";
+import { thousandsDelimiter, useText } from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { formatDate } from "@utils/date";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { executeIfNumeric } from "@utils/executeIfNumeric";
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";

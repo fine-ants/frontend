@@ -1,4 +1,4 @@
-import { thousandsDelimiter } from "./delimiters";
+import { thousandsDelimiter } from "@fineants/demolition";
 import excludeDelimiters from "./excludeDelimiters";
 
 export const calculateRate = (val1: string, val2: string) => {

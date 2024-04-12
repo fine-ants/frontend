@@ -1,7 +1,7 @@
 import useDashboardOverviewQuery from "@api/dashboard/queries/useDashboardOverviewQuery";
 import RateBadge from "@components/common/Badges/RateBadge";
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import styled from "styled-components";
 
 export default function DashboardOverview() {

@@ -2,8 +2,8 @@ import useStockTargetPriceDeleteMutation from "@api/notifications/queries/useSto
 import { StockTargetPrice } from "@api/notifications/types";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { IconButton } from "@components/common/Buttons/IconButton";
+import { thousandsDelimiter } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { useState } from "react";
 import styled from "styled-components";
 
