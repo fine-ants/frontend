@@ -8,6 +8,7 @@ import { Select, SelectOption } from "@components/common/Select";
 import { SECURITIES_FIRM } from "@constants/securitiesFirm";
 import {
   executeCbIfNumeric,
+  removeThousandsDelimiter,
   thousandsDelimiter,
   useText,
 } from "@fineants/demolition";
@@ -21,7 +22,7 @@ import {
   calculateRate,
   calculateValueFromRate,
 } from "@utils/calculations";
-import excludeDelimiters from "@utils/excludeDelimiters";
+
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -158,9 +159,9 @@ export default function PortfolioAddOrEditDialog({
     const body = {
       name,
       securitiesFirm,
-      budget: Number(excludeDelimiters(budget)),
-      targetGain: Number(excludeDelimiters(targetGain)),
-      maximumLoss: Number(excludeDelimiters(maximumLoss)),
+      budget: Number(removeThousandsDelimiter(budget)),
+      targetGain: Number(removeThousandsDelimiter(targetGain)),
+      maximumLoss: Number(removeThousandsDelimiter(maximumLoss)),
     };
 
     if (isEditMode) {

@@ -6,9 +6,12 @@ import Button from "@components/common/Buttons/Button";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import Spinner from "@components/common/Spinner";
-import { executeCbIfNumeric, useText } from "@fineants/demolition";
+import {
+  executeCbIfNumeric,
+  removeThousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import excludeDelimiters from "@utils/excludeDelimiters";
 
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";
@@ -69,8 +72,10 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       purchaseDate: newPurchaseDate
         ? newPurchaseDate.format("YYYY-MM-DDTHH:mm:ss")
         : "",
-      numShares: Number(excludeDelimiters(numShares)),
-      purchasePricePerShare: Number(excludeDelimiters(purchasePricePerShare)),
+      numShares: Number(removeThousandsDelimiter(numShares)),
+      purchasePricePerShare: Number(
+        removeThousandsDelimiter(purchasePricePerShare)
+      ),
       memo,
     };
 

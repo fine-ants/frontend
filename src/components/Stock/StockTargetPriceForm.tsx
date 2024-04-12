@@ -2,10 +2,13 @@ import useStockTargetPriceAddMutation from "@api/notifications/queries/useStockT
 import Button from "@components/common/Buttons/Button";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
-import { executeCbIfNumeric, useText } from "@fineants/demolition";
+import {
+  executeCbIfNumeric,
+  removeThousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import { InputAdornment, OutlinedInput } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import excludeDelimiters from "@utils/excludeDelimiters";
 
 import { ChangeEvent, FormEvent } from "react";
 import { useParams } from "react-router-dom";
@@ -28,7 +31,7 @@ export default function StockTargetPriceForm() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    addStockTargetPrice(Number(excludeDelimiters(targetPrice)));
+    addStockTargetPrice(Number(removeThousandsDelimiter(targetPrice)));
   };
 
   return (

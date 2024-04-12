@@ -1,9 +1,11 @@
-import { thousandsDelimiter } from "@fineants/demolition";
-import excludeDelimiters from "./excludeDelimiters";
+import {
+  removeThousandsDelimiter,
+  thousandsDelimiter,
+} from "@fineants/demolition";
 
 export const calculateRate = (val1: string, val2: string) => {
-  const parsedVal1 = Number(excludeDelimiters(val1));
-  const parsedVal2 = Number(excludeDelimiters(val2));
+  const parsedVal1 = Number(removeThousandsDelimiter(val1));
+  const parsedVal2 = Number(removeThousandsDelimiter(val2));
 
   const rate = ((parsedVal1 - parsedVal2) / parsedVal2) * 100;
 
@@ -11,8 +13,8 @@ export const calculateRate = (val1: string, val2: string) => {
 };
 
 export const calculateLossRate = (val1: string, val2: string) => {
-  const parsedVal1 = Number(excludeDelimiters(val1));
-  const parsedVal2 = Number(excludeDelimiters(val2));
+  const parsedVal1 = Number(removeThousandsDelimiter(val1));
+  const parsedVal2 = Number(removeThousandsDelimiter(val2));
 
   const rate = ((parsedVal1 - parsedVal2) / parsedVal1) * 100;
 
@@ -20,8 +22,8 @@ export const calculateLossRate = (val1: string, val2: string) => {
 };
 
 export const calculateValueFromRate = (rate: string, base: string) => {
-  const parsedRate = Number(excludeDelimiters(rate));
-  const parsedBase = Number(excludeDelimiters(base));
+  const parsedRate = Number(removeThousandsDelimiter(rate));
+  const parsedBase = Number(removeThousandsDelimiter(base));
 
   const value = parsedBase + (parsedRate / 100) * parsedBase;
 
