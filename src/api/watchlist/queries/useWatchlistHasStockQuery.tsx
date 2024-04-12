@@ -4,7 +4,7 @@ import { watchlistKeys } from "./queryKeys";
 
 export default function useWatchlistHasStockQuery(tickerSymbol: string) {
   return useSuspenseQuery({
-    queryKey: watchlistKeys.hasStock().queryKey,
+    queryKey: watchlistKeys.hasStock.queryKey,
     queryFn: () => getWatchlistHasStock(tickerSymbol),
     select: (res) => res.data,
   });

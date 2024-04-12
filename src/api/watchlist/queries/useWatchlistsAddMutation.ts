@@ -13,7 +13,7 @@ export default function useWatchlistsAddMutation({ onCloseDialog }: Props) {
     mutationFn: postWatchlists,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: watchlistKeys.list().queryKey,
+        queryKey: watchlistKeys.list.queryKey,
       });
       onCloseDialog();
     },

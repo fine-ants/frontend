@@ -9,7 +9,7 @@ export default function useAllStockPriceTargetsDeleteMutation() {
     mutationFn: deleteAllStockPriceTargets,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: notificationKeys.stockNotificationSettings().queryKey,
+        queryKey: notificationKeys.stockNotificationSettings.queryKey,
       });
     },
     meta: {

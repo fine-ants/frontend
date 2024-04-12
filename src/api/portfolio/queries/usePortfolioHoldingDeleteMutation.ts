@@ -8,13 +8,16 @@ export default function usePortfolioHoldingDeleteMutation(portfolioId: number) {
   return useMutation({
     mutationFn: deletePortfolioHoldings,
     onSuccess: () => {
-      // TODO: toast
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.charts(portfolioId).queryKey,
       });
+    },
+    meta: {
+      toastSuccessMessage: "종목을 삭제했습니다",
+      toastErrorMessage: "종목 삭제를 실패했습니다",
     },
   });
 }

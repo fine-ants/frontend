@@ -13,7 +13,7 @@ export default function useWatchlistItemDeleteMutation(watchlistId: number) {
         queryKey: watchlistKeys.item(watchlistId).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: watchlistKeys.hasStock().queryKey,
+        queryKey: watchlistKeys.hasStock.queryKey,
       });
     },
     meta: {

@@ -4,7 +4,7 @@ import { notificationKeys } from "./queryKeys";
 
 export default function useMemberNotificationsQuery(memberId: number) {
   return useQuery({
-    queryKey: notificationKeys.memberNotifications().queryKey,
+    queryKey: notificationKeys.memberNotifications.queryKey,
     queryFn: () => getMemberNotifications(memberId),
     select: (res) => res.data.notifications,
   });

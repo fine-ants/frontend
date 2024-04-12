@@ -4,7 +4,7 @@ import { dashboardKeys } from "./queryKeys";
 
 export default function useDashboardOverviewQuery() {
   return useSuspenseQuery({
-    queryKey: dashboardKeys.overview().queryKey,
+    queryKey: dashboardKeys.overview.queryKey,
     queryFn: getDashboardOverview,
     select: (res) => res.data,
     retry: 0,

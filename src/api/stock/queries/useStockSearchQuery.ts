@@ -9,8 +9,8 @@ export default function useStockSearchQuery(query: string) {
     retry: false,
     enabled: query !== "",
     staleTime: 1000 * 60 * 5,
-    select: (res) => res.data,
     gcTime: 1000 * 60 * 5,
+    select: (res) => res.data,
     refetchOnReconnect: false,
   });
 }
