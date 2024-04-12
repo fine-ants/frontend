@@ -1,13 +1,16 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
-import { executeCbIfNumeric, useText } from "@fineants/demolition";
+import {
+  executeCbIfNumeric,
+  removeThousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
-
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
@@ -58,8 +61,10 @@ export default function PortfolioHoldingLotAddRow({
       portfolioHoldingId,
       body: {
         purchaseDate: newPurchaseDate?.toISOString() ?? "",
-        purchasePricePerShare: Number(newPurchasePricePerShare),
-        numShares: Number(newNumShares),
+        purchasePricePerShare: Number(
+          removeThousandsDelimiter(newPurchasePricePerShare)
+        ),
+        numShares: Number(removeThousandsDelimiter(newNumShares)),
         memo: newMemo.trim(),
       },
     });

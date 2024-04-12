@@ -6,6 +6,7 @@ import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
 import {
   executeCbIfNumeric,
+  removeThousandsDelimiter,
   thousandsDelimiter,
   useText,
 } from "@fineants/demolition";
@@ -15,7 +16,6 @@ import {
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { formatDate } from "@utils/date";
-
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
@@ -98,8 +98,10 @@ export default function PortfolioHoldingStyledTableRow({
       purchaseHistoryId,
       body: {
         purchaseDate: newPurchaseDate?.toISOString() ?? "",
-        purchasePricePerShare: Number(newPurchasePricePerShare),
-        numShares: Number(newNumShares),
+        purchasePricePerShare: Number(
+          removeThousandsDelimiter(newPurchasePricePerShare)
+        ),
+        numShares: Number(removeThousandsDelimiter(newNumShares)),
         memo: newMemo.trim(),
       },
     });
