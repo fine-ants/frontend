@@ -2,10 +2,9 @@ import usePortfolioHoldingAddMutation from "@api/portfolio/queries/usePortfolioH
 import { StockSearchItem } from "@api/stock";
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
-import Button from "@components/common/Buttons/Button";
+import AsyncButton from "@components/common/Buttons/AsyncButton";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
-import Spinner from "@components/common/Spinner";
 import {
   executeCbIfNumeric,
   removeThousandsDelimiter,
@@ -207,18 +206,15 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
           </InputBox>
         </InputContainer>
 
-        <AddButton
+        <AsyncButton
           variant="primary"
           size="h32"
-          style={{ marginLeft: "auto" }}
+          style={{ width: "80px", marginLeft: "auto" }}
           type="submit"
-          disabled={!selectedStock || isPortfolioHoldingAddMutatePending}>
-          {isPortfolioHoldingAddMutatePending ? (
-            <Spinner size={15} color={designSystem.color.neutral.white} />
-          ) : (
-            "추가"
-          )}
-        </AddButton>
+          disabled={!selectedStock || isPortfolioHoldingAddMutatePending}
+          isPending={isPortfolioHoldingAddMutatePending}>
+          추가
+        </AsyncButton>
       </Form>
     </BaseDialog>
   );
@@ -367,8 +363,4 @@ const Input = styled.input`
   &&::placeholder {
     color: ${designSystem.color.neutral.gray400};
   }
-`;
-
-const AddButton = styled(Button)`
-  width: 80px;
 `;
