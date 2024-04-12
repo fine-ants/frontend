@@ -1,13 +1,13 @@
 import usePortfolioHoldingPurchaseAddMutation from "@api/portfolio/queries/usePortfolioHoldingPurchaseAddMutation";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import DatePicker from "@components/common/DatePicker/DatePicker";
-import { useText } from "@fineants/demolition";
+import { executeCbIfNumeric, useText } from "@fineants/demolition";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { executeIfNumeric } from "@utils/executeIfNumeric";
+
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
@@ -33,12 +33,18 @@ export default function PortfolioHoldingLotAddRow({
   const newPurchasePricePerShareHandler = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
-    executeIfNumeric(e.target.value.trim(), onNewPurchasePricePerShareChange);
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNewPurchasePricePerShareChange,
+    });
   };
 
   const { value: newNumShares, onChange: onNewNumSharesChange } = useText();
   const newNumSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    executeIfNumeric(e.target.value.trim(), onNewNumSharesChange);
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNewNumSharesChange,
+    });
   };
 
   const [newMemo, setNewMemo] = useState("");

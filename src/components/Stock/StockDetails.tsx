@@ -1,8 +1,8 @@
 import useStockPageQuery from "@api/stock/queries/useStockPageQeury";
 import TVStockDetailWidget from "@components/TradingViewWidgets/TVStockDetailWidget";
 import RateBadge from "@components/common/Badges/RateBadge";
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TargetPriceAlertDropdown from "./TargetPriceAlertDropdown/TargetPriceAlertDropdown";

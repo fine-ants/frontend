@@ -2,9 +2,8 @@ import useDeleteMemberNotificationsMutation from "@api/notifications/queries/use
 import { MemberNotification } from "@api/notifications/types";
 import { User } from "@api/user/types";
 import { Icon } from "@components/common/Icon";
-import { getElapsedSince } from "@fineants/demolition";
+import { getElapsedSince, thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";

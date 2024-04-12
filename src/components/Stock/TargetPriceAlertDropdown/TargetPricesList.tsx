@@ -1,8 +1,8 @@
 import useSpecificStockTargetPricesQuery from "@api/notifications/queries/useSpecificStockTargetPricesQuery";
 import useStockTargetPriceDeleteMutation from "@api/notifications/queries/useStockTargetPriceDeleteMutation";
 import { IconButton } from "@components/common/Buttons/IconButton";
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 

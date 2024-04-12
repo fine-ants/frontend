@@ -6,10 +6,13 @@ import Button from "@components/common/Buttons/Button";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { default as DatePicker } from "@components/common/DatePicker/DatePicker";
 import Spinner from "@components/common/Spinner";
-import { useText } from "@fineants/demolition";
+import {
+  executeCbIfNumeric,
+  removeThousandsDelimiter,
+  useText,
+} from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import excludeDelimiters from "@utils/excludeDelimiters";
-import { executeIfNumeric } from "@utils/executeIfNumeric";
+
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -44,12 +47,18 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
     onChange: onPurchasePricePerShareChange,
   } = useText();
   const purchasePricePerShareHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    executeIfNumeric(e.target.value.trim(), onPurchasePricePerShareChange);
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onPurchasePricePerShareChange,
+    });
   };
 
   const { value: numShares, onChange: onNumSharesChange } = useText();
   const numSharesHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    executeIfNumeric(e.target.value.trim(), onNumSharesChange);
+    executeCbIfNumeric({
+      value: e.target.value.trim(),
+      callback: onNumSharesChange,
+    });
   };
 
   const { value: memo, onChange: onMemoChange } = useText();
@@ -63,8 +72,10 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       purchaseDate: newPurchaseDate
         ? newPurchaseDate.format("YYYY-MM-DDTHH:mm:ss")
         : "",
-      numShares: Number(excludeDelimiters(numShares)),
-      purchasePricePerShare: Number(excludeDelimiters(purchasePricePerShare)),
+      numShares: Number(removeThousandsDelimiter(numShares)),
+      purchasePricePerShare: Number(
+        removeThousandsDelimiter(purchasePricePerShare)
+      ),
       memo,
     };
 

@@ -1,10 +1,10 @@
 import { PortfolioItem } from "@api/portfolio/types";
 import RateBadge from "@components/common/Badges/RateBadge";
 import CheckBox from "@components/common/Checkbox/Checkbox";
+import { thousandsDelimiter } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import securitiesFirmLogos from "@styles/securitiesFirmLogos";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

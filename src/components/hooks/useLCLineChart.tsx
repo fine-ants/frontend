@@ -1,6 +1,5 @@
-import { formatUnit } from "@fineants/demolition";
+import { formatUnit, thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { thousandsDelimiter } from "@utils/delimiters";
 import { getBarSpacings } from "@utils/getBarSpacings";
 import {
   ChartOptions,
