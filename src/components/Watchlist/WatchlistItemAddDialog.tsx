@@ -1,11 +1,9 @@
 import { StockSearchItem } from "@api/stock";
 import useWatchlistItemAddMutation from "@api/watchlist/queries/useWatchlistItemAddMutation";
-
 import BaseDialog from "@components/BaseDialog";
 import SearchBar from "@components/SearchBar/SearchBar";
-import Button from "@components/common/Buttons/Button";
+import AsyncButton from "@components/common/Buttons/AsyncButton";
 import { IconButton } from "@components/common/Buttons/IconButton";
-import Spinner from "@components/common/Spinner";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -110,19 +108,15 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
         )}
       </div>
 
-      <div style={{ marginLeft: "auto" }}>
-        <Button
-          variant="primary"
-          size="h32"
-          disabled={selectedStocks.length === 0 || isWatchlistItemAddPending}
-          onClick={onAddButtonClick}>
-          {isWatchlistItemAddPending ? (
-            <Spinner size={15} color={designSystem.color.neutral.white} />
-          ) : (
-            "추가"
-          )}
-        </Button>
-      </div>
+      <AsyncButton
+        variant="primary"
+        size="h32"
+        style={{ width: "80px", marginLeft: "auto" }}
+        disabled={selectedStocks.length === 0 || isWatchlistItemAddPending}
+        isPending={isWatchlistItemAddPending}
+        onClick={onAddButtonClick}>
+        추가
+      </AsyncButton>
     </BaseDialog>
   );
 }
