@@ -5,7 +5,7 @@ import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
@@ -31,9 +31,9 @@ export default function PortfolioHoldingTableToolBar({
     setIsAddHoldingDialogOpen(true);
   };
 
-  const onAddHoldingDialogClose = () => {
+  const onAddHoldingDialogClose = useCallback(() => {
     setIsAddHoldingDialogOpen(false);
-  };
+  }, [setIsAddHoldingDialogOpen]);
 
   const onDeleteHoldingsButtonClick = () => {
     setIsConfirmOpen(true);
