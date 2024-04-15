@@ -105,7 +105,7 @@ const StyledButton = styled.button<{
   justify-content: center;
   width: ${({ $size }) => ($size === "h24" ? "24px" : "40px")};
   height: ${({ $size }) => ($size === "h24" ? "24px" : "40px")};
-  border-radius: 4px;
+  border-radius: 50%;
   color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
 
