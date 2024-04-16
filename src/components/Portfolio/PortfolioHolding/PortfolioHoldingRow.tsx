@@ -135,22 +135,14 @@ export default function PortfolioHoldingRow({
           <RealtimeValue value={dailyChange}>
             ₩{thousandsDelimiter(dailyChange)}
           </RealtimeValue>
-          <RateBadge
-            size={12}
-            value={dailyChangeRate ?? dailyChangeRate}
-            bgColorStatus={false}
-          />
+          <RateBadge size={12} value={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <RealtimeValue value={totalGain}>
             ₩{thousandsDelimiter(totalGain)}
           </RealtimeValue>
-          <RateBadge
-            size={12}
-            value={totalReturnRate ?? totalReturnRate}
-            bgColorStatus={false}
-          />
+          <RateBadge size={12} value={totalReturnRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell
