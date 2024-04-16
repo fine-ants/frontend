@@ -112,15 +112,11 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <RealtimeValue value={currentValuation}>
-            ₩{thousandsDelimiter(currentValuation)}
-          </RealtimeValue>
+          <RealtimeValue value={currentValuation} />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <RealtimeValue value={currentPrice}>
-            ₩{thousandsDelimiter(currentPrice)}
-          </RealtimeValue>
+          <RealtimeValue value={currentPrice} />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
@@ -132,16 +128,12 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
-          <RealtimeValue value={dailyChange}>
-            ₩{thousandsDelimiter(dailyChange)}
-          </RealtimeValue>
+          <RealtimeValue value={dailyChange} />
           <RateBadge size={12} value={dailyChangeRate} bgColorStatus={false} />
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <RealtimeValue value={totalGain}>
-            ₩{thousandsDelimiter(totalGain)}
-          </RealtimeValue>
+          <RealtimeValue value={totalGain} />
           <RateBadge size={12} value={totalReturnRate} bgColorStatus={false} />
         </HoldingTableCell>
 

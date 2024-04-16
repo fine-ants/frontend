@@ -128,9 +128,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>총 손익</div>
-            <RealtimeValue value={data.totalGain}>
-              ₩{thousandsDelimiter(data.totalGain)}
-            </RealtimeValue>
+            <RealtimeValue value={data.totalGain} />
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
@@ -142,9 +140,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </div>
           <OverviewBodyData>
             <div>당일 손익</div>
-            <RealtimeValue value={data.dailyGain}>
-              ₩{thousandsDelimiter(data.dailyGain)}
-            </RealtimeValue>
+            <RealtimeValue value={data.dailyGain} />
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge

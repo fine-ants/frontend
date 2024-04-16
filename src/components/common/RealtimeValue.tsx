@@ -1,15 +1,15 @@
+import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
-import { ReactNode, memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
   value: number;
-  children: ReactNode;
 };
 
 type ValueStatus = "gain" | "loss" | "none";
 
-export default memo(function RealtimeValue({ value, children }: Props) {
+export default memo(function RealtimeValue({ value }: Props) {
   const prevValue = useRef(value);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -44,7 +44,9 @@ export default memo(function RealtimeValue({ value, children }: Props) {
     };
   }, [status]);
 
-  return <StyledPrice $status={status}>{children}</StyledPrice>;
+  return (
+    <StyledPrice $status={status}>₩{thousandsDelimiter(value)}</StyledPrice>
+  );
 });
 
 const StyledPrice = styled.span<{ $status: ValueStatus }>`
