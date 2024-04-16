@@ -52,12 +52,12 @@ export default memo(function RealtimeValue({ value }: Props) {
 const StyledPrice = styled.span<{ $status: ValueStatus }>`
   color: ${({ $status }) => {
     switch ($status) {
-      case "none":
-        return designSystem.color.neutral.gray900;
       case "gain":
         return designSystem.color.state.green500;
       case "loss":
         return designSystem.color.state.red500;
+      case "none":
+        return designSystem.color.neutral.gray900;
     }
   }};
 `;
