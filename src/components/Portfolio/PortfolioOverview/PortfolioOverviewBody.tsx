@@ -4,6 +4,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
+import RealtimeValue from "@components/common/RealtimeValue";
 import { thousandsDelimiter } from "@fineants/demolition";
 import { debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
@@ -127,7 +128,9 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>총 손익</div>
-            <span>₩{thousandsDelimiter(data.totalGain)}</span>
+            <RealtimeValue value={data.totalGain}>
+              ₩{thousandsDelimiter(data.totalGain)}
+            </RealtimeValue>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
@@ -139,7 +142,9 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </div>
           <OverviewBodyData>
             <div>당일 손익</div>
-            <span>₩{thousandsDelimiter(data.dailyGain)}</span>
+            <RealtimeValue value={data.dailyGain}>
+              ₩{thousandsDelimiter(data.dailyGain)}
+            </RealtimeValue>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
