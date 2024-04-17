@@ -1,4 +1,4 @@
-import { postOAuthUrl } from "@api/auth";
+import { OAuthProvider, postOAuthUrl } from "@api/auth";
 import googleLogo from "@assets/icons/logo/ic_google.svg";
 import kakaoLogo from "@assets/icons/logo/ic_kakao.svg";
 import naverLogo from "@assets/icons/logo/ic_naver.svg";
@@ -10,7 +10,7 @@ import { toast } from "src/main";
 import styled from "styled-components";
 
 type Props = {
-  provider: "google" | "kakao" | "naver";
+  provider: OAuthProvider;
 };
 
 export default function SocialLoginButton({ provider }: Props) {
