@@ -65,10 +65,6 @@ const StyledNavItem = styled.li`
 `;
 
 const StyledNavItemContent = styled(Link)`
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  background-color: ${designSystem.color.neutral.gray900};
   font: ${designSystem.font.title4.font};
   letter-spacing: ${designSystem.font.title4.letterSpacing};
 `;
