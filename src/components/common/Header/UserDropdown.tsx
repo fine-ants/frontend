@@ -4,14 +4,12 @@ import { UserContext } from "@context/UserContext";
 import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Buttons/Button";
 import { Icon } from "../Icon";
 
 export default function UserDropdown() {
-  const navigate = useNavigate();
-
   const { user } = useContext(UserContext);
 
   const { mutate: signOutMutate } = useSignOutMutation();
@@ -55,23 +53,23 @@ export default function UserDropdown() {
           vertical: "top",
           horizontal: "right",
         }}>
-        <DropdownItem
-          sx={dropdownItemSx}
-          onClick={() => navigate("/settings/profile")}>
-          {user?.profileUrl ? (
-            <ProfileImage
-              src={user.profileUrl}
-              alt={user.nickname}
-              $size={48}
-            />
-          ) : (
-            <Icon icon="user" size={48} color="gray200" />
-          )}
-          <UserDetails>
-            <p>{user?.nickname}</p>
-            <p>{user?.email}</p>
-          </UserDetails>
-        </DropdownItem>
+        <Link to={"/settings/profile"}>
+          <DropdownItem sx={dropdownItemSx}>
+            {user?.profileUrl ? (
+              <ProfileImage
+                src={user.profileUrl}
+                alt={user.nickname}
+                $size={48}
+              />
+            ) : (
+              <Icon icon="user" size={48} color="gray200" />
+            )}
+            <UserDetails>
+              <p>{user?.nickname}</p>
+              <p>{user?.email}</p>
+            </UserDetails>
+          </DropdownItem>
+        </Link>
 
         <Divider />
 

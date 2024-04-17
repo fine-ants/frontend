@@ -3,7 +3,7 @@ import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
-export default function PorfoliosDropdownListSkeleton() {
+export default function PortfoliosDropdownListSkeleton() {
   return (
     <StyledPortfoliosDropdownListSkeleton>
       <Spinner

@@ -1,6 +1,6 @@
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type NavBarProps = {
@@ -25,14 +25,10 @@ function NavItem({ item, children }: NavItemProps) {
     throw new Error("Only provide either one of item or children to NavItem.");
   }
 
-  const navigate = useNavigate();
-
   return (
     <StyledNavItem>
       {item ? (
-        <StyledNavItemContent onClick={() => navigate(item.to)}>
-          {item.name}
-        </StyledNavItemContent>
+        <StyledNavItemContent to={item.to}>{item.name}</StyledNavItemContent>
       ) : (
         children
       )}
@@ -68,11 +64,7 @@ const StyledNavItem = styled.li`
   }
 `;
 
-const StyledNavItemContent = styled.div`
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  background-color: ${designSystem.color.neutral.gray900};
+const StyledNavItemContent = styled(Link)`
   font: ${designSystem.font.title4.font};
   letter-spacing: ${designSystem.font.title4.letterSpacing};
 `;
