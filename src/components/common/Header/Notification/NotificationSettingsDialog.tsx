@@ -4,6 +4,7 @@ import { User } from "@api/user/types";
 import BaseDialog from "@components/BaseDialog";
 import ToggleSwitch from "@components/ToggleSwitch";
 import Button from "@components/common/Buttons/Button";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { Icon } from "@components/common/Icon";
 import { UserContext } from "@context/UserContext";
 import { retryFn } from "@fineants/demolition";
@@ -126,9 +127,12 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
     <BaseDialog style={dialogStyle} isOpen={isOpen} onClose={onClose}>
       <StyledHeader>
         <Title>알림 설정</Title>
-        <button onClick={onClose}>
-          <Icon icon="close" color="gray600" size={24} />
-        </button>
+        <IconButton
+          icon="close"
+          size="h40"
+          iconColor="gray"
+          onClick={onClose}
+        />
       </StyledHeader>
       <StyledContent>
         <SettingContainer>
