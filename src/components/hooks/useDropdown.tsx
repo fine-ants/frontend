@@ -8,7 +8,7 @@ type DropdownMenuProps = {
 
 export type DropdownItemProps = {
   sx?: SxProps;
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
 };
 
@@ -40,7 +40,7 @@ export function useDropdown() {
 
   function DropdownItem({ sx, onClick, children }: DropdownItemProps) {
     const onClickHandler = () => {
-      onClick();
+      if (onClick) onClick();
       onClose();
     };
 

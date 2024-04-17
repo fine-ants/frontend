@@ -5,12 +5,12 @@ import { UserContext } from "@context/UserContext";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../Icon";
 import PortfoliosDropdownList from "./PortfoliosDropdownList";
 import PortfoliosDropdownListErrorFallback from "./PortfoliosDropdownListErrorFallback";
-import PorfoliosDropdownListSkeleton from "./PortfoliosDropdownListSkeleton";
+import PortfoliosDropdownListSkeleton from "./PortfoliosDropdownListSkeleton";
 
 export function PortfoliosDropdown() {
   const navigate = useNavigate();
@@ -35,10 +35,6 @@ export function PortfoliosDropdown() {
     setIsPortfolioAddDialogOpen(true);
   };
 
-  const moveToPortfolioPage = () => {
-    navigate(user ? Routes.PORTFOLIOS : Routes.SIGNIN);
-  };
-
   return (
     <>
       <DropdownButton onClick={onDropdownButtonClick} $isOpen={isOpen}>
@@ -52,15 +48,16 @@ export function PortfoliosDropdown() {
       <DropdownMenu sx={dropdownMenuSx}>
         {user && (
           <AsyncBoundary
-            SuspenseFallback={<PorfoliosDropdownListSkeleton />}
+            SuspenseFallback={<PortfoliosDropdownListSkeleton />}
             ErrorFallback={PortfoliosDropdownListErrorFallback}>
             <PortfoliosDropdownList DropdownItem={DropdownItem} />
           </AsyncBoundary>
         )}
-
-        <DropdownItem sx={fixedDropdownItemSx} onClick={moveToPortfolioPage}>
-          포트폴리오로 이동
-        </DropdownItem>
+        <Link to={user ? Routes.PORTFOLIOS : Routes.SIGNIN}>
+          <DropdownItem sx={fixedDropdownItemSx}>
+            포트폴리오로 이동
+          </DropdownItem>
+        </Link>
         <DropdownItem sx={fixedDropdownItemSx} onClick={onPortfolioAddClick}>
           포트폴리오 추가
         </DropdownItem>

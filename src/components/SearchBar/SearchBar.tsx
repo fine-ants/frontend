@@ -6,7 +6,6 @@ import { useDebounce } from "@fineants/demolition";
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { SyntheticEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import RenderOptionDefault from "./RenderOptionDefault";
 import RenderOptionSelect from "./RenderOptionSelect";
 import RenderOptionSelectMultiple from "./RenderOptionSelectMultiple";
@@ -45,8 +44,6 @@ export default function SearchBar({
       "`selectedOptions` must be passed in when variant is 'select-multiple'"
     );
   }
-
-  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -90,9 +87,6 @@ export default function SearchBar({
       case "select-multiple":
         onSelectRenderOptionSelectMultiple(value);
         break;
-      default:
-        onSelectRenderOptionDefault(value);
-        break;
     }
   };
 
@@ -104,10 +98,6 @@ export default function SearchBar({
 
   const onSelectRenderOptionSelectMultiple = (option: StockSearchItem) => {
     if (onSelectOption) onSelectOption(option);
-  };
-
-  const onSelectRenderOptionDefault = (option: StockSearchItem) => {
-    navigate(`/stock/${option.tickerSymbol}`);
   };
 
   const isTyping = searchInputValue !== "";
@@ -212,7 +202,7 @@ export default function SearchBar({
                   props,
                   searchValue: debouncedSearchInputValue,
                   option,
-                  onClick: () => onSelectRenderOptionDefault(option),
+                  path: `/stock/${option.tickerSymbol}`,
                 }}
               />
             );
