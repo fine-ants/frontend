@@ -69,21 +69,21 @@ export default function PortfolioListTableRow({
         </StyledLink>
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        ₩{thousandsDelimiter(currentValuation)}
+        {thousandsDelimiter(currentValuation)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        ₩{thousandsDelimiter(budget)}
+        {thousandsDelimiter(budget)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        <div>₩{thousandsDelimiter(totalGain)}</div>
+        <div>{thousandsDelimiter(totalGain)}</div>
         <RateBadge size={16} value={totalGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        <div>₩{thousandsDelimiter(dailyGain)}</div>
+        <div>{thousandsDelimiter(dailyGain)}</div>
         <RateBadge size={16} value={dailyGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        ₩{thousandsDelimiter(expectedMonthlyDividend)}
+        {thousandsDelimiter(expectedMonthlyDividend)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "136px" }}>
         {thousandsDelimiter(numShares)}

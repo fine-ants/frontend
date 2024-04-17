@@ -45,7 +45,7 @@ export default memo(function RealtimeValue({ value }: Props) {
   }, [status]);
 
   return (
-    <StyledPrice $status={status}>₩{thousandsDelimiter(value)}</StyledPrice>
+    <StyledPrice $status={status}>{thousandsDelimiter(value)}</StyledPrice>
   );
 });
 

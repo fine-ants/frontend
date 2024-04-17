@@ -69,13 +69,13 @@ export default function WatchlistTableToolBar({
             <Icon icon="divider" size={12} color="gray100" />
 
             <Tooltip title="선택된 종목 삭제">
-              <Button
+              <DeleteWatchlistButton
                 variant="tertiary"
                 size="h32"
                 onClick={onDeleteWatchlistItemButtonClick}>
                 <Icon icon="trash" size={16} color="gray600" />
                 <span>삭제</span>
-              </Button>
+              </DeleteWatchlistButton>
             </Tooltip>
           </>
         )}
@@ -129,5 +129,9 @@ const SelectedInfoContainer = styled.div`
 `;
 
 const AddWatchlistItemButton = styled(Button)`
+  width: auto;
+`;
+
+const DeleteWatchlistButton = styled(Button)`
   width: auto;
 `;

@@ -120,7 +120,7 @@ export default function PortfolioHoldingRow({
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
-          <Amount>₩{thousandsDelimiter(averageCostPerShare)}</Amount>
+          <Amount>{thousandsDelimiter(averageCostPerShare)}</Amount>
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "64px" }} align="right">
@@ -144,7 +144,7 @@ export default function PortfolioHoldingRow({
           }}
           align="right">
           <HoldingTypography>
-            ₩{thousandsDelimiter(annualDividend)}
+            {thousandsDelimiter(annualDividend)}
           </HoldingTypography>
           <RateBadge
             size={12}

@@ -92,7 +92,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "120px" }} align="center">
-          <p>₩{thousandsDelimiter(lastPrice)}</p>
+          <p>{thousandsDelimiter(lastPrice)}</p>
         </StyledTableCell>
 
         <StyledTableCell style={{ width: "120px" }} align="center">
