@@ -190,7 +190,7 @@ export default function PortfolioHoldingStyledTableRow({
           </StyledTableCell>
 
           <StyledTableCell style={{ width: "119px" }} align="right">
-            ₩{thousandsDelimiter(purchasePricePerShare)}
+            {thousandsDelimiter(purchasePricePerShare)}
           </StyledTableCell>
 
           <StyledTableCell style={{ width: "119px" }} align="right">

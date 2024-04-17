@@ -36,7 +36,7 @@ export default function StockNotificationLotRow({ row }: Props) {
   return (
     <StyledStockNotificationRow>
       <StyledTableCell align="left">
-        ₩{thousandsDelimiter(targetPrice)}
+        {thousandsDelimiter(targetPrice)}
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "120px" }} align="center">

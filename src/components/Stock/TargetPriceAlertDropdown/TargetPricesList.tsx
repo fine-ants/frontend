@@ -28,7 +28,7 @@ export default function TargetPricesList() {
     <StyledTargetPricesList>
       {sortedTargetPrices.map((item) => (
         <TargetPriceItem key={item.notificationId}>
-          <span>₩{thousandsDelimiter(item.targetPrice)}</span>
+          <span>{thousandsDelimiter(item.targetPrice)}</span>
           <IconButton
             icon="remove"
             iconColor="gray"

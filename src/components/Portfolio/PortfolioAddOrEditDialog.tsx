@@ -290,7 +290,7 @@ export default function PortfolioAddOrEditDialog({
                 value={budget}
                 onChange={budgetHandler}
               />
-              <span>KRW</span>
+              <span>₩</span>
             </StyledInput>
           </Row>
           <Row>
