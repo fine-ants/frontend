@@ -125,11 +125,12 @@ export default function SignInForm() {
         </Button>
       </Form>
 
-      <SignInButtonContainer>
+      <SocialLoginButtons>
         <SocialLoginButton provider="google" />
         <SocialLoginButton provider="kakao" />
         <SocialLoginButton provider="naver" />
-      </SignInButtonContainer>
+      </SocialLoginButtons>
+
       <SignUpWrapper>
         아직 계정이 없으신가요?
         <SignUpButton
@@ -200,13 +201,14 @@ const FormControlLabel = styled.label`
   gap: 8px;
 `;
 
-const SignInButtonContainer = styled.div`
+const SocialLoginButtons = styled.div`
   width: 100%;
   padding: 16px 0;
   display: flex;
+  justify-content: space-between;
   gap: 8px;
 
-  button {
+  > * {
     flex: 1;
   }
 `;
