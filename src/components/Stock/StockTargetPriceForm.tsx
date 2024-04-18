@@ -37,15 +37,15 @@ export default function StockTargetPriceForm() {
   return (
     <Form onSubmit={onSubmit}>
       <InputContainer>
-        <InputLabel>
-          지정가
-          <CustomTooltip
-            arrow
-            placement="bottom-start"
-            title="종목 지정가 알림은 최대 5개까지 추가할 수 있습니다">
+        <CustomTooltip
+          arrow
+          placement="bottom-start"
+          title="종목 지정가 알림은 최대 5개까지 추가할 수 있습니다">
+          <InputLabel>
+            지정가
             <Icon icon="help" size={16} color="gray400" />
-          </CustomTooltip>
-        </InputLabel>
+          </InputLabel>
+        </CustomTooltip>
 
         <OutlinedInput
           sx={outlinedInputSx}
@@ -90,7 +90,6 @@ const InputContainer = styled.div`
 const InputLabel = styled.label`
   display: flex;
   align-items: center;
-  flex-shrink: 0;
   gap: 4px;
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
