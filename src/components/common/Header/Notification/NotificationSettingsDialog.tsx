@@ -192,13 +192,13 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
           </ToggleList>
         </SettingContainer>
         <ButtonContainer>
-          <StyledSubmitButton
+          <Button
             variant="primary"
             size="h32"
             disabled={isDisabledButton}
             onClick={onSubmit}>
             저장
-          </StyledSubmitButton>
+          </Button>
         </ButtonContainer>
       </StyledContent>
     </BaseDialog>
@@ -288,8 +288,4 @@ const DeniedSignContent = styled.div`
 const DeniedSignText = styled.div`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
-`;
-
-const StyledSubmitButton = styled(Button)`
-  width: 80px;
 `;

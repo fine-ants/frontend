@@ -130,6 +130,5 @@ const Currency = styled.span<{ $isTyping: boolean }>`
 `;
 
 const SubmitButton = styled(Button)`
-  width: auto;
   margin-left: auto;
 `;

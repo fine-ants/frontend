@@ -66,25 +66,22 @@ export default function PortfolioListTableToolBar({
             <Icon icon="divider" size={12} color="gray100" />
 
             <Tooltip title="포트폴리오 삭제">
-              <StyledButton
+              <Button
                 variant="tertiary"
                 size="h32"
                 onClick={onDeletePortfoliosButtonClick}>
                 <Icon icon="trash" size={16} color="gray600" />
                 <span>삭제</span>
-              </StyledButton>
+              </Button>
             </Tooltip>
           </>
         )}
       </SelectedInfoContainer>
 
-      <StyledButton
-        variant="primary"
-        size="h32"
-        onClick={onAddPortfolioButtonClick}>
+      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
-      </StyledButton>
+      </Button>
 
       {isAddPortfolioDialogOpen && (
         <PortfolioAddDialog
@@ -123,8 +120,4 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const StyledButton = styled(Button)`
-  width: auto;
 `;

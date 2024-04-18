@@ -31,13 +31,10 @@ export default function TargetPriceAlertDropdown() {
 
   return (
     <>
-      <DropdownButton
-        variant="secondary"
-        size="h32"
-        onClick={onDropdownButtonClick}>
+      <Button variant="secondary" size="h32" onClick={onDropdownButtonClick}>
         <Icon icon="notification" size={16} color="blue500" />
         알림 설정
-      </DropdownButton>
+      </Button>
 
       <DropdownMenu
         sx={dropdownMenuSx}
@@ -107,8 +104,4 @@ const TargetPricesListContainer = styled.li`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`;
-
-const DropdownButton = styled(Button)`
-  width: auto;
 `;

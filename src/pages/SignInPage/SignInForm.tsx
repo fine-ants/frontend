@@ -116,13 +116,13 @@ export default function SignInForm() {
           </SupportContainer>
         </InputControl>
 
-        <Button
+        <LoginButton
           variant="primary"
           size="h44"
           type="submit"
           disabled={!isAllFieldsFilled}>
           로그인
-        </Button>
+        </LoginButton>
       </Form>
 
       <SignInButtonContainer>
@@ -221,4 +221,8 @@ const SignUpWrapper = styled.div`
   gap: 6px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
+`;
+
+const LoginButton = styled(Button)`
+  width: 100%;
 `;

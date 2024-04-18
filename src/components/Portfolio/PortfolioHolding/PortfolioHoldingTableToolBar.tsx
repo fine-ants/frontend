@@ -70,24 +70,21 @@ export default function PortfolioHoldingTableToolBar({
 
             <Icon icon="divider" size={12} color="gray100" />
 
-            <StyledButton
+            <Button
               variant="tertiary"
               size="h32"
               onClick={onDeleteHoldingsButtonClick}>
               <Icon icon="trash" size={16} color="gray600" />
               <span>삭제</span>
-            </StyledButton>
+            </Button>
           </>
         )}
       </SelectedInfoContainer>
 
-      <StyledButton
-        variant="primary"
-        size="h32"
-        onClick={onAddPortfolioButtonClick}>
+      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
         <Icon icon="add" size={16} color="white" />
         <span>종목 추가</span>
-      </StyledButton>
+      </Button>
 
       <PortfolioHoldingAddDialog
         isOpen={isAddHoldingDialogOpen}
@@ -129,8 +126,4 @@ const DeleteList = styled.ul`
   height: inherit;
   max-height: inherit;
   overflow-y: scroll;
-`;
-
-const StyledButton = styled(Button)`
-  width: auto;
 `;

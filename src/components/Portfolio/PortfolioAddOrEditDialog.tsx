@@ -344,13 +344,13 @@ export default function PortfolioAddOrEditDialog({
           </Row>
         </Body>
         <ButtonWrapper>
-          <StyledSubmitButton
+          <Button
             variant="primary"
             size="h32"
             type="submit"
             disabled={!isFormValid()}>
             {isEditMode ? `수정` : `추가`}
-          </StyledSubmitButton>
+          </Button>
         </ButtonWrapper>
       </Form>
     </BaseDialog>
@@ -456,8 +456,4 @@ const SecuritiesFirmLogo = styled.img`
 const SecuritiesFirmTitle = styled.span`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
-`;
-
-const StyledSubmitButton = styled(Button)`
-  width: 80px;
 `;

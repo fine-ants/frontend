@@ -19,13 +19,10 @@ export default function EmptyPortfolioMessage({
         여기에 표시됩니다
       </div>
 
-      <PortfolioAddButton
-        variant="primary"
-        size="h32"
-        onClick={onPortfolioAddButtonClick}>
+      <Button variant="primary" size="h32" onClick={onPortfolioAddButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
-      </PortfolioAddButton>
+      </Button>
     </StyledEmptyPortfolioMessage>
   );
 }
@@ -52,8 +49,4 @@ const StyledEmptyPortfolioMessage = styled.div`
     font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray500};
   }
-`;
-
-const PortfolioAddButton = styled(Button)`
-  width: auto;
 `;
