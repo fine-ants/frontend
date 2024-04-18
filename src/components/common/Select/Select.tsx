@@ -1,5 +1,3 @@
-// import chevronDown from "@assets/icons/ic_chevron-down.svg";
-// import chevronUp from "@assets/icons/ic_chevron-up.svg";
 import {
   InputBase,
   Select as MuiSelect,
