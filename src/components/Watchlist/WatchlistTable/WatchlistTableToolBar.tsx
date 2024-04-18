@@ -69,25 +69,25 @@ export default function WatchlistTableToolBar({
             <Icon icon="divider" size={12} color="gray100" />
 
             <Tooltip title="선택된 종목 삭제">
-              <DeleteWatchlistButton
+              <Button
                 variant="tertiary"
                 size="h32"
                 onClick={onDeleteWatchlistItemButtonClick}>
                 <Icon icon="trash" size={16} color="gray600" />
                 <span>삭제</span>
-              </DeleteWatchlistButton>
+              </Button>
             </Tooltip>
           </>
         )}
       </SelectedInfoContainer>
 
-      <AddWatchlistItemButton
+      <Button
         variant="primary"
         size="h32"
         onClick={onAddWatchlistItemButtonClick}>
         <Icon icon="favorite-add" size={16} color="white" />
         <span>관심 종목 추가</span>
-      </AddWatchlistItemButton>
+      </Button>
 
       {isAddWatchlistDialogOpen && (
         <WatchlistItemAddDialog
@@ -126,12 +126,4 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const AddWatchlistItemButton = styled(Button)`
-  width: auto;
-`;
-
-const DeleteWatchlistButton = styled(Button)`
-  width: auto;
 `;

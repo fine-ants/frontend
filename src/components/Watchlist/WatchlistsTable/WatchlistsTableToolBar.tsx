@@ -65,24 +65,24 @@ export default function WatchlistsTableToolBar({
 
             <Icon icon="divider" size={12} color="gray100" />
 
-            <DeleteWatchlistsButton
+            <Button
               variant="tertiary"
               size="h32"
               onClick={onDeleteWatchlistsButtonClick}>
               <Icon icon="trash" size={16} color="gray600" />
               <span>삭제</span>
-            </DeleteWatchlistsButton>
+            </Button>
           </>
         )}
       </SelectedInfoContainer>
 
-      <AddNewWatchlistButton
+      <Button
         variant="primary"
         size="h32"
         onClick={onAddNewWatchlistButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>새 리스트 추가</span>
-      </AddNewWatchlistButton>
+      </Button>
 
       {isNewWatchlistDialogOpen && (
         <NewWatchlistDialog
@@ -122,12 +122,4 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const AddNewWatchlistButton = styled(Button)`
-  width: auto;
-`;
-
-const DeleteWatchlistsButton = styled(Button)`
-  width: auto;
 `;

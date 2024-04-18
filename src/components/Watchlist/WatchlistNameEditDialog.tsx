@@ -70,7 +70,11 @@ export default function WatchlistNameEditDialog({
         </InputWrapper>
 
         <div style={{ marginLeft: "auto" }}>
-          <Button variant="primary" size="h32" disabled={isInputEmpty}>
+          <Button
+            type="submit"
+            variant="primary"
+            size="h32"
+            disabled={isInputEmpty}>
             <p>추가</p>
           </Button>
         </div>

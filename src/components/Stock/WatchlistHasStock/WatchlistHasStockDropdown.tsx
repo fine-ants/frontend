@@ -47,13 +47,10 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
 
   return (
     <>
-      <DropdownButton
-        variant="secondary"
-        size="h32"
-        onClick={onDropdownButtonClick}>
+      <Button variant="secondary" size="h32" onClick={onDropdownButtonClick}>
         <Icon icon="favorite" size={16} color="blue500" />
         관심 종목 설정
-      </DropdownButton>
+      </Button>
 
       <DropdownMenu
         sx={dropdownMenuSx}
@@ -160,8 +157,4 @@ const NewWatchlistButton = styled(MuiButton)`
   &:hover {
     background-color: transparent;
   }
-`;
-
-const DropdownButton = styled(Button)`
-  width: auto;
 `;
