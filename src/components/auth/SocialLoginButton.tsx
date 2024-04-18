@@ -20,17 +20,6 @@ export default function SocialLoginButton({ provider }: Props) {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    timerRef.current = setTimeout(() => {
-      setIsTooltipOpen(true);
-    }, 300);
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, []);
-
   const recentlyLoggedInMethod = localStorage.getItem("recentlyLoggedInMethod");
 
   const onSignIn = async () => {
@@ -54,6 +43,17 @@ export default function SocialLoginButton({ provider }: Props) {
       toast.error("로그인을 실패했습니다. 잠시후 재시도해주세요.");
     }
   };
+
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      setIsTooltipOpen(true);
+    }, 300);
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   let socialLoginButton = null;
 
