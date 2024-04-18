@@ -51,11 +51,7 @@ export default function Select({
       }}
       IconComponent={(props) => (
         <IconWrapper className={`material-icons ${props.className}`}>
-          <Icon
-            icon={isOpen ? "chevron-up" : "chevron-down"}
-            size={12}
-            color="gray600"
-          />
+          <Icon icon="chevron-down" size={12} color="gray600" />
         </IconWrapper>
       )}
       MenuProps={{ sx: MenuSX(size, menuMinHeight, menuMaxHeight) }}>
