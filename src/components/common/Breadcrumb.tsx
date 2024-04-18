@@ -1,7 +1,7 @@
-import iconChevronRight from "@assets/icons/ic_chevron-right.svg";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Icon } from "./Icon";
 
 type Props = {
   depthData: {
@@ -27,7 +27,7 @@ export default function Breadcrumb({ depthData }: Props) {
               {name}
             </DepthTitle>
             {index !== depthData.length - 1 && (
-              <DepthIcon src={iconChevronRight} />
+              <Icon icon="chevron-right" color="gray400" size={12} />
             )}
           </div>
         );
@@ -66,12 +66,4 @@ const DepthTitle = styled.span<{ $isLast: boolean }>`
     color: ${designSystem.color.neutral.gray800};
     cursor: pointer;
   }
-`;
-
-const DepthIcon = styled.img`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 12px;
-  height: 12px;
 `;

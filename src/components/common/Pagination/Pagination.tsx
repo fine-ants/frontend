@@ -1,5 +1,3 @@
-import chevronLeftIcon from "@assets/icons/ic_chevron-left.svg";
-import chevronRightIcon from "@assets/icons/ic_chevron-right.svg";
 import {
   Pagination as MuiPagination,
   PaginationItem,
@@ -8,6 +6,7 @@ import {
 import designSystem from "@styles/designSystem";
 import { ChangeEvent } from "react";
 import styled from "styled-components";
+import { Icon } from "../Icon";
 
 type Props = {
   count: number;
@@ -27,8 +26,10 @@ export default function Pagination({ count, page, onPageChange }: Props) {
       renderItem={(item) => (
         <PaginationItem
           slots={{
-            previous: () => <ChevronImg src={chevronLeftIcon} />,
-            next: () => <ChevronImg src={chevronRightIcon} />,
+            previous: () => (
+              <Icon icon="chevron-left" size={16} color="gray600" />
+            ),
+            next: () => <Icon icon="chevron-right" size={16} color="gray600" />,
           }}
           {...item}
         />
@@ -65,9 +66,4 @@ const StyledPagination = styled(MuiPagination)`
       }
     }
   }
-`;
-
-const ChevronImg = styled.img`
-  width: 16px;
-  height: 16px;
 `;
