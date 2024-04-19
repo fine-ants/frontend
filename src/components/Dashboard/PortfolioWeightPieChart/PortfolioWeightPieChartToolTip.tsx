@@ -23,13 +23,8 @@ export default function PortfolioWeightPieChartToolTip({
           ₩{thousandsDelimiter(payload[0].value)}
         </TooltipContainer>
         <TooltipContainer>
-          <GainValue>
-            {totalGain >= 0 ? "+" : "-"}₩{thousandsDelimiter(totalGain)}
-          </GainValue>
-          <GainValue>
-            {totalGainRate >= 0 ? "+" : "-"}
-            {totalGainRate}%
-          </GainValue>
+          <GainValue>₩{thousandsDelimiter(totalGain)}</GainValue>
+          <GainValue>{totalGainRate}%</GainValue>
         </TooltipContainer>
       </TooltipBox>
     );

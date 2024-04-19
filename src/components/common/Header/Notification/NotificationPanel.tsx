@@ -76,7 +76,7 @@ export function NotificationPanel({
               <Divider />
               <IconButton
                 icon="settings"
-                size="h40"
+                size="h24"
                 iconColor="custom"
                 customColor={{
                   color: "gray800",

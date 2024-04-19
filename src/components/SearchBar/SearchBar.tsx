@@ -1,11 +1,11 @@
 import { StockSearchItem } from "@api/stock";
 import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
+import { IconButton } from "@components/common/Buttons/IconButton";
 import { Icon } from "@components/common/Icon";
 import { useDebounce } from "@fineants/demolition";
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { SyntheticEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import RenderOptionDefault from "./RenderOptionDefault";
 import RenderOptionSelect from "./RenderOptionSelect";
 import RenderOptionSelectMultiple from "./RenderOptionSelectMultiple";
@@ -45,8 +45,6 @@ export default function SearchBar({
     );
   }
 
-  const navigate = useNavigate();
-
   const [isOpen, setIsOpen] = useState(false);
 
   const onOpen = () => {
@@ -57,16 +55,15 @@ export default function SearchBar({
     setIsOpen(false);
   };
 
+  const [value, setValue] = useState<StockSearchItem | null>(null);
   const [searchInputValue, setSearchInputValue] = useState("");
-  const debouncedValue = useDebounce(searchInputValue, 250);
+  const debouncedSearchInputValue = useDebounce(searchInputValue, 250);
 
-  const { data: searchResults, isLoading } =
-    useStockSearchQuery(debouncedValue);
+  const { data: searchResults, isLoading } = useStockSearchQuery(
+    debouncedSearchInputValue
+  );
 
-  const onSearchInputChange = (
-    _: SyntheticEvent<Element, Event>,
-    newValue: string
-  ) => {
+  const onSearchInputChange = (_: SyntheticEvent, newValue: string) => {
     setSearchInputValue(newValue as string);
   };
 
@@ -74,8 +71,33 @@ export default function SearchBar({
     setSearchInputValue("");
   };
 
-  const onClickOption = (option: string) => {
-    setSearchInputValue(option);
+  const updateSearchInputValue = (newVal: string) => {
+    setSearchInputValue(newVal);
+  };
+
+  const onValueChange = (_: SyntheticEvent, value: StockSearchItem | null) => {
+    if (!value) return;
+
+    setValue(value);
+
+    switch (variant) {
+      case "select":
+        onSelectRenderOptionSelect(value);
+        break;
+      case "select-multiple":
+        onSelectRenderOptionSelectMultiple(value);
+        break;
+    }
+  };
+
+  const onSelectRenderOptionSelect = (option: StockSearchItem) => {
+    if (onSelectOption) onSelectOption(option);
+    updateSearchInputValue(option.companyName);
+    onClose();
+  };
+
+  const onSelectRenderOptionSelectMultiple = (option: StockSearchItem) => {
+    if (onSelectOption) onSelectOption(option);
   };
 
   const isTyping = searchInputValue !== "";
@@ -86,15 +108,18 @@ export default function SearchBar({
       fullWidth
       sx={{ ...autocompleteSx(variant), ...sx }}
       disabled={disabled}
-      inputValue={searchInputValue}
       open={isOpen}
       onOpen={onOpen}
       onClose={onClose}
+      value={value}
+      inputValue={searchInputValue}
       getOptionLabel={(option) => option.companyName} // Used to fill the input value.
       onInputChange={onSearchInputChange}
+      onChange={onValueChange}
       isOptionEqualToValue={(option, value) =>
         option.companyName === value.companyName
       }
+      filterOptions={(x) => x}
       clearOnBlur={false}
       options={searchResults ?? []}
       loading={isLoading}
@@ -114,17 +139,21 @@ export default function SearchBar({
                 color={variant === "default" ? "gray400" : "gray600"}
               />
             ),
+            endAdornment: searchInputValue && (
+              <IconButton
+                icon="close"
+                size="h24"
+                iconColor="custom"
+                customColor={{
+                  color: variant === "default" ? "gray100" : "gray600",
+                  hoverColor: "gray50",
+                }}
+                onClick={clearSearchInput}
+              />
+            ),
           }}
         />
       )}
-      forcePopupIcon={searchInputValue !== ""}
-      popupIcon={
-        <Icon
-          icon="close"
-          size={16}
-          color={variant === "default" ? "gray100" : "gray600"}
-        />
-      }
       componentsProps={{
         popupIndicator: {
           sx: popupIndicatorSx,
@@ -142,12 +171,10 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
-                  searchValue: debouncedValue,
+                  searchValue: debouncedSearchInputValue,
                   option,
                   onClick: () => {
-                    if (onSelectOption) onSelectOption(option);
-                    onClickOption(option.companyName);
-                    onClose();
+                    onSelectRenderOptionSelect(option);
                   },
                 }}
               />
@@ -158,11 +185,11 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
-                  searchValue: debouncedValue,
+                  searchValue: debouncedSearchInputValue,
                   option,
                   selectedOptions: selectedOptions ?? [],
                   onClick: () => {
-                    if (onSelectOption) onSelectOption(option);
+                    onSelectRenderOptionSelectMultiple(option);
                   },
                 }}
               />
@@ -173,9 +200,9 @@ export default function SearchBar({
                 key={option.tickerSymbol}
                 {...{
                   props,
-                  searchValue: debouncedValue,
+                  searchValue: debouncedSearchInputValue,
                   option,
-                  onClick: () => navigate(`/stock/${option.tickerSymbol}`),
+                  path: `/stock/${option.tickerSymbol}`,
                 }}
               />
             );
@@ -191,7 +218,7 @@ const autocompleteSx = (variant: Variant) => ({
   "& .MuiInputBase-root": {
     "width": "100%",
     "height": "100%",
-    "padding": "0 12px",
+    "padding": "0 12px !important",
     "gap": "8px",
     "backgroundColor": "inherit",
 

@@ -55,22 +55,22 @@ export default function WatchlistContainer() {
             <h1>{watchlistData.name}</h1>
           </Header>
           <ButtonWrapper>
-            <StyledButton
+            <Button
               variant="tertiary"
               size="h32"
               onClick={onDeleteWatchlistButtonClick}
               disabled={false}>
               <Icon icon="trash" size={16} color="gray600" />
               삭제
-            </StyledButton>
-            <StyledButton
+            </Button>
+            <Button
               variant="secondary"
               size="h32"
               onClick={onFavoriteMarkClick}
               disabled={false}>
               <Icon icon="edit" size={16} color="blue500" />
               이름 편집
-            </StyledButton>
+            </Button>
           </ButtonWrapper>
         </TitleContent>
       </TitleContainer>
@@ -85,10 +85,10 @@ export default function WatchlistContainer() {
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}
-          title="관심 종목 목록 삭제"
+          title="관심 종목 리스트 삭제"
           onClose={onDeleteWatchlistAlertClose}
           onConfirm={onConfirmAction}>
-          <p>'{watchlistData.name}'을 삭제하시겠습니까?</p>
+          <p>'{watchlistData.name}' 관심 종목 리스트를 삭제하시겠습니까?</p>
         </ConfirmAlert>
       )}
     </Container>
@@ -133,8 +133,4 @@ const TitleContent = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 8px;
-`;
-
-const StyledButton = styled(Button)`
-  width: auto;
 `;

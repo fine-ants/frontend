@@ -3,40 +3,43 @@ import { Icon } from "@components/common/Icon";
 import designSystem from "@styles/designSystem";
 import { splitAndIncludeDelimiter } from "@utils/delimiters";
 import { HTMLAttributes } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type RenderOptionDefaultProps = {
   props: HTMLAttributes<HTMLLIElement>;
   searchValue: string;
   option: StockSearchItem;
-  onClick: () => void;
+  path: string;
 };
 
 export default function RenderOptionDefault({
   props,
   searchValue,
   option,
-  onClick,
+  path,
 }: RenderOptionDefaultProps) {
   return (
-    <li {...props} style={renderOptionDefaultStyles} onClick={onClick}>
-      <div>
-        <CompanyName>
-          {splitAndIncludeDelimiter(option.companyName, searchValue).map(
-            (word, idx) =>
-              word === searchValue ? (
-                <Highlight key={idx}>{word}</Highlight>
-              ) : (
-                word
-              )
-          )}
-        </CompanyName>
-        <TickerSymbol>{option.tickerSymbol}</TickerSymbol>
-      </div>
+    <Link to={path}>
+      <li {...props} style={renderOptionDefaultStyles}>
+        <div>
+          <CompanyName>
+            {splitAndIncludeDelimiter(option.companyName, searchValue).map(
+              (word, idx) =>
+                word === searchValue ? (
+                  <Highlight key={idx}>{word}</Highlight>
+                ) : (
+                  word
+                )
+            )}
+          </CompanyName>
+          <TickerSymbol>{option.tickerSymbol}</TickerSymbol>
+        </div>
 
-      {/* TODO: Add watchlist logic */}
-      <Icon icon="favorite" size={16} color="gray400" />
-    </li>
+        {/* TODO: Add watchlist logic */}
+        <Icon icon="favorite" size={16} color="gray400" />
+      </li>
+    </Link>
   );
 }
 

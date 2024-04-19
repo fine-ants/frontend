@@ -5,7 +5,7 @@ import Button from "@components/common/Buttons/Button";
 import { Icon } from "@components/common/Icon";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
@@ -31,9 +31,9 @@ export default function PortfolioHoldingTableToolBar({
     setIsAddHoldingDialogOpen(true);
   };
 
-  const onAddHoldingDialogClose = () => {
+  const onAddHoldingDialogClose = useCallback(() => {
     setIsAddHoldingDialogOpen(false);
-  };
+  }, [setIsAddHoldingDialogOpen]);
 
   const onDeleteHoldingsButtonClick = () => {
     setIsConfirmOpen(true);
@@ -70,41 +70,41 @@ export default function PortfolioHoldingTableToolBar({
 
             <Icon icon="divider" size={12} color="gray100" />
 
-            <StyledButton
+            <Button
               variant="tertiary"
               size="h32"
               onClick={onDeleteHoldingsButtonClick}>
               <Icon icon="trash" size={16} color="gray600" />
               <span>삭제</span>
-            </StyledButton>
+            </Button>
           </>
         )}
       </SelectedInfoContainer>
 
-      <StyledButton
-        variant="primary"
-        size="h32"
-        onClick={onAddPortfolioButtonClick}>
+      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
         <Icon icon="add" size={16} color="white" />
         <span>종목 추가</span>
-      </StyledButton>
+      </Button>
 
       <PortfolioHoldingAddDialog
         isOpen={isAddHoldingDialogOpen}
         onClose={onAddHoldingDialogClose}
       />
 
-      <ConfirmAlert
-        isOpen={isConfirmOpen}
-        title="선택된 종목을 삭제 하시겠습니까?"
-        onClose={onDeleteHoldingsAlertClose}
-        onConfirm={onConfirmAction}>
-        <DeleteList>
-          {selected.map((item) => (
-            <li key={item.portfolioHoldingId}>{item.companyName}</li>
-          ))}
-        </DeleteList>
-      </ConfirmAlert>
+      {isConfirmOpen && (
+        <ConfirmAlert
+          isOpen={isConfirmOpen}
+          title="선택 종목 삭제"
+          onClose={onDeleteHoldingsAlertClose}
+          onConfirm={onConfirmAction}>
+          <span>
+            '
+            {`${selected[0].companyName}'${
+              selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
+            } 종목을 삭제하시겠습니까?`}
+          </span>
+        </ConfirmAlert>
+      )}
     </StyledToolbar>
   );
 }
@@ -122,15 +122,4 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const DeleteList = styled.ul`
-  width: 100%;
-  height: inherit;
-  max-height: inherit;
-  overflow-y: scroll;
-`;
-
-const StyledButton = styled(Button)`
-  width: auto;
 `;

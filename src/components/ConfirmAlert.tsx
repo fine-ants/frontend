@@ -31,7 +31,12 @@ export default function ConfirmAlert({
         <div>
           <Header>
             <Title>{title}</Title>
-            <IconButton icon="close" size="h40" iconColor="gray" />
+            <IconButton
+              icon="close"
+              size="h40"
+              iconColor="gray"
+              onClick={onClose}
+            />
           </Header>
           <Body>{children}</Body>
         </div>

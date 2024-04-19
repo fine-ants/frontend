@@ -18,13 +18,13 @@ export default function EmptyPortfolioHoldingTable() {
           <div>종목을 추가하세요</div>
           <span>보유한 종목을 추가하여 포트폴리오 관리를 시작하세요</span>
         </TextBox>
-        <AddHoldingDialogButton
+        <Button
           variant="primary"
           size="h32"
           onClick={() => setIsAddHoldingDialogOpen(true)}>
           <Icon icon="add" size={16} color="white" />
           종목 추가
-        </AddHoldingDialogButton>
+        </Button>
       </StyledEmptyPortfolioHoldingTable>
 
       {isAddHoldingDialogOpen && (
@@ -62,8 +62,4 @@ const TextBox = styled.div`
     font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray500};
   }
-`;
-
-const AddHoldingDialogButton = styled(Button)`
-  width: auto;
 `;

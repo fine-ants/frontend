@@ -4,6 +4,7 @@ import RateBadge from "@components/common/Badges/RateBadge";
 import { IconButton } from "@components/common/Buttons/IconButton";
 import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
+import RealtimeValue from "@components/common/RealtimeValue";
 import { thousandsDelimiter } from "@fineants/demolition";
 import { debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
@@ -41,15 +42,15 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>예산</div>
-            <span>₩{thousandsDelimiter(data.budget)}</span>
+            <span>{thousandsDelimiter(data.budget)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <div>투자금액</div>
-            <span>₩{thousandsDelimiter(data.investedAmount)}</span>
+            <span>{thousandsDelimiter(data.investedAmount)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <div>잔고</div>
-            <span>₩{thousandsDelimiter(data.balance)}</span>
+            <span>{thousandsDelimiter(data.balance)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <CustomTooltip
@@ -68,7 +69,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 잠정 손실 잔고 <Icon icon="help" size={16} color="gray400" />
               </div>
             </CustomTooltip>
-            <span>₩{thousandsDelimiter(data.provisionalLossBalance)}</span>
+            <span>{thousandsDelimiter(data.provisionalLossBalance)}</span>
           </OverviewBodyData>
         </OverviewBodySection>
         <OverviewBodySection>
@@ -86,7 +87,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 onClick={onTargetGainNotifyButtonClick}
               />
             </NotificationLabel>
-            <span>₩{thousandsDelimiter(data.targetGain)}</span>
+            <span>{thousandsDelimiter(data.targetGain)}</span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
@@ -104,13 +105,13 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 size="h24"
                 iconColor="custom"
                 customColor={{
-                  color: data.targetGainNotify ? "blue500" : "gray400",
+                  color: data.maxLossNotify ? "blue500" : "gray400",
                   hoverColor: "gray50",
                 }}
                 onClick={onMaxLossNotifyButtonClick}
               />
             </NotificationLabel>
-            <span>₩{thousandsDelimiter(data.maximumLoss)}</span>
+            <span>{thousandsDelimiter(data.maximumLoss)}</span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
@@ -127,7 +128,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>총 손익</div>
-            <span>₩{thousandsDelimiter(data.totalGain)}</span>
+            <RealtimeValue value={data.totalGain} />
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
@@ -139,7 +140,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </div>
           <OverviewBodyData>
             <div>당일 손익</div>
-            <span>₩{thousandsDelimiter(data.dailyGain)}</span>
+            <RealtimeValue value={data.dailyGain} />
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
@@ -153,7 +154,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>총 연배당금</div>
-            <span>₩{thousandsDelimiter(data.annualDividend)}</span>
+            <span>{thousandsDelimiter(data.annualDividend)}</span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge

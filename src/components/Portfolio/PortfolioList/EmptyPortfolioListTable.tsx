@@ -20,20 +20,20 @@ export default function EmptyPortfolioListTable() {
 
   return (
     <StyledEmptyPortfolioListTable>
-      <EmptyPortfolioListImage src={emptyPortfolioImg} alt="" />
+      <EmptyPortfolioListImage
+        src={emptyPortfolioImg}
+        alt="빈 포트폴리오 이미지"
+      />
       <EmptyPortfolioListTitle>
         첫번째 포트폴리오를 추가하세요
       </EmptyPortfolioListTitle>
       <EmptyPortfolioListDescription>
         포트폴리오를 추가하여 보유한 자산을 효율적으로 관리하세요
       </EmptyPortfolioListDescription>
-      <AddPortfolioButton
-        variant="primary"
-        size="h44"
-        onClick={onAddPortfolioButtonClick}>
+      <Button variant="primary" size="h44" onClick={onAddPortfolioButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
-      </AddPortfolioButton>
+      </Button>
 
       {isAddPortfolioDialogOpen && (
         <PortfolioAddDialog
@@ -69,8 +69,4 @@ const EmptyPortfolioListDescription = styled.p`
   margin-bottom: 48px;
   font: ${designSystem.font.body2.font};
   color: ${designSystem.color.neutral.gray500};
-`;
-
-const AddPortfolioButton = styled(Button)`
-  width: auto;
 `;
