@@ -93,7 +93,7 @@ export default function PortfolioHoldingTableToolBar({
 
       <ConfirmAlert
         isOpen={isConfirmOpen}
-        title="선택된 종목을 삭제 하시겠습니까?"
+        title="선택된 종목을 삭제하시겠습니까?"
         onClose={onDeleteHoldingsAlertClose}
         onConfirm={onConfirmAction}>
         <DeleteList>

@@ -94,13 +94,14 @@ export default function WatchlistsTableToolBar({
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}
-          title="관심 종목 목록 삭제"
+          title="관심 종목 리스트 삭제"
           onClose={onDeleteWatchlistsAlertClose}
           onConfirm={onConfirmAction}>
           <span>
-            {`${selected[0].name}${
+            '
+            {`${selected[0].name}'${
               selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-            } 항목을 삭제하시겠습니까?`}
+            } 관심 종목 리스트를 삭제하시겠습니까?`}
           </span>
         </ConfirmAlert>
       )}

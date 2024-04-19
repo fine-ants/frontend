@@ -85,7 +85,7 @@ export default function PortfolioHoldingLotsTable({
                 sx={{ paddingInline: "8px", border: "none" }}>
                 <AddLotButton size="h24" onClick={onAddLotButtonClick}>
                   <Icon icon="add" size={16} color="blue500" />
-                  <span>항목 추가</span>
+                  <span>매입 이력 추가</span>
                 </AddLotButton>
               </MuiTableCell>
             </MuiTableRow>
