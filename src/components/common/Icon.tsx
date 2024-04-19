@@ -1,5 +1,6 @@
 import addIcon from "@assets/icons/ic_add.svg";
 import arrowLeftIcon from "@assets/icons/ic_arrow-left.svg";
+import arrowUpRightIcon from "@assets/icons/ic_arrow-up-right.svg";
 import ascendingIcon from "@assets/icons/ic_ascending.svg";
 import calendarIcon from "@assets/icons/ic_calendar.svg";
 import cameraIcon from "@assets/icons/ic_camera.svg";
@@ -53,6 +54,7 @@ type Props = {
 const icons = {
   "add": addIcon,
   "arrow-left": arrowLeftIcon,
+  "arrow-up-right": arrowUpRightIcon,
   "ascending": ascendingIcon,
   "calendar": calendarIcon,
   "camera": cameraIcon,

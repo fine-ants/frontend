@@ -81,13 +81,13 @@ export default function WatchlistTableToolBar({
         )}
       </SelectedInfoContainer>
 
-      <AddWatchlistItemButton
+      <Button
         variant="primary"
         size="h32"
         onClick={onAddWatchlistItemButtonClick}>
         <Icon icon="favorite-add" size={16} color="white" />
         <span>관심 종목 추가</span>
-      </AddWatchlistItemButton>
+      </Button>
 
       {isAddWatchlistDialogOpen && (
         <WatchlistItemAddDialog
@@ -103,9 +103,10 @@ export default function WatchlistTableToolBar({
           onClose={onDeleteWatchlistItemAlertClose}
           onConfirm={onConfirmAction}>
           <span>
-            {`${selected[0].companyName}${
+            '
+            {`${selected[0].companyName}'${
               selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-            } 항목을 삭제하시겠습니까?`}
+            } 종목을 삭제하시겠습니까?`}
           </span>
         </ConfirmAlert>
       )}
@@ -126,8 +127,4 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const AddWatchlistItemButton = styled(Button)`
-  width: auto;
 `;

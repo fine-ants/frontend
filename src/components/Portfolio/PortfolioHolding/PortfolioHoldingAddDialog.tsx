@@ -13,7 +13,7 @@ import {
 import designSystem from "@styles/designSystem";
 
 import dayjs, { Dayjs } from "dayjs";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, memo, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -22,7 +22,10 @@ type Props = {
   onClose: () => void;
 };
 
-export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
+export default memo(function PortfolioHoldingAddDialog({
+  isOpen,
+  onClose,
+}: Props) {
   const { portfolioId } = useParams();
 
   const {
@@ -218,7 +221,7 @@ export default function PortfolioHoldingAddDialog({ isOpen, onClose }: Props) {
       </Form>
     </BaseDialog>
   );
-}
+});
 
 const portfolioHoldingAddDialogStyle = {
   width: "544px",

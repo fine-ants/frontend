@@ -3,35 +3,28 @@ import { PortfolioItem } from "@api/portfolio/types";
 import { DropdownItemProps } from "@components/hooks/useDropdown";
 import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type Props = {
   DropdownItem: ({ sx, onClick, children }: DropdownItemProps) => JSX.Element;
 };
 
 export default function PortfoliosDropdownList({ DropdownItem }: Props) {
-  const navigate = useNavigate();
-
   const { data: portfolioList } = usePortfolioListQuery();
 
   const portfolioDropdownItems = portfolioList.map(
     (portfolio: PortfolioItem) => ({
       name: portfolio.name,
-      onClick: () => {
-        navigate(`/portfolio/${portfolio.id}`);
-      },
+      path: `/portfolio/${portfolio.id}`,
     })
   );
 
   return (
     <>
       {portfolioDropdownItems?.map((item) => (
-        <DropdownItem
-          key={item.name}
-          sx={portfolioDropdownItemSx}
-          onClick={item.onClick}>
-          {item.name}
-        </DropdownItem>
+        <Link key={item.name} to={item.path}>
+          <DropdownItem sx={portfolioDropdownItemSx}>{item.name}</DropdownItem>
+        </Link>
       ))}
 
       {portfolioDropdownItems && <Divider />}

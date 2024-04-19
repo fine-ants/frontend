@@ -4,7 +4,7 @@ import { postPortfolio } from "..";
 import { portfolioKeys } from "./queryKeys";
 
 type Props = {
-  onSuccessCb?: () => void;
+  onSuccessCb: () => void;
 };
 
 export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
@@ -14,7 +14,7 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
   return useMutation({
     mutationFn: postPortfolio,
     onSuccess: ({ data }) => {
-      onSuccessCb && onSuccessCb(); // Ex: close dialog
+      onSuccessCb();
 
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.list.queryKey,
@@ -24,6 +24,7 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
     },
     meta: {
       toastSuccessMessage: "포트폴리오 추가를 성공했습니다",
+      toastErrorMessage: "포트폴리오 추가를 실패했습니다",
     },
   });
 }

@@ -66,25 +66,22 @@ export default function PortfolioListTableToolBar({
             <Icon icon="divider" size={12} color="gray100" />
 
             <Tooltip title="포트폴리오 삭제">
-              <StyledButton
+              <Button
                 variant="tertiary"
                 size="h32"
                 onClick={onDeletePortfoliosButtonClick}>
                 <Icon icon="trash" size={16} color="gray600" />
                 <span>삭제</span>
-              </StyledButton>
+              </Button>
             </Tooltip>
           </>
         )}
       </SelectedInfoContainer>
 
-      <StyledButton
-        variant="primary"
-        size="h32"
-        onClick={onAddPortfolioButtonClick}>
+      <Button variant="primary" size="h32" onClick={onAddPortfolioButtonClick}>
         <Icon icon="folder-add" size={16} color="white" />
         <span>포트폴리오 추가</span>
-      </StyledButton>
+      </Button>
 
       {isAddPortfolioDialogOpen && (
         <PortfolioAddDialog
@@ -96,13 +93,14 @@ export default function PortfolioListTableToolBar({
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}
-          title="선택된 포트폴리오를 삭제 하시겠습니까?"
+          title="포트폴리오 삭제"
           onClose={onDeletePortfoliosAlertClose}
           onConfirm={onConfirmAction}>
           <span>
-            {`${selected[0].name}${
+            '
+            {`${selected[0].name}'${
               selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-            } 항목을 삭제하시겠습니까?`}
+            } 포트폴리오를 삭제하시겠습니까?`}
           </span>
         </ConfirmAlert>
       )}
@@ -123,8 +121,4 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const StyledButton = styled(Button)`
-  width: auto;
 `;

@@ -116,20 +116,21 @@ export default function SignInForm() {
           </SupportContainer>
         </InputControl>
 
-        <Button
+        <LoginButton
           variant="primary"
           size="h44"
           type="submit"
           disabled={!isAllFieldsFilled}>
           로그인
-        </Button>
+        </LoginButton>
       </Form>
 
-      <SignInButtonContainer>
+      <SocialLoginButtons>
         <SocialLoginButton provider="google" />
         <SocialLoginButton provider="kakao" />
         <SocialLoginButton provider="naver" />
-      </SignInButtonContainer>
+      </SocialLoginButtons>
+
       <SignUpWrapper>
         아직 계정이 없으신가요?
         <SignUpButton
@@ -200,13 +201,14 @@ const FormControlLabel = styled.label`
   gap: 8px;
 `;
 
-const SignInButtonContainer = styled.div`
+const SocialLoginButtons = styled.div`
   width: 100%;
   padding: 16px 0;
   display: flex;
+  justify-content: space-between;
   gap: 8px;
 
-  button {
+  > * {
     flex: 1;
   }
 `;
@@ -221,4 +223,8 @@ const SignUpWrapper = styled.div`
   gap: 6px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
+`;
+
+const LoginButton = styled(Button)`
+  width: 100%;
 `;

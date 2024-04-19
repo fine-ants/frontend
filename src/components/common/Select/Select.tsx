@@ -1,5 +1,3 @@
-import chevronDown from "@assets/icons/ic_chevron-down.svg";
-import chevronUp from "@assets/icons/ic_chevron-up.svg";
 import {
   InputBase,
   Select as MuiSelect,
@@ -8,6 +6,7 @@ import {
 import designSystem from "@styles/designSystem";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
+import { Icon } from "../Icon";
 
 export type Size = "h24" | "h32" | "h40";
 
@@ -50,8 +49,10 @@ export default function Select({
           paddingRight: "28px",
         },
       }}
-      IconComponent={() => (
-        <StyledIconComponent src={isOpen ? chevronUp : chevronDown} />
+      IconComponent={(props) => (
+        <IconWrapper className={`material-icons ${props.className}`}>
+          <Icon icon="chevron-down" size={12} color="gray600" />
+        </IconWrapper>
       )}
       MenuProps={{ sx: MenuSX(size, menuMinHeight, menuMaxHeight) }}>
       {children}
@@ -84,14 +85,11 @@ const BootstrapInput = styled(InputBase)<{ $size: Size; $isOpen: boolean }>`
   }
 `;
 
-const StyledIconComponent = styled.img`
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-  position: absolute;
-  right: 8px;
-  user-select: none;
-  pointer-events: none;
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: auto;
 `;
 
 const MenuSX = (

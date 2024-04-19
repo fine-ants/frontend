@@ -45,11 +45,10 @@ export default function PortfolioAddOrEditDialog({
 }: Props) {
   const { portfolioId } = useParams();
 
-  const {
-    mutate: editMutate,
-    isError: isEditError,
-    isSuccess: isEditSuccess,
-  } = usePortfolioEditMutation(Number(portfolioId));
+  const { mutate: editMutate } = usePortfolioEditMutation(
+    Number(portfolioId),
+    onClose
+  );
 
   const { mutate: addMutate } = usePortfolioAddMutation({
     onSuccessCb: onClose,
@@ -184,46 +183,52 @@ export default function PortfolioAddOrEditDialog({
       clearInputs();
       return;
     }
+
     if (targetReturnRate) {
       targetReturnRateHandler(targetReturnRate);
     }
+    if (targetGain) {
+      targetGainHandler(targetGain);
+    }
+
     if (maximumLossRate) {
       maximumLossRateHandler(maximumLossRate);
     }
+    if (maximumLoss) {
+      maximumLossHandler(maximumLoss);
+    }
   }, [
     isBudgetEmpty,
-    targetReturnRate,
-    maximumLossRate,
     clearInputs,
+    targetGain,
+    targetGainHandler,
+    targetReturnRate,
     targetReturnRateHandler,
+    maximumLoss,
+    maximumLossHandler,
+    maximumLossRate,
     maximumLossRateHandler,
   ]);
 
-  useEffect(() => {
-    if (isEditSuccess) {
-      onClose();
-    }
-
-    if (isEditError) {
-      // TODO toast
-    }
-  }, [isEditSuccess, isEditError, onClose]);
-
   const isFormValid = () => {
-    if (!name) {
-      return false;
-    }
-
     if (isEditMode) {
       return (
         portfolioDetails?.securitiesFirm !== securitiesFirm ||
         portfolioDetails?.name !== name ||
-        portfolioDetails?.budget !== Number(budget) ||
-        portfolioDetails?.targetGain !== Number(targetGain) ||
-        portfolioDetails?.targetReturnRate !== Number(targetReturnRate) ||
-        portfolioDetails?.maximumLoss !== Number(maximumLoss) ||
-        portfolioDetails?.maximumLossRate !== Number(maximumLossRate)
+        portfolioDetails?.budget !== Number(removeThousandsDelimiter(budget)) ||
+        portfolioDetails?.targetGain !==
+          Number(removeThousandsDelimiter(targetGain)) ||
+        portfolioDetails?.targetReturnRate !==
+          Number(removeThousandsDelimiter(targetReturnRate)) ||
+        portfolioDetails?.maximumLoss !==
+          Number(removeThousandsDelimiter(maximumLoss)) ||
+        portfolioDetails?.maximumLossRate !==
+          Number(removeThousandsDelimiter(maximumLossRate))
       );
+    }
+
+    if (!name) {
+      return false;
     }
 
     return true;
@@ -290,7 +295,7 @@ export default function PortfolioAddOrEditDialog({
                 value={budget}
                 onChange={budgetHandler}
               />
-              <span>KRW</span>
+              <span>₩</span>
             </StyledInput>
           </Row>
           <Row>
@@ -344,13 +349,13 @@ export default function PortfolioAddOrEditDialog({
           </Row>
         </Body>
         <ButtonWrapper>
-          <StyledSubmitButton
+          <Button
             variant="primary"
             size="h32"
             type="submit"
             disabled={!isFormValid()}>
             {isEditMode ? `수정` : `추가`}
-          </StyledSubmitButton>
+          </Button>
         </ButtonWrapper>
       </Form>
     </BaseDialog>
@@ -456,8 +461,4 @@ const SecuritiesFirmLogo = styled.img`
 const SecuritiesFirmTitle = styled.span`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
-`;
-
-const StyledSubmitButton = styled(Button)`
-  width: 80px;
 `;

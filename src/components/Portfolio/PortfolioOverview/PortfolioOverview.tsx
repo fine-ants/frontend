@@ -59,7 +59,10 @@ export default function PortfolioOverview({ data }: Props) {
         />
         <TitleContent>
           <TitleWrapper>
-            <FirmImage src={securitiesFirmLogos[data.securitiesFirm]} />
+            <FirmImage
+              src={securitiesFirmLogos[data.securitiesFirm]}
+              alt={`${data.securitiesFirm} 이미지`}
+            />
             <Title>{data.name}</Title>
             <LabelBadge title={data.securitiesFirm} />
           </TitleWrapper>
@@ -103,10 +106,11 @@ export default function PortfolioOverview({ data }: Props) {
       {isConfirmOpen && (
         <ConfirmAlert
           isOpen={isConfirmOpen}
-          title="포트폴리오를 삭제 하시겠습니까?"
+          title="포트폴리오 삭제"
           onClose={onConfirmAlertClose}
-          onConfirm={onConfirmAction}
-        />
+          onConfirm={onConfirmAction}>
+          <p>'{data.name}' 포트폴리오를 삭제하시겠습니까?</p>
+        </ConfirmAlert>
       )}
     </StyledPortfolioOverview>
   );
