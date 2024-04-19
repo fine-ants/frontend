@@ -105,7 +105,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 size="h24"
                 iconColor="custom"
                 customColor={{
-                  color: data.targetGainNotify ? "blue500" : "gray400",
+                  color: data.maxLossNotify ? "blue500" : "gray400",
                   hoverColor: "gray50",
                 }}
                 onClick={onMaxLossNotifyButtonClick}
