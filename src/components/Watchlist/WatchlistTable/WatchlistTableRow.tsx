@@ -1,14 +1,11 @@
 import { WatchlistItemType } from "@api/watchlist";
-import useWatchlistItemDeleteMutation from "@api/watchlist/queries/useWatchlistItemDeleteMutation";
 import RateBadge from "@components/common/Badges/RateBadge";
-import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { CustomTooltip } from "@components/common/CustomTooltip";
 import { thousandsDelimiter } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { MouseEvent } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -33,17 +30,6 @@ export default function WatchlistTableRow({
   isItemSelected,
   handleClick,
 }: Props) {
-  const { watchlistId } = useParams();
-
-  const { mutate: watchlistItemDeleteMutate } = useWatchlistItemDeleteMutation(
-    Number(watchlistId)
-  );
-
-  const onFavoriteMarkClick = (event: MouseEvent<unknown>) => {
-    event.stopPropagation();
-    watchlistItemDeleteMutate([tickerSymbol]);
-  };
-
   return (
     <StyledTableRow
       hover
@@ -61,20 +47,6 @@ export default function WatchlistTableRow({
             "aria-label": labelId,
           }}
         />
-      </StyledTableCell>
-      <StyledTableCell padding="none" sx={{ width: "16px" }}>
-        <CustomTooltip title="관심 종목 삭제" placement="bottom-start">
-          <IconButton
-            icon="favorite"
-            size="h24"
-            iconColor="custom"
-            customColor={{
-              color: "blue500",
-              hoverColor: "blue50",
-            }}
-            onClick={onFavoriteMarkClick}
-          />
-        </CustomTooltip>
       </StyledTableCell>
       <StyledTableCell align="left" sx={{ width: "332px" }}>
         <StyledLink to={`/stock/${tickerSymbol}`}>{companyName}</StyledLink>

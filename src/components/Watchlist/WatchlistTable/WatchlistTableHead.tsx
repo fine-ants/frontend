@@ -1,7 +1,5 @@
 import { WatchlistItemType } from "@api/watchlist";
-import { IconButton } from "@components/common/Buttons/IconButton";
 import CheckBox from "@components/common/Checkbox/Checkbox";
-import { CustomTooltip } from "@components/common/CustomTooltip";
 import { Icon } from "@components/common/Icon";
 import { Order } from "@components/common/Table/types";
 import {
@@ -76,10 +74,6 @@ export default function WatchlistTableHead({
       onRequestSort(event, property);
     };
 
-  const onFavoriteIconClick = () => {
-    //TODO: 삭제 뮤테이션
-  };
-
   return (
     <StyledPortfolioListTableHead>
       <StyledTableRow>
@@ -93,20 +87,6 @@ export default function WatchlistTableHead({
               "aria-label": "select all portfolios",
             }}
           />
-        </StyledTableCell>
-        <StyledTableCell padding="none" sx={{ width: "32px" }}>
-          <CustomTooltip title="관심 종목 삭제" placement="bottom-start">
-            <IconButton
-              icon="favorite"
-              size="h24"
-              iconColor="custom"
-              customColor={{
-                color: "blue500",
-                hoverColor: "blue50",
-              }}
-              onClick={onFavoriteIconClick}
-            />
-          </CustomTooltip>
         </StyledTableCell>
         {headCells.map((headCell) => (
           <StyledTableCell
