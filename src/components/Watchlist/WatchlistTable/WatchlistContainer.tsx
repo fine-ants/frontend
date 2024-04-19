@@ -45,7 +45,7 @@ export default function WatchlistContainer() {
           depthData={[
             { name: "전체 관심 종목 리스트", url: "/watchlists" },
             {
-              name: "와치리스트id에 맞는",
+              name: watchlistData.name,
               url: `/watchlists/${watchlistId}`,
             },
           ]}
