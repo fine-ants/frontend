@@ -68,7 +68,7 @@ export default function PortfolioNotificationRow({ row }: Props) {
           size="h24"
           iconColor="custom"
           customColor={{
-            color: targetGainNotify ? "blue500" : "gray400",
+            color: maxLossNotify ? "blue500" : "gray400",
             hoverColor: "gray200",
           }}
           onClick={onMaxLossNotifyButtonClick}
