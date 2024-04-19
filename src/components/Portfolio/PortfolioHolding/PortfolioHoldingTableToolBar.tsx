@@ -91,17 +91,20 @@ export default function PortfolioHoldingTableToolBar({
         onClose={onAddHoldingDialogClose}
       />
 
-      <ConfirmAlert
-        isOpen={isConfirmOpen}
-        title="선택된 종목을 삭제하시겠습니까?"
-        onClose={onDeleteHoldingsAlertClose}
-        onConfirm={onConfirmAction}>
-        <DeleteList>
-          {selected.map((item) => (
-            <li key={item.portfolioHoldingId}>{item.companyName}</li>
-          ))}
-        </DeleteList>
-      </ConfirmAlert>
+      {isConfirmOpen && (
+        <ConfirmAlert
+          isOpen={isConfirmOpen}
+          title="선택 종목 삭제"
+          onClose={onDeleteHoldingsAlertClose}
+          onConfirm={onConfirmAction}>
+          <span>
+            '
+            {`${selected[0].companyName}'${
+              selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
+            } 종목을 삭제하시겠습니까?`}
+          </span>
+        </ConfirmAlert>
+      )}
     </StyledToolbar>
   );
 }
@@ -119,11 +122,4 @@ const SelectedInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const DeleteList = styled.ul`
-  width: 100%;
-  height: inherit;
-  max-height: inherit;
-  overflow-y: scroll;
 `;
