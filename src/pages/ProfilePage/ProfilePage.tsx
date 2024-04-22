@@ -1,38 +1,27 @@
-import { OAuthProvider } from "@api/auth";
 import SubPageNav from "@components/common/SubPageNav/SubPageNav";
-import { UserContext } from "@context/UserContext";
 import BasePage from "@pages/BasePage";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { useContext } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import AccountSettingsSubPage from "./subPages/AccountSettingsSubPage";
 import ProfileSettingsSubPage from "./subPages/ProfileSettingsSubPage";
 
-function isValidTab(
-  tab: string | undefined,
-  provider: OAuthProvider | "local"
-) {
-  return tab === "profile" || (tab === "account" && provider === "local");
+function isValidTab(tab: string | undefined) {
+  return tab === "profile" || tab === "account";
 }
+
+const subPageNavItems = [
+  { title: "프로필 설정", to: "/settings/profile" },
+  { title: "계정 설정", to: "/settings/account" },
+];
 
 export default function ProfilePage() {
   const { tab } = useParams();
 
-  const { user } = useContext(UserContext);
-
-  if (!isValidTab(tab, user!.provider)) {
+  if (!isValidTab(tab)) {
     return <Navigate to={`/${Routes.FALLBACK}`} />;
   }
-
-  const subPageNavItems =
-    user!.provider !== "local"
-      ? [{ title: "프로필 설정", to: "/settings/profile" }]
-      : [
-          { title: "프로필 설정", to: "/settings/profile" },
-          { title: "계정 설정", to: "/settings/account" },
-        ];
 
   return (
     <BasePage>

@@ -2,11 +2,12 @@ import usePasswordEditMutation from "@api/user/queries/usePasswordEditMutation";
 import AccountDeleteDialog from "@components/AccountDeleteDialog";
 import Button from "@components/common/Buttons/Button";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
+import { UserContext } from "@context/UserContext";
 import { useText, validatePassword } from "@fineants/demolition";
 import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -17,6 +18,8 @@ const passwordValidator = (password: string) =>
 
 export default function AccountSettingsSubPage() {
   const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
 
   const [isAccountDeleteDialogOpen, setIsAccountDeleteDialogOpen] =
     useState(false);
@@ -93,78 +96,84 @@ export default function AccountSettingsSubPage() {
 
   return (
     <Form onSubmit={onSubmit}>
-      <LabelsWrapper>
-        <Label htmlFor="currentPasswordInput">
-          <p>현재 비밀번호</p>
-          <TextFieldWrapper>
-            <PasswordTextField
-              id="currentPasswordInput"
-              error={currentPasswordIsError}
-              password={currentPasswordValue}
-              onChange={(e) => currentPasswordOnChange(e.target.value.trim())}
-              placeholder="현재 비밀번호"
-              errorText={currentPasswordError}
-            />
-          </TextFieldWrapper>
-        </Label>
+      {user?.provider === "local" && (
+        <>
+          <LabelsWrapper>
+            <Label htmlFor="currentPasswordInput">
+              <p>현재 비밀번호</p>
+              <TextFieldWrapper>
+                <PasswordTextField
+                  id="currentPasswordInput"
+                  error={currentPasswordIsError}
+                  password={currentPasswordValue}
+                  onChange={(e) =>
+                    currentPasswordOnChange(e.target.value.trim())
+                  }
+                  placeholder="현재 비밀번호"
+                  errorText={currentPasswordError}
+                />
+              </TextFieldWrapper>
+            </Label>
 
-        <Label htmlFor="passwordInput">
-          <p>새 비밀번호</p>
-          <TextFieldWrapper>
-            <PasswordTextField
-              id="passwordInput"
-              error={newPasswordIsErrorExtended}
-              password={newPasswordValue}
-              onChange={(e) => newPasswordOnChange(e.target.value.trim())}
-              placeholder="새 비밀번호"
-              errorText={newPasswordErrorExtended}
-            />
-          </TextFieldWrapper>
-        </Label>
+            <Label htmlFor="passwordInput">
+              <p>새 비밀번호</p>
+              <TextFieldWrapper>
+                <PasswordTextField
+                  id="passwordInput"
+                  error={newPasswordIsErrorExtended}
+                  password={newPasswordValue}
+                  onChange={(e) => newPasswordOnChange(e.target.value.trim())}
+                  placeholder="새 비밀번호"
+                  errorText={newPasswordErrorExtended}
+                />
+              </TextFieldWrapper>
+            </Label>
 
-        <Label htmlFor="passwordConfirmInput">
-          <p>새 비밀번호 확인</p>
-          <TextFieldWrapper>
-            <PasswordTextField
-              id="passwordConfirmInput"
-              error={newPasswordConfirmIsErrorExtended}
-              password={newPasswordConfirmValue}
-              onChange={(e) =>
-                newPasswordConfirmOnChange(e.target.value.trim())
-              }
-              placeholder="새 비밀번호 확인"
-              errorText="비밀번호가 일치하지 않습니다"
-            />
-          </TextFieldWrapper>
-        </Label>
-      </LabelsWrapper>
+            <Label htmlFor="passwordConfirmInput">
+              <p>새 비밀번호 확인</p>
+              <TextFieldWrapper>
+                <PasswordTextField
+                  id="passwordConfirmInput"
+                  error={newPasswordConfirmIsErrorExtended}
+                  password={newPasswordConfirmValue}
+                  onChange={(e) =>
+                    newPasswordConfirmOnChange(e.target.value.trim())
+                  }
+                  placeholder="새 비밀번호 확인"
+                  errorText="비밀번호가 일치하지 않습니다"
+                />
+              </TextFieldWrapper>
+            </Label>
+          </LabelsWrapper>
 
-      <ButtonsContainer>
-        <Button
-          type="button"
-          variant="tertiary"
-          size="h44"
-          style={buttonStyles}
-          onClick={() => navigate(Routes.DASHBOARD)}>
-          취소
-        </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          size="h44"
-          style={buttonStyles}
-          disabled={isSaveButtonDisabled}>
-          저장
-        </Button>
-      </ButtonsContainer>
+          <ButtonsContainer>
+            <Button
+              type="button"
+              variant="tertiary"
+              size="h44"
+              style={buttonStyles}
+              onClick={() => navigate(Routes.DASHBOARD)}>
+              취소
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              size="h44"
+              style={buttonStyles}
+              disabled={isSaveButtonDisabled}>
+              저장
+            </Button>
+          </ButtonsContainer>
+        </>
+      )}
 
-      <MuiButton
+      <AccoundDeactivationButton
+        $isOAuth={user?.provider !== "local"}
         type="button"
         variant="text"
-        sx={accountDeactivationButtonSx}
         onClick={onAccountDeleteClick}>
         계정 삭제하기
-      </MuiButton>
+      </AccoundDeactivationButton>
 
       {isAccountDeleteDialogOpen && (
         <AccountDeleteDialog
@@ -214,20 +223,22 @@ const ButtonsContainer = styled.div`
   gap: 8px;
 `;
 
-const accountDeactivationButtonSx = {
+const AccoundDeactivationButton = styled(MuiButton)<{ $isOAuth: boolean }>`
   // 줄바뀜이 되지 않도록 임시로 auto로 설정
-  "width": "auto",
-  "height": "17px",
-  "marginInline": "auto",
-  "padding": 0,
-  "font": designSystem.font.button2.font,
-  "letterSpacing": designSystem.font.button2.letterSpacing,
-  "color": designSystem.color.neutral.gray600,
-  "&:hover": {
-    backgroundColor: "inherit",
-    textDecoration: "underline",
-  },
-};
+  width: auto;
+  height: 17px;
+  margin-inline: auto;
+  margin-top: ${({ $isOAuth }) => ($isOAuth ? "auto" : "0")};
+  padding: 0;
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
+
+  &:hover {
+    background-color: inherit;
+    text-decoration: underline;
+  }
+`;
 
 const buttonStyles = {
   flexGrow: 1,
