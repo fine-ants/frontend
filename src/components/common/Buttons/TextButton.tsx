@@ -1,4 +1,4 @@
-import { ColorType, getColor } from "@styles/designSystem";
+import designSystem, { ColorType, getColor } from "@styles/designSystem";
 import { MouseEvent, ReactNode } from "react";
 import styled from "styled-components";
 import { ColorObjectType, ColorTableType, DefaultColorType } from "./types";
@@ -8,9 +8,18 @@ type SizeType = "h24" | "h32";
 type VariantType = "default" | "underline";
 
 type DefaultProps = {
-  variant?: VariantType;
+  variant?: "default";
   color?: DefaultColorType;
   size: SizeType;
+  children: ReactNode;
+  type?: "button" | "submit";
+  disabled?: boolean;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+};
+
+type UnderlineProps = {
+  variant: "underline";
+  color?: DefaultColorType;
   children: ReactNode;
   type?: "button" | "submit";
   disabled?: boolean;
@@ -28,17 +37,17 @@ type CustomProps = {
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
-type Props = DefaultProps | CustomProps;
+type Props = DefaultProps | UnderlineProps | CustomProps;
 
 export function TextButton(props: Props) {
   const {
     variant = "default",
     color = "primary",
-    size,
     children,
     type,
     disabled = false,
     onClick,
+    ...otherProps
   } = props;
 
   const colorTable: ColorTableType = {
@@ -61,6 +70,8 @@ export function TextButton(props: Props) {
       ? props.customColor
       : colorTable[color as DefaultColorType];
 
+  const size = variant === "default" && "size" in props ? props.size : null;
+
   return (
     <StyledButton
       $variant={variant}
@@ -69,14 +80,15 @@ export function TextButton(props: Props) {
       $disabled={disabled}
       disabled={disabled}
       type={type}
-      onClick={onClick}>
+      onClick={onClick}
+      {...otherProps}>
       {children}
     </StyledButton>
   );
 }
 
 const StyledButton = styled.button<{
-  $size: SizeType;
+  $size: SizeType | null;
   $variant: VariantType;
   $colorObject: {
     color: ColorType;
@@ -88,12 +100,22 @@ const StyledButton = styled.button<{
   gap: 6px;
   align-items: center;
   justify-content: center;
-  min-width: ${({ $size }) => ($size === "h24" ? "56px" : "80px")};
-  height: ${({ $size }) => ($size === "h24" ? "24px" : "32px")};
-  padding-inline: ${({ $size }) => ($size === "h24" ? "8px" : "12px")};
+
+  ${({ $size }) =>
+    $size !== null && `min-width: ${$size === "h24" ? "56px" : "80px"};`};
+
+  ${({ $size }) =>
+    $size !== null
+      ? `
+      padding-inline:  ${$size === "h24" ? "8px" : "12px"};
+      height: ${$size === "h24" ? "24px" : "32px"};
+    `
+      : "height: 17px;"}
   border-radius: ${({ $size }) => ($size === "h24" ? "2px" : "3px")};
   color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
+  font : ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
 
   &:hover {
     ${({ $variant, $colorObject }) =>
