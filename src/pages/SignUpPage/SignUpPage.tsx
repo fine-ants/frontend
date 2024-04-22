@@ -128,12 +128,12 @@ export default function SignUpPage() {
         </SubPageContainer>
         <SupportContainer>
           이미 회원이신가요?
-          <StyledTextButton
-            size="h24"
+          <TextButton
             color="primary"
+            variant="underline"
             onClick={() => navigate(Routes.SIGNIN)}>
             로그인하기
-          </StyledTextButton>
+          </TextButton>
         </SupportContainer>
       </SignUpContainer>
     </AuthBasePage>
@@ -147,11 +147,6 @@ const SupportContainer = styled.div`
   gap: 8px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
-`;
-
-const StyledTextButton = styled(TextButton)`
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;
 
 const SignUpContainer = styled.div`

@@ -1,10 +1,10 @@
 import usePasswordEditMutation from "@api/user/queries/usePasswordEditMutation";
 import AccountDeleteDialog from "@components/AccountDeleteDialog";
 import Button from "@components/common/Buttons/Button";
+import { TextButton } from "@components/common/Buttons/TextButton";
 import { PasswordTextField } from "@components/common/TextField/PasswordTextField";
 import { UserContext } from "@context/UserContext";
 import { useText, validatePassword } from "@fineants/demolition";
-import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useContext, useState } from "react";
@@ -167,13 +167,14 @@ export default function AccountSettingsSubPage() {
         </>
       )}
 
-      <AccoundDeactivationButton
+      <AccountDeactivationButton
         $isOAuth={user?.provider !== "local"}
         type="button"
-        variant="text"
+        variant="underline"
+        color="gray"
         onClick={onAccountDeleteClick}>
         계정 삭제하기
-      </AccoundDeactivationButton>
+      </AccountDeactivationButton>
 
       {isAccountDeleteDialogOpen && (
         <AccountDeleteDialog
@@ -223,21 +224,10 @@ const ButtonsContainer = styled.div`
   gap: 8px;
 `;
 
-const AccoundDeactivationButton = styled(MuiButton)<{ $isOAuth: boolean }>`
-  // 줄바뀜이 되지 않도록 임시로 auto로 설정
+const AccountDeactivationButton = styled(TextButton)<{ $isOAuth: boolean }>`
   width: auto;
-  height: 17px;
   margin-inline: auto;
   margin-top: ${({ $isOAuth }) => ($isOAuth ? "auto" : "0")};
-  padding: 0;
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
-
-  &:hover {
-    background-color: inherit;
-    text-decoration: underline;
-  }
 `;
 
 const buttonStyles = {

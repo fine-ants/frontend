@@ -9,7 +9,6 @@ import Button from "@components/common/Buttons/Button";
 import { TextButton } from "@components/common/Buttons/TextButton";
 import { Icon } from "@components/common/Icon";
 import { useImageInput } from "@fineants/demolition";
-import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import SubPage from "./SubPage";
 
@@ -71,9 +70,9 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
           disabled={profileImageFile === null}>
           등록 완료
         </Button>
-        <StyledTextButton size="h24" color="gray" onClick={submit}>
+        <TextButton variant="underline" color="gray" onClick={submit}>
           지금은 건너뛰기
-        </StyledTextButton>
+        </TextButton>
       </ButtonsContainer>
     </SubPage>
   );
@@ -135,11 +134,6 @@ const CameraWrapper = styled.div`
   bottom: 4px;
   right: 4px;
   z-index: 1;
-`;
-
-const StyledTextButton = styled(TextButton)`
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
 `;
 
 const ButtonsContainer = styled.div`
