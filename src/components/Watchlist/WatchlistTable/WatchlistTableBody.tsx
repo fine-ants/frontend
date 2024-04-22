@@ -64,7 +64,7 @@ export default function WatchlistTableBody({
           style={{
             height: 64 * numEmptyRows,
           }}>
-          <TableCell colSpan={7} />
+          <TableCell colSpan={6} />
         </TableRow>
       )}
     </TableBody>
