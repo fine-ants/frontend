@@ -27,7 +27,7 @@ export function FeedbackCallout({ message }: Props) {
       <StyledFeedbackCallout>
         <Icon icon="caption" size={16} color="gray400" />
         <TextWrapper>
-          {message + `알림을 받으려면 `}
+          {`${message} 알림을 받으려면 `}
           <TextButton variant="underline" onClick={openDialog}>
             알림 설정
           </TextButton>
