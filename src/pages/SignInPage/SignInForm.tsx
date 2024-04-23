@@ -110,9 +110,9 @@ export default function SignInForm() {
             <FormControlLabel>
               <CheckBox size="h20" />내 정보 기억하기
             </FormControlLabel>
-            <SupportTextButton size="h24" color="gray">
+            <TextButton color="gray" variant="underline">
               비밀번호를 잊으셨나요?
-            </SupportTextButton>
+            </TextButton>
           </SupportContainer>
         </InputControl>
 
@@ -133,12 +133,12 @@ export default function SignInForm() {
 
       <SignUpWrapper>
         아직 계정이 없으신가요?
-        <SignUpButton
-          size="h24"
+        <TextButton
+          variant="underline"
           color="primary"
           onClick={() => navigate(Routes.SIGNUP)}>
           회원가입하기
-        </SignUpButton>
+        </TextButton>
       </SignUpWrapper>
     </SignInContainer>
   );
@@ -190,11 +190,6 @@ const SupportContainer = styled.div`
   justify-content: space-between;
 `;
 
-const SupportTextButton = styled(TextButton)`
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-`;
-
 const FormControlLabel = styled.label`
   display: flex;
   align-items: center;
@@ -213,13 +208,9 @@ const SocialLoginButtons = styled.div`
   }
 `;
 
-const SignUpButton = styled(TextButton)`
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-`;
-
 const SignUpWrapper = styled.div`
   display: flex;
+  align-items: center;
   gap: 6px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};

@@ -70,7 +70,7 @@ export function NotificationPanel({
           <PanelHeader>
             <PanelTitle>알림</PanelTitle>
             <PanelButtonContainer>
-              <TextButton size="h24" onClick={navigateActivateNotify}>
+              <TextButton variant="underline" onClick={navigateActivateNotify}>
                 활성 알림 보기
               </TextButton>
               <Divider />
@@ -103,7 +103,7 @@ export function NotificationPanel({
           <PanelFooter>
             <TextButton
               color="gray"
-              size="h24"
+              variant="underline"
               onClick={onClickDeleteAllNotifications}>
               모든 알림 지우기
             </TextButton>

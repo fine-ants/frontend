@@ -1,3 +1,4 @@
+import { TextButton } from "@components/common/Buttons/TextButton";
 import { NotificationSettingsDialog } from "@components/common/Header/Notification/NotificationSettingsDialog";
 import { Icon } from "@components/common/Icon";
 import { UserContext } from "@context/UserContext";
@@ -26,9 +27,11 @@ export function FeedbackCallout({ message }: Props) {
       <StyledFeedbackCallout>
         <Icon icon="caption" size={16} color="gray400" />
         <TextWrapper>
-          {message} 알림을 받으려면
-          <TextButton onClick={openDialog}> 알림 설정</TextButton> 을
-          변경하세요.
+          {`${message} 알림을 받으려면 `}
+          <TextButton variant="underline" onClick={openDialog}>
+            알림 설정
+          </TextButton>
+          을 변경하세요.
         </TextWrapper>
       </StyledFeedbackCallout>
 
@@ -54,16 +57,10 @@ const StyledFeedbackCallout = styled.div`
   padding: 15px 12px;
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled.pre`
   display: flex;
   justify-content: center;
   align-items: center;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
-`;
-
-const TextButton = styled.pre`
-  font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.primary.blue500};
-  cursor: pointer;
 `;

@@ -83,10 +83,10 @@ export default function PortfolioHoldingLotsTable({
               <MuiTableCell
                 colSpan={6}
                 sx={{ paddingInline: "8px", border: "none" }}>
-                <AddLotButton size="h24" onClick={onAddLotButtonClick}>
+                <TextButton size="h24" onClick={onAddLotButtonClick}>
                   <Icon icon="add" size={16} color="blue500" />
-                  <span>매입 이력 추가</span>
-                </AddLotButton>
+                  매입 이력 추가
+                </TextButton>
               </MuiTableCell>
             </MuiTableRow>
           </MuiTableFooter>
@@ -161,12 +161,4 @@ const StyledTableHeadCell = styled(MuiTableCell)`
 
 const StyledTableBody = styled(MuiTableBody)`
   width: 100%;
-`;
-
-const AddLotButton = styled(TextButton)`
-  span {
-    font: ${designSystem.font.button2.font};
-    letter-spacing: ${designSystem.font.button2.letterSpacing};
-    color: ${designSystem.color.primary.blue500};
-  }
 `;

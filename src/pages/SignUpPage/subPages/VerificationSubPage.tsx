@@ -74,12 +74,12 @@ export default function VerificationCodeSubPage({
             onComplete={onDigitsFilled}
           />
           <div>
-            <StyledTextButton
+            <TextButton
               color="primary"
-              size="h24"
+              variant="underline"
               onClick={onEmailCodeResend}>
               인증번호 재발송
-            </StyledTextButton>
+            </TextButton>
           </div>
         </CodeInputWrapper>
 
@@ -110,11 +110,4 @@ const CodeInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-`;
-
-const StyledTextButton = styled(TextButton)`
-  padding: 0;
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.primary.blue500};
 `;
