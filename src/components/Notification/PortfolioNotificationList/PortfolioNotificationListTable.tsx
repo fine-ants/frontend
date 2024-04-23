@@ -36,7 +36,7 @@ export default function PortfolioNotificationListTable() {
 
       <PlainTable
         tableTitle="활성 포트폴리오 알림 목록"
-        initialOrderBy="lastUpdated"
+        initialOrderBy="createdAt"
         TableHead={PortfolioNotificationListTableHead}
         TableBody={PortfolioNotificationListTableBody}
         EmptyTable={EmptyNotificationListTable}

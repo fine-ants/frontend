@@ -41,7 +41,7 @@ export type PortfolioNotification = {
   name: string;
   targetGainNotify: boolean;
   maxLossNotify: boolean;
-  lastUpdated: string;
+  createdAt: string;
 };
 
 export type PortfolioNotificationSettingsPutBody = {
