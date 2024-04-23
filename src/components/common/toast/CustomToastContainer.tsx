@@ -41,6 +41,6 @@ const StyledToastContainer = styled(ToastContainer)`
   }
 
   .Toastify__toast--warning {
-    background-color: ${designSystem.color.state.green50};
+    background-color: ${designSystem.color.state.orange50};
   }
 `;
