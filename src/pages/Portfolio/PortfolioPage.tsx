@@ -13,7 +13,7 @@ export default function PortfolioPage() {
   const { portfolioId } = useParams();
 
   return (
-    <BasePage>
+    <BasePage key={portfolioId}>
       <Container>
         <AsyncBoundary
           ErrorFallback={MainPanelErrorFallback}

@@ -16,6 +16,26 @@ type Props = {
 };
 
 export default function PortfolioOverviewBody({ data }: Props) {
+  const {
+    budget,
+    investedAmount,
+    balance,
+    provisionalLossBalance,
+    targetGain,
+    targetReturnRate,
+    targetGainNotify,
+    maximumLoss,
+    maximumLossRate,
+    maxLossNotify,
+    totalGain,
+    totalGainRate,
+    dailyGain,
+    dailyGainRate,
+    annualDividend,
+    annualDividendYield,
+    annualInvestmentDividendYield,
+  } = data;
+
   const { portfolioId } = useParams();
 
   const { mutate } = usePortfolioNotificationSettingsMutation(
@@ -25,14 +45,14 @@ export default function PortfolioOverviewBody({ data }: Props) {
   const onTargetGainNotifyButtonClick = debounce(() => {
     mutate({
       notificationType: "targetGain",
-      body: { isActive: !data.targetGainNotify },
+      body: { isActive: !targetGainNotify },
     });
   }, 250);
 
   const onMaxLossNotifyButtonClick = debounce(() => {
     mutate({
       notificationType: "maxLoss",
-      body: { isActive: !data.maxLossNotify },
+      body: { isActive: !maxLossNotify },
     });
   }, 250);
 
@@ -42,15 +62,15 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>예산</div>
-            <span>{thousandsDelimiter(data.budget)}</span>
+            <span>{thousandsDelimiter(budget)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <div>투자금액</div>
-            <span>{thousandsDelimiter(data.investedAmount)}</span>
+            <span>{thousandsDelimiter(investedAmount)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <div>잔고</div>
-            <span>{thousandsDelimiter(data.balance)}</span>
+            <span>{thousandsDelimiter(balance)}</span>
           </OverviewBodyData>
           <OverviewBodyData>
             <CustomTooltip
@@ -69,7 +89,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 잠정 손실 잔고 <Icon icon="help" size={16} color="gray400" />
               </div>
             </CustomTooltip>
-            <span>{thousandsDelimiter(data.provisionalLossBalance)}</span>
+            <span>{thousandsDelimiter(provisionalLossBalance)}</span>
           </OverviewBodyData>
         </OverviewBodySection>
         <OverviewBodySection>
@@ -81,21 +101,28 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 size="h24"
                 iconColor="custom"
                 customColor={{
-                  color: data.targetGainNotify ? "blue500" : "gray400",
+                  color: targetGainNotify ? "blue500" : "gray400",
                   hoverColor: "gray50",
                 }}
+                disabled={targetGain === 0}
                 onClick={onTargetGainNotifyButtonClick}
               />
             </NotificationLabel>
-            <span>{thousandsDelimiter(data.targetGain)}</span>
+            <span>
+              {targetGain === 0 ? "-" : thousandsDelimiter(targetGain)}
+            </span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
-            <RateBadge
-              size={16}
-              value={data.targetReturnRate}
-              bgColorStatus={false}
-              iconStatus={false}
-            />
+            {targetGain === 0 ? (
+              "-"
+            ) : (
+              <RateBadge
+                size={16}
+                value={targetReturnRate}
+                bgColorStatus={false}
+                iconStatus={false}
+              />
+            )}
           </div>
           <OverviewBodyData>
             <NotificationLabel>
@@ -105,21 +132,28 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 size="h24"
                 iconColor="custom"
                 customColor={{
-                  color: data.maxLossNotify ? "blue500" : "gray400",
+                  color: maxLossNotify ? "blue500" : "gray400",
                   hoverColor: "gray50",
                 }}
+                disabled={maximumLoss === 0}
                 onClick={onMaxLossNotifyButtonClick}
               />
             </NotificationLabel>
-            <span>{thousandsDelimiter(data.maximumLoss)}</span>
+            <span>
+              {maximumLoss === 0 ? "-" : thousandsDelimiter(maximumLoss)}
+            </span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
-            <RateBadge
-              size={16}
-              value={-data.maximumLossRate}
-              bgColorStatus={false}
-              iconStatus={false}
-            />
+            {maximumLoss === 0 ? (
+              "-"
+            ) : (
+              <RateBadge
+                size={16}
+                value={-maximumLossRate}
+                bgColorStatus={false}
+                iconStatus={false}
+              />
+            )}
           </div>
         </OverviewBodySection>
       </OverviewBodyTop>
@@ -128,24 +162,24 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>총 손익</div>
-            <RealtimeValue value={data.totalGain} />
+            <RealtimeValue value={totalGain} />
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
               size={16}
-              value={data.totalGainRate}
+              value={totalGainRate}
               bgColorStatus={false}
               iconStatus={false}
             />
           </div>
           <OverviewBodyData>
             <div>당일 손익</div>
-            <RealtimeValue value={data.dailyGain} />
+            <RealtimeValue value={dailyGain} />
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
               size={16}
-              value={data.dailyGainRate}
+              value={dailyGainRate}
               bgColorStatus={false}
               iconStatus={false}
             />
@@ -154,12 +188,12 @@ export default function PortfolioOverviewBody({ data }: Props) {
         <OverviewBodySection>
           <OverviewBodyData>
             <div>총 연배당금</div>
-            <span>{thousandsDelimiter(data.annualDividend)}</span>
+            <span>{thousandsDelimiter(annualDividend)}</span>
           </OverviewBodyData>
           <div style={{ marginLeft: "auto" }}>
             <RateBadge
               size={16}
-              value={data.annualDividendYield}
+              value={annualDividendYield}
               bgColorStatus={false}
               iconStatus={false}
             />
@@ -182,7 +216,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
             </CustomTooltip>
             <RateBadge
               size={16}
-              value={data.annualInvestmentDividendYield}
+              value={annualInvestmentDividendYield}
               bgColorStatus={false}
               iconStatus={false}
             />

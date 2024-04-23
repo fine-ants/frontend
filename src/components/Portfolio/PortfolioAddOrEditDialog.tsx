@@ -30,6 +30,7 @@ import {
   useState,
 } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "src/main";
 import styled from "styled-components";
 
 type Props = {
@@ -90,8 +91,15 @@ export default function PortfolioAddOrEditDialog({
       executeCbIfNumeric({
         value,
         callback: (val: string) => {
+          if (Number(removeThousandsDelimiter(val)) < 0) {
+            toast.warning("목표 수익 금액은 0 이상이어야 합니다");
+            return;
+          }
+
           onTargetGainChange(val);
-          onTargetReturnRateChange(calculateRate(val, budget));
+
+          const newRate = val === "" ? val : calculateRate(val, budget);
+          onTargetReturnRateChange(newRate);
         },
       });
     },
@@ -102,8 +110,16 @@ export default function PortfolioAddOrEditDialog({
       executeCbIfNumeric({
         value,
         callback: (val: string) => {
+          if (Number(removeThousandsDelimiter(val)) < 0) {
+            toast.warning("목표 수익률은 0% 이상이어야 합니다");
+            return;
+          }
+
           onTargetReturnRateChange(val);
-          onTargetGainChange(calculateValueFromRate(val, budget));
+
+          const newValue =
+            val === "" ? val : calculateValueFromRate(val, budget);
+          onTargetGainChange(newValue);
         },
       });
     },
@@ -124,8 +140,23 @@ export default function PortfolioAddOrEditDialog({
       executeCbIfNumeric({
         value,
         callback: (val: string) => {
+          if (
+            Number(removeThousandsDelimiter(val)) >
+            Number(removeThousandsDelimiter(budget))
+          ) {
+            toast.warning("최대 손실 금액은 예산을 초과할 수 없습니다");
+            return;
+          }
+
+          if (Number(removeThousandsDelimiter(val)) < 0) {
+            toast.warning("최대 손실 금액은 0보다 작을 수 없습니다");
+            return;
+          }
+
           onMaximumLossChange(val);
-          onMaximumLossRateChange(calculateLossRate(budget, val));
+
+          const newRate = val === "" ? val : calculateLossRate(budget, val);
+          onMaximumLossRateChange(newRate.replace(/-/g, ""));
         },
       });
     },
@@ -136,8 +167,18 @@ export default function PortfolioAddOrEditDialog({
       executeCbIfNumeric({
         value,
         callback: (val: string) => {
-          onMaximumLossRateChange(val);
-          onMaximumLossChange(calculateValueFromRate(`-${val}`, budget));
+          if (Number(removeThousandsDelimiter(val)) > 100) {
+            toast.warning("최대 손실률은 100%를 초과할 수 없습니다");
+            return;
+          }
+
+          const parsedVal = val.replace(/-/g, "");
+
+          onMaximumLossRateChange(parsedVal);
+
+          const newValue =
+            val === "" ? val : calculateValueFromRate(`-${parsedVal}`, budget);
+          onMaximumLossChange(newValue);
         },
       });
     },
@@ -182,32 +223,21 @@ export default function PortfolioAddOrEditDialog({
     if (isBudgetEmpty) {
       clearInputs();
       return;
-    }
-
-    if (targetReturnRate) {
-      targetReturnRateHandler(targetReturnRate);
-    }
-    if (targetGain) {
-      targetGainHandler(targetGain);
-    }
-
-    if (maximumLossRate) {
-      maximumLossRateHandler(maximumLossRate);
-    }
-    if (maximumLoss) {
-      maximumLossHandler(maximumLoss);
+    } else {
+      if (targetReturnRate) {
+        targetReturnRateHandler(targetReturnRate);
+      }
+      if (maximumLossRate) {
+        maximumLossRateHandler(maximumLossRate);
+      }
     }
   }, [
-    isBudgetEmpty,
     clearInputs,
-    targetGain,
-    targetGainHandler,
-    targetReturnRate,
-    targetReturnRateHandler,
-    maximumLoss,
-    maximumLossHandler,
+    isBudgetEmpty,
     maximumLossRate,
     maximumLossRateHandler,
+    targetReturnRate,
+    targetReturnRateHandler,
   ]);
 
   const isFormValid = () => {
