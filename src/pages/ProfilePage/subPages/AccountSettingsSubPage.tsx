@@ -1,4 +1,5 @@
 import usePasswordEditMutation from "@api/user/queries/usePasswordEditMutation";
+import socialLoginImage from "@assets/images/social_login_image.svg";
 import AccountDeleteDialog from "@components/AccountDeleteDialog";
 import Button from "@components/common/Buttons/Button";
 import { TextButton } from "@components/common/Buttons/TextButton";
@@ -95,8 +96,8 @@ export default function AccountSettingsSubPage() {
     currentPasswordValue === newPasswordValue;
 
   return (
-    <Form onSubmit={onSubmit}>
-      {user?.provider === "local" && (
+    <Form onSubmit={onSubmit} $isOAuth={user?.provider !== "local"}>
+      {user?.provider === "local" ? (
         <>
           <LabelsWrapper>
             <Label htmlFor="currentPasswordInput">
@@ -165,10 +166,15 @@ export default function AccountSettingsSubPage() {
             </Button>
           </ButtonsContainer>
         </>
+      ) : (
+        <SocialLoginDescription>
+          <img src={socialLoginImage} alt="소셜 계정으로 로그인함" />
+          <p>소셜 계정으로 로그인되어 있습니다</p>
+          <p>간편 로그인 회원은 비밀번호를 변경할 수 없습니다</p>
+        </SocialLoginDescription>
       )}
 
       <AccountDeactivationButton
-        $isOAuth={user?.provider !== "local"}
         type="button"
         variant="underline"
         color="gray"
@@ -186,7 +192,8 @@ export default function AccountSettingsSubPage() {
   );
 }
 
-const Form = styled.form`
+const Form = styled.form<{ $isOAuth: boolean }>`
+  padding-top: ${({ $isOAuth }) => ($isOAuth ? "0" : "40px")};
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -224,10 +231,35 @@ const ButtonsContainer = styled.div`
   gap: 8px;
 `;
 
-const AccountDeactivationButton = styled(TextButton)<{ $isOAuth: boolean }>`
+const SocialLoginDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+
+  img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 24px;
+  }
+
+  p:first-of-type {
+    margin-bottom: 8px;
+    font: ${designSystem.font.title3.font};
+    letter-spacing: ${designSystem.font.title3.letterSpacing};
+    color: ${designSystem.color.neutral.gray600};
+  }
+
+  p:last-of-type {
+    font: ${designSystem.font.body3.font};
+    color: ${designSystem.color.neutral.gray500};
+  }
+`;
+
+const AccountDeactivationButton = styled(TextButton)`
   width: auto;
   margin-inline: auto;
-  margin-top: ${({ $isOAuth }) => ($isOAuth ? "auto" : "0")};
 `;
 
 const buttonStyles = {
