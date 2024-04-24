@@ -1,6 +1,4 @@
-![FineAnts Logo](https://github.com/fine-ants/frontend/assets/114852081/2be2569b-448a-481f-ab49-d1eb53452683)
-
-<br>
+![Logo](src/assets/images/readme/logo.png)
 
 **LINK:** [https://www.fineants.co](https://www.fineants.co/)
 
@@ -9,7 +7,7 @@
 FineAnts는 파편화된 포트폴리오 관리를 보다 파악하기 쉽게 통합한 서비스입니다. 현재 증권사들의 HTS나 MTS는 한 개의 계좌내에서 여러개의 포트폴리오를 구성한 투자를 진행할 수 없습니다. 자연스럽게 사용자들은 여러개의 증권사의 계좌를 운용하게 되고, FineAnts는 이렇게 파편화된 정보들을 한 번에 파악하고 관리할 수 있게 도와주는 서비스입니다.
 
 <img src="src/assets/images/dashboard.svg" width="100%" />
-<img src="src/assets/images/portfolio_imgs_group.png" width="100%" />
+<img src="src/assets/images/readme/portfolio_imgs_group.png" width="100%" />
 
 ## Features
 
