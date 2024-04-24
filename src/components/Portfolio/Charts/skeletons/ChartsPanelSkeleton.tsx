@@ -1,6 +1,7 @@
 import DividendBarChartSkeleton from "@components/Portfolio/Charts/skeletons/DividendBarChartSkeleton";
 import HoldingsPieChartSkeleton from "@components/Portfolio/Charts/skeletons/HoldingsPieChartSkeleton";
-import SectorBarSkeleton from "@components/Portfolio/Charts/skeletons/SectorBarSkeleton";
+import { WideLegendSkeleton } from "@components/common/PieChart/skeletons/WideLegendSkeleton";
+import { Skeleton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -9,15 +10,19 @@ export default function ChartsPanelSkeleton() {
     <StyledChartsPanelSkeleton>
       <SkeletonContainer>
         <ChartLabel>종목 구성</ChartLabel>
-        <HoldingsPieChartSkeleton />
+        <Wrapper>
+          <HoldingsPieChartSkeleton />
+          <WideLegendSkeleton height={120} itemLength={9} />
+        </Wrapper>
       </SkeletonContainer>
       <SkeletonContainer>
-        <ChartLabel>월 배당금</ChartLabel>
+        <ChartLabel>예상 월 배당금</ChartLabel>
         <DividendBarChartSkeleton />
       </SkeletonContainer>
       <SkeletonContainer>
         <ChartLabel>섹터 구성</ChartLabel>
-        <SectorBarSkeleton />
+        <Skeleton variant="rounded" width={"100%"} height={24} />
+        <WideLegendSkeleton height={68} itemLength={6} />
       </SkeletonContainer>
     </StyledChartsPanelSkeleton>
   );
@@ -44,4 +49,11 @@ const SkeletonContainer = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 24px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 `;
