@@ -1,5 +1,6 @@
 import TableSkeleton from "@components/common/Table/TableSkeleton";
 import { Skeleton } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export function WatchlistsPageSkeleton() {
@@ -19,7 +20,7 @@ const Container = styled.div`
   max-width: 1440px;
   margin-top: 48px;
   padding: 32px;
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
 `;
 
