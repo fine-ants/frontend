@@ -18,6 +18,7 @@ const StyledToastContainer = styled(ToastContainer)`
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    border-radius: 8px;
     color: ${designSystem.color.neutral.gray800};
     font: ${designSystem.font.title5.font};
     letter-spacing: ${designSystem.font.title5.letterSpacing};

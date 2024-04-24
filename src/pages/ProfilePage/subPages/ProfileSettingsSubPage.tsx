@@ -171,6 +171,7 @@ export default function ProfileSettingsSubPage() {
 }
 
 const Form = styled.form`
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
