@@ -1,15 +1,17 @@
+import { PieChartSkeleton } from "@components/common/PieChart/skeletons/PieChartSkeleton";
+import { TallLegendSkeleton } from "@components/common/PieChart/skeletons/TallLegendSkeleton";
 import { Skeleton } from "@mui/material";
 import styled from "styled-components";
-import { PieChartLegendSkeleton } from "./PieChartLegendSkeleton";
-import { PieChartSkeleton } from "./PieChartSkeleton";
 
 export default function DashboardPieChartSkeleton() {
   return (
     <StyledDashboardPieChartSkeleton>
       <Skeleton variant="rounded" width={"100%"} height={29} />
       <Wrapper>
-        <PieChartSkeleton size={288} innerSize={160} />
-        <PieChartLegendSkeleton />
+        <PieChartSkeletonWrapper>
+          <PieChartSkeleton size={288} innerSize={160} />
+        </PieChartSkeletonWrapper>
+        <TallLegendSkeleton />
       </Wrapper>
     </StyledDashboardPieChartSkeleton>
   );
@@ -29,7 +31,11 @@ const StyledDashboardPieChartSkeleton = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: space-between;
+`;
+
+const PieChartSkeletonWrapper = styled.div`
+  width: 320px;
+  height: 320px;
 `;
