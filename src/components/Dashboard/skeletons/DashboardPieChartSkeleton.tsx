@@ -6,7 +6,7 @@ import styled from "styled-components";
 export default function DashboardPieChartSkeleton() {
   return (
     <StyledDashboardPieChartSkeleton>
-      <Skeleton variant="rounded" width={"100%"} height={29} />
+      <Skeleton variant="rounded" width="100%" height={29} />
       <Wrapper>
         <PieChartSkeletonWrapper>
           <PieChartSkeleton size={288} innerSize={160} />

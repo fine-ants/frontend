@@ -9,7 +9,7 @@ export default function DividendBarChartSkeleton() {
           <BarSkeleton key={index} variant="rectangular" />
         ))}
       </BarsContainer>
-      <Skeleton variant="rounded" width={"100%"} height={2} />
+      <Skeleton variant="rounded" width="100%" height={2} />
       <MonthContainer style={{ width: "100%", justifyContent: "center" }}>
         {Array.from({ length: 12 }).map((_, index) => (
           <Skeleton key={index} variant="rounded" width={18} height={16} />

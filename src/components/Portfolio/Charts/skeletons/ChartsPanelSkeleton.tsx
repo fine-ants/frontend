@@ -21,7 +21,7 @@ export default function ChartsPanelSkeleton() {
       </SkeletonContainer>
       <SkeletonContainer>
         <ChartLabel>섹터 구성</ChartLabel>
-        <Skeleton variant="rounded" width={"100%"} height={24} />
+        <Skeleton variant="rounded" width="100%" height={24} />
         <WideLegendSkeleton height={68} itemLength={6} />
       </SkeletonContainer>
     </StyledChartsPanelSkeleton>

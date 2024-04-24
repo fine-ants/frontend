@@ -7,8 +7,8 @@ export function WatchlistsPageSkeleton() {
   return (
     <Container>
       <TitleContainer>
-        <Skeleton variant="rounded" width={"100%"} height={17} />
-        <Skeleton variant="rounded" width={"100%"} height={39} />
+        <Skeleton variant="rounded" width="100%" height={17} />
+        <Skeleton variant="rounded" width="100%" height={39} />
       </TitleContainer>
       <TableSkeleton />
     </Container>
