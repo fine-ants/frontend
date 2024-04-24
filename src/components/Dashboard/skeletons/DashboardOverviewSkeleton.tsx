@@ -6,25 +6,25 @@ export function DashboardOverviewSkeleton() {
   return (
     <StyledDashboardOverviewSkeleton>
       <InnerWrapper>
-        <StyledSkeleton variant="rounded" width={"100%"} height={39} />
+        <StyledSkeleton variant="rounded" width="100%" height={39} />
         <ContentContainer>
           <TotalMainContentWrapper>
             <StyledSkeleton variant="rounded" width={76} height={19} />
-            <StyledSkeleton variant="rounded" width={"100%"} height={58} />
+            <StyledSkeleton variant="rounded" width="100%" height={58} />
           </TotalMainContentWrapper>
           <SubContentContainer>
             <TotalSubContentWrapper>
               <StyledSkeleton variant="rounded" width={76} height={19} />
-              <StyledSkeleton variant="rounded" width={"100%"} height={34} />
+              <StyledSkeleton variant="rounded" width="100%" height={34} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <StyledSkeleton variant="rounded" width={76} height={19} />
-              <StyledSkeleton variant="rounded" width={"100%"} height={34} />
+              <StyledSkeleton variant="rounded" width="100%" height={34} />
               <StyledSkeleton variant="rounded" width={61} height={24} />
             </TotalSubContentWrapper>
             <TotalSubContentWrapper>
               <StyledSkeleton variant="rounded" width={76} height={19} />
-              <StyledSkeleton variant="rounded" width={"100%"} height={34} />
+              <StyledSkeleton variant="rounded" width="100%" height={34} />
               <StyledSkeleton variant="rounded" width={61} height={24} />
             </TotalSubContentWrapper>
           </SubContentContainer>

@@ -1,14 +1,18 @@
-import PieChartSkeleton from "@components/common/PieChart/skeletons/PieChartSkeleton";
+import { PieChartSkeleton } from "@components/common/PieChart/skeletons/PieChartSkeleton";
+import styled from "styled-components";
 
 export default function HoldingsPieChartSkeleton() {
   return (
-    <PieChartSkeleton
-      containerWidth={256}
-      containerHeight={256}
-      pieWidth={256}
-      pieHeight={256}
-      innerCircleWidth={128}
-      innerCircleHeight={128}
-    />
+    <PieChartWrapper>
+      <PieChartSkeleton size={230} innerSize={128} />
+    </PieChartWrapper>
   );
 }
+
+const PieChartWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 256px;
+  height: 256px;
+`;

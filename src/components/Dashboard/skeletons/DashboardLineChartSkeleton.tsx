@@ -4,7 +4,7 @@ import styled from "styled-components";
 export function DashboardLineChartSkeleton() {
   return (
     <StyledDashboardLineChartSkeleton>
-      <Skeleton variant="rounded" width={"100%"} height={29} />
+      <Skeleton variant="rounded" width="100%" height={29} />
       <StyledDiv>
         <Skeleton variant="rounded" width={264} height={32} />
       </StyledDiv>

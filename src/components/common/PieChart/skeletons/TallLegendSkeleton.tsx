@@ -2,7 +2,7 @@ import { Skeleton } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
-export function PieChartLegendSkeleton() {
+export function TallLegendSkeleton() {
   const legend = Array.from({ length: 10 }, (_, idx) => {
     return <LegendSkeleton key={idx} />;
   });
@@ -12,11 +12,11 @@ export function PieChartLegendSkeleton() {
   });
 
   return (
-    <StyledPieChartLegendSkeleton>
+    <StyledTallLegendSkeleton>
       {legend}
       <Skeleton width={"100%"} height={3} />
       {otherLegend}
-    </StyledPieChartLegendSkeleton>
+    </StyledTallLegendSkeleton>
   );
 }
 
@@ -29,7 +29,7 @@ function LegendSkeleton() {
   );
 }
 
-const StyledPieChartLegendSkeleton = styled.div`
+const StyledTallLegendSkeleton = styled.div`
   display: flex;
   width: 300px;
   height: 363px;

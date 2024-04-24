@@ -10,14 +10,14 @@ export default function MainPanelSkeleton() {
             <StyledSkeleton variant="rounded" width={92} height={17} />
             <StyledSkeleton variant="rounded" width={896} height={40} />
           </TitleContainer>
-          <StyledSkeleton variant="rounded" width={"100%"} height={64} />
-          <StyledSkeleton variant="rounded" width={"100%"} height={283} />
+          <StyledSkeleton variant="rounded" width="100%" height={64} />
+          <StyledSkeleton variant="rounded" width="100%" height={283} />
         </StyledPortfolioOverview>
       </PortfolioOverviewContainer>
 
       <PortfolioHoldingsContainer>
-        <StyledSkeleton variant="rounded" width={"100%"} height={32} />
-        <StyledSkeleton variant="rounded" width={"100%"} height={338} />
+        <StyledSkeleton variant="rounded" width="100%" height={32} />
+        <StyledSkeleton variant="rounded" width="100%" height={338} />
       </PortfolioHoldingsContainer>
     </StyledMainPanelSkeleton>
   );
