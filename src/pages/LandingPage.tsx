@@ -13,8 +13,6 @@ import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export default function LandingPage() {
-  // const navigate = useNavigate();
-
   return (
     <>
       <Header />
