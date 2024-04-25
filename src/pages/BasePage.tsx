@@ -1,4 +1,4 @@
-import Footer from "@components/common/Footer";
+import Footer from "@components/Footer";
 import { ReactNode } from "react";
 import styled from "styled-components";
 

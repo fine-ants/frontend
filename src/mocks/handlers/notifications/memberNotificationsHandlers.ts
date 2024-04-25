@@ -1,5 +1,5 @@
-import { MemberNotificationsSettings } from "@api/notifications/types";
 import { HTTPSTATUS } from "@api/types";
+import { MemberNotificationsSettings } from "@features/notification/api/types";
 import {
   memberNotificationsData,
   successfulDeleteAllMemberNotifications,
@@ -7,9 +7,9 @@ import {
   successfulEditMemberNotificationsSettings,
   successfulMemberNotifications,
   successfulReadAllMemberNotifications,
+  successfulReadMemberNotification,
 } from "@mocks/data/notifications/memberNotificationsData";
 import { HttpResponse, http } from "msw";
-import { successfulReadMemberNotification } from "../../data/notifications/memberNotificationsData";
 import { editNotificationPreferences } from "../userHandlers";
 
 let notificationsData = memberNotificationsData;

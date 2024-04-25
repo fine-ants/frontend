@@ -1,11 +1,12 @@
+import { HTTPSTATUS } from "@api/types";
 import {
   PortfolioDetails,
   PortfolioHolding,
   PortfolioReqBody,
   PurchaseHistory,
   PurchaseHistoryField,
-} from "@api/portfolio/types";
-import { HTTPSTATUS } from "@api/types";
+} from "@features/portfolio/api/types";
+import { calculateRate } from "@features/portfolio/utils/calculations";
 import {
   portfolioHoldings,
   successfulGetPortfolioChartsResponse,
@@ -19,7 +20,6 @@ import {
   successfulPortfolioHoldingPurchaseEditResponse,
 } from "@mocks/data/portfolioData";
 import { portfolioDetails } from "@mocks/data/portfolioDetailsData";
-import { calculateRate } from "@utils/calculations";
 import { HttpResponse, http } from "msw";
 
 const portfolioDetailsData = portfolioDetails;

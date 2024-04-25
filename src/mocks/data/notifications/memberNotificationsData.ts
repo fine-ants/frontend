@@ -1,4 +1,4 @@
-import { MemberNotification } from "@api/notifications/types";
+import { MemberNotification } from "@features/notification/api/types";
 
 export const memberNotificationsData: MemberNotification[] = [
   {

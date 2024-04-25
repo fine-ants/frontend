@@ -1,7 +1,7 @@
-import { StockSearchItem } from "@api/stock";
-import { Icon } from "@components/common/Icon";
+import { Icon } from "@components/Icon";
+import splitAndIncludeDelimiter from "@components/SearchBar/utils/splitAndIncludeDelimiter";
+import { StockSearchItem } from "@features/stock/api";
 import designSystem from "@styles/designSystem";
-import { splitAndIncludeDelimiter } from "@utils/delimiters";
 import { HTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

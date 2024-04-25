@@ -1,5 +1,5 @@
-import { createToast } from "@components/common/toast";
-import { UserProvider } from "@context/UserContext.tsx";
+import { createToast } from "@components/Toast/createToast.tsx";
+import { UserProvider } from "@features/user/context/UserContext.tsx";
 import { StyledEngineProvider } from "@mui/styled-engine";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -17,7 +17,7 @@ import "./index.css";
 
 if (import.meta.env.DEV) {
   const { default: mockServiceWorker } = await import(
-    "./mocks/mockSetupWorker.ts"
+    "@mocks/mockSetupWorker.ts"
   );
   await mockServiceWorker.start({ onUnhandledRequest: "bypass" });
 }

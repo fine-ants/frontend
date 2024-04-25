@@ -1,4 +1,4 @@
-import { PortfolioDetails } from "@api/portfolio/types";
+import { PortfolioDetails } from "@features/portfolio/api/types";
 
 export const portfolioDetails: PortfolioDetails[] = [
   {

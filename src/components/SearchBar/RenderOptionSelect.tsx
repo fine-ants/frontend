@@ -1,6 +1,6 @@
-import { StockSearchItem } from "@api/stock";
+import splitAndIncludeDelimiter from "@components/SearchBar/utils/splitAndIncludeDelimiter";
+import { StockSearchItem } from "@features/stock/api";
 import designSystem from "@styles/designSystem";
-import { splitAndIncludeDelimiter } from "@utils/delimiters";
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
 
