@@ -79,6 +79,10 @@ const font = {
     font: "500 12px/14px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
+  title7: {
+    font: "500 10px/12px 'IBM Plex Sans', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 
   body1: { font: "400 20px/30px 'IBM Plex Sans', sans-serif" },
   body2: { font: "400 16px/24px 'IBM Plex Sans', sans-serif" },

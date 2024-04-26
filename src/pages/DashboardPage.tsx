@@ -1,12 +1,12 @@
-import DashboardOverview from "@components/Dashboard/DashboardOverview";
-import DashboardPortfolioWeight from "@components/Dashboard/DashboardPortfolioWeight";
-import DashboardTotalValuationTrend from "@components/Dashboard/DashboardTotalValuationTrend";
-import { ChartErrorFallback } from "@components/Dashboard/errorFallback/ChartErrorFallback";
-import { OverviewErrorFallback } from "@components/Dashboard/errorFallback/OverviewErrorFallback";
-import { DashboardLineChartSkeleton } from "@components/Dashboard/skeletons/DashboardLineChartSkeleton";
-import { DashboardOverviewSkeleton } from "@components/Dashboard/skeletons/DashboardOverviewSkeleton";
-import DashboardPieChartSkeleton from "@components/Dashboard/skeletons/DashboardPieChartSkeleton";
-import { AsyncBoundary } from "@components/common/AsyncBoundary";
+import { AsyncBoundary } from "@components/AsyncBoundary";
+import DashboardOverview from "@features/dashboard/components/DashboardOverview";
+import DashboardPortfolioWeight from "@features/dashboard/components/DashboardPortfolioWeight";
+import DashboardTotalValuationTrend from "@features/dashboard/components/DashboardTotalValuationTrend";
+import { ChartErrorFallback } from "@features/dashboard/components/errorFallback/ChartErrorFallback";
+import { OverviewErrorFallback } from "@features/dashboard/components/errorFallback/OverviewErrorFallback";
+import { DashboardLineChartSkeleton } from "@features/dashboard/components/skeletons/DashboardLineChartSkeleton";
+import { DashboardOverviewSkeleton } from "@features/dashboard/components/skeletons/DashboardOverviewSkeleton";
+import DashboardPieChartSkeleton from "@features/dashboard/components/skeletons/DashboardPieChartSkeleton";
 import styled from "styled-components";
 import BasePage from "./BasePage";
 

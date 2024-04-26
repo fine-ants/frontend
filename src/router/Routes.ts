@@ -2,7 +2,7 @@ export default {
   LANDING: "/",
   SIGNUP: "/signup",
   SIGNIN: "/signin",
-  SIGNINLOADING: "/signin/loading",
+  OAUTHLOADING: "/signin/loading",
   PROFILE: "/settings/:tab",
   NOTIFICATIONS: "/notifications/:tab",
   DASHBOARD: "/dashboard",

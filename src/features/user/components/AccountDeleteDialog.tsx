@@ -1,0 +1,106 @@
+import BaseDialog from "@components/BaseDialog";
+import Button from "@components/Buttons/Button";
+import { IconButton } from "@components/Buttons/IconButton";
+import { TextField } from "@components/TextField/TextField";
+import useAccountDeleteMutation from "@features/user/api/queries/useAccountDeleteMutation";
+import { useText } from "@fineants/demolition";
+import designSystem from "@styles/designSystem";
+import styled from "styled-components";
+
+type Props = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+export default function AccountDeleteDialog({ isOpen, onClose }: Props) {
+  const { value, onChange } = useText();
+
+  const { mutate: deleteAccountMutate } = useAccountDeleteMutation();
+
+  const onDeleteButtonClick = () => {
+    deleteAccountMutate();
+  };
+
+  const isDeleteButtonDisabled = value !== "계정 삭제";
+
+  return (
+    <BaseDialog style={baseDialogStyle} isOpen={isOpen} onClose={onClose}>
+      <Header>
+        <Title>계정 삭제</Title>
+        <IconButton
+          icon="close"
+          size="h40"
+          iconColor="gray"
+          onClick={onClose}
+        />
+      </Header>
+
+      <Description>
+        <p>데이터 및 계정과 관련된 모든 정보가 삭제됩니다</p>
+        <p>
+          삭제를 진행하시려면 아래의 입력란에 <b>"계정 삭제"</b>을 입력하세요
+        </p>
+      </Description>
+
+      <TextField
+        size="h32"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        clearValue={() => onChange("")}
+      />
+
+      <ButtonsContainer>
+        <Button variant="tertiary" size="h32" onClick={onClose}>
+          취소
+        </Button>
+        <Button
+          variant="primary"
+          size="h32"
+          disabled={isDeleteButtonDisabled}
+          onClick={onDeleteButtonClick}>
+          삭제
+        </Button>
+      </ButtonsContainer>
+    </BaseDialog>
+  );
+}
+
+const baseDialogStyle = {
+  width: "544px",
+  height: "auto",
+};
+
+const Header = styled.header`
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.div`
+  font: ${designSystem.font.heading3.font};
+  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  color: ${designSystem.color.neutral.gray800};
+`;
+
+const Description = styled.div`
+  margin-bottom: 24px;
+
+  > p {
+    font: ${designSystem.font.title5.font};
+    letter-spacing: ${designSystem.font.title5.letterSpacing};
+    color: ${designSystem.color.neutral.gray800};
+
+    &:first-of-type {
+      margin-bottom: 4px;
+    }
+  }
+`;
+
+const ButtonsContainer = styled.div`
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+`;

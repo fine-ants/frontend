@@ -1,5 +1,5 @@
-import { MemberNotificationsSettings } from "@api/notifications/types";
 import { HTTPSTATUS } from "@api/types";
+import { MemberNotificationsSettings } from "@features/notification/api/types";
 import {
   successfulAccountDeleteData,
   successfulPasswordEditData,
