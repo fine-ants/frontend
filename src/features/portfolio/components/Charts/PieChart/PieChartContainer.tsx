@@ -1,8 +1,8 @@
+import emptyHoldingsPieChartImg from "@assets/images/no_holdings_pie_chart.png";
 import WideLegend from "@components/Legend/WideLegend";
 import PieChart from "@components/PieChart/PieChart";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import EmptyHoldingsPieChartImg from "./EmptyHoldingsPieChartImg";
 
 type Props = {
   coloredPieChart: {
@@ -33,7 +33,7 @@ export function PieChartContainer({
       <ChartLabel>종목 구성</ChartLabel>
       <PieChartWrapper>
         {hasNoHoldings ? (
-          <EmptyHoldingsPieChartImg />
+          <img src={emptyHoldingsPieChartImg} alt="비어있는 파이차트 이미지" />
         ) : (
           <PieChart
             width={256}
