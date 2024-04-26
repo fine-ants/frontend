@@ -1,4 +1,4 @@
-import FA from "@assets/icons/logo/ic_fineants.svg";
+import FA from "@assets/icons/logo/ic_fineants_black.svg";
 import bnk from "@assets/images/securitiesFirmLogo/bnk.png";
 import bookook from "@assets/images/securitiesFirmLogo/bookook.png";
 import cape from "@assets/images/securitiesFirmLogo/cape.png";
