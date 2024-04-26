@@ -52,6 +52,7 @@ const router = (user: User | null) =>
           <Route path={Routes.SIGNIN} element={<SignInPage />} />
           <Route path={Routes.SIGNUP} element={<SignUpPage />} />
         </Route>
+
         <Route path={Routes.INDICES} element={<IndicesPage />} />
         <Route path={Routes.STOCK} element={<StockPage />} />
         <Route path={Routes.FALLBACK} element={<NotFoundPage />} />
