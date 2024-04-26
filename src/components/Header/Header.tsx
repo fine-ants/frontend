@@ -1,4 +1,5 @@
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import TVTickerTapeWidget from "../TradingViewWidgets/TVTickerTape";
 import HeaderTopD from "./desktop/HeaderTopD";
@@ -18,6 +19,6 @@ export default function Header() {
 }
 
 const StyledHeader = styled.header`
-  background-color: ${({ theme: { color } }) => color.neutral.gray900};
-  color: ${({ theme: { color } }) => color.neutral.white};
+  background-color: ${designSystem.color.neutral.gray900};
+  color: ${designSystem.color.neutral.white};
 `;
