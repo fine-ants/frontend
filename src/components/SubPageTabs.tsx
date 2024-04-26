@@ -44,7 +44,6 @@ const Nav = styled.nav`
         height: 100%;
         display: block;
         text-align: center;
-        vertical-align: middle;
         line-height: 40px;
       }
 

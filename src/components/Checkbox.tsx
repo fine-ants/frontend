@@ -48,7 +48,6 @@ const UncheckedIcon = styled.span<{ $size: Size }>`
 
   .Mui-focusVisible & {
     outline: 2px auto rgba(19, 124, 189, 0.6);
-    outlineoffset: 2;
   }
 
   input:hover ~ & {
