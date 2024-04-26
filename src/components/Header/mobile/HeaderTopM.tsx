@@ -40,9 +40,13 @@ export default function HeaderTopM() {
         </ButtonWrapper>
       )}
 
-      <StyledBrandIdentityLink to={user ? Routes.DASHBOARD : Routes.LANDING}>
-        <img src={fineantsLogo} alt="FineAnts" />
-      </StyledBrandIdentityLink>
+      <HeaderCenter>
+        <Link
+          to={user ? Routes.DASHBOARD : Routes.LANDING}
+          style={{ padding: "4px 8px" }}>
+          <img src={fineantsLogo} alt="FineAnts" />
+        </Link>
+      </HeaderCenter>
 
       <HeaderRight>
         <IconButton
@@ -65,11 +69,8 @@ const StyledHeaderTopM = styled.header`
   align-items: center;
 `;
 
-const StyledBrandIdentityLink = styled(Link)`
+const HeaderLeft = styled.div`
   width: 33%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const ButtonWrapper = styled.div`
@@ -77,8 +78,11 @@ const ButtonWrapper = styled.div`
   gap: 8px;
 `;
 
-const HeaderLeft = styled.div`
+const HeaderCenter = styled.div`
   width: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const HeaderRight = styled.div`

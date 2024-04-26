@@ -8,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../Buttons/Button";
 import { TextButton } from "../../Buttons/TextButton";
+import { NavBar } from "../../NavBar/NavBar";
 import SearchBar from "../../SearchBar/SearchBar";
-import { NavBar } from "../NavBar";
 
 export default function HeaderTopD() {
   const navigate = useNavigate();
