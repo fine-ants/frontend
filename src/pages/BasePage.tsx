@@ -1,4 +1,7 @@
-import Footer from "@components/common/Footer";
+import Footer from "@components/Footer";
+import NavBarFixed from "@components/NavBar/NavBarFixed";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
+import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -7,21 +10,26 @@ type Props = {
 };
 
 export default function BasePage({ children }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   return (
-    <StyledBasePage>
+    <StyledBasePage $isMobile={isMobile}>
       <Main>{children}</Main>
       <Footer />
+
+      {isMobile && <NavBarFixed />}
     </StyledBasePage>
   );
 }
 
-const StyledBasePage = styled.div`
+const StyledBasePage = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   height: inherit;
   min-height: inherit;
+  padding-bottom: ${({ $isMobile }) => ($isMobile ? "64px" : 0)};
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
+  background-color: ${designSystem.color.neutral.gray50};
 `;
 
 const Main = styled.main`

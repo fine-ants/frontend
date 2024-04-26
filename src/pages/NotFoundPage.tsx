@@ -1,8 +1,8 @@
 import fineAntsLogo from "@assets/icons/logo/fineAnts.svg";
 import notFoundImage from "@assets/images/not_found.png";
-import Button from "@components/common/Buttons/Button";
-import { Icon } from "@components/common/Icon";
-import { UserContext } from "@context/UserContext";
+import Button from "@components/Buttons/Button";
+import { Icon } from "@components/Icon";
+import { UserContext } from "@features/user/context/UserContext";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useContext } from "react";

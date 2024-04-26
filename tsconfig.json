@@ -24,15 +24,16 @@
     "paths": {
       "@api/*": ["src/api/*"],
       "@assets/*": ["src/assets/*"],
-      "@pages/*": ["src/pages/*"],
       "@components/*": ["src/components/*"],
-      "@context/*": ["src/context/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
       "@constants/*": ["src/constants/*"],
+      "@context/*": ["src/context/*"],
+      "@features/*": ["src/features/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@mocks/*": ["src/mocks/*"],
       "@styles/*": ["src/styles/*"],
-      "@router/*": ["src/router/*"]
+      "@pages/*": ["src/pages/*"],
+      "@router/*": ["src/router/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src", "svg.d.ts"],

@@ -1,5 +1,5 @@
-import { OAuthProvider } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
+import { OAuthProvider } from "@features/auth/api";
 
 export const successfulSignUpData = {
   code: HTTPSTATUS.created,

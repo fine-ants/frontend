@@ -1,6 +1,6 @@
+import Header from "@components/Header/Header";
 import TVIndicesWidget from "@components/TradingViewWidgets/TVIndicesWidget";
 import TVStockDetailWidget from "@components/TradingViewWidgets/TVStockDetailWidget";
-import Header from "@components/common/Header/Header";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { Navigate, useParams } from "react-router-dom";

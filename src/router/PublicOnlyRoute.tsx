@@ -1,4 +1,4 @@
-import { User } from "@api/user/types";
+import { User } from "@features/user/api/types";
 import { Navigate, Outlet } from "react-router-dom";
 import Routes from "./Routes";
 

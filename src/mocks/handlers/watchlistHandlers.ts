@@ -11,6 +11,7 @@ import {
   watchlistsData,
 } from "@mocks/data/watchlistData";
 import { HttpResponse, http } from "msw";
+
 export default [
   // Watchlist 목록 조회
   http.get("/api/watchlists", () => {
