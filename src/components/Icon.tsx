@@ -20,12 +20,16 @@ import favoriteIcon from "@assets/icons/ic_favorite.svg";
 import favoriteAddIcon from "@assets/icons/ic_favorite_add.svg";
 import favoriteRemoveIcon from "@assets/icons/ic_favorite_remove.svg";
 import folderAddIcon from "@assets/icons/ic_folder-add.svg";
+import folderIcon from "@assets/icons/ic_folder.svg";
 import helpIcon from "@assets/icons/ic_help.svg";
 import hideIcon from "@assets/icons/ic_hide.svg";
 import indetIcon from "@assets/icons/ic_indet.svg";
 import infoIcon from "@assets/icons/ic_info.svg";
+import kebabVerticalIcon from "@assets/icons/ic_kebab-vertical.svg";
+import lineChartIcon from "@assets/icons/ic_line-chart.svg";
 import noneIcon from "@assets/icons/ic_none.svg";
 import notificationIcon from "@assets/icons/ic_notification.svg";
+import pieChartIcon from "@assets/icons/ic_pie-chart.svg";
 import refreshIcon from "@assets/icons/ic_refresh.svg";
 import removeIcon from "@assets/icons/ic_remove.svg";
 import searchIcon from "@assets/icons/ic_search.svg";
@@ -73,13 +77,17 @@ const icons = {
   "favorite": favoriteIcon,
   "favorite-add": favoriteAddIcon,
   "favorite-remove": favoriteRemoveIcon,
+  "folder": folderIcon,
   "folder-add": folderAddIcon,
   "help": helpIcon,
   "hide": hideIcon,
   "indet": indetIcon,
   "info": infoIcon,
+  "kebab-vertical": kebabVerticalIcon,
+  "line-chart": lineChartIcon,
   "none": noneIcon,
   "notification": notificationIcon,
+  "pie-chart": pieChartIcon,
   "refresh": refreshIcon,
   "remove": removeIcon,
   "search": searchIcon,
