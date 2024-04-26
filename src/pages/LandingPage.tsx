@@ -7,8 +7,8 @@ import portfolioImage2 from "@assets/images/img_portfolio2.svg";
 import portfolioImage3 from "@assets/images/img_portfolio3.svg";
 import landingTopBG from "@assets/images/landingTop.svg";
 import landingTopChart from "@assets/images/landingTopChart.png";
-import Footer from "@components/common/Footer";
-import Header from "@components/common/Header/Header";
+import Footer from "@components/Footer";
+import Header from "@components/Header/Header";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 

@@ -1,6 +1,6 @@
-import { refreshAccessToken } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
 import { BASE_API_URL } from "@constants/config";
+import { refreshAccessToken } from "@features/auth/api";
 import Routes from "@router/Routes";
 import axios from "axios";
 

@@ -2,8 +2,8 @@ import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import BaseDialog from "./BaseDialog";
-import Button from "./common/Buttons/Button";
-import { IconButton } from "./common/Buttons/IconButton";
+import Button from "./Buttons/Button";
+import { IconButton } from "./Buttons/IconButton";
 
 type Props = {
   isOpen: boolean;

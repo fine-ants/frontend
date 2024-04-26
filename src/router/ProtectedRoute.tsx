@@ -1,5 +1,5 @@
-import { User } from "@api/user/types";
-import Header from "@components/common/Header/Header";
+import Header from "@components/Header/Header";
+import { User } from "@features/user/api/types";
 import { Navigate, Outlet } from "react-router-dom";
 import Routes from "./Routes";
 

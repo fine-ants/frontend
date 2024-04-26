@@ -1,5 +1,5 @@
-import { OAuthProvider, SignInCredentials } from "@api/auth";
 import { HTTPSTATUS } from "@api/types";
+import { OAuthProvider, SignInCredentials } from "@features/auth/api";
 import {
   successfulEmailCodeVerificationData,
   successfulEmailDuplicationCheckData,

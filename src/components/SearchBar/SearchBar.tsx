@@ -1,7 +1,7 @@
-import { StockSearchItem } from "@api/stock";
-import useStockSearchQuery from "@api/stock/queries/useStockSearchQuery";
-import { IconButton } from "@components/common/Buttons/IconButton";
-import { Icon } from "@components/common/Icon";
+import { IconButton } from "@components/Buttons/IconButton";
+import { Icon } from "@components/Icon";
+import { StockSearchItem } from "@features/stock/api";
+import useStockSearchQuery from "@features/stock/api/queries/useStockSearchQuery";
 import { useDebounce } from "@fineants/demolition";
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 import designSystem from "@styles/designSystem";

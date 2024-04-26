@@ -1,20 +1,20 @@
-import { User } from "@api/user/types";
 import { WindowProvider } from "@context/WindowContext";
-import ActiveNotificationsPage from "@pages/ActiveNotificationsPage/ActiveNotificationsPage";
+import { User } from "@features/user/api/types";
 import DashboardPage from "@pages/DashboardPage";
 import GlobalErrorPage from "@pages/GlobalErrorPage";
 import IndicesPage from "@pages/IndicesPage";
 import LandingPage from "@pages/LandingPage";
 import NotFoundPage from "@pages/NotFoundPage";
-import PortfoliosListPage from "@pages/Portfolio/PortfolioListPage";
-import PortfolioPage from "@pages/Portfolio/PortfolioPage";
-import ProfilePage from "@pages/ProfilePage/ProfilePage";
-import SignInLoadingPage from "@pages/SignInPage/SignInLoadingPage";
-import SignInPage from "@pages/SignInPage/SignInPage";
-import SignUpPage from "@pages/SignUpPage/SignUpPage";
-import StockPage from "@pages/StockPage/StockPage";
-import WatchlistPage from "@pages/Watchlist/WatchlistPage";
-import WatchlistsPage from "@pages/Watchlist/WatchlistsPage";
+import PortfoliosListPage from "@pages/PortfolioListPage";
+import PortfolioPage from "@pages/PortfolioPage";
+import StockPage from "@pages/StockPage";
+import WatchlistPage from "@pages/WatchlistPage";
+import WatchlistsPage from "@pages/WatchlistsPage";
+import OAuthLoadingPage from "@pages/auth/OAuthLoadingPage";
+import SignInPage from "@pages/auth/SignInPage";
+import SignUpPage from "@pages/auth/signup/SignUpPage";
+import ActiveNotificationsPage from "@pages/notifications/ActiveNotificationsPage";
+import ProfilePage from "@pages/profile/ProfilePage";
 import {
   Route,
   createBrowserRouter,
@@ -32,7 +32,6 @@ const router = (user: User | null) =>
           <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
           <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
           <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
-          {/* <Route path={Routes.PORTFOLIOHOLDING} element={<PortfolioHoldingPage />}/> */}
           <Route path={Routes.WATCHLISTS} element={<WatchlistsPage />} />
           <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
           <Route
@@ -49,7 +48,7 @@ const router = (user: User | null) =>
             </WindowProvider>
           }>
           <Route index path={Routes.LANDING} element={<LandingPage />} />
-          <Route path={Routes.SIGNINLOADING} element={<SignInLoadingPage />} />
+          <Route path={Routes.OAUTHLOADING} element={<OAuthLoadingPage />} />
           <Route path={Routes.SIGNIN} element={<SignInPage />} />
           <Route path={Routes.SIGNUP} element={<SignUpPage />} />
         </Route>
