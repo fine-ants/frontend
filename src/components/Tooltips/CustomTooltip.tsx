@@ -3,7 +3,10 @@ import designSystem from "@styles/designSystem";
 import { ReactElement } from "react";
 import styled from "styled-components";
 
-type Props = TooltipProps & { children: ReactElement; smallPadding?: boolean };
+export type Props = TooltipProps & {
+  children: ReactElement;
+  smallPadding?: boolean;
+};
 
 export function CustomTooltip({ children, smallPadding, ...props }: Props) {
   return (
