@@ -1,4 +1,5 @@
 import { IconButton } from "@components/Buttons/IconButton";
+import ConditionalTooltip from "@components/Tooltips/ConditionalTooltip";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import usePortfolioNotificationSettingsMutation from "@features/notification/api/queries/usePortfolioNotificationSettingsMutation";
 import { PortfolioNotification } from "@features/notification/api/types";
@@ -12,8 +13,15 @@ type Props = {
 };
 
 export default function PortfolioNotificationRow({ row }: Props) {
-  const { portfolioId, securitiesFirm, name, targetGainNotify, maxLossNotify } =
-    row;
+  const {
+    portfolioId,
+    securitiesFirm,
+    name,
+    targetGainNotify,
+    maxLossNotify,
+    isTargetGainSet,
+    isMaxLossSet,
+  } = row;
 
   const { mutate } = usePortfolioNotificationSettingsMutation(portfolioId);
 
@@ -50,29 +58,51 @@ export default function PortfolioNotificationRow({ row }: Props) {
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "140px" }} align="center">
-        <IconButton
-          icon="notification"
-          size="h24"
-          iconColor="custom"
-          customColor={{
-            color: targetGainNotify ? "blue500" : "gray400",
-            hoverColor: "gray200",
-          }}
-          onClick={onTargetGainNotifyButtonClick}
-        />
+        <ConditionalTooltip
+          condition={isTargetGainSet}
+          tooltipProps={{
+            title: "포트폴리오 목표 수익률을 먼저 설정해주세요",
+            arrow: true,
+            placement: "bottom-end",
+          }}>
+          <div>
+            <IconButton
+              icon="notification"
+              size="h24"
+              iconColor="custom"
+              customColor={{
+                color: targetGainNotify ? "blue500" : "gray400",
+                hoverColor: "gray200",
+              }}
+              disabled={!isTargetGainSet}
+              onClick={onTargetGainNotifyButtonClick}
+            />
+          </div>
+        </ConditionalTooltip>
       </StyledTableCell>
 
       <StyledTableCell style={{ width: "140px" }} align="center">
-        <IconButton
-          icon="notification"
-          size="h24"
-          iconColor="custom"
-          customColor={{
-            color: maxLossNotify ? "blue500" : "gray400",
-            hoverColor: "gray200",
-          }}
-          onClick={onMaxLossNotifyButtonClick}
-        />
+        <ConditionalTooltip
+          condition={isMaxLossSet}
+          tooltipProps={{
+            title: "포트폴리오 최대 손실율을 먼저 설정해주세요",
+            arrow: true,
+            placement: "bottom-end",
+          }}>
+          <div>
+            <IconButton
+              icon="notification"
+              size="h24"
+              iconColor="custom"
+              customColor={{
+                color: maxLossNotify ? "blue500" : "gray400",
+                hoverColor: "gray200",
+              }}
+              disabled={!isMaxLossSet}
+              onClick={onMaxLossNotifyButtonClick}
+            />
+          </div>
+        </ConditionalTooltip>
       </StyledTableCell>
     </StyledPortfolioNotificationRow>
   );

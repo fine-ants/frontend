@@ -1,6 +1,7 @@
 import RateBadge from "@components/Badges/RateBadge";
 import { IconButton } from "@components/Buttons/IconButton";
 import { Icon } from "@components/Icon";
+import ConditionalTooltip from "@components/Tooltips/ConditionalTooltip";
 import { CustomTooltip } from "@components/Tooltips/CustomTooltip";
 import usePortfolioNotificationSettingsMutation from "@features/notification/api/queries/usePortfolioNotificationSettingsMutation";
 import { PortfolioDetails } from "@features/portfolio/api/types";
@@ -96,17 +97,27 @@ export default function PortfolioOverviewBody({ data }: Props) {
           <OverviewBodyData>
             <NotificationLabel>
               목표 수익률
-              <IconButton
-                icon="notification"
-                size="h24"
-                iconColor="custom"
-                customColor={{
-                  color: targetGainNotify ? "blue500" : "gray400",
-                  hoverColor: "gray50",
-                }}
-                disabled={targetGain === 0}
-                onClick={onTargetGainNotifyButtonClick}
-              />
+              <ConditionalTooltip
+                condition={targetGain !== 0}
+                tooltipProps={{
+                  title: "포트폴리오 목표 수익률을 먼저 설정해주세요",
+                  arrow: true,
+                  placement: "bottom-start",
+                }}>
+                <div>
+                  <IconButton
+                    icon="notification"
+                    size="h24"
+                    iconColor="custom"
+                    customColor={{
+                      color: targetGainNotify ? "blue500" : "gray400",
+                      hoverColor: "gray50",
+                    }}
+                    disabled={targetGain === 0}
+                    onClick={onTargetGainNotifyButtonClick}
+                  />
+                </div>
+              </ConditionalTooltip>
             </NotificationLabel>
             <span>
               {targetGain === 0 ? "-" : thousandsDelimiter(targetGain)}
@@ -127,17 +138,27 @@ export default function PortfolioOverviewBody({ data }: Props) {
           <OverviewBodyData>
             <NotificationLabel>
               최대 손실율
-              <IconButton
-                icon="notification"
-                size="h24"
-                iconColor="custom"
-                customColor={{
-                  color: maxLossNotify ? "blue500" : "gray400",
-                  hoverColor: "gray50",
-                }}
-                disabled={maximumLoss === 0}
-                onClick={onMaxLossNotifyButtonClick}
-              />
+              <ConditionalTooltip
+                condition={maximumLoss !== 0}
+                tooltipProps={{
+                  title: "포트폴리오 최대 손실율을 먼저 설정해주세요",
+                  arrow: true,
+                  placement: "bottom-start",
+                }}>
+                <div>
+                  <IconButton
+                    icon="notification"
+                    size="h24"
+                    iconColor="custom"
+                    customColor={{
+                      color: maxLossNotify ? "blue500" : "gray400",
+                      hoverColor: "gray50",
+                    }}
+                    disabled={maximumLoss === 0}
+                    onClick={onMaxLossNotifyButtonClick}
+                  />
+                </div>
+              </ConditionalTooltip>
             </NotificationLabel>
             <span>
               {maximumLoss === 0 ? "-" : thousandsDelimiter(maximumLoss)}

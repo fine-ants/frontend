@@ -58,6 +58,8 @@ export const portfolioNotifications = [
     name: "포트폴리오 1",
     targetGainNotify: true,
     maxLossNotify: true,
+    isTargetGainSet: true,
+    isMaxLossSet: true,
     lastUpdated: "2024-01-29T10:10:10",
   },
   {
@@ -66,6 +68,8 @@ export const portfolioNotifications = [
     name: "포트폴리오 2",
     targetGainNotify: true,
     maxLossNotify: false,
+    isTargetGainSet: true,
+    isMaxLossSet: false,
     lastUpdated: "2024-01-28T10:10:10",
   },
 ];
