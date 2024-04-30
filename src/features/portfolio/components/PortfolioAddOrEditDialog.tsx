@@ -80,12 +80,18 @@ export default function PortfolioAddOrEditDialog({
   };
 
   // Target Gain states
+  const targetGainInitialValue = portfolioDetails?.targetGain;
+  const targetReturnRateInitialValue = portfolioDetails?.targetReturnRate;
   const { value: targetGain, onChange: onTargetGainChange } = useText({
-    initialValue: portfolioDetails?.targetGain.toString(),
+    initialValue:
+      targetGainInitialValue === 0 ? "" : targetGainInitialValue?.toString(),
   });
   const { value: targetReturnRate, onChange: onTargetReturnRateChange } =
     useText({
-      initialValue: portfolioDetails?.targetReturnRate.toString(),
+      initialValue:
+        targetReturnRateInitialValue === 0
+          ? ""
+          : targetReturnRateInitialValue?.toString(),
     });
   const targetGainHandler = useCallback(
     (value: string) => {
@@ -128,12 +134,18 @@ export default function PortfolioAddOrEditDialog({
   );
 
   // Maximum Loss states
+  const maximumLossInitialValue = portfolioDetails?.maximumLoss;
+  const maximumLossRateInitialValue = portfolioDetails?.maximumLossRate;
   const { value: maximumLoss, onChange: onMaximumLossChange } = useText({
-    initialValue: portfolioDetails?.maximumLoss.toString(),
+    initialValue:
+      maximumLossInitialValue === 0 ? "" : maximumLossInitialValue?.toString(),
   });
   const { value: maximumLossRate, onChange: onMaximumLossRateChange } = useText(
     {
-      initialValue: portfolioDetails?.maximumLossRate.toString(),
+      initialValue:
+        maximumLossRateInitialValue === 0
+          ? ""
+          : maximumLossRateInitialValue?.toString(),
     }
   );
   const maximumLossHandler = useCallback(

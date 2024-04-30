@@ -124,36 +124,33 @@ export default [
   }),
 
   // Edit Portfolio Details
-  http.put<
-    { portfolioId: string },
-    {
-      portfolioId: number;
-      body: PortfolioReqBody;
+  http.put<{ portfolioId: string }, PortfolioReqBody>(
+    "/api/portfolios/:portfolioId",
+    async ({ request, params }) => {
+      const { portfolioId } = params;
+      const { budget, targetGain, maximumLoss } = await request.json();
+
+      const targetReturnRate = Number(
+        calculateRate(targetGain.toString(), budget.toString())
+      );
+      const maximumLossRate = ((budget - maximumLoss) / budget) * 100;
+
+      portfolioDetailsData[Number(portfolioId) - 1] = {
+        ...portfolioDetailsData[Number(portfolioId) - 1],
+        ...{
+          budget,
+          targetGain,
+          maximumLoss,
+          targetReturnRate,
+          maximumLossRate,
+        },
+      } as PortfolioDetails;
+
+      return HttpResponse.json(successfulPortfolioEditResponse, {
+        status: HTTPSTATUS.success,
+      });
     }
-  >("/api/portfolios/:portfolioId", async ({ request, params }) => {
-    const { portfolioId } = params;
-    const { budget, targetGain, maximumLoss } = (await request.json()).body;
-
-    const targetReturnRate = Number(
-      calculateRate(targetGain.toString(), budget.toString())
-    );
-    const maximumLossRate = ((budget - maximumLoss) / budget) * 100;
-
-    portfolioDetailsData[Number(portfolioId) - 1] = {
-      ...portfolioDetailsData[Number(portfolioId) - 1],
-      ...{
-        budget,
-        targetGain,
-        maximumLoss,
-        targetReturnRate,
-        maximumLossRate,
-      },
-    } as PortfolioDetails;
-
-    return HttpResponse.json(successfulPortfolioEditResponse, {
-      status: HTTPSTATUS.success,
-    });
-  }),
+  ),
 
   // Add Portfolio Holding
   http.post<
