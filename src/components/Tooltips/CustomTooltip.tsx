@@ -17,8 +17,13 @@ export function CustomTooltip({ children, smallPadding, ...props }: Props) {
 }
 
 const StyledCustomTooltip = styled(
-  ({ className, ...props }: TooltipProps & { $smallPadding?: boolean }) => (
+  ({
+    className,
+    arrow = true,
+    ...props
+  }: TooltipProps & { $smallPadding?: boolean }) => (
     <Tooltip
+      arrow={arrow}
       {...props}
       PopperProps={{
         className,
@@ -26,7 +31,7 @@ const StyledCustomTooltip = styled(
           {
             name: "offset",
             options: {
-              offset: props.arrow ? [0, -5] : [0, -10],
+              offset: arrow ? [0, -5] : [0, -10],
             },
           },
         ],

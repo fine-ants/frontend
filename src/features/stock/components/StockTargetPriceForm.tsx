@@ -37,7 +37,6 @@ export default function StockTargetPriceForm() {
     <Form onSubmit={onSubmit}>
       <InputContainer>
         <CustomTooltip
-          arrow
           placement="bottom-start"
           title="종목 지정가 알림은 최대 5개까지 추가할 수 있습니다">
           <InputLabel>

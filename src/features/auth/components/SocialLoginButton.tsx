@@ -89,8 +89,7 @@ export default function SocialLoginButton({ provider }: Props) {
         <CustomTooltip
           title="최근 사용한 로그인 방법입니다"
           open={isTooltipOpen}
-          placement="top"
-          arrow>
+          placement="top">
           {socialLoginButton}
         </CustomTooltip>
       )

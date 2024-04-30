@@ -75,7 +75,6 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </OverviewBodyData>
           <OverviewBodyData>
             <CustomTooltip
-              arrow
               placement="bottom-start"
               title={
                 <p>
@@ -101,7 +100,6 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 condition={targetGain !== 0}
                 tooltipProps={{
                   title: "포트폴리오 목표 수익률을 먼저 설정해주세요",
-                  arrow: true,
                   placement: "bottom-start",
                 }}>
                 <div>
@@ -142,7 +140,6 @@ export default function PortfolioOverviewBody({ data }: Props) {
                 condition={maximumLoss !== 0}
                 tooltipProps={{
                   title: "포트폴리오 최대 손실율을 먼저 설정해주세요",
-                  arrow: true,
                   placement: "bottom-start",
                 }}>
                 <div>
@@ -221,7 +218,6 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </div>
           <OverviewBodyData>
             <CustomTooltip
-              arrow
               placement="bottom-start"
               title={
                 <p style={{ font: designSystem.font.body4.font }}>

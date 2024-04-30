@@ -15,6 +15,8 @@ export default function ConditionalTooltip({
   return condition ? (
     children
   ) : (
-    <CustomTooltip {...tooltipProps}>{children}</CustomTooltip>
+    <CustomTooltip arrow={true} {...tooltipProps}>
+      {children}
+    </CustomTooltip>
   );
 }
