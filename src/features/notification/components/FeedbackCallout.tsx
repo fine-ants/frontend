@@ -1,10 +1,10 @@
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
-import { NotificationSettingsDialog } from "@features/notification/components/NotificationPanel/NotificationSettingsDialog";
 import { UserContext } from "@features/user/context/UserContext";
 import designSystem from "@styles/designSystem";
 import { useContext, useState } from "react";
 import styled from "styled-components";
+import { NotificationSettingsDialog } from "./NotificaitonSettingsDialog/NotificationSettingsDialog";
 
 type Props = {
   message: string;
