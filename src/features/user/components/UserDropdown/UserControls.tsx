@@ -1,4 +1,4 @@
-import { NotificationControl } from "@features/notification/components/NotificationPanel/NotificationControl";
+import { NotificationControl } from "@features/notification/components/NotificationControl/NotificationControl";
 import { User } from "@features/user/api/types";
 import styled from "styled-components";
 import UserDropdown from "./UserDropdown";
