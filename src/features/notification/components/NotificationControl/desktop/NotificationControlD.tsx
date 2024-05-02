@@ -33,15 +33,13 @@ export function NotificationControlD({
   return (
     <>
       <ControlButton count={count} onClick={handleOpen} />
-      {notifications && (
-        <NotificationPanelD
-          user={user}
-          anchorEl={anchorEl}
-          open={open}
-          notifications={notifications}
-          handleClose={handleClose}
-        />
-      )}
+      <NotificationPanelD
+        user={user}
+        anchorEl={anchorEl}
+        open={open}
+        notifications={notifications}
+        handleClose={handleClose}
+      />
     </>
   );
 }
