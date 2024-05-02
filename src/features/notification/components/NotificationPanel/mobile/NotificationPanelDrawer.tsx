@@ -146,17 +146,14 @@ const ContentItem = styled.ul`
   align-items: center;
   gap: 8px;
 
-  & button {
-    width: 100%;
-    height: 100%;
-  }
-
   &:active {
     background-color: ${designSystem.color.neutral.gray50};
   }
 `;
 
 const StyledButton = styled.button`
+  width: 100%;
+  height: 100%;
   display: flex;
   gap: 8px;
   align-items: center;
