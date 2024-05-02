@@ -26,7 +26,8 @@ export function NotificationPanelHeaderM({
         <IconButton
           icon="arrow-left"
           size="h40"
-          iconColor="gray"
+          iconColor="custom"
+          customColor={{ color: "gray800", hoverColor: "gray50" }}
           onClick={handleClose}
         />
         <PanelTitle>알림</PanelTitle>
@@ -52,7 +53,7 @@ const PanelHeader = styled.header`
 const PanelTitle = styled.div`
   font: ${designSystem.font.title3.font};
   letter-spacing: ${designSystem.font.title3.letterSpacing};
-  color: ${designSystem.color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray900};
   display: flex;
   align-items: center;
 `;

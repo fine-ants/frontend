@@ -73,14 +73,12 @@ export default function NotificationPanelDrawer({
       <IconButton
         icon="kebab-vertical"
         size="h40"
-        iconColor="gray"
+        iconColor="custom"
+        customColor={{ color: "gray800", hoverColor: "gray50" }}
         onClick={openDrawer}
       />
       <ThemeProvider theme={theme}>
         <SwipeableDrawer
-          sx={{
-            zIndex: 1400,
-          }}
           anchor="bottom"
           open={isOpenDrawer}
           onClose={closeDrawer}

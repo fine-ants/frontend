@@ -17,7 +17,8 @@ export function NotificationSettingsHeader({ onClose }: Props) {
           <IconButton
             icon="close"
             size="h40"
-            iconColor="gray"
+            iconColor="custom"
+            customColor={{ color: "gray800", hoverColor: "gray50" }}
             onClick={onClose}
           />
         </ButtonWrapper>
@@ -50,7 +51,7 @@ const Title = styled.div<{ $isMobile: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${designSystem.color.neutral.gray800};
+  color: ${designSystem.color.neutral.gray900};
   font: ${({ $isMobile }) =>
     $isMobile
       ? designSystem.font.title3.font
