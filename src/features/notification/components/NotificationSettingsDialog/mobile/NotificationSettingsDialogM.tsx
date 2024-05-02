@@ -16,13 +16,13 @@ export function NotificationSettingsDialogM({ user, isOpen, onClose }: Props) {
       fullScreen
       open={isOpen}
       onClose={onClose}
-      TransitionComponent={Transition}>
+      TransitionComponent={TransitionComponent}>
       <NotificationSettingsContent user={user} onClose={onClose} />
     </Dialog>
   );
 }
 
-const Transition = React.forwardRef(function Transition(
+const TransitionComponent = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
   },
