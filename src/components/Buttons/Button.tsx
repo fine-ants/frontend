@@ -9,7 +9,7 @@ import {
 import styled from "styled-components";
 
 export type Variant = "primary" | "secondary" | "tertiary";
-type Size = "h24" | "h32" | "h44";
+type Size = "h24" | "h32" | "h40" | "h44" | "h48";
 
 export type ButtonProps = {
   variant: Variant;
@@ -62,11 +62,11 @@ const StyledButton = styled.button<{
       case "h24":
         return "56px";
       case "h32":
+      case "h40":
         return "80px";
       case "h44":
+      case "h48":
         return "128px";
-      default:
-        throw new Error("버튼 사이즈가 잘못되었습니다.");
     }
   }};
   height: ${({ $size }) => {
@@ -75,10 +75,12 @@ const StyledButton = styled.button<{
         return "24px";
       case "h32":
         return "32px";
+      case "h40":
+        return "40px";
       case "h44":
         return "44px";
-      default:
-        throw new Error("버튼 사이즈가 잘못되었습니다.");
+      case "h48":
+        return "48px";
     }
   }};
   padding-inline: ${({ $size }) => ($size === "h32" ? "12px" : "16px")};
@@ -100,11 +102,18 @@ const StyledButton = styled.button<{
         return $disabled
           ? designSystem.color.neutral.gray50
           : designSystem.color.neutral.white;
-      default:
-        throw new Error("버튼 타입이 잘못되었습니다.");
     }
   }};
-  border-radius: ${({ $size }) => ($size === "h32" ? "3px" : "4px")};
+  border-radius: ${({ $size }) => {
+    switch ($size) {
+      case "h24":
+        return "2px";
+      case "h32":
+        return "3px";
+      default:
+        return "4px";
+    }
+  }};
   border: ${({ $variant, $disabled }) => {
     switch ($variant) {
       case "primary":
@@ -122,11 +131,11 @@ const StyledButton = styled.button<{
     }
   }};
   font: ${({ $size }) =>
-    $size === "h44"
+    $size === "h44" || $size === "h48"
       ? designSystem.font.button1.font
       : designSystem.font.button2.font};
   letter-spacing: ${({ $size }) =>
-    $size === "h44"
+    $size === "h44" || $size === "h48"
       ? designSystem.font.button1.letterSpacing
       : designSystem.font.button2.letterSpacing};
   color: ${({ $variant, $disabled }) => {
