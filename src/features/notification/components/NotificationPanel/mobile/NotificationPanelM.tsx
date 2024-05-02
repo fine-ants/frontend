@@ -23,9 +23,6 @@ export function NotificationPanelM({
   return (
     <ThemeProvider theme={theme}>
       <SwipeableDrawer
-        sx={{
-          zIndex: 1400,
-        }}
         anchor="right"
         open={open}
         onClose={handleClose}
