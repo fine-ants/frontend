@@ -1,12 +1,12 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import { Icon, IconType } from "@components/Icon";
 import useDeleteAllMemberNotificationsMutation from "@features/notification/api/queries/useDeleteAllMemberNotificationsMutation";
-import { NotificationSettingsDialog } from "@features/notification/components/NotificaitonSettingsDialog/NotificationSettingsDialog";
 import { User } from "@features/user/api/types";
 import { useBoolean } from "@hooks/useBoolean";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
+import { NotificationSettingsDialog } from "../../NotificationSettingsDialog/NotificationSettingsDialog";
 
 type Props = {
   user: User;

@@ -1,11 +1,11 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
-import { NotificationSettingsDialog } from "@features/notification/components/NotificaitonSettingsDialog/NotificationSettingsDialog";
 import { User } from "@features/user/api/types";
 import { useBoolean } from "@hooks/useBoolean";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { NotificationSettingsDialog } from "../../NotificationSettingsDialog/NotificationSettingsDialog";
 
 type Props = {
   user: User;

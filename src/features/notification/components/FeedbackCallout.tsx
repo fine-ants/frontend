@@ -4,7 +4,7 @@ import { UserContext } from "@features/user/context/UserContext";
 import designSystem from "@styles/designSystem";
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import { NotificationSettingsDialog } from "./NotificaitonSettingsDialog/NotificationSettingsDialog";
+import { NotificationSettingsDialog } from "./NotificationSettingsDialog/NotificationSettingsDialog";
 
 type Props = {
   message: string;
