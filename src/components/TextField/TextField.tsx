@@ -1,5 +1,6 @@
 import { InputAdornment } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import designSystem from "@styles/designSystem";
+import { ChangeEvent, ReactNode, useState } from "react";
 import styled from "styled-components";
 import { IconButton } from "../Buttons/IconButton";
 import { BaseTextField } from "./BaseTextField";
@@ -11,9 +12,12 @@ type Props = {
   error?: boolean;
   errorText?: string;
   placeholder?: string;
+  startAdornment?: ReactNode;
+  endAdornment?: ReactNode;
+  disabled?: boolean;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  clearValue: () => void;
+  clearValue?: () => void;
 };
 
 export function TextField({
@@ -22,6 +26,9 @@ export function TextField({
   error,
   errorText,
   placeholder,
+  startAdornment,
+  endAdornment,
+  disabled = false,
   value,
   onChange,
   clearValue,
@@ -49,8 +56,17 @@ export function TextField({
         onFocus={handleFocus}
         onBlur={handleBlur}
         placeholder={placeholder}
+        disabled={disabled}
+        startAdornment={
+          startAdornment && (
+            <InputAdornment position="start" sx={startAdornmentSx}>
+              {startAdornment}
+            </InputAdornment>
+          )
+        }
         endAdornment={
-          isFocused && (
+          <InputAdornment position="end">{endAdornment}</InputAdornment> ??
+          (isFocused && (
             <InputAdornment position="end">
               <IconButton
                 icon="close"
@@ -63,7 +79,7 @@ export function TextField({
                 onClick={clearValue}
               />
             </InputAdornment>
-          )
+          ))
         }
       />
       {isError && errorText && <ErrorText>{errorText}</ErrorText>}
@@ -75,3 +91,7 @@ const StyledTextFieldWrapper = styled.div`
   width: 100%;
   position: relative;
 `;
+
+const startAdornmentSx = {
+  color: designSystem.color.neutral.gray600,
+};
