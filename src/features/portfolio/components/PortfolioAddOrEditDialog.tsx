@@ -230,14 +230,13 @@ export default function PortfolioAddOrEditDialog({
 
   const maximumLossHandler = useCallback(
     (value: string) => {
-      onMaximumLossChange(value === "-" ? "" : value);
+      const isOnlyNegativeSign = value === "-";
 
-      const newRate =
-        value === "-"
-          ? ""
-          : removeNegativeSign(
-              calcNewMaxLossRateBasedOnValue(value).toString()
-            );
+      onMaximumLossChange(isOnlyNegativeSign ? "" : value);
+
+      const newRate = isOnlyNegativeSign
+        ? ""
+        : removeNegativeSign(calcNewMaxLossRateBasedOnValue(value).toString());
       onMaximumLossRateChange(newRate);
     },
     [
