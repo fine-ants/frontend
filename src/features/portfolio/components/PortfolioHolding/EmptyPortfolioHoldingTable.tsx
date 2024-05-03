@@ -1,13 +1,17 @@
 import noHoldingStockImg from "@assets/images/no_holdings_stock.png";
 import Button from "@components/Buttons/Button";
 import { Icon } from "@components/Icon";
+import { useBoolean } from "@hooks/useBoolean";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import styled from "styled-components";
 import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
 
 export default function EmptyPortfolioHoldingTable() {
-  const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
+  const {
+    state: isAddHoldingDialogOpen,
+    setTrue: onDialogOpen,
+    setFalse: onDialogClose,
+  } = useBoolean();
 
   return (
     <>
@@ -18,10 +22,7 @@ export default function EmptyPortfolioHoldingTable() {
           <div>종목을 추가하세요</div>
           <span>보유한 종목을 추가하여 포트폴리오 관리를 시작하세요</span>
         </TextBox>
-        <Button
-          variant="primary"
-          size="h32"
-          onClick={() => setIsAddHoldingDialogOpen(true)}>
+        <Button variant="primary" size="h32" onClick={onDialogOpen}>
           <Icon icon="add" size={16} color="white" />
           종목 추가
         </Button>
@@ -30,7 +31,7 @@ export default function EmptyPortfolioHoldingTable() {
       {isAddHoldingDialogOpen && (
         <PortfolioHoldingAddDialog
           isOpen={isAddHoldingDialogOpen}
-          onClose={() => setIsAddHoldingDialogOpen(false)}
+          onClose={onDialogClose}
         />
       )}
     </>

@@ -1,10 +1,11 @@
+import { useBoolean } from "@hooks/useBoolean";
 import {
   InputBase,
   Select as MuiSelect,
   SelectChangeEvent,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import styled from "styled-components";
 import { Icon } from "../Icon";
 
@@ -30,7 +31,7 @@ export default function Select({
   changeSelectedValue,
   children,
 }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+  const { state: isOpen, setTrue: onOpen, setFalse: onClose } = useBoolean();
 
   const onChange = (event: SelectChangeEvent) => {
     changeSelectedValue(event.target.value as string);
@@ -41,8 +42,8 @@ export default function Select({
       value={selectedValue}
       onChange={onChange}
       open={isOpen}
-      onOpen={() => setIsOpen(true)}
-      onClose={() => setIsOpen(false)}
+      onOpen={onOpen}
+      onClose={onClose}
       input={<BootstrapInput $size={size} $isOpen={isOpen} />}
       SelectDisplayProps={{
         style: {

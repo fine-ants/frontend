@@ -1,5 +1,6 @@
+import { useBoolean } from "@hooks/useBoolean";
 import { InputAdornment } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import styled from "styled-components";
 import { IconButton } from "../Buttons/IconButton";
 import { BaseTextField } from "./BaseTextField";
@@ -26,15 +27,11 @@ export function TextField({
   onChange,
   clearValue,
 }: Props) {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
+  const {
+    state: isFocused,
+    setTrue: handleFocus,
+    setFalse: handleBlur,
+  } = useBoolean();
 
   const isError = value !== "" && error;
 

@@ -1,22 +1,17 @@
 import emptyPortfolioImg from "@assets/images/empty_portfolio.svg";
 import Button from "@components/Buttons/Button";
 import { Icon } from "@components/Icon";
+import { useBoolean } from "@hooks/useBoolean";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import styled from "styled-components";
 import PortfolioAddDialog from "../PortfolioAddOrEditDialog";
 
 export default function EmptyPortfolioListTable() {
-  const [isAddPortfolioDialogOpen, setIsAddPortfolioDialogOpen] =
-    useState(false);
-
-  const onAddPortfolioButtonClick = () => {
-    setIsAddPortfolioDialogOpen(true);
-  };
-
-  const onAddPortfolioDialogClose = () => {
-    setIsAddPortfolioDialogOpen(false);
-  };
+  const {
+    state: isAddPortfolioDialogOpen,
+    setTrue: onAddPortfolioButtonClick,
+    setFalse: onAddPortfolioDialogClose,
+  } = useBoolean();
 
   return (
     <StyledEmptyPortfolioListTable>

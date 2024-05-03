@@ -3,6 +3,7 @@ import { Icon } from "@components/Icon";
 import { StockSearchItem } from "@features/stock/api";
 import useStockSearchQuery from "@features/stock/api/queries/useStockSearchQuery";
 import { useDebounce } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { SyntheticEvent, useState } from "react";
@@ -45,15 +46,7 @@ export default function SearchBar({
     );
   }
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onOpen = () => {
-    setIsOpen(true);
-  };
-
-  const onClose = () => {
-    setIsOpen(false);
-  };
+  const { state: isOpen, setTrue: onOpen, setFalse: onClose } = useBoolean();
 
   const [value, setValue] = useState<StockSearchItem | null>(null);
   const [searchInputValue, setSearchInputValue] = useState("");

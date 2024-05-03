@@ -3,9 +3,10 @@ import useDeleteMemberNotificationsMutation from "@features/notification/api/que
 import { MemberNotification } from "@features/notification/api/types";
 import { User } from "@features/user/api/types";
 import { getElapsedSince, thousandsDelimiter } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -19,7 +20,7 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
   const navigate = useNavigate();
 
   const { isMobile } = useResponsiveLayout();
-  const [isHover, setIsHover] = useState(false);
+  const { state: isHover, setTrue: setHover, setFalse: setBlur } = useBoolean();
 
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
 
@@ -48,10 +49,7 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
   };
 
   return (
-    <div
-      onClick={navigateToPage}
-      onMouseOver={() => setIsHover(true)}
-      onMouseOut={() => setIsHover(false)}>
+    <div onClick={navigateToPage} onMouseOver={setHover} onMouseOut={setBlur}>
       <StyledItemContainer>
         <LeftContainer>
           <StyledTitle>{title}</StyledTitle>
