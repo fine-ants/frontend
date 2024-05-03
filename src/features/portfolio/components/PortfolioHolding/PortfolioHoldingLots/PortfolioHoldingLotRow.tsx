@@ -54,8 +54,8 @@ export default function PortfolioHoldingStyledTableRow({
 
   const {
     state: isEditing,
-    setTrue: onEditClick,
-    setFalse: setEditingFalse,
+    setTrue: onEdit,
+    setFalse: onEditCancel,
   } = useBoolean();
   const {
     state: isDeleteConfirmAlertOpen,
@@ -110,7 +110,7 @@ export default function PortfolioHoldingStyledTableRow({
       },
     });
 
-    setEditingFalse();
+    onEditCancel();
   };
 
   const onDeleteConfirm = () => {
@@ -200,7 +200,7 @@ export default function PortfolioHoldingStyledTableRow({
               icon="edit"
               size="h24"
               iconColor="gray"
-              onClick={onEditClick}
+              onClick={onEdit}
             />
           </StyledTableCell>
           <StyledTableCell

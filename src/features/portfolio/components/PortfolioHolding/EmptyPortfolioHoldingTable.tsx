@@ -9,8 +9,8 @@ import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
 export default function EmptyPortfolioHoldingTable() {
   const {
     state: isAddHoldingDialogOpen,
-    setTrue: dialogOpen,
-    setFalse: dialogClose,
+    setTrue: onDialogOpen,
+    setFalse: onDialogClose,
   } = useBoolean();
 
   return (
@@ -22,7 +22,7 @@ export default function EmptyPortfolioHoldingTable() {
           <div>종목을 추가하세요</div>
           <span>보유한 종목을 추가하여 포트폴리오 관리를 시작하세요</span>
         </TextBox>
-        <Button variant="primary" size="h32" onClick={dialogOpen}>
+        <Button variant="primary" size="h32" onClick={onDialogOpen}>
           <Icon icon="add" size={16} color="white" />
           종목 추가
         </Button>
@@ -31,7 +31,7 @@ export default function EmptyPortfolioHoldingTable() {
       {isAddHoldingDialogOpen && (
         <PortfolioHoldingAddDialog
           isOpen={isAddHoldingDialogOpen}
-          onClose={dialogClose}
+          onClose={onDialogClose}
         />
       )}
     </>

@@ -28,7 +28,7 @@ export default function PortfolioListTableToolBar({
   } = useBoolean();
 
   const {
-    state: isConfirmOpen,
+    state: isDeleteConfirmOpen,
     setTrue: onDeletePortfoliosButtonClick,
     setFalse: onDeletePortfoliosAlertClose,
   } = useBoolean();
@@ -82,9 +82,9 @@ export default function PortfolioListTableToolBar({
         />
       )}
 
-      {isConfirmOpen && (
+      {isDeleteConfirmOpen && (
         <ConfirmAlert
-          isOpen={isConfirmOpen}
+          isOpen={isDeleteConfirmOpen}
           title="포트폴리오 삭제"
           onClose={onDeletePortfoliosAlertClose}
           onConfirm={onConfirmAction}>
