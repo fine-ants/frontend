@@ -1,7 +1,7 @@
 import { useBoolean } from "@hooks/useBoolean";
 import { InputAdornment } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ChangeEvent, ReactNode } from "react";
 import styled from "styled-components";
 import { IconButton } from "../Buttons/IconButton";
 import { BaseTextField } from "./BaseTextField";
