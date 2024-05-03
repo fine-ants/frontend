@@ -3,9 +3,9 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import { WatchlistsType } from "@features/watchlist/api";
 import useWatchlistsDeleteMutation from "@features/watchlist/api/queries/useWatchlistsDeleteMutation";
+import { useBoolean } from "@hooks/useBoolean";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import styled from "styled-components";
 import NewWatchlistDialog from "../NewWatchlistDialog";
 
@@ -21,25 +21,16 @@ export default function WatchlistsTableToolBar({
   const { mutateAsync: watchlistsDeleteMutateAsync } =
     useWatchlistsDeleteMutation();
 
-  const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
-    useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  const onAddNewWatchlistButtonClick = () => {
-    setIsNewWatchlistDialogOpen(true);
-  };
-
-  const onNewWatchlistDialogClose = () => {
-    setIsNewWatchlistDialogOpen(false);
-  };
-
-  const onDeleteWatchlistsButtonClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onDeleteWatchlistsAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
+  const {
+    state: isNewWatchlistDialogOpen,
+    setTrue: onAddNewWatchlistButtonClick,
+    setFalse: onNewWatchlistDialogClose,
+  } = useBoolean();
+  const {
+    state: isConfirmOpen,
+    setTrue: onDeleteWatchlistsButtonClick,
+    setFalse: onDeleteWatchlistsAlertClose,
+  } = useBoolean();
 
   const onConfirmAction = async () => {
     const selectedWatchlistIds = selected.map((item) => item.id);

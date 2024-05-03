@@ -1,33 +1,16 @@
-import {
-  removeThousandsDelimiter,
-  thousandsDelimiter,
-} from "@fineants/demolition";
-
-export const calculateRate = (val1: string, val2: string) => {
-  const parsedVal1 = Number(removeThousandsDelimiter(val1));
-  const parsedVal2 = Number(removeThousandsDelimiter(val2));
-
-  const rate = ((parsedVal1 - parsedVal2) / parsedVal2) * 100;
-
-  return thousandsDelimiter(applyDecimals(rate));
+export const calculateRate = (val1: number, val2: number) => {
+  const rate = ((val1 - val2) / val2) * 100;
+  return rate;
 };
 
-export const calculateLossRate = (val1: string, val2: string) => {
-  const parsedVal1 = Number(removeThousandsDelimiter(val1));
-  const parsedVal2 = Number(removeThousandsDelimiter(val2));
-
-  const rate = ((parsedVal1 - parsedVal2) / parsedVal1) * 100;
-
-  return thousandsDelimiter(applyDecimals(rate));
+export const calculateLossRate = (val1: number, val2: number) => {
+  const rate = ((val1 - val2) / val1) * 100;
+  return rate;
 };
 
-export const calculateValueFromRate = (rate: string, base: string) => {
-  const parsedRate = Number(removeThousandsDelimiter(rate));
-  const parsedBase = Number(removeThousandsDelimiter(base));
-
-  const value = parsedBase + (parsedRate / 100) * parsedBase;
-
-  return thousandsDelimiter(applyDecimals(value));
+export const calculateValueFromRate = (rate: number, base: number) => {
+  const value = base + (rate / 100) * base;
+  return value;
 };
 
 export function applyDecimals(value: number, decimalPlaces: number = 2) {
@@ -36,4 +19,8 @@ export function applyDecimals(value: number, decimalPlaces: number = 2) {
   } else {
     return parseFloat(value.toFixed(decimalPlaces));
   }
+}
+
+export function removeNegativeSign(value: string) {
+  return value.replace("-", "");
 }

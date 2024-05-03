@@ -10,6 +10,7 @@ import {
   thousandsDelimiter,
   useText,
 } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
@@ -51,9 +52,16 @@ export default function PortfolioHoldingStyledTableRow({
       purchaseHistoryId,
     });
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [isDeleteConfirmAlertOpen, setIsDeleteConfirmAlertOpen] =
-    useState(false);
+  const {
+    state: isEditing,
+    setTrue: onEdit,
+    setFalse: onEditCancel,
+  } = useBoolean();
+  const {
+    state: isDeleteConfirmAlertOpen,
+    setTrue: onOpenDeleteConfirmAlert,
+    setFalse: onCloseDeleteConfirmAlert,
+  } = useBoolean();
 
   const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
     dayjs(purchaseDate)
@@ -86,10 +94,6 @@ export default function PortfolioHoldingStyledTableRow({
 
   const [newMemo, setNewMemo] = useState(memo ?? "");
 
-  const onEditClick = () => {
-    setIsEditing(true);
-  };
-
   const onSaveClick = () => {
     // TODO: Handle error
     portfolioHoldingPurchaseEditMutate({
@@ -106,15 +110,7 @@ export default function PortfolioHoldingStyledTableRow({
       },
     });
 
-    setIsEditing(false);
-  };
-
-  const onOpenDeleteConfirmAlert = () => {
-    setIsDeleteConfirmAlertOpen(true);
-  };
-
-  const onCloseDeleteConfirmAlert = () => {
-    setIsDeleteConfirmAlertOpen(false);
+    onEditCancel();
   };
 
   const onDeleteConfirm = () => {
@@ -204,7 +200,7 @@ export default function PortfolioHoldingStyledTableRow({
               icon="edit"
               size="h24"
               iconColor="gray"
-              onClick={onEditClick}
+              onClick={onEdit}
             />
           </StyledTableCell>
           <StyledTableCell

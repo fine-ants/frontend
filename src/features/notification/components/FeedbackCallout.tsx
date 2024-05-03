@@ -1,10 +1,11 @@
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
-import { NotificationSettingsDialog } from "@features/notification/components/NotificationPanel/NotificationSettingsDialog";
 import { UserContext } from "@features/user/context/UserContext";
+import { useBoolean } from "@hooks/useBoolean";
 import designSystem from "@styles/designSystem";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
+import { NotificationSettingsDialog } from "./NotificationSettingsDialog/NotificationSettingsDialog";
 
 type Props = {
   message: string;
@@ -12,15 +13,11 @@ type Props = {
 
 export function FeedbackCallout({ message }: Props) {
   const { user } = useContext(UserContext);
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
-
-  const openDialog = () => {
-    setIsOpenDialog(true);
-  };
-
-  const closeDialog = () => {
-    setIsOpenDialog(false);
-  };
+  const {
+    state: isOpenDialog,
+    setTrue: openDialog,
+    setFalse: closeDialog,
+  } = useBoolean();
 
   return (
     <>

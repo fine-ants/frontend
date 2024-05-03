@@ -6,9 +6,10 @@ import usePasswordEditMutation from "@features/user/api/queries/usePasswordEditM
 import AccountDeleteDialog from "@features/user/components/AccountDeleteDialog";
 import { UserContext } from "@features/user/context/UserContext";
 import { useText, validatePassword } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -22,8 +23,11 @@ export default function AccountSettingsSubPage() {
 
   const { user } = useContext(UserContext);
 
-  const [isAccountDeleteDialogOpen, setIsAccountDeleteDialogOpen] =
-    useState(false);
+  const {
+    state: isAccountDeleteDialogOpen,
+    setTrue: deleteDialogOpen,
+    setFalse: deleteDialogClose,
+  } = useBoolean();
 
   const {
     value: currentPasswordValue,
@@ -66,10 +70,6 @@ export default function AccountSettingsSubPage() {
       newPassword: newPasswordValue,
       newPasswordConfirm: newPasswordConfirmValue,
     });
-  };
-
-  const onAccountDeleteClick = () => {
-    setIsAccountDeleteDialogOpen(true);
   };
 
   const newPasswordIsErrorExtended =
@@ -178,14 +178,14 @@ export default function AccountSettingsSubPage() {
         type="button"
         variant="underline"
         color="gray"
-        onClick={onAccountDeleteClick}>
+        onClick={deleteDialogOpen}>
         계정 삭제하기
       </AccountDeactivationButton>
 
       {isAccountDeleteDialogOpen && (
         <AccountDeleteDialog
           isOpen={isAccountDeleteDialogOpen}
-          onClose={() => setIsAccountDeleteDialogOpen(false)}
+          onClose={deleteDialogClose}
         />
       )}
     </Form>
