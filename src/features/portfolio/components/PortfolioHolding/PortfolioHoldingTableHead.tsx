@@ -168,8 +168,7 @@ export default function PortfolioHoldingTableHead({
               {headCell.label === "연 배당금" ? (
                 <CustomTooltip
                   title="해당 값은 예상 연 배당금으로 실제와 다를 수 있습니다."
-                  placement="bottom-start"
-                  arrow>
+                  placement="bottom-start">
                   <StyledTooltipContainer>
                     {headCell.label}
                     <Icon icon="help" size={16} color="gray400" />

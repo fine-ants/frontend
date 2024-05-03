@@ -2,25 +2,21 @@ import TallLegend from "@components/Legend/TallLegend";
 import PieChart from "@components/PieChart/PieChart";
 import useDashboardPieChartQuery from "@features/dashboard/api/queries/useDashboardPieChartQuery";
 import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
+import { useBoolean } from "@hooks/useBoolean";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import designSystem from "@styles/designSystem";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import styled from "styled-components";
 import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
 
 export default function DashboardPortfolioWeight() {
   const { data: pieChart } = useDashboardPieChartQuery();
 
-  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
-    useState(false);
-
-  const onPortfolioAddDialogOpen = () => {
-    setIsPortfolioAddDialogOpen(true);
-  };
-
-  const onPortfolioAddDialogClose = () => {
-    setIsPortfolioAddDialogOpen(false);
-  };
+  const {
+    state: isPortfolioAddDialogOpen,
+    setTrue: onPortfolioAddDialogOpen,
+    setFalse: onPortfolioAddDialogClose,
+  } = useBoolean();
 
   const coloredPieChart = pieChart.map((item, index) => ({
     ...item,

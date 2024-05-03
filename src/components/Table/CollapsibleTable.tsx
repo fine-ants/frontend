@@ -1,3 +1,4 @@
+import { useBoolean } from "@hooks/useBoolean";
 import {
   Box as MuiBox,
   Table as MuiTable,
@@ -51,7 +52,8 @@ export default function CollapsibleTable<Item>({
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
-  const [isAllRowsOpen, setIsAllRowsOpen] = useState(false);
+  const { state: isAllRowsOpen, setOpposite: handleExpandOrCollapseAllRows } =
+    useBoolean();
 
   const handleRequestSort = (_: MouseEvent<unknown>, property: keyof Item) => {
     const isAsc = orderBy === property && order === "asc";
@@ -66,10 +68,6 @@ export default function CollapsibleTable<Item>({
   const handleChangeRowsPerPage = (newValue: string) => {
     setRowsPerPage(parseInt(newValue, 10));
     setPage(0);
-  };
-
-  const handleExpandOrCollapseAllRows = () => {
-    setIsAllRowsOpen(!isAllRowsOpen);
   };
 
   const numEmptyRows = enableTablePagination

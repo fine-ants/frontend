@@ -4,9 +4,10 @@ import naverLogo from "@assets/icons/logo/ic_naver.svg";
 import { CustomTooltip } from "@components/Tooltips/CustomTooltip";
 import { WindowContext } from "@context/WindowContext";
 import { OAuthProvider, postOAuthUrl } from "@features/auth/api";
+import { useBoolean } from "@hooks/useBoolean";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { toast } from "src/main";
 import styled from "styled-components";
 
@@ -17,7 +18,7 @@ type Props = {
 export default function SocialLoginButton({ provider }: Props) {
   const { onOpenPopUpWindow } = useContext(WindowContext);
 
-  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const { state: isTooltipOpen, setTrue: setTooltipOpen } = useBoolean();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const recentlyLoggedInMethod = localStorage.getItem("recentlyLoggedInMethod");
@@ -46,7 +47,7 @@ export default function SocialLoginButton({ provider }: Props) {
 
   useEffect(() => {
     timerRef.current = setTimeout(() => {
-      setIsTooltipOpen(true);
+      setTooltipOpen();
     }, 300);
     return () => {
       if (timerRef.current) {
@@ -89,8 +90,7 @@ export default function SocialLoginButton({ provider }: Props) {
         <CustomTooltip
           title="최근 사용한 로그인 방법입니다"
           open={isTooltipOpen}
-          placement="top"
-          arrow>
+          placement="top">
           {socialLoginButton}
         </CustomTooltip>
       )

@@ -3,9 +3,9 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import usePortfolioHoldingDeleteMutation from "@features/portfolio/api/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@features/portfolio/api/types";
+import { useBoolean } from "@hooks/useBoolean";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
@@ -24,24 +24,16 @@ export default function PortfolioHoldingTableToolBar({
   const { mutateAsync: portfolioHoldingDeleteMutateAsync } =
     usePortfolioHoldingDeleteMutation(Number(portfolioId));
 
-  const [isAddHoldingDialogOpen, setIsAddHoldingDialogOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  const onAddPortfolioButtonClick = () => {
-    setIsAddHoldingDialogOpen(true);
-  };
-
-  const onAddHoldingDialogClose = useCallback(() => {
-    setIsAddHoldingDialogOpen(false);
-  }, [setIsAddHoldingDialogOpen]);
-
-  const onDeleteHoldingsButtonClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onDeleteHoldingsAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
+  const {
+    state: isAddHoldingDialogOpen,
+    setTrue: onAddPortfolioButtonClick,
+    setFalse: onAddHoldingDialogClose,
+  } = useBoolean();
+  const {
+    state: isConfirmOpen,
+    setTrue: onDeleteHoldingsButtonClick,
+    setFalse: onDeleteHoldingsAlertClose,
+  } = useBoolean();
 
   const onConfirmAction = async () => {
     const selectedHoldingIds = selected.map((item) => item.portfolioHoldingId);

@@ -5,6 +5,7 @@ import useAllStockPriceTargetsDeleteMutation from "@features/notification/api/qu
 import useStockNotificationSettingsMutation from "@features/notification/api/queries/useStockNotificationSettingsMutation";
 import { StockNotification } from "@features/notification/api/types";
 import { thousandsDelimiter } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
 import {
   Button,
   Collapse,
@@ -31,15 +32,11 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
   const { mutate: removeAllMutate } = useAllStockPriceTargetsDeleteMutation();
 
   const [isRowOpen, setIsRowOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  const onRemoveAllButtonClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onRemoveAllAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
+  const {
+    state: isConfirmOpen,
+    setTrue: onRemoveAllButtonClick,
+    setFalse: onRemoveAllAlertClose,
+  } = useBoolean();
 
   const onConfirmRemoveAll = () => {
     const targetPriceNotificationIds = targetPrices.map(

@@ -1,10 +1,12 @@
-import { Icon } from "@components/Icon";
+import { IconButton } from "@components/Buttons/IconButton";
 import useDeleteMemberNotificationsMutation from "@features/notification/api/queries/useDeleteMemberNotificationsMutation";
 import { MemberNotification } from "@features/notification/api/types";
 import { User } from "@features/user/api/types";
 import { getElapsedSince, thousandsDelimiter } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -16,7 +18,9 @@ type Props = {
 
 export function NotificationItem({ user, memberNotification, onClose }: Props) {
   const navigate = useNavigate();
-  const [isHover, setIsHover] = useState(false);
+
+  const { isMobile } = useResponsiveLayout();
+  const { state: isHover, setTrue: setHover, setFalse: setBlur } = useBoolean();
 
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
 
@@ -45,10 +49,7 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
   };
 
   return (
-    <div
-      onClick={navigateToPage}
-      onMouseOver={() => setIsHover(true)}
-      onMouseOut={() => setIsHover(false)}>
+    <div onClick={navigateToPage} onMouseOver={setHover} onMouseOut={setBlur}>
       <StyledItemContainer>
         <LeftContainer>
           <StyledTitle>{title}</StyledTitle>
@@ -67,10 +68,13 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
         </LeftContainer>
         <RightContainer>
           <DotContainer>{!isRead && <Dot />}</DotContainer>
-          {isHover && (
-            <button onClick={(event) => deleteNotification(event)}>
-              <Icon icon="close" color="gray600" size={16} />
-            </button>
+          {(isMobile || isHover) && (
+            <IconButton
+              icon="close"
+              iconColor="gray"
+              size="h24"
+              onClick={(event) => deleteNotification(event)}
+            />
           )}
         </RightContainer>
       </StyledItemContainer>

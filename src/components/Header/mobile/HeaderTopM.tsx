@@ -2,7 +2,7 @@ import fineantsLogo from "@assets/icons/logo/ic_fineants_white.svg";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
-import { NotificationControl } from "@features/notification/components/NotificationPanel/NotificationControl";
+import { NotificationControl } from "@features/notification/components/NotificationControl/NotificationControl";
 import UserDropdown from "@features/user/components/UserDropdown/UserDropdown";
 import { UserContext } from "@features/user/context/UserContext";
 import Routes from "@router/Routes";
