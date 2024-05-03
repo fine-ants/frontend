@@ -16,12 +16,12 @@ import {
   thousandsDelimiter,
   useText,
 } from "@fineants/demolition";
+import useNumber from "@hooks/useNumber";
 import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import useNumber from "../../../hooks/useNumber";
 import {
   applyDecimals,
   calculateLossRate,
