@@ -4,9 +4,9 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import useWatchlistQuery from "@features/watchlist/api/queries/useWatchlistQuery";
 import useWatchlistsDeleteMutation from "@features/watchlist/api/queries/useWatchlistsDeleteMutation";
+import { useBoolean } from "@hooks/useBoolean";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import WatchlistNameEditDialog from "../WatchlistNameEditDialog";
@@ -16,26 +16,22 @@ export default function WatchlistContainer() {
   const { watchlistId } = useParams();
   const { data: watchlistData } = useWatchlistQuery(Number(watchlistId));
   const { mutate: watchlistsDeleteMutate } = useWatchlistsDeleteMutation();
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [isNameEditDialogOpen, setIsNameEditDialogOpen] = useState(false);
+  const {
+    state: isConfirmOpen,
+    setTrue: onDeleteWatchlistButtonClick,
+    setFalse: onDeleteWatchlistAlertClose,
+  } = useBoolean();
+  const {
+    state: isNameEditDialogOpen,
+    setTrue: nameEditDialogOpen,
+    setFalse: nameEditDialogClose,
+  } = useBoolean();
 
   const navigate = useNavigate();
-
-  const onDeleteWatchlistButtonClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onDeleteWatchlistAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
 
   const onConfirmAction = () => {
     watchlistsDeleteMutate([Number(watchlistId)]);
     navigate(Routes.WATCHLISTS);
-  };
-
-  const onFavoriteMarkClick = () => {
-    setIsNameEditDialogOpen(true);
   };
 
   return (
@@ -66,7 +62,7 @@ export default function WatchlistContainer() {
             <Button
               variant="secondary"
               size="h32"
-              onClick={onFavoriteMarkClick}
+              onClick={nameEditDialogOpen}
               disabled={false}>
               <Icon icon="edit" size={16} color="blue500" />
               이름 편집
@@ -79,7 +75,7 @@ export default function WatchlistContainer() {
         <WatchlistNameEditDialog
           currentWatchlistName={watchlistData.name}
           isOpen={isNameEditDialogOpen}
-          onClose={() => setIsNameEditDialogOpen(false)}
+          onClose={nameEditDialogClose}
         />
       )}
       {isConfirmOpen && (

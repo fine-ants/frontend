@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useBoolean = (initialState = false) => {
   const [state, setState] = useState(initialState);
 
-  const setTrue = () => {
+  const setTrue = useCallback(() => {
     setState(true);
-  };
+  }, []);
 
-  const setFalse = () => {
+  const setFalse = useCallback(() => {
     setState(false);
-  };
+  }, []);
 
-  return { state, setTrue, setFalse };
+  const setOpposite = useCallback(() => {
+    setState((prev) => !prev);
+  }, []);
+
+  return { state, setState, setTrue, setFalse, setOpposite };
 };

@@ -1,7 +1,8 @@
 import { BaseTextField } from "@components/TextField/BaseTextField";
 import { ErrorText } from "@components/TextField/ErrorText";
+import { useBoolean } from "@hooks/useBoolean";
 import { IconButton, InputAdornment } from "@mui/material";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import styled from "styled-components";
 import { Icon } from "../Icon";
 
@@ -22,9 +23,8 @@ export function PasswordTextField({
   password,
   onChange,
 }: Props) {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const { state: showPassword, setOpposite: handleClickShowPassword } =
+    useBoolean();
 
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();

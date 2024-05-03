@@ -18,14 +18,6 @@ export default function useNicknameDuplicateCheck({
   const [duplicateCheckErrorMsg, setDuplicateCheckErrorMsg] = useState("");
   const [isDuplicateComplete, setIsDuplicateComplete] = useState(false);
 
-  const updateDuplicateCheckErrorMsg = (msg: string) => {
-    setDuplicateCheckErrorMsg(msg);
-  };
-
-  const updateIsDuplicateComplete = (isComplete: boolean) => {
-    setIsDuplicateComplete(isComplete);
-  };
-
   const isDuplicateChecked = !duplicateCheckErrorMsg && isDuplicateComplete;
 
   useEffect(() => {
@@ -57,7 +49,5 @@ export default function useNicknameDuplicateCheck({
   return {
     isDuplicateChecked,
     duplicateCheckErrorMsg,
-    updateDuplicateCheckErrorMsg,
-    updateIsDuplicateComplete,
   };
 }

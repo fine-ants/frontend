@@ -1,6 +1,7 @@
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
 import { PurchaseHistoryField } from "@features/portfolio/api/types";
+import { useBoolean } from "@hooks/useBoolean";
 import {
   Table as MuiTable,
   TableBody as MuiTableBody,
@@ -10,7 +11,6 @@ import {
   TableRow as MuiTableRow,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import styled from "styled-components";
 import PortfolioHoldingLotAddRow from "./PortfolioHoldingLotAddRow";
 import PortfolioHoldingLotRow from "./PortfolioHoldingLotRow";
@@ -27,15 +27,11 @@ export default function PortfolioHoldingLotsTable({
   portfolioHoldingId,
   purchaseHistory,
 }: Props) {
-  const [isAddLotMode, setIsAddLotMode] = useState(false);
-
-  const onAddLotButtonClick = () => {
-    setIsAddLotMode(true);
-  };
-
-  const onDeleteLotButtonClick = () => {
-    setIsAddLotMode(false);
-  };
+  const {
+    state: isAddLotMode,
+    setTrue: onAddLotButtonClick,
+    setFalse: onDeleteLotButtonClick,
+  } = useBoolean();
 
   return (
     <StyledPortfolioHoldingLotsTable>

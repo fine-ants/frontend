@@ -8,9 +8,9 @@ import usePortfolioDeleteMutation from "@features/portfolio/api/queries/usePortf
 import { PortfolioDetails } from "@features/portfolio/api/types";
 import PortfolioEditDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
 import { thousandsDelimiter } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioOverviewBody from "./PortfolioOverviewBody";
@@ -24,24 +24,16 @@ export default function PortfolioOverview({ data }: Props) {
   const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  const onPortfolioEdit = () => {
-    setIsDialogOpen(true);
-  };
-
-  const onPortfolioRemove = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onDialogClose = () => {
-    setIsDialogOpen(false);
-  };
-
-  const onConfirmAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
+  const {
+    state: isDialogOpen,
+    setTrue: onPortfolioEdit,
+    setFalse: onDialogClose,
+  } = useBoolean();
+  const {
+    state: isConfirmOpen,
+    setTrue: onPortfolioRemove,
+    setFalse: onConfirmAlertClose,
+  } = useBoolean();
 
   const onConfirmAction = () => {
     portfolioDeleteMutate(Number(portfolioId));

@@ -3,8 +3,8 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import useStockTargetPriceDeleteMutation from "@features/notification/api/queries/useStockTargetPriceDeleteMutation";
 import { StockTargetPrice } from "@features/notification/api/types";
 import { thousandsDelimiter } from "@fineants/demolition";
+import { useBoolean } from "@hooks/useBoolean";
 import { TableCell, TableRow } from "@mui/material";
-import { useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -16,16 +16,11 @@ export default function StockNotificationLotRow({ row }: Props) {
 
   const { mutate: stockNotificationDeleteMutate } =
     useStockTargetPriceDeleteMutation();
-
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  const onRemoveNotificationButtonClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onRemoveNotificationAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
+  const {
+    state: isConfirmOpen,
+    setTrue: onRemoveNotificationButtonClick,
+    setFalse: onRemoveNotificationAlertClose,
+  } = useBoolean();
 
   const onConfirmRemove = () => {
     stockNotificationDeleteMutate({
