@@ -1,8 +1,9 @@
-import { Icon } from "@components/Icon";
+import { IconButton } from "@components/Buttons/IconButton";
 import useDeleteMemberNotificationsMutation from "@features/notification/api/queries/useDeleteMemberNotificationsMutation";
 import { MemberNotification } from "@features/notification/api/types";
 import { User } from "@features/user/api/types";
 import { getElapsedSince, thousandsDelimiter } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,8 @@ type Props = {
 
 export function NotificationItem({ user, memberNotification, onClose }: Props) {
   const navigate = useNavigate();
+
+  const { isMobile } = useResponsiveLayout();
   const [isHover, setIsHover] = useState(false);
 
   const { mutate } = useDeleteMemberNotificationsMutation(user.id);
@@ -67,10 +70,13 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
         </LeftContainer>
         <RightContainer>
           <DotContainer>{!isRead && <Dot />}</DotContainer>
-          {isHover && (
-            <button onClick={(event) => deleteNotification(event)}>
-              <Icon icon="close" color="gray600" size={16} />
-            </button>
+          {(isMobile || isHover) && (
+            <IconButton
+              icon="close"
+              iconColor="gray"
+              size="h24"
+              onClick={(event) => deleteNotification(event)}
+            />
           )}
         </RightContainer>
       </StyledItemContainer>

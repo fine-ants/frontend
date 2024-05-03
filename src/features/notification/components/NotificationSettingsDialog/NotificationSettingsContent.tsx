@@ -1,7 +1,4 @@
-import BaseDialog from "@components/BaseDialog";
 import Button from "@components/Buttons/Button";
-import { IconButton } from "@components/Buttons/IconButton";
-import { Icon } from "@components/Icon";
 import ToggleSwitch from "@components/ToggleSwitch";
 import { useMemberNotificationsSettingMutation } from "@features/notification/api/queries/useMemberNotificationsSettingMutation";
 import {
@@ -11,18 +8,22 @@ import {
 import { User } from "@features/user/api/types";
 import { UserContext } from "@features/user/context/UserContext";
 import { retryFn } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { useContext, useState } from "react";
 import { toast } from "src/main";
 import styled from "styled-components";
+import { NotificationDeniedSign } from "./NotificationDeniedSign";
+import { NotificationSettingsHeader } from "./NotificationSettingsHeader";
 
 type Props = {
   user: User;
-  isOpen: boolean;
   onClose: () => void;
 };
 
-export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
+export function NotificationSettingsContent({ user, onClose }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   const {
     fcmTokenId,
     onSubscribePushNotification,
@@ -127,34 +128,13 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
   };
 
   return (
-    <BaseDialog style={dialogStyle} isOpen={isOpen} onClose={onClose}>
-      <StyledHeader>
-        <Title>알림 설정</Title>
-        <IconButton
-          icon="close"
-          size="h40"
-          iconColor="gray"
-          onClick={onClose}
-        />
-      </StyledHeader>
+    <>
+      <NotificationSettingsHeader onClose={onClose} />
       <StyledContent>
         <SettingContainer>
           <SubTitle>데스크탑 알림 설정</SubTitle>
           {notificationPermission === "denied" ? (
-            <DeniedSign>
-              <div>
-                <Icon icon="caption" color="gray400" size={16} />
-              </div>
-              <DeniedSignContent>
-                <DeniedSignText>
-                  브라우저 알림 권한이 차단되어 있습니다
-                </DeniedSignText>
-                <DeniedSignText>
-                  알림 받기를 원하시면 브라우저에서 FineAnts 알림을 허용해
-                  주세요
-                </DeniedSignText>
-              </DeniedSignContent>
-            </DeniedSign>
+            <NotificationDeniedSign />
           ) : (
             <ToggleList>
               <>
@@ -169,7 +149,9 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
             </ToggleList>
           )}
         </SettingContainer>
+
         <Divider />
+
         <SettingContainer>
           <SubTitle>사용자 알림 설정</SubTitle>
           <ToggleList>
@@ -194,37 +176,21 @@ export function NotificationSettingsDialog({ user, isOpen, onClose }: Props) {
             />
           </ToggleList>
         </SettingContainer>
+
         <ButtonContainer>
           <Button
+            style={{ width: `${isMobile ? "100%" : "auto"}` }}
             variant="primary"
-            size="h32"
+            size={isMobile ? "h48" : "h32"}
             disabled={isDisabledButton}
             onClick={onSubmit}>
             저장
           </Button>
         </ButtonContainer>
       </StyledContent>
-    </BaseDialog>
+    </>
   );
 }
-
-const dialogStyle = {
-  width: "544px",
-  minHeight: "428px",
-  height: "auto",
-};
-
-const StyledHeader = styled.header`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Title = styled.div`
-  font: ${designSystem.font.heading3.font};
-  letter-spacing: ${designSystem.font.heading3.letterSpacing};
-  color: ${designSystem.color.neutral.gray800};
-`;
 
 const SubTitle = styled.div`
   font: ${designSystem.font.title4.font};
@@ -248,9 +214,10 @@ const ToggleTitle = styled.div`
 
 const StyledContent = styled.div`
   width: 100%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding-top: 32px;
+  padding: 0 16px 8px 16px;
   gap: 24px;
 `;
 
@@ -270,25 +237,6 @@ const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: right;
-`;
-
-const DeniedSign = styled.div`
-  width: 100%;
-  height: 66px;
-  display: flex;
-  gap: 8px;
-  border-radius: 4px;
-  background-color: ${designSystem.color.neutral.gray50};
-  padding: 14px 12px;
-`;
-
-const DeniedSignContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
-const DeniedSignText = styled.div`
-  font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray600};
+  flex-grow: 1;
+  align-items: end;
 `;
