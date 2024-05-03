@@ -2,6 +2,7 @@ import BaseDialog from "@components/BaseDialog";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
 import { Select, SelectOption } from "@components/Select";
+import { TextField } from "@components/TextField/TextField";
 import {
   SECURITIES_FIRM,
   SecuritiesFirm,
@@ -11,28 +12,23 @@ import usePortfolioAddMutation from "@features/portfolio/api/queries/usePortfoli
 import usePortfolioEditMutation from "@features/portfolio/api/queries/usePortfolioEditMutation";
 import { PortfolioDetails } from "@features/portfolio/api/types";
 import {
-  executeCbIfNumeric,
   removeThousandsDelimiter,
   thousandsDelimiter,
   useText,
 } from "@fineants/demolition";
 import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { FormEvent, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import useNumber from "../../../hooks/useNumber";
 import {
+  applyDecimals,
   calculateLossRate,
   calculateRate,
   calculateValueFromRate,
-} from "src/features/portfolio/utils/calculations";
-import { toast } from "src/main";
-import styled from "styled-components";
+  removeNegativeSign,
+} from "../utils/calculations";
 
 type Props = {
   isOpen: boolean;
@@ -56,134 +52,208 @@ export default function PortfolioAddOrEditDialog({
     onSuccessCb: onClose,
   });
 
-  const [securitiesFirm, setSecuritiesFirm] = useState(
-    portfolioDetails ? portfolioDetails.securitiesFirm : "FineAnts"
-  );
-  const onChangeSecuritiesFirm = (value: string) => {
-    setSecuritiesFirm(value as SecuritiesFirm);
-  };
+  const { value: securitiesFirm, onChange: onChangeSecuritiesFirm } = useText({
+    initialValue: portfolioDetails
+      ? portfolioDetails.securitiesFirm
+      : "FineAnts",
+  });
 
   const { value: name, onChange: onNameChange } = useText({
-    initialValue: portfolioDetails?.name,
+    initialValue: portfolioDetails ? portfolioDetails.name : "",
   });
 
-  const { value: budget, onChange: onBudgetChange } = useText({
-    initialValue: portfolioDetails?.budget
-      ? thousandsDelimiter(portfolioDetails?.budget)
-      : "",
-  });
-  const budgetHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    executeCbIfNumeric({
-      value: e.target.value.trim(),
-      callback: onBudgetChange,
-    });
+  // Budget
+  const budgetInitialValue = portfolioDetails
+    ? thousandsDelimiter(portfolioDetails.budget)
+    : "";
+  const budgetValidator = (value: number) => {
+    if (value < 0) {
+      throw Error("0 이상이어야 합니다");
+    }
   };
+  const {
+    value: budget,
+    onChange: onBudgetChange,
+    error: budgetError,
+    isError: isBudgetError,
+  } = useNumber({
+    initialValue:
+      budgetInitialValue === "0" ? "" : budgetInitialValue?.toString(),
+    validators: [budgetValidator],
+  });
+
+  // Calculations
+  const calcNewValueBasedOnRate = useCallback(
+    (val: string) => {
+      return val === ""
+        ? val
+        : calculateValueFromRate(
+            Number(removeThousandsDelimiter(val)),
+            Number(removeThousandsDelimiter(budget))
+          );
+    },
+    [budget]
+  );
+  const calcNewTargetReturnRateBasedOnValue = useCallback(
+    (val: string) => {
+      return val === ""
+        ? val
+        : calculateRate(
+            Number(removeThousandsDelimiter(val)),
+            Number(removeThousandsDelimiter(budget))
+          );
+    },
+    [budget]
+  );
+  const calcNewMaxLossRateBasedOnValue = useCallback(
+    (val: string) => {
+      return val === ""
+        ? val
+        : calculateLossRate(
+            Number(removeThousandsDelimiter(budget)),
+            Number(removeThousandsDelimiter(val))
+          );
+    },
+    [budget]
+  );
 
   // Target Gain states
-  const { value: targetGain, onChange: onTargetGainChange } = useText({
-    initialValue: portfolioDetails?.targetGain.toString(),
+  const targetGainInitialValue = portfolioDetails
+    ? thousandsDelimiter(portfolioDetails.targetGain)
+    : "";
+  const targetGainValidator1 = (value: number) => {
+    if (value < 0) {
+      throw Error("0 이상이어야 합니다");
+    }
+  };
+  const targetGainValidator2 = (value: number) => {
+    if (value < Number(removeThousandsDelimiter(budget))) {
+      throw Error("예산 이상이어야 합니다");
+    }
+  };
+  const {
+    value: targetGain,
+    onChange: onTargetGainChange,
+    error: targetGainError,
+    isError: isTargetGainError,
+  } = useNumber({
+    initialValue:
+      targetGainInitialValue === "0" ? "" : targetGainInitialValue?.toString(),
+    validators: [targetGainValidator1, targetGainValidator2],
   });
-  const { value: targetReturnRate, onChange: onTargetReturnRateChange } =
-    useText({
-      initialValue: portfolioDetails?.targetReturnRate.toString(),
-    });
+
+  const targetReturnRateInitialValue = portfolioDetails
+    ? thousandsDelimiter(applyDecimals(portfolioDetails.targetReturnRate))
+    : "";
+  const targetReturnRateValidator = (value: number) => {
+    if (value < 0) {
+      throw Error("0% 이상이어야 합니다");
+    }
+  };
+  const {
+    value: targetReturnRate,
+    onChange: onTargetReturnRateChange,
+    error: targetReturnRateError,
+    isError: isTargetReturnRateError,
+  } = useNumber({
+    initialValue:
+      targetReturnRateInitialValue === "0"
+        ? ""
+        : targetReturnRateInitialValue?.toString(),
+    validators: [targetReturnRateValidator],
+  });
+
   const targetGainHandler = useCallback(
     (value: string) => {
-      executeCbIfNumeric({
-        value,
-        callback: (val: string) => {
-          if (Number(removeThousandsDelimiter(val)) < 0) {
-            toast.warning("목표 수익 금액은 0 이상이어야 합니다");
-            return;
-          }
+      onTargetGainChange(value);
 
-          onTargetGainChange(val);
-
-          const newRate = val === "" ? val : calculateRate(val, budget);
-          onTargetReturnRateChange(newRate);
-        },
-      });
+      const newRate = calcNewTargetReturnRateBasedOnValue(value);
+      onTargetReturnRateChange(newRate.toString());
     },
-    [budget, onTargetGainChange, onTargetReturnRateChange]
+    [
+      calcNewTargetReturnRateBasedOnValue,
+      onTargetGainChange,
+      onTargetReturnRateChange,
+    ]
   );
   const targetReturnRateHandler = useCallback(
     (value: string) => {
-      executeCbIfNumeric({
-        value,
-        callback: (val: string) => {
-          if (Number(removeThousandsDelimiter(val)) < 0) {
-            toast.warning("목표 수익률은 0% 이상이어야 합니다");
-            return;
-          }
-
-          onTargetReturnRateChange(val);
-
-          const newValue =
-            val === "" ? val : calculateValueFromRate(val, budget);
-          onTargetGainChange(newValue);
-        },
-      });
+      onTargetReturnRateChange(value);
+      onTargetGainChange(calcNewValueBasedOnRate(value).toString());
     },
-    [budget, onTargetGainChange, onTargetReturnRateChange]
+    [calcNewValueBasedOnRate, onTargetGainChange, onTargetReturnRateChange]
   );
 
   // Maximum Loss states
-  const { value: maximumLoss, onChange: onMaximumLossChange } = useText({
-    initialValue: portfolioDetails?.maximumLoss.toString(),
-  });
-  const { value: maximumLossRate, onChange: onMaximumLossRateChange } = useText(
-    {
-      initialValue: portfolioDetails?.maximumLossRate.toString(),
+  const maximumLossInitialValue = portfolioDetails?.maximumLoss ?? "";
+  const maximumLossValidator1 = (value: number) => {
+    if (value < 0) {
+      throw Error("0 이상이어야 합니다");
     }
-  );
+  };
+  const maximumLossValidator2 = (value: number) => {
+    if (value > Number(removeThousandsDelimiter(budget))) {
+      throw Error("예산을 초과할 수 없습니다");
+    }
+  };
+  const {
+    value: maximumLoss,
+    onChange: onMaximumLossChange,
+    error: maximumLossError,
+    isError: isMaximumLossError,
+  } = useNumber({
+    initialValue:
+      maximumLossInitialValue === 0 ? "" : maximumLossInitialValue?.toString(),
+    validators: [maximumLossValidator1, maximumLossValidator2],
+  });
+
+  const maximumLossRateInitialValue = portfolioDetails
+    ? thousandsDelimiter(applyDecimals(portfolioDetails.maximumLossRate))
+    : "";
+  const maximumLossRateValidator1 = (value: number) => {
+    if (value > 100) {
+      throw Error("100% 이하이어야 합니다");
+    }
+  };
+  const {
+    value: maximumLossRate,
+    onChange: onMaximumLossRateChange,
+    error: maximumLossRateError,
+    isError: isMaximumLossRateError,
+  } = useNumber({
+    initialValue:
+      maximumLossRateInitialValue === "0"
+        ? ""
+        : maximumLossRateInitialValue?.toString(),
+    validators: [maximumLossRateValidator1],
+  });
+
   const maximumLossHandler = useCallback(
     (value: string) => {
-      executeCbIfNumeric({
-        value,
-        callback: (val: string) => {
-          if (
-            Number(removeThousandsDelimiter(val)) >
-            Number(removeThousandsDelimiter(budget))
-          ) {
-            toast.warning("최대 손실 금액은 예산을 초과할 수 없습니다");
-            return;
-          }
+      onMaximumLossChange(value === "-" ? "" : value);
 
-          if (Number(removeThousandsDelimiter(val)) < 0) {
-            toast.warning("최대 손실 금액은 0보다 작을 수 없습니다");
-            return;
-          }
-
-          onMaximumLossChange(val);
-
-          const newRate = val === "" ? val : calculateLossRate(budget, val);
-          onMaximumLossRateChange(newRate.replace(/-/g, ""));
-        },
-      });
+      const newRate =
+        value === "-"
+          ? ""
+          : removeNegativeSign(
+              calcNewMaxLossRateBasedOnValue(value).toString()
+            );
+      onMaximumLossRateChange(newRate);
     },
-    [budget, onMaximumLossChange, onMaximumLossRateChange]
+    [
+      calcNewMaxLossRateBasedOnValue,
+      onMaximumLossChange,
+      onMaximumLossRateChange,
+    ]
   );
   const maximumLossRateHandler = useCallback(
     (value: string) => {
-      executeCbIfNumeric({
-        value,
-        callback: (val: string) => {
-          if (Number(removeThousandsDelimiter(val)) > 100) {
-            toast.warning("최대 손실률은 100%를 초과할 수 없습니다");
-            return;
-          }
-
-          const parsedVal = val.replace(/-/g, "");
-
-          onMaximumLossRateChange(parsedVal);
-
-          const newValue =
-            val === "" ? val : calculateValueFromRate(`-${parsedVal}`, budget);
-          onMaximumLossChange(newValue);
-        },
-      });
+      onMaximumLossRateChange(value);
+      onMaximumLossChange(
+        calcNewValueBasedOnRate(value === "" ? "" : `-${value}`).toString()
+      );
     },
-    [budget, onMaximumLossChange, onMaximumLossRateChange]
+    [calcNewValueBasedOnRate, onMaximumLossChange, onMaximumLossRateChange]
   );
 
   const clearInputs = useCallback(() => {
@@ -206,7 +276,7 @@ export default function PortfolioAddOrEditDialog({
 
     const body = {
       name,
-      securitiesFirm,
+      securitiesFirm: securitiesFirm as SecuritiesFirm,
       budget: Number(removeThousandsDelimiter(budget)),
       targetGain: Number(removeThousandsDelimiter(targetGain)),
       maximumLoss: Number(removeThousandsDelimiter(maximumLoss)),
@@ -223,25 +293,34 @@ export default function PortfolioAddOrEditDialog({
   useEffect(() => {
     if (isBudgetEmpty) {
       clearInputs();
-      return;
     } else {
       if (targetReturnRate) {
-        targetReturnRateHandler(targetReturnRate);
+        onTargetGainChange(
+          calcNewValueBasedOnRate(targetReturnRate).toString()
+        );
       }
       if (maximumLossRate) {
-        maximumLossRateHandler(maximumLossRate);
+        onMaximumLossChange(
+          removeNegativeSign(
+            calcNewValueBasedOnRate(
+              maximumLossRate === "" ? "" : `-${maximumLossRate}`
+            ).toString()
+          )
+        );
       }
     }
-  }, [
-    clearInputs,
-    isBudgetEmpty,
-    maximumLossRate,
-    maximumLossRateHandler,
-    targetReturnRate,
-    targetReturnRateHandler,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [budget, isBudgetEmpty]);
 
   const isFormValid = () => {
+    if (
+      isTargetGainError ||
+      isTargetReturnRateError ||
+      isMaximumLossError ||
+      isMaximumLossRateError
+    )
+      return false;
+
     if (isEditMode) {
       return (
         portfolioDetails?.securitiesFirm !== securitiesFirm ||
@@ -317,66 +396,82 @@ export default function PortfolioAddOrEditDialog({
               </Select>
             </FormControl>
           </Row>
-
           <Row>
             <StyledSpan>예산</StyledSpan>
-            <StyledInput>
-              <Input
-                placeholder="예산을 입력하세요"
-                value={budget}
-                onChange={budgetHandler}
-              />
-              <span>₩</span>
-            </StyledInput>
+            <TextField
+              size="h32"
+              placeholder="예산을 입력하세요"
+              error={isBudgetError}
+              errorText={budgetError}
+              value={budget}
+              onChange={(e) => onBudgetChange(e.target.value.trim())}
+              endAdornment={<TextFieldEndAdornment>₩</TextFieldEndAdornment>}
+            />
           </Row>
           <Row>
             <StyledSpan>목표 수익률</StyledSpan>
-            <InputWrapper>
-              <StyledInput>
-                <Input
-                  disabled={isBudgetEmpty}
-                  value={targetReturnRate}
-                  onChange={(e) =>
-                    targetReturnRateHandler(e.target.value.trim())
-                  }
-                />
-                <span>%</span>
-              </StyledInput>
-
-              <StyledInput>
-                <Input
-                  disabled={isBudgetEmpty}
-                  value={targetGain}
-                  onChange={(e) => targetGainHandler(e.target.value.trim())}
-                />
-                <span>₩</span>
-              </StyledInput>
-            </InputWrapper>
+            <InputsWrapper>
+              <TextField
+                size="h32"
+                disabled={isBudgetEmpty}
+                error={isTargetReturnRateError}
+                errorText={targetReturnRateError}
+                value={
+                  targetReturnRate === ""
+                    ? ""
+                    : thousandsDelimiter(
+                        applyDecimals(
+                          Number(removeThousandsDelimiter(targetReturnRate))
+                        ).toString()
+                      )
+                }
+                onChange={(e) => targetReturnRateHandler(e.target.value.trim())}
+                endAdornment={<TextFieldEndAdornment>%</TextFieldEndAdornment>}
+              />
+              <TextField
+                size="h32"
+                disabled={isBudgetEmpty}
+                error={isTargetGainError}
+                errorText={targetGainError}
+                value={targetGain}
+                onChange={(e) => targetGainHandler(e.target.value.trim())}
+                endAdornment={<TextFieldEndAdornment>₩</TextFieldEndAdornment>}
+              />
+            </InputsWrapper>
           </Row>
           <Row>
             <StyledSpan>최대 손실율</StyledSpan>
-            <InputWrapper>
-              <StyledInput>
-                {maximumLossRate && <span>-</span>}
-                <Input
-                  style={{ paddingLeft: "3px" }}
-                  disabled={isBudgetEmpty}
-                  value={maximumLossRate}
-                  onChange={(e) =>
-                    maximumLossRateHandler(e.target.value.trim())
-                  }
-                />
-                <span>%</span>
-              </StyledInput>
-              <StyledInput>
-                <Input
-                  disabled={isBudgetEmpty}
-                  value={maximumLoss}
-                  onChange={(e) => maximumLossHandler(e.target.value.trim())}
-                />
-                <span>₩</span>
-              </StyledInput>
-            </InputWrapper>
+            <InputsWrapper>
+              <TextField
+                size="h32"
+                disabled={isBudgetEmpty}
+                error={isMaximumLossRateError}
+                errorText={maximumLossRateError}
+                value={
+                  maximumLossRate === ""
+                    ? ""
+                    : thousandsDelimiter(
+                        applyDecimals(
+                          Number(removeThousandsDelimiter(maximumLossRate))
+                        ).toString()
+                      )
+                }
+                onChange={(e) => maximumLossRateHandler(e.target.value.trim())}
+                startAdornment={
+                  <TextFieldEndAdornment>-</TextFieldEndAdornment>
+                }
+                endAdornment={<TextFieldEndAdornment>%</TextFieldEndAdornment>}
+              />
+              <TextField
+                size="h32"
+                disabled={isBudgetEmpty}
+                error={isMaximumLossError}
+                errorText={maximumLossError}
+                value={maximumLoss}
+                onChange={(e) => maximumLossHandler(e.target.value.trim())}
+                endAdornment={<TextFieldEndAdornment>₩</TextFieldEndAdornment>}
+              />
+            </InputsWrapper>
           </Row>
         </Body>
         <ButtonWrapper>
@@ -395,7 +490,7 @@ export default function PortfolioAddOrEditDialog({
 
 const PortfolioAddDialogStyle = {
   width: "544px",
-  height: "405px",
+  height: "437px",
   padding: "32px",
 };
 
@@ -416,6 +511,41 @@ const Header = styled.div`
   font: ${designSystem.font.heading3.font};
   letter-spacing: ${designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
+`;
+
+const Body = styled.div`
+  margin-top: 32px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+`;
+
+const Row = styled.div`
+  width: auto;
+  display: flex;
+  gap: 8px;
+`;
+
+const StyledSpan = styled.span`
+  width: 120px;
+  flex-shrink: 0;
+
+  > span {
+    color: ${designSystem.color.state.red500};
+  }
+`;
+
+const InputsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 8px;
+`;
+
+const TextFieldEndAdornment = styled.span`
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray400};
 `;
 
 const StyledInput = styled.div`
@@ -445,36 +575,6 @@ const Input = styled.input`
   &::placeholder {
     color: ${designSystem.color.neutral.gray400};
   }
-`;
-
-const StyledSpan = styled.span`
-  width: 120px;
-  flex-shrink: 0;
-
-  > span {
-    color: ${designSystem.color.state.red500};
-  }
-`;
-
-const Body = styled.div`
-  margin-top: 32px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex: 1;
-`;
-
-const Row = styled.div`
-  width: auto;
-  display: flex;
-  gap: 8px;
-`;
-
-const InputWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 8px;
 `;
 
 const ButtonWrapper = styled.div`
