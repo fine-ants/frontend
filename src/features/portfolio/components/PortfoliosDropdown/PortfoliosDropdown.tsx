@@ -3,9 +3,10 @@ import { Icon } from "@components/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
 import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
 import { UserContext } from "@features/user/context/UserContext";
+import { useBoolean } from "@hooks/useBoolean";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useContext, useState } from "react";
+import { MouseEvent, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PortfoliosDropdownList from "./PortfoliosDropdownList";
@@ -19,8 +20,11 @@ export function PortfoliosDropdown() {
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 
-  const [isPortfolioAddDialogOpen, setIsPortfolioAddDialogOpen] =
-    useState(false);
+  const {
+    state: isPortfolioAddDialogOpen,
+    setTrue: portfolioDialogOpen,
+    setFalse: portfolioDialogClose,
+  } = useBoolean();
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     onOpen(e);
@@ -32,7 +36,7 @@ export function PortfoliosDropdown() {
       return;
     }
 
-    setIsPortfolioAddDialogOpen(true);
+    portfolioDialogOpen();
   };
 
   return (
@@ -66,7 +70,7 @@ export function PortfoliosDropdown() {
       {isPortfolioAddDialogOpen && (
         <PortfolioAddDialog
           isOpen={isPortfolioAddDialogOpen}
-          onClose={() => setIsPortfolioAddDialogOpen(false)}
+          onClose={portfolioDialogClose}
         />
       )}
     </>

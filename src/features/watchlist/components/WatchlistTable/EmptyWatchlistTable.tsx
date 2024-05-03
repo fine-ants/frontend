@@ -1,21 +1,17 @@
 import emptyWatchlistImage from "@assets/images/empty_watchlistItem.svg";
 import Button from "@components/Buttons/Button";
 import { Icon } from "@components/Icon";
+import { useBoolean } from "@hooks/useBoolean";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import styled from "styled-components";
 import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
 
 export default function EmptyWatchlistTable() {
-  const [isAddWatchlistDialogOpen, setIsAddWatchlistDialogOpen] =
-    useState(false);
-  const onAddWatchlistButtonClick = () => {
-    setIsAddWatchlistDialogOpen(true);
-  };
-
-  const onAddWatchlistDialogClose = () => {
-    setIsAddWatchlistDialogOpen(false);
-  };
+  const {
+    state: isAddWatchlistDialogOpen,
+    setTrue: onAddWatchlistButtonClick,
+    setFalse: onAddWatchlistDialogClose,
+  } = useBoolean();
 
   return (
     <StyledEmptyWatchlistsTable>

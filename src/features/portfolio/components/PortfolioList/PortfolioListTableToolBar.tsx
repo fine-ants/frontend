@@ -3,9 +3,9 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import usePortfoliosDeleteMutation from "@features/portfolio/api/queries/usePortfoliosDeleteMutation";
 import { PortfolioItem } from "@features/portfolio/api/types";
+import { useBoolean } from "@hooks/useBoolean";
 import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
 import styled from "styled-components";
 import PortfolioAddDialog from "../PortfolioAddOrEditDialog";
 
@@ -21,25 +21,17 @@ export default function PortfolioListTableToolBar({
   const { mutateAsync: portfoliosDeleteMutateAsync } =
     usePortfoliosDeleteMutation();
 
-  const [isAddPortfolioDialogOpen, setIsAddPortfolioDialogOpen] =
-    useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const {
+    state: isAddPortfolioDialogOpen,
+    setTrue: onAddPortfolioButtonClick,
+    setFalse: onAddPortfolioDialogClose,
+  } = useBoolean();
 
-  const onAddPortfolioButtonClick = () => {
-    setIsAddPortfolioDialogOpen(true);
-  };
-
-  const onAddPortfolioDialogClose = () => {
-    setIsAddPortfolioDialogOpen(false);
-  };
-
-  const onDeletePortfoliosButtonClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const onDeletePortfoliosAlertClose = () => {
-    setIsConfirmOpen(false);
-  };
+  const {
+    state: isDeleteConfirmOpen,
+    setTrue: onDeletePortfoliosButtonClick,
+    setFalse: onDeletePortfoliosAlertClose,
+  } = useBoolean();
 
   const onConfirmAction = async () => {
     const selectedPortfolioIds = selected.map((item) => item.id);
@@ -90,9 +82,9 @@ export default function PortfolioListTableToolBar({
         />
       )}
 
-      {isConfirmOpen && (
+      {isDeleteConfirmOpen && (
         <ConfirmAlert
-          isOpen={isConfirmOpen}
+          isOpen={isDeleteConfirmOpen}
           title="포트폴리오 삭제"
           onClose={onDeletePortfoliosAlertClose}
           onConfirm={onConfirmAction}>

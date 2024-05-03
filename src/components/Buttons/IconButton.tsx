@@ -1,5 +1,6 @@
+import { useBoolean } from "@hooks/useBoolean";
 import { ColorType, getColor } from "@styles/designSystem";
-import { MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 import styled from "styled-components";
 import { Icon, IconType } from "../Icon";
 import { ColorObjectType, ColorTableType, DefaultColorType } from "./types";
@@ -43,15 +44,11 @@ export function IconButton(props: Props) {
     onClick,
   } = props;
 
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  const {
+    state: isHovered,
+    setTrue: handleMouseEnter,
+    setFalse: handleMouseLeave,
+  } = useBoolean();
 
   const colorTable: ColorTableType = {
     primary: {

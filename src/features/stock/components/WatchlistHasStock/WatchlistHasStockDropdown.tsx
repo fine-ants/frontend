@@ -4,10 +4,11 @@ import { Icon } from "@components/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
 import { UserContext } from "@features/user/context/UserContext";
 import NewWatchlistDialog from "@features/watchlist/components/NewWatchlistDialog";
+import { useBoolean } from "@hooks/useBoolean";
 import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { MouseEvent, useContext, useState } from "react";
+import { MouseEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import WatchlistHasStockList from "./WatchlistHasStockList";
@@ -25,16 +26,11 @@ export function WatchlistHasStockDropdown({ tickerSymbol }: Props) {
 
   const { onOpen, DropdownMenu } = useDropdown();
 
-  const [isNewWatchlistDialogOpen, setIsNewWatchlistDialogOpen] =
-    useState(false);
-
-  const onAddNewWatchlistButtonClick = () => {
-    setIsNewWatchlistDialogOpen(true);
-  };
-
-  const onNewWatchlistDialogClose = () => {
-    setIsNewWatchlistDialogOpen(false);
-  };
+  const {
+    state: isNewWatchlistDialogOpen,
+    setTrue: onAddNewWatchlistButtonClick,
+    setFalse: onNewWatchlistDialogClose,
+  } = useBoolean();
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (!user) {
