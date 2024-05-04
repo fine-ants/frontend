@@ -143,7 +143,9 @@ export default function PortfolioAddOrEditDialog({
   });
 
   const targetReturnRateInitialValue = portfolioDetails
-    ? thousandsDelimiter(applyDecimals(portfolioDetails.targetReturnRate))
+    ? targetGain === ""
+      ? ""
+      : thousandsDelimiter(applyDecimals(portfolioDetails.targetReturnRate))
     : "";
   const targetReturnRateValidator = (value: number) => {
     if (value < 0) {
@@ -208,7 +210,9 @@ export default function PortfolioAddOrEditDialog({
   });
 
   const maximumLossRateInitialValue = portfolioDetails
-    ? thousandsDelimiter(applyDecimals(portfolioDetails.maximumLossRate))
+    ? maximumLoss === ""
+      ? ""
+      : thousandsDelimiter(applyDecimals(portfolioDetails.maximumLossRate))
     : "";
   const maximumLossRateValidator1 = (value: number) => {
     if (value > 100) {
