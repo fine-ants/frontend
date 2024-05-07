@@ -14,9 +14,9 @@ import { PortfolioDetails } from "@features/portfolio/api/types";
 import {
   removeThousandsDelimiter,
   thousandsDelimiter,
+  useNumber,
   useText,
 } from "@fineants/demolition";
-import useNumber from "@hooks/useNumber";
 import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useCallback, useEffect } from "react";
