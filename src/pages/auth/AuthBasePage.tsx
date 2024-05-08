@@ -1,7 +1,8 @@
-import fineAntsLogo from "@assets/icons/logo/fineAnts.svg";
-import Routes from "@router/Routes";
+import AuthPageNavD from "@features/auth/components/AuthPageNav/desktop/AuthPageNavD";
+import AuthPageNavM from "@features/auth/components/AuthPageNav/mobile/AuthPageNavM";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
+import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -9,28 +10,23 @@ type Props = {
 };
 
 export default function AuthBasePage({ children }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   return (
-    <StyledBasePage>
-      <Header>
-        <Link to={Routes.LANDING}>
-          <img src={fineAntsLogo} alt="FineAnts 로고 이미지" />
-        </Link>
-      </Header>
+    <StyledBasePage $isDesktop={isDesktop}>
+      {isDesktop && <AuthPageNavD />}
+      {isMobile && <AuthPageNavM />}
       {children}
     </StyledBasePage>
   );
 }
 
-const StyledBasePage = styled.div`
+const StyledBasePage = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${({ theme: { color } }) => color.neutral.gray50};
-`;
-
-const Header = styled.header`
-  width: 100%;
-  padding: 28px 0 0 40px;
+  background-color: ${designSystem.color.neutral.white};
+  overflow: scroll;
 `;
