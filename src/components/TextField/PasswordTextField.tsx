@@ -1,4 +1,4 @@
-import { BaseTextField } from "@components/TextField/BaseTextField";
+import { BaseTextField, Size } from "@components/TextField/BaseTextField";
 import { ErrorText } from "@components/TextField/ErrorText";
 import { useBoolean } from "@hooks/useBoolean";
 import { IconButton, InputAdornment } from "@mui/material";
@@ -8,6 +8,7 @@ import { Icon } from "../Icon";
 
 type Props = {
   id?: string;
+  size?: Size;
   error?: boolean;
   errorText?: string;
   placeholder?: string;
@@ -17,6 +18,7 @@ type Props = {
 
 export function PasswordTextField({
   id,
+  size = "h44",
   error,
   errorText,
   placeholder,
@@ -36,7 +38,7 @@ export function PasswordTextField({
     <StyledPasswordTextField>
       <BaseTextField
         id={id ?? undefined}
-        size="h44"
+        size={size}
         error={error}
         type={showPassword ? "text" : "password"}
         value={password}
