@@ -1,4 +1,5 @@
 import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
+import { MAIN_HEADER_HEIGHT_D } from "@constants/styleConstants";
 import { PortfoliosDropdown } from "@features/portfolio/components/PortfoliosDropdown/PortfoliosDropdown";
 import UserControls from "@features/user/components/UserDropdown/UserControls";
 import { UserContext } from "@features/user/context/UserContext";
@@ -68,7 +69,7 @@ export default function HeaderTopD() {
 }
 
 const StyledHeaderTopD = styled.header`
-  height: 80px;
+  height: ${MAIN_HEADER_HEIGHT_D}px;
   display: flex;
   gap: 44px;
   justify-content: space-between;
