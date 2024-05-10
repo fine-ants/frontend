@@ -7,23 +7,23 @@ import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
 import useOAuthSignInMutation from "@features/auth/api/queries/useOAuthSignInMutation";
 import useSignInMutation from "@features/auth/api/queries/useSignInMutation";
-import {
-  AuthPageHeader,
-  AuthPageTitle,
-  AuthPageTitleCaption,
-} from "@features/auth/components/AuthPageCommon";
+import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
 import SocialLoginButton from "@features/auth/components/SocialLoginButton";
 import { useText, validateEmail } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import AuthPageHeaderM from "./AuthPageHeader/mobile/AuthPageHeaderM";
 
 const emailValidator = (email: string) =>
   validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
 
 export default function SignInForm() {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const navigate = useNavigate();
   const { popUpWindow, closePopUpWindow } = useContext(WindowContext);
 
@@ -80,17 +80,25 @@ export default function SignInForm() {
   const isAllFieldsFilled = !!email && !emailError && !!password;
 
   return (
-    <SignInContainer>
-      <AuthPageHeader>
-        <AuthPageTitle>로그인</AuthPageTitle>
-        <AuthPageTitleCaption>
-          이메일 또는 소셜 계정으로 로그인하세요
-        </AuthPageTitleCaption>
-      </AuthPageHeader>
+    <StyledSignInForm $isDesktop={isDesktop}>
+      {isDesktop && (
+        <AuthPageHeaderD
+          title="로그인"
+          subtitle="이메일 또는 소셜 계정으로 로그인하세요"
+        />
+      )}
+      {isMobile && (
+        <AuthPageHeaderM
+          title="로그인"
+          subtitle="이메일 또는 소셜 계정으로 로그인하세요"
+        />
+      )}
+
       <Form onSubmit={onSignInSubmit}>
-        <InputControl>
+        <InputControl $isDesktop={isDesktop}>
           <TextInputLabel>이메일</TextInputLabel>
           <TextField
+            size={isDesktop ? "h44" : "h48"}
             error={!!emailError}
             placeholder="이메일"
             value={email}
@@ -99,39 +107,51 @@ export default function SignInForm() {
             clearValue={onEmailClear}
           />
         </InputControl>
-        <InputControl>
+
+        <InputControl $isDesktop={isDesktop}>
           <TextInputLabel>비밀번호</TextInputLabel>
           <PasswordTextField
+            size={isDesktop ? "h44" : "h48"}
             placeholder="비밀번호를 입력해주세요"
             password={password}
             onChange={(e) => onPasswordChange(e.target.value.trim())}
           />
-          <SupportContainer>
-            <FormControlLabel>
-              <CheckBox size="h20" />내 정보 기억하기
-            </FormControlLabel>
-            <TextButton color="gray" variant="underline">
-              비밀번호를 잊으셨나요?
-            </TextButton>
-          </SupportContainer>
         </InputControl>
+
+        <SupportContainer $isDesktop={isDesktop}>
+          <FormControlLabel>
+            <CheckBox size="h20" />내 정보 기억하기
+          </FormControlLabel>
+          <TextButton color="gray" variant="underline">
+            비밀번호를 잊으셨나요?
+          </TextButton>
+        </SupportContainer>
 
         <LoginButton
           variant="primary"
-          size="h44"
+          size={isDesktop ? "h44" : "h48"}
           type="submit"
           disabled={!isAllFieldsFilled}>
           로그인
         </LoginButton>
       </Form>
 
-      <SocialLoginButtons>
-        <SocialLoginButton provider="google" />
-        <SocialLoginButton provider="kakao" />
-        <SocialLoginButton provider="naver" />
+      <SocialLoginButtons $isDesktop={isDesktop}>
+        <SocialLoginButton
+          provider="google"
+          variant={isDesktop ? "rectangle" : "circle"}
+        />
+        <SocialLoginButton
+          provider="kakao"
+          variant={isDesktop ? "rectangle" : "circle"}
+        />
+        <SocialLoginButton
+          provider="naver"
+          variant={isDesktop ? "rectangle" : "circle"}
+        />
       </SocialLoginButtons>
 
-      <SignUpWrapper>
+      <SignUpWrapper $isMobile={isMobile}>
         아직 계정이 없으신가요?
         <TextButton
           variant="underline"
@@ -140,17 +160,17 @@ export default function SignInForm() {
           회원가입하기
         </TextButton>
       </SignUpWrapper>
-    </SignInContainer>
+    </StyledSignInForm>
   );
 }
 
-const SignInContainer = styled.div`
-  width: 720px;
+const StyledSignInForm = styled.div<{ $isDesktop: boolean }>`
+  width: 100%;
+  max-width: 480px;
   height: 100%;
-  padding: 0 80px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: ${({ $isDesktop }) => ($isDesktop ? "48px" : "40px")};
 
   > h2 {
     font-size: 42px;
@@ -164,12 +184,11 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
 `;
 
-const InputControl = styled.div`
-  width: 560px;
-  margin-bottom: 8px;
+const InputControl = styled.div<{ $isDesktop: boolean }>`
+  width: 100%;
+  margin-bottom: ${({ $isDesktop }) => ($isDesktop ? "24px" : "16px")};
   display: flex;
   flex-direction: column;
 `;
@@ -183,9 +202,10 @@ const TextInputLabel = styled.label`
   color: ${designSystem.color.neutral.gray800};
 `;
 
-const SupportContainer = styled.div`
+const SupportContainer = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
-  margin-top: 17.5px;
+  margin-top: 16px;
+  margin-bottom: ${({ $isDesktop }) => ($isDesktop ? "48px" : "40px")};
   display: flex;
   justify-content: space-between;
 `;
@@ -194,23 +214,26 @@ const FormControlLabel = styled.label`
   display: flex;
   align-items: center;
   gap: 8px;
+  font: ${designSystem.font.button2.font};
+  letter-spacing: ${designSystem.font.button2.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
-const SocialLoginButtons = styled.div`
+const SocialLoginButtons = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
-  padding: 16px 0;
   display: flex;
-  justify-content: space-between;
-  gap: 8px;
-
-  > * {
-    flex: 1;
-  }
+  justify-content: ${({ $isDesktop }) =>
+    $isDesktop ? "space-between" : "center"};
+  gap: ${({ $isDesktop }) => ($isDesktop ? "8px" : "16px")};
 `;
 
-const SignUpWrapper = styled.div`
+const SignUpWrapper = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  margin-top: ${({ $isMobile }) => ($isMobile ? "auto" : "0")};
+  padding-bottom: 8px;
   display: flex;
   align-items: center;
+  justify-content: ${({ $isMobile }) => ($isMobile ? "center" : "flex-start")};
   gap: 6px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
