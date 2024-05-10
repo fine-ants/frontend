@@ -3,12 +3,14 @@ import { ProgressBoard } from "@components/ProgressBoard/ProgressBoard";
 import { SignUpData, postEmailVerification } from "@features/auth/api";
 import useSignUpMutation from "@features/auth/api/queries/useSignUpMutation";
 import { useFunnel } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import AuthBasePage from "@pages/auth/AuthBasePage";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { progressList, stepList } from "./constants/signupProgress";
 import {
   EmailSubPage,
   NicknameSubPage,
@@ -19,24 +21,11 @@ import MainSubPage from "./subPages/MainSubPage";
 import ProfileImageSubPage from "./subPages/ProfileImageSubPage";
 
 export default function SignUpPage() {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const navigate = useNavigate();
 
   const { mutate: signUpMutate } = useSignUpMutation();
-
-  const stepList = [
-    "main",
-    "email",
-    "verification",
-    "password",
-    "nickname",
-    "profileImage",
-  ];
-  const progressList = [
-    { title: "이메일 입력/인증", step: ["email", "verification"] },
-    { title: "비밀번호 생성", step: ["password"] },
-    { title: "닉네임 입력", step: ["nickname"] },
-    { title: "프로필 이미지 등록", step: ["profileImage"] },
-  ];
 
   const { currentStep, Funnel, changeStep } = useFunnel(stepList);
   const [signUpData, setSignUpData] = useState<SignUpData>({
@@ -48,12 +37,31 @@ export default function SignUpPage() {
 
   return (
     <AuthBasePage>
-      <SignUpContainer>
-        <ProgressBoard progressList={progressList} currentStep={currentStep} />
-        <SubPageContainer>
+      <Wrapper $isDesktop={isDesktop}>
+        {isDesktop && currentStep !== "main" && (
+          <ProgressBoardWrapperD>
+            <ProgressBoard
+              progressList={progressList}
+              currentStep={currentStep}
+            />
+          </ProgressBoardWrapperD>
+        )}
+        {isMobile && (
+          <ProgressBoardWrapperM>
+            <ProgressBoard
+              progressList={progressList}
+              currentStep={currentStep}
+            />
+          </ProgressBoardWrapperM>
+        )}
+
+        <SubPageContainer $isMobile={isMobile}>
           <Funnel>
             <Funnel.Step name="main">
-              <MainSubPage onNext={() => changeStep("email")} />
+              <MainSubPage
+                onNext={() => changeStep("email")}
+                onPrev={() => navigate(-1)}
+              />
             </Funnel.Step>
 
             <Funnel.Step name="email">
@@ -126,7 +134,8 @@ export default function SignUpPage() {
             </Funnel.Step>
           </Funnel>
         </SubPageContainer>
-        <SupportContainer>
+
+        <SupportContainer $isMobile={isMobile}>
           이미 회원이신가요?
           <TextButton
             color="primary"
@@ -135,35 +144,49 @@ export default function SignUpPage() {
             로그인하기
           </TextButton>
         </SupportContainer>
-      </SignUpContainer>
+      </Wrapper>
     </AuthBasePage>
   );
 }
 
-const SupportContainer = styled.div`
+const Wrapper = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray600};
-`;
-
-const SignUpContainer = styled.div`
-  width: 720px;
   height: 100%;
-  padding: 0 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 48px;
 `;
 
-const SubPageContainer = styled.div`
+const ProgressBoardWrapperD = styled.div`
+  margin-top: 66px;
+  margin-bottom: 48px;
+`;
+
+const ProgressBoardWrapperM = styled.div`
+  position: absolute;
+  top: 16px;
+`;
+
+const SubPageContainer = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: ${({ $isMobile }) => ($isMobile ? 1 : 0)};
+`;
+
+const SupportContainer = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  max-width: 480px;
+  margin-top: ${({ $isMobile }) => ($isMobile ? "16px" : "48px")};
+  padding-bottom: 8px;
+  padding-inline: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
+  display: flex;
+  align-items: center;
+  justify-content: ${({ $isMobile }) => ($isMobile ? "center" : "flex-start")};
+  gap: 8px;
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray600};
 `;
 
 const createSignUpFormData = (object: { [key: string]: Blob | File | null }) =>

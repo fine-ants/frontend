@@ -1,18 +1,22 @@
 import { HTTPSTATUS } from "@api/types";
-import Button from "@components/Buttons/Button";
 import { TextField } from "@components/TextField/TextField";
 import { postEmailDuplicateCheck } from "@features/auth/api";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import {
-  AuthPageHeader,
-  AuthPageTitle,
-  AuthPageTitleCaption,
-} from "@features/auth/components/AuthPageCommon";
+import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
+import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
 import { useDebounce, useText, validateEmail } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import SubPage from "./SubPage";
+import {
+  AuthNextButton,
+  AuthPageHeaderInnerWrapperD,
+  AuthPageHeaderInnerWrapperM,
+  AuthPageHeaderMWrapper,
+  PrevButtonWrapperM,
+} from "./common";
 
 type Props = {
   onPrev: () => void;
@@ -23,6 +27,8 @@ const emailValidator = (email: string) =>
   validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
 
 export default function EmailSubPage({ onPrev, onNext }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const {
     value: email,
     isError,
@@ -80,17 +86,37 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
 
   return (
     <SubPage>
-      <AuthOnPrevButton onPrev={onPrev} />
+      {isDesktop && (
+        <AuthPageHeaderInnerWrapperD>
+          <AuthOnPrevButton onPrev={onPrev} />
+          <AuthPageHeaderD
+            title="이메일 입력"
+            subtitle="올바른 형식의 이메일을 입력하세요 (example@email.com)"
+          />
+        </AuthPageHeaderInnerWrapperD>
+      )}
+      {isMobile && (
+        <AuthPageHeaderMWrapper>
+          <PrevButtonWrapperM>
+            <AuthOnPrevButton onPrev={onPrev} />
+          </PrevButtonWrapperM>
+          <AuthPageHeaderInnerWrapperM>
+            <AuthPageHeaderM
+              title="이메일 입력"
+              subtitle={
+                <span>
+                  올바른 형식의 이메일을 입력하세요 <br />
+                  (example@email.com)
+                </span>
+              }
+            />
+          </AuthPageHeaderInnerWrapperM>
+        </AuthPageHeaderMWrapper>
+      )}
 
-      <AuthPageHeader>
-        <AuthPageTitle>이메일</AuthPageTitle>
-        <AuthPageTitleCaption>
-          올바른 형식의 이메일을 입력하세요 (example@email.com)
-        </AuthPageTitleCaption>
-      </AuthPageHeader>
-
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} $isMobile={isMobile}>
         <TextField
+          size={isMobile ? "h48" : "h44"}
           error={isError || !isDuplicateChecked}
           placeholder="이메일"
           value={email}
@@ -99,20 +125,26 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
           clearValue={onEmailClear}
         />
 
-        <Button
+        <AuthNextButton
           variant="primary"
-          size="h44"
+          size={isMobile ? "h48" : "h44"}
           type="submit"
-          disabled={isError || !isDuplicateChecked}>
+          disabled={isError || !isDuplicateChecked}
+          $isMobile={isMobile}>
           다음 단계
-        </Button>
+        </AuthNextButton>
       </Form>
     </SubPage>
   );
 }
 
-const Form = styled.form`
+const Form = styled.form<{ $isMobile: boolean }>`
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  padding-inline: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
   display: flex;
   flex-direction: column;
   gap: 58px;
+  align-self: center;
 `;

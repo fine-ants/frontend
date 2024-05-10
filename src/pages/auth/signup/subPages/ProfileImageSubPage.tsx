@@ -3,14 +3,18 @@ import Button from "@components/Buttons/Button";
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import {
-  AuthPageHeader,
-  AuthPageTitle,
-  AuthPageTitleCaption,
-} from "@features/auth/components/AuthPageCommon";
+import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
+import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
 import { useImageInput } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import styled from "styled-components";
 import SubPage from "./SubPage";
+import {
+  AuthPageHeaderInnerWrapperD,
+  AuthPageHeaderInnerWrapperM,
+  AuthPageHeaderMWrapper,
+  PrevButtonWrapperM,
+} from "./common";
 
 type Props = {
   onPrev: () => void;
@@ -18,6 +22,8 @@ type Props = {
 };
 
 export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const {
     imageFilePath: profileImageUrl,
     imageFile: profileImageFile,
@@ -35,48 +41,78 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
 
   return (
     <SubPage>
-      <AuthPageHeader>
-        <AuthOnPrevButton onPrev={onPrev} />
-
-        <AuthPageTitle>프로필 이미지 등록</AuthPageTitle>
-        <AuthPageTitleCaption>프로필 이미지를 등록하세요</AuthPageTitleCaption>
-      </AuthPageHeader>
-
-      <ImageInputWrapper>
-        <Profile>
-          <CameraWrapper>
-            <Icon icon="camera" color="white" size={16} />
-          </CameraWrapper>
-          <Image
-            src={profileImageUrl ? profileImageUrl : defaultProfile}
-            alt="profile"
+      {isDesktop && (
+        <AuthPageHeaderInnerWrapperD>
+          <AuthOnPrevButton onPrev={onPrev} />
+          <AuthPageHeaderD
+            title="프로필 이미지 등록"
+            subtitle="프로필 이미지를 등록하세요"
           />
+        </AuthPageHeaderInnerWrapperD>
+      )}
 
-          <ImageInput
-            type="file"
-            accept="image/*"
-            onChange={onProfilePictureChange}
-          />
+      {isMobile && (
+        <AuthPageHeaderMWrapper>
+          <PrevButtonWrapperM>
+            <AuthOnPrevButton onPrev={onPrev} />
+          </PrevButtonWrapperM>
+          <AuthPageHeaderInnerWrapperM>
+            <AuthPageHeaderM
+              title="프로필 이미지 등록"
+              subtitle="프로필 이미지를 등록하세요"
+            />
+          </AuthPageHeaderInnerWrapperM>
+        </AuthPageHeaderMWrapper>
+      )}
 
-          <ErrorCaption>{imageFileError}</ErrorCaption>
-        </Profile>
-      </ImageInputWrapper>
+      <Wrapper $isMobile={isMobile}>
+        <ImageInputWrapper>
+          <Profile>
+            <CameraWrapper>
+              <Icon icon="camera" color="white" size={16} />
+            </CameraWrapper>
+            <Image
+              src={profileImageUrl ? profileImageUrl : defaultProfile}
+              alt="profile"
+            />
 
-      <ButtonsContainer>
-        <Button
-          variant="primary"
-          size="h44"
-          onClick={submit}
-          disabled={profileImageFile === null}>
-          등록 완료
-        </Button>
-        <TextButton variant="underline" color="gray" onClick={submit}>
-          지금은 건너뛰기
-        </TextButton>
-      </ButtonsContainer>
+            <ImageInput
+              type="file"
+              accept="image/*"
+              onChange={onProfilePictureChange}
+            />
+
+            <ErrorCaption>{imageFileError}</ErrorCaption>
+          </Profile>
+        </ImageInputWrapper>
+
+        <ButtonsContainer $isMobile={isMobile}>
+          <Button
+            variant="primary"
+            size={isMobile ? "h48" : "h44"}
+            onClick={submit}
+            disabled={profileImageFile === null}>
+            등록 완료
+          </Button>
+          <TextButton variant="underline" color="gray" onClick={submit}>
+            지금은 건너뛰기
+          </TextButton>
+        </ButtonsContainer>
+      </Wrapper>
     </SubPage>
   );
 }
+
+const Wrapper = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  margin-top: 40px;
+  padding-inline: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+`;
 
 const ImageInputWrapper = styled.div`
   width: 100%;
@@ -136,10 +172,12 @@ const CameraWrapper = styled.div`
   z-index: 1;
 `;
 
-const ButtonsContainer = styled.div`
+const ButtonsContainer = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  margin-top: ${({ $isMobile }) => ($isMobile ? "auto" : "40px")};
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   gap: 24px;
 `;
