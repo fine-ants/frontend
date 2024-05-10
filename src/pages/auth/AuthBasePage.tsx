@@ -1,5 +1,4 @@
 import AuthPageNavD from "@features/auth/components/AuthPageNav/desktop/AuthPageNavD";
-import AuthPageNavM from "@features/auth/components/AuthPageNav/mobile/AuthPageNavM";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
@@ -10,12 +9,11 @@ type Props = {
 };
 
 export default function AuthBasePage({ children }: Props) {
-  const { isDesktop, isMobile } = useResponsiveLayout();
+  const { isDesktop } = useResponsiveLayout();
 
   return (
     <StyledBasePage $isDesktop={isDesktop}>
       {isDesktop && <AuthPageNavD />}
-      {isMobile && <AuthPageNavM />}
       {children}
     </StyledBasePage>
   );
