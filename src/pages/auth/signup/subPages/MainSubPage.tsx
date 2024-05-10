@@ -1,28 +1,54 @@
-import {
-  AuthPageHeader,
-  AuthPageTitle,
-  AuthPageTitleCaption,
-} from "@features/auth/components/AuthPageCommon";
+import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import SocialLoginButton from "@features/auth/components/SocialLoginButton";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import SubPage from "./SubPage";
+import {
+  AuthPageHeaderInnerWrapperD,
+  AuthPageHeaderInnerWrapperM,
+  AuthPageHeaderWrapperM,
+  PrevButtonWrapperM,
+} from "./common";
 
 type Props = {
   onNext: () => void;
+  onPrev: () => void;
 };
 
-export default function MainSubPage({ onNext }: Props) {
+export default function MainSubPage({ onNext, onPrev }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   return (
-    <StyledMainSubPage>
-      <AuthPageHeader>
-        <AuthPageTitle>회원가입</AuthPageTitle>
-        <AuthPageTitleCaption>
-          환영합니다! 이메일로 가입하거나 소셜 계정으로 시작하세요
-        </AuthPageTitleCaption>
-      </AuthPageHeader>
-      <ButtonContainer>
-        <EmailSignInButton type="button" onClick={onNext}>
+    <StyledMainSubPage $isDesktop={isDesktop}>
+      {isDesktop && (
+        <AuthPageHeaderInnerWrapperD>
+          <AuthPageHeader
+            title="회원가입"
+            subtitle="환영합니다! 이메일로 가입하거나 소셜 계정으로 시작하세요"
+          />
+        </AuthPageHeaderInnerWrapperD>
+      )}
+      {isMobile && (
+        <AuthPageHeaderWrapperM>
+          <PrevButtonWrapperM>
+            <AuthOnPrevButton onPrev={onPrev} />
+          </PrevButtonWrapperM>
+          <AuthPageHeaderInnerWrapperM>
+            <AuthPageHeader
+              title="회원가입"
+              subtitle="환영합니다! 이메일로 가입하거나 소셜 계정으로 시작하세요"
+            />
+          </AuthPageHeaderInnerWrapperM>
+        </AuthPageHeaderWrapperM>
+      )}
+
+      <ButtonsContainer $isMobile={isMobile}>
+        <EmailSignInButton
+          type="button"
+          onClick={onNext}
+          $isDesktop={isDesktop}>
           이메일로 가입하기
         </EmailSignInButton>
         <span>또는</span>
@@ -31,23 +57,23 @@ export default function MainSubPage({ onNext }: Props) {
           <SocialLoginButton provider="kakao" />
           <SocialLoginButton provider="naver" />
         </OAuthButtonContainer>
-      </ButtonContainer>
+      </ButtonsContainer>
     </StyledMainSubPage>
   );
 }
 
-const StyledMainSubPage = styled(SubPage)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 444px;
-  gap: 48px !important;
+const StyledMainSubPage = styled(SubPage)<{ $isDesktop: boolean }>`
+  margin-top: ${({ $isDesktop }) => ($isDesktop ? "156px" : "0")};
 `;
 
-const ButtonContainer = styled.div`
+const ButtonsContainer = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  max-width: 480px;
+  padding-inline: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
   gap: 24px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
@@ -61,10 +87,10 @@ const OAuthButtonContainer = styled.div`
   gap: 8px;
 `;
 
-const EmailSignInButton = styled.button`
+const EmailSignInButton = styled.button<{ $isDesktop: boolean }>`
   width: 100%;
   min-width: 128px;
-  height: 44px;
+  height: ${({ $isDesktop }) => ($isDesktop ? "44px" : "48px")};
   display: flex;
   justify-content: center;
   align-items: center;

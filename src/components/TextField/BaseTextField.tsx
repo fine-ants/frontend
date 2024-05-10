@@ -2,7 +2,7 @@ import { OutlinedInput, OutlinedInputProps } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
-type Size = "h44" | "h32" | "h24";
+export type Size = "h24" | "h32" | "h44" | "h48";
 
 type Props = {
   size: Size;
@@ -13,23 +13,33 @@ export function BaseTextField({ size, ...rest }: Props) {
 }
 
 const INPUT_SIZE_TO_CSS = {
-  h44: `height: 44px;
-      padding: 8px 0;
-      border-radius: 4px;`,
-
-  h32: `height: 32px;
+  h24: `
+    height: 24px;
+    padding: 0px 8px;
+    border-radius: 2px;
+  `,
+  h32: `
+      height: 32px;
       padding: 4px 0;
-      border-radius: 3px;`,
-
-  h24: `height: 24px;
-      padding: 0px 8px;
-      border-radius: 2px;`,
+      border-radius: 3px;
+  `,
+  h44: `
+    height: 44px;
+    padding: 8px 0;
+    border-radius: 4px;
+  `,
+  h48: `
+      height: 48px;
+      padding: 13.5px 0;
+      border-radius: 4px;
+  `,
 };
 
 const TEXT_FIELD_SIZE_TO_CSS = {
-  h44: `padding: 0 12px;`,
-  h32: `padding: 0 8px;`,
-  h24: `padding: 0 8px;`,
+  h24: "padding: 0 8px;",
+  h32: "padding: 0 8px;",
+  h44: "padding: 0 12px;",
+  h48: "padding: 0 12px;",
 };
 
 const TextField = styled(OutlinedInput)<{ $size: Size }>`

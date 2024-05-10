@@ -9,7 +9,7 @@ export function AuthOnPrevButton({ onPrev }: Props) {
     <div>
       <IconButton
         icon="arrow-left"
-        size="h24"
+        size="h40"
         iconColor="custom"
         customColor={{ color: "gray800", hoverColor: "gray100" }}
         onClick={onPrev}

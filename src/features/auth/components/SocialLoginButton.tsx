@@ -5,17 +5,26 @@ import { CustomTooltip } from "@components/Tooltips/CustomTooltip";
 import { WindowContext } from "@context/WindowContext";
 import { OAuthProvider, postOAuthUrl } from "@features/auth/api";
 import { useBoolean } from "@hooks/useBoolean";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";
 import { useContext, useEffect, useRef } from "react";
 import { toast } from "src/main";
 import styled from "styled-components";
 
+type Variant = "rectangle" | "circle";
+
 type Props = {
   provider: OAuthProvider;
+  variant?: Variant;
 };
 
-export default function SocialLoginButton({ provider }: Props) {
+export default function SocialLoginButton({
+  provider,
+  variant = "rectangle",
+}: Props) {
+  const { isDesktop } = useResponsiveLayout();
+
   const { onOpenPopUpWindow } = useContext(WindowContext);
 
   const { state: isTooltipOpen, setTrue: setTooltipOpen } = useBoolean();
@@ -54,35 +63,63 @@ export default function SocialLoginButton({ provider }: Props) {
         clearTimeout(timerRef.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let socialLoginButton = null;
 
   if (provider === "google") {
-    socialLoginButton = (
-      <StyledGoogleSignInButton type="button" onClick={onSignIn}>
-        <img src={googleLogo} alt="구글 로고" />
-        <p>구글 로그인</p>
-      </StyledGoogleSignInButton>
-    );
+    socialLoginButton =
+      variant === "rectangle" ? (
+        <RectangleButton
+          type="button"
+          onClick={onSignIn}
+          $provider="google"
+          $isDesktop={isDesktop}>
+          <img src={googleLogo} alt="구글 로고" />
+          <p>구글 로그인</p>
+        </RectangleButton>
+      ) : (
+        <CircleButton type="button" onClick={onSignIn} $provider="google">
+          <img src={googleLogo} alt="구글 로고" />
+        </CircleButton>
+      );
   }
 
   if (provider === "kakao") {
-    socialLoginButton = (
-      <StyledKakaoSignInButton type="button" onClick={onSignIn}>
-        <img src={kakaoLogo} alt="카카오 로고" />
-        <p>카카오 로그인</p>
-      </StyledKakaoSignInButton>
-    );
+    socialLoginButton =
+      variant === "rectangle" ? (
+        <RectangleButton
+          type="button"
+          onClick={onSignIn}
+          $provider="kakao"
+          $isDesktop={isDesktop}>
+          <img src={kakaoLogo} alt="카카오 로고" />
+          <p>카카오 로그인</p>
+        </RectangleButton>
+      ) : (
+        <CircleButton type="button" onClick={onSignIn} $provider="kakao">
+          <img src={kakaoLogo} alt="카카오 로고" />
+        </CircleButton>
+      );
   }
 
   if (provider === "naver") {
-    socialLoginButton = (
-      <StyledNaverSignInButton type="button" onClick={onSignIn}>
-        <img src={naverLogo} alt="네이버 로고" />
-        <p>네이버 로그인</p>
-      </StyledNaverSignInButton>
-    );
+    socialLoginButton =
+      variant === "rectangle" ? (
+        <RectangleButton
+          type="button"
+          onClick={onSignIn}
+          $provider="naver"
+          $isDesktop={isDesktop}>
+          <img src={naverLogo} alt="네이버 로고" />
+          <p>네이버 로그인</p>
+        </RectangleButton>
+      ) : (
+        <CircleButton type="button" onClick={onSignIn} $provider="naver">
+          <img src={naverLogo} alt="네이버 로고" />
+        </CircleButton>
+      );
   }
 
   return recentlyLoggedInMethod === provider
@@ -97,37 +134,53 @@ export default function SocialLoginButton({ provider }: Props) {
     : socialLoginButton;
 }
 
-const BaseSignInButton = styled.button`
-  display: flex;
-  height: 44px;
+const oAuthProviderToCSS = {
+  google: `
+    background-color: ${designSystem.color.neutral.white};
+    border: 1px solid ${designSystem.color.neutral.gray200};
+    font: ${designSystem.font.button2.font};
+    letter-spacing: ${designSystem.font.button2.letterSpacing};
+    color: ${designSystem.color.neutral.gray600};
+  `,
+  kakao: `
+    background-color: ${designSystem.color.kakao.primary};
+    border: 1px solid ${designSystem.color.kakao.primary};
+    font: ${designSystem.font.button2.font};
+    letter-spacing: ${designSystem.font.button2.letterSpacing};
+    color: ${designSystem.color.neutral.black};
+  `,
+  naver: `
+    background-color: ${designSystem.color.naver.primary};
+    border: 1px solid ${designSystem.color.naver.primary};
+    font: ${designSystem.font.button2.font};
+    letter-spacing: ${designSystem.font.button2.letterSpacing};
+    color: ${designSystem.color.neutral.white};
+  `,
+};
+
+const RectangleButton = styled.button<{
+  $provider: OAuthProvider;
+  $isDesktop: boolean;
+}>`
+  height: ${({ $isDesktop }) => ($isDesktop ? "44px" : "48px")};
   padding: 0px 12px;
-  gap: 8px;
+  display: flex;
   justify-content: center;
   align-items: center;
+  gap: 8px;
+  flex-grow: 1;
   flex-shrink: 0;
   border-radius: 4px;
+  ${({ $provider }) => oAuthProviderToCSS[$provider]};
 `;
 
-const StyledGoogleSignInButton = styled(BaseSignInButton)`
-  background-color: ${designSystem.color.neutral.white};
-  border: 1px solid ${designSystem.color.neutral.gray200};
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
-`;
-
-const StyledKakaoSignInButton = styled(BaseSignInButton)`
-  background-color: ${designSystem.color.kakao.primary};
-  border: 1px solid ${designSystem.color.kakao.primary};
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.black};
-`;
-
-const StyledNaverSignInButton = styled(BaseSignInButton)`
-  background-color: ${designSystem.color.naver.primary};
-  border: 1px solid ${designSystem.color.naver.primary};
-  font: ${designSystem.font.button2.font};
-  letter-spacing: ${designSystem.font.button2.letterSpacing};
-  color: ${designSystem.color.neutral.white};
+const CircleButton = styled.button<{ $provider: OAuthProvider }>`
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  border-radius: 50%;
+  ${({ $provider }) => oAuthProviderToCSS[$provider]};
 `;

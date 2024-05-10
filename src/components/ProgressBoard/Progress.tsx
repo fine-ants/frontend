@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -14,21 +15,25 @@ export function Progress({
   isLast,
   currentStepNumber,
 }: ProgressProps) {
+  const { isDesktop } = useResponsiveLayout();
+
   return (
     <StyledProgress>
-      <ProgressContent>
+      <ProgressContent $isDesktop={isDesktop}>
         <ProgressStepNumber
           $currentStepNumber={currentStepNumber}
           $stepNumber={stepNumber}>
           {stepNumber}
         </ProgressStepNumber>
-        <ProgressTitle
-          $currentStepNumber={currentStepNumber}
-          $stepNumber={stepNumber}>
-          {title}
-        </ProgressTitle>
+        {isDesktop && (
+          <ProgressTitle
+            $currentStepNumber={currentStepNumber}
+            $stepNumber={stepNumber}>
+            {title}
+          </ProgressTitle>
+        )}
       </ProgressContent>
-      {!isLast && (
+      {!isLast && isDesktop && (
         <Dots>
           {Array.from({ length: 3 }).map((_, index) => (
             <Dot
@@ -67,8 +72,8 @@ const StyledProgress = styled.div`
   display: flex;
 `;
 
-const ProgressContent = styled.div`
-  width: 102px;
+const ProgressContent = styled.div<{ $isDesktop: boolean }>`
+  width: ${({ $isDesktop }) => ($isDesktop ? "102px" : "auto")};
   display: flex;
   flex-direction: column;
   justify-content: center;
