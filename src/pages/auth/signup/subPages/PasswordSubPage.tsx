@@ -1,7 +1,6 @@
 import { PasswordTextField } from "@components/TextField/PasswordTextField";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
-import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import { useText, validatePassword } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { FormEvent } from "react";
@@ -63,7 +62,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
       {isDesktop && (
         <AuthPageHeaderInnerWrapperD>
           <AuthOnPrevButton onPrev={onPrev} />
-          <AuthPageHeaderD
+          <AuthPageHeader
             title="비밀번호 생성"
             subtitle="비밀번호는 영문, 숫자, 특수문자를 1개 이상 조합한 8~16자여야 합니다"
           />
@@ -75,7 +74,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
           <AuthPageHeaderInnerWrapperM>
-            <AuthPageHeaderM
+            <AuthPageHeader
               title="비밀번호 생성"
               subtitle="비밀번호는 영문, 숫자, 특수문자를 1개 이상 조합한 8~16자여야 합니다"
             />

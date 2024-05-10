@@ -46,7 +46,7 @@ export default function SignUpPage() {
             />
           </ProgressBoardWrapperD>
         )}
-        {isMobile && (
+        {isMobile && currentStep !== "main" && (
           <ProgressBoardWrapperM>
             <ProgressBoard
               progressList={progressList}

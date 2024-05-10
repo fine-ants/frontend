@@ -3,8 +3,7 @@ import Button from "@components/Buttons/Button";
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
-import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import { useImageInput } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import styled from "styled-components";
@@ -44,7 +43,7 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
       {isDesktop && (
         <AuthPageHeaderInnerWrapperD>
           <AuthOnPrevButton onPrev={onPrev} />
-          <AuthPageHeaderD
+          <AuthPageHeader
             title="프로필 이미지 등록"
             subtitle="프로필 이미지를 등록하세요"
           />
@@ -57,7 +56,7 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
           <AuthPageHeaderInnerWrapperM>
-            <AuthPageHeaderM
+            <AuthPageHeader
               title="프로필 이미지 등록"
               subtitle="프로필 이미지를 등록하세요"
             />

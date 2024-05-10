@@ -7,7 +7,6 @@ import { CLIENT_URL } from "@constants/config";
 import { WindowContext } from "@context/WindowContext";
 import useOAuthSignInMutation from "@features/auth/api/queries/useOAuthSignInMutation";
 import useSignInMutation from "@features/auth/api/queries/useSignInMutation";
-import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
 import SocialLoginButton from "@features/auth/components/SocialLoginButton";
 import { useText, validateEmail } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
@@ -16,7 +15,7 @@ import designSystem from "@styles/designSystem";
 import { FormEvent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AuthPageHeaderM from "./AuthPageHeader/mobile/AuthPageHeaderM";
+import AuthPageHeader from "./AuthPageHeader";
 
 const emailValidator = (email: string) =>
   validateEmail(email, { errorMessage: "올바른 이메일을 입력해주세요" });
@@ -81,18 +80,10 @@ export default function SignInForm() {
 
   return (
     <StyledSignInForm $isDesktop={isDesktop}>
-      {isDesktop && (
-        <AuthPageHeaderD
-          title="로그인"
-          subtitle="이메일 또는 소셜 계정으로 로그인하세요"
-        />
-      )}
-      {isMobile && (
-        <AuthPageHeaderM
-          title="로그인"
-          subtitle="이메일 또는 소셜 계정으로 로그인하세요"
-        />
-      )}
+      <AuthPageHeader
+        title="로그인"
+        subtitle="이메일 또는 소셜 계정으로 로그인하세요"
+      />
 
       <Form onSubmit={onSignInSubmit}>
         <InputControl $isDesktop={isDesktop}>

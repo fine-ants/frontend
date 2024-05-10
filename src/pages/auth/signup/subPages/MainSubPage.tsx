@@ -1,6 +1,5 @@
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
-import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import SocialLoginButton from "@features/auth/components/SocialLoginButton";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
@@ -25,7 +24,7 @@ export default function MainSubPage({ onNext, onPrev }: Props) {
     <StyledMainSubPage $isDesktop={isDesktop}>
       {isDesktop && (
         <AuthPageHeaderInnerWrapperD>
-          <AuthPageHeaderD
+          <AuthPageHeader
             title="회원가입"
             subtitle="환영합니다! 이메일로 가입하거나 소셜 계정으로 시작하세요"
           />
@@ -37,7 +36,7 @@ export default function MainSubPage({ onNext, onPrev }: Props) {
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
           <AuthPageHeaderInnerWrapperM>
-            <AuthPageHeaderM
+            <AuthPageHeader
               title="회원가입"
               subtitle="환영합니다! 이메일로 가입하거나 소셜 계정으로 시작하세요"
             />

@@ -1,7 +1,6 @@
 import { TextField } from "@components/TextField/TextField";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
-import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import { useDebounce, useText, validateNickname } from "@fineants/demolition";
 import useNicknameDuplicateCheck from "@hooks/useNicknameDuplicateCheck";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
@@ -75,7 +74,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
       {isDesktop && (
         <AuthPageHeaderInnerWrapperD>
           <AuthOnPrevButton onPrev={onPrev} />
-          <AuthPageHeaderD
+          <AuthPageHeader
             title="닉네임 입력"
             subtitle="닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다"
           />
@@ -87,7 +86,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
           <AuthPageHeaderInnerWrapperM>
-            <AuthPageHeaderM
+            <AuthPageHeader
               title="닉네임 입력"
               subtitle="닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다"
             />

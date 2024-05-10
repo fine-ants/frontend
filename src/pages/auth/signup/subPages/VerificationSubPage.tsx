@@ -1,8 +1,7 @@
 import { TextButton } from "@components/Buttons/TextButton";
 import useEmailCodeVerificationMutation from "@features/auth/api/queries/useEmailCodeVerificationMutation";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
-import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import VerificationCodeInput from "@features/auth/components/VerificationCodeInput";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
@@ -64,7 +63,7 @@ export default function VerificationCodeSubPage({
       {isDesktop && (
         <AuthPageHeaderInnerWrapperD>
           <AuthOnPrevButton onPrev={onPrev} />
-          <AuthPageHeaderD
+          <AuthPageHeader
             title="이메일 인증"
             subtitle={
               <>
@@ -81,7 +80,7 @@ export default function VerificationCodeSubPage({
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
           <AuthPageHeaderInnerWrapperM>
-            <AuthPageHeaderM
+            <AuthPageHeader
               title="이메일 인증"
               subtitle={
                 <>

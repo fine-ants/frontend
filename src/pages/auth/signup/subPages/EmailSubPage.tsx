@@ -2,8 +2,7 @@ import { HTTPSTATUS } from "@api/types";
 import { TextField } from "@components/TextField/TextField";
 import { postEmailDuplicateCheck } from "@features/auth/api";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import AuthPageHeaderD from "@features/auth/components/AuthPageHeader/desktop/AuthPageHeaderD";
-import AuthPageHeaderM from "@features/auth/components/AuthPageHeader/mobile/AuthPageHeaderM";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import { useDebounce, useText, validateEmail } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import axios from "axios";
@@ -89,7 +88,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
       {isDesktop && (
         <AuthPageHeaderInnerWrapperD>
           <AuthOnPrevButton onPrev={onPrev} />
-          <AuthPageHeaderD
+          <AuthPageHeader
             title="이메일 입력"
             subtitle="올바른 형식의 이메일을 입력하세요 (example@email.com)"
           />
@@ -101,7 +100,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
           <AuthPageHeaderInnerWrapperM>
-            <AuthPageHeaderM
+            <AuthPageHeader
               title="이메일 입력"
               subtitle={
                 <span>
