@@ -1,3 +1,4 @@
+import { ErrorText } from "@components/TextField/ErrorText";
 import designSystem from "@styles/designSystem";
 import VerificationInput from "react-verification-input";
 import styled from "styled-components";
@@ -26,6 +27,7 @@ export default function VerificationCodeInput({
         length={inputLength}
         placeholder=""
         classNames={{
+          container: "container",
           character: "character",
           characterSelected: "character--selected",
         }}
@@ -38,9 +40,13 @@ export default function VerificationCodeInput({
 }
 
 const StyledVerificationCodeInput = styled.div<{ $isError: boolean }>`
+  .container {
+    width: 100%;
+  }
+
   .character {
-    width: 44px;
-    min-height: 44px;
+    width: 48px;
+    height: 48px;
     background: ${designSystem.color.neutral.white};
     border: 1px solid
       ${({ $isError }) =>
@@ -49,7 +55,8 @@ const StyledVerificationCodeInput = styled.div<{ $isError: boolean }>`
           : designSystem.color.neutral.gray200};
     border-radius: 4px;
     font-size: 20px;
-    color: #272729;
+    color: ${designSystem.color.neutral.gray900};
+    outline: none;
   }
 
   .character--selected {
@@ -59,9 +66,4 @@ const StyledVerificationCodeInput = styled.div<{ $isError: boolean }>`
           ? designSystem.color.state.red500
           : designSystem.color.primary.blue500};
   }
-`;
-
-const ErrorText = styled.div`
-  font: ${designSystem.font.body4.font};
-  color: ${designSystem.color.state.red500};
 `;

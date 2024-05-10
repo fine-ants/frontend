@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -5,17 +6,20 @@ type Props = {
   children: ReactNode;
 };
 
-export default function SubPage({ children }: Props) {
-  return <StyledSubPage>{children}</StyledSubPage>;
+export default function SubPage({ children, ...props }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
+  return (
+    <StyledSubPage $isDesktop={isDesktop} $isMobile={isMobile} {...props}>
+      {children}
+    </StyledSubPage>
+  );
 }
 
-const StyledSubPage = styled.div`
+const StyledSubPage = styled.div<{ $isDesktop: boolean; $isMobile: boolean }>`
   width: 100%;
+  height: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
   display: flex;
-  gap: 48px;
   flex-direction: column;
-
-  > label {
-    font-size: 14px;
-  }
+  gap: ${({ $isDesktop }) => ($isDesktop ? "48px" : "40px")};
 `;

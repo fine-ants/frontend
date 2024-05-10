@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import styled from "styled-components";
 import { Progress } from "./Progress";
 
@@ -7,13 +8,15 @@ type Props = {
 };
 
 export function ProgressBoard({ progressList, currentStep }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   const progressTitleList = progressList.map((progress) => progress.title);
   const currentIndex = progressList.findIndex((item) =>
     item.step.includes(currentStep)
   );
 
   return (
-    <StyledProgressBoard>
+    <StyledProgressBoard $isMobile={isMobile}>
       {currentIndex >= 0 &&
         progressTitleList.map((title, index) => (
           <Progress
@@ -28,6 +31,7 @@ export function ProgressBoard({ progressList, currentStep }: Props) {
   );
 }
 
-const StyledProgressBoard = styled.div`
+const StyledProgressBoard = styled.div<{ $isMobile: boolean }>`
   display: flex;
+  gap: ${({ $isMobile }) => ($isMobile ? "8px" : "0")};
 `;

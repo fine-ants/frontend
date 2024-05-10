@@ -44,7 +44,7 @@ export function TextButton(props: Props) {
     variant = "default",
     color = "primary",
     children,
-    type,
+    type = "button",
     disabled = false,
     onClick,
     ...otherProps
