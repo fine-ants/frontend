@@ -10,7 +10,7 @@ import {
   AuthNextButton,
   AuthPageHeaderInnerWrapperD,
   AuthPageHeaderInnerWrapperM,
-  AuthPageHeaderMWrapper,
+  AuthPageHeaderWrapperM,
   PrevButtonWrapperM,
 } from "./common";
 
@@ -69,7 +69,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
         </AuthPageHeaderInnerWrapperD>
       )}
       {isMobile && (
-        <AuthPageHeaderMWrapper>
+        <AuthPageHeaderWrapperM>
           <PrevButtonWrapperM>
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
@@ -79,7 +79,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
               subtitle="비밀번호는 영문, 숫자, 특수문자를 1개 이상 조합한 8~16자여야 합니다"
             />
           </AuthPageHeaderInnerWrapperM>
-        </AuthPageHeaderMWrapper>
+        </AuthPageHeaderWrapperM>
       )}
 
       <Form onSubmit={onSubmit} $isMobile={isMobile}>

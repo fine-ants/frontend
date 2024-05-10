@@ -11,7 +11,7 @@ import {
   AuthNextButton,
   AuthPageHeaderInnerWrapperD,
   AuthPageHeaderInnerWrapperM,
-  AuthPageHeaderMWrapper,
+  AuthPageHeaderWrapperM,
   PrevButtonWrapperM,
 } from "./common";
 
@@ -81,7 +81,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
         </AuthPageHeaderInnerWrapperD>
       )}
       {isMobile && (
-        <AuthPageHeaderMWrapper>
+        <AuthPageHeaderWrapperM>
           <PrevButtonWrapperM>
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
@@ -91,7 +91,7 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
               subtitle="닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다"
             />
           </AuthPageHeaderInnerWrapperM>
-        </AuthPageHeaderMWrapper>
+        </AuthPageHeaderWrapperM>
       )}
 
       <Form onSubmit={onSubmit} $isMobile={isMobile}>

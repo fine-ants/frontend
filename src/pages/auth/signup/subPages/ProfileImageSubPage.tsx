@@ -11,7 +11,7 @@ import SubPage from "./SubPage";
 import {
   AuthPageHeaderInnerWrapperD,
   AuthPageHeaderInnerWrapperM,
-  AuthPageHeaderMWrapper,
+  AuthPageHeaderWrapperM,
   PrevButtonWrapperM,
 } from "./common";
 
@@ -51,7 +51,7 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
       )}
 
       {isMobile && (
-        <AuthPageHeaderMWrapper>
+        <AuthPageHeaderWrapperM>
           <PrevButtonWrapperM>
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
@@ -61,7 +61,7 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
               subtitle="프로필 이미지를 등록하세요"
             />
           </AuthPageHeaderInnerWrapperM>
-        </AuthPageHeaderMWrapper>
+        </AuthPageHeaderWrapperM>
       )}
 
       <Wrapper $isMobile={isMobile}>

@@ -8,7 +8,7 @@ import SubPage from "./SubPage";
 import {
   AuthPageHeaderInnerWrapperD,
   AuthPageHeaderInnerWrapperM,
-  AuthPageHeaderMWrapper,
+  AuthPageHeaderWrapperM,
   PrevButtonWrapperM,
 } from "./common";
 
@@ -31,7 +31,7 @@ export default function MainSubPage({ onNext, onPrev }: Props) {
         </AuthPageHeaderInnerWrapperD>
       )}
       {isMobile && (
-        <AuthPageHeaderMWrapper>
+        <AuthPageHeaderWrapperM>
           <PrevButtonWrapperM>
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
@@ -41,7 +41,7 @@ export default function MainSubPage({ onNext, onPrev }: Props) {
               subtitle="환영합니다! 이메일로 가입하거나 소셜 계정으로 시작하세요"
             />
           </AuthPageHeaderInnerWrapperM>
-        </AuthPageHeaderMWrapper>
+        </AuthPageHeaderWrapperM>
       )}
 
       <ButtonsContainer $isMobile={isMobile}>

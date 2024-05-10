@@ -13,7 +13,7 @@ import {
   AuthNextButton,
   AuthPageHeaderInnerWrapperD,
   AuthPageHeaderInnerWrapperM,
-  AuthPageHeaderMWrapper,
+  AuthPageHeaderWrapperM,
   PrevButtonWrapperM,
 } from "./common";
 
@@ -95,7 +95,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
         </AuthPageHeaderInnerWrapperD>
       )}
       {isMobile && (
-        <AuthPageHeaderMWrapper>
+        <AuthPageHeaderWrapperM>
           <PrevButtonWrapperM>
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
@@ -110,7 +110,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
               }
             />
           </AuthPageHeaderInnerWrapperM>
-        </AuthPageHeaderMWrapper>
+        </AuthPageHeaderWrapperM>
       )}
 
       <Form onSubmit={onSubmit} $isMobile={isMobile}>

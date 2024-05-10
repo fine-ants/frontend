@@ -1,7 +1,7 @@
 import Button from "@components/Buttons/Button";
 import styled from "styled-components";
 
-export const AuthPageHeaderMWrapper = styled.div`
+export const AuthPageHeaderWrapperM = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -12,7 +12,7 @@ import {
   AuthNextButton,
   AuthPageHeaderInnerWrapperD,
   AuthPageHeaderInnerWrapperM,
-  AuthPageHeaderMWrapper,
+  AuthPageHeaderWrapperM,
   PrevButtonWrapperM,
 } from "./common";
 
@@ -75,7 +75,7 @@ export default function VerificationCodeSubPage({
         </AuthPageHeaderInnerWrapperD>
       )}
       {isMobile && (
-        <AuthPageHeaderMWrapper>
+        <AuthPageHeaderWrapperM>
           <PrevButtonWrapperM>
             <AuthOnPrevButton onPrev={onPrev} />
           </PrevButtonWrapperM>
@@ -90,7 +90,7 @@ export default function VerificationCodeSubPage({
               }
             />
           </AuthPageHeaderInnerWrapperM>
-        </AuthPageHeaderMWrapper>
+        </AuthPageHeaderWrapperM>
       )}
 
       <Form onSubmit={onSubmit} $isMobile={isMobile}>
