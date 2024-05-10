@@ -1,16 +1,19 @@
-import Button from "@components/Buttons/Button";
 import { TextField } from "@components/TextField/TextField";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import {
-  AuthPageHeader,
-  AuthPageTitle,
-  AuthPageTitleCaption,
-} from "@features/auth/components/AuthPageCommon";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import { useDebounce, useText, validateNickname } from "@fineants/demolition";
 import useNicknameDuplicateCheck from "@hooks/useNicknameDuplicateCheck";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { ChangeEvent, FormEvent } from "react";
 import styled from "styled-components";
 import SubPage from "./SubPage";
+import {
+  AuthNextButton,
+  AuthPageHeaderInnerWrapperD,
+  AuthPageHeaderInnerWrapperM,
+  AuthPageHeaderWrapperM,
+  PrevButtonWrapperM,
+} from "./common";
 
 type Props = {
   onPrev: () => void;
@@ -23,6 +26,8 @@ const nicknameValidator = (nickname: string) =>
   });
 
 export default function NicknameSubPage({ onPrev, onNext }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const {
     value: nickname,
     isError,
@@ -66,16 +71,30 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
 
   return (
     <SubPage>
-      <AuthOnPrevButton onPrev={onPrev} />
+      {isDesktop && (
+        <AuthPageHeaderInnerWrapperD>
+          <AuthOnPrevButton onPrev={onPrev} />
+          <AuthPageHeader
+            title="닉네임 입력"
+            subtitle="닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다"
+          />
+        </AuthPageHeaderInnerWrapperD>
+      )}
+      {isMobile && (
+        <AuthPageHeaderWrapperM>
+          <PrevButtonWrapperM>
+            <AuthOnPrevButton onPrev={onPrev} />
+          </PrevButtonWrapperM>
+          <AuthPageHeaderInnerWrapperM>
+            <AuthPageHeader
+              title="닉네임 입력"
+              subtitle="닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다"
+            />
+          </AuthPageHeaderInnerWrapperM>
+        </AuthPageHeaderWrapperM>
+      )}
 
-      <AuthPageHeader>
-        <AuthPageTitle>닉네임</AuthPageTitle>
-        <AuthPageTitleCaption>
-          닉네임은 영문, 한글, 숫자를 사용할 수 있고 2~10자여야 합니다
-        </AuthPageTitleCaption>
-      </AuthPageHeader>
-
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} $isMobile={isMobile}>
         <TextField
           error={isError || !isDuplicateChecked}
           placeholder="닉네임"
@@ -85,20 +104,26 @@ export default function NicknameSubPage({ onPrev, onNext }: Props) {
           clearValue={onNicknameClear}
         />
 
-        <Button
+        <AuthNextButton
           variant="primary"
-          size="h44"
+          size={isMobile ? "h48" : "h44"}
+          type="submit"
           disabled={isError || !isDuplicateChecked}
-          type="submit">
+          $isMobile={isMobile}>
           다음 단계
-        </Button>
+        </AuthNextButton>
       </Form>
     </SubPage>
   );
 }
 
-const Form = styled.form`
+const Form = styled.form<{ $isMobile: boolean }>`
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  padding-inline: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
   display: flex;
   flex-direction: column;
   gap: 58px;
+  align-self: center;
 `;

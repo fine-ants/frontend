@@ -1,15 +1,18 @@
-import Button from "@components/Buttons/Button";
 import { PasswordTextField } from "@components/TextField/PasswordTextField";
 import { AuthOnPrevButton } from "@features/auth/components/AuthOnPrevButton";
-import {
-  AuthPageHeader,
-  AuthPageTitle,
-  AuthPageTitleCaption,
-} from "@features/auth/components/AuthPageCommon";
+import AuthPageHeader from "@features/auth/components/AuthPageHeader";
 import { useText, validatePassword } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { FormEvent } from "react";
 import styled from "styled-components";
 import SubPage from "./SubPage";
+import {
+  AuthNextButton,
+  AuthPageHeaderInnerWrapperD,
+  AuthPageHeaderInnerWrapperM,
+  AuthPageHeaderWrapperM,
+  PrevButtonWrapperM,
+} from "./common";
 
 type Props = {
   onPrev: () => void;
@@ -22,6 +25,8 @@ const passwordValidator = (password: string) =>
   });
 
 export default function PasswordSubPage({ onPrev, onNext }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const {
     value: password,
     isError: isPasswordError,
@@ -54,18 +59,33 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
 
   return (
     <SubPage>
-      <AuthPageHeader>
-        <AuthOnPrevButton onPrev={onPrev} />
+      {isDesktop && (
+        <AuthPageHeaderInnerWrapperD>
+          <AuthOnPrevButton onPrev={onPrev} />
+          <AuthPageHeader
+            title="비밀번호 생성"
+            subtitle="비밀번호는 영문, 숫자, 특수문자를 1개 이상 조합한 8~16자여야 합니다"
+          />
+        </AuthPageHeaderInnerWrapperD>
+      )}
+      {isMobile && (
+        <AuthPageHeaderWrapperM>
+          <PrevButtonWrapperM>
+            <AuthOnPrevButton onPrev={onPrev} />
+          </PrevButtonWrapperM>
+          <AuthPageHeaderInnerWrapperM>
+            <AuthPageHeader
+              title="비밀번호 생성"
+              subtitle="비밀번호는 영문, 숫자, 특수문자를 1개 이상 조합한 8~16자여야 합니다"
+            />
+          </AuthPageHeaderInnerWrapperM>
+        </AuthPageHeaderWrapperM>
+      )}
 
-        <AuthPageTitle>비밀번호</AuthPageTitle>
-        <AuthPageTitleCaption>
-          비밀번호는 영문, 숫자, 특수문자를 1개 이상 조합한 8~16자여야 합니다
-        </AuthPageTitleCaption>
-      </AuthPageHeader>
-
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} $isMobile={isMobile}>
         <TextFieldsWrapper>
           <PasswordTextField
+            size={isMobile ? "h48" : "h44"}
             error={isPasswordError && password !== ""}
             password={password}
             onChange={(e) => onPasswordChange(e.target.value.trim())}
@@ -74,6 +94,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
           />
 
           <PasswordTextField
+            size={isMobile ? "h48" : "h44"}
             error={isPasswordMismatch && passwordConfirm !== ""}
             password={passwordConfirm}
             onChange={(e) => onPasswordConfirmChange(e.target.value.trim())}
@@ -82,22 +103,28 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
           />
         </TextFieldsWrapper>
 
-        <Button
+        <AuthNextButton
           variant="primary"
-          size="h44"
+          size={isMobile ? "h48" : "h44"}
           type="submit"
-          disabled={isButtonDisabled}>
+          disabled={isButtonDisabled}
+          $isMobile={isMobile}>
           다음
-        </Button>
+        </AuthNextButton>
       </Form>
     </SubPage>
   );
 }
 
-const Form = styled.form`
+const Form = styled.form<{ $isMobile: boolean }>`
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  padding-inline: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
   display: flex;
   flex-direction: column;
   gap: 58px;
+  align-self: center;
 `;
 
 const TextFieldsWrapper = styled.div`

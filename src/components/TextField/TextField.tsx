@@ -4,12 +4,12 @@ import designSystem from "@styles/designSystem";
 import { ChangeEvent, ReactNode } from "react";
 import styled from "styled-components";
 import { IconButton } from "../Buttons/IconButton";
-import { BaseTextField } from "./BaseTextField";
+import { BaseTextField, Size } from "./BaseTextField";
 import { ErrorText } from "./ErrorText";
 
 type Props = {
   id?: string;
-  size?: "h24" | "h32" | "h44";
+  size?: Size;
   error?: boolean;
   errorText?: string;
   placeholder?: string;
