@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Icon, IconType } from "../Icon";
 import { ColorObjectType, ColorTableType, DefaultColorType } from "./types";
 
-type SizeType = "h24" | "h40";
+type SizeType = "h24" | "h32" | "h40";
 
 type DefaultProps = {
   icon: IconType;
@@ -70,6 +70,16 @@ export function IconButton(props: Props) {
       ? props.customColor
       : colorTable[iconColor as DefaultColorType];
 
+  const getIconSize = () => {
+    switch (size) {
+      case "h24":
+      case "h32":
+        return 16;
+      case "h40":
+        return 24;
+    }
+  };
+
   return (
     <StyledButton
       onMouseEnter={handleMouseEnter}
@@ -82,12 +92,22 @@ export function IconButton(props: Props) {
       onClick={onClick}>
       <Icon
         icon={isHovered && hoverIcon ? hoverIcon : icon}
-        size={size === "h24" ? 16 : 24}
+        size={getIconSize()}
         color={isHovered && hoverIconColor ? hoverIconColor : colorObject.color}
       />
     </StyledButton>
   );
 }
+
+const convertSizeToPixel = (sizeString: string) => {
+  const sizeValue = Number(sizeString.replace("h", ""));
+
+  if (!isNaN(sizeValue)) {
+    return `${sizeValue}px`;
+  } else {
+    return "auto";
+  }
+};
 
 const StyledButton = styled.button<{
   $size: SizeType;
@@ -100,9 +120,9 @@ const StyledButton = styled.button<{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: ${({ $size }) => ($size === "h24" ? "24px" : "40px")};
-  height: ${({ $size }) => ($size === "h24" ? "24px" : "40px")};
-  border-radius: 50%;
+  width: ${({ $size }) => convertSizeToPixel($size)};
+  height: ${({ $size }) => convertSizeToPixel($size)};
+  border-radius: ${({ $size }) => ($size === "h32" ? "3px" : "4px")};
   color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
 
