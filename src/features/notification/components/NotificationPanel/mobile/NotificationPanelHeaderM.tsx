@@ -35,6 +35,7 @@ export function NotificationPanelHeaderM({
           user={user}
           notificationIds={notificationIds}
           hasNotification={hasNotification}
+          onClose={handleClose}
         />
       </PanelHeader>
     </>
