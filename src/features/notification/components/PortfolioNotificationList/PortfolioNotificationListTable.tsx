@@ -3,7 +3,7 @@ import usePortfolioNotificationsQuery from "@features/notification/api/queries/u
 import { UserContext } from "@features/user/context/UserContext";
 import { useContext } from "react";
 import styled from "styled-components";
-import EmptyNotificationListTable from "../EmptyNotificationListTable";
+import EmptyNotificationList from "../EmptyNotificationList";
 import { FeedbackCallout } from "../FeedbackCallout";
 import PortfolioNotificationListTableBody from "./PortfolioNotificationListTableBody";
 import PortfolioNotificationListTableHead from "./PortfolioNotificationListTableHead";
@@ -39,7 +39,7 @@ export default function PortfolioNotificationListTable() {
         initialOrderBy="createdAt"
         TableHead={PortfolioNotificationListTableHead}
         TableBody={PortfolioNotificationListTableBody}
-        EmptyTable={EmptyNotificationListTable}
+        EmptyTable={EmptyNotificationList}
         data={data}
       />
     </StyledPortfolioNotificationListTable>
