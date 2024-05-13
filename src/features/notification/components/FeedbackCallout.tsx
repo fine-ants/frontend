@@ -50,13 +50,14 @@ export function FeedbackCallout({ message }: Props) {
 }
 
 const StyledFeedbackCallout = styled.div<{ $isMobile: boolean }>`
-  width: 100%;
+  width: auto;
   height: ${({ $isMobile }) => ($isMobile ? "auto" : "45px")};
   display: flex;
   gap: 8px;
   border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 4px;
   padding: 12px;
+  margin: ${({ $isMobile }) => ($isMobile ? "0 16px" : "0")};
 `;
 
 const IconWrapper = styled.div`
