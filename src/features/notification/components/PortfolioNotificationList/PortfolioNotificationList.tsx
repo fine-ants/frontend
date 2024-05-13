@@ -1,16 +1,16 @@
-import PlainTable from "@components/Table/PlainTable";
-import usePortfolioNotificationsQuery from "@features/notification/api/queries/usePortfolioNotificationSettingsQuery";
+import usePortfolioNotificationSettingsQuery from "@features/notification/api/queries/usePortfolioNotificationSettingsQuery";
 import { UserContext } from "@features/user/context/UserContext";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { useContext } from "react";
 import styled from "styled-components";
-import EmptyNotificationList from "../EmptyNotificationList";
 import { FeedbackCallout } from "../FeedbackCallout";
-import PortfolioNotificationListTableBody from "./PortfolioNotificationListTableBody";
-import PortfolioNotificationListTableHead from "./PortfolioNotificationListTableHead";
+import PortfolioNotificationListTable from "./desktop/PortfolioNotificationListTable";
+import { PortfolioNotificationListCards } from "./mobile/PortfolioNotificationListCards";
 
-export default function PortfolioNotificationListTable() {
-  const { data } = usePortfolioNotificationsQuery();
+export default function PortfolioNotificationList() {
   const { user } = useContext(UserContext);
+  const { isDesktop, isMobile } = useResponsiveLayout();
+  const { data } = usePortfolioNotificationSettingsQuery();
 
   const maxLossNotifyFeedbackText = !user?.notificationPreferences.maxLossNotify
     ? "최대 손실률"
@@ -34,14 +34,8 @@ export default function PortfolioNotificationListTable() {
         />
       )}
 
-      <PlainTable
-        tableTitle="활성 포트폴리오 알림 목록"
-        initialOrderBy="createdAt"
-        TableHead={PortfolioNotificationListTableHead}
-        TableBody={PortfolioNotificationListTableBody}
-        EmptyTable={EmptyNotificationList}
-        data={data}
-      />
+      {isDesktop && <PortfolioNotificationListTable data={data} />}
+      {isMobile && <PortfolioNotificationListCards data={data} />}
     </StyledPortfolioNotificationListTable>
   );
 }
