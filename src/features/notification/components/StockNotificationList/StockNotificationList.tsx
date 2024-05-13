@@ -1,31 +1,25 @@
-import CollapsibleTable from "@components/Table/CollapsibleTable";
 import useStockNotificationSettingsQuery from "@features/notification/api/queries/useStockNotificationSettingsQuery";
 import { UserContext } from "@features/user/context/UserContext";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { useContext } from "react";
 import styled from "styled-components";
-import EmptyNotificationListTable from "../EmptyNotificationListTable";
 import { FeedbackCallout } from "../FeedbackCallout";
-import StockNotificationListTableBody from "./StockNotificationListTableBody";
-import StockNotificationListTableHead from "./StockNotificationListTableHead";
+import StockNotificationListTable from "./desktop/StockNotificationListTable";
+import { StockNotificationListCards } from "./mobile/StockNotificationListCards";
 
-export default function StockNotificationListTable() {
-  const { data } = useStockNotificationSettingsQuery();
+export default function StockNotificationList() {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const { user } = useContext(UserContext);
+  const { data } = useStockNotificationSettingsQuery();
 
   return (
     <StyledStockNotificationListTable>
       {!user?.notificationPreferences.targetPriceNotify && (
         <FeedbackCallout message="종목 알림이 현재 비활성 상태입니다." />
       )}
-
-      <CollapsibleTable
-        tableTitle="활성 종목 알림 목록"
-        initialOrderBy="lastUpdated"
-        TableHead={StockNotificationListTableHead}
-        TableBody={StockNotificationListTableBody}
-        EmptyTable={EmptyNotificationListTable}
-        data={data}
-      />
+      {isDesktop && <StockNotificationListTable data={data} />}
+      {isMobile && <StockNotificationListCards data={data} />}
     </StyledStockNotificationListTable>
   );
 }
