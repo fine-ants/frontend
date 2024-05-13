@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import {
   Pagination as MuiPagination,
   PaginationItem,
@@ -15,8 +16,11 @@ type Props = {
 };
 
 export default function Pagination({ count, page, onPageChange }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   return (
     <StyledPagination
+      $isMobile={isMobile}
       count={count}
       page={page}
       onChange={(event: ChangeEvent<unknown>, newPage: number) => {
@@ -38,22 +42,26 @@ export default function Pagination({ count, page, onPageChange }: Props) {
   );
 }
 
-const StyledPagination = styled(MuiPagination)`
-  height: 24px;
+const StyledPagination = styled(MuiPagination)<{ $isMobile: boolean }>`
+  display: flex;
+  justify-content: center;
+  height: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
 
   .${paginationClasses.ul} {
     gap: 8px;
 
     > li {
-      width: 24px;
-      height: 24px;
+      width: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
+      height: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
 
       > button {
-        width: 24px;
-        min-width: 24px;
-        height: 24px;
+        padding-top: 5px;
+        width: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
+        min-width: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
+        height: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
         margin: 0;
         padding: 0;
+        font: ${designSystem.font.body3.font};
 
         &.Mui-selected {
           background-color: ${designSystem.color.primary.blue50};

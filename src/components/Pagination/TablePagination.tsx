@@ -4,9 +4,9 @@ import {
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import { Icon } from "../Icon";
-import { Select, SelectOption } from "../Select";
+import { LabelRowsPerPage } from "./LabelRowsPerPage";
 import Pagination from "./Pagination";
+import { PaginationSelect } from "./PaginationSelect";
 import calculateStartAndEndRows from "./utils/calculateStartAndEndRows";
 
 type Props = {
@@ -39,35 +39,17 @@ export default function TablePagination({
       page={page}
       rowsPerPage={rowsPerPage}
       labelRowsPerPage={
-        <LabelRowsPerPageWrapper>
-          <StyledLabelRowsPerPage>
-            전체 <span>{count}</span> 중{" "}
-            <span>
-              {startRow && endRow
-                ? endRow === 1
-                  ? 1
-                  : `${startRow}-${endRow}`
-                : count}
-            </span>
-          </StyledLabelRowsPerPage>
-          <Icon icon="divider" size={12} color="gray100" />
-        </LabelRowsPerPageWrapper>
+        <LabelRowsPerPage count={count} startRow={startRow} endRow={endRow} />
       }
       labelDisplayedRows={() => (rowsPerPage === -1 ? "" : "개 씩 보기")}
       slotProps={{
         select: {
           input: (
-            <Select
-              size="h24"
-              menuMinHeight="auto"
-              selectedValue={rowsPerPage.toString()}
-              changeSelectedValue={onRowsPerPageChange}>
-              {rowsPerPageOptions.map((option) => (
-                <SelectOption key={option} value={option.toString()}>
-                  {option === -1 ? "All" : option}
-                </SelectOption>
-              ))}
-            </Select>
+            <PaginationSelect
+              rowsPerPage={rowsPerPage}
+              rowsPerPageOptions={rowsPerPageOptions}
+              onRowsPerPageChange={onRowsPerPageChange}
+            />
           ),
         },
       }}
@@ -136,20 +118,5 @@ const StyledTablePagination = styled(MuiTablePagination)`
     margin: 0 auto 0 8px;
     font: ${designSystem.font.body3.font};
     color: ${designSystem.color.neutral.gray600};
-  }
-`;
-
-const LabelRowsPerPageWrapper = styled.span`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledLabelRowsPerPage = styled.span`
-  margin-right: 8px;
-  font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray600};
-
-  > span {
-    color: ${designSystem.color.neutral.gray900};
   }
 `;
