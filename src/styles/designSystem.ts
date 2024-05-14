@@ -54,6 +54,10 @@ const font = {
     font: "600 24px/29px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
+  heading4: {
+    font: "600 20px/24px 'IBM Plex Sans', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
 
   title1: {
     font: "500 28px/34px 'IBM Plex Sans', sans-serif",
