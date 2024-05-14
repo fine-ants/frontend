@@ -90,7 +90,6 @@ const Price = styled.div`
 `;
 
 const TargetPriceRow = styled.div`
-  width: 100%;
   min-height: 32px;
   display: flex;
   align-items: center;

@@ -1,5 +1,6 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
+import { CardItemRow } from "@components/Card/CardItemRow";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import useAllStockPriceTargetsDeleteMutation from "@features/notification/api/queries/useAllStockPriceTargetsDeleteMutation";
@@ -54,13 +55,11 @@ function StockNotificationCard({ item }: { item: StockNotification }) {
     <StyledStockNotificationCard>
       <Title>{companyName}</Title>
 
-      <ItemBody>
-        <ItemRow>
-          <SubTitle>이전 종가</SubTitle>
+      <CardItemBody>
+        <CardItemRow title="이전 종가">
           <Price>₩{thousandsDelimiter(lastPrice)}</Price>
-        </ItemRow>
-        <ItemRow>
-          <SubTitle>지정가 알림</SubTitle>
+        </CardItemRow>
+        <CardItemRow title="지정가 알림">
           <IconButton
             icon="notification"
             size="h32"
@@ -71,16 +70,14 @@ function StockNotificationCard({ item }: { item: StockNotification }) {
             }}
             onClick={onNotificationButtonClick}
           />
-        </ItemRow>
-        <ItemRow>
-          <SubTitle>지정가 알림 삭제</SubTitle>
+        </CardItemRow>
+        <CardItemRow title="지정가 알림 삭제">
           <TextButton size="h24" color="gray" onClick={onRemoveAllAlertOpen}>
             <Icon icon="trash" size={16} color="gray600" />
             전체 삭제
           </TextButton>
-        </ItemRow>
-        <ItemRow>
-          <SubTitle>지정가</SubTitle>
+        </CardItemRow>
+        <CardItemRow title="지정가">
           <IconButton
             icon={isCollapsed ? "chevron-up" : "chevron-down"}
             size="h32"
@@ -91,8 +88,8 @@ function StockNotificationCard({ item }: { item: StockNotification }) {
             }}
             onClick={collapseOpposite}
           />
-        </ItemRow>
-      </ItemBody>
+        </CardItemRow>
+      </CardItemBody>
 
       <Collapse in={isCollapsed} timeout="auto" unmountOnExit>
         <StockNotificationTargetPrices
@@ -127,26 +124,13 @@ const Title = styled.div`
   margin-bottom: 16px;
 `;
 
-const ItemBody = styled.div`
+const CardItemBody = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
 `;
 
-const ItemRow = styled.div`
-  min-height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 const Price = styled.div`
   font: ${designSystem.font.body3};
   color: ${designSystem.color.neutral.gray900};
-`;
-
-const SubTitle = styled.div`
-  font: ${designSystem.font.title5.font};
-  letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
 `;

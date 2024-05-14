@@ -1,4 +1,5 @@
 import { IconButton } from "@components/Buttons/IconButton";
+import { CardItemRow } from "@components/Card/CardItemRow";
 import ConditionalTooltip from "@components/Tooltips/ConditionalTooltip";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import usePortfolioNotificationSettingsMutation from "@features/notification/api/queries/usePortfolioNotificationSettingsMutation";
@@ -89,8 +90,7 @@ function StockNotificationCard({ item }: { item: PortfolioNotification }) {
       </Title>
 
       <ItemBody>
-        <ItemRow>
-          <SubTitle>목표 수익률 도달 알림</SubTitle>
+        <CardItemRow title="목표 수익률 도달 알림">
           <ConditionalTooltip
             open={isTargetGainTooltipOpen}
             condition={isTargetGainSet}
@@ -109,9 +109,8 @@ function StockNotificationCard({ item }: { item: PortfolioNotification }) {
               />
             </div>
           </ConditionalTooltip>
-        </ItemRow>
-        <ItemRow>
-          <SubTitle>최대 손실율 도달 알림</SubTitle>
+        </CardItemRow>
+        <CardItemRow title="최대 손실율 도달 알림">
           <ConditionalTooltip
             open={isMaxLossTooltipOpen}
             condition={isMaxLossSet}
@@ -130,7 +129,7 @@ function StockNotificationCard({ item }: { item: PortfolioNotification }) {
               />
             </div>
           </ConditionalTooltip>
-        </ItemRow>
+        </CardItemRow>
       </ItemBody>
     </StyledStockNotificationCard>
   );
@@ -158,17 +157,4 @@ const ItemBody = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-`;
-
-const ItemRow = styled.div`
-  min-height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const SubTitle = styled.div`
-  font: ${designSystem.font.title5.font};
-  letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
 `;
