@@ -91,7 +91,7 @@ function StockNotificationCard({ item }: { item: StockNotification }) {
         </CardItemRow>
       </CardItemBody>
 
-      <Collapse in={isCollapsed} timeout="auto" unmountOnExit>
+      <Collapse in={isCollapsed} timeout="auto">
         <StockNotificationTargetPrices
           companyName={companyName}
           targetPrices={targetPrices}

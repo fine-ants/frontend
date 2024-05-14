@@ -60,7 +60,7 @@ export default function PortfolioNotificationRow({ row }: Props) {
       <StyledTableCell style={{ width: "140px" }} align="center">
         <ConditionalTooltip
           condition={isTargetGainSet}
-          title={"포트폴리오 최대 손실율을 먼저 설정해주세요"}
+          title={"포트폴리오 최대 손실률을 먼저 설정해주세요"}
           placement={"bottom-end"}>
           <div>
             <IconButton
@@ -81,7 +81,7 @@ export default function PortfolioNotificationRow({ row }: Props) {
       <StyledTableCell style={{ width: "140px" }} align="center">
         <ConditionalTooltip
           condition={isMaxLossSet}
-          title={"포트폴리오 최대 손실율을 먼저 설정해주세요"}
+          title={"포트폴리오 최대 손실률을 먼저 설정해주세요"}
           placement={"bottom-end"}>
           <div>
             <IconButton

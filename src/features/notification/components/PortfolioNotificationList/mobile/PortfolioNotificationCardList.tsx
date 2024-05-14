@@ -17,13 +17,13 @@ export function PortfolioNotificationCardList({ visibleRows }: Props) {
   return (
     <>
       {visibleRows.map((item, index) => (
-        <StockNotificationCard key={index} item={item} />
+        <PortfolioNotificationCard key={index} item={item} />
       ))}
     </>
   );
 }
 
-function StockNotificationCard({ item }: { item: PortfolioNotification }) {
+function PortfolioNotificationCard({ item }: { item: PortfolioNotification }) {
   const {
     portfolioId,
     securitiesFirm,
@@ -94,7 +94,7 @@ function StockNotificationCard({ item }: { item: PortfolioNotification }) {
           <ConditionalTooltip
             open={isTargetGainTooltipOpen}
             condition={isTargetGainSet}
-            title={"포트폴리오 최대 손실율을 먼저 설정해주세요"}
+            title={"포트폴리오 최대 손실률을 먼저 설정해주세요"}
             placement={"bottom-end"}>
             <div>
               <IconButton
@@ -110,7 +110,7 @@ function StockNotificationCard({ item }: { item: PortfolioNotification }) {
             </div>
           </ConditionalTooltip>
         </CardItemRow>
-        <CardItemRow title="최대 손실율 도달 알림">
+        <CardItemRow title="최대 손실률 도달 알림">
           <ConditionalTooltip
             open={isMaxLossTooltipOpen}
             condition={isMaxLossSet}

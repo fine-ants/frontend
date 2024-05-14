@@ -60,7 +60,6 @@ const StyledPagination = styled(MuiPagination)<{ $isMobile: boolean }>`
       height: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
 
       > button {
-        padding-top: 5px;
         width: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
         min-width: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};
         height: ${({ $isMobile }) => ($isMobile ? "32px" : "24px")};

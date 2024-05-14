@@ -13,6 +13,7 @@ export function PaginationSelect({
   onRowsPerPageChange,
 }: Props) {
   const { isMobile } = useResponsiveLayout();
+
   return (
     <Select
       size={isMobile ? "h32" : "h24"}

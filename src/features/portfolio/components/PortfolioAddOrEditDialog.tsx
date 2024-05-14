@@ -439,7 +439,7 @@ export default function PortfolioAddOrEditDialog({
             </InputsWrapper>
           </Row>
           <Row>
-            <StyledSpan>최대 손실율</StyledSpan>
+            <StyledSpan>최대 손실률</StyledSpan>
             <InputsWrapper>
               <TextField
                 size="h32"

@@ -133,10 +133,10 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </div>
           <OverviewBodyData>
             <NotificationLabel>
-              최대 손실율
+              최대 손실률
               <ConditionalTooltip
                 condition={maximumLoss !== 0}
-                title={"포트폴리오 최대 손실율을 먼저 설정해주세요"}
+                title={"포트폴리오 최대 손실률을 먼저 설정해주세요"}
                 placement={"bottom-start"}>
                 <div>
                   <IconButton

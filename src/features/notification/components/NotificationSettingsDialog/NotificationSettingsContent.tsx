@@ -162,7 +162,7 @@ export function NotificationSettingsContent({ user, onClose }: Props) {
             />
           </ToggleList>
           <ToggleList>
-            <ToggleTitle>포트폴리오 최대 손실율 도달 알림</ToggleTitle>
+            <ToggleTitle>포트폴리오 최대 손실률 도달 알림</ToggleTitle>
             <ToggleSwitch
               onToggle={() => setNewMaxLossNotify((prev) => !prev)}
               isChecked={newMaxLossNotify}
