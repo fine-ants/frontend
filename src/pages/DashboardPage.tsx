@@ -1,5 +1,5 @@
 import { AsyncBoundary } from "@components/AsyncBoundary";
-import DashboardOverview from "@features/dashboard/components/DashboardOverview";
+import DashboardOverview from "@features/dashboard/components/DashboardOverview/DashboardOverview";
 import DashboardPortfolioWeight from "@features/dashboard/components/DashboardPortfolioWeight";
 import DashboardTotalValuationTrend from "@features/dashboard/components/DashboardTotalValuationTrend";
 import { ChartErrorFallback } from "@features/dashboard/components/errorFallback/ChartErrorFallback";

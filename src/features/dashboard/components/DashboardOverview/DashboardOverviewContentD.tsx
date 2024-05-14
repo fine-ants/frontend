@@ -1,80 +1,70 @@
 import RateBadge from "@components/Badges/RateBadge";
-import useDashboardOverviewQuery from "@features/dashboard/api/queries/useDashboardOverviewQuery";
+import { OverviewData } from "@features/dashboard/api/types";
 import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
-export default function DashboardOverview() {
-  const { data: overviewData } = useDashboardOverviewQuery();
+type Props = {
+  overviewData: OverviewData;
+};
+
+export default function DashboardOverviewContentD({ overviewData }: Props) {
+  const {
+    username,
+    totalValuation,
+    totalInvestment,
+    totalGain,
+    totalGainRate,
+    totalAnnualDividend,
+    totalAnnualDividendYield,
+  } = overviewData;
 
   return (
-    <StyledDashboardOverview>
-      <InnerWrapper>
-        <PageTitle>{overviewData.username} 님의 대시보드</PageTitle>
+    <InnerWrapper>
+      <PageTitle>{username} 님의 대시보드</PageTitle>
 
-        <ContentContainer>
-          <TotalMainContentWrapper>
-            <MainTitle>총 평가 금액</MainTitle>
-            <MainValueWrapper>
-              <MainWon>₩</MainWon>
-              <MainValue>
-                {thousandsDelimiter(overviewData.totalValuation)}
-              </MainValue>
-            </MainValueWrapper>
-          </TotalMainContentWrapper>
+      <ContentContainer>
+        <TotalMainContentWrapper>
+          <MainTitle>총 평가 금액</MainTitle>
+          <MainValueWrapper>
+            <MainWon>₩</MainWon>
+            <MainValue>{thousandsDelimiter(totalValuation)}</MainValue>
+          </MainValueWrapper>
+        </TotalMainContentWrapper>
 
-          <SubContentContainer>
-            <TotalSubContentWrapper>
-              <Title>총 투자 금액</Title>
-              <ValueWrapper>
-                <Won>₩</Won>
-                <Value>
-                  {thousandsDelimiter(overviewData.totalInvestment)}
-                </Value>
-              </ValueWrapper>
-            </TotalSubContentWrapper>
-            <TotalSubContentWrapper>
-              <Title>총 손익</Title>
-              <ValueWrapper>
-                <Won>₩</Won>
-                <Value>{thousandsDelimiter(overviewData.totalGain)}</Value>
-              </ValueWrapper>
-              <RateBadge size={24} value={overviewData.totalGainRate} />
-            </TotalSubContentWrapper>
-            <TotalSubContentWrapper>
-              <Title>예상 연 배당금</Title>
-              <ValueWrapper>
-                <Won>₩</Won>
-                <Value>
-                  {thousandsDelimiter(overviewData.totalAnnualDividend)}
-                </Value>
-              </ValueWrapper>
-              <RateBadge
-                size={24}
-                value={overviewData.totalAnnualDividendYield}
-                iconStatus={false}
-              />
-            </TotalSubContentWrapper>
-          </SubContentContainer>
-        </ContentContainer>
-      </InnerWrapper>
-    </StyledDashboardOverview>
+        <SubContentContainer>
+          <TotalSubContentWrapper>
+            <Title>총 투자 금액</Title>
+            <ValueWrapper>
+              <Won>₩</Won>
+              <Value>{thousandsDelimiter(totalInvestment)}</Value>
+            </ValueWrapper>
+          </TotalSubContentWrapper>
+          <TotalSubContentWrapper>
+            <Title>총 손익</Title>
+            <ValueWrapper>
+              <Won>₩</Won>
+              <Value>{thousandsDelimiter(totalGain)}</Value>
+            </ValueWrapper>
+            <RateBadge size={24} value={totalGainRate} />
+          </TotalSubContentWrapper>
+          <TotalSubContentWrapper>
+            <Title>예상 연 배당금</Title>
+            <ValueWrapper>
+              <Won>₩</Won>
+              <Value>{thousandsDelimiter(totalAnnualDividend)}</Value>
+            </ValueWrapper>
+            <RateBadge
+              size={24}
+              value={totalAnnualDividendYield}
+              iconStatus={false}
+            />
+          </TotalSubContentWrapper>
+        </SubContentContainer>
+      </ContentContainer>
+    </InnerWrapper>
   );
 }
-
-const StyledDashboardOverview = styled.div`
-  width: 100%;
-  height: 316px;
-  padding: 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  position: relative;
-  background-color: ${designSystem.color.neutral.gray800};
-  color: ${designSystem.color.neutral.white};
-`;
 
 const InnerWrapper = styled.div`
   width: 100%;
