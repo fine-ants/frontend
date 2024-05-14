@@ -1,9 +1,9 @@
 import { IconButton } from "@components/Buttons/IconButton";
+import BottomDrawer from "@components/BottomDrawer";
 import { Icon, IconType } from "@components/Icon";
 import useDeleteAllMemberNotificationsMutation from "@features/notification/api/queries/useDeleteAllMemberNotificationsMutation";
 import { User } from "@features/user/api/types";
 import { useBoolean } from "@hooks/useBoolean";
-import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -18,7 +18,7 @@ type Props = {
 
 type DrawerItemType = { icon: IconType; title: string; onClick: () => void };
 
-export default function NotificationPanelDrawer({
+export default function NotificationPanelDrawerM({
   user,
   notificationIds,
   hasNotification,
@@ -27,13 +27,13 @@ export default function NotificationPanelDrawer({
   const navigate = useNavigate();
 
   const {
-    state: isOpenDrawer,
+    state: isDrawerOpen,
     setTrue: openDrawer,
     setFalse: closeDrawer,
   } = useBoolean();
 
   const {
-    state: isOpenDialog,
+    state: isDialogOpen,
     setTrue: openDialog,
     setFalse: closeDialog,
   } = useBoolean();
@@ -83,67 +83,36 @@ export default function NotificationPanelDrawer({
         customColor={{ color: "gray800", hoverColor: "gray50" }}
         onClick={openDrawer}
       />
-      <ThemeProvider theme={theme}>
-        <SwipeableDrawer
-          anchor="bottom"
-          open={isOpenDrawer}
-          onClose={closeDrawer}
-          onOpen={openDrawer}>
-          <Top>
-            <IconButton
-              icon="close"
-              size="h40"
-              iconColor="gray"
-              onClick={closeDrawer}
-            />
-          </Top>
-          <Content>
-            {drawerItem.map((item, index) => (
-              <ContentItem key={index}>
-                <StyledButton onClick={item.onClick}>
-                  <Icon icon={item.icon} size={24} color="gray400" />
-                  {item.title}
-                </StyledButton>
-              </ContentItem>
-            ))}
-          </Content>
-        </SwipeableDrawer>
-      </ThemeProvider>
+      <BottomDrawer
+        isDrawerOpen={isDrawerOpen}
+        openDrawer={openDrawer}
+        closeDrawer={closeDrawer}>
+        <Content>
+          {drawerItem.map((item, index) => (
+            <ContentItem key={index}>
+              <ContentItemButton onClick={item.onClick}>
+                <Icon icon={item.icon} size={24} color="gray400" />
+                {item.title}
+              </ContentItemButton>
+            </ContentItem>
+          ))}
+        </Content>
+      </BottomDrawer>
 
       <NotificationSettingsDialog
         user={user}
-        isOpen={isOpenDialog}
+        isOpen={isDialogOpen}
         onClose={closeDialog}
       />
     </div>
   );
 }
 
-const theme = createTheme({
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        root: {
-          ".MuiPaper-root": {
-            borderRadius: "16px 16px 0 0",
-            padding: "16px 0",
-          },
-        },
-      },
-    },
-  },
-});
-
-const Top = styled.div`
-  margin-left: auto;
-  padding: 0 16px;
-`;
-
-const Content = styled.li`
+const Content = styled.ul`
   list-style-type: none;
 `;
 
-const ContentItem = styled.ul`
+const ContentItem = styled.li`
   width: 100%;
   height: 56px;
   display: flex;
@@ -155,13 +124,12 @@ const ContentItem = styled.ul`
   }
 `;
 
-const StyledButton = styled.button`
+const ContentItemButton = styled.button`
   width: 100%;
   height: 100%;
   display: flex;
   gap: 8px;
   align-items: center;
-  padding: 0 16px;
   font: ${designSystem.font.title4.font};
   letter-spacing: ${designSystem.font.title4.letterSpacing};
 `;
