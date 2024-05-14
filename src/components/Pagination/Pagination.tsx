@@ -24,6 +24,11 @@ export default function Pagination({ count, page, onPageChange }: Props) {
       count={count}
       page={page}
       onChange={(event: ChangeEvent<unknown>, newPage: number) => {
+        if (page === newPage) return;
+
+        if (isMobile) {
+          window.scroll({ top: 0, behavior: "smooth" });
+        }
         onPageChange(event, newPage - 1);
       }}
       shape="rounded"
