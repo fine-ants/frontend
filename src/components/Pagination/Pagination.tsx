@@ -27,7 +27,7 @@ export default function Pagination({ count, page, onPageChange }: Props) {
         if (page === newPage) return;
 
         if (isMobile) {
-          window.scroll({ top: 0, behavior: "smooth" });
+          window.scroll({ top: 0 });
         }
         onPageChange(event, newPage - 1);
       }}
