@@ -5,6 +5,7 @@ import { User } from "@features/user/api/types";
 import { useBoolean } from "@hooks/useBoolean";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { NotificationSettingsDialog } from "../../NotificationSettingsDialog/NotificationSettingsDialog";
 
@@ -12,6 +13,7 @@ type Props = {
   user: User;
   notificationIds: number[];
   hasNotification: boolean;
+  onClose: () => void;
 };
 
 type DrawerItemType = { icon: IconType; title: string; onClick: () => void };
@@ -20,7 +22,10 @@ export default function NotificationPanelDrawer({
   user,
   notificationIds,
   hasNotification,
+  onClose,
 }: Props) {
+  const navigate = useNavigate();
+
   const {
     state: isOpenDrawer,
     setTrue: openDrawer,
@@ -61,8 +66,9 @@ export default function NotificationPanelDrawer({
       icon: "notification",
       title: "활성 알림 보기",
       onClick: () => {
-        //TODO : 디자인 완성시 구현하기
+        navigate("/notifications/stock");
         closeDrawer();
+        onClose();
       },
     },
     ...(hasNotification ? [RemoveNotificationItem] : []),

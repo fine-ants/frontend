@@ -70,7 +70,7 @@ export default function PortfolioNotificationListTableHead({
         </StyledTableCell>
 
         <StyledTableCell sx={{ width: "140px" }} align="center">
-          <span>최대 손실율 도달 알림</span>
+          <span>최대 손실률 도달 알림</span>
         </StyledTableCell>
       </StyledTableRow>
 

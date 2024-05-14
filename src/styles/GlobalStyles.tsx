@@ -82,6 +82,7 @@ export default createGlobalStyle`
     
     scrollbar-width: thin;
     scrollbar-color: ${designSystem.color.neutral.gray200} transparent;
+    scroll-behavior: smooth;
     
     &::-webkit-scrollbar {
       width: 8px;

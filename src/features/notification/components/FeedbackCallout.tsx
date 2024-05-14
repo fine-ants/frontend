@@ -2,6 +2,7 @@ import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
 import { UserContext } from "@features/user/context/UserContext";
 import { useBoolean } from "@hooks/useBoolean";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { useContext } from "react";
 import styled from "styled-components";
@@ -12,6 +13,8 @@ type Props = {
 };
 
 export function FeedbackCallout({ message }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   const { user } = useContext(UserContext);
   const {
     state: isOpenDialog,
@@ -21,14 +24,17 @@ export function FeedbackCallout({ message }: Props) {
 
   return (
     <>
-      <StyledFeedbackCallout>
-        <Icon icon="caption" size={16} color="gray400" />
+      <StyledFeedbackCallout $isMobile={isMobile}>
+        <IconWrapper>
+          <Icon icon="caption" size={16} color="gray400" />
+        </IconWrapper>
         <TextWrapper>
-          {`${message} 알림을 받으려면 `}
+          <span>{message} </span>
+          <span> 알림을 받으려면 </span>
           <TextButton variant="underline" onClick={openDialog}>
             알림 설정
           </TextButton>
-          을 변경하세요.
+          <span>을 변경하세요.</span>
         </TextWrapper>
       </StyledFeedbackCallout>
 
@@ -43,21 +49,27 @@ export function FeedbackCallout({ message }: Props) {
   );
 }
 
-const StyledFeedbackCallout = styled.div`
-  width: 100%;
-  height: 45px;
+const StyledFeedbackCallout = styled.div<{ $isMobile: boolean }>`
+  width: auto;
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "45px")};
   display: flex;
-  align-items: center;
   gap: 8px;
   border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 4px;
-  padding: 15px 12px;
+  padding: 12px;
+  margin: ${({ $isMobile }) => ($isMobile ? "0 16px" : "0")};
 `;
 
-const TextWrapper = styled.pre`
+const IconWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  height: 100%;
+  padding-top: 3px;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
   align-items: center;
+  flex-wrap: wrap;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
 `;

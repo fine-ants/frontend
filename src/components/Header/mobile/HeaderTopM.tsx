@@ -2,6 +2,7 @@ import fineantsLogo from "@assets/icons/logo/ic_fineants_white.svg";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
+import { MAIN_HEADER_HEIGHT_M } from "@constants/styleConstants";
 import { NotificationControl } from "@features/notification/components/NotificationControl/NotificationControl";
 import UserDropdown from "@features/user/components/UserDropdown/UserDropdown";
 import { UserContext } from "@features/user/context/UserContext";
@@ -62,7 +63,7 @@ export default function HeaderTopM() {
 }
 
 const StyledHeaderTopM = styled.header`
-  height: 56px;
+  height: ${MAIN_HEADER_HEIGHT_M}px;
   padding-inline: 16px;
   display: flex;
   justify-content: space-between;

@@ -1,4 +1,5 @@
 import BIImage from "@assets/icons/logo/ic_fineants-footer.svg";
+import { MAIN_FOOTER_HEIGHT } from "@constants/styleConstants";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -23,7 +24,7 @@ export default function Footer() {
 
 const StyledFooter = styled.footer`
   width: 100%;
-  height: 64px;
+  height: ${MAIN_FOOTER_HEIGHT}px;
   padding: 0 40px;
   display: flex;
   justify-content: space-between;
