@@ -70,16 +70,6 @@ export function IconButton(props: Props) {
       ? props.customColor
       : colorTable[iconColor as DefaultColorType];
 
-  const getIconSize = () => {
-    switch (size) {
-      case "h24":
-      case "h32":
-        return 16;
-      case "h40":
-        return 24;
-    }
-  };
-
   return (
     <StyledButton
       onMouseEnter={handleMouseEnter}
@@ -92,12 +82,22 @@ export function IconButton(props: Props) {
       onClick={onClick}>
       <Icon
         icon={isHovered && hoverIcon ? hoverIcon : icon}
-        size={getIconSize()}
+        size={getIconSize(size)}
         color={isHovered && hoverIconColor ? hoverIconColor : colorObject.color}
       />
     </StyledButton>
   );
 }
+
+const getIconSize = (size: SizeType) => {
+  switch (size) {
+    case "h24":
+    case "h32":
+      return 16;
+    case "h40":
+      return 24;
+  }
+};
 
 const convertSizeToPixel = (sizeString: string) => {
   const sizeValue = Number(sizeString.replace("h", ""));
