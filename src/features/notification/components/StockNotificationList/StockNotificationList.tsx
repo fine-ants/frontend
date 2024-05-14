@@ -5,7 +5,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { FeedbackCallout } from "../FeedbackCallout";
 import StockNotificationListTable from "./desktop/StockNotificationListTable";
-import { StockNotificationListCards } from "./mobile/StockNotificationListCards";
+import { StockNotificationListCardTable } from "./mobile/StockNotificationListCardTable";
 
 export default function StockNotificationList() {
   const { isDesktop, isMobile } = useResponsiveLayout();
@@ -19,7 +19,7 @@ export default function StockNotificationList() {
         <FeedbackCallout message="종목 알림이 현재 비활성 상태입니다." />
       )}
       {isDesktop && <StockNotificationListTable data={data} />}
-      {isMobile && <StockNotificationListCards data={data} />}
+      {isMobile && <StockNotificationListCardTable data={data} />}
     </StyledStockNotificationListTable>
   );
 }

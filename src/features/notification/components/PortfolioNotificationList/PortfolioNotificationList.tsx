@@ -5,7 +5,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { FeedbackCallout } from "../FeedbackCallout";
 import PortfolioNotificationListTable from "./desktop/PortfolioNotificationListTable";
-import { PortfolioNotificationListCards } from "./mobile/PortfolioNotificationListCards";
+import { PortfolioNotificationListCardTable } from "./mobile/PortfolioNotificationListCardTable";
 
 export default function PortfolioNotificationList() {
   const { user } = useContext(UserContext);
@@ -35,7 +35,7 @@ export default function PortfolioNotificationList() {
       )}
 
       {isDesktop && <PortfolioNotificationListTable data={data} />}
-      {isMobile && <PortfolioNotificationListCards data={data} />}
+      {isMobile && <PortfolioNotificationListCardTable data={data} />}
     </StyledPortfolioNotificationListTable>
   );
 }

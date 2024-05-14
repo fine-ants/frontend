@@ -12,7 +12,7 @@ type Props<Item> = {
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export function Cards<Item>({
+export function CardTable<Item>({
   data,
   CardList,
   EmptyComponent = () => <></>,
