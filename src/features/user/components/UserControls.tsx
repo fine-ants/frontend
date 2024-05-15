@@ -1,7 +1,7 @@
 import { NotificationControl } from "@features/notification/components/NotificationControl/NotificationControl";
 import { User } from "@features/user/api/types";
 import styled from "styled-components";
-import UserDropdown from "./UserDropdown";
+import UserDropdown from "./UserDropdown/UserDropdown";
 
 export default function UserControls({ user }: { user: User }) {
   return (

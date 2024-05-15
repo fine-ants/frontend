@@ -1,7 +1,7 @@
 import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
 import { MAIN_HEADER_HEIGHT_D } from "@constants/styleConstants";
 import { PortfoliosDropdown } from "@features/portfolio/components/PortfoliosDropdown/PortfoliosDropdown";
-import UserControls from "@features/user/components/UserDropdown/UserControls";
+import UserControls from "@features/user/components/UserControls";
 import { UserContext } from "@features/user/context/UserContext";
 import Routes from "@router/Routes";
 import { useContext } from "react";
