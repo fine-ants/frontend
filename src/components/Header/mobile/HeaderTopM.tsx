@@ -4,7 +4,7 @@ import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
 import { MAIN_HEADER_HEIGHT_M } from "@constants/styleConstants";
 import { NotificationControl } from "@features/notification/components/NotificationControl/NotificationControl";
-import UserDropdown from "@features/user/components/UserDropdown/UserDropdown";
+import UserDrawer from "@features/user/components/UserDrawer";
 import { UserContext } from "@features/user/context/UserContext";
 import Routes from "@router/Routes";
 import { useContext } from "react";
@@ -28,7 +28,7 @@ export default function HeaderTopM() {
     <StyledHeaderTopM>
       {user ? (
         <HeaderLeft>
-          <UserDropdown />
+          <UserDrawer />
         </HeaderLeft>
       ) : (
         <ButtonWrapper>
