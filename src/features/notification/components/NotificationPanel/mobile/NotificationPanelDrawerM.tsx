@@ -1,6 +1,7 @@
 import { IconButton } from "@components/Buttons/IconButton";
-import BottomDrawer from "@components/BottomDrawer";
-import { Icon, IconType } from "@components/Icon";
+import BottomDrawer from "@components/Drawer/BottomDrawer";
+import { DrawerItemType } from "@components/Drawer/types";
+import { Icon } from "@components/Icon";
 import useDeleteAllMemberNotificationsMutation from "@features/notification/api/queries/useDeleteAllMemberNotificationsMutation";
 import { User } from "@features/user/api/types";
 import { useBoolean } from "@hooks/useBoolean";
@@ -15,8 +16,6 @@ type Props = {
   hasNotification: boolean;
   onClose: () => void;
 };
-
-type DrawerItemType = { icon: IconType; title: string; onClick: () => void };
 
 export default function NotificationPanelDrawerM({
   user,
