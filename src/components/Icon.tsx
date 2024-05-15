@@ -27,6 +27,7 @@ import indetIcon from "@assets/icons/ic_indet.svg";
 import infoIcon from "@assets/icons/ic_info.svg";
 import kebabVerticalIcon from "@assets/icons/ic_kebab-vertical.svg";
 import lineChartIcon from "@assets/icons/ic_line-chart.svg";
+import logoutIcon from "@assets/icons/ic_logout.svg";
 import noneIcon from "@assets/icons/ic_none.svg";
 import notificationIcon from "@assets/icons/ic_notification.svg";
 import pieChartIcon from "@assets/icons/ic_pie-chart.svg";
@@ -85,6 +86,7 @@ const icons = {
   "info": infoIcon,
   "kebab-vertical": kebabVerticalIcon,
   "line-chart": lineChartIcon,
+  "logout": logoutIcon,
   "none": noneIcon,
   "notification": notificationIcon,
   "pie-chart": pieChartIcon,
