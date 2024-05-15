@@ -21,7 +21,6 @@ export default function UserDropdown() {
   };
 
   const onSignOut = () => {
-    // TODO: Handle error
     signOutMutate();
   };
 
