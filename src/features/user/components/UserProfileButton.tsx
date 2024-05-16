@@ -19,15 +19,13 @@ export default function UserProfileButton({ isOpen, onClick }: Props) {
       size="h32"
       onClick={onClick}
       $isOpen={isOpen}>
-      {user?.profileUrl ? (
-        <ProfileImageWrapper>
+      <ProfileImageWrapper>
+        {user?.profileUrl ? (
           <ProfileImage src={user.profileUrl} alt={user.nickname} $size={32} />
-        </ProfileImageWrapper>
-      ) : (
-        <ProfileImageWrapper>
+        ) : (
           <Icon icon="user" size={32} color={isOpen ? "gray400" : "gray600"} />
-        </ProfileImageWrapper>
-      )}
+        )}
+      </ProfileImageWrapper>
     </StyledUserProfileButton>
   );
 }
