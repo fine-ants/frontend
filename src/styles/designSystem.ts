@@ -42,6 +42,19 @@ export const colors = {
 };
 
 const font = {
+  display1: {
+    font: "700 64/77px 'IBM Plex Sans', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  display2: {
+    font: "700 48/58px 'IBM Plex Sans', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+  display3: {
+    font: "500 32/39px 'IBM Plex Sans', sans-serif",
+    letterSpacing: "-0.02rem",
+  },
+
   heading1: {
     font: "500 48px/58px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
@@ -51,11 +64,11 @@ const font = {
     letterSpacing: "-0.02rem",
   },
   heading3: {
-    font: "600 24px/29px 'IBM Plex Sans', sans-serif",
+    font: "700 24px/29px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
   heading4: {
-    font: "600 20px/24px 'IBM Plex Sans', sans-serif",
+    font: "700 20px/24px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
 
@@ -72,7 +85,7 @@ const font = {
     letterSpacing: "-0.02rem",
   },
   title4: {
-    font: "400 16px/19px 'IBM Plex Sans', sans-serif",
+    font: "500 16px/19px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
   title5: {
