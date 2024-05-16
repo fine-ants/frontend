@@ -7,7 +7,7 @@ import designSystem from "@styles/designSystem";
 import { MouseEvent, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import UserProfileButton from "./UserProfileButton";
+import UserProfileButton from "../UserProfileButton";
 
 export default function UserDropdown() {
   const { user } = useContext(UserContext);

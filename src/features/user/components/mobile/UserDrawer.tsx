@@ -7,8 +7,8 @@ import designSystem from "@styles/designSystem";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../context/UserContext";
-import UserProfileButton from "./UserProfileButton";
+import { UserContext } from "../../context/UserContext";
+import UserProfileButton from "../UserProfileButton";
 
 export default function UserDrawer() {
   const navigate = useNavigate();
