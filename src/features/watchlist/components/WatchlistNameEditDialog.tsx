@@ -84,12 +84,11 @@ export default function WatchlistNameEditDialog({
 }
 
 const styledDialog: CSSProperties = {
-  width: "544px",
   height: "280px",
-  borderRadius: "8px",
   display: "flex",
   flexDirection: "column",
   gap: "32px",
+  borderRadius: "8px",
 };
 
 const Header = styled.header`

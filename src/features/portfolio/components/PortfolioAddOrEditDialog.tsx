@@ -492,7 +492,6 @@ export default function PortfolioAddOrEditDialog({
 }
 
 const PortfolioAddDialogStyle = {
-  width: "544px",
   height: "437px",
   padding: "32px",
 };
