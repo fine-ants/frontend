@@ -3,6 +3,7 @@ import PieChart from "@components/PieChart/PieChart";
 import useDashboardPieChartQuery from "@features/dashboard/api/queries/useDashboardPieChartQuery";
 import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
 import { useBoolean } from "@hooks/useBoolean";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import designSystem from "@styles/designSystem";
 import { Suspense } from "react";
@@ -10,6 +11,7 @@ import styled from "styled-components";
 import EmptyPortfolioMessage from "./PortfolioWeightPieChart/EmptyPortfolioMessage";
 
 export default function DashboardPortfolioWeight() {
+  const { isMobile } = useResponsiveLayout();
   const { data: pieChart } = useDashboardPieChartQuery();
 
   const {
@@ -30,14 +32,14 @@ export default function DashboardPortfolioWeight() {
   }));
 
   return (
-    <StyledDashboardPortfolioWeight>
-      <ChartTitle>포트폴리오 비중</ChartTitle>
+    <StyledDashboardPortfolioWeight $isMobile={isMobile}>
+      <ChartTitle $isMobile={isMobile}>포트폴리오 비중</ChartTitle>
       {/* TODO: Suspense fallback component */}
       <Suspense fallback={<div>로딩중</div>}>
-        <div style={{ display: "flex", gap: "24px" }}>
+        <ChartWrapper $isMobile={isMobile}>
           <PieChart
-            width={320}
-            height={320}
+            width={isMobile ? 280 : 320}
+            height={isMobile ? 280 : 320}
             hoverGap={16}
             pieData={coloredPieChart ?? []}
           />
@@ -51,7 +53,7 @@ export default function DashboardPortfolioWeight() {
               onPortfolioAddButtonClick={onPortfolioAddDialogOpen}
             />
           )}
-        </div>
+        </ChartWrapper>
       </Suspense>
 
       {isPortfolioAddDialogOpen && (
@@ -64,10 +66,10 @@ export default function DashboardPortfolioWeight() {
   );
 }
 
-const StyledDashboardPortfolioWeight = styled.div`
-  width: 50%;
-  height: 480px;
-  padding: 32px;
+const StyledDashboardPortfolioWeight = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "50%")};
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "480px")};
+  padding: ${({ $isMobile }) => ($isMobile ? "32px 16px" : "32px")};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -76,7 +78,20 @@ const StyledDashboardPortfolioWeight = styled.div`
   gap: 24px;
 `;
 
-const ChartTitle = styled.div`
-  font: ${designSystem.font.heading3.font};
-  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+const ChartWrapper = styled.div<{ $isMobile: boolean }>`
+  display: flex;
+  align-items: center;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+  gap: ${({ $isMobile }) => ($isMobile ? "16px" : "24px")};
+`;
+
+const ChartTitle = styled.div<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.font
+      : designSystem.font.heading3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.letterSpacing
+      : designSystem.font.heading3.letterSpacing};
 `;
