@@ -23,7 +23,7 @@ export default function BaseDialog({
     width: "100%",
     maxWidth: isMobile ? "343px" : "544px",
     height: "430px",
-    padding: "32px",
+    padding: isMobile ? "24px" : "32px",
     backgroundColor: designSystem.color.neutral.white,
     border: `1px solid ${designSystem.color.neutral.gray100}`,
     borderRadius: "8px",
