@@ -43,15 +43,15 @@ export const colors = {
 
 const font = {
   display1: {
-    font: "700 64/77px 'IBM Plex Sans', sans-serif",
+    font: "700 64px/77px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
   display2: {
-    font: "700 48/58px 'IBM Plex Sans', sans-serif",
+    font: "700 48px/58px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
   display3: {
-    font: "500 32/39px 'IBM Plex Sans', sans-serif",
+    font: "500 32px/39px 'IBM Plex Sans', sans-serif",
     letterSpacing: "-0.02rem",
   },
 
