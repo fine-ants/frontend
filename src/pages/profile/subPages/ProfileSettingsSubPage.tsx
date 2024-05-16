@@ -142,6 +142,7 @@ export default function ProfileSettingsSubPage() {
           <TextFieldWrapper $isMobile={isMobile}>
             <TextField
               id="nicknameInput"
+              size={isMobile ? "h48" : "h32"}
               error={nicknameIsError || !!duplicateCheckErrorMsg}
               placeholder="닉네임"
               value={nicknameValue}
@@ -157,7 +158,7 @@ export default function ProfileSettingsSubPage() {
         <Button
           type="button"
           variant="tertiary"
-          size="h44"
+          size={isMobile ? "h48" : "h44"}
           style={buttonStyles}
           onClick={() => navigate(Routes.DASHBOARD)}>
           취소
@@ -165,7 +166,7 @@ export default function ProfileSettingsSubPage() {
         <Button
           type="submit"
           variant="primary"
-          size="h44"
+          size={isMobile ? "h48" : "h44"}
           style={buttonStyles}
           disabled={isSaveButtonDisabled}>
           저장

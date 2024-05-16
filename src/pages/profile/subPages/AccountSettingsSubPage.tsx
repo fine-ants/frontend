@@ -7,6 +7,7 @@ import AccountDeleteDialog from "@features/user/components/AccountDeleteDialog";
 import { UserContext } from "@features/user/context/UserContext";
 import { useText, validatePassword } from "@fineants/demolition";
 import { useBoolean } from "@hooks/useBoolean";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useContext } from "react";
@@ -19,6 +20,8 @@ const passwordValidator = (password: string) =>
   });
 
 export default function AccountSettingsSubPage() {
+  const { isMobile } = useResponsiveLayout();
+
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
@@ -96,15 +99,19 @@ export default function AccountSettingsSubPage() {
     currentPasswordValue === newPasswordValue;
 
   return (
-    <Form onSubmit={onSubmit} $isOAuth={user?.provider !== "local"}>
+    <Form
+      onSubmit={onSubmit}
+      $isOAuth={user?.provider !== "local"}
+      $isMobile={isMobile}>
       {user?.provider === "local" ? (
         <>
-          <LabelsWrapper>
-            <Label htmlFor="currentPasswordInput">
+          <LabelsWrapper $isMobile={isMobile}>
+            <Label htmlFor="currentPasswordInput" $isMobile={isMobile}>
               <p>현재 비밀번호</p>
-              <TextFieldWrapper>
+              <TextFieldWrapper $isMobile={isMobile}>
                 <PasswordTextField
                   id="currentPasswordInput"
+                  size={isMobile ? "h48" : "h32"}
                   error={currentPasswordIsError}
                   password={currentPasswordValue}
                   onChange={(e) =>
@@ -116,11 +123,12 @@ export default function AccountSettingsSubPage() {
               </TextFieldWrapper>
             </Label>
 
-            <Label htmlFor="passwordInput">
+            <Label htmlFor="passwordInput" $isMobile={isMobile}>
               <p>새 비밀번호</p>
-              <TextFieldWrapper>
+              <TextFieldWrapper $isMobile={isMobile}>
                 <PasswordTextField
                   id="passwordInput"
+                  size={isMobile ? "h48" : "h32"}
                   error={newPasswordIsErrorExtended}
                   password={newPasswordValue}
                   onChange={(e) => newPasswordOnChange(e.target.value.trim())}
@@ -130,11 +138,12 @@ export default function AccountSettingsSubPage() {
               </TextFieldWrapper>
             </Label>
 
-            <Label htmlFor="passwordConfirmInput">
+            <Label htmlFor="passwordConfirmInput" $isMobile={isMobile}>
               <p>새 비밀번호 확인</p>
-              <TextFieldWrapper>
+              <TextFieldWrapper $isMobile={isMobile}>
                 <PasswordTextField
                   id="passwordConfirmInput"
+                  size={isMobile ? "h48" : "h32"}
                   error={newPasswordConfirmIsErrorExtended}
                   password={newPasswordConfirmValue}
                   onChange={(e) =>
@@ -151,7 +160,7 @@ export default function AccountSettingsSubPage() {
             <Button
               type="button"
               variant="tertiary"
-              size="h44"
+              size={isMobile ? "h48" : "h44"}
               style={buttonStyles}
               onClick={() => navigate(Routes.DASHBOARD)}>
               취소
@@ -159,7 +168,7 @@ export default function AccountSettingsSubPage() {
             <Button
               type="submit"
               variant="primary"
-              size="h44"
+              size={isMobile ? "h48" : "h44"}
               style={buttonStyles}
               disabled={isSaveButtonDisabled}>
               저장
@@ -192,23 +201,26 @@ export default function AccountSettingsSubPage() {
   );
 }
 
-const Form = styled.form<{ $isOAuth: boolean }>`
+const Form = styled.form<{ $isOAuth: boolean; $isMobile: boolean }>`
+  width: 100%;
   padding-top: ${({ $isOAuth }) => ($isOAuth ? "0" : "40px")};
+  padding: ${({ $isMobile }) => ($isMobile ? "24px 16px 8px" : "40px 0 0 0")};
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `;
 
-const LabelsWrapper = styled.div`
+const LabelsWrapper = styled.div<{ $isMobile: boolean }>`
   margin-bottom: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: ${({ $isMobile }) => ($isMobile ? "34px" : "42px")};
 `;
 
-const Label = styled.label`
+const Label = styled.label<{ $isMobile: boolean }>`
   display: flex;
-  align-items: center;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+  align-items: ${({ $isMobile }) => ($isMobile ? "flex-start" : "center")};
   gap: 8px;
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
@@ -219,7 +231,8 @@ const Label = styled.label`
   }
 `;
 
-const TextFieldWrapper = styled.div`
+const TextFieldWrapper = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
   flex-grow: 1;
 `;
 
