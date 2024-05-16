@@ -13,6 +13,7 @@ type DefaultProps = {
   hoverIconColor?: ColorType;
   hoverIcon?: IconType;
   size: SizeType;
+  borderRadius?: "default" | "rounded";
   type?: "button" | "submit";
   disabled?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -25,6 +26,7 @@ type CustomProps = {
   hoverIcon?: IconType;
   customColor: ColorObjectType;
   size: SizeType;
+  borderRadius?: "default" | "rounded";
   type?: "button" | "submit";
   disabled?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -37,6 +39,7 @@ export function IconButton(props: Props) {
     icon,
     iconColor = "primary",
     size,
+    borderRadius = "default",
     type = "button",
     disabled = false,
     hoverIcon,
@@ -74,12 +77,13 @@ export function IconButton(props: Props) {
     <StyledButton
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      $size={size}
-      $colorObject={colorObject}
-      $disabled={disabled}
       disabled={disabled}
       type={type}
-      onClick={onClick}>
+      onClick={onClick}
+      $size={size}
+      $borderRadius={borderRadius}
+      $colorObject={colorObject}
+      $disabled={disabled}>
       <Icon
         icon={isHovered && hoverIcon ? hoverIcon : icon}
         size={getIconSize(size)}
@@ -111,6 +115,7 @@ const convertSizeToPixel = (sizeString: string) => {
 
 const StyledButton = styled.button<{
   $size: SizeType;
+  $borderRadius: "default" | "rounded";
   $colorObject: {
     color: ColorType;
     hoverColor: ColorType;
@@ -122,7 +127,8 @@ const StyledButton = styled.button<{
   justify-content: center;
   width: ${({ $size }) => convertSizeToPixel($size)};
   height: ${({ $size }) => convertSizeToPixel($size)};
-  border-radius: ${({ $size }) => ($size === "h32" ? "3px" : "4px")};
+  border-radius: ${({ $size, $borderRadius }) =>
+    $borderRadius === "rounded" ? "50%" : $size === "h32" ? "3px" : "4px"};
   color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
 

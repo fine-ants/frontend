@@ -18,12 +18,11 @@ export function NotificationSettingsDialogD({ user, isOpen, onClose }: Props) {
 }
 
 const dialogStyle: CSSProperties = {
+  height: "auto",
+  minHeight: "428px",
+  padding: "32px",
   display: "flex",
   flexDirection: "column",
   gap: "32px",
-  width: "544px",
-  minHeight: "428px",
-  height: "auto",
   borderRadius: "8px",
-  padding: "32px",
 };

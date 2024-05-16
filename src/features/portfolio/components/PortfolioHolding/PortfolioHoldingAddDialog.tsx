@@ -223,7 +223,6 @@ export default memo(function PortfolioHoldingAddDialog({
 });
 
 const portfolioHoldingAddDialogStyle = {
-  width: "544px",
   height: "auto",
   padding: "32px",
 };

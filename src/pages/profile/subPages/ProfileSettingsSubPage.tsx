@@ -11,6 +11,7 @@ import {
   validateNickname,
 } from "@fineants/demolition";
 import useNicknameDuplicateCheck from "@hooks/useNicknameDuplicateCheck";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
@@ -24,6 +25,8 @@ const nicknameValidator = (nickname: string) =>
   });
 
 export default function ProfileSettingsSubPage() {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
@@ -105,12 +108,11 @@ export default function ProfileSettingsSubPage() {
     imageFileError !== "";
 
   return (
-    <Form onSubmit={onSubmit}>
-      <LabelsWrapper>
-        <ProfileImageLabel htmlFor="profileImageInput">
+    <Form onSubmit={onSubmit} $isMobile={isMobile}>
+      <LabelsWrapper $isMobile={isMobile}>
+        <ProfileImageLabel htmlFor="profileImageInput" $isMobile={isMobile}>
           <p>프로필 이미지</p>
-
-          <ProfileImageWrapper>
+          <ProfileImageWrapper $isMobile={isMobile}>
             <ProfileImage
               src={profileImageUrl ? profileImageUrl : defaultProfile}
               alt="profile"
@@ -125,18 +127,22 @@ export default function ProfileSettingsSubPage() {
             />
           </ProfileImageWrapper>
 
-          <ErrorCaption>{imageFileError}</ErrorCaption>
+          {imageFileError && <ErrorCaption>{imageFileError}</ErrorCaption>}
 
-          <ClearImageButton variant="text" onClick={onClearProfileImage}>
+          <ClearImageButton
+            variant="text"
+            onClick={onClearProfileImage}
+            $isDesktop={isDesktop}>
             기본 이미지 사용
           </ClearImageButton>
         </ProfileImageLabel>
 
-        <Label htmlFor="nicknameInput">
+        <NicknameLabel htmlFor="nicknameInput" $isMobile={isMobile}>
           <p>닉네임</p>
-          <TextFieldWrapper>
+          <TextFieldWrapper $isMobile={isMobile}>
             <TextField
               id="nicknameInput"
+              size={isMobile ? "h48" : "h32"}
               error={nicknameIsError || !!duplicateCheckErrorMsg}
               placeholder="닉네임"
               value={nicknameValue}
@@ -145,14 +151,14 @@ export default function ProfileSettingsSubPage() {
               clearValue={() => nicknameOnChange("")}
             />
           </TextFieldWrapper>
-        </Label>
+        </NicknameLabel>
       </LabelsWrapper>
 
       <ButtonsContainer>
         <Button
           type="button"
           variant="tertiary"
-          size="h44"
+          size={isMobile ? "h48" : "h44"}
           style={buttonStyles}
           onClick={() => navigate(Routes.DASHBOARD)}>
           취소
@@ -160,7 +166,7 @@ export default function ProfileSettingsSubPage() {
         <Button
           type="submit"
           variant="primary"
-          size="h44"
+          size={isMobile ? "h48" : "h44"}
           style={buttonStyles}
           disabled={isSaveButtonDisabled}>
           저장
@@ -170,37 +176,48 @@ export default function ProfileSettingsSubPage() {
   );
 }
 
-const Form = styled.form`
-  padding-top: 40px;
+const Form = styled.form<{ $isMobile: boolean }>`
+  width: 100%;
+  padding: ${({ $isMobile }) => ($isMobile ? "24px 16px 8px" : "40px 0 0 0")};
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  gap: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
 `;
 
-const LabelsWrapper = styled.div`
+const LabelsWrapper = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
   margin-bottom: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: ${({ $isMobile }) => ($isMobile ? "16px" : "24px")};
 `;
 
-const ProfileImageLabel = styled.label`
+const ProfileImageLabel = styled.label<{ $isMobile: boolean }>`
+  width: 100%;
+  padding-bottom: ${({ $isMobile }) => ($isMobile ? "120px" : "0")};
   display: flex;
-  gap: 8px;
+  justify-content: ${({ $isMobile }) =>
+    $isMobile ? "space-between" : "flex-start"};
+  gap: ${({ $isMobile }) => ($isMobile ? "0" : "8px")};
+  position: ${({ $isMobile }) => ($isMobile ? "relative" : "static")};
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 
   > p:first-of-type {
-    width: 120px;
+    width: ${({ $isMobile }) => ($isMobile ? "auto" : "120px")};
   }
 `;
 
-const ProfileImageWrapper = styled.div`
+const ProfileImageWrapper = styled.div<{ $isMobile: boolean }>`
   width: 120px;
   height: 120px;
-  position: relative;
-  border: 1px solid #dedee0;
+  position: ${({ $isMobile }) => ($isMobile ? "absolute" : "static")};
+  top: ${({ $isMobile }) => ($isMobile ? "25px" : "0")};
+  left: ${({ $isMobile }) => ($isMobile ? "50%" : "0")};
+  transform: ${({ $isMobile }) =>
+    $isMobile ? "translateX(-50%)" : "translateX(0)"};
   border-radius: 50%;
 `;
 
@@ -215,29 +232,29 @@ const ProfileImage = styled.img`
 `;
 
 const ImageInput = styled.input`
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   opacity: 0;
-  cursor: pointer;
   z-index: 2;
+  cursor: pointer;
 `;
 
 const CameraWrapper = styled.div`
-  display: flex;
   width: 32px;
   height: 32px;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
-  border-radius: 16px;
-  background: #373840;
   position: absolute;
   bottom: 4px;
   right: 4px;
+  flex-shrink: 0;
+  background: #373840;
+  border-radius: 16px;
   z-index: 1;
 `;
 
@@ -245,12 +262,13 @@ const ErrorCaption = styled.p`
   display: flex;
   align-items: flex-end;
   flex-grow: 1;
-  color: red;
+  color: ${designSystem.color.state.red500};
 `;
 
-const ClearImageButton = styled(MuiButton)`
+const ClearImageButton = styled(MuiButton)<{ $isDesktop: boolean }>`
   height: 24px;
-  padding: 0 8px;
+  padding: 0;
+  margin-left: auto;
   font: ${designSystem.font.button2.font};
   letter-spacing: ${designSystem.font.button2.letterSpacing};
   color: ${designSystem.color.primary.blue500};
@@ -262,9 +280,11 @@ const ClearImageButton = styled(MuiButton)`
   }
 `;
 
-const Label = styled.label`
+const NicknameLabel = styled.label<{ $isMobile: boolean }>`
+  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+  align-items: ${({ $isMobile }) => ($isMobile ? "flex-start" : "center")};
   gap: 8px;
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
@@ -275,7 +295,8 @@ const Label = styled.label`
   }
 `;
 
-const TextFieldWrapper = styled.div`
+const TextFieldWrapper = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
   flex-grow: 1;
 `;
 

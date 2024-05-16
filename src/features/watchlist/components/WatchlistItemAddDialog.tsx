@@ -122,7 +122,6 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
 }
 
 const watchlistItemAddDialogStyles: CSSProperties = {
-  width: "544px",
   height: "605px",
   display: "flex",
   flexDirection: "column",
