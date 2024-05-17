@@ -1,7 +1,7 @@
 import BaseDialog from "@components/BaseDialog";
 import AsyncButton from "@components/Buttons/AsyncButton";
 import { IconButton } from "@components/Buttons/IconButton";
-import SearchBar from "@components/SearchBar/SearchBar";
+import SearchBarD from "@components/SearchBar/desktop/SearchBarD";
 import { StockSearchItem } from "@features/stock/api";
 import useWatchlistItemAddMutation from "@features/watchlist/api/queries/useWatchlistItemAddMutation";
 import designSystem from "@styles/designSystem";
@@ -75,7 +75,7 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
 
         <SearchBarWrapper>
           <div>종목 검색</div>
-          <SearchBar
+          <SearchBarD
             variant="select-multiple"
             sx={{ width: "480px", marginBottom: "16px" }}
             selectedOptions={selectedStocks}

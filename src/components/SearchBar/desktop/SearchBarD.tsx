@@ -7,9 +7,9 @@ import { useBoolean } from "@hooks/useBoolean";
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { SyntheticEvent, useState } from "react";
-import RenderOptionDefault from "./RenderOptionDefault";
-import RenderOptionSelect from "./RenderOptionSelect";
-import RenderOptionSelectMultiple from "./RenderOptionSelectMultiple";
+import RenderOptionDefault from "../RenderOptionDefault";
+import RenderOptionSelect from "../RenderOptionSelect";
+import RenderOptionSelectMultiple from "../RenderOptionSelectMultiple";
 
 type Variant = "default" | "select" | "select-multiple";
 
@@ -25,7 +25,7 @@ type Props = {
  * @param {StockSearchItem[]} [selectedOptions] - Must be provided when variant is `"select-multiple"`.
  * @param {Function} [onSelectOption] - Must be provided when variant is `"select"` or `"select-multiple"`.
  */
-export default function SearchBar({
+export default function SearchBarD({
   variant = "default",
   sx,
   selectedOptions,
