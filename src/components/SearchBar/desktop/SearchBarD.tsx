@@ -57,7 +57,7 @@ export default function SearchBarD({
   );
 
   const onSearchInputChange = (_: SyntheticEvent, newValue: string) => {
-    setSearchInputValue(newValue as string);
+    setSearchInputValue(newValue);
   };
 
   const clearSearchInput = () => {
