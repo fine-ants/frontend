@@ -21,14 +21,7 @@ export default function StockSearchPanel({
       onCloseDrawer={onClosePanel}>
       <StyledStockSearchPanel>
         <StockSearchPanelHeader handleClose={onClosePanel} />
-
         <StockSearchPanelContext />
-
-        {/* <NotificationPanelContent
-          user={user}
-          notifications={notifications}
-          handleClose={onClosePanel}
-        /> */}
       </StyledStockSearchPanel>
     </RightDrawer>
   );

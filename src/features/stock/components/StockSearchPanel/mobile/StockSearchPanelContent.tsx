@@ -11,5 +11,4 @@ export default function StockSearchPanelContext() {
 
 const StyledStockSearchPanelContext = styled.div`
   width: 100%;
-  // padding-inline: 16px;
 `;
