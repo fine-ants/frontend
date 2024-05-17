@@ -84,8 +84,8 @@ export default function NotificationPanelDrawerM({
       />
       <BottomDrawer
         isDrawerOpen={isDrawerOpen}
-        openDrawer={openDrawer}
-        closeDrawer={closeDrawer}>
+        onOpenDrawer={openDrawer}
+        onCloseDrawer={closeDrawer}>
         <Content>
           {drawerItem.map((item, index) => (
             <ContentItem key={index}>

@@ -5,15 +5,15 @@ import styled from "styled-components";
 
 type Props = {
   isDrawerOpen: boolean;
-  openDrawer: () => void;
-  closeDrawer: () => void;
+  onOpenDrawer: () => void;
+  onCloseDrawer: () => void;
   children: ReactNode;
 };
 
 export default function BottomDrawer({
   isDrawerOpen,
-  openDrawer,
-  closeDrawer,
+  onOpenDrawer,
+  onCloseDrawer,
   children,
 }: Props) {
   return (
@@ -21,15 +21,15 @@ export default function BottomDrawer({
       <SwipeableDrawer
         anchor="bottom"
         open={isDrawerOpen}
-        onClose={closeDrawer}
-        onOpen={openDrawer}>
+        onOpen={onOpenDrawer}
+        onClose={onCloseDrawer}>
         <Top>
           <IconButton
             icon="close"
             size="h32"
             borderRadius="rounded"
             iconColor="gray"
-            onClick={closeDrawer}
+            onClick={onCloseDrawer}
           />
         </Top>
         {children}
