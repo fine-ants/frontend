@@ -95,7 +95,6 @@ export default function PortfolioHoldingStyledTableRow({
   const [newMemo, setNewMemo] = useState(memo ?? "");
 
   const onSaveClick = () => {
-    // TODO: Handle error
     portfolioHoldingPurchaseEditMutate({
       portfolioId,
       portfolioHoldingId,
@@ -114,7 +113,6 @@ export default function PortfolioHoldingStyledTableRow({
   };
 
   const onDeleteConfirm = () => {
-    // TODO: Handle error
     portfolioHoldingPurchaseDeleteMutate({
       portfolioId,
       portfolioHoldingId,

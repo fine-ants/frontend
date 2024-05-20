@@ -28,7 +28,6 @@ export default function StockDetails() {
     <>
       <Header>
         <NameWrapper>
-          <Symbol />
           <label>{companyName}</label>
           <span>{tickerSymbol}</span>
         </NameWrapper>
@@ -140,14 +139,6 @@ const NameWrapper = styled.div`
     letter-spacing: ${designSystem.font.title5.letterSpacing};
     color: ${designSystem.color.neutral.gray400};
   }
-`;
-
-const Symbol = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  // TODO: Change to actual image instead of background color
-  background-color: ${designSystem.color.primary.blue500};
 `;
 
 const ButtonsWrapper = styled.div`
