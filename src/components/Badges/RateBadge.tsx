@@ -71,7 +71,6 @@ const StyledRateBadge = styled.div<{
 `;
 
 const getColors = (value: number) => {
-  // 배당금이 아닌 경우 상승 하락에 따른 색깔 리턴
   if (value > 0) {
     return {
       color: designSystem.color.state.green500,
