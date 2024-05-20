@@ -13,6 +13,7 @@ import BasePage from "./BasePage";
 
 export default function DashboardPage() {
   const { isMobile } = useResponsiveLayout();
+
   return (
     <BasePage>
       <AsyncBoundary

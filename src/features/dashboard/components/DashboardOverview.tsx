@@ -54,7 +54,9 @@ export default function DashboardOverview() {
                     {thousandsDelimiter(totalGain)}
                   </Value>
                 </ValueWrapper>
-                <RateBadge size={24} value={totalGainRate} />
+                {totalGainRate > 0 && (
+                  <RateBadge size={24} value={totalGainRate} />
+                )}
               </SubContent>
             </TotalSubContentWrapper>
             <TotalSubContentWrapper $isMobile={isMobile}>
@@ -66,11 +68,13 @@ export default function DashboardOverview() {
                     {thousandsDelimiter(totalAnnualDividend)}
                   </Value>
                 </ValueWrapper>
-                <RateBadge
-                  size={24}
-                  value={totalAnnualDividendYield}
-                  iconStatus={false}
-                />
+                {totalAnnualDividendYield > 0 && (
+                  <RateBadge
+                    size={24}
+                    value={totalAnnualDividendYield}
+                    iconStatus={false}
+                  />
+                )}
               </SubContent>
             </TotalSubContentWrapper>
           </SubContentContainer>

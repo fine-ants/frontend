@@ -1,3 +1,4 @@
+import emptyHoldingsPieChartImg from "@assets/images/no_holdings_pie_chart.png";
 import TallLegend from "@components/Legend/TallLegend";
 import PieChart from "@components/PieChart/PieChart";
 import useDashboardPieChartQuery from "@features/dashboard/api/queries/useDashboardPieChartQuery";
@@ -37,12 +38,21 @@ export default function DashboardPortfolioWeight() {
       {/* TODO: Suspense fallback component */}
       <Suspense fallback={<div>로딩중</div>}>
         <ChartWrapper $isMobile={isMobile}>
-          <PieChart
-            width={isMobile ? 280 : 320}
-            height={isMobile ? 280 : 320}
-            hoverGap={16}
-            pieData={coloredPieChart ?? []}
-          />
+          {coloredPieChart.length === 0 ? (
+            <img
+              width={isMobile ? 280 : 320}
+              src={emptyHoldingsPieChartImg}
+              alt="비어있는 파이차트 이미지"
+            />
+          ) : (
+            <PieChart
+              width={isMobile ? 280 : 320}
+              height={isMobile ? 280 : 320}
+              hoverGap={16}
+              pieData={coloredPieChart}
+            />
+          )}
+
           {coloredPieChart && coloredPieChart.length > 0 ? (
             <TallLegend
               legendList={pieChartLegendList ?? []}

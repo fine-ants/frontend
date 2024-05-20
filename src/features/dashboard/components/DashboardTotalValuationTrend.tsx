@@ -4,6 +4,7 @@ import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
+import { EmptyLineChartMessage } from "./EmptyLineChartMessage";
 import TotalValuationLineChart from "./TotalValuationLineChart";
 
 export default function DashboardTotalValuationTrend() {
@@ -26,16 +27,7 @@ export default function DashboardTotalValuationTrend() {
       $isMobile={isMobile}>
       <ChartTitle $isMobile={isMobile}>총 자산 추이</ChartTitle>
       {isTotalValuationDataEmpty ? (
-        <EmptyLineChartMessage>
-          <MessageBox>
-            <h1>아직 자산이 없습니다</h1>
-            <span>
-              내가 보유한 자산 추이가
-              <br />
-              여기에 표시됩니다
-            </span>
-          </MessageBox>
-        </EmptyLineChartMessage>
+        <EmptyLineChartMessage />
       ) : (
         <>
           <TabWrapper $isMobile={isMobile}>
@@ -68,42 +60,7 @@ const StyledDashboardTotalValuationTrend = styled.div<{
   gap: 24px;
   position: relative;
   background-color: #ffffff;
-  border: ${({ $isTotalValuationDataEmpty, theme: { color } }) =>
-    $isTotalValuationDataEmpty
-      ? `1px dashed ${color.neutral.gray100}`
-      : "none"};
   border-radius: 10px;
-`;
-
-const EmptyLineChartMessage = styled.div`
-  width: 100%;
-  height: 363px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px dashed ${designSystem.color.primary.blue100};
-  border-radius: 8px;
-`;
-
-const MessageBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  height: 82px;
-
-  > h1 {
-    font: ${designSystem.font.title3.font};
-    letter-spacing: ${designSystem.font.title3.letterSpacing};
-    color: ${designSystem.color.neutral.gray600};
-  }
-
-  > span {
-    text-align: center;
-    font: ${designSystem.font.body3.font};
-    color: ${designSystem.color.neutral.gray500};
-  }
 `;
 
 const TabWrapper = styled.div<{ $isMobile: boolean }>`
