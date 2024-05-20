@@ -37,13 +37,6 @@ export const successfulMemberNotifications = {
   data: memberNotificationsData,
 };
 
-export const successfulReadMemberNotification = {
-  code: 200,
-  status: "OK",
-  message: "지정 알림을 읽음 처리했습니다",
-  data: null,
-};
-
 export const successfulReadAllMemberNotifications = {
   code: 200,
   status: "OK",

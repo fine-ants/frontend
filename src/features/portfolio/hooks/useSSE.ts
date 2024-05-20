@@ -1,6 +1,7 @@
 import { HTTPSTATUS } from "@api/types";
 import { BASE_API_URL } from "@constants/config";
 import { refreshAccessToken } from "@features/auth/api";
+import useSignOutMutation from "@features/auth/api/queries/useSignOutMutation";
 import {
   Event,
   EventSourcePolyfill,
@@ -28,6 +29,8 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [shouldReconnect, setShouldReconnect] = useState(true);
+
+  const { mutate: signOutMutate } = useSignOutMutation();
 
   const eventSourceRef = useRef<EventSourcePolyfill>();
 
@@ -86,6 +89,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
           return;
         } catch (error) {
           setIsError(true);
+          signOutMutate();
           return;
         }
       }
@@ -93,7 +97,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
     eventSourceRef.current.addEventListener(eventTypeName, messageListener);
     eventSourceRef.current.addEventListener("complete", completeHandler);
-  }, [url, eventTypeName, messageListener, completeHandler]);
+  }, [url, eventTypeName, messageListener, completeHandler, signOutMutate]);
 
   const reconnect = useCallback(() => {
     onClose();

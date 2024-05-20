@@ -7,14 +7,12 @@ import {
   successfulEditMemberNotificationsSettings,
   successfulMemberNotifications,
   successfulReadAllMemberNotifications,
-  successfulReadMemberNotification,
 } from "@mocks/data/notifications/memberNotificationsData";
 import { HttpResponse, http } from "msw";
 import { editNotificationPreferences } from "../userHandlers";
 
 let notificationsData = memberNotificationsData;
 
-//TODO : 요청에 맞게 데이터 조작 추가하기
 export default [
   // Get member notifications
   http.get("/api/members/:memberId/notifications", () => {
@@ -36,17 +34,7 @@ export default [
       return notification;
     });
 
-    return HttpResponse.json(
-      { ...successfulReadAllMemberNotifications, data: notificationsData },
-      {
-        status: HTTPSTATUS.success,
-      }
-    );
-  }),
-
-  // Patch read member notifications
-  http.patch("/api/members/:memberId/notifications", () => {
-    return HttpResponse.json(successfulReadMemberNotification, {
+    return HttpResponse.json(successfulReadAllMemberNotifications, {
       status: HTTPSTATUS.success,
     });
   }),
@@ -55,12 +43,9 @@ export default [
   http.delete("/api/members/:memberId/notifications", () => {
     notificationsData = [];
 
-    return HttpResponse.json(
-      { ...successfulDeleteAllMemberNotifications, data: notificationsData },
-      {
-        status: HTTPSTATUS.success,
-      }
-    );
+    return HttpResponse.json(successfulDeleteAllMemberNotifications, {
+      status: HTTPSTATUS.success,
+    });
   }),
 
   // Delete member notifications
@@ -73,12 +58,9 @@ export default [
         (data) => data.notificationId !== Number(notificationId)
       );
 
-      return HttpResponse.json(
-        { ...successfulDeleteMemberNotification, data: notificationsData },
-        {
-          status: HTTPSTATUS.success,
-        }
-      );
+      return HttpResponse.json(successfulDeleteMemberNotification, {
+        status: HTTPSTATUS.success,
+      });
     }
   ),
 

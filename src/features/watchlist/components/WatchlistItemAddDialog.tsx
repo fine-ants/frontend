@@ -44,9 +44,7 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
   };
 
   const onAddButtonClick = () => {
-    // TODO: 관심종목 다수 추가 API 연결
     const tickerSymbols = selectedStocks.map((stock) => stock.tickerSymbol);
-
     watchlistItemAddMutate(tickerSymbols);
   };
 
