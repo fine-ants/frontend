@@ -4,8 +4,10 @@ import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
 import { MAIN_HEADER_HEIGHT_M } from "@constants/styleConstants";
 import { NotificationControl } from "@features/notification/components/NotificationControl/NotificationControl";
+import StockSearchPanel from "@features/stock/components/StockSearchPanel/mobile/StockSearchPanel";
 import UserDrawer from "@features/user/components/mobile/UserDrawer";
 import { UserContext } from "@features/user/context/UserContext";
+import { useBoolean } from "@hooks/useBoolean";
 import Routes from "@router/Routes";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +17,12 @@ export default function HeaderTopM() {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
+
+  const {
+    state: isSearchPanelOpen,
+    setTrue: onOpenSearchPanel,
+    setFalse: onCloseSearchPanel,
+  } = useBoolean();
 
   const moveToSignInPage = () => {
     navigate(Routes.SIGNIN);
@@ -55,7 +63,14 @@ export default function HeaderTopM() {
           iconColor="custom"
           customColor={{ color: "gray400", hoverColor: "gray50" }}
           size="h40"
+          onClick={onOpenSearchPanel}
         />
+        <StockSearchPanel
+          isPanelOpen={isSearchPanelOpen}
+          onOpenPanel={onOpenSearchPanel}
+          onClosePanel={onCloseSearchPanel}
+        />
+
         {user ? <NotificationControl user={user} /> : null}
       </HeaderRight>
     </StyledHeaderTopM>

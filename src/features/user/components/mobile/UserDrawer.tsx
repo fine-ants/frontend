@@ -48,8 +48,8 @@ export default function UserDrawer() {
 
       <BottomDrawer
         isDrawerOpen={isDrawerOpen}
-        openDrawer={openDrawer}
-        closeDrawer={closeDrawer}>
+        onOpenDrawer={openDrawer}
+        onCloseDrawer={closeDrawer}>
         <ProfileItem>
           {user?.profileUrl ? (
             <ProfileImage src={user.profileUrl} alt={user.nickname} />

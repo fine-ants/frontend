@@ -1,7 +1,5 @@
-import { IconButton } from "@components/Buttons/IconButton";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode } from "react";
-import styled from "styled-components";
 
 type Props = {
   isDrawerOpen: boolean;
@@ -10,7 +8,7 @@ type Props = {
   children: ReactNode;
 };
 
-export default function BottomDrawer({
+export default function RightDrawer({
   isDrawerOpen,
   onOpenDrawer,
   onCloseDrawer,
@@ -19,19 +17,10 @@ export default function BottomDrawer({
   return (
     <ThemeProvider theme={theme}>
       <SwipeableDrawer
-        anchor="bottom"
+        anchor="right"
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
         onClose={onCloseDrawer}>
-        <Top>
-          <IconButton
-            icon="close"
-            size="h32"
-            borderRadius="rounded"
-            iconColor="gray"
-            onClick={onCloseDrawer}
-          />
-        </Top>
         {children}
       </SwipeableDrawer>
     </ThemeProvider>
@@ -44,15 +33,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           ".MuiPaper-root": {
-            borderRadius: "16px 16px 0 0",
-            padding: "16px 16px 0 16px",
+            width: "100%",
           },
         },
       },
     },
   },
 });
-
-const Top = styled.div`
-  margin-left: auto;
-`;

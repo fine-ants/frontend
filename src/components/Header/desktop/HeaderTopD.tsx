@@ -10,7 +10,7 @@ import styled from "styled-components";
 import Button from "../../Buttons/Button";
 import { TextButton } from "../../Buttons/TextButton";
 import { NavBar } from "../../NavBar/NavBar";
-import SearchBar from "../../SearchBar/SearchBar";
+import SearchBarD from "../../SearchBar/desktop/SearchBarD";
 
 export default function HeaderTopD() {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function HeaderTopD() {
         </NavBar>
       </HeaderLeft>
       <HeaderRight>
-        <SearchBar sx={{ width: "328px" }} />
+        <SearchBarD sx={{ width: "328px" }} />
 
         {user ? (
           <UserControls user={user} />
