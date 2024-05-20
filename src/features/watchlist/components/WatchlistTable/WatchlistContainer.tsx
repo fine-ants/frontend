@@ -4,7 +4,7 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import useWatchlistQuery from "@features/watchlist/api/queries/useWatchlistQuery";
 import useWatchlistsDeleteMutation from "@features/watchlist/api/queries/useWatchlistsDeleteMutation";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useNavigate, useParams } from "react-router-dom";

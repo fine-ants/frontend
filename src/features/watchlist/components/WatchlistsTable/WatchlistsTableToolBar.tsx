@@ -3,7 +3,7 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import { WatchlistsType } from "@features/watchlist/api";
 import useWatchlistsDeleteMutation from "@features/watchlist/api/queries/useWatchlistsDeleteMutation";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";

@@ -1,7 +1,7 @@
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
 import { UserContext } from "@features/user/context/UserContext";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { useContext } from "react";

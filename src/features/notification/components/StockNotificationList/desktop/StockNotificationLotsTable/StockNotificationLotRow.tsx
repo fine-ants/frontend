@@ -2,8 +2,7 @@ import { IconButton } from "@components/Buttons/IconButton";
 import ConfirmAlert from "@components/ConfirmAlert";
 import useStockTargetPriceDeleteMutation from "@features/notification/api/queries/useStockTargetPriceDeleteMutation";
 import { StockTargetPrice } from "@features/notification/api/types";
-import { thousandsDelimiter } from "@fineants/demolition";
-import { useBoolean } from "@hooks/useBoolean";
+import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
 import styled from "styled-components";
 

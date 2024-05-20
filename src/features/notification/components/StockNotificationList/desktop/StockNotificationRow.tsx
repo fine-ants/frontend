@@ -4,8 +4,7 @@ import { Icon } from "@components/Icon";
 import useAllStockPriceTargetsDeleteMutation from "@features/notification/api/queries/useAllStockPriceTargetsDeleteMutation";
 import useStockNotificationSettingsMutation from "@features/notification/api/queries/useStockNotificationSettingsMutation";
 import { StockNotification } from "@features/notification/api/types";
-import { thousandsDelimiter } from "@fineants/demolition";
-import { useBoolean } from "@hooks/useBoolean";
+import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import {
   Button,
   Collapse,

@@ -4,7 +4,7 @@ import { DrawerItemType } from "@components/Drawer/types";
 import { Icon } from "@components/Icon";
 import useDeleteAllMemberNotificationsMutation from "@features/notification/api/queries/useDeleteAllMemberNotificationsMutation";
 import { User } from "@features/user/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
