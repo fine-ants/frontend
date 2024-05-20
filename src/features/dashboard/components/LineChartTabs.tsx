@@ -36,9 +36,9 @@ function LineChartTab({ content, isSelected, onClick }: ButtonProps) {
 
   return (
     <StyledLineChartTab
+      onClick={onClick}
       $isSelected={isSelected}
-      $isMobile={isMobile}
-      onClick={onClick}>
+      $isMobile={isMobile}>
       {content}
     </StyledLineChartTab>
   );

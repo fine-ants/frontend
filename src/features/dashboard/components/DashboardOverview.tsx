@@ -122,7 +122,6 @@ const PageTitle = styled.h1<{ $isMobile: boolean }>`
     $isMobile
       ? designSystem.font.heading4.font
       : designSystem.font.heading2.font};
-
   letter-spacing: ${({ $isMobile }) =>
     $isMobile
       ? designSystem.font.heading4.letterSpacing
