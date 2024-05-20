@@ -1,7 +1,7 @@
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
 import { PurchaseHistoryField } from "@features/portfolio/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import {
   Table as MuiTable,
   TableBody as MuiTableBody,

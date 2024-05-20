@@ -4,7 +4,7 @@ import ConditionalTooltip from "@components/Tooltips/ConditionalTooltip";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import usePortfolioNotificationSettingsMutation from "@features/notification/api/queries/usePortfolioNotificationSettingsMutation";
 import { PortfolioNotification } from "@features/notification/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import { debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";

@@ -4,7 +4,7 @@ import naverLogo from "@assets/icons/logo/ic_naver.svg";
 import { CustomTooltip } from "@components/Tooltips/CustomTooltip";
 import { WindowContext } from "@context/WindowContext";
 import { OAuthProvider, postOAuthUrl } from "@features/auth/api";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import openPopUpWindow from "@utils/openPopUpWindow";

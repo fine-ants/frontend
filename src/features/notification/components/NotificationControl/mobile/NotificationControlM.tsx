@@ -1,6 +1,6 @@
 import { MemberNotification } from "@features/notification/api/types";
 import { User } from "@features/user/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import { NotificationPanelM } from "../../NotificationPanel/mobile/NotificationPanelM";
 import { ControlButton } from "../ControlButton";
 

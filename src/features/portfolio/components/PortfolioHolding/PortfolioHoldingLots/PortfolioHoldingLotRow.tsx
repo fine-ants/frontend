@@ -8,9 +8,9 @@ import {
   executeCbIfNumeric,
   removeThousandsDelimiter,
   thousandsDelimiter,
+  useBoolean,
   useText,
 } from "@fineants/demolition";
-import { useBoolean } from "@hooks/useBoolean";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
