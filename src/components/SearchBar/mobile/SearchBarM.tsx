@@ -2,14 +2,13 @@ import { IconButton } from "@components/Buttons/IconButton";
 import { Icon } from "@components/Icon";
 import { StockSearchItem } from "@features/stock/api";
 import useStockSearchQuery from "@features/stock/api/queries/useStockSearchQuery";
-import { useDebounce } from "@fineants/demolition";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean, useDebounce } from "@fineants/demolition";
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { SyntheticEvent, useState } from "react";
-import RenderOptionDefault from "./RenderOptionDefault";
-import RenderOptionSelect from "./RenderOptionSelect";
-import RenderOptionSelectMultiple from "./RenderOptionSelectMultiple";
+import RenderOptionDefault from "../RenderOptionDefault";
+import RenderOptionSelect from "../RenderOptionSelect";
+import RenderOptionSelectMultiple from "../RenderOptionSelectMultiple";
 
 type Variant = "default" | "select" | "select-multiple";
 
@@ -21,31 +20,13 @@ type Props = {
   disabled?: boolean;
 };
 
-/**
- * @param {StockSearchItem[]} [selectedOptions] - Must be provided when variant is `"select-multiple"`.
- * @param {Function} [onSelectOption] - Must be provided when variant is `"select"` or `"select-multiple"`.
- */
-export default function SearchBar({
+export default function SearchBarM({
   variant = "default",
   sx,
   selectedOptions,
   onSelectOption,
   disabled = false,
 }: Props) {
-  if (variant === "select" && !onSelectOption) {
-    throw Error("`onSelectOption` must be passed in when variant is 'select'");
-  }
-  if (variant === "select-multiple" && !onSelectOption) {
-    throw Error(
-      "`onSelectOption` must be passed in when variant is 'select-multiple'"
-    );
-  }
-  if (variant === "select-multiple" && !selectedOptions) {
-    throw Error(
-      "`selectedOptions` must be passed in when variant is 'select-multiple'"
-    );
-  }
-
   const { state: isOpen, setTrue: onOpen, setFalse: onClose } = useBoolean();
 
   const [value, setValue] = useState<StockSearchItem | null>(null);
@@ -57,7 +38,7 @@ export default function SearchBar({
   );
 
   const onSearchInputChange = (_: SyntheticEvent, newValue: string) => {
-    setSearchInputValue(newValue as string);
+    setSearchInputValue(newValue);
   };
 
   const clearSearchInput = () => {
@@ -129,7 +110,7 @@ export default function SearchBar({
               <Icon
                 icon="search"
                 size={16}
-                color={variant === "default" ? "gray400" : "gray600"}
+                color={variant === "default" ? "gray600" : "gray600"}
               />
             ),
             endAdornment: searchInputValue && (
@@ -138,7 +119,7 @@ export default function SearchBar({
                 size="h24"
                 iconColor="custom"
                 customColor={{
-                  color: variant === "default" ? "gray100" : "gray600",
+                  color: "gray600",
                   hoverColor: "gray50",
                 }}
                 onClick={clearSearchInput}
@@ -206,7 +187,8 @@ export default function SearchBar({
 }
 
 const autocompleteSx = (variant: Variant) => ({
-  "height": variant === "default" ? "40px" : "32px",
+  "height": "48px",
+  "padding": "0 16px",
 
   "& .MuiInputBase-root": {
     "width": "100%",
@@ -227,13 +209,10 @@ const autocompleteSx = (variant: Variant) => ({
 
     "& .MuiInputBase-input": {
       "padding": "0",
-      "font": designSystem.font.body3.font,
-      "color":
-        variant === "default"
-          ? designSystem.color.neutral.gray100
-          : designSystem.color.neutral.gray900,
+      "font": designSystem.font.body2.font,
+      "color": designSystem.color.neutral.gray900,
 
-      "&::placeholder": {
+      "input::placeholder": {
         color: designSystem.color.neutral.gray400,
       },
     },
@@ -248,11 +227,7 @@ const autocompleteSx = (variant: Variant) => ({
     },
 
     "fieldset": {
-      border: `1px solid ${
-        variant === "default"
-          ? designSystem.color.neutral.gray700
-          : designSystem.color.neutral.gray200
-      }`,
+      border: `1px solid ${designSystem.color.neutral.gray200}`,
     },
   },
 });
@@ -263,25 +238,38 @@ const popupIndicatorSx = {
   padding: "0",
 };
 
-const popperSx = (variant: Variant, isTyping: boolean) => ({
-  "marginTop": `${variant === "default" ? "8px" : "2px"} !important`,
-  "display": isTyping ? "block" : "none",
+const popperSx = (variant: Variant, isTyping: boolean) => {
+  const SEARCH_PANEL_HEADER_HEIGHT = 72;
+  const SEARCH_BAR_HEIGHT = 48;
+  const POPPER_MARGIN_TOP = variant === "default" ? 8 : 2;
 
-  "& .MuiAutocomplete-listbox": {
-    "maxHeight": variant === "default" ? "484px" : "168px",
-    "padding": "4px",
+  return {
+    "width": "100% !important",
+    "height": "100%",
+    "marginTop": `${POPPER_MARGIN_TOP}px !important`,
+    "display": isTyping ? "block" : "none",
 
-    "& .MuiAutocomplete-option": {
-      "width": "100%",
-      "padding": "4px 8px",
-      "display": "flex",
-      "alignItems": "center",
-      "gap": "4px",
-      "borderRadius": "3px",
+    ".MuiPaper-root": {
+      height: "inherit",
+    },
 
-      "&:hover": {
-        backgroundColor: designSystem.color.neutral.gray50,
+    "& .MuiAutocomplete-listbox": {
+      "height": "100%",
+      "maxHeight": `calc(100% - ${
+        SEARCH_PANEL_HEADER_HEIGHT + SEARCH_BAR_HEIGHT + POPPER_MARGIN_TOP
+      }px)`,
+      "padding": "4px",
+
+      "& .MuiAutocomplete-option": {
+        "width": "100%",
+        "padding": "4px 8px",
+        "display": "flex",
+        "alignItems": "center",
+
+        "&:hover": {
+          backgroundColor: designSystem.color.neutral.gray50,
+        },
       },
     },
-  },
-});
+  };
+};

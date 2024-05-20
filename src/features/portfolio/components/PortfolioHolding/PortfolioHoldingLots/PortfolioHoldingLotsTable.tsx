@@ -1,7 +1,7 @@
 import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
-import { PurchaseHistoryField } from "@features/portfolio/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { PurchaseHistory } from "@features/portfolio/api/types";
+import { useBoolean } from "@fineants/demolition";
 import {
   Table as MuiTable,
   TableBody as MuiTableBody,
@@ -18,7 +18,7 @@ import PortfolioHoldingLotRow from "./PortfolioHoldingLotRow";
 type Props = {
   portfolioId: number;
   portfolioHoldingId: number;
-  purchaseHistory: PurchaseHistoryField[];
+  purchaseHistory: PurchaseHistory[];
 };
 
 // TODO: PlainTable을 사용하도록 수정

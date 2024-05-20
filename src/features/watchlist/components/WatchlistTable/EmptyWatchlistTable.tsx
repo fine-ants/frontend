@@ -1,7 +1,7 @@
 import emptyWatchlistImage from "@assets/images/empty_watchlistItem.svg";
 import Button from "@components/Buttons/Button";
 import { Icon } from "@components/Icon";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import WatchlistItemAddDialog from "../WatchlistItemAddDialog";

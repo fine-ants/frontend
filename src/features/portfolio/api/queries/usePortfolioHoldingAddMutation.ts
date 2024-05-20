@@ -19,7 +19,6 @@ export default function usePortfolioHoldingAddMutation({
   return useMutation({
     mutationFn: postPortfolioHolding,
     onSuccess: () => {
-      // TODO: toast
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
@@ -32,6 +31,9 @@ export default function usePortfolioHoldingAddMutation({
       const message = (error as AxiosError<Response<null>>).response?.data
         ?.message as string;
       toast.error(message);
+    },
+    meta: {
+      toastSuccessMessage: "종목이 추가되었습니다",
     },
   });
 }

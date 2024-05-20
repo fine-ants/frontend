@@ -39,14 +39,12 @@ const TextBox = styled.div<{ $isMobile: boolean }>`
 
   > p {
     font: ${({ $isMobile }) =>
-      // TODO heading4 추가 후 mobile일 경우 적용
       $isMobile
-        ? designSystem.font.heading3.font
+        ? designSystem.font.heading4.font
         : designSystem.font.heading3.font};
     letter-spacing: ${({ $isMobile }) =>
-      // TODO heading4 추가 후 mobile일 경우 적용
       $isMobile
-        ? designSystem.font.heading3.letterSpacing
+        ? designSystem.font.heading4.letterSpacing
         : designSystem.font.heading3.letterSpacing};
     color: ${designSystem.color.neutral.gray600};
   }

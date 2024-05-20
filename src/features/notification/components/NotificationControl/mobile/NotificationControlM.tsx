@@ -1,6 +1,6 @@
 import { MemberNotification } from "@features/notification/api/types";
 import { User } from "@features/user/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import { NotificationPanelM } from "../../NotificationPanel/mobile/NotificationPanelM";
 import { ControlButton } from "../ControlButton";
 
@@ -19,24 +19,24 @@ export function NotificationControlM({
 }: Props) {
   const { state: open, setTrue: setOpen, setFalse: setClose } = useBoolean();
 
-  const handleOpen = () => {
+  const onOpenPanel = () => {
     setOpen();
   };
 
-  const handleClose = () => {
+  const onClosePanel = () => {
     readAllNotification();
     setClose();
   };
 
   return (
     <>
-      <ControlButton count={count} onClick={handleOpen} />
+      <ControlButton count={count} onClick={onOpenPanel} />
       <NotificationPanelM
         user={user}
         open={open}
         notifications={notifications}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
+        onOpenPanel={onOpenPanel}
+        onClosePanel={onClosePanel}
       />
     </>
   );

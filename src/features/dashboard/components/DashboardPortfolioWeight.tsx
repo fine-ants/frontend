@@ -3,7 +3,7 @@ import TallLegend from "@components/Legend/TallLegend";
 import PieChart from "@components/PieChart/PieChart";
 import useDashboardPieChartQuery from "@features/dashboard/api/queries/useDashboardPieChartQuery";
 import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import designSystem from "@styles/designSystem";
