@@ -12,7 +12,6 @@ export default function usePortfolioHoldingPurchaseEditMutation(filters: {
   return useMutation({
     mutationFn: putPortfolioHoldingPurchase,
     onSuccess: () => {
-      // TODO: toast
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(filters.portfolioId).queryKey,
       });
