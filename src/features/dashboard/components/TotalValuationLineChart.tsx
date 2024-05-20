@@ -23,7 +23,8 @@ export default function TotalValuationLineChart({
 }
 
 const StyledLineChart = styled.div`
-  width: "100%";
-  overflow: "hidden";
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
   flex: 1;
 `;
