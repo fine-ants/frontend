@@ -3,7 +3,7 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import DatePicker from "@components/DatePicker";
 import usePortfolioHoldingPurchaseDeleteMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseDeleteMutation";
 import usePortfolioHoldingPurchaseEditMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseEditMutation";
-import { PurchaseHistoryField } from "@features/portfolio/api/types";
+import { PurchaseHistory } from "@features/portfolio/api/types";
 import {
   executeCbIfNumeric,
   removeThousandsDelimiter,
@@ -24,7 +24,7 @@ import styled from "styled-components";
 type Props = {
   portfolioId: number;
   portfolioHoldingId: number;
-  lot: PurchaseHistoryField;
+  lot: PurchaseHistory;
 };
 
 export default function PortfolioHoldingStyledTableRow({

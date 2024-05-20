@@ -20,7 +20,6 @@ export type PortfolioItem = {
   dateCreated: string;
 };
 
-// TODO: 정리 필요
 export type Portfolio = {
   portfolioDetails: PortfolioDetails;
   portfolioHoldings: PortfolioHolding[];
@@ -89,11 +88,11 @@ export type PortfolioHolding = {
   totalReturnRate: number;
   annualDividend: number;
   annualDividendYield: number;
-  purchaseHistory: PurchaseHistoryField[];
-  dateCreated: string;
+  purchaseHistory: PurchaseHistory[];
+  dateAdded: string;
 };
 
-export type PurchaseHistoryField = {
+export type PurchaseHistory = {
   purchaseHistoryId: number;
   purchaseDate: string;
   numShares: number;
@@ -101,7 +100,7 @@ export type PurchaseHistoryField = {
   memo: string | null;
 };
 
-export type PurchaseHistory = {
+export type PurchaseHistoryInput = {
   purchaseDate: string;
   numShares: number;
   purchasePricePerShare: number;
