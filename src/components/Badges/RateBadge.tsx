@@ -1,6 +1,4 @@
-import downIcon from "@assets/icons/ic_down.svg";
-import noneIcon from "@assets/icons/ic_none.svg";
-import upIcon from "@assets/icons/ic_up.svg";
+import { Icon } from "@components/Icon";
 import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
@@ -12,7 +10,6 @@ type Props = {
   bgColorStatus?: boolean;
   iconStatus?: boolean;
   size: Size;
-  isDividendRate?: boolean;
   noPercent?: boolean;
 };
 
@@ -21,24 +18,16 @@ export default function RateBadge({
   bgColorStatus = true,
   iconStatus = true,
   size,
-  // TODO: 배당금 조건이 UI 데이터로 사용되지않는 방향으로
-  // TODO: 숫자 + 나오는 로직 추가
-  isDividendRate = false,
   noPercent = false,
 }: Props) {
-  const valueStatus = value > 0 ? "Gain" : value < 0 ? "Loss" : "None";
-
   return (
     <div>
       <StyledRateBadge
-        $colors={getColors(value, isDividendRate)}
+        $colors={getColors(value)}
         $bgColorStatus={bgColorStatus}
         $size={size}>
         {iconStatus && (
-          <img
-            src={getIconSrc(value)}
-            alt={`${value}${noPercent ? "" : "%"} ${valueStatus}`}
-          />
+          <Icon size={12} icon={getIcon(value)} color={getIconColor(value)} />
         )}
         <span>
           {thousandsDelimiter(value)}
@@ -81,15 +70,7 @@ const StyledRateBadge = styled.div<{
   }
 `;
 
-const getColors = (value: number, isDividendRateRate: boolean) => {
-  // 배당금일시 바로 오렌지 색 리턴
-  if (isDividendRateRate) {
-    return {
-      color: designSystem.color.state.orange500,
-      bgColor: designSystem.color.state.orange16,
-    };
-  }
-
+const getColors = (value: number) => {
   // 배당금이 아닌 경우 상승 하락에 따른 색깔 리턴
   if (value > 0) {
     return {
@@ -114,6 +95,10 @@ const getColors = (value: number, isDividendRateRate: boolean) => {
   }
 };
 
-const getIconSrc = (value: number) => {
-  return value > 0 ? upIcon : value < 0 ? downIcon : noneIcon;
+const getIcon = (value: number) => {
+  return value > 0 ? "up" : value < 0 ? "down" : "none";
+};
+
+const getIconColor = (value: number) => {
+  return value > 0 ? "green500" : value < 0 ? "red500" : "gray400";
 };
