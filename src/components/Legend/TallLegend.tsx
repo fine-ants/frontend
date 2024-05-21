@@ -38,7 +38,7 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
               key={idx}
               color={item.color}
               title={item.title}
-              percent={item.percent}
+              percent={Number(item.percent.toFixed(2))}
             />
           ))}
         </ItemsList>
@@ -51,13 +51,13 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
               <PieChartLegendItem
                 color={chartColorPalette[chartColorPalette.length - 1]}
                 title={etcOptions.title}
-                percent={etcPercent}
+                percent={Number(etcPercent.toFixed(2))}
               />
               <EtcList>
                 {etcList.map((item, idx) => (
                   <EtcItem key={idx}>
                     <span>{item.title}</span>
-                    <span>{item.percent}%</span>
+                    <span>{Number(item.percent.toFixed(2))}%</span>
                   </EtcItem>
                 ))}
               </EtcList>
