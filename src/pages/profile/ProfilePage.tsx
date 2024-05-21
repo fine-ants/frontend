@@ -54,7 +54,7 @@ const Container = styled.div<{ $isDesktop: boolean; $isMobile: boolean }>`
     100vh -
       ${({ $isMobile }) =>
         $isMobile
-          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}`
+          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px`
           : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT_D}px
   );
   margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
