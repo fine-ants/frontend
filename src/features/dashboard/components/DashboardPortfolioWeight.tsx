@@ -32,6 +32,8 @@ export default function DashboardPortfolioWeight() {
     color: item.fill,
   }));
 
+  const allWeightsAreZero = coloredPieChart.every((obj) => obj.weight === 0);
+
   return (
     <StyledDashboardPortfolioWeight $isMobile={isMobile}>
       <ChartTitle $isMobile={isMobile}>포트폴리오 비중</ChartTitle>
@@ -49,7 +51,7 @@ export default function DashboardPortfolioWeight() {
               width={isMobile ? 280 : 320}
               height={isMobile ? 280 : 320}
               hoverGap={16}
-              pieData={coloredPieChart}
+              pieData={allWeightsAreZero ? [] : coloredPieChart}
             />
           )}
 

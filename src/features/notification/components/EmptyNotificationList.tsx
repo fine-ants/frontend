@@ -27,7 +27,7 @@ const StyledEmptyNotificationList = styled.div<{ $isMobile: boolean }>`
   gap: ${({ $isMobile }) => ($isMobile ? "24px" : "48px")};
 
   > img {
-    width: ${({ $isMobile }) => ($isMobile ? "114.5px" : "auto")};
+    width: ${({ $isMobile }) => ($isMobile ? "80px" : "auto")};
   }
 `;
 
@@ -40,17 +40,18 @@ const TextBox = styled.div<{ $isMobile: boolean }>`
   > p {
     font: ${({ $isMobile }) =>
       $isMobile
-        ? designSystem.font.heading4.font
+        ? designSystem.font.title3.font
         : designSystem.font.heading3.font};
     letter-spacing: ${({ $isMobile }) =>
       $isMobile
-        ? designSystem.font.heading4.letterSpacing
+        ? designSystem.font.title3.letterSpacing
         : designSystem.font.heading3.letterSpacing};
     color: ${designSystem.color.neutral.gray600};
   }
 
   > span {
-    font: ${designSystem.font.body2.font};
+    font: ${({ $isMobile }) =>
+      $isMobile ? designSystem.font.body3.font : designSystem.font.body2.font};
     color: ${designSystem.color.neutral.gray500};
   }
 `;
