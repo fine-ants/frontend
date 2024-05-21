@@ -1,42 +1,69 @@
 import BIImage from "@assets/icons/logo/ic_fineants-footer.svg";
-import { MAIN_FOOTER_HEIGHT } from "@constants/styleConstants";
+import {
+  MAIN_FOOTER_HEIGHT_D,
+  MAIN_FOOTER_HEIGHT_M,
+} from "@constants/styleConstants";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
+const pagesWithMobileFooter = new Set([
+  "/landing",
+  "/dashboard",
+  "/watchlists",
+  "/portfolios",
+  "/portfolio",
+  "/indices",
+  "/stock",
+]);
+
+function isPageWithMobileFooter(route: string) {
+  const regex = /\/\w+/;
+  const parsedRoute = route.match(regex);
+  return parsedRoute ? pagesWithMobileFooter.has(parsedRoute[0]) : false;
+}
+
 export default function Footer() {
+  const { isMobile, isDesktop } = useResponsiveLayout();
+  const location = useLocation();
+
+  if (isMobile && !isPageWithMobileFooter(location.pathname)) return null;
+
   return (
-    <StyledFooter>
-      <FooterLeft>
-        <img src={BIImage} alt="BIImage" />
-        <Copyright>FineAnts Ⓒ All rights reserved.</Copyright>
-      </FooterLeft>
-      <IconContainer>
-        {/* <img src={youtubeIcon} alt="youtube 로고" />
+    <StyledFooter $isMobile={isMobile} $isDesktop={isDesktop}>
+      <FooterLogo src={BIImage} alt="BIImage" $isMobile={isMobile} />
+      <Copyright>FineAnts Ⓒ All rights reserved.</Copyright>
+      {/* 추후 추가예정 */}
+      {/* <IconContainer>
+        <img src={youtubeIcon} alt="youtube 로고" />
         <img src={facebookIcon} alt="facebook 로고" />
         <img src={XIcon} alt="X 로고" />
         <img src={linkedinIcon} alt="linkedin 로고" />
-        <img src={instagramIcon} alt="instagram 로고" /> */}
-        {/* 추후 추가예정 */}
-      </IconContainer>
+        <img src={instagramIcon} alt="instagram 로고" />
+      </IconContainer> */}
     </StyledFooter>
   );
 }
 
-const StyledFooter = styled.footer`
+const StyledFooter = styled.footer<{ $isMobile: boolean; $isDesktop: boolean }>`
   width: 100%;
-  height: ${MAIN_FOOTER_HEIGHT}px;
-  padding: 0 40px;
+  height: ${({ $isDesktop }) =>
+    $isDesktop ? MAIN_FOOTER_HEIGHT_D : MAIN_FOOTER_HEIGHT_M}px;
+  padding: ${({ $isDesktop }) => ($isDesktop ? "16px 40px" : "32px 0")};
   display: flex;
-  justify-content: space-between;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   align-items: center;
-  background-color: #ffffff;
-  color: #959da5;
-`;
+  gap: ${({ $isMobile }) => ($isMobile ? "8px" : "24px")};
+  background-color: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.color.neutral.gray50
+      : designSystem.color.neutral.white};
+  color: ${designSystem.color.neutral.gray600};
+}`;
 
-const FooterLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 24px;
+const FooterLogo = styled.img<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "92px" : "127px")};
 `;
 
 const Copyright = styled.div`
@@ -44,8 +71,8 @@ const Copyright = styled.div`
   color: ${designSystem.color.neutral.gray600};
 `;
 
-const IconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
+// const IconContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: 16px;
+// `;

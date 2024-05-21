@@ -1,6 +1,6 @@
 import SubPageTabs from "@components/SubPageTabs";
 import {
-  MAIN_FOOTER_HEIGHT,
+  MAIN_FOOTER_HEIGHT_D,
   MAIN_HEADER_TOTAL_HEIGHT_D,
   MAIN_HEADER_TOTAL_HEIGHT_M,
 } from "@constants/styleConstants";
@@ -54,8 +54,8 @@ const Container = styled.div<{ $isDesktop: boolean; $isMobile: boolean }>`
     100vh -
       ${({ $isMobile }) =>
         $isMobile
-          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px`
-          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT}px
+          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}`
+          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT_D}px
   );
   margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
   padding: ${({ $isMobile }) => ($isMobile ? "0" : "32px")};

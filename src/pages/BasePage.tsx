@@ -1,7 +1,8 @@
 import Footer from "@components/Footer";
 import NavBarFixed from "@components/NavBar/NavBarFixed";
 import {
-  MAIN_FOOTER_HEIGHT,
+  MAIN_FOOTER_HEIGHT_D,
+  MAIN_FOOTER_HEIGHT_M,
   MAIN_HEADER_TOTAL_HEIGHT_D,
   MAIN_HEADER_TOTAL_HEIGHT_M,
 } from "@constants/styleConstants";
@@ -44,8 +45,8 @@ const Main = styled.main<{ $isMobile: boolean }>`
     100vh -
       ${({ $isMobile }) =>
         $isMobile
-          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px`
-          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT}px
+          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px - ${MAIN_FOOTER_HEIGHT_M}px`
+          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT_D}px
   );
 
   padding-bottom: 48px;

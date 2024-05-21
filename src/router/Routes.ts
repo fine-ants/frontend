@@ -10,7 +10,6 @@ export default {
   WATCHLIST: "/watchlists/:watchlistId",
   PORTFOLIOS: "/portfolios",
   PORTFOLIO: "/portfolio/:portfolioId",
-  PORTFOLIOHOLDING: "/portfolio/:id/holding/:holdingId",
   INDICES: "/indices/:tickerSymbol",
   STOCK: "/stock/:tickerSymbol",
   FALLBACK: "*",
