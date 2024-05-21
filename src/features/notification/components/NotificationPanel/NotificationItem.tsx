@@ -51,8 +51,6 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
     navigate(`/${type}/${referenceId}`);
   };
 
-  // const text = `에 ${achievementStatus}했습니다`;
-
   return (
     <div onClick={navigateToPage} onMouseOver={setHover} onMouseOut={setBlur}>
       <StyledItemContainer>
