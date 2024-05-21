@@ -51,6 +51,8 @@ export function NotificationItem({ user, memberNotification, onClose }: Props) {
     navigate(`/${type}/${referenceId}`);
   };
 
+  // const text = `에 ${achievementStatus}했습니다`;
+
   return (
     <div onClick={navigateToPage} onMouseOver={setHover} onMouseOut={setBlur}>
       <StyledItemContainer>
@@ -104,7 +106,7 @@ const RightContainer = styled.div`
 
 const StyledItemContainer = styled.div`
   width: 100%;
-  height: 88px;
+  min-height: 88px;
   display: flex;
   padding: 8px 16px;
   cursor: pointer;
@@ -121,7 +123,6 @@ const StyledTitle = styled.div`
 `;
 
 const StyledContent = styled.div`
-  display: flex;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
 `;
@@ -150,7 +151,7 @@ const Divider = styled.div`
   background-color: ${designSystem.color.neutral.gray100};
 `;
 
-const BoldText = styled.pre`
+const BoldText = styled.b`
   font: ${designSystem.font.body3.font};
   font-weight: bold;
   color: ${designSystem.color.neutral.gray900};
