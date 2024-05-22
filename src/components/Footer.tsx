@@ -1,4 +1,5 @@
 import BIImage from "@assets/icons/logo/ic_fineants-footer.svg";
+import isPageDepthOne from "@constants/isPageDepthOne";
 import {
   MAIN_FOOTER_HEIGHT_D,
   MAIN_FOOTER_HEIGHT_M,
@@ -8,27 +9,11 @@ import designSystem from "@styles/designSystem";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-const pagesWithMobileFooter = new Set([
-  "/landing",
-  "/dashboard",
-  "/watchlists",
-  "/portfolios",
-  "/portfolio",
-  "/indices",
-  "/stock",
-]);
-
-function isPageWithMobileFooter(route: string) {
-  const regex = /\/\w+/;
-  const parsedRoute = route.match(regex);
-  return parsedRoute ? pagesWithMobileFooter.has(parsedRoute[0]) : false;
-}
-
 export default function Footer() {
   const { isMobile, isDesktop } = useResponsiveLayout();
   const location = useLocation();
 
-  if (isMobile && !isPageWithMobileFooter(location.pathname)) return null;
+  if (isMobile && !isPageDepthOne(location.pathname)) return null;
 
   return (
     <StyledFooter $isMobile={isMobile} $isDesktop={isDesktop}>
