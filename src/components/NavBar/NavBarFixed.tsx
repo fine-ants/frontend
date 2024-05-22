@@ -62,8 +62,8 @@ const NavBarListItem = styled.li`
 `;
 
 const NavItemLink = styled(NavLink)`
-  height: 100%;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
