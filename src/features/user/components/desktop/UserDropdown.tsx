@@ -3,6 +3,7 @@ import { useDropdown } from "@components/hooks/useDropdown";
 import useSignOutMutation from "@features/auth/api/queries/useSignOutMutation";
 import { UserContext } from "@features/user/context/UserContext";
 import { Divider } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useContext } from "react";
 import { Link } from "react-router-dom";
@@ -35,7 +36,7 @@ export default function UserDropdown() {
           vertical: "top",
           horizontal: "right",
         }}>
-        <Link to={"/settings/profile"}>
+        <Link to={Routes.PROFILE("profile")}>
           <DropdownItem sx={dropdownItemSx}>
             {user?.profileUrl ? (
               <ProfileImage

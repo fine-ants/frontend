@@ -45,7 +45,7 @@ export default function PortfolioOverview({ data }: Props) {
         <Breadcrumb
           depthData={[
             { name: "내 포트폴리오", url: "/portfolios" },
-            { name: data.name, url: `/portfolio/${portfolioId}` },
+            { name: data.name, url: Routes.PORTFOLIO(portfolioId) },
           ]}
         />
         <TitleContent>

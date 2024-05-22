@@ -24,12 +24,12 @@ const mobileNavItems: { icon: IconType; name: string; to: string }[] = [
   {
     icon: "line-chart",
     name: "인덱스",
-    to: Routes.INDICES,
+    to: Routes.INDICES("KRX:KOSPI"),
   },
   {
     icon: "settings",
     name: "설정",
-    to: "/settings/profile",
+    to: Routes.PROFILE("profile"),
   },
 ];
 
@@ -41,8 +41,8 @@ export default function NavBarFixed() {
       {mobileNavItems.map((item) => {
         const isActive = pathname.includes(item.to);
         return (
-          <NavBarListItem>
-            <NavItemLink to={item.to} key={item.name}>
+          <NavBarListItem key={item.name}>
+            <NavItemLink to={item.to}>
               <Icon
                 icon={item.icon}
                 color={isActive ? "blue500" : "gray600"}

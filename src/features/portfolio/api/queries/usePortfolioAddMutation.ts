@@ -1,3 +1,4 @@
+import Routes from "@router/Routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { postPortfolio } from "..";
@@ -20,7 +21,7 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
         queryKey: portfolioKeys.list.queryKey,
       });
 
-      navigate(`/portfolio/${data.portfolioId}`);
+      navigate(Routes.PORTFOLIO(data.portfolioId));
     },
     meta: {
       toastSuccessMessage: "포트폴리오 추가를 성공했습니다",
