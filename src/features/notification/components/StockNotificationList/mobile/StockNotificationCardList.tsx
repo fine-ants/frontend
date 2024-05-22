@@ -1,6 +1,6 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
-import { CardItemRow } from "@components/Card/CardItemRow";
+import { CardItemRow } from "@components/CardTable/CardItemRow";
 import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import useAllStockPriceTargetsDeleteMutation from "@features/notification/api/queries/useAllStockPriceTargetsDeleteMutation";

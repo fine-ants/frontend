@@ -1,5 +1,5 @@
 import { IconButton } from "@components/Buttons/IconButton";
-import { CardItemRow } from "@components/Card/CardItemRow";
+import { CardItemRow } from "@components/CardTable/CardItemRow";
 import ConditionalTooltip from "@components/Tooltips/ConditionalTooltip";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import usePortfolioNotificationSettingsMutation from "@features/notification/api/queries/usePortfolioNotificationSettingsMutation";

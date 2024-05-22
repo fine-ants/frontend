@@ -1,4 +1,4 @@
-import { CardTable } from "@components/Card/CardTable";
+import { CardTable } from "@components/CardTable/CardTable";
 import { StockNotification } from "@features/notification/api/types";
 import EmptyNotificationList from "../../EmptyNotificationList";
 import { StockNotificationCardList } from "./StockNotificationCardList";
