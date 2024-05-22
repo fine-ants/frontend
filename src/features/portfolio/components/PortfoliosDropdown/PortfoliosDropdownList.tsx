@@ -2,6 +2,7 @@ import { DropdownItemProps } from "@components/hooks/useDropdown";
 import usePortfolioListQuery from "@features/portfolio/api/queries/usePortfolioListQuery";
 import { PortfolioItem } from "@features/portfolio/api/types";
 import { Divider } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { Link } from "react-router-dom";
 
@@ -15,7 +16,7 @@ export default function PortfoliosDropdownList({ DropdownItem }: Props) {
   const portfolioDropdownItems = portfolioList.map(
     (portfolio: PortfolioItem) => ({
       name: portfolio.name,
-      path: `/portfolio/${portfolio.id}`,
+      path: Routes.PORTFOLIO(portfolio.id),
     })
   );
 

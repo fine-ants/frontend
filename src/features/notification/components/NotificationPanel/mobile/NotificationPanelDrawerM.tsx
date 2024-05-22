@@ -5,6 +5,7 @@ import { Icon } from "@components/Icon";
 import useDeleteAllMemberNotificationsMutation from "@features/notification/api/queries/useDeleteAllMemberNotificationsMutation";
 import { User } from "@features/user/api/types";
 import { useBoolean } from "@fineants/demolition";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -65,7 +66,7 @@ export default function NotificationPanelDrawerM({
       icon: "notification",
       title: "활성 알림 보기",
       onClick: () => {
-        navigate("/notifications/stock");
+        navigate(Routes.NOTIFICATIONS("stock"));
         closeDrawer();
         onClose();
       },

@@ -19,7 +19,7 @@ const passwordValidator = (password: string) =>
   });
 
 export default function AccountSettingsSubPage() {
-  const { isMobile } = useResponsiveLayout();
+  const { isDesktop, isMobile } = useResponsiveLayout();
 
   const navigate = useNavigate();
 
@@ -155,7 +155,19 @@ export default function AccountSettingsSubPage() {
             </Label>
           </LabelsWrapper>
 
-          <ButtonsContainer>
+          {isMobile && (
+            <AccountDeactivationButtonMobileWrapper>
+              <AccountDeactivationButton
+                type="button"
+                variant="underline"
+                color="gray"
+                onClick={deleteDialogOpen}>
+                계정 삭제하기
+              </AccountDeactivationButton>
+            </AccountDeactivationButtonMobileWrapper>
+          )}
+
+          <ButtonsContainer $isDesktop={isDesktop}>
             <Button
               type="button"
               variant="tertiary"
@@ -175,20 +187,22 @@ export default function AccountSettingsSubPage() {
           </ButtonsContainer>
         </>
       ) : (
-        <SocialLoginDescription>
+        <SocialLoginDescription $isMobile={isMobile} $isDesktop={isDesktop}>
           <img src={socialLoginImage} alt="소셜 계정으로 로그인함" />
           <p>소셜 계정으로 로그인되어 있습니다</p>
           <p>간편 로그인 회원은 비밀번호를 변경할 수 없습니다</p>
         </SocialLoginDescription>
       )}
 
-      <AccountDeactivationButton
-        type="button"
-        variant="underline"
-        color="gray"
-        onClick={deleteDialogOpen}>
-        계정 삭제하기
-      </AccountDeactivationButton>
+      {(isDesktop || (isMobile && user?.provider !== "local")) && (
+        <AccountDeactivationButton
+          type="button"
+          variant="underline"
+          color="gray"
+          onClick={deleteDialogOpen}>
+          계정 삭제하기
+        </AccountDeactivationButton>
+      )}
 
       {isAccountDeleteDialogOpen && (
         <AccountDeleteDialog
@@ -210,7 +224,7 @@ const Form = styled.form<{ $isOAuth: boolean; $isMobile: boolean }>`
 `;
 
 const LabelsWrapper = styled.div<{ $isMobile: boolean }>`
-  margin-bottom: auto;
+  margin-bottom: ${({ $isMobile }) => ($isMobile ? "24px" : "auto")};
   display: flex;
   flex-direction: column;
   gap: ${({ $isMobile }) => ($isMobile ? "34px" : "42px")};
@@ -235,20 +249,30 @@ const TextFieldWrapper = styled.div<{ $isMobile: boolean }>`
   flex-grow: 1;
 `;
 
-const ButtonsContainer = styled.div`
+const AccountDeactivationButtonMobileWrapper = styled.div`
+  margin-bottom: 44px;
+`;
+
+const ButtonsContainer = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: ${({ $isDesktop }) => ($isDesktop ? "24px" : "0")};
   display: flex;
   align-items: center;
   gap: 8px;
 `;
 
-const SocialLoginDescription = styled.div`
+const SocialLoginDescription = styled.div<{
+  $isMobile: boolean;
+  $isDesktop: boolean;
+}>`
+  margin-bottom: ${({ $isMobile }) => ($isMobile ? "24px" : "0")};
+  padding: ${({ $isMobile }) => ($isMobile ? "132px 0" : "0")};
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex-grow: 1;
+  justify-content: ${({ $isDesktop }) =>
+    $isDesktop ? "center" : "flex-start"};
+  flex-grow: ${({ $isDesktop }) => ($isDesktop ? 1 : 0)};
 
   img {
     width: 80px;

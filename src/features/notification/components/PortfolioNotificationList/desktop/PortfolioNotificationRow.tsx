@@ -4,6 +4,7 @@ import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import usePortfolioNotificationSettingsMutation from "@features/notification/api/queries/usePortfolioNotificationSettingsMutation";
 import { PortfolioNotification } from "@features/notification/api/types";
 import { TableCell, TableRow, Typography, debounce } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -45,7 +46,7 @@ export default function PortfolioNotificationRow({ row }: Props) {
         <Typography sx={{ fontSize: "1rem" }} component="h3">
           <StyledLink
             style={{ font: designSystem.font.body3.font }}
-            to={`/portfolio/${portfolioId}`}>
+            to={Routes.PORTFOLIO(portfolioId)}>
             <img
               src={securitiesFirmLogos[securitiesFirm]}
               alt={securitiesFirm}

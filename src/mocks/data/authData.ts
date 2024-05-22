@@ -47,12 +47,6 @@ export const successfulSignInData = {
       accessToken: "iamaccesstoken",
       refreshToken: "iamrefreshtoken",
     },
-    user: {
-      id: 1,
-      nickname: "Kakamotobi",
-      email: "daeram.chung@gmail.com",
-      profileUrl: "https://avatars.githubusercontent.com/u/79886384?v=4",
-    },
   },
 };
 

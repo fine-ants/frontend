@@ -13,8 +13,8 @@ function isValidTab(tab: string | undefined) {
 }
 
 const subPageNavItems = [
-  { title: "종목 알림", to: "/notifications/stock" },
-  { title: "포트폴리오 알림", to: "/notifications/portfolio" },
+  { title: "종목 알림", to: Routes.NOTIFICATIONS("stock") },
+  { title: "포트폴리오 알림", to: Routes.NOTIFICATIONS("portfolio") },
 ];
 
 export default function ActiveNotificationsPage() {

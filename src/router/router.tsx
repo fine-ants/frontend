@@ -31,14 +31,14 @@ const router = (user: User | null) =>
         <Route element={<ProtectedRoute user={user} />}>
           <Route index path={Routes.DASHBOARD} element={<DashboardPage />} />
           <Route path={Routes.PORTFOLIOS} element={<PortfoliosListPage />} />
-          <Route path={Routes.PORTFOLIO} element={<PortfolioPage />} />
+          <Route path={Routes.PORTFOLIO()} element={<PortfolioPage />} />
           <Route path={Routes.WATCHLISTS} element={<WatchlistsPage />} />
-          <Route path={Routes.WATCHLIST} element={<WatchlistPage />} />
+          <Route path={Routes.WATCHLIST()} element={<WatchlistPage />} />
           <Route
-            path={Routes.NOTIFICATIONS}
+            path={Routes.NOTIFICATIONS()}
             element={<ActiveNotificationsPage />}
           />
-          <Route path={Routes.PROFILE} element={<ProfilePage />} />
+          <Route path={Routes.PROFILE()} element={<ProfilePage />} />
         </Route>
 
         <Route
@@ -53,8 +53,8 @@ const router = (user: User | null) =>
           <Route path={Routes.SIGNUP} element={<SignUpPage />} />
         </Route>
 
-        <Route path={Routes.INDICES} element={<IndicesPage />} />
-        <Route path={Routes.STOCK} element={<StockPage />} />
+        <Route path={Routes.INDICES()} element={<IndicesPage />} />
+        <Route path={Routes.STOCK()} element={<StockPage />} />
         <Route path={Routes.FALLBACK} element={<NotFoundPage />} />
       </Route>
     )
