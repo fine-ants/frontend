@@ -1,4 +1,4 @@
-import { CardTable } from "@components/CardTable/CardTable";
+import { PlainCardTable } from "@components/CardTable/PlainCardTable/PlainCardTable";
 import { PortfolioNotification } from "@features/notification/api/types";
 import EmptyNotificationList from "../../EmptyNotificationList";
 import { PortfolioNotificationCardList } from "./PortfolioNotificationCardList";
@@ -9,7 +9,7 @@ type Props = {
 
 export function PortfolioNotificationListCardTable({ data }: Props) {
   return (
-    <CardTable
+    <PlainCardTable
       data={data}
       CardList={PortfolioNotificationCardList}
       EmptyComponent={EmptyNotificationList}
