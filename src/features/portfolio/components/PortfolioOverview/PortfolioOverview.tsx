@@ -6,7 +6,7 @@ import { Icon } from "@components/Icon";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import usePortfolioDeleteMutation from "@features/portfolio/api/queries/usePortfolioDeleteMutation";
 import { PortfolioDetails } from "@features/portfolio/api/types";
-import PortfolioEditDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
+import PortfolioEditDialog from "@features/portfolio/components/PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";

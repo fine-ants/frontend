@@ -2,7 +2,7 @@ import emptyHoldingsPieChartImg from "@assets/images/no_holdings_pie_chart.png";
 import TallLegend from "@components/Legend/TallLegend";
 import PieChart from "@components/PieChart/PieChart";
 import useDashboardPieChartQuery from "@features/dashboard/api/queries/useDashboardPieChartQuery";
-import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
+import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 import { useBoolean } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { chartColorPalette } from "@styles/chartColorPalette";

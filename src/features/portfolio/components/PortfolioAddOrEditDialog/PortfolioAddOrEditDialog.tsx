@@ -14,21 +14,15 @@ import { PortfolioDetails } from "@features/portfolio/api/types";
 import {
   removeThousandsDelimiter,
   thousandsDelimiter,
-  useNumber,
   useText,
 } from "@fineants/demolition";
 import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { FormEvent, useCallback, useEffect } from "react";
+import { FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import {
-  applyDecimals,
-  calculateLossRate,
-  calculateRate,
-  calculateValueFromRate,
-  removeNegativeSign,
-} from "../utils/calculations";
+import { applyDecimals } from "../../utils/calculations";
+import usePortfolioAddOrEditDialogInputs from "./hooks/usePortfolioAddOrEditDialogInputs";
 
 type Props = {
   isOpen: boolean;
@@ -43,236 +37,79 @@ export default function PortfolioAddOrEditDialog({
 }: Props) {
   const { portfolioId } = useParams();
 
+  const { mutate: addMutate } = usePortfolioAddMutation({
+    onSuccessCb: onClose,
+  });
+
   const { mutate: editMutate } = usePortfolioEditMutation(
     Number(portfolioId),
     onClose
   );
 
-  const { mutate: addMutate } = usePortfolioAddMutation({
-    onSuccessCb: onClose,
-  });
-
+  // Securities Firm
   const { value: securitiesFirm, onChange: onChangeSecuritiesFirm } = useText({
     initialValue: portfolioDetails
       ? portfolioDetails.securitiesFirm
       : "FineAnts",
   });
 
+  // Portfolio Name
   const { value: name, onChange: onNameChange } = useText({
     initialValue: portfolioDetails ? portfolioDetails.name : "",
   });
 
-  // Budget
+  // Number Inputs
   const budgetInitialValue = portfolioDetails
     ? thousandsDelimiter(portfolioDetails.budget)
     : "";
-  const budgetValidator = (value: number) => {
-    if (value < 0) {
-      throw Error("0 이상이어야 합니다");
-    }
-  };
-  const {
-    value: budget,
-    onChange: onBudgetChange,
-    error: budgetError,
-    isError: isBudgetError,
-  } = useNumber({
-    initialValue:
-      budgetInitialValue === "0" ? "" : budgetInitialValue?.toString(),
-    validators: [budgetValidator],
-  });
-
-  // Calculations
-  const calcNewValueBasedOnRate = useCallback(
-    (val: string) => {
-      return val === ""
-        ? val
-        : calculateValueFromRate(
-            Number(removeThousandsDelimiter(val)),
-            Number(removeThousandsDelimiter(budget))
-          );
-    },
-    [budget]
-  );
-  const calcNewTargetReturnRateBasedOnValue = useCallback(
-    (val: string) => {
-      return val === ""
-        ? val
-        : calculateRate(
-            Number(removeThousandsDelimiter(val)),
-            Number(removeThousandsDelimiter(budget))
-          );
-    },
-    [budget]
-  );
-  const calcNewMaxLossRateBasedOnValue = useCallback(
-    (val: string) => {
-      return val === ""
-        ? val
-        : calculateLossRate(
-            Number(removeThousandsDelimiter(budget)),
-            Number(removeThousandsDelimiter(val))
-          );
-    },
-    [budget]
-  );
-
-  // Target Gain states
   const targetGainInitialValue = portfolioDetails
     ? thousandsDelimiter(portfolioDetails.targetGain)
     : "";
-  const targetGainValidator1 = (value: number) => {
-    if (value < 0) {
-      throw Error("0 이상이어야 합니다");
-    }
-  };
-  const targetGainValidator2 = (value: number) => {
-    if (value < Number(removeThousandsDelimiter(budget))) {
-      throw Error("예산 이상이어야 합니다");
-    }
-  };
-  const {
-    value: targetGain,
-    onChange: onTargetGainChange,
-    error: targetGainError,
-    isError: isTargetGainError,
-  } = useNumber({
-    initialValue:
-      targetGainInitialValue === "0" ? "" : targetGainInitialValue?.toString(),
-    validators: [targetGainValidator1, targetGainValidator2],
-  });
-
   const targetReturnRateInitialValue = portfolioDetails
-    ? targetGain === ""
+    ? targetGainInitialValue === ""
       ? ""
       : thousandsDelimiter(applyDecimals(portfolioDetails.targetReturnRate))
     : "";
-  const targetReturnRateValidator = (value: number) => {
-    if (value < 0) {
-      throw Error("0% 이상이어야 합니다");
-    }
-  };
-  const {
-    value: targetReturnRate,
-    onChange: onTargetReturnRateChange,
-    error: targetReturnRateError,
-    isError: isTargetReturnRateError,
-  } = useNumber({
-    initialValue:
-      targetReturnRateInitialValue === "0"
-        ? ""
-        : targetReturnRateInitialValue?.toString(),
-    validators: [targetReturnRateValidator],
-  });
-
-  const targetGainHandler = useCallback(
-    (value: string) => {
-      onTargetGainChange(value);
-
-      const newRate = calcNewTargetReturnRateBasedOnValue(value);
-      onTargetReturnRateChange(newRate.toString());
-    },
-    [
-      calcNewTargetReturnRateBasedOnValue,
-      onTargetGainChange,
-      onTargetReturnRateChange,
-    ]
-  );
-  const targetReturnRateHandler = useCallback(
-    (value: string) => {
-      onTargetReturnRateChange(value);
-      onTargetGainChange(calcNewValueBasedOnRate(value).toString());
-    },
-    [calcNewValueBasedOnRate, onTargetGainChange, onTargetReturnRateChange]
-  );
-
-  // Maximum Loss states
-  const maximumLossInitialValue = portfolioDetails?.maximumLoss ?? "";
-  const maximumLossValidator1 = (value: number) => {
-    if (value < 0) {
-      throw Error("0 이상이어야 합니다");
-    }
-  };
-  const maximumLossValidator2 = (value: number) => {
-    if (value > Number(removeThousandsDelimiter(budget))) {
-      throw Error("예산을 초과할 수 없습니다");
-    }
-  };
-  const {
-    value: maximumLoss,
-    onChange: onMaximumLossChange,
-    error: maximumLossError,
-    isError: isMaximumLossError,
-  } = useNumber({
-    initialValue:
-      maximumLossInitialValue === 0 ? "" : maximumLossInitialValue?.toString(),
-    validators: [maximumLossValidator1, maximumLossValidator2],
-  });
-
+  const maximumLossInitialValue = portfolioDetails
+    ? thousandsDelimiter(portfolioDetails.maximumLoss)
+    : "";
   const maximumLossRateInitialValue = portfolioDetails
-    ? maximumLoss === ""
+    ? maximumLossInitialValue === ""
       ? ""
       : thousandsDelimiter(applyDecimals(portfolioDetails.maximumLossRate))
     : "";
-  const maximumLossRateValidator1 = (value: number) => {
-    if (value > 100) {
-      throw Error("100% 이하이어야 합니다");
-    }
-  };
+
   const {
-    value: maximumLossRate,
-    onChange: onMaximumLossRateChange,
-    error: maximumLossRateError,
-    isError: isMaximumLossRateError,
-  } = useNumber({
-    initialValue:
-      maximumLossRateInitialValue === "0"
-        ? ""
-        : maximumLossRateInitialValue?.toString(),
-    validators: [maximumLossRateValidator1],
+    budget,
+    onBudgetChange,
+    budgetError,
+    isBudgetError,
+    targetGain,
+    onTargetGainChange: targetGainHandler,
+    targetGainError,
+    isTargetGainError,
+    targetReturnRate,
+    onTargetReturnRateChange: targetReturnRateHandler,
+    targetReturnRateError,
+    isTargetReturnRateError,
+    maximumLoss,
+    onMaximumLossChange: maximumLossHandler,
+    maximumLossError,
+    isMaximumLossError,
+    maximumLossRate,
+    onMaximumLossRateChange: maximumLossRateHandler,
+    maximumLossRateError,
+    isMaximumLossRateError,
+    isBudgetEmpty,
+  } = usePortfolioAddOrEditDialogInputs({
+    budgetInitialValue,
+    targetGainInitialValue,
+    targetReturnRateInitialValue,
+    maximumLossInitialValue,
+    maximumLossRateInitialValue,
   });
 
-  const maximumLossHandler = useCallback(
-    (value: string) => {
-      const isOnlyNegativeSign = value === "-";
-
-      onMaximumLossChange(isOnlyNegativeSign ? "" : value);
-
-      const newRate = isOnlyNegativeSign
-        ? ""
-        : removeNegativeSign(calcNewMaxLossRateBasedOnValue(value).toString());
-      onMaximumLossRateChange(newRate);
-    },
-    [
-      calcNewMaxLossRateBasedOnValue,
-      onMaximumLossChange,
-      onMaximumLossRateChange,
-    ]
-  );
-  const maximumLossRateHandler = useCallback(
-    (value: string) => {
-      onMaximumLossRateChange(value);
-      onMaximumLossChange(
-        calcNewValueBasedOnRate(value === "" ? "" : `-${value}`).toString()
-      );
-    },
-    [calcNewValueBasedOnRate, onMaximumLossChange, onMaximumLossRateChange]
-  );
-
-  const clearInputs = useCallback(() => {
-    onTargetGainChange("");
-    onTargetReturnRateChange("");
-    onMaximumLossChange("");
-    onMaximumLossRateChange("");
-  }, [
-    onMaximumLossChange,
-    onMaximumLossRateChange,
-    onTargetGainChange,
-    onTargetReturnRateChange,
-  ]);
-
   const isEditMode = !!portfolioDetails;
-  const isBudgetEmpty = budget === "0" || budget === "";
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -291,29 +128,6 @@ export default function PortfolioAddOrEditDialog({
       addMutate(body);
     }
   };
-
-  // 예산이 변경되었을 때
-  useEffect(() => {
-    if (isBudgetEmpty) {
-      clearInputs();
-    } else {
-      if (targetReturnRate) {
-        onTargetGainChange(
-          calcNewValueBasedOnRate(targetReturnRate).toString()
-        );
-      }
-      if (maximumLossRate) {
-        onMaximumLossChange(
-          removeNegativeSign(
-            calcNewValueBasedOnRate(
-              maximumLossRate === "" ? "" : `-${maximumLossRate}`
-            ).toString()
-          )
-        );
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [budget, isBudgetEmpty]);
 
   const isFormValid = () => {
     if (
