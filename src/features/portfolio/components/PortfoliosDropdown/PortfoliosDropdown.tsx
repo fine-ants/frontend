@@ -1,7 +1,7 @@
 import { AsyncBoundary } from "@components/AsyncBoundary";
 import { Icon } from "@components/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
-import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
+import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 import { UserContext } from "@features/user/context/UserContext";
 import { useBoolean } from "@fineants/demolition";
 import Routes from "@router/Routes";

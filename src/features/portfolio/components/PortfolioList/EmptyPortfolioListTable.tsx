@@ -4,7 +4,7 @@ import { Icon } from "@components/Icon";
 import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import PortfolioAddDialog from "../PortfolioAddOrEditDialog";
+import PortfolioAddDialog from "../PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 
 export default function EmptyPortfolioListTable() {
   const {
