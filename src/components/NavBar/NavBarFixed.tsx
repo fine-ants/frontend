@@ -26,6 +26,11 @@ const mobileNavItems: { icon: IconType; name: string; to: string }[] = [
     name: "인덱스",
     to: Routes.INDICES,
   },
+  {
+    icon: "settings",
+    name: "설정",
+    to: "/settings/profile",
+  },
 ];
 
 export default function NavBarFixed() {
@@ -36,22 +41,29 @@ export default function NavBarFixed() {
       {mobileNavItems.map((item) => {
         const isActive = pathname.includes(item.to);
         return (
-          <NavItemLink to={item.to} key={item.name}>
-            <Icon
-              icon={item.icon}
-              color={isActive ? "blue500" : "gray600"}
-              size={24}
-            />
-            <NavItemName $isActive={isActive}>{item.name}</NavItemName>
-          </NavItemLink>
+          <NavBarListItem>
+            <NavItemLink to={item.to} key={item.name}>
+              <Icon
+                icon={item.icon}
+                color={isActive ? "blue500" : "gray600"}
+                size={24}
+              />
+              <NavItemName $isActive={isActive}>{item.name}</NavItemName>
+            </NavItemLink>
+          </NavBarListItem>
         );
       })}
     </NavBar>
   );
 }
 
+const NavBarListItem = styled.li`
+  width: 20%;
+`;
+
 const NavItemLink = styled(NavLink)`
-  width: 25%;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
