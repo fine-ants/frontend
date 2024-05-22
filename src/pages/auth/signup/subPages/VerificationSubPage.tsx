@@ -120,7 +120,7 @@ export default function VerificationCodeSubPage({
           type="submit"
           disabled={isButtonDisabled}
           $isMobile={isMobile}>
-          다음 단계
+          인증 완료
         </AuthNextButton>
       </Form>
     </SubPage>
