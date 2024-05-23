@@ -97,7 +97,7 @@ export type PurchaseHistory = {
   purchaseDate: string;
   numShares: number;
   purchasePricePerShare: number;
-  memo: string | null;
+  memo: string;
 };
 
 export type PurchaseHistoryInput = {

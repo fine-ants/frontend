@@ -42,7 +42,7 @@ export default function ProfileSettingsSubPage() {
   } = useImageInput({
     sizeLimit: 2000000,
     errorMessages: { sizeLimit: "이미지 2MB 이하" },
-    initialImageUrl: user?.profileUrl,
+    initialImageUrl: user?.profileUrl ?? undefined,
   });
 
   const {
