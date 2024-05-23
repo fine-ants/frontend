@@ -18,7 +18,12 @@ type PortfolioListTableRowProps = {
 };
 
 export default function PortfolioListTableRow({
-  row: {
+  row,
+  labelId,
+  isItemSelected,
+  handleClick,
+}: PortfolioListTableRowProps) {
+  const {
     id,
     name,
     securitiesFirm,
@@ -30,11 +35,8 @@ export default function PortfolioListTableRow({
     dailyGainRate,
     expectedMonthlyDividend,
     numShares,
-  },
-  labelId,
-  isItemSelected,
-  handleClick,
-}: PortfolioListTableRowProps) {
+  } = row;
+
   return (
     <StyledTableRow
       hover

@@ -52,8 +52,7 @@ const headCells: readonly HeadCell[] = [
 type Props = {
   order: Order;
   orderBy: string;
-  numSelected: number;
-  rowCount: number;
+  isAllRowsSelectedInCurrentPage: boolean;
   onRequestSort: (
     event: MouseEvent<unknown>,
     property: keyof WatchlistItemType
@@ -64,8 +63,7 @@ type Props = {
 export default function WatchlistTableHead({
   order,
   orderBy,
-  numSelected,
-  rowCount,
+  isAllRowsSelectedInCurrentPage,
   onRequestSort,
   onSelectAllClick,
 }: Props) {
@@ -81,7 +79,7 @@ export default function WatchlistTableHead({
           <CheckBox
             size="h20"
             checkType="indet"
-            checked={rowCount > 0 && numSelected === rowCount}
+            checked={isAllRowsSelectedInCurrentPage}
             onChange={onSelectAllClick}
             inputProps={{
               "aria-label": "select all portfolios",

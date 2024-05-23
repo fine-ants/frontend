@@ -26,8 +26,7 @@ type Props<Item> = {
     props: MuiTableHeadProps & {
       order: Order;
       orderBy: keyof Item;
-      numSelected: number;
-      rowCount: number;
+      isAllRowsSelectedInCurrentPage: boolean;
       onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
       onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
     }
@@ -98,10 +97,17 @@ export default function SelectableTable<Item>({
   const handleSelectAllClick = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
-        setSelected(visibleRows);
+        setSelected((prev) => {
+          const set = new Set([...prev, ...visibleRows]);
+          return [...set];
+        });
         return;
       }
-      setSelected([]);
+      setSelected((prev) => {
+        const set = new Set(prev);
+        visibleRows.forEach((visibleRow) => set.delete(visibleRow));
+        return [...set];
+      });
     },
     [visibleRows]
   );
@@ -110,6 +116,11 @@ export default function SelectableTable<Item>({
     setRowsPerPage(parseInt(newValue, 10));
     setPage(0);
   };
+
+  const selectedSet = new Set(selected);
+  const isAllRowsSelectedInCurrentPage =
+    selected.length > 0 &&
+    visibleRows.every((visibleRow) => selectedSet.has(visibleRow));
 
   return (
     <MuiBox sx={{ width: "100%" }}>
@@ -127,8 +138,7 @@ export default function SelectableTable<Item>({
               <TableHead
                 order={order}
                 orderBy={orderBy}
-                numSelected={selected.length}
-                rowCount={visibleRows.length}
+                isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
               />
