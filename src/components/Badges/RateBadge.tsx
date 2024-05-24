@@ -21,20 +21,18 @@ export default function RateBadge({
   noPercent = false,
 }: Props) {
   return (
-    <div>
-      <StyledRateBadge
-        $colors={getColors(value)}
-        $bgColorStatus={bgColorStatus}
-        $size={size}>
-        {iconStatus && (
-          <Icon size={12} icon={getIcon(value)} color={getIconColor(value)} />
-        )}
-        <span>
-          {thousandsDelimiter(value)}
-          {noPercent ? "" : "%"}
-        </span>
-      </StyledRateBadge>
-    </div>
+    <StyledRateBadge
+      $colors={getColors(value)}
+      $bgColorStatus={bgColorStatus}
+      $size={size}>
+      {iconStatus && value !== 0 && (
+        <Icon size={12} icon={getIcon(value)} color={getIconColor(value)} />
+      )}
+      <span>
+        {thousandsDelimiter(value)}
+        {noPercent ? "" : "%"}
+      </span>
+    </StyledRateBadge>
   );
 }
 
@@ -46,7 +44,7 @@ const StyledRateBadge = styled.div<{
   height: ${({ $size }) => $size}px;
   padding: 3.5px 4px;
   display: inline-flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   gap: 2.5px;
   background-color: ${({ $colors, $bgColorStatus }) =>
