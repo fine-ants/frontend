@@ -12,7 +12,7 @@ type Props = {
   visibleRows: readonly PortfolioNotification[];
 };
 
-export function PortfolioNotificationCardList({ visibleRows }: Props) {
+export function PortfolioNotificationCardBody({ visibleRows }: Props) {
   return (
     <>
       {visibleRows.map((item, index) => (

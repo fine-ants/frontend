@@ -17,7 +17,7 @@ type Props = {
   visibleRows: readonly StockNotification[];
 };
 
-export function StockNotificationCardList({ visibleRows }: Props) {
+export function StockNotificationCardBody({ visibleRows }: Props) {
   return (
     <>
       {visibleRows.map((item, index) => (

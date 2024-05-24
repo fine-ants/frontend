@@ -6,14 +6,14 @@ import styled from "styled-components";
 
 type Props<Item> = {
   data: Item[];
-  CardList: (props: {
+  CardBody: (props: {
     visibleRows: Item[];
     selected: readonly Item[];
     isAllRowsSelectedInCurrentPage: boolean;
     updateSelected: (newSelected: readonly Item[]) => void;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   }) => JSX.Element;
-  CardListToolbar: (props: {
+  CardTableToolbar: (props: {
     selected: readonly Item[];
     isAllRowsSelectedInCurrentPage: boolean;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -25,8 +25,8 @@ const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
 export function SelectableCardTable<Item>({
   data,
-  CardList,
-  CardListToolbar,
+  CardBody,
+  CardTableToolbar,
   EmptyComponent = () => <></>,
 }: Props<Item>) {
   const count = data.length;
@@ -104,15 +104,13 @@ export function SelectableCardTable<Item>({
             />
           </ControlWrapper>
 
-          {/* TODO 정렬 기능 구현 */}
-          <CardListToolbar
+          <CardTableToolbar
             selected={selected}
             isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
             onSelectAllClick={handleSelectAllClick}
           />
-          {/* TODO CardTableBody로 컴포넌트명 */}
           {/* TODO 정렬 기능 구현 */}
-          <CardList
+          <CardBody
             visibleRows={visibleRows}
             selected={selected}
             isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}

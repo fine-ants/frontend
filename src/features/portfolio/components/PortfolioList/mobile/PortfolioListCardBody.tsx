@@ -15,7 +15,7 @@ type Props = {
   updateSelected: (newSelected: readonly PortfolioItem[]) => void;
 };
 
-export function PortfolioListCardList({
+export function PortfolioListCardBody({
   visibleRows,
   selected,
   updateSelected,
