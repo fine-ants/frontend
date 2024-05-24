@@ -1,13 +1,15 @@
 import SelectableTable from "@components/Table/SelectableTable";
-import usePortfolioListQuery from "@features/portfolio/api/queries/usePortfolioListQuery";
-import EmptyPortfolioListTable from "./EmptyPortfolioListTable";
+import { PortfolioItem } from "@features/portfolio/api/types";
+import EmptyPortfolioListList from "../EmptyPortfolioList";
 import PortfolioListTableBody from "./PortfolioListTableBody";
 import PortfolioListTableHead from "./PortfolioListTableHead";
 import PortfolioListTableToolBar from "./PortfolioListTableToolBar";
 
-export default function PortfolioListTable() {
-  const { data } = usePortfolioListQuery();
+type Props = {
+  data: PortfolioItem[];
+};
 
+export default function PortfolioListTable({ data }: Props) {
   return (
     <SelectableTable
       tableTitle="포트폴리오 목록"
@@ -15,7 +17,7 @@ export default function PortfolioListTable() {
       TableToolBar={PortfolioListTableToolBar}
       TableHead={PortfolioListTableHead}
       TableBody={PortfolioListTableBody}
-      EmptyTable={EmptyPortfolioListTable}
+      EmptyTable={EmptyPortfolioListList}
       data={data}
     />
   );
