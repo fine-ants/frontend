@@ -6,7 +6,7 @@ import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import PortfolioAddDialog from "../PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 
-export default function EmptyPortfolioListTable() {
+export default function EmptyPortfolioListList() {
   const {
     state: isAddPortfolioDialogOpen,
     setTrue: onAddPortfolioButtonClick,

@@ -9,26 +9,28 @@ type SizeType = "h24" | "h32" | "h40";
 
 type DefaultProps = {
   icon: IconType;
-  iconColor?: DefaultColorType;
-  hoverIconColor?: ColorType;
   hoverIcon?: IconType;
   size: SizeType;
-  borderRadius?: "default" | "rounded";
   type?: "button" | "submit";
   disabled?: boolean;
+  iconColor?: DefaultColorType;
+  hoverIconColor?: ColorType;
+  bgColor?: ColorType;
+  borderRadius?: "default" | "rounded";
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 type CustomProps = {
   icon: IconType;
-  iconColor: "custom";
-  hoverIconColor?: ColorType;
   hoverIcon?: IconType;
-  customColor: ColorObjectType;
   size: SizeType;
-  borderRadius?: "default" | "rounded";
   type?: "button" | "submit";
   disabled?: boolean;
+  iconColor: "custom";
+  hoverIconColor?: ColorType;
+  bgColor?: ColorType;
+  customColor: ColorObjectType;
+  borderRadius?: "default" | "rounded";
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -37,13 +39,14 @@ type Props = DefaultProps | CustomProps;
 export function IconButton(props: Props) {
   const {
     icon,
-    iconColor = "primary",
+    hoverIcon,
     size,
-    borderRadius = "default",
     type = "button",
     disabled = false,
-    hoverIcon,
+    iconColor = "primary",
     hoverIconColor,
+    bgColor,
+    borderRadius = "default",
     onClick,
   } = props;
 
@@ -81,9 +84,10 @@ export function IconButton(props: Props) {
       type={type}
       onClick={onClick}
       $size={size}
+      $disabled={disabled}
       $borderRadius={borderRadius}
       $colorObject={colorObject}
-      $disabled={disabled}>
+      $bgColor={bgColor}>
       <Icon
         icon={isHovered && hoverIcon ? hoverIcon : icon}
         size={getIconSize(size)}
@@ -115,12 +119,13 @@ const convertSizeToPixel = (sizeString: string) => {
 
 const StyledButton = styled.button<{
   $size: SizeType;
+  $disabled: boolean;
   $borderRadius: "default" | "rounded";
+  $bgColor: ColorType | undefined;
   $colorObject: {
     color: ColorType;
     hoverColor: ColorType;
   };
-  $disabled: boolean;
 }>`
   display: inline-flex;
   align-items: center;
@@ -131,9 +136,11 @@ const StyledButton = styled.button<{
     $borderRadius === "rounded" ? "50%" : $size === "h32" ? "3px" : "4px"};
   color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
+  background-color : ${({ $bgColor }) =>
+    $bgColor ? getColor($bgColor) : "transparent"};
 
   &:hover {
-    background-color: ${({ $colorObject }) =>
-      getColor($colorObject.hoverColor)};
+    background-color: ${({ $colorObject, $disabled }) =>
+      $disabled ? "transparent" : getColor($colorObject.hoverColor)};
   }
 `;
