@@ -91,7 +91,7 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
             size={isMobile ? "h48" : "h44"}
             onClick={submit}
             disabled={profileImageFile === null}>
-            등록 완료
+            가입 완료
           </Button>
           <TextButton variant="underline" color="gray" onClick={submit}>
             지금은 건너뛰기

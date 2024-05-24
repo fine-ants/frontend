@@ -4,6 +4,7 @@ import { StockSearchItem } from "@features/stock/api";
 import useStockSearchQuery from "@features/stock/api/queries/useStockSearchQuery";
 import { useBoolean, useDebounce } from "@fineants/demolition";
 import { Autocomplete, SxProps, TextField } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { SyntheticEvent, useState } from "react";
 import RenderOptionDefault from "../RenderOptionDefault";
@@ -176,7 +177,7 @@ export default function SearchBarM({
                   props,
                   searchValue: debouncedSearchInputValue,
                   option,
-                  path: `/stock/${option.tickerSymbol}`,
+                  path: Routes.STOCK(option.tickerSymbol),
                 }}
               />
             );

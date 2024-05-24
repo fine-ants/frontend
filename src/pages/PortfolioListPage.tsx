@@ -1,7 +1,7 @@
 import { AsyncBoundary } from "@components/AsyncBoundary";
 import { IconButton } from "@components/Buttons/IconButton";
 import TableSkeleton from "@components/Table/TableSkeleton";
-import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog";
+import PortfolioAddDialog from "@features/portfolio/components/PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 import { PortfolioList } from "@features/portfolio/components/PortfolioList/PortfolioList";
 import { PortfolioListTableErrorFallback } from "@features/portfolio/components/PortfolioList/errorFallback/PortfolioListTableErrorFallback";
 import { useBoolean } from "@fineants/demolition";

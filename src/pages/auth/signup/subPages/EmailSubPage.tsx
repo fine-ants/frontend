@@ -130,7 +130,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
           type="submit"
           disabled={isError || !isDuplicateChecked}
           $isMobile={isMobile}>
-          다음 단계
+          이메일 인증
         </AuthNextButton>
       </Form>
     </SubPage>

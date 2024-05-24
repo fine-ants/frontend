@@ -4,6 +4,7 @@ import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import { PortfolioItem } from "@features/portfolio/api/types";
 import { thousandsDelimiter } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
@@ -58,7 +59,7 @@ export default function PortfolioListTableRow({
         scope="row"
         padding="none"
         sx={{ width: "338px" }}>
-        <StyledLink to={`/portfolio/${id}`}>
+        <StyledLink to={Routes.PORTFOLIO(id)}>
           <img
             src={securitiesFirmLogos[securitiesFirm]}
             alt={securitiesFirm}

@@ -3,6 +3,7 @@ import { DrawerItemType } from "@components/Drawer/types";
 import { Icon } from "@components/Icon";
 import useSignOutMutation from "@features/auth/api/queries/useSignOutMutation";
 import { useBoolean } from "@fineants/demolition";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +30,7 @@ export default function UserDrawer() {
       title: "프로필 및 계정 설정",
       onClick: () => {
         closeDrawer();
-        navigate("/settings/profile");
+        navigate(Routes.PROFILE("profile"));
       },
     },
     {

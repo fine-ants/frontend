@@ -1,6 +1,7 @@
 import CheckBox from "@components/Checkbox";
 import { WatchlistsType } from "@features/watchlist/api";
 import { TableCell, TableRow } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
@@ -42,7 +43,7 @@ export default function WatchlistsTableRow({
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{ width: "368px" }}>
-        <StyledLink to={`/watchlists/${id}`}>{name}</StyledLink>
+        <StyledLink to={Routes.WATCHLIST(id)}>{name}</StyledLink>
       </StyledTableCell>
     </StyledTableRow>
   );

@@ -42,7 +42,7 @@ export default function WatchlistContainer() {
             { name: "전체 관심 종목 리스트", url: "/watchlists" },
             {
               name: watchlistData.name,
-              url: `/watchlists/${watchlistId}`,
+              url: Routes.WATCHLIST(watchlistId),
             },
           ]}
         />

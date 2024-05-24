@@ -13,6 +13,7 @@ import {
   Typography,
   debounce,
 } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -81,7 +82,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <StyledLink
               style={{ font: designSystem.font.body3.font }}
-              to={`/stock/${tickerSymbol}`}>
+              to={Routes.STOCK(tickerSymbol)}>
               {companyName}
             </StyledLink>
           </Typography>

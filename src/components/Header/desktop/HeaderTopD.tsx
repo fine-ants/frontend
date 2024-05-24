@@ -22,7 +22,7 @@ export default function HeaderTopD() {
       name: "Watchlists",
       to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
     },
-    { name: "Indices", to: "/indices/KRX:KOSPI" },
+    { name: "Indices", to: Routes.INDICES("KRX:KOSPI") },
   ];
 
   const moveToSignInPage = () => {

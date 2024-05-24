@@ -18,8 +18,8 @@ function isValidTab(tab: string | undefined) {
 }
 
 const subPageTabItems = [
-  { title: "프로필 설정", to: "/settings/profile" },
-  { title: "계정 설정", to: "/settings/account" },
+  { title: "프로필 설정", to: Routes.PROFILE("profile") },
+  { title: "계정 설정", to: Routes.PROFILE("account") },
 ];
 
 export default function ProfilePage() {

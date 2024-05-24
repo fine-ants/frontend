@@ -7,7 +7,7 @@ import { useBoolean } from "@fineants/demolition";
 import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import PortfolioAddDialog from "../../PortfolioAddOrEditDialog";
+import PortfolioAddDialog from "../../PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 
 interface PortfolioListTableToolBarProps {
   selected: readonly PortfolioItem[];
