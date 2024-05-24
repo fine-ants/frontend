@@ -55,7 +55,9 @@ export default function DashboardOverview() {
                   </Value>
                 </ValueWrapper>
                 {totalGainRate > 0 && (
-                  <RateBadge size={24} value={totalGainRate} />
+                  <div>
+                    <RateBadge size={24} value={totalGainRate} />
+                  </div>
                 )}
               </SubContent>
             </TotalSubContentWrapper>
@@ -69,11 +71,13 @@ export default function DashboardOverview() {
                   </Value>
                 </ValueWrapper>
                 {totalAnnualDividendYield > 0 && (
-                  <RateBadge
-                    size={24}
-                    value={totalAnnualDividendYield}
-                    iconStatus={false}
-                  />
+                  <div>
+                    <RateBadge
+                      size={24}
+                      value={totalAnnualDividendYield}
+                      iconStatus={false}
+                    />
+                  </div>
                 )}
               </SubContent>
             </TotalSubContentWrapper>
