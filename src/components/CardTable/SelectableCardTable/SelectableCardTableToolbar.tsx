@@ -2,20 +2,19 @@ import Button from "@components/Buttons/Button";
 import { TextButton } from "@components/Buttons/TextButton";
 import CheckBox from "@components/Checkbox";
 import { Icon } from "@components/Icon";
-import { PortfolioItem } from "@features/portfolio/api/types";
 import { Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ChangeEvent } from "react";
 import styled from "styled-components";
 
 type Props = {
-  selected: readonly PortfolioItem[];
+  numSelected: number;
   isAllRowsSelectedInCurrentPage: boolean;
   onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export function SelectableCardTableToolbar({
-  selected,
+  numSelected,
   isAllRowsSelectedInCurrentPage,
   onSelectAllClick,
 }: Props) {
@@ -28,14 +27,14 @@ export function SelectableCardTableToolbar({
           checked={isAllRowsSelectedInCurrentPage}
         />
 
-        {selected.length > 0 && (
+        {numSelected > 0 && (
           <>
             <Typography
               sx={{ font: designSystem.font.body3.font }}
               color="inherit"
               variant="subtitle1"
               component="span">
-              <span>{selected.length}</span>
+              <span>{numSelected}</span>
               <span style={{ color: designSystem.color.neutral.gray600 }}>
                 개 선택됨
               </span>

@@ -14,7 +14,7 @@ type Props<Item> = {
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   }) => JSX.Element;
   CardTableToolbar: (props: {
-    selected: readonly Item[];
+    numSelected: number;
     isAllRowsSelectedInCurrentPage: boolean;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   }) => JSX.Element;
@@ -23,12 +23,13 @@ type Props<Item> = {
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export function SelectableCardTable<Item>({
+export function SelectableCardTable<Item extends { id: string | number }>({
   data,
   CardBody,
   CardTableToolbar,
   EmptyComponent = () => <></>,
 }: Props<Item>) {
+  // TODO 정렬 기능 구현 필요
   const count = data.length;
 
   const [page, setPage] = useState(0);
@@ -84,10 +85,10 @@ export function SelectableCardTable<Item>({
     [visibleRows]
   );
 
-  const selectedSet = new Set(selected);
+  const selectedSet = new Set(selected.map((item) => item.id));
   const isAllRowsSelectedInCurrentPage =
     selected.length > 0 &&
-    visibleRows.every((visibleRow) => selectedSet.has(visibleRow));
+    visibleRows.every((visibleRow) => selectedSet.has(visibleRow.id));
 
   return (
     <>
@@ -105,11 +106,11 @@ export function SelectableCardTable<Item>({
           </ControlWrapper>
 
           <CardTableToolbar
-            selected={selected}
+            numSelected={selected.length}
             isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
             onSelectAllClick={handleSelectAllClick}
           />
-          {/* TODO 정렬 기능 구현 */}
+
           <CardBody
             visibleRows={visibleRows}
             selected={selected}

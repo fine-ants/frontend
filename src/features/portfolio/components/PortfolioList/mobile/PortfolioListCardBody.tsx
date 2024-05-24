@@ -92,7 +92,7 @@ function PortfolioListCard({
         <StyledLink to={`/portfolio/${id}`}>
           <FirmImage
             src={securitiesFirmLogos[securitiesFirm]}
-            alt={`${securitiesFirm} 이미지`}
+            alt={`${securitiesFirm} 로고`}
           />
           {name}
         </StyledLink>

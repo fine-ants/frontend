@@ -18,11 +18,11 @@ export function SelectableCard({
 }: Props) {
   return (
     <StyledPlainCard $isSelected={isSelected}>
-      <StyledCardHeader>
+      <CardHeaderWrapper>
         <CheckBox size="h20" onChange={onChange} checked={isSelected} />
         {CardHeader}
-      </StyledCardHeader>
-      <StyledCardBody>{CardBody}</StyledCardBody>
+      </CardHeaderWrapper>
+      <CardBodyWrapper>{CardBody}</CardBodyWrapper>
     </StyledPlainCard>
   );
 }
@@ -33,10 +33,10 @@ const StyledPlainCard = styled.div<{ $isSelected: boolean }>`
   padding: 24px 16px;
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
   background-color: ${({ $isSelected }) =>
-    $isSelected ? designSystem.color.neutral.gray50 : "none"};
+    $isSelected ? designSystem.color.neutral.gray50 : "transparent"};
 `;
 
-const StyledCardHeader = styled.div`
+const CardHeaderWrapper = styled.div`
   min-height: 32px;
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@ const StyledCardHeader = styled.div`
   margin-bottom: 16px;
 `;
 
-const StyledCardBody = styled.div`
+const CardBodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;

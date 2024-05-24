@@ -10,8 +10,8 @@ type Props = {
 export function PlainCard({ CardHeader, CardBody }: Props) {
   return (
     <StyledPlainCard>
-      <StyledCardHeader>{CardHeader}</StyledCardHeader>
-      <StyledCardBody>{CardBody}</StyledCardBody>
+      <CardHeaderWrapper>{CardHeader}</CardHeaderWrapper>
+      <CardBodyWrapper>{CardBody}</CardBodyWrapper>
     </StyledPlainCard>
   );
 }
@@ -23,7 +23,7 @@ const StyledPlainCard = styled.div`
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
-const StyledCardHeader = styled.div`
+const CardHeaderWrapper = styled.div`
   min-height: 32px;
   display: flex;
   align-items: center;
@@ -34,7 +34,7 @@ const StyledCardHeader = styled.div`
   margin-bottom: 16px;
 `;
 
-const StyledCardBody = styled.div`
+const CardBodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
