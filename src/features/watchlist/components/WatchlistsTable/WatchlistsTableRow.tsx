@@ -20,9 +20,6 @@ export default function WatchlistsTableRow({
   isItemSelected,
   handleClick,
 }: Props) {
-  // const { mutate: watchlistItemDeleteMutate } =
-  //   useWatchlistItemDeleteMutation(id);
-
   return (
     <StyledTableRow
       hover

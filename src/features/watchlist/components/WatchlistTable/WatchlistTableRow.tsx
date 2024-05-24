@@ -17,7 +17,12 @@ type Props = {
 };
 
 export default function WatchlistTableRow({
-  row: {
+  row,
+  labelId,
+  isItemSelected,
+  handleClick,
+}: Props) {
+  const {
     id,
     companyName,
     tickerSymbol,
@@ -26,11 +31,8 @@ export default function WatchlistTableRow({
     dailyChangeRate,
     annualDividendYield,
     sector,
-  },
-  labelId,
-  isItemSelected,
-  handleClick,
-}: Props) {
+  } = row;
+
   return (
     <StyledTableRow
       hover

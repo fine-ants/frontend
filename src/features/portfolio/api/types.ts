@@ -75,9 +75,9 @@ export type PortfolioDetails = {
 };
 
 export type PortfolioHolding = {
+  id: number;
   companyName: string;
   tickerSymbol: string;
-  portfolioHoldingId: number;
   currentValuation: number;
   currentPrice: number;
   averageCostPerShare: number;
@@ -97,7 +97,7 @@ export type PurchaseHistory = {
   purchaseDate: string;
   numShares: number;
   purchasePricePerShare: number;
-  memo: string | null;
+  memo: string;
 };
 
 export type PurchaseHistoryInput = {

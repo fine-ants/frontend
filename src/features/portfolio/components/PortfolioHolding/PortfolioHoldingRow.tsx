@@ -30,9 +30,9 @@ export default function PortfolioHoldingRow({
   const { portfolioId } = useParams();
 
   const {
+    id,
     companyName,
     tickerSymbol,
-    portfolioHoldingId,
     currentValuation,
     currentPrice,
     averageCostPerShare,
@@ -66,7 +66,7 @@ export default function PortfolioHoldingRow({
         tabIndex={-1}
         selected={isItemSelected}
         aria-checked={isItemSelected}
-        onClick={(event) => handleClick(event, portfolioHoldingId)}>
+        onClick={(event) => handleClick(event, id)}>
         <HoldingTableCell
           style={{
             width: "40px",
@@ -160,7 +160,7 @@ export default function PortfolioHoldingRow({
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
             <PortfolioHoldingLotsTable
               portfolioId={Number(portfolioId)}
-              portfolioHoldingId={portfolioHoldingId}
+              portfolioHoldingId={id}
               purchaseHistory={purchaseHistory}
             />
           </Collapse>

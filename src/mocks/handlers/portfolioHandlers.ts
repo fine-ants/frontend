@@ -169,9 +169,9 @@ export default [
 
     const newPortfolioHoldingId = portfolioHoldings.length + 1;
     const data: PortfolioHolding = {
+      id: newPortfolioHoldingId,
       companyName: "새로추가한주식",
       tickerSymbol: tickerSymbol,
-      portfolioHoldingId: newPortfolioHoldingId,
       currentValuation: 600000,
       currentPrice: 60000,
       averageCostPerShare: 50000.0,
@@ -209,7 +209,7 @@ export default [
 
       // Mutate portfolio holding data
       const targetPortfolioHoldingIndex = portfolioHoldings.findIndex(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       portfolioHoldings.splice(targetPortfolioHoldingIndex, 1);
 
@@ -234,7 +234,7 @@ export default [
       const data = await request.json();
 
       const targetPortfolioHolding = portfolioHoldings.find(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       targetPortfolioHolding?.purchaseHistory.push({
         purchaseHistoryId: Math.random(),
@@ -271,7 +271,7 @@ export default [
 
       // Find Target Portfolio Holding Purchase History
       const targetPortfolioHolding = portfolioHoldings.find(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       const targetPurchaseHistory =
         targetPortfolioHolding?.purchaseHistory.find(
@@ -299,7 +299,7 @@ export default [
 
       // Mutate Portfolio Holding Purchase History Data
       const targetPortfolioHolding = portfolioHoldings.find(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       const targetPurchaseHistoryIndex =
         targetPortfolioHolding?.purchaseHistory.findIndex(

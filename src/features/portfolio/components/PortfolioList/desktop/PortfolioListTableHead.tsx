@@ -62,8 +62,7 @@ const headCells: readonly HeadCell[] = [
 type PortfolioListTableHeadProps = {
   order: Order;
   orderBy: string;
-  numSelected: number;
-  rowCount: number;
+  isAllRowsSelectedInCurrentPage: boolean;
   onRequestSort: (
     event: MouseEvent<unknown>,
     property: keyof PortfolioItem
@@ -74,8 +73,7 @@ type PortfolioListTableHeadProps = {
 export default function PortfolioListTableHead({
   order,
   orderBy,
-  numSelected,
-  rowCount,
+  isAllRowsSelectedInCurrentPage,
   onRequestSort,
   onSelectAllClick,
 }: PortfolioListTableHeadProps) {
@@ -91,7 +89,7 @@ export default function PortfolioListTableHead({
           <CheckBox
             size="h20"
             checkType="indet"
-            checked={rowCount > 0 && numSelected === rowCount}
+            checked={isAllRowsSelectedInCurrentPage}
             onChange={onSelectAllClick}
             inputProps={{
               "aria-label": "select all portfolios",
