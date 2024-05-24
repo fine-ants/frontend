@@ -3,14 +3,14 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import DatePicker from "@components/DatePicker";
 import usePortfolioHoldingPurchaseDeleteMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseDeleteMutation";
 import usePortfolioHoldingPurchaseEditMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseEditMutation";
-import { PurchaseHistoryField } from "@features/portfolio/api/types";
+import { PurchaseHistory } from "@features/portfolio/api/types";
 import {
   executeCbIfNumeric,
   removeThousandsDelimiter,
   thousandsDelimiter,
+  useBoolean,
   useText,
 } from "@fineants/demolition";
-import { useBoolean } from "@hooks/useBoolean";
 import {
   TableCell as MuiTableCell,
   TableRow as MuiTableRow,
@@ -24,7 +24,7 @@ import styled from "styled-components";
 type Props = {
   portfolioId: number;
   portfolioHoldingId: number;
-  lot: PurchaseHistoryField;
+  lot: PurchaseHistory;
 };
 
 export default function PortfolioHoldingStyledTableRow({
@@ -95,7 +95,6 @@ export default function PortfolioHoldingStyledTableRow({
   const [newMemo, setNewMemo] = useState(memo ?? "");
 
   const onSaveClick = () => {
-    // TODO: Handle error
     portfolioHoldingPurchaseEditMutate({
       portfolioId,
       portfolioHoldingId,
@@ -114,7 +113,6 @@ export default function PortfolioHoldingStyledTableRow({
   };
 
   const onDeleteConfirm = () => {
-    // TODO: Handle error
     portfolioHoldingPurchaseDeleteMutate({
       portfolioId,
       portfolioHoldingId,

@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { Divider } from "@mui/material";
 import { chartColorPalette } from "@styles/chartColorPalette";
 import designSystem from "@styles/designSystem";
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export default function TallLegend({ legendList, etcOptions, style }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   const displayedLegendList = [...legendList];
 
   const etcList =
@@ -27,7 +30,7 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
   const etcPercent = etcList?.reduce((acc, item) => acc + item.percent, 0);
 
   return (
-    <StyledLegend style={style}>
+    <StyledLegend style={style} $isMobile={isMobile}>
       <Wrapper>
         <ItemsList>
           {displayedLegendList.map((item, idx) => (
@@ -35,7 +38,7 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
               key={idx}
               color={item.color}
               title={item.title}
-              percent={item.percent}
+              percent={Number(item.percent.toFixed(2))}
             />
           ))}
         </ItemsList>
@@ -48,13 +51,13 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
               <PieChartLegendItem
                 color={chartColorPalette[chartColorPalette.length - 1]}
                 title={etcOptions.title}
-                percent={etcPercent}
+                percent={Number(etcPercent.toFixed(2))}
               />
               <EtcList>
                 {etcList.map((item, idx) => (
                   <EtcItem key={idx}>
                     <span>{item.title}</span>
-                    <span>{item.percent}%</span>
+                    <span>{Number(item.percent.toFixed(2))}%</span>
                   </EtcItem>
                 ))}
               </EtcList>
@@ -66,9 +69,9 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
   );
 }
 
-const StyledLegend = styled.div`
-  width: 300px;
-  height: 363px;
+const StyledLegend = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "300px")};
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "363px")};
   border: 1px solid ${designSystem.color.neutral.gray100};
   border-radius: 8px;
 `;
@@ -82,7 +85,6 @@ const Wrapper = styled.div`
 `;
 
 const ItemsList = styled.div`
-  padding-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -90,6 +92,7 @@ const ItemsList = styled.div`
 `;
 
 const StyledDivider = styled(Divider)`
+  padding-bottom: 10px;
   border-color: ${designSystem.color.neutral.gray200};
 `;
 

@@ -19,8 +19,7 @@ import styled from "styled-components";
 type Props = {
   order: Order;
   orderBy: string;
-  numSelected: number;
-  rowCount: number;
+  isAllRowsSelectedInCurrentPage: boolean;
   onRequestSort: (
     event: MouseEvent<unknown>,
     property: keyof PortfolioHolding
@@ -91,8 +90,7 @@ const headCells: readonly HeadCell[] = [
 export default function PortfolioHoldingTableHead({
   order,
   orderBy,
-  numSelected,
-  rowCount,
+  isAllRowsSelectedInCurrentPage,
   onRequestSort,
   onSelectAllClick,
   isAllRowsOpen,
@@ -126,7 +124,7 @@ export default function PortfolioHoldingTableHead({
           <CheckBox
             size="h16"
             checkType="indet"
-            checked={rowCount > 0 && numSelected === rowCount}
+            checked={isAllRowsSelectedInCurrentPage}
             onChange={onSelectAllClick}
             inputProps={{
               "aria-label": "select all desserts",

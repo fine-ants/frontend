@@ -11,10 +11,9 @@ export default function useSignUpMutation() {
     onSuccess: () => {
       navigate(Routes.SIGNIN);
     },
-    onError: (error) => {
-      // TODO: Handle error
-      // eslint-disable-next-line no-console
-      console.error(error);
+    meta: {
+      toastSuccessMessage: "회원가입이 완료되었습니다",
+      toastErrorMessage: "회원가입에 실패했습니다. 다시 시도해주세요",
     },
   });
 }

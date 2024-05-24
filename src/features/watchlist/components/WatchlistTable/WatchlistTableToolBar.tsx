@@ -3,7 +3,7 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import { WatchlistItemType } from "@features/watchlist/api";
 import useWatchlistItemDeleteMutation from "@features/watchlist/api/queries/useWatchlistItemDeleteMutation";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";

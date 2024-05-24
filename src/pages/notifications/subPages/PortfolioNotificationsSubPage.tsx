@@ -1,7 +1,7 @@
 import { AsyncBoundary } from "@components/AsyncBoundary";
 import { ErrorFallbackContent } from "@components/ErrorFallbackContent";
 import TableSkeleton from "@components/Table/TableSkeleton";
-import PortfolioNotificationListTable from "@features/notification/components/PortfolioNotificationList/PortfolioNotificationListTable";
+import PortfolioNotificationList from "@features/notification/components/PortfolioNotificationList/PortfolioNotificationList";
 import styled from "styled-components";
 
 export default function PortfolioNotificationsSubPage() {
@@ -16,7 +16,7 @@ export default function PortfolioNotificationsSubPage() {
           />
         }
         ErrorFallback={ErrorFallbackContent}>
-        <PortfolioNotificationListTable />
+        <PortfolioNotificationList />
       </AsyncBoundary>
     </StyledPortfolioNotificationsSubPage>
   );

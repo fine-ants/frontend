@@ -3,7 +3,7 @@ import { MemberNotification } from "@features/notification/api/types";
 import { User } from "@features/user/api/types";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import NotificationPanelDrawer from "./NotificationPanelDrawer";
+import NotificationPanelDrawerM from "./NotificationPanelDrawerM";
 
 type Props = {
   user: User;
@@ -31,10 +31,11 @@ export function NotificationPanelHeaderM({
           onClick={handleClose}
         />
         <PanelTitle>알림</PanelTitle>
-        <NotificationPanelDrawer
+        <NotificationPanelDrawerM
           user={user}
           notificationIds={notificationIds}
           hasNotification={hasNotification}
+          onClose={handleClose}
         />
       </PanelHeader>
     </>

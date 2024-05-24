@@ -109,7 +109,7 @@ export default function PasswordSubPage({ onPrev, onNext }: Props) {
           type="submit"
           disabled={isButtonDisabled}
           $isMobile={isMobile}>
-          다음
+          다음 단계
         </AuthNextButton>
       </Form>
     </SubPage>

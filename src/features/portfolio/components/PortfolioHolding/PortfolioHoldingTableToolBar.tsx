@@ -3,7 +3,7 @@ import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import usePortfolioHoldingDeleteMutation from "@features/portfolio/api/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@features/portfolio/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
@@ -36,7 +36,7 @@ export default function PortfolioHoldingTableToolBar({
   } = useBoolean();
 
   const onConfirmAction = async () => {
-    const selectedHoldingIds = selected.map((item) => item.portfolioHoldingId);
+    const selectedHoldingIds = selected.map((item) => item.id);
     await portfolioHoldingDeleteMutateAsync({
       portfolioId: Number(portfolioId),
       body: { portfolioHoldingIds: selectedHoldingIds },

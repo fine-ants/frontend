@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -7,8 +8,10 @@ type Props = {
 };
 
 export default function SubPageTabs({ tabItems }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   return (
-    <Nav>
+    <Nav $isMobile={isMobile}>
       <ul>
         {tabItems.map((item, idx) => (
           <li key={idx}>
@@ -20,7 +23,7 @@ export default function SubPageTabs({ tabItems }: Props) {
   );
 }
 
-const Nav = styled.nav`
+const Nav = styled.nav<{ $isMobile: boolean }>`
   width: 100%;
   height: 40px;
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
@@ -32,7 +35,7 @@ const Nav = styled.nav`
     align-items: center;
 
     > li {
-      width: 120px;
+      width: ${({ $isMobile }) => ($isMobile ? "50%" : "120px")};
       height: 100%;
       margin-bottom: -2px;
       font: ${designSystem.font.title4.font};

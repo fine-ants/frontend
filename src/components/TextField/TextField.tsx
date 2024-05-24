@@ -1,4 +1,4 @@
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import { InputAdornment } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ChangeEvent, ReactNode } from "react";

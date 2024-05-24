@@ -7,10 +7,13 @@ import { OverviewErrorFallback } from "@features/dashboard/components/errorFallb
 import { DashboardLineChartSkeleton } from "@features/dashboard/components/skeletons/DashboardLineChartSkeleton";
 import { DashboardOverviewSkeleton } from "@features/dashboard/components/skeletons/DashboardOverviewSkeleton";
 import DashboardPieChartSkeleton from "@features/dashboard/components/skeletons/DashboardPieChartSkeleton";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import styled from "styled-components";
 import BasePage from "./BasePage";
 
 export default function DashboardPage() {
+  const { isMobile } = useResponsiveLayout();
+
   return (
     <BasePage>
       <AsyncBoundary
@@ -18,8 +21,8 @@ export default function DashboardPage() {
         SuspenseFallback={<DashboardOverviewSkeleton />}>
         <DashboardOverview />
       </AsyncBoundary>
-      <ChartsWrapper>
-        <ChartsContainer>
+      <ChartsWrapper $isMobile={isMobile}>
+        <ChartsContainer $isMobile={isMobile}>
           <AsyncBoundary
             ErrorFallback={ChartErrorFallback}
             SuspenseFallback={<DashboardPieChartSkeleton />}>
@@ -36,17 +39,18 @@ export default function DashboardPage() {
   );
 }
 
-const ChartsWrapper = styled.div`
+const ChartsWrapper = styled.div<{ $isMobile: boolean }>`
   width: 100%;
-  padding: 48px;
+  padding: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
   display: flex;
   justify-content: center;
 `;
 
-const ChartsContainer = styled.div`
+const ChartsContainer = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   max-width: 1440px;
   display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   justify-content: center;
-  gap: 24px;
+  gap: ${({ $isMobile }) => ($isMobile ? "0" : "24px")};
 `;

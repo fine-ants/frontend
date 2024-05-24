@@ -15,5 +15,8 @@ export default function useSignOutMutation() {
       onSignOut();
       navigate(Routes.LANDING);
     },
+    meta: {
+      toastErrorMessage: "로그아웃을 다시 시도해주세요",
+    },
   });
 }

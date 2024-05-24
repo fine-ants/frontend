@@ -5,6 +5,7 @@ import { PortfolioHolding } from "@features/portfolio/api/types";
 import RealtimeValue from "@features/portfolio/components/RealtimeValue";
 import { thousandsDelimiter } from "@fineants/demolition";
 import { Collapse, TableCell, TableRow, Typography } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -29,9 +30,9 @@ export default function PortfolioHoldingRow({
   const { portfolioId } = useParams();
 
   const {
+    id,
     companyName,
     tickerSymbol,
-    portfolioHoldingId,
     currentValuation,
     currentPrice,
     averageCostPerShare,
@@ -65,7 +66,7 @@ export default function PortfolioHoldingRow({
         tabIndex={-1}
         selected={isItemSelected}
         aria-checked={isItemSelected}
-        onClick={(event) => handleClick(event, portfolioHoldingId)}>
+        onClick={(event) => handleClick(event, id)}>
         <HoldingTableCell
           style={{
             width: "40px",
@@ -98,7 +99,7 @@ export default function PortfolioHoldingRow({
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
               style={{ font: designSystem.font.body3.font }}
-              to={`/stock/${tickerSymbol}`}>
+              to={Routes.STOCK(tickerSymbol)}>
               {companyName}
             </Link>
           </Typography>
@@ -159,7 +160,7 @@ export default function PortfolioHoldingRow({
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
             <PortfolioHoldingLotsTable
               portfolioId={Number(portfolioId)}
-              portfolioHoldingId={portfolioHoldingId}
+              portfolioHoldingId={id}
               purchaseHistory={purchaseHistory}
             />
           </Collapse>

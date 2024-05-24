@@ -13,7 +13,7 @@ export default function PortfolioHoldingTable({ data }: Props) {
   return (
     <CollapsibleSelectableTable
       tableTitle="매입 종목 목록"
-      initialOrderBy="dateCreated"
+      initialOrderBy="dateAdded"
       TableToolBar={PortfolioHoldingTableToolBar}
       TableHead={PortfolioHoldingTableHead}
       TableBody={PortfolioHoldingTableBody}

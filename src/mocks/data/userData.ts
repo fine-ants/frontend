@@ -10,6 +10,7 @@ export const successfulUserData = {
       nickname: "Kakamotobi",
       email: "d@d.com",
       profileUrl: "https://avatars.githubusercontent.com/u/79886384?v=4",
+      provider: "local",
       notificationPreferences: {
         browserNotify: true,
         targetGainNotify: true,
