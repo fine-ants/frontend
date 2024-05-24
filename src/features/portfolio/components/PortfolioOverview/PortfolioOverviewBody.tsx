@@ -98,10 +98,8 @@ export default function PortfolioOverviewBody({ data }: Props) {
               목표 수익률
               <ConditionalTooltip
                 condition={targetGain !== 0}
-                tooltipProps={{
-                  title: "포트폴리오 목표 수익률을 먼저 설정해주세요",
-                  placement: "bottom-start",
-                }}>
+                title={"포트폴리오 목표 수익률을 먼저 설정해주세요"}
+                placement={"bottom-start"}>
                 <div>
                   <IconButton
                     icon="notification"
@@ -135,13 +133,11 @@ export default function PortfolioOverviewBody({ data }: Props) {
           </div>
           <OverviewBodyData>
             <NotificationLabel>
-              최대 손실율
+              최대 손실률
               <ConditionalTooltip
                 condition={maximumLoss !== 0}
-                tooltipProps={{
-                  title: "포트폴리오 최대 손실율을 먼저 설정해주세요",
-                  placement: "bottom-start",
-                }}>
+                title={"포트폴리오 최대 손실률을 먼저 설정해주세요"}
+                placement={"bottom-start"}>
                 <div>
                   <IconButton
                     icon="notification"

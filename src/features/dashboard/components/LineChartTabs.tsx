@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -14,8 +15,10 @@ type ButtonProps = {
 };
 
 export default function LineChartTabs({ tabs, currentIndex, onClick }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   return (
-    <StyledLineChartTabs>
+    <StyledLineChartTabs $isMobile={isMobile}>
       {tabs.map((content, index) => (
         <LineChartTab
           key={index}
@@ -29,15 +32,20 @@ export default function LineChartTabs({ tabs, currentIndex, onClick }: Props) {
 }
 
 function LineChartTab({ content, isSelected, onClick }: ButtonProps) {
+  const { isMobile } = useResponsiveLayout();
+
   return (
-    <StyledLineChartTab $isSelected={isSelected} onClick={onClick}>
+    <StyledLineChartTab
+      onClick={onClick}
+      $isSelected={isSelected}
+      $isMobile={isMobile}>
       {content}
     </StyledLineChartTab>
   );
 }
 
-const StyledLineChartTabs = styled.div`
-  width: 264px;
+const StyledLineChartTabs = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "264px")};
   height: 32px;
   display: flex;
   justify-content: center;
@@ -48,8 +56,11 @@ const StyledLineChartTabs = styled.div`
   border: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
-const StyledLineChartTab = styled.button<{ $isSelected: boolean }>`
-  width: 48px;
+const StyledLineChartTab = styled.button<{
+  $isSelected: boolean;
+  $isMobile: boolean;
+}>`
+  width: ${({ $isMobile }) => ($isMobile ? "18.6%" : "48px")};
   height: 24px;
   border-radius: 4px;
   box-sizing: border-box;

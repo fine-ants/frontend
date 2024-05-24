@@ -4,7 +4,7 @@ export const memberNotificationsData: MemberNotification[] = [
   {
     notificationId: 3,
     title: "포트폴리오",
-    body: { name: "포트폴리오2", target: "최대 손실율" },
+    body: { name: "포트폴리오2", target: "최대 손실률" },
     timestamp: "2024-01-24T10:10:10",
     isRead: false,
     type: "portfolio",
@@ -35,13 +35,6 @@ export const successfulMemberNotifications = {
   status: "OK",
   message: "현재 알림 목록 조회를 성공했습니다",
   data: memberNotificationsData,
-};
-
-export const successfulReadMemberNotification = {
-  code: 200,
-  status: "OK",
-  message: "지정 알림을 읽음 처리했습니다",
-  data: null,
 };
 
 export const successfulReadAllMemberNotifications = {

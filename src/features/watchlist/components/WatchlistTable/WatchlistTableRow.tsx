@@ -3,6 +3,7 @@ import CheckBox from "@components/Checkbox";
 import { WatchlistItemType } from "@features/watchlist/api";
 import { thousandsDelimiter } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
@@ -16,7 +17,12 @@ type Props = {
 };
 
 export default function WatchlistTableRow({
-  row: {
+  row,
+  labelId,
+  isItemSelected,
+  handleClick,
+}: Props) {
+  const {
     id,
     companyName,
     tickerSymbol,
@@ -25,11 +31,8 @@ export default function WatchlistTableRow({
     dailyChangeRate,
     annualDividendYield,
     sector,
-  },
-  labelId,
-  isItemSelected,
-  handleClick,
-}: Props) {
+  } = row;
+
   return (
     <StyledTableRow
       hover
@@ -49,7 +52,7 @@ export default function WatchlistTableRow({
         />
       </StyledTableCell>
       <StyledTableCell align="left" sx={{ width: "332px" }}>
-        <StyledLink to={`/stock/${tickerSymbol}`}>{companyName}</StyledLink>
+        <StyledLink to={Routes.STOCK(tickerSymbol)}>{companyName}</StyledLink>
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "240px" }}>
         {thousandsDelimiter(currentPrice)}

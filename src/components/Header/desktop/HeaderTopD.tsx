@@ -1,6 +1,7 @@
 import BIImage from "@assets/icons/logo/ic_fineants-header.svg";
+import { MAIN_HEADER_HEIGHT_D } from "@constants/styleConstants";
 import { PortfoliosDropdown } from "@features/portfolio/components/PortfoliosDropdown/PortfoliosDropdown";
-import UserControls from "@features/user/components/UserDropdown/UserControls";
+import UserControls from "@features/user/components/desktop/UserControls";
 import { UserContext } from "@features/user/context/UserContext";
 import Routes from "@router/Routes";
 import { useContext } from "react";
@@ -9,7 +10,7 @@ import styled from "styled-components";
 import Button from "../../Buttons/Button";
 import { TextButton } from "../../Buttons/TextButton";
 import { NavBar } from "../../NavBar/NavBar";
-import SearchBar from "../../SearchBar/SearchBar";
+import SearchBarD from "../../SearchBar/desktop/SearchBarD";
 
 export default function HeaderTopD() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function HeaderTopD() {
       name: "Watchlists",
       to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
     },
-    { name: "Indices", to: "/indices/KRX:KOSPI" },
+    { name: "Indices", to: Routes.INDICES("KRX:KOSPI") },
   ];
 
   const moveToSignInPage = () => {
@@ -48,7 +49,7 @@ export default function HeaderTopD() {
         </NavBar>
       </HeaderLeft>
       <HeaderRight>
-        <SearchBar sx={{ width: "328px" }} />
+        <SearchBarD sx={{ width: "328px" }} />
 
         {user ? (
           <UserControls user={user} />
@@ -68,7 +69,7 @@ export default function HeaderTopD() {
 }
 
 const StyledHeaderTopD = styled.header`
-  height: 80px;
+  height: ${MAIN_HEADER_HEIGHT_D}px;
   display: flex;
   gap: 44px;
   justify-content: space-between;

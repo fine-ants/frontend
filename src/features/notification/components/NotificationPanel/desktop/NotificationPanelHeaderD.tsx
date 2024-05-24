@@ -1,7 +1,8 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
 import { User } from "@features/user/api/types";
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -23,7 +24,7 @@ export function NotificationPanelHeaderD({ user, handleClose }: Props) {
 
   const navigateActivateNotify = () => {
     handleClose();
-    navigate("/notifications/stock");
+    navigate(Routes.NOTIFICATIONS("stock"));
   };
 
   return (

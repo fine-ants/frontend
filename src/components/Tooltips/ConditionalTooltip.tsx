@@ -1,16 +1,13 @@
-import { ReactElement } from "react";
 import { CustomTooltip, Props as CustomTooltipProps } from "./CustomTooltip";
 
-type Props = {
+type Props = CustomTooltipProps & {
   condition: boolean;
-  tooltipProps: Omit<CustomTooltipProps, "children">;
-  children: ReactElement;
 };
 
 export default function ConditionalTooltip({
   condition,
-  tooltipProps,
   children,
+  ...tooltipProps
 }: Props) {
   return condition ? (
     children

@@ -1,4 +1,4 @@
-import { useBoolean } from "@hooks/useBoolean";
+import { useBoolean } from "@fineants/demolition";
 import {
   Box as MuiBox,
   Table as MuiTable,
@@ -27,8 +27,7 @@ type Props<Item> = {
     props: MuiTableHeadProps & {
       order: Order;
       orderBy: keyof Item;
-      numSelected: number;
-      rowCount: number;
+      isAllRowsSelectedInCurrentPage: boolean;
       onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
       onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
       isAllRowsOpen: boolean;
@@ -50,7 +49,9 @@ type Props<Item> = {
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export default function CollapsibleSelectableTable<Item>({
+export default function CollapsibleSelectableTable<
+  Item extends { id: string | number },
+>({
   tableTitle,
   initialOrderBy,
   rowsPerPageOptions = defaultRowsPerPageOptions,
@@ -117,6 +118,11 @@ export default function CollapsibleSelectableTable<Item>({
     setPage(0);
   };
 
+  const selectedSet = new Set(selected.map((item) => item.id));
+  const isAllRowsSelectedInCurrentPage =
+    selected.length > 0 &&
+    visibleRows.every((visibleRow) => selectedSet.has(visibleRow.id));
+
   return (
     <MuiBox sx={{ width: "100%" }}>
       {tableRows.length > 0 ? (
@@ -133,8 +139,7 @@ export default function CollapsibleSelectableTable<Item>({
               <TableHead
                 order={order}
                 orderBy={orderBy}
-                numSelected={selected.length}
-                rowCount={visibleRows.length}
+                isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 isAllRowsOpen={isAllRowsOpen}

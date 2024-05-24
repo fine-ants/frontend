@@ -2,7 +2,7 @@ import BaseDialog from "@components/BaseDialog";
 import AsyncButton from "@components/Buttons/AsyncButton";
 import { IconButton } from "@components/Buttons/IconButton";
 import { default as DatePicker } from "@components/DatePicker";
-import SearchBar from "@components/SearchBar/SearchBar";
+import SearchBarD from "@components/SearchBar/desktop/SearchBarD";
 import usePortfolioHoldingAddMutation from "@features/portfolio/api/queries/usePortfolioHoldingAddMutation";
 import { StockSearchItem } from "@features/stock/api";
 import {
@@ -130,7 +130,7 @@ export default memo(function PortfolioHoldingAddDialog({
         <div>
           종목 검색 <span>*</span>
         </div>
-        <SearchBar
+        <SearchBarD
           variant="select"
           sx={{ width: "480px" }}
           onSelectOption={onSelectOption}
@@ -223,7 +223,6 @@ export default memo(function PortfolioHoldingAddDialog({
 });
 
 const portfolioHoldingAddDialogStyle = {
-  width: "544px",
   height: "auto",
   padding: "32px",
 };

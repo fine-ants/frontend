@@ -125,7 +125,7 @@ function setupTooltip({ chart, chartContainerRef, series }: setupTooltipProps) {
   if (chartContainerRef.current) {
     const toolTip = document.createElement("div");
     toolTip.style.position = "absolute";
-    toolTip.style.display = "flex";
+    toolTip.style.display = "none";
     toolTip.style.flexDirection = "column";
     toolTip.style.gap = "8px";
     toolTip.style.padding = "8px";

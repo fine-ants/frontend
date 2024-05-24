@@ -20,7 +20,6 @@ export type PortfolioItem = {
   dateCreated: string;
 };
 
-// TODO: 정리 필요
 export type Portfolio = {
   portfolioDetails: PortfolioDetails;
   portfolioHoldings: PortfolioHolding[];
@@ -76,9 +75,9 @@ export type PortfolioDetails = {
 };
 
 export type PortfolioHolding = {
+  id: number;
   companyName: string;
   tickerSymbol: string;
-  portfolioHoldingId: number;
   currentValuation: number;
   currentPrice: number;
   averageCostPerShare: number;
@@ -89,20 +88,19 @@ export type PortfolioHolding = {
   totalReturnRate: number;
   annualDividend: number;
   annualDividendYield: number;
-  purchaseHistory: PurchaseHistoryField[];
-  dateCreated: string;
+  purchaseHistory: PurchaseHistory[];
+  dateAdded: string;
 };
-//TODO : 백엔드에서도 dateCreated 필드 추가해야함
 
-export type PurchaseHistoryField = {
+export type PurchaseHistory = {
   purchaseHistoryId: number;
   purchaseDate: string;
   numShares: number;
   purchasePricePerShare: number;
-  memo: string | null;
+  memo: string;
 };
 
-export type PurchaseHistory = {
+export type PurchaseHistoryInput = {
   purchaseDate: string;
   numShares: number;
   purchasePricePerShare: number;

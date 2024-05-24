@@ -1,59 +1,85 @@
 import RateBadge from "@components/Badges/RateBadge";
 import useDashboardOverviewQuery from "@features/dashboard/api/queries/useDashboardOverviewQuery";
 import { thousandsDelimiter } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export default function DashboardOverview() {
   const { data: overviewData } = useDashboardOverviewQuery();
+  const {
+    username,
+    totalValuation,
+    totalInvestment,
+    totalGain,
+    totalGainRate,
+    totalAnnualDividend,
+    totalAnnualDividendYield,
+  } = overviewData;
+
+  const { isDesktop, isMobile } = useResponsiveLayout();
 
   return (
-    <StyledDashboardOverview>
+    <StyledDashboardOverview $isDesktop={isDesktop}>
       <InnerWrapper>
-        <PageTitle>{overviewData.username} 님의 대시보드</PageTitle>
+        <PageTitle $isMobile={isMobile}>{username} 님의 대시보드</PageTitle>
 
-        <ContentContainer>
-          <TotalMainContentWrapper>
-            <MainTitle>총 평가 금액</MainTitle>
+        <ContentContainer $isMobile={isMobile}>
+          <TotalMainContentWrapper $isMobile={isMobile}>
+            <MainTitle $isMobile={isMobile}>총 평가 금액</MainTitle>
             <MainValueWrapper>
-              <MainWon>₩</MainWon>
-              <MainValue>
-                {thousandsDelimiter(overviewData.totalValuation)}
+              <MainWon $isMobile={isMobile}>₩</MainWon>
+              <MainValue $isMobile={isMobile}>
+                {thousandsDelimiter(totalValuation)}
               </MainValue>
             </MainValueWrapper>
           </TotalMainContentWrapper>
 
-          <SubContentContainer>
-            <TotalSubContentWrapper>
-              <Title>총 투자 금액</Title>
+          <SubContentContainer $isMobile={isMobile}>
+            <TotalSubContentWrapper $isMobile={isMobile}>
+              <Title $isMobile={isMobile}>총 투자 금액</Title>
               <ValueWrapper>
-                <Won>₩</Won>
-                <Value>
-                  {thousandsDelimiter(overviewData.totalInvestment)}
+                <Won $isMobile={isMobile}>₩</Won>
+                <Value $isMobile={isMobile}>
+                  {thousandsDelimiter(totalInvestment)}
                 </Value>
               </ValueWrapper>
             </TotalSubContentWrapper>
-            <TotalSubContentWrapper>
-              <Title>총 손익</Title>
-              <ValueWrapper>
-                <Won>₩</Won>
-                <Value>{thousandsDelimiter(overviewData.totalGain)}</Value>
-              </ValueWrapper>
-              <RateBadge size={24} value={overviewData.totalGainRate} />
+            <TotalSubContentWrapper $isMobile={isMobile}>
+              <Title $isMobile={isMobile}>총 손익</Title>
+              <SubContent $isMobile={isMobile}>
+                <ValueWrapper>
+                  <Won $isMobile={isMobile}>₩</Won>
+                  <Value $isMobile={isMobile}>
+                    {thousandsDelimiter(totalGain)}
+                  </Value>
+                </ValueWrapper>
+                {totalGainRate > 0 && (
+                  <div>
+                    <RateBadge size={24} value={totalGainRate} />
+                  </div>
+                )}
+              </SubContent>
             </TotalSubContentWrapper>
-            <TotalSubContentWrapper>
-              <Title>예상 연 배당금</Title>
-              <ValueWrapper>
-                <Won>₩</Won>
-                <Value>
-                  {thousandsDelimiter(overviewData.totalAnnualDividend)}
-                </Value>
-              </ValueWrapper>
-              <RateBadge
-                size={24}
-                value={overviewData.totalAnnualDividendYield}
-                iconStatus={false}
-              />
+            <TotalSubContentWrapper $isMobile={isMobile}>
+              <Title $isMobile={isMobile}>예상 연 배당금</Title>
+              <SubContent $isMobile={isMobile}>
+                <ValueWrapper>
+                  <Won $isMobile={isMobile}>₩</Won>
+                  <Value $isMobile={isMobile}>
+                    {thousandsDelimiter(totalAnnualDividend)}
+                  </Value>
+                </ValueWrapper>
+                {totalAnnualDividendYield > 0 && (
+                  <div>
+                    <RateBadge
+                      size={24}
+                      value={totalAnnualDividendYield}
+                      iconStatus={false}
+                    />
+                  </div>
+                )}
+              </SubContent>
             </TotalSubContentWrapper>
           </SubContentContainer>
         </ContentContainer>
@@ -62,10 +88,9 @@ export default function DashboardOverview() {
   );
 }
 
-const StyledDashboardOverview = styled.div`
+const StyledDashboardOverview = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
-  height: 316px;
-  padding: 48px;
+  padding: ${({ $isDesktop }) => ($isDesktop ? "48px 0" : "32px 16px")};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,24 +111,31 @@ const InnerWrapper = styled.div`
   gap: 24px;
 `;
 
-const ContentContainer = styled.div`
+const ContentContainer = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   justify-content: space-between;
-  gap: 24px;
+  gap: ${({ $isMobile }) => ($isMobile ? "16px" : "24px")};
 `;
 
-const PageTitle = styled.h1`
+const PageTitle = styled.h1<{ $isMobile: boolean }>`
   width: 100%;
   display: flex;
-  font: ${designSystem.font.heading2.font};
-  letter-spacing: ${designSystem.font.heading2.letterSpacing};
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.font
+      : designSystem.font.heading2.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.letterSpacing
+      : designSystem.font.heading2.letterSpacing};
 `;
 
-const TotalMainContentWrapper = styled.div`
+const TotalMainContentWrapper = styled.div<{ $isMobile: boolean }>`
   width: 586px;
-  height: 157px;
-  padding-top: 24px;
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "157px")};
+  padding-top: ${({ $isMobile }) => ($isMobile ? "0px" : "24px")};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -112,17 +144,26 @@ const TotalMainContentWrapper = styled.div`
   color: ${designSystem.color.neutral.white};
 `;
 
-const MainTitle = styled.div`
+const MainTitle = styled.div<{ $isMobile: boolean }>`
   margin-right: auto;
-
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
+  font: ${({ $isMobile }) =>
+    $isMobile ? designSystem.font.title5.font : designSystem.font.title4.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title5.letterSpacing
+      : designSystem.font.title4.letterSpacing};
   color: ${designSystem.color.neutral.gray400};
 `;
 
-const MainWon = styled.div`
-  font: ${designSystem.font.heading2.font};
-  letter-spacing: ${designSystem.font.heading2.letterSpacing};
+const MainWon = styled.div<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title2.font
+      : designSystem.font.display3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title2.letterSpacing
+      : designSystem.font.display3.letterSpacing};
   color: ${designSystem.color.neutral.gray600};
 `;
 
@@ -133,40 +174,55 @@ const MainValueWrapper = styled.div`
   align-items: center;
 `;
 
-const MainValue = styled.div`
-  font: ${designSystem.font.heading1.font};
-  letter-spacing: ${designSystem.font.heading1.letterSpacing};
+const MainValue = styled.div<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.display3.font
+      : designSystem.font.heading1.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.display3.letterSpacing
+      : designSystem.font.heading1.letterSpacing};
 `;
 
-const SubContentContainer = styled.div`
+const SubContentContainer = styled.div<{ $isMobile: boolean }>`
   display: flex;
-  width: 830px;
-  height: 157px;
-  padding: 24px 0;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "830px")};
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "157px")};
+  padding: ${({ $isMobile }) => ($isMobile ? "8px 24px" : "24px 0")};
   background-color: ${designSystem.color.neutral.white04};
   border-radius: 8px;
   border: 1px solid ${designSystem.color.neutral.gray700};
 
-  & > * {
-    border-right: 1px solid ${designSystem.color.neutral.gray700};
+  & > div {
+    ${({ $isMobile }) =>
+      $isMobile
+        ? `border-bottom: 1px solid ${designSystem.color.neutral.gray700}`
+        : `border-right: 1px solid ${designSystem.color.neutral.gray700}`}
   }
 
-  & > *:last-child {
+  & > div:last-child {
     border-right: none;
+    border-bottom: none;
   }
 `;
 
-const TotalSubContentWrapper = styled.div`
+const TotalSubContentWrapper = styled.div<{ $isMobile: boolean }>`
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 8px;
-  padding: 0 24px;
+  padding: ${({ $isMobile }) => ($isMobile ? "16px 0 " : "0 24px")};
 `;
 
-const Title = styled.div`
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
+const Title = styled.div<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile ? designSystem.font.title5.font : designSystem.font.title4.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title5.letterSpacing
+      : designSystem.font.title4.letterSpacing};
   color: ${designSystem.color.neutral.gray400};
 `;
 
@@ -176,13 +232,28 @@ const ValueWrapper = styled.div`
   align-items: center;
 `;
 
-const Won = styled.div`
-  font: ${designSystem.font.title2.font};
-  letter-spacing: ${designSystem.font.title2.letterSpacing};
+const SubContent = styled.div<{ $isMobile: boolean }>`
+  height: 100%;
+  display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "row" : "column")};
+  justify-content: space-between;
+`;
+
+const Won = styled.div<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile ? designSystem.font.title3.font : designSystem.font.title2.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title3.letterSpacing
+      : designSystem.font.title2.letterSpacing};
   color: ${designSystem.color.neutral.gray600};
 `;
 
-const Value = styled.div`
-  font: ${designSystem.font.title1.font};
-  letter-spacing: ${designSystem.font.title1.letterSpacing};
+const Value = styled.div<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile ? designSystem.font.title2.font : designSystem.font.title1.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title2.letterSpacing
+      : designSystem.font.title1.letterSpacing};
 `;

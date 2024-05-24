@@ -283,9 +283,9 @@ const portfolios = [
 
 export const portfolioHoldings = [
   {
+    id: 1,
     companyName: "삼성전자보통주",
     tickerSymbol: "005930",
-    portfolioHoldingId: 1,
     currentValuation: 600000,
     currentPrice: 60000,
     averageCostPerShare: 50000.0,
@@ -322,9 +322,9 @@ export const portfolioHoldings = [
     ],
   },
   {
+    id: 2,
     companyName: "NAVER",
     tickerSymbol: "035420",
-    portfolioHoldingId: 2,
     currentValuation: 1475200,
     currentPrice: 184400,
     averageCostPerShare: 150000.0,

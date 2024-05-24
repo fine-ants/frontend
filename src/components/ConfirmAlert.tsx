@@ -54,7 +54,6 @@ export default function ConfirmAlert({
 }
 
 const ConfirmAlertStyle = {
-  width: "544px",
   height: "280px",
 };
 

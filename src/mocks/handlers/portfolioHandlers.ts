@@ -4,7 +4,7 @@ import {
   PortfolioHolding,
   PortfolioReqBody,
   PurchaseHistory,
-  PurchaseHistoryField,
+  PurchaseHistoryInput,
 } from "@features/portfolio/api/types";
 import { calculateRate } from "@features/portfolio/utils/calculations";
 import {
@@ -153,11 +153,11 @@ export default [
     { portfolioId: string },
     {
       tickerSymbol: string;
-      purchaseHistory?: PurchaseHistory;
+      purchaseHistory?: PurchaseHistoryInput;
     }
   >("/api/portfolio/:portfolioId/holdings", async ({ request }) => {
     const { tickerSymbol, purchaseHistory } = await request.json();
-    const purchaseHistoryArray: PurchaseHistoryField[] = purchaseHistory
+    const purchaseHistoryArray: PurchaseHistory[] = purchaseHistory
       ? [
           {
             purchaseHistoryId: portfolioHoldings.length,
@@ -169,9 +169,9 @@ export default [
 
     const newPortfolioHoldingId = portfolioHoldings.length + 1;
     const data: PortfolioHolding = {
+      id: newPortfolioHoldingId,
       companyName: "새로추가한주식",
       tickerSymbol: tickerSymbol,
-      portfolioHoldingId: newPortfolioHoldingId,
       currentValuation: 600000,
       currentPrice: 60000,
       averageCostPerShare: 50000.0,
@@ -183,10 +183,9 @@ export default [
       annualDividend: 6000,
       annualDividendYield: 10,
       purchaseHistory: purchaseHistoryArray,
-      dateCreated: "2021-01-01",
+      dateAdded: new Date().toISOString(),
     };
 
-    // TODO purchaseHistory type 확인 필요
     portfolioHoldings.push(data);
 
     return HttpResponse.json(
@@ -210,7 +209,7 @@ export default [
 
       // Mutate portfolio holding data
       const targetPortfolioHoldingIndex = portfolioHoldings.findIndex(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       portfolioHoldings.splice(targetPortfolioHoldingIndex, 1);
 
@@ -226,7 +225,7 @@ export default [
     {
       portfolioId: number;
       portfolioHoldingId: number;
-      body: PurchaseHistory;
+      body: PurchaseHistoryInput;
     }
   >(
     "/api/portfolio/:portfolioId/holdings/:portfolioHoldingId/purchaseHistory",
@@ -235,7 +234,7 @@ export default [
       const data = await request.json();
 
       const targetPortfolioHolding = portfolioHoldings.find(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       targetPortfolioHolding?.purchaseHistory.push({
         purchaseHistoryId: Math.random(),
@@ -272,7 +271,7 @@ export default [
 
       // Find Target Portfolio Holding Purchase History
       const targetPortfolioHolding = portfolioHoldings.find(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       const targetPurchaseHistory =
         targetPortfolioHolding?.purchaseHistory.find(
@@ -300,7 +299,7 @@ export default [
 
       // Mutate Portfolio Holding Purchase History Data
       const targetPortfolioHolding = portfolioHoldings.find(
-        (holding) => holding.portfolioHoldingId === Number(portfolioHoldingId)
+        (holding) => holding.id === Number(portfolioHoldingId)
       );
       const targetPurchaseHistoryIndex =
         targetPortfolioHolding?.purchaseHistory.findIndex(

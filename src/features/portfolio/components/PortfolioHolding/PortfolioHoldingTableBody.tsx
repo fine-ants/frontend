@@ -19,9 +19,7 @@ export default function PortfolioHoldingTableBody({
   isAllRowsOpen,
 }: Props) {
   const handleClick = (_: MouseEvent<unknown>, id: number) => {
-    const selectedItem = selected.find(
-      (item) => item.portfolioHoldingId === id
-    );
+    const selectedItem = selected.find((item) => item.id === id);
     const selectedItemIndex = selectedItem
       ? selected.indexOf(selectedItem)
       : -1;
@@ -30,9 +28,7 @@ export default function PortfolioHoldingTableBody({
 
     if (selectedItemIndex === -1) {
       // 선택이 되어있지 않은 경우, 해당 아이템을 선택 및 추가
-      const targetItem = visibleRows.find(
-        (item) => item.portfolioHoldingId === id
-      );
+      const targetItem = visibleRows.find((item) => item.id === id);
       newSelected = newSelected.concat(selected, targetItem ?? []);
     } else if (selectedItemIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
@@ -47,18 +43,17 @@ export default function PortfolioHoldingTableBody({
     updateSelected(newSelected);
   };
 
-  const isSelected = (id: number) =>
-    !!selected.find((item) => item.portfolioHoldingId === id);
+  const isSelected = (id: number) => !!selected.find((item) => item.id === id);
 
   return (
     <TableBody>
       {visibleRows.map((row, index) => {
-        const isItemSelected = isSelected(row.portfolioHoldingId);
+        const isItemSelected = isSelected(row.id);
         const labelId = `enhanced-table-checkbox-${index}`;
 
         return (
           <PortfolioHoldingRow
-            key={row.portfolioHoldingId}
+            key={row.id}
             labelId={labelId}
             row={row}
             isItemSelected={isItemSelected}

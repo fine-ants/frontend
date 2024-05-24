@@ -1,4 +1,10 @@
 import SubPageTabs from "@components/SubPageTabs";
+import {
+  MAIN_FOOTER_HEIGHT_D,
+  MAIN_HEADER_TOTAL_HEIGHT_D,
+  MAIN_HEADER_TOTAL_HEIGHT_M,
+} from "@constants/styleConstants";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import BasePage from "@pages/BasePage";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
@@ -12,11 +18,13 @@ function isValidTab(tab: string | undefined) {
 }
 
 const subPageTabItems = [
-  { title: "프로필 설정", to: "/settings/profile" },
-  { title: "계정 설정", to: "/settings/account" },
+  { title: "프로필 설정", to: Routes.PROFILE("profile") },
+  { title: "계정 설정", to: Routes.PROFILE("account") },
 ];
 
 export default function ProfilePage() {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const { tab } = useParams();
 
   if (!isValidTab(tab)) {
@@ -25,8 +33,8 @@ export default function ProfilePage() {
 
   return (
     <BasePage>
-      <Container>
-        <Title>설정</Title>
+      <Container $isDesktop={isDesktop} $isMobile={isMobile}>
+        <Title $isMobile={isMobile}>설정</Title>
 
         <SubPageTabs tabItems={subPageTabItems} />
 
@@ -39,21 +47,35 @@ export default function ProfilePage() {
   );
 }
 
-const Container = styled.div`
-  width: 544px;
-  height: 796px;
-  margin-top: 49px;
-  padding: 32px;
+const Container = styled.div<{ $isDesktop: boolean; $isMobile: boolean }>`
+  width: 100%;
+  max-width: 544px;
+  height: calc(
+    100vh -
+      ${({ $isMobile }) =>
+        $isMobile
+          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px`
+          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT_D}px
+  );
+  margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
+  padding: ${({ $isMobile }) => ($isMobile ? "0" : "32px")};
   display: flex;
   flex-direction: column;
   background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
 `;
 
-const Title = styled.div`
-  margin-bottom: 24px;
-  font: ${designSystem.font.heading2.font};
-  letter-spacing: ${designSystem.font.heading2.letterSpacing};
+const Title = styled.div<{ $isMobile: boolean }>`
+  margin: ${({ $isMobile }) =>
+    $isMobile ? "32px 16px 16px 16px" : "0 0 24px 0"};
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading3.font
+      : designSystem.font.heading2.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading3.letterSpacing
+      : designSystem.font.heading2.letterSpacing};
   color: ${designSystem.color.neutral.gray900};
 `;
 
