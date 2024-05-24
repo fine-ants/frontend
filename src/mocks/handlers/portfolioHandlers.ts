@@ -169,6 +169,7 @@ export default [
 
     const newPortfolioHoldingId = portfolioHoldings.length + 1;
     const data: PortfolioHolding = {
+      id: portfolioDetails.length + 1,
       companyName: "새로추가한주식",
       tickerSymbol: tickerSymbol,
       portfolioHoldingId: newPortfolioHoldingId,

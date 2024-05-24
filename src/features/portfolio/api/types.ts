@@ -75,6 +75,7 @@ export type PortfolioDetails = {
 };
 
 export type PortfolioHolding = {
+  id: number;
   companyName: string;
   tickerSymbol: string;
   portfolioHoldingId: number;

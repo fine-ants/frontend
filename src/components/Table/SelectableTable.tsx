@@ -44,7 +44,7 @@ type Props<Item> = {
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export default function SelectableTable<Item>({
+export default function SelectableTable<Item extends { id: string | number }>({
   tableTitle,
   initialOrderBy,
   rowsPerPageOptions = defaultRowsPerPageOptions,
@@ -117,10 +117,10 @@ export default function SelectableTable<Item>({
     setPage(0);
   };
 
-  const selectedSet = new Set(selected);
+  const selectedSet = new Set(selected.map((item) => item.id));
   const isAllRowsSelectedInCurrentPage =
     selected.length > 0 &&
-    visibleRows.every((visibleRow) => selectedSet.has(visibleRow));
+    visibleRows.every((visibleRow) => selectedSet.has(visibleRow.id));
 
   return (
     <MuiBox sx={{ width: "100%" }}>
