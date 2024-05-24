@@ -1,7 +1,7 @@
-import { CardTable } from "@components/Card/CardTable";
+import { PlainCardTable } from "@components/CardTable/PlainCardTable/PlainCardTable";
 import { PortfolioNotification } from "@features/notification/api/types";
 import EmptyNotificationList from "../../EmptyNotificationList";
-import { PortfolioNotificationCardList } from "./PortfolioNotificationCardList";
+import { PortfolioNotificationCardBody } from "./PortfolioNotificationCardBody";
 
 type Props = {
   data: PortfolioNotification[];
@@ -9,9 +9,9 @@ type Props = {
 
 export function PortfolioNotificationListCardTable({ data }: Props) {
   return (
-    <CardTable
+    <PlainCardTable
       data={data}
-      CardList={PortfolioNotificationCardList}
+      CardBody={PortfolioNotificationCardBody}
       EmptyComponent={EmptyNotificationList}
     />
   );

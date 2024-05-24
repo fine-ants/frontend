@@ -52,7 +52,7 @@ export default function PortfolioOverview({ data }: Props) {
           <TitleWrapper>
             <FirmImage
               src={securitiesFirmLogos[data.securitiesFirm]}
-              alt={`${data.securitiesFirm} 이미지`}
+              alt={`${data.securitiesFirm} 로고`}
             />
             <Title>{data.name}</Title>
             <LabelBadge title={data.securitiesFirm} />

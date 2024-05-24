@@ -6,15 +6,15 @@ import styled from "styled-components";
 
 type Props<Item> = {
   data: Item[];
-  CardList: (props: { visibleRows: Item[] }) => JSX.Element;
+  CardBody: (props: { visibleRows: Item[] }) => JSX.Element;
   EmptyComponent?: () => JSX.Element;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export function CardTable<Item>({
+export function PlainCardTable<Item>({
   data,
-  CardList,
+  CardBody,
   EmptyComponent = () => <></>,
 }: Props<Item>) {
   const count = data.length;
@@ -63,7 +63,7 @@ export function CardTable<Item>({
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </ControlWrapper>
-          <CardList visibleRows={visibleRows} />
+          <CardBody visibleRows={visibleRows} />
           <Pagination
             count={Math.ceil(count / rowsPerPage)}
             page={page + 1}
