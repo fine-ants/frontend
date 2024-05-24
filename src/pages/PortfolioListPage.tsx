@@ -67,8 +67,7 @@ const Header = styled.header<{ $isMobile: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: ${({ $isMobile }) =>
-    $isMobile ? "32px 16px 16px 16px" : "0 0 24px 0"};
+  margin: ${({ $isMobile }) => ($isMobile ? "32px 16px 16px" : "0 0 24px")};
 
   h1 {
     font: ${({ $isMobile }) =>
