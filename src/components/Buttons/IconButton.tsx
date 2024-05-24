@@ -44,8 +44,8 @@ export function IconButton(props: Props) {
     type = "button",
     disabled = false,
     iconColor = "primary",
-    bgColor,
     hoverIconColor,
+    bgColor,
     borderRadius = "default",
     onClick,
   } = props;
@@ -137,10 +137,10 @@ const StyledButton = styled.button<{
   color: ${({ $colorObject }) => getColor($colorObject.color)};
   ${({ $disabled }) => $disabled && "opacity: 0.5;"}
   background-color : ${({ $bgColor }) =>
-    $bgColor ? getColor($bgColor) : "none"};
+    $bgColor ? getColor($bgColor) : "transparent"};
 
   &:hover {
     background-color: ${({ $colorObject, $disabled }) =>
-      $disabled ? "none" : getColor($colorObject.hoverColor)};
+      $disabled ? "transparent" : getColor($colorObject.hoverColor)};
   }
 `;
