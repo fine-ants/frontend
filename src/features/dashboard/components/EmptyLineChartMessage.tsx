@@ -1,4 +1,4 @@
-// import graphImage from "@assets/images/graph_image.svg";
+import graphImage from "@assets/images/graph_image.svg";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
@@ -8,7 +8,7 @@ export function EmptyLineChartMessage() {
 
   return (
     <StyledEmptyLineChartMessage $isMobile={isMobile}>
-      {/* <img src={graphImage} alt="그래프 이미지" /> */}
+      <img src={graphImage} alt="그래프 이미지" />
       <MessageBox>
         <h1>아직 자산이 없습니다</h1>
         <span>내가 보유한 자산 추이가 여기에 표시됩니다</span>
