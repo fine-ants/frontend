@@ -78,7 +78,6 @@ export type PortfolioHolding = {
   id: number;
   companyName: string;
   tickerSymbol: string;
-  portfolioHoldingId: number;
   currentValuation: number;
   currentPrice: number;
   averageCostPerShare: number;

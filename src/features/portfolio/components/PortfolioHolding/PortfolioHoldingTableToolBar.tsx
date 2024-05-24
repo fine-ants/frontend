@@ -36,7 +36,7 @@ export default function PortfolioHoldingTableToolBar({
   } = useBoolean();
 
   const onConfirmAction = async () => {
-    const selectedHoldingIds = selected.map((item) => item.portfolioHoldingId);
+    const selectedHoldingIds = selected.map((item) => item.id);
     await portfolioHoldingDeleteMutateAsync({
       portfolioId: Number(portfolioId),
       body: { portfolioHoldingIds: selectedHoldingIds },
