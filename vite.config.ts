@@ -1,17 +1,57 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { excludeMsw, fcmSwEnvPlugin } from "./config/vitePlugins";
 
 export default defineConfig(({ command }) => {
+  const vitePwaBaseConfig: Partial<VitePWAOptions> = {
+    registerType: "autoUpdate",
+    manifest: {
+      name: "FineAnts",
+      short_name: "FineAnts",
+      description: "Your portfolio management platform",
+      icons: [
+        {
+          src: "/src/assets/icons/logo/fineAnts-192.svg",
+          sizes: "192x192",
+          type: "image/svg+xml",
+        },
+        {
+          src: "/src/assets/icons/logo/fineAnts-512.png",
+          sizes: "512x512",
+          type: "image/svg+xml",
+        },
+      ],
+      display: "standalone",
+      scope: "/",
+      start_url: "/",
+    },
+  };
+
   if (command === "serve") {
     return {
-      plugins: [react(), tsconfigPaths(), fcmSwEnvPlugin()],
+      plugins: [
+        react(),
+        tsconfigPaths(),
+        fcmSwEnvPlugin(),
+        VitePWA({
+          ...vitePwaBaseConfig,
+          devOptions: {
+            enabled: true,
+          },
+        }),
+      ],
     };
   } else {
     // command === 'build'
     return {
-      plugins: [react(), tsconfigPaths(), excludeMsw()],
+      plugins: [
+        react(),
+        tsconfigPaths(),
+        excludeMsw(),
+        VitePWA(vitePwaBaseConfig),
+      ],
       build: {
         target: "es2022",
         rollupOptions: {
@@ -22,7 +62,7 @@ export default defineConfig(({ command }) => {
           output: {
             entryFileNames: (chunkInfo) => {
               return chunkInfo.name === "firebase-messaging-sw"
-                ? "[name].js" // put service worker in root
+                ? "[name].js" // put fcm service worker in root
                 : "assets/[name]-[hash].js"; // others in `assets/`
             },
           },
