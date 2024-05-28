@@ -6,19 +6,21 @@ import { excludeMsw, fcmSwEnvPlugin } from "./config/vitePlugins";
 
 export default defineConfig(({ command }) => {
   const vitePwaBaseConfig: Partial<VitePWAOptions> = {
+    filename: "pwa-sw.js",
     registerType: "autoUpdate",
+    manifestFilename: "manifest.json",
     manifest: {
       name: "FineAnts",
       short_name: "FineAnts",
       description: "Your portfolio management platform",
       icons: [
         {
-          src: "/src/assets/icons/logo/fineAnts-192.svg",
+          src: "/fineAnts-192.svg",
           sizes: "192x192",
           type: "image/svg+xml",
         },
         {
-          src: "/src/assets/icons/logo/fineAnts-512.png",
+          src: "/fineAnts-512.svg",
           sizes: "512x512",
           type: "image/svg+xml",
         },
