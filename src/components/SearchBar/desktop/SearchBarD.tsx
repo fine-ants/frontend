@@ -7,6 +7,7 @@ import { Autocomplete, SxProps, TextField } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { SyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RenderOptionDefault from "../RenderOptionDefault";
 import RenderOptionSelect from "../RenderOptionSelect";
 import RenderOptionSelectMultiple from "../RenderOptionSelectMultiple";
@@ -46,6 +47,8 @@ export default function SearchBarD({
     );
   }
 
+  const navigate = useNavigate();
+
   const { state: isOpen, setTrue: onOpen, setFalse: onClose } = useBoolean();
 
   const [value, setValue] = useState<StockSearchItem | null>(null);
@@ -80,6 +83,8 @@ export default function SearchBarD({
       case "select-multiple":
         onSelectRenderOptionSelectMultiple(value);
         break;
+      default:
+        navigate(Routes.STOCK(value.tickerSymbol));
     }
   };
 
@@ -195,7 +200,6 @@ export default function SearchBarD({
                   props,
                   searchValue: debouncedSearchInputValue,
                   option,
-                  path: Routes.STOCK(option.tickerSymbol),
                 }}
               />
             );
