@@ -13,12 +13,12 @@ export default defineConfig(({ command }) => {
       description: "Your portfolio management platform",
       icons: [
         {
-          src: "/src/assets/icons/logo/fineAnts-192.svg",
+          src: "/fineAnts-192.svg",
           sizes: "192x192",
           type: "image/svg+xml",
         },
         {
-          src: "/src/assets/icons/logo/fineAnts-512.png",
+          src: "/fineAnts-512.png",
           sizes: "512x512",
           type: "image/svg+xml",
         },
@@ -26,7 +26,6 @@ export default defineConfig(({ command }) => {
       display: "standalone",
       scope: "/",
       start_url: "/",
-      theme_color: "#212229",
     },
   };
 
