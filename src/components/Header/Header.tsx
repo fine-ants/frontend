@@ -16,10 +16,9 @@ export default function Header() {
       {isDesktop && <HeaderTopD />}
       {isMobile && <HeaderTopM />}
 
-      {isDesktop ||
-        (isMobile && isPageDepthOne(location.pathname) && (
-          <TVTickerTapeWidget />
-        ))}
+      {(isDesktop || (isMobile && isPageDepthOne(location.pathname))) && (
+        <TVTickerTapeWidget />
+      )}
     </StyledHeader>
   );
 }
