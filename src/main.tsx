@@ -1,4 +1,5 @@
 import { createToast } from "@components/Toast/createToast.tsx";
+import { notificationKeys } from "@features/notification/api/queries/queryKeys.ts";
 import { UserProvider } from "@features/user/context/UserContext.tsx";
 import { StyledEngineProvider } from "@mui/styled-engine";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -15,7 +16,10 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-if (import.meta.env.DEV) {
+if (
+  import.meta.env.DEV &&
+  window.location.origin === import.meta.env.VITE_API_URL_DEV
+) {
   const { default: mockServiceWorker } = await import(
     "@mocks/mockSetupWorker.ts"
   );
@@ -52,6 +56,15 @@ const queryClient = new QueryClient({
       }
     },
   }),
+});
+
+// Member Notifications Update (Badge Count)
+window.addEventListener("notification", async () => {
+  setTimeout(() => {
+    queryClient.invalidateQueries({
+      queryKey: notificationKeys.memberNotifications.queryKey,
+    });
+  }, 1000);
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

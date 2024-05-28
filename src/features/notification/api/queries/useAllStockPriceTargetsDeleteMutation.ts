@@ -14,6 +14,7 @@ export default function useAllStockPriceTargetsDeleteMutation() {
     },
     meta: {
       toastSuccessMessage: "종목 지정가 알림을 삭제했습니다",
+      toastErrorMessage: "종목 지정가 알림 삭제를 실패했습니다",
     },
   });
 }

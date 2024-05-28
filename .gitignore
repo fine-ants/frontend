@@ -27,3 +27,5 @@ dist-ssr
 
 # FCM (this file is only used for dev mode purposes)
 public/firebase-messaging-sw.js
+# Vite PWA
+dev-dist
