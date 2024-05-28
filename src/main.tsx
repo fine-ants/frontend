@@ -60,9 +60,11 @@ const queryClient = new QueryClient({
 
 // Member Notifications Update (Badge Count)
 window.addEventListener("notification", async () => {
-  queryClient.invalidateQueries({
-    queryKey: notificationKeys.memberNotifications.queryKey,
-  });
+  setTimeout(() => {
+    queryClient.invalidateQueries({
+      queryKey: notificationKeys.memberNotifications.queryKey,
+    });
+  }, 1000);
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
