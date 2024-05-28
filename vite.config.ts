@@ -26,6 +26,7 @@ export default defineConfig(({ command }) => {
       display: "standalone",
       scope: "/",
       start_url: "/",
+      theme_color: "#212229",
     },
   };
 
