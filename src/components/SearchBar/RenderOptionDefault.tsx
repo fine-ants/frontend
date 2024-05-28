@@ -4,45 +4,40 @@ import { StockSearchItem } from "@features/stock/api";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { HTMLAttributes } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type RenderOptionDefaultProps = {
   props: HTMLAttributes<HTMLLIElement>;
   searchValue: string;
   option: StockSearchItem;
-  path: string;
 };
 
 export default function RenderOptionDefault({
   props,
   searchValue,
   option,
-  path,
 }: RenderOptionDefaultProps) {
   const { isMobile } = useResponsiveLayout();
 
   return (
-    <Link to={path}>
-      <li {...props} style={renderOptionDefaultStyles(isMobile)}>
-        <div>
-          <CompanyName $isMobile={isMobile}>
-            {splitAndIncludeDelimiter(option.companyName, searchValue).map(
-              (word, idx) =>
-                word === searchValue ? (
-                  <Highlight key={idx}>{word}</Highlight>
-                ) : (
-                  word
-                )
-            )}
-          </CompanyName>
-          <TickerSymbol>{option.tickerSymbol}</TickerSymbol>
-        </div>
+    <li {...props} style={renderOptionDefaultStyles(isMobile)}>
+      <div>
+        <CompanyName $isMobile={isMobile}>
+          {splitAndIncludeDelimiter(option.companyName, searchValue).map(
+            (word, idx) =>
+              word === searchValue ? (
+                <Highlight key={idx}>{word}</Highlight>
+              ) : (
+                word
+              )
+          )}
+        </CompanyName>
+        <TickerSymbol>{option.tickerSymbol}</TickerSymbol>
+      </div>
 
-        {/* TODO: Add watchlist logic */}
-        <Icon icon="favorite" size={isMobile ? 24 : 16} color="gray400" />
-      </li>
-    </Link>
+      {/* TODO: Add watchlist logic */}
+      <Icon icon="favorite" size={isMobile ? 24 : 16} color="gray400" />
+    </li>
   );
 }
 
