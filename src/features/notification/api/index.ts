@@ -140,6 +140,7 @@ export const postStockPriceTarget = async (body: {
 };
 
 export const deleteAllStockPriceTargets = async (body: {
+  tickerSymbol: string;
   targetPriceNotificationIds: number[];
 }) => {
   const res = await fetcher.delete<Response<null>>(

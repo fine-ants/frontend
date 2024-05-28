@@ -81,7 +81,6 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
           />
         </SearchBarWrapper>
 
-        {/* TODO: render selectedStocks */}
         {selectedStocks.length > 0 && (
           <SelectedStocksList>
             {selectedStocks.map((stock) => (

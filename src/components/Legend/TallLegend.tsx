@@ -43,7 +43,7 @@ export default function TallLegend({ legendList, etcOptions, style }: Props) {
           ))}
         </ItemsList>
 
-        {etcOptions && etcList && etcPercent && (
+        {etcOptions && etcList && !!etcPercent && etcPercent > 0 && (
           <>
             <StyledDivider />
 
