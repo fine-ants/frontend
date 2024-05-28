@@ -47,6 +47,10 @@ const messagePayloadListener = async ({ notification }: MessagePayload) => {
 
   const { title, body } = notification as { title: string; body: string };
 
+  // Custom Event for Member Notifications Update (Badge Count)
+  const notificationEvent = new CustomEvent("notification");
+  window.dispatchEvent(notificationEvent);
+
   return new Notification(title, { body });
 };
 
