@@ -42,7 +42,7 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
     const targetPriceNotificationIds = targetPrices.map(
       (item) => item.notificationId
     );
-    removeAllMutate({ targetPriceNotificationIds });
+    removeAllMutate({ tickerSymbol, targetPriceNotificationIds });
   };
 
   const onNotificationButtonClick = debounce(() => {

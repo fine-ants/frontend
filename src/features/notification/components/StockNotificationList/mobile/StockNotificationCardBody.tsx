@@ -48,7 +48,7 @@ function StockNotificationCard({ item }: { item: StockNotification }) {
     const targetPriceNotificationIds = targetPrices.map(
       (item) => item.notificationId
     );
-    removeAllMutate({ targetPriceNotificationIds });
+    removeAllMutate({ tickerSymbol, targetPriceNotificationIds });
   };
 
   return (
