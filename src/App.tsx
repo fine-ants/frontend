@@ -1,3 +1,4 @@
+import PullToRefresh from "@components/PullToRefresh";
 import { CustomToastContainer } from "@components/Toast/CustomToastContainer";
 import { setupFCMToken } from "@features/notification/fcm";
 import { UserContext } from "@features/user/context/UserContext";
@@ -28,9 +29,11 @@ export default function App() {
     <ThemeProvider theme={designSystem}>
       <GlobalStyles />
       <CustomToastContainer />
-      <StyledApp>
-        <RouterProvider router={router(user)} />
-      </StyledApp>
+      <PullToRefresh>
+        <StyledApp>
+          <RouterProvider router={router(user)} />
+        </StyledApp>
+      </PullToRefresh>
     </ThemeProvider>
   );
 }
