@@ -18,11 +18,13 @@ export default function LandingPage() {
       <Header />
       <BasePage>
         <LandingTopBG>
-          <LandingTopText>
-            <h1>주식 자산 관리를 더 쉽고 간편하게</h1>
-            <h2>실시간 자산 현황을 확인하고 똑똑한 투자 관리를 시작하세요</h2>
-          </LandingTopText>
-          <LandingTopChart src={landingTopChart} alt="landingTopChart" />
+          <LandingTopBGContent>
+            <LandingTopText>
+              <h1>주식 자산 관리를 더 쉽고 간편하게</h1>
+              <h2>실시간 자산 현황을 확인하고 똑똑한 투자 관리를 시작하세요</h2>
+            </LandingTopText>
+            <LandingTopChart src={landingTopChart} alt="landingTopChart" />
+          </LandingTopBGContent>
         </LandingTopBG>
         <LandingBottom>
           <FeatureContainer>
@@ -83,23 +85,24 @@ const LandingTopBG = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
-  max-width: 1920px;
-  max-height: 956px;
   background-image: url(${landingTopBG});
   background-size: cover;
   background-position: center;
+`;
 
-  @media (min-width: 1920px) {
-    background-size: contain;
-  }
+const LandingTopBGContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 237px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const LandingTopText = styled.div`
   width: auto;
   height: 224px;
-  position: absolute;
-  top: 351px;
-  left: 240px;
 
   > h1 {
     width: 433px;
@@ -119,9 +122,6 @@ const LandingTopText = styled.div`
 const LandingTopChart = styled.img`
   width: 741px;
   height: 681px;
-  position: absolute;
-  top: 138px;
-  right: 208px;
   pointer-events: none;
 `;
 
