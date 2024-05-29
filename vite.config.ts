@@ -15,19 +15,20 @@ export default defineConfig(({ command }) => {
       description: "Your portfolio management platform",
       icons: [
         {
-          src: "/fineAnts-192.svg",
+          src: "/icons/Icon_192x192.png",
           sizes: "192x192",
-          type: "image/svg+xml",
+          type: "image/png",
         },
         {
-          src: "/fineAnts-512.svg",
+          src: "/icons/Icon_512x512.png",
           sizes: "512x512",
-          type: "image/svg+xml",
+          type: "image/png",
         },
       ],
       display: "standalone",
       scope: "/",
       start_url: "/",
+      theme_color: "#21222a",
     },
   };
 
