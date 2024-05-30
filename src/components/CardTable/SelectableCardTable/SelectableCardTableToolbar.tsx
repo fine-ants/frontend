@@ -11,12 +11,14 @@ type Props = {
   numSelected: number;
   isAllRowsSelectedInCurrentPage: boolean;
   onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+  openDrawer: () => void;
 };
 
 export function SelectableCardTableToolbar({
   numSelected,
   isAllRowsSelectedInCurrentPage,
   onSelectAllClick,
+  openDrawer,
 }: Props) {
   return (
     <Toolbar>
@@ -47,7 +49,7 @@ export function SelectableCardTableToolbar({
           </>
         )}
       </Controller>
-      <TextButton size="h24" color="primary">
+      <TextButton size="h24" color="primary" onClick={openDrawer}>
         <Icon icon="ascending" size={16} color="blue500" />
         정렬
       </TextButton>
