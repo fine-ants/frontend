@@ -13,15 +13,13 @@ export function NotificationSettingsHeader({ onClose }: Props) {
   return (
     <StyledHeader $isMobile={isMobile}>
       {isMobile && (
-        <ButtonWrapper>
-          <IconButton
-            icon="close"
-            size="h40"
-            iconColor="custom"
-            customColor={{ color: "gray800", hoverColor: "gray50" }}
-            onClick={onClose}
-          />
-        </ButtonWrapper>
+        <IconButton
+          icon="close"
+          size="h40"
+          iconColor="custom"
+          customColor={{ color: "gray800", hoverColor: "gray50" }}
+          onClick={onClose}
+        />
       )}
       <Title $isMobile={isMobile}>알림 설정</Title>
       {isDesktop && (
@@ -43,6 +41,7 @@ const StyledHeader = styled.header<{ $isMobile: boolean }>`
   align-items: center;
   justify-content: ${({ $isMobile }) =>
     $isMobile ? "normal" : "space-between"};
+  position: ${({ $isMobile }) => ($isMobile ? "relative" : "static")};
 `;
 
 const Title = styled.div<{ $isMobile: boolean }>`
@@ -51,6 +50,11 @@ const Title = styled.div<{ $isMobile: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: ${({ $isMobile }) => ($isMobile ? "absolute" : "static")};
+  top: ${({ $isMobile }) => ($isMobile ? "50%" : "auto")};
+  left: ${({ $isMobile }) => ($isMobile ? "50%" : "auto")};
+  transform: ${({ $isMobile }) =>
+    $isMobile ? "translate(-50%, -50%)" : "none"};
   color: ${designSystem.color.neutral.gray900};
   font: ${({ $isMobile }) =>
     $isMobile
@@ -60,10 +64,4 @@ const Title = styled.div<{ $isMobile: boolean }>`
     $isMobile
       ? designSystem.font.title3.letterSpacing
       : designSystem.font.heading3.letterSpacing};
-`;
-
-const ButtonWrapper = styled.div`
-  width: 33%;
-  display: flex;
-  align-items: center;
 `;

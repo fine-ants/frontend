@@ -43,7 +43,10 @@ const theme = createTheme({
     MuiDrawer: {
       styleOverrides: {
         root: {
+          // TODO: z-index system
+          "zIndex": 1400,
           ".MuiPaper-root": {
+            maxHeight: "748px",
             borderRadius: "16px 16px 0 0",
             padding: "16px 16px 0 16px",
           },

@@ -1,4 +1,4 @@
-import SlideTransition from "@components/SlideTransition";
+import SlideUpTransition from "@components/SlideUpTransition";
 import { User } from "@features/user/api/types";
 import { Dialog } from "@mui/material";
 import NotificationSettingsContent from "../NotificationSettingsContent";
@@ -15,7 +15,7 @@ export function NotificationSettingsDialogM({ user, isOpen, onClose }: Props) {
       fullScreen
       open={isOpen}
       onClose={onClose}
-      TransitionComponent={SlideTransition()}>
+      TransitionComponent={SlideUpTransition}>
       <NotificationSettingsContent user={user} onClose={onClose} />
     </Dialog>
   );
