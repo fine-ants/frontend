@@ -21,7 +21,7 @@ type Props = {
   onClose: () => void;
 };
 
-export function NotificationSettingsContent({ user, onClose }: Props) {
+export default function NotificationSettingsContent({ user, onClose }: Props) {
   const { isMobile } = useResponsiveLayout();
 
   const {
