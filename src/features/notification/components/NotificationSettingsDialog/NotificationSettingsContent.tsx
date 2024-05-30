@@ -214,6 +214,7 @@ const ToggleTitle = styled.div`
 
 const StyledContent = styled.div`
   width: 100%;
+  margin-top: 16px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
