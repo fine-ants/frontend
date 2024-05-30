@@ -5,16 +5,18 @@ import styled from "styled-components";
 
 type Props = {
   isDrawerOpen: boolean;
+  children: ReactNode;
   onOpenDrawer: () => void;
   onCloseDrawer: () => void;
-  children: ReactNode;
+  handleTransitionEnd?: () => void;
 };
 
 export default function BottomDrawer({
   isDrawerOpen,
+  children,
   onOpenDrawer,
   onCloseDrawer,
-  children,
+  handleTransitionEnd,
 }: Props) {
   return (
     <ThemeProvider theme={theme}>
@@ -22,7 +24,8 @@ export default function BottomDrawer({
         anchor="bottom"
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
-        onClose={onCloseDrawer}>
+        onClose={onCloseDrawer}
+        onTransitionEnd={handleTransitionEnd}>
         <Top>
           <IconButton
             icon="close"
