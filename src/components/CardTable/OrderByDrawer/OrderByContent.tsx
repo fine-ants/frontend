@@ -1,28 +1,25 @@
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import { OrderByListType } from "./types";
+import { OrderByItem } from "./types";
 
 type Props<Item> = {
   orderBy: keyof Item;
-  orderByList: OrderByListType<Item>;
-  handleOrderBy: (orderBy: keyof Item) => void;
+  orderByList: OrderByItem<Item>[];
+  onChangeOrderBy: (orderBy: keyof Item) => void;
 };
 
 export function OrderByContent<Item>({
   orderBy,
   orderByList,
-  handleOrderBy,
+  onChangeOrderBy,
 }: Props<Item>) {
-  const setOrderBy = (orderBy: keyof Item) => {
-    handleOrderBy(orderBy);
-  };
-
   return (
     <>
-      {orderByList.map((orderByObj, index) => (
-        <ContentItem key={index} $isSelected={orderBy === orderByObj.orderBy}>
-          <ContentItemButton onClick={() => setOrderBy(orderByObj.orderBy)}>
-            <ItemTitle>{orderByObj.title}</ItemTitle>
+      {orderByList.map((orderByItem, index) => (
+        <ContentItem key={index} $isSelected={orderBy === orderByItem.orderBy}>
+          <ContentItemButton
+            onClick={() => onChangeOrderBy(orderByItem.orderBy)}>
+            <ItemTitle>{orderByItem.title}</ItemTitle>
           </ContentItemButton>
         </ContentItem>
       ))}

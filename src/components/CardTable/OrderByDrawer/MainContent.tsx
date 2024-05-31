@@ -8,20 +8,20 @@ import { OrderByDrawerStep } from "./types";
 type Props = {
   currentOrderBy: string;
   order: Order;
-  handleStep: (step: OrderByDrawerStep) => void;
+  changeStep: (step: OrderByDrawerStep) => void;
   applyOrderOption: () => void;
 };
 
 export function MainContent({
   currentOrderBy,
   order,
-  handleStep,
+  changeStep,
   applyOrderOption,
 }: Props) {
   return (
     <>
       <ContentItem>
-        <ContentItemButton onClick={() => handleStep("orderBy")}>
+        <ContentItemButton onClick={() => changeStep("orderBy")}>
           <ItemTitle>정렬 기준</ItemTitle>
           <ItemState>
             {currentOrderBy}
@@ -30,7 +30,7 @@ export function MainContent({
         </ContentItemButton>
       </ContentItem>
       <ContentItem>
-        <ContentItemButton onClick={() => handleStep("order")}>
+        <ContentItemButton onClick={() => changeStep("order")}>
           <ItemTitle>순서</ItemTitle>
           <ItemState>
             <OrderWrapper>

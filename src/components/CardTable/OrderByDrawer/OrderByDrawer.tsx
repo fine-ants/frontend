@@ -5,12 +5,12 @@ import styled from "styled-components";
 import { MainContent } from "./MainContent";
 import { OrderByContent } from "./OrderByContent";
 import { OrderContent } from "./OrderContent";
-import { OrderByDrawerStep, OrderByListType } from "./types";
+import { OrderByDrawerStep, OrderByItem } from "./types";
 
 type Props<Item> = {
   order: Order;
   orderBy: keyof Item;
-  orderByList: OrderByListType<Item>;
+  orderByList: OrderByItem<Item>[];
   isDrawerOpen: boolean;
   openDrawer: () => void;
   closeDrawer: () => void;
@@ -30,12 +30,12 @@ export function OrderByDrawer<Item>({
   const [drawerOrderBy, setDrawerOrderBy] = useState<keyof Item>(orderBy);
   const [step, setStep] = useState<OrderByDrawerStep>("main");
 
-  const handleOrder = (order: Order) => {
+  const onChangeOrder = (order: Order) => {
     setDrawerOrder(order);
     setStep("main");
   };
 
-  const handleOrderBy = (orderBy: keyof Item) => {
+  const onChangeOrderBy = (orderBy: keyof Item) => {
     setDrawerOrderBy(orderBy);
     setStep("main");
   };
@@ -47,7 +47,7 @@ export function OrderByDrawer<Item>({
     setDrawerOrderBy(orderBy);
   };
 
-  const handleStep = (step: OrderByDrawerStep) => {
+  const changeStep = (step: OrderByDrawerStep) => {
     setStep(step);
   };
 
@@ -78,7 +78,7 @@ export function OrderByDrawer<Item>({
             <MainContent
               currentOrderBy={currentOrderBy}
               order={drawerOrder}
-              handleStep={handleStep}
+              changeStep={changeStep}
               applyOrderOption={handleApplyButton}
             />
           )}
@@ -86,11 +86,11 @@ export function OrderByDrawer<Item>({
             <OrderByContent
               orderBy={drawerOrderBy}
               orderByList={orderByList}
-              handleOrderBy={handleOrderBy}
+              onChangeOrderBy={onChangeOrderBy}
             />
           )}
           {step === "order" && (
-            <OrderContent order={drawerOrder} handleOrder={handleOrder} />
+            <OrderContent order={drawerOrder} onChangeOrder={onChangeOrder} />
           )}
         </Content>
       </OrderByDrawerWrapper>

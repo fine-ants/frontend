@@ -5,14 +5,14 @@ import styled from "styled-components";
 
 type Props = {
   order: Order;
-  handleOrder: (order: Order) => void;
+  onChangeOrder: (order: Order) => void;
 };
 
-export function OrderContent({ order, handleOrder }: Props) {
+export function OrderContent({ order, onChangeOrder }: Props) {
   return (
     <>
       <ContentItem $isSelected={order === "asc"}>
-        <ContentItemButton onClick={() => handleOrder("asc")}>
+        <ContentItemButton onClick={() => onChangeOrder("asc")}>
           <OrderWrapper>
             <Icon icon="sort_ascending" size={16} color="#373840" />
             <ItemTitle>오름차순</ItemTitle>
@@ -20,7 +20,7 @@ export function OrderContent({ order, handleOrder }: Props) {
         </ContentItemButton>
       </ContentItem>
       <ContentItem $isSelected={order === "desc"}>
-        <ContentItemButton onClick={() => handleOrder("desc")}>
+        <ContentItemButton onClick={() => onChangeOrder("desc")}>
           <OrderWrapper>
             <Icon icon="sort_descending" size={16} color="#373840" />
             <ItemTitle>내림차순</ItemTitle>

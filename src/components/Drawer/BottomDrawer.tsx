@@ -28,7 +28,7 @@ export default function BottomDrawer({
         onOpen={onOpenDrawer}
         onClose={onCloseDrawer}
         onTransitionEnd={handleTransitionEnd}>
-        <Top $hasBackButton={!!handleBackButton}>
+        <Header $hasBackButton={!!handleBackButton}>
           {handleBackButton && (
             <IconButton
               icon="chevron-left"
@@ -46,7 +46,7 @@ export default function BottomDrawer({
             iconColor="gray"
             onClick={onCloseDrawer}
           />
-        </Top>
+        </Header>
         {children}
       </SwipeableDrawer>
     </ThemeProvider>
@@ -70,7 +70,7 @@ const theme = createTheme({
   },
 });
 
-const Top = styled.div<{ $hasBackButton: boolean }>`
+const Header = styled.header<{ $hasBackButton: boolean }>`
   display: ${({ $hasBackButton }) => ($hasBackButton ? "flex" : "block")};
   justify-content: ${({ $hasBackButton }) =>
     $hasBackButton ? "space-between" : "normal"};

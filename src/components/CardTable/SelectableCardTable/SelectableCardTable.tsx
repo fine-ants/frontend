@@ -6,7 +6,7 @@ import { getComparator } from "@components/Table/utils/comparator";
 import { useBoolean } from "@fineants/demolition";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
-import { OrderByDrawer } from "../OrderByDrawer.tsx/OrderByDrawer";
+import { OrderByDrawer } from "../OrderByDrawer/OrderByDrawer";
 
 type Props<Item> = {
   data: Item[];
