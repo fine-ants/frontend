@@ -39,6 +39,7 @@ const ContentItem = styled.li<{ $isSelected: boolean }>`
   gap: 8px;
   background-color: ${({ $isSelected }) =>
     $isSelected ? designSystem.color.neutral.gray50 : "transfer"};
+  padding: 0 16px;
 
   &:active {
     background-color: ${designSystem.color.neutral.gray50};

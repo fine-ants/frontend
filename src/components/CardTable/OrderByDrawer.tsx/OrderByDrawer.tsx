@@ -62,14 +62,16 @@ export function OrderByDrawer<Item>({
   };
 
   const currentOrderBy =
-    orderByList.find((item) => item.orderBy === drawerOrderBy)?.title || "-";
+    orderByList.find((item) => item.orderBy === drawerOrderBy)?.title ||
+    "기본 정렬";
 
   return (
     <BottomDrawer
       isDrawerOpen={isDrawerOpen}
       onOpenDrawer={openDrawer}
       onCloseDrawer={closeDrawer}
-      handleTransitionEnd={onHandleTransitionEnd}>
+      handleTransitionEnd={onHandleTransitionEnd}
+      handleBackButton={step !== "main" ? () => setStep("main") : undefined}>
       <OrderByDrawerWrapper>
         <Content>
           {step === "main" && (

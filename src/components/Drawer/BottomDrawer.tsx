@@ -9,6 +9,7 @@ type Props = {
   onOpenDrawer: () => void;
   onCloseDrawer: () => void;
   handleTransitionEnd?: () => void;
+  handleBackButton?: () => void;
 };
 
 export default function BottomDrawer({
@@ -17,6 +18,7 @@ export default function BottomDrawer({
   onOpenDrawer,
   onCloseDrawer,
   handleTransitionEnd,
+  handleBackButton,
 }: Props) {
   return (
     <ThemeProvider theme={theme}>
@@ -26,7 +28,17 @@ export default function BottomDrawer({
         onOpen={onOpenDrawer}
         onClose={onCloseDrawer}
         onTransitionEnd={handleTransitionEnd}>
-        <Top>
+        <Top $hasBackButton={!!handleBackButton}>
+          {handleBackButton && (
+            <IconButton
+              icon="chevron-left"
+              size="h32"
+              borderRadius="rounded"
+              iconColor="gray"
+              onClick={handleBackButton}
+            />
+          )}
+
           <IconButton
             icon="close"
             size="h32"
@@ -47,8 +59,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           ".MuiPaper-root": {
+            display: "flex",
+            gap: "8px",
             borderRadius: "16px 16px 0 0",
-            padding: "16px 16px 0 16px",
+            padding: "16px 0",
           },
         },
       },
@@ -56,6 +70,10 @@ const theme = createTheme({
   },
 });
 
-const Top = styled.div`
-  margin-left: auto;
+const Top = styled.div<{ $hasBackButton: boolean }>`
+  display: ${({ $hasBackButton }) => ($hasBackButton ? "flex" : "block")};
+  justify-content: ${({ $hasBackButton }) =>
+    $hasBackButton ? "space-between" : "normal"};
+  margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
+  padding: 0 16px;
 `;

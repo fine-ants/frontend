@@ -23,7 +23,10 @@ export function MainContent({
       <ContentItem>
         <ContentItemButton onClick={() => handleStep("orderBy")}>
           <ItemTitle>정렬 기준</ItemTitle>
-          <ItemState>{currentOrderBy}</ItemState>
+          <ItemState>
+            {currentOrderBy}
+            <Icon icon="chevron-right" color="gray600" size={16} />
+          </ItemState>
         </ContentItemButton>
       </ContentItem>
       <ContentItem>
@@ -37,13 +40,16 @@ export function MainContent({
                 color="#373840"
               />
               {order === "asc" ? "오름차순" : "내림차순"}
+              <Icon icon="chevron-right" color="gray600" size={16} />
             </OrderWrapper>
           </ItemState>
         </ContentItemButton>
       </ContentItem>
-      <StyledButton variant="primary" size="h48" onClick={applyOrderOption}>
-        적용
-      </StyledButton>
+      <ContentItem>
+        <StyledButton variant="primary" size="h48" onClick={applyOrderOption}>
+          적용
+        </StyledButton>
+      </ContentItem>
     </>
   );
 }
@@ -54,6 +60,7 @@ const ContentItem = styled.li`
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 0 16px;
 
   &:active {
     background-color: ${designSystem.color.neutral.gray50};
@@ -76,6 +83,9 @@ const ItemTitle = styled.span`
 
 const ItemState = styled.span`
   min-width: 30px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
   color: ${designSystem.color.neutral.gray800};
 `;
 
