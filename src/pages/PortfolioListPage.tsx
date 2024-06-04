@@ -43,12 +43,10 @@ export default function PortfolioListPage() {
         </AsyncBoundary>
       </Container>
 
-      {isAddPortfolioDialogOpen && (
-        <PortfolioAddDialog
-          isOpen={isAddPortfolioDialogOpen}
-          onClose={onAddPortfolioDialogClose}
-        />
-      )}
+      <PortfolioAddDialog
+        isOpen={isAddPortfolioDialogOpen}
+        onClose={onAddPortfolioDialogClose}
+      />
     </BasePage>
   );
 }

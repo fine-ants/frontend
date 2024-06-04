@@ -1,11 +1,12 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode } from "react";
-import styled from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 
 type Props = {
   isDrawerOpen: boolean;
   children: ReactNode;
+  customStyle?: CSSProperties;
   onOpenDrawer: () => void;
   onCloseDrawer: () => void;
   handleTransitionEnd?: () => void;
@@ -15,13 +16,14 @@ type Props = {
 export default function BottomDrawer({
   isDrawerOpen,
   children,
+  customStyle = {},
   onOpenDrawer,
   onCloseDrawer,
   handleTransitionEnd,
   handleBackButton,
 }: Props) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme(customStyle)}>
       <SwipeableDrawer
         anchor="bottom"
         open={isDrawerOpen}
@@ -53,24 +55,27 @@ export default function BottomDrawer({
   );
 }
 
-const theme = createTheme({
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        root: {
-          // TODO: z-index system
-          "zIndex": 1400,
-          ".MuiPaper-root": {
-            display: "flex",
-            gap: "8px",
-            borderRadius: "16px 16px 0 0",
-            padding: "16px 0",
+const theme = (customStyle: CSSProperties) =>
+  createTheme({
+    components: {
+      MuiDrawer: {
+        styleOverrides: {
+          root: {
+            // TODO: z-index system
+            "zIndex": 1400,
+            ".MuiPaper-root": {
+              display: "flex",
+              gap: "8px",
+              borderRadius: "16px 16px 0 0",
+              padding: "16px 0",
+              overflow: "hidden",
+              ...customStyle,
+            },
           },
         },
       },
     },
-  },
-});
+  });
 
 const Header = styled.header<{ $hasBackButton: boolean }>`
   display: ${({ $hasBackButton }) => ($hasBackButton ? "flex" : "block")};

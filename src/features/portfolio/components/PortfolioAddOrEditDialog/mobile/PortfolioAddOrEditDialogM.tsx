@@ -1,14 +1,8 @@
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
-import SelectDrawer from "@components/SelectDrawer/SelectDrawer";
-import SelectDrawerOption from "@components/SelectDrawer/SelectDrawerOption";
 import SlideUpTransition from "@components/SlideUpTransition";
 import { TextField } from "@components/TextField/TextField";
-import {
-  SECURITIES_FIRM,
-  SecuritiesFirm,
-  securitiesFirmLogos,
-} from "@constants/securitiesFirm";
+import { SecuritiesFirm } from "@constants/securitiesFirm";
 import usePortfolioAddMutation from "@features/portfolio/api/queries/usePortfolioAddMutation";
 import usePortfolioEditMutation from "@features/portfolio/api/queries/usePortfolioEditMutation";
 import { PortfolioDetails } from "@features/portfolio/api/types";
@@ -24,6 +18,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { applyDecimals } from "../../../utils/calculations";
 import usePortfolioAddOrEditDialogInputs from "../hooks/usePortfolioAddOrEditDialogInputs";
+import { SecuritiesFirmSelectDrawer } from "./SecuritiesFirmSelectDrawer";
 
 type Props = {
   isOpen: boolean;
@@ -196,41 +191,10 @@ export default function PortfolioAddOrEditDialogM({
               증권사 <span>*</span>
             </Label>
             <FormControl fullWidth>
-              <SelectDrawer
-                size="h48"
-                selectedValue={securitiesFirm}
-                changeSelectedValue={onChangeSecuritiesFirm}>
-                {SECURITIES_FIRM.map((option) => (
-                  <SelectDrawerOption key={option} value={option}>
-                    <>
-                      <SecuritiesFirmLogo
-                        src={securitiesFirmLogos[option]}
-                        alt={option}
-                      />
-                      <SecuritiesFirmTitle>
-                        {option === "FineAnts" ? "FineAnts (선택안함)" : option}
-                      </SecuritiesFirmTitle>
-                    </>
-                  </SelectDrawerOption>
-                ))}
-              </SelectDrawer>
-              {/* <Select
-                size="h48"
-                selectedValue={securitiesFirm}
-                changeSelectedValue={onChangeSecuritiesFirm}
-                menuMaxHeight="168px">
-                {SECURITIES_FIRM.map((option) => (
-                  <SelectOption key={option} value={option}>
-                    <SecuritiesFirmLogo
-                      src={securitiesFirmLogos[option]}
-                      alt={option}
-                    />
-                    <SecuritiesFirmTitle>
-                      {option === "FineAnts" ? "FineAnts (선택안함)" : option}
-                    </SecuritiesFirmTitle>
-                  </SelectOption>
-                ))}
-              </Select> */}
+              <SecuritiesFirmSelectDrawer
+                securitiesFirm={securitiesFirm}
+                onChangeSecuritiesFirm={onChangeSecuritiesFirm}
+              />
             </FormControl>
           </Row>
           <Row>
@@ -392,14 +356,4 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: auto;
-`;
-
-const SecuritiesFirmLogo = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-const SecuritiesFirmTitle = styled.span`
-  font: ${designSystem.font.body3.font};
-  color: ${designSystem.color.neutral.gray900};
 `;

@@ -1,43 +1,51 @@
 import BottomDrawer from "@components/Drawer/BottomDrawer";
 import { Icon } from "@components/Icon";
-import { useBoolean } from "@fineants/demolition";
+import { SecuritiesFirm, securitiesFirmLogos } from "@constants/securitiesFirm";
 import designSystem from "@styles/designSystem";
-import { Children, ReactNode, isValidElement } from "react";
+import { ReactNode } from "react";
 import styled from "styled-components";
 
 type Size = "h24" | "h32" | "h40" | "h48";
 
 type Props = {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
   size: Size;
   selectedValue: string;
-  changeSelectedValue: (value: string) => void;
+  // changeSelectedValue: (value: string) => void;
   children: ReactNode; // SelectDrawerOption
 };
 
-export default function SelectDrawer({ selectedValue, size, children }: Props) {
-  const { state: isOpen, setTrue: onOpen, setFalse: onClose } = useBoolean();
-
-  // console.log("selectedValue:", selectedValue);
-  // console.log("children:", Children.toArray(children));
-  // console.log(
-  //   "children:",
-  //   Children.toArray(children).map((child) => isValidElement(child) && child.props)
-  // );
-  const selectedChild = Children.toArray(children).find(
-    (child) => isValidElement(child) && child.props.value === selectedValue
-  );
-  // console.log("selectedChild:", selectedChild);
-
+export default function SelectDrawer({
+  selectedValue,
+  size,
+  isOpen,
+  onOpen,
+  onClose,
+  children,
+}: Props) {
   return (
     <>
       <StyledSelectDrawer $size={size} $isOpen={isOpen} onClick={onOpen}>
         <Display>
-          {selectedChild}
+          <SecuritiesFirmWrapper>
+            <SecuritiesFirmLogo
+              src={securitiesFirmLogos[selectedValue as SecuritiesFirm]}
+              alt={selectedValue}
+            />
+            <SecuritiesFirmTitle>
+              {selectedValue === "FineAnts"
+                ? "FineAnts (선택안함)"
+                : selectedValue}
+            </SecuritiesFirmTitle>
+          </SecuritiesFirmWrapper>
           <Icon icon="chevron-down" size={16} color="gray600" />
         </Display>
       </StyledSelectDrawer>
 
       <BottomDrawer
+        customStyle={{ height: "calc(100vh - 64px)" }}
         isDrawerOpen={isOpen}
         onOpenDrawer={onOpen}
         onCloseDrawer={onClose}>
@@ -50,7 +58,7 @@ export default function SelectDrawer({ selectedValue, size, children }: Props) {
 const StyledSelectDrawer = styled.div<{ $size: Size; $isOpen: boolean }>`
   min-width: ${({ $size }) => ($size === "h24" ? 56 : 80)}px;
   height: ${({ $size }) => $size.slice(1)}px;
-  padding: 0 28px 0 8px;
+  padding: 0 12px 0 8px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -73,4 +81,21 @@ const StyledSelectDrawer = styled.div<{ $size: Size; $isOpen: boolean }>`
 const Display = styled.div`
   width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const SecuritiesFirmWrapper = styled.div`
+  display: flex;
+  gap: 4px;
+`;
+
+const SecuritiesFirmLogo = styled.img`
+  width: 24px;
+  height: 24px;
+`;
+
+const SecuritiesFirmTitle = styled.span`
+  font: ${designSystem.font.body3.font};
+  color: ${designSystem.color.neutral.gray900};
 `;
