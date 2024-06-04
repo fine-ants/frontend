@@ -31,6 +31,7 @@ const StyledBasePage = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: ${({ $isMobile }) => ($isMobile ? "64px" : 0)};
   background-color: ${({ $isMobile }) =>
     $isMobile
       ? designSystem.color.neutral.white
