@@ -11,6 +11,7 @@ import {
 import usePortfolioAddMutation from "@features/portfolio/api/queries/usePortfolioAddMutation";
 import usePortfolioEditMutation from "@features/portfolio/api/queries/usePortfolioEditMutation";
 import { PortfolioDetails } from "@features/portfolio/api/types";
+import { applyDecimals } from "@features/portfolio/utils/calculations";
 import {
   removeThousandsDelimiter,
   thousandsDelimiter,
@@ -21,7 +22,6 @@ import designSystem from "@styles/designSystem";
 import { FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { applyDecimals } from "../../../utils/calculations";
 import usePortfolioAddOrEditDialogInputs from "../hooks/usePortfolioAddOrEditDialogInputs";
 
 type Props = {

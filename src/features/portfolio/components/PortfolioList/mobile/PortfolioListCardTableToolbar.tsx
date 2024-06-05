@@ -2,7 +2,7 @@ import SelectableCardTableToolbar from "@components/CardTable/SelectableCardTabl
 import usePortfoliosDeleteMutation from "@features/portfolio/api/queries/usePortfoliosDeleteMutation";
 import { useBoolean } from "@fineants/demolition";
 import { ChangeEvent } from "react";
-import { PortfolioListDeleteConfirm } from "../PortfolioListDeleteConfirm";
+import PortfolioListDeleteConfirm from "../PortfolioListDeleteConfirm";
 
 type Props<Item> = {
   selected: readonly Item[];

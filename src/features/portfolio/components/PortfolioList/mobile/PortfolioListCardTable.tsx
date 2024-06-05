@@ -1,7 +1,7 @@
 import SelectableCardTable from "@components/CardTable/SelectableCardTable/SelectableCardTable";
 import { PortfolioItem } from "@features/portfolio/api/types";
 import EmptyPortfolioListList from "../EmptyPortfolioList";
-import { PortfolioListCardBody } from "./PortfolioListCardBody";
+import PortfolioListCardBody from "./PortfolioListCardBody";
 import PortfolioListCardTableToolbar from "./PortfolioListCardTableToolbar";
 
 type Props = {
