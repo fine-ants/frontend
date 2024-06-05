@@ -25,7 +25,6 @@ type Props<Item> = {
   CardTableToolbar: (props: {
     selected: readonly Item[];
     isAllRowsSelectedInCurrentPage: boolean;
-    selectedPortfolioIds: number[];
     openDrawer: () => void;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
     clearSelected: () => void;
@@ -122,8 +121,6 @@ export function SelectableCardTable<Item extends { id: number }>({
     selected.length > 0 &&
     visibleRows.every((visibleRow) => selectedSet.has(visibleRow.id));
 
-  const selectedPortfolioIds = selected.map((item) => item.id);
-
   return (
     <>
       {data.length > 0 ? (
@@ -141,7 +138,6 @@ export function SelectableCardTable<Item extends { id: number }>({
 
           <CardTableToolbar
             selected={selected}
-            selectedPortfolioIds={selectedPortfolioIds}
             isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
             clearSelected={clearSelected}
             onSelectAllClick={handleSelectAllClick}

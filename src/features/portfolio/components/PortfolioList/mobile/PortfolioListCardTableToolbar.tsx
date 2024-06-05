@@ -7,18 +7,16 @@ import { PortfolioListDeleteConfirm } from "../PortfolioListDeleteConfirm";
 type Props<Item> = {
   selected: readonly Item[];
   isAllRowsSelectedInCurrentPage: boolean;
-  selectedPortfolioIds: number[];
   onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   clearSelected: () => void;
   openDrawer: () => void;
 };
 
 export default function PortfolioListCardTableToolbar<
-  Item extends { name: string },
+  Item extends { id: number; name: string },
 >({
   selected,
   isAllRowsSelectedInCurrentPage,
-  selectedPortfolioIds,
   onSelectAllClick,
   clearSelected,
   openDrawer,
@@ -33,6 +31,8 @@ export default function PortfolioListCardTableToolbar<
     usePortfoliosDeleteMutation();
 
   const onConfirmAction = async () => {
+    const selectedPortfolioIds = selected.map((item) => item.id);
+
     await portfoliosDeleteMutateAsync(selectedPortfolioIds);
     clearSelected();
   };
