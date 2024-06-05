@@ -38,12 +38,12 @@ export default defineConfig(({ command }) => {
         react(),
         tsconfigPaths(),
         fcmSwEnvPlugin(),
-        // VitePWA({
-        //   ...vitePwaBaseConfig,
-        //   devOptions: {
-        //     enabled: true,
-        //   },
-        // }),
+        VitePWA({
+          ...vitePwaBaseConfig,
+          devOptions: {
+            enabled: true,
+          },
+        }),
       ],
     };
   } else {
