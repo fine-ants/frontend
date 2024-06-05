@@ -13,8 +13,7 @@ type Props = {
   onClose: () => void;
   size: Size;
   selectedValue: string;
-  // changeSelectedValue: (value: string) => void;
-  children: ReactNode; // SelectDrawerOption
+  children: ReactNode;
 };
 
 export default function SelectDrawer({

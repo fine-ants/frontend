@@ -16,13 +16,11 @@ export default function SelectDrawerOption<T>({
   children,
 }: Props<T>) {
   return (
-    <>
-      <SecuritiesFirmWrapper
-        onClick={() => onChange(value)}
-        $isSelected={value === selectedValue}>
-        {children}
-      </SecuritiesFirmWrapper>
-    </>
+    <SecuritiesFirmWrapper
+      onClick={() => onChange(value)}
+      $isSelected={value === selectedValue}>
+      {children}
+    </SecuritiesFirmWrapper>
   );
 }
 
@@ -33,7 +31,6 @@ const SecuritiesFirmWrapper = styled.button<{ $isSelected: boolean }>`
   align-items: center;
   gap: 4px;
   padding: 0 16px;
-
   background-color: ${({ $isSelected }) =>
     $isSelected ? designSystem.color.neutral.gray50 : "transparent"};
 `;
