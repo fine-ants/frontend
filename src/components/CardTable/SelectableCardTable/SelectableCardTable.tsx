@@ -34,7 +34,7 @@ type Props<Item> = {
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export function SelectableCardTable<Item extends { id: number }>({
+export default function SelectableCardTable<Item extends { id: number }>({
   data,
   initialOrderBy,
   orderByList,

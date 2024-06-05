@@ -10,7 +10,7 @@ type Props = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export function SelectableCard({
+export default function SelectableCard({
   CardHeader,
   CardBody,
   isSelected,

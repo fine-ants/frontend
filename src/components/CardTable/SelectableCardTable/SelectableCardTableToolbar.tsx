@@ -15,7 +15,7 @@ type Props = {
   openDrawer: () => void;
 };
 
-export function SelectableCardTableToolbar({
+export default function SelectableCardTableToolbar({
   numSelected,
   isAllRowsSelectedInCurrentPage,
   openDeleteConfirm,

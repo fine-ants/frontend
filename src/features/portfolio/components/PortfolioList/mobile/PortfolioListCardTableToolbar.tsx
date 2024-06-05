@@ -1,4 +1,4 @@
-import { SelectableCardTableToolbar } from "@components/CardTable/SelectableCardTable/SelectableCardTableToolbar";
+import SelectableCardTableToolbar from "@components/CardTable/SelectableCardTable/SelectableCardTableToolbar";
 import usePortfoliosDeleteMutation from "@features/portfolio/api/queries/usePortfoliosDeleteMutation";
 import { useBoolean } from "@fineants/demolition";
 import { ChangeEvent } from "react";
