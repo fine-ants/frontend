@@ -182,6 +182,7 @@ const Form = styled.form<{ $isMobile: boolean }>`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  justify-content: space-between;
   gap: ${({ $isMobile }) => ($isMobile ? "16px" : "0")};
 `;
 

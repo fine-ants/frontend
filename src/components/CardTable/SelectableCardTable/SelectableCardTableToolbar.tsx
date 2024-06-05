@@ -10,13 +10,15 @@ import styled from "styled-components";
 type Props = {
   numSelected: number;
   isAllRowsSelectedInCurrentPage: boolean;
+  openDeleteConfirm: () => void;
   onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   openDrawer: () => void;
 };
 
-export function SelectableCardTableToolbar({
+export default function SelectableCardTableToolbar({
   numSelected,
   isAllRowsSelectedInCurrentPage,
+  openDeleteConfirm,
   onSelectAllClick,
   openDrawer,
 }: Props) {
@@ -42,7 +44,7 @@ export function SelectableCardTableToolbar({
               </span>
             </Typography>
             <Icon icon="divider" size={12} color="gray100" />
-            <Button variant="tertiary" size="h32" onClick={() => {}}>
+            <Button variant="tertiary" size="h32" onClick={openDeleteConfirm}>
               <Icon icon="trash" size={16} color="gray600" />
               <span>삭제</span>
             </Button>

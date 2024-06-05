@@ -1,7 +1,7 @@
 import BaseDialog from "@components/BaseDialog";
 import { User } from "@features/user/api/types";
 import { CSSProperties } from "styled-components";
-import { NotificationSettingsContent } from "../NotificationSettingsContent";
+import NotificationSettingsContent from "../NotificationSettingsContent";
 
 type Props = {
   user: User;

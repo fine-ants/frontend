@@ -1,6 +1,6 @@
 import RateBadge from "@components/Badges/RateBadge";
 import { CardItemRow } from "@components/CardTable/CardItemRow";
-import { SelectableCard } from "@components/CardTable/SelectableCardTable/SelectableCard";
+import SelectableCard from "@components/CardTable/SelectableCardTable/SelectableCard";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import { PortfolioItem } from "@features/portfolio/api/types";
 import { thousandsDelimiter } from "@fineants/demolition";
@@ -15,7 +15,7 @@ type Props = {
   updateSelected: (newSelected: readonly PortfolioItem[]) => void;
 };
 
-export function PortfolioListCardBody({
+export default function PortfolioListCardBody({
   visibleRows,
   selected,
   updateSelected,

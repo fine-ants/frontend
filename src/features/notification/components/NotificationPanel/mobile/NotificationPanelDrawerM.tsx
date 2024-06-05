@@ -118,6 +118,7 @@ const ContentItem = styled.li`
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 0 16px;
 
   &:active {
     background-color: ${designSystem.color.neutral.gray50};
