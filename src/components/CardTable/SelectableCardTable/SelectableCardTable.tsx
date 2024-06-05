@@ -23,17 +23,19 @@ type Props<Item> = {
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   }) => JSX.Element;
   CardTableToolbar: (props: {
-    numSelected: number;
+    selected: readonly Item[];
     isAllRowsSelectedInCurrentPage: boolean;
-    onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+    selectedPortfolioIds: number[];
     openDrawer: () => void;
+    onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+    clearSelected: () => void;
   }) => JSX.Element;
   EmptyComponent?: () => JSX.Element;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export function SelectableCardTable<Item extends { id: string | number }>({
+export function SelectableCardTable<Item extends { id: number }>({
   data,
   initialOrderBy,
   orderByList,
@@ -93,6 +95,10 @@ export function SelectableCardTable<Item extends { id: string | number }>({
     setSelected(newSelected);
   };
 
+  const clearSelected = () => {
+    setSelected([]);
+  };
+
   const handleSelectAllClick = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
@@ -115,6 +121,9 @@ export function SelectableCardTable<Item extends { id: string | number }>({
   const isAllRowsSelectedInCurrentPage =
     selected.length > 0 &&
     visibleRows.every((visibleRow) => selectedSet.has(visibleRow.id));
+
+  const selectedPortfolioIds = selected.map((item) => item.id);
+
   return (
     <>
       {data.length > 0 ? (
@@ -131,8 +140,10 @@ export function SelectableCardTable<Item extends { id: string | number }>({
           </ControlWrapper>
 
           <CardTableToolbar
-            numSelected={selected.length}
+            selected={selected}
+            selectedPortfolioIds={selectedPortfolioIds}
             isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
+            clearSelected={clearSelected}
             onSelectAllClick={handleSelectAllClick}
             openDrawer={openDrawer}
           />

@@ -1,8 +1,8 @@
 import { SelectableCardTable } from "@components/CardTable/SelectableCardTable/SelectableCardTable";
-import { SelectableCardTableToolbar } from "@components/CardTable/SelectableCardTable/SelectableCardTableToolbar";
 import { PortfolioItem } from "@features/portfolio/api/types";
 import EmptyPortfolioListList from "../EmptyPortfolioList";
 import { PortfolioListCardBody } from "./PortfolioListCardBody";
+import PortfolioListCardTableToolbar from "./PortfolioListCardTableToolbar";
 
 type Props = {
   data: PortfolioItem[];
@@ -37,15 +37,13 @@ export function PortfolioListCardTable({ data }: Props) {
   ];
 
   return (
-    <>
-      <SelectableCardTable
-        CardBody={PortfolioListCardBody}
-        CardTableToolbar={SelectableCardTableToolbar}
-        EmptyComponent={EmptyPortfolioListList}
-        data={data}
-        initialOrderBy="dateCreated"
-        orderByList={orderByList}
-      />
-    </>
+    <SelectableCardTable
+      CardBody={PortfolioListCardBody}
+      CardTableToolbar={PortfolioListCardTableToolbar}
+      EmptyComponent={EmptyPortfolioListList}
+      data={data}
+      initialOrderBy="dateCreated"
+      orderByList={orderByList}
+    />
   );
 }
