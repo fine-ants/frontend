@@ -1,6 +1,5 @@
 import { HTTPSTATUS } from "@api/types";
 import { BASE_API_URL } from "@constants/config";
-import { refreshAccessToken } from "@features/auth/api";
 import useSignOutMutation from "@features/auth/api/queries/useSignOutMutation";
 import {
   Event,
@@ -79,9 +78,9 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
     eventSourceRef.current.onerror = async (errorEvent) => {
       if ((errorEvent as ErrorEvent).status === HTTPSTATUS.forbidden) {
         try {
-          const res = await refreshAccessToken();
+          // const res = await refreshAccessToken();
 
-          localStorage.setItem("accessToken", res.data?.accessToken);
+          // localStorage.setItem("accessToken", res.data?.accessToken);
 
           setIsError(false);
           setIsLoading(true);

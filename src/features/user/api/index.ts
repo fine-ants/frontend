@@ -16,6 +16,15 @@ export const postProfileDetails = async (body: FormData) => {
   return res.data;
 };
 
+export const patchUserInfo = async (body: FormData) => {
+  const res = await fetcher.patch<Response<null>>("/users/info", body, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return res.data;
+};
+
 export const putNewPassword = async (body: {
   currentPassword: string;
   newPassword: string;
@@ -26,8 +35,6 @@ export const putNewPassword = async (body: {
 };
 
 export const deleteAccount = async () => {
-  const res = await fetcher.delete<Response<null>>("/account", {
-    data: { refreshToken: localStorage.getItem("refreshToken") },
-  });
+  const res = await fetcher.delete<Response<null>>("/account");
   return res.data;
 };
