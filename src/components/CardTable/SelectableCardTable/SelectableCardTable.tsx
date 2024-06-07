@@ -1,11 +1,20 @@
 import Pagination from "@components/Pagination/Pagination";
 import { PaginationControl } from "@components/Pagination/PaginationControl";
 import calculateStartAndEndRows from "@components/Pagination/utils/calculateStartAndEndRows";
+import { Order } from "@components/Table/types";
+import { getComparator } from "@components/Table/utils/comparator";
+import { useBoolean } from "@fineants/demolition";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
+import { OrderByDrawer } from "../OrderByDrawer/OrderByDrawer";
 
 type Props<Item> = {
   data: Item[];
+  initialOrderBy: keyof Item;
+  orderByList: {
+    title: string;
+    orderBy: keyof Item;
+  }[];
   CardBody: (props: {
     visibleRows: Item[];
     selected: readonly Item[];
@@ -14,27 +23,38 @@ type Props<Item> = {
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   }) => JSX.Element;
   CardTableToolbar: (props: {
-    numSelected: number;
+    selected: readonly Item[];
     isAllRowsSelectedInCurrentPage: boolean;
+    openDrawer: () => void;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+    clearSelected: () => void;
   }) => JSX.Element;
   EmptyComponent?: () => JSX.Element;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
 
-export function SelectableCardTable<Item extends { id: string | number }>({
+export default function SelectableCardTable<Item extends { id: number }>({
   data,
+  initialOrderBy,
+  orderByList,
   CardBody,
   CardTableToolbar,
   EmptyComponent = () => <></>,
 }: Props<Item>) {
-  // TODO 정렬 기능 구현 필요
   const count = data.length;
 
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
   const [selected, setSelected] = useState<readonly Item[]>([]);
+
+  const {
+    state: isDrawerOpen,
+    setTrue: openDrawer,
+    setFalse: closeDrawer,
+  } = useBoolean();
 
   const { startRow, endRow } = calculateStartAndEndRows(
     count,
@@ -45,14 +65,21 @@ export function SelectableCardTable<Item extends { id: string | number }>({
   const visibleRows = useMemo(
     () =>
       rowsPerPage > 0 || rowsPerPage === -1
-        ? data.slice(
-            page * rowsPerPage,
-            page * rowsPerPage +
-              (rowsPerPage === -1 ? data.length : rowsPerPage)
-          )
+        ? data
+            .sort(getComparator(order, orderBy))
+            .slice(
+              page * rowsPerPage,
+              page * rowsPerPage +
+                (rowsPerPage === -1 ? data.length : rowsPerPage)
+            )
         : data,
-    [page, rowsPerPage, data]
+    [order, orderBy, page, rowsPerPage, data]
   );
+
+  const applyOrderOption = (order: Order, orderBy: keyof Item) => {
+    setOrder(order);
+    setOrderBy(orderBy);
+  };
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
@@ -65,6 +92,10 @@ export function SelectableCardTable<Item extends { id: string | number }>({
 
   const updateSelected = (newSelected: readonly Item[]) => {
     setSelected(newSelected);
+  };
+
+  const clearSelected = () => {
+    setSelected([]);
   };
 
   const handleSelectAllClick = useCallback(
@@ -106,9 +137,11 @@ export function SelectableCardTable<Item extends { id: string | number }>({
           </ControlWrapper>
 
           <CardTableToolbar
-            numSelected={selected.length}
+            selected={selected}
             isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
+            clearSelected={clearSelected}
             onSelectAllClick={handleSelectAllClick}
+            openDrawer={openDrawer}
           />
 
           <CardBody
@@ -122,6 +155,16 @@ export function SelectableCardTable<Item extends { id: string | number }>({
             count={Math.ceil(count / rowsPerPage)}
             page={page + 1}
             onPageChange={handleChangePage}
+          />
+
+          <OrderByDrawer
+            isDrawerOpen={isDrawerOpen}
+            order={order}
+            orderBy={orderBy}
+            orderByList={orderByList}
+            openDrawer={openDrawer}
+            closeDrawer={closeDrawer}
+            applyOrderOption={applyOrderOption}
           />
         </>
       ) : (

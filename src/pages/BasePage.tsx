@@ -2,7 +2,6 @@ import Footer from "@components/Footer";
 import NavBarFixed from "@components/NavBar/NavBarFixed";
 import {
   MAIN_FOOTER_HEIGHT_D,
-  MAIN_FOOTER_HEIGHT_M,
   MAIN_HEADER_TOTAL_HEIGHT_D,
   MAIN_HEADER_TOTAL_HEIGHT_M,
 } from "@constants/styleConstants";
@@ -30,9 +29,9 @@ export default function BasePage({ children }: Props) {
 
 const StyledBasePage = styled.div<{ $isMobile: boolean }>`
   width: 100%;
-  padding-bottom: ${({ $isMobile }) => ($isMobile ? "64px" : 0)};
   display: flex;
   flex-direction: column;
+  padding-bottom: ${({ $isMobile }) => ($isMobile ? "64px" : 0)};
   background-color: ${({ $isMobile }) =>
     $isMobile
       ? designSystem.color.neutral.white
@@ -45,7 +44,7 @@ const Main = styled.main<{ $isMobile: boolean }>`
     100vh -
       ${({ $isMobile }) =>
         $isMobile
-          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px - ${MAIN_FOOTER_HEIGHT_M}px`
+          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px`
           : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT_D}px
   );
 

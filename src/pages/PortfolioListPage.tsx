@@ -8,10 +8,13 @@ import { useBoolean } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import BasePage from "@pages/BasePage";
 import designSystem from "@styles/designSystem";
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function PortfolioListPage() {
   const { isMobile } = useResponsiveLayout();
+
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const {
     state: isAddPortfolioDialogOpen,
@@ -19,12 +22,16 @@ export default function PortfolioListPage() {
     setFalse: onAddPortfolioDialogClose,
   } = useBoolean();
 
+  const onEmpty = (value: boolean) => {
+    setIsEmpty(value);
+  };
+
   return (
     <BasePage>
       <Container $isMobile={isMobile}>
         <Header $isMobile={isMobile}>
           <h1>내 포트폴리오</h1>
-          {isMobile && (
+          {isMobile && !isEmpty && (
             <IconButton
               icon="folder-add"
               size="h40"
@@ -39,16 +46,14 @@ export default function PortfolioListPage() {
         <AsyncBoundary
           ErrorFallback={PortfolioListTableErrorFallback}
           SuspenseFallback={<TableSkeleton />}>
-          <PortfolioList />
+          <PortfolioList onEmpty={onEmpty} />
         </AsyncBoundary>
       </Container>
 
-      {isAddPortfolioDialogOpen && (
-        <PortfolioAddDialog
-          isOpen={isAddPortfolioDialogOpen}
-          onClose={onAddPortfolioDialogClose}
-        />
-      )}
+      <PortfolioAddDialog
+        isOpen={isAddPortfolioDialogOpen}
+        onClose={onAddPortfolioDialogClose}
+      />
     </BasePage>
   );
 }
@@ -56,10 +61,13 @@ export default function PortfolioListPage() {
 const Container = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   max-width: 1440px;
+  display: flex;
+  flex-direction: column;
   margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
   padding: ${({ $isMobile }) => ($isMobile ? "0" : "32px")};
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border-radius: 8px;
+  flex: 1;
 `;
 
 const Header = styled.header<{ $isMobile: boolean }>`

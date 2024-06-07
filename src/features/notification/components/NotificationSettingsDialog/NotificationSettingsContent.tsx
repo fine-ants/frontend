@@ -21,7 +21,7 @@ type Props = {
   onClose: () => void;
 };
 
-export function NotificationSettingsContent({ user, onClose }: Props) {
+export default function NotificationSettingsContent({ user, onClose }: Props) {
   const { isMobile } = useResponsiveLayout();
 
   const {
@@ -214,6 +214,7 @@ const ToggleTitle = styled.div`
 
 const StyledContent = styled.div`
   width: 100%;
+  margin-top: 16px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;

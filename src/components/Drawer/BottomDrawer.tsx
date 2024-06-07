@@ -1,29 +1,46 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode } from "react";
-import styled from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 
 type Props = {
   isDrawerOpen: boolean;
+  children: ReactNode;
+  customStyle?: CSSProperties;
   onOpenDrawer: () => void;
   onCloseDrawer: () => void;
-  children: ReactNode;
+  handleTransitionEnd?: () => void;
+  handleBackButton?: () => void;
 };
 
 export default function BottomDrawer({
   isDrawerOpen,
+  children,
+  customStyle = {},
   onOpenDrawer,
   onCloseDrawer,
-  children,
+  handleTransitionEnd,
+  handleBackButton,
 }: Props) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme(customStyle)}>
       <SwipeableDrawer
         anchor="bottom"
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
-        onClose={onCloseDrawer}>
-        <Top>
+        onClose={onCloseDrawer}
+        onTransitionEnd={handleTransitionEnd}>
+        <Header $hasBackButton={!!handleBackButton}>
+          {handleBackButton && (
+            <IconButton
+              icon="chevron-left"
+              size="h32"
+              borderRadius="rounded"
+              iconColor="gray"
+              onClick={handleBackButton}
+            />
+          )}
+
           <IconButton
             icon="close"
             size="h32"
@@ -31,28 +48,39 @@ export default function BottomDrawer({
             iconColor="gray"
             onClick={onCloseDrawer}
           />
-        </Top>
+        </Header>
         {children}
       </SwipeableDrawer>
     </ThemeProvider>
   );
 }
 
-const theme = createTheme({
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        root: {
-          ".MuiPaper-root": {
-            borderRadius: "16px 16px 0 0",
-            padding: "16px 16px 0 16px",
+const theme = (customStyle: CSSProperties) =>
+  createTheme({
+    components: {
+      MuiDrawer: {
+        styleOverrides: {
+          root: {
+            // TODO: z-index system
+            "zIndex": 1400,
+            ".MuiPaper-root": {
+              display: "flex",
+              gap: "8px",
+              borderRadius: "16px 16px 0 0",
+              padding: "16px 0",
+              overflow: "hidden",
+              ...customStyle,
+            },
           },
         },
       },
     },
-  },
-});
+  });
 
-const Top = styled.div`
-  margin-left: auto;
+const Header = styled.header<{ $hasBackButton: boolean }>`
+  display: ${({ $hasBackButton }) => ($hasBackButton ? "flex" : "block")};
+  justify-content: ${({ $hasBackButton }) =>
+    $hasBackButton ? "space-between" : "normal"};
+  margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
+  padding: 0 16px;
 `;

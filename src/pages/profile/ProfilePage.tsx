@@ -1,9 +1,4 @@
 import SubPageTabs from "@components/SubPageTabs";
-import {
-  MAIN_FOOTER_HEIGHT_D,
-  MAIN_HEADER_TOTAL_HEIGHT_D,
-  MAIN_HEADER_TOTAL_HEIGHT_M,
-} from "@constants/styleConstants";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import BasePage from "@pages/BasePage";
 import Routes from "@router/Routes";
@@ -50,16 +45,10 @@ export default function ProfilePage() {
 const Container = styled.div<{ $isDesktop: boolean; $isMobile: boolean }>`
   width: 100%;
   max-width: 544px;
-  height: calc(
-    100vh -
-      ${({ $isMobile }) =>
-        $isMobile
-          ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px`
-          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT_D}px
-  );
   margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
   padding: ${({ $isMobile }) => ($isMobile ? "0" : "32px")};
   display: flex;
+  flex: 1;
   flex-direction: column;
   background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
@@ -84,4 +73,5 @@ const SubPageWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
