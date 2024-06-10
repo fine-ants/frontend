@@ -1,3 +1,4 @@
+import useDevice from "@hooks/useDevice";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { ReactElement } from "react";
@@ -11,16 +12,13 @@ type Props = {
 
 export default function PullToRefresh({ children }: Props) {
   const { isMobile } = useResponsiveLayout();
-
-  const isStandalonePWA = window.matchMedia(
-    "(display-mode: standalone)"
-  ).matches;
+  const { isPWADevice } = useDevice();
 
   const onRefresh = async () => {
     window.location.reload();
   };
 
-  return isStandalonePWA ? (
+  return isPWADevice ? (
     <PullToRefreshLib
       backgroundColor={designSystem.color.neutral.gray900}
       resistance={isMobile ? 1 : 3}
