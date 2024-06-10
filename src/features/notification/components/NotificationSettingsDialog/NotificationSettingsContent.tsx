@@ -8,12 +8,14 @@ import {
 import { User } from "@features/user/api/types";
 import { UserContext } from "@features/user/context/UserContext";
 import { retryFn } from "@fineants/demolition";
+import useDevice from "@hooks/useDevice";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { useContext, useState } from "react";
 import { toast } from "src/main";
 import styled from "styled-components";
 import { NotificationDeniedSign } from "./NotificationDeniedSign";
+import { NotificationPWANotice } from "./NotificationPWANotice";
 import { NotificationSettingsHeader } from "./NotificationSettingsHeader";
 
 type Props = {
@@ -23,6 +25,7 @@ type Props = {
 
 export default function NotificationSettingsContent({ user, onClose }: Props) {
   const { isMobile } = useResponsiveLayout();
+  const { isMobileDevice } = useDevice();
 
   const {
     fcmTokenId,
@@ -32,7 +35,10 @@ export default function NotificationSettingsContent({ user, onClose }: Props) {
 
   const { browserNotify, maxLossNotify, targetGainNotify, targetPriceNotify } =
     user.notificationPreferences;
-  const notificationPermission = Notification.permission;
+  const notificationPermission =
+    isMobileDevice && !("Notification" in window)
+      ? "default"
+      : Notification.permission;
 
   const [newBrowserNotify, setNewBrowserNotify] = useState(browserNotify);
   const [newMaxLossNotify, setNewMaxLossNotify] = useState(maxLossNotify);
@@ -135,17 +141,17 @@ export default function NotificationSettingsContent({ user, onClose }: Props) {
           <SubTitle>데스크탑 알림 설정</SubTitle>
           {notificationPermission === "denied" ? (
             <NotificationDeniedSign />
+          ) : isMobileDevice ? (
+            <NotificationPWANotice />
           ) : (
             <ToggleList>
-              <>
-                <ToggleTitle>
-                  브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
-                </ToggleTitle>
-                <ToggleSwitch
-                  onToggle={onToggleBrowserNotify}
-                  isChecked={newBrowserNotify}
-                />
-              </>
+              <ToggleTitle>
+                브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
+              </ToggleTitle>
+              <ToggleSwitch
+                onToggle={onToggleBrowserNotify}
+                isChecked={newBrowserNotify}
+              />
             </ToggleList>
           )}
         </SettingContainer>
