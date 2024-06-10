@@ -35,9 +35,10 @@ export default function NotificationSettingsContent({ user, onClose }: Props) {
 
   const { browserNotify, maxLossNotify, targetGainNotify, targetPriceNotify } =
     user.notificationPreferences;
-  const notificationPermission = isMobileDevice
-    ? Notification.permission
-    : "default";
+  const notificationPermission =
+    isMobileDevice && !("Notification" in window)
+      ? "default"
+      : Notification.permission;
 
   const [newBrowserNotify, setNewBrowserNotify] = useState(browserNotify);
   const [newMaxLossNotify, setNewMaxLossNotify] = useState(maxLossNotify);
@@ -140,24 +141,18 @@ export default function NotificationSettingsContent({ user, onClose }: Props) {
           <SubTitle>데스크탑 알림 설정</SubTitle>
           {notificationPermission === "denied" ? (
             <NotificationDeniedSign />
+          ) : isMobileDevice ? (
+            <NotificationPWANotice />
           ) : (
-            <>
-              {isMobileDevice ? (
-                <NotificationPWANotice />
-              ) : (
-                <ToggleList>
-                  <>
-                    <ToggleTitle>
-                      브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
-                    </ToggleTitle>
-                    <ToggleSwitch
-                      onToggle={onToggleBrowserNotify}
-                      isChecked={newBrowserNotify}
-                    />
-                  </>
-                </ToggleList>
-              )}
-            </>
+            <ToggleList>
+              <ToggleTitle>
+                브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
+              </ToggleTitle>
+              <ToggleSwitch
+                onToggle={onToggleBrowserNotify}
+                isChecked={newBrowserNotify}
+              />
+            </ToggleList>
           )}
         </SettingContainer>
 
