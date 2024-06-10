@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export function NotificationDeniedSign() {
   return (
-    <DeniedSign>
+    <StyledNotificationDeniedSign>
       <IconWrapper>
         <Icon icon="caption" color="gray400" size={16} />
       </IconWrapper>
@@ -15,11 +15,11 @@ export function NotificationDeniedSign() {
           알림 받기를 원하시면 브라우저에서 FineAnts 알림을 허용해 주세요
         </DeniedSignText>
       </DeniedSignContent>
-    </DeniedSign>
+    </StyledNotificationDeniedSign>
   );
 }
 
-const DeniedSign = styled.div`
+const StyledNotificationDeniedSign = styled.div`
   width: 100%;
   height: auto;
   display: flex;
