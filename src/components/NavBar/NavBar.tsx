@@ -1,3 +1,5 @@
+import { IOS_HOME_INDICATOR_HEIGHT } from "@constants/styleConstants";
+import useDevice from "@hooks/useDevice";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
@@ -15,6 +17,9 @@ type NavItemProps = {
 
 export function NavBar({ children }: NavBarProps) {
   const { isDesktop, isMobile } = useResponsiveLayout();
+  const { isPWADevice, isIOSDevice } = useDevice();
+
+  const isIOSPWA = isIOSDevice && isPWADevice;
 
   return (
     <>
@@ -24,7 +29,7 @@ export function NavBar({ children }: NavBarProps) {
         </StyledNavBarD>
       )}
       {isMobile && (
-        <StyledNavBarM>
+        <StyledNavBarM $isIOSPWA={isIOSPWA}>
           <ul>{children}</ul>
         </StyledNavBarM>
       )}
@@ -103,11 +108,12 @@ const StyledNavItemContentD = styled(Link)`
 `;
 
 // Mobile
-const StyledNavBarM = styled.nav`
+const StyledNavBarM = styled.nav<{ $isIOSPWA: boolean }>`
   width: 100%;
   height: 64px;
   position: fixed;
-  bottom: 0;
+  bottom: ${({ $isIOSPWA }) =>
+    $isIOSPWA ? `${IOS_HOME_INDICATOR_HEIGHT}px` : "0px"};
   z-index: 10;
 
   > ul {

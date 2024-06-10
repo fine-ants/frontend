@@ -2,24 +2,27 @@ import { Icon } from "@components/Icon";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
-export function NotificationDeniedSign() {
+export function NotificationPWANotice() {
   return (
-    <StyledNotificationDeniedSign>
+    <StyledNotificationPWANotice>
       <IconWrapper>
         <Icon icon="caption" color="gray400" size={16} />
       </IconWrapper>
 
-      <DeniedSignContent>
-        <DeniedSignText>브라우저 알림 권한이 차단되어 있습니다</DeniedSignText>
-        <DeniedSignText>
-          알림 받기를 원하시면 브라우저에서 FineAnts 알림을 허용해 주세요
-        </DeniedSignText>
-      </DeniedSignContent>
-    </StyledNotificationDeniedSign>
+      <NoticeContent>
+        <NoticeSignText>
+          모바일 브라우저에서는 데스크탑 알림을 받을 수 없습니다
+        </NoticeSignText>
+        <NoticeSignText>
+          알림 받기를 원하시면 브라우저에서 제공하는 프로그레시브 웹 앱(PWA)을
+          모바일에 다운로드 해주세요
+        </NoticeSignText>
+      </NoticeContent>
+    </StyledNotificationPWANotice>
   );
 }
 
-const StyledNotificationDeniedSign = styled.div`
+const StyledNotificationPWANotice = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -35,13 +38,13 @@ const IconWrapper = styled.div`
   padding-top: 3px;
 `;
 
-const DeniedSignContent = styled.div`
+const NoticeContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 `;
 
-const DeniedSignText = styled.div`
+const NoticeSignText = styled.div`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
 `;

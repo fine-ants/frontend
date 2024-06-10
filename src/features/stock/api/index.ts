@@ -1,4 +1,4 @@
-import { fetcher } from "@api/fetcher";
+import { fetcherWithoutCredentials } from "@api/fetcher";
 import { Response } from "@api/types";
 
 export type StockSearchItem = {
@@ -25,7 +25,7 @@ export type StockItem = {
 };
 
 export const postStockSearch = async (query: string) => {
-  const res = await fetcher.post<Response<StockSearchItem[]>>(
+  const res = await fetcherWithoutCredentials.post<Response<StockSearchItem[]>>(
     `/stocks/search`,
     { searchTerm: query }
   );
@@ -33,6 +33,8 @@ export const postStockSearch = async (query: string) => {
 };
 
 export const getStockPage = async (tickerSymbol: string) => {
-  const res = await fetcher.get<Response<StockItem>>(`/stocks/${tickerSymbol}`);
+  const res = await fetcherWithoutCredentials.get<Response<StockItem>>(
+    `/stocks/${tickerSymbol}`
+  );
   return res.data;
 };
