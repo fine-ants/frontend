@@ -1,11 +1,6 @@
 import { HTTPSTATUS } from "@api/types";
 import { BASE_API_URL } from "@constants/config";
 import useSignOutMutation from "@features/auth/api/queries/useSignOutMutation";
-import {
-  Event,
-  EventSourcePolyfill,
-  MessageEvent,
-} from "event-source-polyfill";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type ErrorEvent = {
@@ -31,7 +26,7 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
 
   const { mutate: signOutMutate } = useSignOutMutation();
 
-  const eventSourceRef = useRef<EventSourcePolyfill>();
+  const eventSourceRef = useRef<EventSource>();
 
   const onClose = useCallback(() => {
     setData(undefined);
@@ -67,30 +62,15 @@ export function useSSE<T>({ url, eventTypeName }: Props) {
   );
 
   const initEventSource = useCallback(() => {
-    const accessToken = localStorage.getItem("accessToken");
-
-    eventSourceRef.current = new EventSourcePolyfill(`${BASE_API_URL}${url}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+    eventSourceRef.current = new EventSource(`${BASE_API_URL}${url}`, {
+      withCredentials: true,
     });
 
     eventSourceRef.current.onerror = async (errorEvent) => {
       if ((errorEvent as ErrorEvent).status === HTTPSTATUS.forbidden) {
-        try {
-          // const res = await refreshAccessToken();
-
-          // localStorage.setItem("accessToken", res.data?.accessToken);
-
-          setIsError(false);
-          setIsLoading(true);
-          initEventSource();
-          return;
-        } catch (error) {
-          setIsError(true);
-          signOutMutate();
-          return;
-        }
+        setIsError(true);
+        setIsLoading(false);
+        signOutMutate();
       }
     };
 
