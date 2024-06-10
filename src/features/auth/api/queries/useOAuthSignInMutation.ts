@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function useOAuthSignInMutation() {
   const navigate = useNavigate();
-  const { onSignIn, onSignOut, onGetUser } = useContext(UserContext);
+  const { onSignOut, onGetUser } = useContext(UserContext);
 
   return useMutation({
     mutationFn: ({
@@ -20,9 +20,7 @@ export default function useOAuthSignInMutation() {
       authCode: string;
       state: string;
     }) => postOAuthSignIn(provider, authCode, state),
-    onSuccess: async ({ data: { jwt } }) => {
-      onSignIn({ jwt });
-
+    onSuccess: async () => {
       try {
         const {
           data: { user },
