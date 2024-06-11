@@ -2,14 +2,13 @@ import googleLogo from "@assets/icons/logo/ic_google.svg";
 import kakaoLogo from "@assets/icons/logo/ic_kakao.svg";
 import naverLogo from "@assets/icons/logo/ic_naver.svg";
 import { CustomTooltip } from "@components/Tooltips/CustomTooltip";
-import { WindowContext } from "@context/WindowContext";
-import { OAuthProvider, postOAuthUrl } from "@features/auth/api";
+import { BASE_API_URL, CLIENT_URL } from "@constants/config";
+import { OAuthProvider } from "@features/auth/api";
 import { useBoolean } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import openPopUpWindow from "@utils/openPopUpWindow";
-import { useContext, useEffect, useRef } from "react";
-import { toast } from "src/main";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 type Variant = "rectangle" | "circle";
@@ -25,62 +24,36 @@ export default function SocialLoginButton({
 }: Props) {
   const { isDesktop } = useResponsiveLayout();
 
-  const { onOpenPopUpWindow } = useContext(WindowContext);
-
   const { state: isTooltipOpen, setTrue: setTooltipOpen } = useBoolean();
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const tooltipTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const recentlyLoggedInMethod = localStorage.getItem("recentlyLoggedInMethod");
-
-  const onSignIn = async () => {
-    try {
-      // Get Auth URL from server.
-      const res = await postOAuthUrl(provider);
-
-      const oAuthPopUpWindow = openPopUpWindow(
-        res.data.authURL,
-        `${provider}OAuth`,
-        500,
-        600
-      );
-
-      if (oAuthPopUpWindow) {
-        onOpenPopUpWindow(oAuthPopUpWindow);
-      } else {
-        toast.error("소셜 로그인을 위해 팝업을 허용해주세요");
-      }
-    } catch (_) {
-      toast.error("로그인을 실패했습니다. 잠시후 재시도해주세요.");
-    }
-  };
+  const recentLoginMethod = localStorage.getItem("recentLoginMethod");
 
   useEffect(() => {
-    timerRef.current = setTimeout(() => {
+    tooltipTimerRef.current = setTimeout(() => {
       setTooltipOpen();
     }, 300);
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
+      if (tooltipTimerRef.current) {
+        clearTimeout(tooltipTimerRef.current);
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const href = `${BASE_API_URL}/oauth2/authorization/${provider}?redirect_url=${CLIENT_URL}${Routes.OAUTHLOADING}`;
 
   let socialLoginButton = null;
 
   if (provider === "google") {
     socialLoginButton =
       variant === "rectangle" ? (
-        <RectangleButton
-          type="button"
-          onClick={onSignIn}
-          $provider="google"
-          $isDesktop={isDesktop}>
+        <RectangleButton href={href} $provider="google" $isDesktop={isDesktop}>
           <img src={googleLogo} alt="구글 로고" />
           <p>구글 로그인</p>
         </RectangleButton>
       ) : (
-        <CircleButton type="button" onClick={onSignIn} $provider="google">
+        <CircleButton href={href} $provider="google">
           <img src={googleLogo} alt="구글 로고" />
         </CircleButton>
       );
@@ -89,16 +62,12 @@ export default function SocialLoginButton({
   if (provider === "kakao") {
     socialLoginButton =
       variant === "rectangle" ? (
-        <RectangleButton
-          type="button"
-          onClick={onSignIn}
-          $provider="kakao"
-          $isDesktop={isDesktop}>
+        <RectangleButton href={href} $provider="kakao" $isDesktop={isDesktop}>
           <img src={kakaoLogo} alt="카카오 로고" />
           <p>카카오 로그인</p>
         </RectangleButton>
       ) : (
-        <CircleButton type="button" onClick={onSignIn} $provider="kakao">
+        <CircleButton href={href} $provider="kakao">
           <img src={kakaoLogo} alt="카카오 로고" />
         </CircleButton>
       );
@@ -107,22 +76,18 @@ export default function SocialLoginButton({
   if (provider === "naver") {
     socialLoginButton =
       variant === "rectangle" ? (
-        <RectangleButton
-          type="button"
-          onClick={onSignIn}
-          $provider="naver"
-          $isDesktop={isDesktop}>
+        <RectangleButton href={href} $provider="naver" $isDesktop={isDesktop}>
           <img src={naverLogo} alt="네이버 로고" />
           <p>네이버 로그인</p>
         </RectangleButton>
       ) : (
-        <CircleButton type="button" onClick={onSignIn} $provider="naver">
+        <CircleButton href={href} $provider="naver">
           <img src={naverLogo} alt="네이버 로고" />
         </CircleButton>
       );
   }
 
-  return recentlyLoggedInMethod === provider
+  return recentLoginMethod === provider
     ? socialLoginButton && (
         <CustomTooltip
           title="최근 사용한 로그인 방법입니다"
@@ -158,7 +123,7 @@ const oAuthProviderToCSS = {
   `,
 };
 
-const RectangleButton = styled.button<{
+const RectangleButton = styled.a<{
   $provider: OAuthProvider;
   $isDesktop: boolean;
 }>`
@@ -174,7 +139,7 @@ const RectangleButton = styled.button<{
   ${({ $provider }) => oAuthProviderToCSS[$provider]};
 `;
 
-const CircleButton = styled.button<{ $provider: OAuthProvider }>`
+const CircleButton = styled.a<{ $provider: OAuthProvider }>`
   width: 48px;
   height: 48px;
   display: flex;
