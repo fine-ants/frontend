@@ -3,16 +3,13 @@ import { TextButton } from "@components/Buttons/TextButton";
 import CheckBox from "@components/Checkbox";
 import { PasswordTextField } from "@components/TextField/PasswordTextField";
 import { TextField } from "@components/TextField/TextField";
-import { CLIENT_URL } from "@constants/config";
-import { WindowContext } from "@context/WindowContext";
-import useOAuthSignInMutation from "@features/auth/api/queries/useOAuthSignInMutation";
 import useSignInMutation from "@features/auth/api/queries/useSignInMutation";
 import SocialLoginButton from "@features/auth/components/SocialLoginButton";
 import { useText, validateEmail } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { FormEvent, useContext, useEffect } from "react";
+import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AuthPageHeader from "./AuthPageHeader";
@@ -24,10 +21,8 @@ export default function SignInForm() {
   const { isDesktop, isMobile } = useResponsiveLayout();
 
   const navigate = useNavigate();
-  const { popUpWindow, closePopUpWindow } = useContext(WindowContext);
 
   const { mutate: signInMutate } = useSignInMutation();
-  const { mutateAsync: oAuthSignInMutate } = useOAuthSignInMutation();
 
   const {
     value: email,
@@ -46,35 +41,6 @@ export default function SignInForm() {
     e.preventDefault();
     signInMutate({ email, password });
   };
-
-  // Receive OAuth provider, auth code, state in original window from popup window.
-  // Only used by Kakao and Naver Login.
-  useEffect(() => {
-    if (!popUpWindow) return;
-
-    let shouldClosePopUp = false;
-
-    const closePopUpMessageHandler = async (e: MessageEvent) => {
-      if (e.origin === CLIENT_URL) {
-        const { provider, authCode, state } = e.data;
-
-        if (provider && authCode && state) {
-          await oAuthSignInMutate({ provider, authCode, state });
-        }
-      }
-      shouldClosePopUp = true;
-    };
-
-    window.addEventListener("message", closePopUpMessageHandler);
-
-    return () => {
-      window.removeEventListener("message", closePopUpMessageHandler);
-
-      if (shouldClosePopUp) {
-        closePopUpWindow(); // redirect를 통한 component unmount에 의존
-      }
-    };
-  }, [closePopUpWindow, oAuthSignInMutate, popUpWindow]);
 
   const isAllFieldsFilled = !!email && !emailError && !!password;
 
