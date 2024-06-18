@@ -115,6 +115,7 @@ export default function EmailSubPage({ onPrev, onNext }: Props) {
 
       <Form onSubmit={onSubmit} $isMobile={isMobile}>
         <TextField
+          type="email"
           size={isMobile ? "h48" : "h44"}
           error={isError || !isDuplicateChecked}
           placeholder="이메일"
