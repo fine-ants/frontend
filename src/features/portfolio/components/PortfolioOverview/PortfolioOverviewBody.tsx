@@ -111,6 +111,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
                     }}
                     disabled={targetGain === 0}
                     onClick={onTargetGainNotifyButtonClick}
+                    aria-label="목표 수익률 알림 설정 토글"
                   />
                 </div>
               </ConditionalTooltip>
@@ -149,6 +150,7 @@ export default function PortfolioOverviewBody({ data }: Props) {
                     }}
                     disabled={maximumLoss === 0}
                     onClick={onMaxLossNotifyButtonClick}
+                    aria-label="최대 손실률 알림 설정 토글"
                   />
                 </div>
               </ConditionalTooltip>

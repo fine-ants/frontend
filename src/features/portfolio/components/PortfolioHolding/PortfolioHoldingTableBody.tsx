@@ -47,6 +47,10 @@ export default function PortfolioHoldingTableBody({
 
   return (
     <TableBody>
+      <TableRow style={{ height: 8 }}>
+        <TableCell colSpan={10} sx={{ padding: "0", border: "none" }} />
+      </TableRow>
+
       {visibleRows.map((row, index) => {
         const isItemSelected = isSelected(row.id);
         const labelId = `enhanced-table-checkbox-${index}`;

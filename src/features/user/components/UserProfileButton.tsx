@@ -18,7 +18,8 @@ export default function UserProfileButton({ isOpen, onClick }: Props) {
       variant="primary"
       size="h32"
       onClick={onClick}
-      $isOpen={isOpen}>
+      $isOpen={isOpen}
+      aria-label="사용자 프로필 버튼">
       <ProfileImageWrapper>
         {user?.profileUrl ? (
           <ProfileImage src={user.profileUrl} alt={user.nickname} $size={32} />

@@ -99,6 +99,11 @@ const StyledBrandIdentityLink = styled(Link)`
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+
+  > img {
+    width: 127px;
+    height: 24px;
+  }
 `;
 
 const ButtonWrapper = styled.div`

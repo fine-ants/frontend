@@ -5,7 +5,7 @@ import featureImage3 from "@assets/images/feature3.svg";
 import portfolioImage1 from "@assets/images/img_portfolio1.svg";
 import portfolioImage2 from "@assets/images/img_portfolio2.svg";
 import portfolioImage3 from "@assets/images/img_portfolio3.svg";
-import landingTopBG from "@assets/images/landingTop.svg";
+import landingTopBG from "@assets/images/landingTop.png";
 import landingTopChart from "@assets/images/landingTopChart.png";
 import Footer from "@components/Footer";
 import Header from "@components/Header/Header";
