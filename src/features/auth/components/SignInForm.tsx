@@ -55,6 +55,7 @@ export default function SignInForm() {
         <InputControl $isDesktop={isDesktop}>
           <TextInputLabel>이메일</TextInputLabel>
           <TextField
+            type="email"
             size={isDesktop ? "h44" : "h48"}
             error={!!emailError}
             placeholder="이메일"
