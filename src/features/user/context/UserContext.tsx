@@ -35,7 +35,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   const onGetUser = (user: User) => {
     localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("recentlyLoggedInMethod", user.provider);
+    localStorage.setItem("recentLoginMethod", user.provider);
     setUser(user);
   };
 

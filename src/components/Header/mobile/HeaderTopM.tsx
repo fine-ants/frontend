@@ -53,7 +53,7 @@ export default function HeaderTopM() {
         <Link
           to={user ? Routes.DASHBOARD : Routes.LANDING}
           style={{ padding: "4px 8px" }}>
-          <img src={fineantsLogo} alt="FineAnts" />
+          <LogoImage src={fineantsLogo} alt="FineAnts" />
         </Link>
       </HeaderCenter>
 
@@ -99,6 +99,11 @@ const HeaderCenter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const LogoImage = styled.img`
+  width: 24px;
+  height: 24px;
 `;
 
 const HeaderRight = styled.div`

@@ -45,6 +45,7 @@ export default function Select({
       onOpen={onOpen}
       onClose={onClose}
       input={<BootstrapInput $size={size} $isOpen={isOpen} />}
+      inputProps={{ "aria-label": "포트폴리오 종목 테이블 행 개수 선택" }}
       SelectDisplayProps={{
         style: {
           paddingRight: "40px",

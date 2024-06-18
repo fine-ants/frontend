@@ -117,6 +117,7 @@ export default function PortfolioHoldingTableHead({
               hoverColor: "gray100",
             }}
             onClick={(event) => onExpandOrCollapseAllRows(event)}
+            aria-label="포트폴리오 종목 테이블 모두 펼치기 버튼"
           />
         </StyledTableCell>
 
@@ -185,8 +186,6 @@ export default function PortfolioHoldingTableHead({
           </StyledTableCell>
         ))}
       </StyledTableRow>
-
-      <TableRow sx={{ height: "8px" }} />
     </StyledTableHead>
   );
 }
@@ -194,7 +193,6 @@ export default function PortfolioHoldingTableHead({
 const StyledTableHead = styled(TableHead)`
   height: 48px;
   width: 100%;
-  padding: 0 8px;
   background-color: ${designSystem.color.neutral.gray50};
   border-radius: 8px;
 

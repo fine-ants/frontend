@@ -110,11 +110,14 @@ const StyledNavItemContentD = styled(Link)`
 // Mobile
 const StyledNavBarM = styled.nav<{ $isIOSPWA: boolean }>`
   width: 100%;
-  height: 64px;
+  height: ${({ $isIOSPWA }) =>
+    $isIOSPWA ? `calc(${IOS_HOME_INDICATOR_HEIGHT}px + 64px)` : "64px"};
   position: fixed;
-  bottom: ${({ $isIOSPWA }) =>
-    $isIOSPWA ? `${IOS_HOME_INDICATOR_HEIGHT}px` : "0px"};
+  bottom: 0px;
   z-index: 10;
+  padding-bottom: ${({ $isIOSPWA }) =>
+    $isIOSPWA ? `${IOS_HOME_INDICATOR_HEIGHT}px` : "0px"};
+  background-color: ${designSystem.color.neutral.white};
 
   > ul {
     height: 100%;

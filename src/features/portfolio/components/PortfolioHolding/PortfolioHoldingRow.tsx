@@ -65,8 +65,8 @@ export default function PortfolioHoldingRow({
       <StyledHoldingTableRow
         tabIndex={-1}
         selected={isItemSelected}
-        aria-checked={isItemSelected}
-        onClick={(event) => handleClick(event, id)}>
+        onClick={(event) => handleClick(event, id)}
+        aria-selected={isItemSelected}>
         <HoldingTableCell
           style={{
             width: "40px",
@@ -81,6 +81,7 @@ export default function PortfolioHoldingRow({
               hoverColor: "gray200",
             }}
             onClick={(event) => onExpandRowClick(event)}
+            aria-label="포트폴리오 종목 펼치기 버튼"
           />
         </HoldingTableCell>
 
@@ -89,13 +90,14 @@ export default function PortfolioHoldingRow({
             size="h16"
             checkType="check"
             checked={isItemSelected}
+            aria-checked={isItemSelected}
             inputProps={{
               "aria-label": labelId,
             }}
           />
         </HoldingTableCell>
 
-        <HoldingTableCell style={{ width: "132px" }} component="th" scope="row">
+        <HoldingTableCell style={{ width: "132px" }}>
           <Typography sx={{ fontSize: "1rem" }} component="h3">
             <Link
               style={{ font: designSystem.font.body3.font }}
