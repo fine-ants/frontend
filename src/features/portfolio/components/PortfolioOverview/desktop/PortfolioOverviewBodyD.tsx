@@ -16,7 +16,7 @@ type Props = {
   data: PortfolioDetails;
 };
 
-export default function PortfolioOverviewBody({ data }: Props) {
+export default function PortfolioOverviewBodyD({ data }: Props) {
   const {
     budget,
     investedAmount,
