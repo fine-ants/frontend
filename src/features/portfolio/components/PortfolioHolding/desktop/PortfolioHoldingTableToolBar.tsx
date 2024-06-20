@@ -1,5 +1,4 @@
 import Button from "@components/Buttons/Button";
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import usePortfolioHoldingDeleteMutation from "@features/portfolio/api/queries/usePortfolioHoldingDeleteMutation";
 import { PortfolioHolding } from "@features/portfolio/api/types";
@@ -8,6 +7,7 @@ import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PortfolioHoldingDeleteConfirm from "../PortfolioHoldingDeleteConfirm";
 import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
 
 type Props = {
@@ -83,20 +83,12 @@ export default function PortfolioHoldingTableToolBar({
         onClose={onAddHoldingDialogClose}
       />
 
-      {isConfirmOpen && (
-        <ConfirmAlert
-          isOpen={isConfirmOpen}
-          title="선택 종목 삭제"
-          onClose={onDeleteHoldingsAlertClose}
-          onConfirm={onConfirmAction}>
-          <span>
-            '
-            {`${selected[0].companyName}'${
-              selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-            } 종목을 삭제하시겠습니까?`}
-          </span>
-        </ConfirmAlert>
-      )}
+      <PortfolioHoldingDeleteConfirm
+        isOpen={isConfirmOpen}
+        onClose={onDeleteHoldingsAlertClose}
+        onConfirm={onConfirmAction}
+        selected={selected}
+      />
     </StyledToolbar>
   );
 }
