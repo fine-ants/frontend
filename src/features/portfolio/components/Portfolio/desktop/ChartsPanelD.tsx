@@ -2,11 +2,11 @@ import usePortfolioHoldingChartsQuery from "@features/portfolio/api/queries/useP
 import { chartColorPalette } from "@styles/chartColorPalette";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import DividendBarChartContainer from "./Dividend/DividendBarChartContainer";
-import { PieChartContainer } from "./PieChart/PieChartContainer";
-import SectorBarChartContainer from "./Sector/SectorBarChartContainer";
+import DividendBarChartContainer from "../../Charts/Dividend/DividendBarChartContainer";
+import { PieChartContainer } from "../../Charts/PieChart/PieChartContainer";
+import SectorBarChartContainer from "../../Charts/Sector/SectorBarChartContainer";
 
-export default function ChartsPanel() {
+export default function ChartsPanelD() {
   const { portfolioId } = useParams();
 
   const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
