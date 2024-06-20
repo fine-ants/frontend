@@ -27,7 +27,7 @@ export default function SectorBar({
           title="No Holdings"
           fill={designSystem.color.primary.blue50}
           weight={100}
-          sectorBarWidth={400}
+          sectorBarWidth={sectorBarWidth}
         />
       ) : (
         coloredData.map((d, index) => (
@@ -36,7 +36,7 @@ export default function SectorBar({
             title={d.sector}
             fill={d.fill}
             weight={d.sectorWeight}
-            sectorBarWidth={400 - (coloredData.length - 1) * 2}
+            sectorBarWidth={sectorBarWidth - (coloredData.length - 1) * 2}
           />
         ))
       )}

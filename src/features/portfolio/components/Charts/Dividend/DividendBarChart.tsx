@@ -1,4 +1,5 @@
 import { PortfolioHoldingsDividendChartItem } from "@features/portfolio/api/types";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { Bar, BarChart, Cell, Tooltip, XAxis } from "recharts";
@@ -10,6 +11,8 @@ type Props = {
 };
 
 export default function DividendBarChart({ data }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   const [currentMonthIndex, setCurrentMonthIndex] = useState(
     new Date().getMonth()
   );
@@ -25,9 +28,11 @@ export default function DividendBarChart({ data }: Props) {
     amount: 0,
   }));
 
+  const barChartWidth = isMobile ? window.innerWidth - 32 : 400;
+
   return (
     <BarChart
-      width={400}
+      width={barChartWidth}
       height={234}
       data={hasNoDividendData ? emptyDividendData : data}>
       <XAxis

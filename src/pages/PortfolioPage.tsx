@@ -16,7 +16,7 @@ export default function PortfolioPage() {
 
   const { isMobile } = useResponsiveLayout();
 
-  const [tab, setTab] = useState<"portfolio" | "chart">("portfolio");
+  const [tab, setTab] = useState<"portfolio" | "chart">("chart");
 
   const onChangeTab = (tab: "portfolio" | "chart") => {
     setTab(tab);

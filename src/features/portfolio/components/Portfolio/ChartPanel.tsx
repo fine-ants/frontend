@@ -1,17 +1,13 @@
 import usePortfolioHoldingChartsQuery from "@features/portfolio/api/queries/usePortfolioHoldingChartsQuery";
-import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { chartColorPalette } from "@styles/chartColorPalette";
-import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import DividendBarChartContainer from "../../Charts/Dividend/DividendBarChartContainer";
-import { PieChartContainer } from "../../Charts/PieChart/PieChartContainer";
-import SectorBarChartContainer from "../../Charts/Sector/SectorBarChartContainer";
+import DividendBarChartContainer from "../Charts/Dividend/DividendBarChartContainer";
+import { PieChartContainer } from "../Charts/PieChart/PieChartContainer";
+import SectorBarChartContainer from "../Charts/Sector/SectorBarChartContainer";
 
-export default function ChartsPanelD() {
+export default function ChartsPanel() {
   const { portfolioId } = useParams();
-
-  const { isMobile } = useResponsiveLayout();
 
   const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
     Number(portfolioId)
@@ -37,7 +33,7 @@ export default function ChartsPanelD() {
   }));
 
   return (
-    <StyledChartsPanel $isMobile={isMobile}>
+    <StyledChartsPanel>
       <PieChartContainer
         coloredPieChart={coloredPieChart}
         pieChartLegendList={pieChartLegendList}
@@ -53,12 +49,12 @@ export default function ChartsPanelD() {
   );
 }
 
-const StyledChartsPanel = styled.div<{ $isMobile: boolean }>`
-  width: ${({ $isMobile }) => ($isMobile ? "100%" : "464px")};
+const StyledChartsPanel = styled.div`
+  background-color: ${({ theme: { color } }) => color.neutral.white};
   display: flex;
   flex-direction: column;
   gap: 48px;
-  padding: ${({ $isMobile }) => ($isMobile ? "32px 16px" : "32px")};
+  width: 464px;
+  padding: 32px;
   border-radius: 8px;
-  background-color: ${designSystem.color.neutral.white};
 `;
