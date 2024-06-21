@@ -29,7 +29,7 @@ export default function RateBadge({
         <Icon size={12} icon={getIcon(value)} color={getIconColor(value)} />
       )}
       <span>
-        {thousandsDelimiter(value)}
+        {thousandsDelimiter(Math.abs(value))}
         {noPercent ? "" : "%"}
       </span>
     </StyledRateBadge>
