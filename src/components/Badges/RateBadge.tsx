@@ -42,19 +42,15 @@ const StyledRateBadge = styled.div<{
   $size: Size;
 }>`
   height: ${({ $size }) => $size}px;
-  padding: 3.5px 4px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2.5px;
-  background-color: ${({ $colors, $bgColorStatus }) =>
-    $bgColorStatus ? $colors.bgColor : "none"};
-  border-radius: 4px;
   padding: ${({ $bgColorStatus }) => ($bgColorStatus ? "3.5px 4px" : "0")};
-  color: ${({ $colors }) => $colors.color};
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2px;
   background-color: ${({ $colors, $bgColorStatus }) =>
-    $bgColorStatus ? $colors.bgColor : "none"};
+    $bgColorStatus ? $colors.bgColor : "transparent"};
   border-radius: 4px;
+  color: ${({ $colors }) => $colors.color};
 
   > span {
     font: ${({ $size }) =>
