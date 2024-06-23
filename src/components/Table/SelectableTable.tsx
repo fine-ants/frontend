@@ -20,6 +20,8 @@ type Props<Item> = {
     props: MuiToolbarProps & {
       selected: readonly Item[];
       updateSelected: (newSelected: readonly Item[]) => void;
+      isAllDeleteOnLastPage: boolean;
+      moveToPrevTablePage: () => void;
     }
   ) => JSX.Element;
   TableHead: (
@@ -58,7 +60,7 @@ export default function SelectableTable<Item extends { id: string | number }>({
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
   const [selected, setSelected] = useState<readonly Item[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   const handleRequestSort = (_: MouseEvent<unknown>, property: keyof Item) => {
     const isAsc = orderBy === property && order === "asc";
@@ -68,6 +70,10 @@ export default function SelectableTable<Item extends { id: string | number }>({
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
+  };
+
+  const moveToPrevTablePage = () => {
+    setPage((prev) => prev - 1);
   };
 
   const updateSelected = (newSelected: readonly Item[]) => {
@@ -121,13 +127,21 @@ export default function SelectableTable<Item extends { id: string | number }>({
   const isAllRowsSelectedInCurrentPage =
     selected.length > 0 &&
     visibleRows.every((visibleRow) => selectedSet.has(visibleRow.id));
+  const isAllDeleteOnLastPage =
+    page >= Math.ceil(tableRows.length / rowsPerPage) - 1 &&
+    isAllRowsSelectedInCurrentPage;
 
   return (
     <MuiBox sx={{ width: "100%" }}>
       {tableRows.length > 0 ? (
         <>
           {TableToolBar && (
-            <TableToolBar selected={selected} updateSelected={updateSelected} />
+            <TableToolBar
+              selected={selected}
+              updateSelected={updateSelected}
+              isAllDeleteOnLastPage={isAllDeleteOnLastPage}
+              moveToPrevTablePage={moveToPrevTablePage}
+            />
           )}
 
           <MuiTableContainer>
