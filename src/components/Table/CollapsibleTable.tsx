@@ -51,7 +51,7 @@ export default function CollapsibleTable<Item>({
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
   const { state: isAllRowsOpen, setOpposite: handleExpandOrCollapseAllRows } =
     useBoolean();
 

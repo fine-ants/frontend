@@ -47,7 +47,7 @@ export default function PlainTable<Item>({
   const [order, setOrder] = useState<Order>("desc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   const handleRequestSort = (_: MouseEvent<unknown>, property: keyof Item) => {
     const isAsc = orderBy === property && order === "asc";
