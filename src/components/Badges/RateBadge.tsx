@@ -43,7 +43,7 @@ const StyledRateBadge = styled.div<{
 }>`
   height: ${({ $size }) => $size}px;
   padding: ${({ $bgColorStatus }) => ($bgColorStatus ? "3.5px 4px" : "0")};
-  display: flex;
+  display: inline-flex;
   justify-content: flex-end;
   align-items: center;
   gap: 2px;
