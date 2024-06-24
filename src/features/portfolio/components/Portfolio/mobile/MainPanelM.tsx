@@ -3,6 +3,7 @@ import {
   PortfolioHolding,
 } from "@features/portfolio/api/types";
 import styled from "styled-components";
+import PortfolioHeaderM from "../../PortfolioHeaderM";
 import PortfolioHoldingCardTable from "../../PortfolioHolding/mobile/PortfolioHoldingCardTable";
 import PortfolioOverviewM from "../../PortfolioOverview/mobile/PortfolioOverviewM";
 
@@ -21,12 +22,15 @@ export default function MainPanelM({
 }: Props) {
   return (
     <StyledMainPanel>
+      <PortfolioHeaderM
+        name={freshPortfolioDetailsData.name}
+        securitiesFirm={freshPortfolioDetailsData.securitiesFirm}
+        tab={tab}
+        onChangeTab={onChangeTab}
+      />
+
       <PortfolioOverviewContainer>
-        <PortfolioOverviewM
-          data={freshPortfolioDetailsData}
-          tab={tab}
-          onChangeTab={onChangeTab}
-        />
+        <PortfolioOverviewM data={freshPortfolioDetailsData} />
       </PortfolioOverviewContainer>
 
       <PortfolioHoldingCardTable data={freshPortfolioHoldingsData} />

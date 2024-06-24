@@ -1,13 +1,23 @@
 import usePortfolioHoldingChartsQuery from "@features/portfolio/api/queries/usePortfolioHoldingChartsQuery";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { chartColorPalette } from "@styles/chartColorPalette";
+import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DividendBarChartContainer from "../Charts/Dividend/DividendBarChartContainer";
 import { PieChartContainer } from "../Charts/PieChart/PieChartContainer";
 import SectorBarChartContainer from "../Charts/Sector/SectorBarChartContainer";
+import PortfolioHeaderM from "../PortfolioHeaderM";
 
-export default function ChartsPanel() {
+type Props = {
+  tab: "portfolio" | "chart";
+  onChangeTab: (tab: "portfolio" | "chart") => void;
+};
+
+export default function ChartsPanel({ tab, onChangeTab }: Props) {
   const { portfolioId } = useParams();
+
+  const { isMobile } = useResponsiveLayout();
 
   const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
     Number(portfolioId)
@@ -33,28 +43,39 @@ export default function ChartsPanel() {
   }));
 
   return (
-    <StyledChartsPanel>
-      <PieChartContainer
-        coloredPieChart={coloredPieChart}
-        pieChartLegendList={pieChartLegendList}
-      />
+    <>
+      {isMobile && (
+        <PortfolioHeaderM
+          name={"test"}
+          securitiesFirm={"FineAnts"}
+          tab={tab}
+          onChangeTab={onChangeTab}
+        />
+      )}
 
-      <DividendBarChartContainer dividendChart={dividendChart} />
+      <StyledChartsPanel $isMobile={isMobile}>
+        <PieChartContainer
+          coloredPieChart={coloredPieChart}
+          pieChartLegendList={pieChartLegendList}
+        />
 
-      <SectorBarChartContainer
-        sectorChart={sectorChart}
-        sectorLegendList={sectorLegendList}
-      />
-    </StyledChartsPanel>
+        <DividendBarChartContainer dividendChart={dividendChart} />
+
+        <SectorBarChartContainer
+          sectorChart={sectorChart}
+          sectorLegendList={sectorLegendList}
+        />
+      </StyledChartsPanel>
+    </>
   );
 }
 
-const StyledChartsPanel = styled.div`
-  background-color: ${({ theme: { color } }) => color.neutral.white};
+const StyledChartsPanel = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "464px")};
   display: flex;
   flex-direction: column;
   gap: 48px;
-  width: 464px;
-  padding: 32px;
+  padding: ${({ $isMobile }) => ($isMobile ? "32px 16px" : "32px")};
   border-radius: 8px;
+  background-color: ${designSystem.color.neutral.white};
 `;

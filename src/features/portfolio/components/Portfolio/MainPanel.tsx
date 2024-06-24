@@ -87,12 +87,14 @@ export default function MainPanel({ tab, onChangeTab }: Props) {
         />
       )}
       {isMobile && (
-        <MainPanelM
-          freshPortfolioDetailsData={freshPortfolioDetailsData}
-          freshPortfolioHoldingsData={freshPortfolioHoldingsData}
-          tab={tab}
-          onChangeTab={onChangeTab}
-        />
+        <>
+          <MainPanelM
+            freshPortfolioDetailsData={freshPortfolioDetailsData}
+            freshPortfolioHoldingsData={freshPortfolioHoldingsData}
+            tab={tab}
+            onChangeTab={onChangeTab}
+          />
+        </>
       )}
     </>
   );

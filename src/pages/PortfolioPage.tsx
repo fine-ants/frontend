@@ -1,7 +1,7 @@
 import { AsyncBoundary } from "@components/AsyncBoundary";
 import ChartsPanelErrorFallback from "@features/portfolio/components/Charts/errorFallback/ChartsPanelErrorFallback";
+import ChartsPanel from "@features/portfolio/components/Portfolio/ChartPanel";
 import MainPanel from "@features/portfolio/components/Portfolio/MainPanel";
-import ChartsPanel from "@features/portfolio/components/Portfolio/desktop/ChartsPanelD";
 import ChartsPanelSkeleton from "@features/portfolio/components/Portfolio/skeletons/ChartsPanelSkeleton";
 import MainPanelSkeleton from "@features/portfolio/components/Portfolio/skeletons/MainPanelSkeleton";
 import MainPanelErrorFallback from "@features/portfolio/components/errorFallback/MainPanelErrorFallback";
@@ -16,7 +16,7 @@ export default function PortfolioPage() {
 
   const { isMobile } = useResponsiveLayout();
 
-  const [tab, setTab] = useState<"portfolio" | "chart">("chart");
+  const [tab, setTab] = useState<"portfolio" | "chart">("portfolio");
 
   const onChangeTab = (tab: "portfolio" | "chart") => {
     setTab(tab);
@@ -25,7 +25,7 @@ export default function PortfolioPage() {
   return (
     <BasePage key={portfolioId}>
       <Container $isMobile={isMobile}>
-        <PanelWrapper hidden={isMobile && tab !== "portfolio"}>
+        <PanelWrapper $isVisible={isMobile && tab === "portfolio"}>
           <AsyncBoundary
             ErrorFallback={MainPanelErrorFallback}
             SuspenseFallback={<MainPanelSkeleton />}>
@@ -33,11 +33,11 @@ export default function PortfolioPage() {
           </AsyncBoundary>
         </PanelWrapper>
 
-        <PanelWrapper hidden={isMobile && tab !== "chart"}>
+        <PanelWrapper $isVisible={isMobile && tab === "chart"}>
           <AsyncBoundary
             ErrorFallback={ChartsPanelErrorFallback}
             SuspenseFallback={<ChartsPanelSkeleton />}>
-            <ChartsPanel />
+            <ChartsPanel tab={tab} onChangeTab={onChangeTab} />
           </AsyncBoundary>
         </PanelWrapper>
       </Container>
@@ -53,6 +53,7 @@ const Container = styled.div<{ $isMobile: boolean }>`
   gap: ${({ $isMobile }) => ($isMobile ? "0px" : "32px")};
 `;
 
-const PanelWrapper = styled.div`
+const PanelWrapper = styled.div<{ $isVisible: boolean }>`
   width: 100%;
+  display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
 `;
