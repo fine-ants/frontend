@@ -14,7 +14,7 @@ type Props<Item> = {
   initialOrderBy: keyof Item;
   rowsPerPageOptions?: number[];
   data: Item[];
-  TableToolBar?: (props: {
+  TableToolBar: (props: {
     selected: readonly Item[];
     updateSelected: (newSelected: readonly Item[]) => void;
     isAllDeleteOnLastPage: boolean;
