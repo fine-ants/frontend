@@ -2,10 +2,7 @@ import { useBoolean } from "@fineants/demolition";
 import {
   Box as MuiBox,
   Table as MuiTable,
-  TableBodyProps as MuiTableBodyProps,
   TableContainer as MuiTableContainer,
-  TableHeadProps as MuiTableHeadProps,
-  ToolbarProps as MuiToolbarProps,
 } from "@mui/material";
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
 import TablePagination from "../Pagination/TablePagination";
@@ -17,34 +14,28 @@ type Props<Item> = {
   initialOrderBy: keyof Item;
   rowsPerPageOptions?: number[];
   data: Item[];
-  TableToolBar?: (
-    props: MuiToolbarProps & {
-      selected: readonly Item[];
-      updateSelected: (newSelected: readonly Item[]) => void;
-      isAllDeleteOnLastPage: boolean;
-      moveToPrevTablePage: () => void;
-    }
-  ) => JSX.Element;
-  TableHead: (
-    props: MuiTableHeadProps & {
-      order: Order;
-      orderBy: keyof Item;
-      isAllRowsSelectedInCurrentPage: boolean;
-      onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
-      onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
-      isAllRowsOpen: boolean;
-      onExpandOrCollapseAllRows: (event: MouseEvent) => void;
-    }
-  ) => JSX.Element;
-  TableBody: (
-    props: MuiTableBodyProps & {
-      numEmptyRows: number;
-      visibleRows: readonly Item[];
-      selected: readonly Item[];
-      updateSelected: (newSelected: readonly Item[]) => void;
-      isAllRowsOpen: boolean;
-    }
-  ) => JSX.Element;
+  TableToolBar?: (props: {
+    selected: readonly Item[];
+    updateSelected: (newSelected: readonly Item[]) => void;
+    isAllDeleteOnLastPage: boolean;
+    moveToPrevTablePage: () => void;
+  }) => JSX.Element;
+  TableHead: (props: {
+    order: Order;
+    orderBy: keyof Item;
+    isAllRowsSelectedInCurrentPage: boolean;
+    onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+    onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
+    isAllRowsOpen: boolean;
+    onExpandOrCollapseAllRows: (event: MouseEvent) => void;
+  }) => JSX.Element;
+  TableBody: (props: {
+    numEmptyRows: number;
+    visibleRows: readonly Item[];
+    selected: readonly Item[];
+    updateSelected: (newSelected: readonly Item[]) => void;
+    isAllRowsOpen: boolean;
+  }) => JSX.Element;
   EmptyTable?: () => JSX.Element;
   enableTablePagination?: boolean;
 };
