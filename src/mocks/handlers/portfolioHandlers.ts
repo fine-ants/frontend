@@ -101,7 +101,6 @@ export default [
   http.delete<never, { portfolioIds: number[] }>(
     "/api/portfolios",
     async ({ request }) => {
-      // TODO: apply changes to mock data
       const { portfolioIds } = await request.json();
 
       for (let i = 0; i < portfolios.length; i++) {
