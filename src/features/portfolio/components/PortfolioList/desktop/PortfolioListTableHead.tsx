@@ -59,7 +59,7 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-type PortfolioListTableHeadProps = {
+type Props = {
   order: Order;
   orderBy: string;
   isAllRowsSelectedInCurrentPage: boolean;
@@ -76,7 +76,7 @@ export default function PortfolioListTableHead({
   isAllRowsSelectedInCurrentPage,
   onRequestSort,
   onSelectAllClick,
-}: PortfolioListTableHeadProps) {
+}: Props) {
   const createSortHandler =
     (property: keyof PortfolioItem) => (event: MouseEvent<unknown>) => {
       onRequestSort(event, property);

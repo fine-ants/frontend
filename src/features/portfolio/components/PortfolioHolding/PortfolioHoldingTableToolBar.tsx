@@ -13,11 +13,15 @@ import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
 type Props = {
   selected: readonly PortfolioHolding[];
   updateSelected: (newSelected: readonly PortfolioHolding[]) => void;
+  isAllDeleteOnLastPage: boolean;
+  moveToPrevTablePage: () => void;
 };
 
 export default function PortfolioHoldingTableToolBar({
   selected,
   updateSelected,
+  isAllDeleteOnLastPage,
+  moveToPrevTablePage,
 }: Props) {
   const { portfolioId } = useParams();
 
@@ -41,7 +45,12 @@ export default function PortfolioHoldingTableToolBar({
       portfolioId: Number(portfolioId),
       body: { portfolioHoldingIds: selectedHoldingIds },
     });
+
     updateSelected([]);
+
+    if (isAllDeleteOnLastPage) {
+      moveToPrevTablePage();
+    }
   };
 
   return (

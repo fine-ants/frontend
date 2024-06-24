@@ -13,11 +13,15 @@ import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
 interface Props {
   selected: readonly WatchlistItemType[];
   updateSelected: (newSelected: readonly WatchlistItemType[]) => void;
+  isAllDeleteOnLastPage: boolean;
+  moveToPrevTablePage: () => void;
 }
 
 export default function WatchlistTableToolBar({
   selected,
   updateSelected,
+  isAllDeleteOnLastPage,
+  moveToPrevTablePage,
 }: Props) {
   const { watchlistId } = useParams();
 
@@ -38,7 +42,12 @@ export default function WatchlistTableToolBar({
   const onConfirmAction = async () => {
     const tickerSymbols = selected.map((item) => item.tickerSymbol);
     await watchlistItemDeleteMutateAsync(tickerSymbols);
+
     updateSelected([]);
+
+    if (isAllDeleteOnLastPage) {
+      moveToPrevTablePage();
+    }
   };
 
   return (
