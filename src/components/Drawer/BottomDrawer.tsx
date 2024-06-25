@@ -26,6 +26,7 @@ export default function BottomDrawer({
     <ThemeProvider theme={theme(customStyle)}>
       <SwipeableDrawer
         anchor="bottom"
+        disableSwipeToOpen={true}
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
         onClose={onCloseDrawer}
@@ -65,7 +66,6 @@ const theme = (customStyle: CSSProperties) =>
             "zIndex": 1400,
             ".MuiPaper-root": {
               display: "flex",
-              gap: "8px",
               borderRadius: "16px 16px 0 0",
               padding: "16px 0",
               overflow: "hidden",

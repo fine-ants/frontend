@@ -18,6 +18,7 @@ export default function RightDrawer({
     <ThemeProvider theme={theme}>
       <SwipeableDrawer
         anchor="right"
+        disableDiscovery={true}
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
         onClose={onCloseDrawer}>
