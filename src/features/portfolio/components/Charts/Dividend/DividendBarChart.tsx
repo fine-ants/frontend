@@ -38,13 +38,15 @@ export default function DividendBarChart({ data }: Props) {
       <XAxis
         dataKey="month"
         tickLine={false}
-        tickFormatter={(tickItem) => `${tickItem}월`}
+        tickFormatter={(tickItem) => tickItem}
+        unit={"월"}
+        interval={0}
         axisLine={{
           stroke: designSystem.color.neutral.gray400,
           strokeWidth: 0.5,
         }}
-        fontSize={"12px"}
-        fontWeight={"400"}
+        fontSize={12}
+        fontWeight={isMobile ? 350 : 400}
         tick={{ fill: designSystem.color.neutral.gray400 }}
         tickMargin={8}
       />
