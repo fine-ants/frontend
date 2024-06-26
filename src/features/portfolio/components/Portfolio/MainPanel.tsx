@@ -22,6 +22,7 @@ export default function MainPanel({ tab, onChangeTab }: Props) {
   const { isDesktop, isMobile } = useResponsiveLayout();
 
   const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
+
   const {
     data: portfolioSSE,
     //TODO: SSE 에러일때 핸들링처리
@@ -87,14 +88,12 @@ export default function MainPanel({ tab, onChangeTab }: Props) {
         />
       )}
       {isMobile && (
-        <>
-          <MainPanelM
-            freshPortfolioDetailsData={freshPortfolioDetailsData}
-            freshPortfolioHoldingsData={freshPortfolioHoldingsData}
-            tab={tab}
-            onChangeTab={onChangeTab}
-          />
-        </>
+        <MainPanelM
+          freshPortfolioDetailsData={freshPortfolioDetailsData}
+          freshPortfolioHoldingsData={freshPortfolioHoldingsData}
+          tab={tab}
+          onChangeTab={onChangeTab}
+        />
       )}
     </>
   );

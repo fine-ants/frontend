@@ -2,11 +2,14 @@ import noHoldingStockImg from "@assets/images/no_holdings_stock.png";
 import Button from "@components/Buttons/Button";
 import { Icon } from "@components/Icon";
 import { useBoolean } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
+import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialogD";
 
 export default function EmptyPortfolioHoldingTable() {
+  const { isMobile } = useResponsiveLayout();
+
   const {
     state: isAddHoldingDialogOpen,
     setTrue: onDialogOpen,
@@ -15,7 +18,7 @@ export default function EmptyPortfolioHoldingTable() {
 
   return (
     <>
-      <StyledEmptyPortfolioHoldingTable>
+      <StyledEmptyPortfolioHoldingTable $isMobile={isMobile}>
         <img src={noHoldingStockImg} alt="보유 종목 없음" />
 
         <TextBox>
@@ -38,7 +41,7 @@ export default function EmptyPortfolioHoldingTable() {
   );
 }
 
-const StyledEmptyPortfolioHoldingTable = styled.div`
+const StyledEmptyPortfolioHoldingTable = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   height: 318px;
   display: flex;
@@ -47,7 +50,8 @@ const StyledEmptyPortfolioHoldingTable = styled.div`
   align-items: center;
   gap: 24px;
   border-radius: 8px;
-  border: 1px dashed ${designSystem.color.primary.blue100};
+  border: ${({ $isMobile }) =>
+    $isMobile ? "none" : `1px dashed ${designSystem.color.primary.blue100}`};
   font: ${designSystem.font.title3.font};
   letter-spacing: ${designSystem.font.title3.letterSpacing};
   color: ${designSystem.color.neutral.gray600};

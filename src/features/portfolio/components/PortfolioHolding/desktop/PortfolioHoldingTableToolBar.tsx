@@ -8,7 +8,7 @@ import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingDeleteConfirm from "../PortfolioHoldingDeleteConfirm";
-import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialog";
+import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialogD";
 
 type Props = {
   selected: readonly PortfolioHolding[];

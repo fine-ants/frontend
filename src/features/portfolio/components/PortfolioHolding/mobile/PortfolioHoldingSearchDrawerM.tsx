@@ -1,17 +1,20 @@
 import BottomDrawer from "@components/Drawer/BottomDrawer";
 import SearchBarM from "@components/SearchBar/mobile/SearchBarM";
+import { StockSearchItem } from "@features/stock/api";
 import styled from "styled-components";
 
 type Props = {
   isDrawerOpen: boolean;
   onDrawerOpen: () => void;
   onDrawerClose: () => void;
+  onSelectOption: (stock: StockSearchItem) => void;
 };
 
 export default function PortfolioHoldingSearchDrawerM({
   isDrawerOpen,
   onDrawerOpen,
   onDrawerClose,
+  onSelectOption,
 }: Props) {
   return (
     <BottomDrawer
@@ -20,7 +23,13 @@ export default function PortfolioHoldingSearchDrawerM({
       onOpenDrawer={onDrawerOpen}
       onCloseDrawer={onDrawerClose}>
       <DrawerContent>
-        <SearchBarM variant="select" />
+        <SearchBarM
+          variant="select"
+          onSelectOption={(stock) => {
+            onSelectOption(stock);
+            onDrawerClose();
+          }}
+        />
       </DrawerContent>
     </BottomDrawer>
   );

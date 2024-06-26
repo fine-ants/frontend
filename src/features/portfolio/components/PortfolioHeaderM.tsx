@@ -1,7 +1,10 @@
 import LabelBadge from "@components/Badges/LabelBadge";
+import { IconButton } from "@components/Buttons/IconButton";
 import { SecuritiesFirm, securitiesFirmLogos } from "@constants/securitiesFirm";
+import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
+import PortfolioHeaderDrawer from "./PortfolioHeaderDrawer";
 
 type Props = {
   securitiesFirm: SecuritiesFirm;
@@ -16,8 +19,24 @@ export default function PortfolioHeaderM({
   tab,
   onChangeTab,
 }: Props) {
+  const {
+    state: isDrawerOpen,
+    setTrue: onDrawerOpen,
+    setFalse: onDrawerClose,
+  } = useBoolean();
+
   return (
     <>
+      <ButtonWrapper>
+        <IconButton icon="arrow-left" size="h32" iconColor="gray" />
+        <IconButton
+          icon="kebab-vertical"
+          size="h32"
+          iconColor="gray"
+          onClick={onDrawerOpen}
+        />
+      </ButtonWrapper>
+
       <TitleWrapper>
         <FirmImage
           src={securitiesFirmLogos[securitiesFirm]}
@@ -36,9 +55,22 @@ export default function PortfolioHeaderM({
           <button onClick={() => onChangeTab("chart")}>차트</button>
         </TabItem>
       </Tabs>
+
+      <PortfolioHeaderDrawer
+        isDrawerOpen={isDrawerOpen}
+        onDrawerOpen={onDrawerOpen}
+        onDrawerClose={onDrawerClose}
+      />
     </>
   );
 }
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 8px;
+`;
 
 const TitleWrapper = styled.div`
   width: 100%;

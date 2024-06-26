@@ -1,5 +1,6 @@
 import SelectableCardTable from "@components/CardTable/SelectableCardTable/SelectableCardTable";
 import { PortfolioHolding } from "@features/portfolio/api/types";
+import EmptyPortfolioHoldingTable from "../desktop/EmptyPortfolioHoldingTable";
 import PortfolioHoldingCardBody from "./PortfolioHoldingCardBody";
 import PortfolioHoldingCardTableToolbar from "./PortfolioHoldingCardTableToolbar";
 
@@ -27,7 +28,7 @@ export default function PortfolioHoldingCardTable({ data }: Props) {
     <SelectableCardTable
       CardBody={PortfolioHoldingCardBody}
       CardTableToolbar={PortfolioHoldingCardTableToolbar}
-      EmptyComponent={() => <div>3</div>}
+      EmptyComponent={EmptyPortfolioHoldingTable}
       data={data}
       initialOrderBy="dateAdded"
       orderByList={orderByList}
