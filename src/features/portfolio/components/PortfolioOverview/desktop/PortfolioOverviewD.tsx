@@ -12,13 +12,13 @@ import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import PortfolioOverviewBody from "./PortfolioOverviewBody";
+import PortfolioOverviewBodyD from "./PortfolioOverviewBodyD";
 
 type Props = {
   data: PortfolioDetails;
 };
 
-export default function PortfolioOverview({ data }: Props) {
+export default function PortfolioOverviewD({ data }: Props) {
   const navigate = useNavigate();
   const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
@@ -85,7 +85,7 @@ export default function PortfolioOverview({ data }: Props) {
         </CurrentValuation>
       </ValuationContainer>
 
-      <PortfolioOverviewBody data={data} />
+      <PortfolioOverviewBodyD data={data} />
 
       {isDialogOpen && (
         <PortfolioEditDialog
@@ -168,13 +168,13 @@ const CurrentValuation = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
-  font: ${designSystem.font.title2.font};
-  letter-spacing: ${designSystem.font.title2.letterSpacing};
+  font: ${designSystem.font.title3.font};
+  letter-spacing: ${designSystem.font.title3.letterSpacing};
   color: ${designSystem.color.neutral.gray600};
 
   > span {
-    font: ${designSystem.font.title1.font};
-    letter-spacing: ${designSystem.font.title1.letterSpacing};
+    font: ${designSystem.font.title2.font};
+    letter-spacing: ${designSystem.font.title2.letterSpacing};
     color: ${designSystem.color.neutral.white};
   }
 `;

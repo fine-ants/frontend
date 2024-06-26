@@ -5,18 +5,25 @@ import {
   PortfolioSSE,
 } from "@features/portfolio/api/types";
 import { useSSE } from "@features/portfolio/hooks/useSSE";
-import { Box } from "@mui/material";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
-import EmptyPortfolioHoldingTable from "./PortfolioHolding/EmptyPortfolioHoldingTable";
-import PortfolioHoldingTable from "./PortfolioHolding/PortfolioHoldingTable";
-import PortfolioOverview from "./PortfolioOverview/PortfolioOverview";
+import { PortfolioPageTab } from "../types";
+import MainPanelD from "./desktop/MainPanelD";
+import MainPanelM from "./mobile/MainPanelM";
 
-export default function MainPanel() {
+type Props = {
+  tab: PortfolioPageTab;
+  onChangeTab: (tab: PortfolioPageTab) => void;
+};
+
+export default function MainPanel({ tab, onChangeTab }: Props) {
   const { portfolioId } = useParams();
 
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
+
   const {
     data: portfolioSSE,
     //TODO: SSE 에러일때 핸들링처리
@@ -73,39 +80,22 @@ export default function MainPanel() {
   const hasNoHoldings = portfolioHoldings.length === 0;
 
   return (
-    <StyledMainPanel>
-      <PortfolioOverviewContainer>
-        <PortfolioOverview data={freshPortfolioDetailsData} />
-      </PortfolioOverviewContainer>
-
-      {hasNoHoldings ? (
-        <EmptyPortfolioHoldingTable />
-      ) : (
-        <PortfolioHoldingsContainer>
-          <PortfolioHoldingTable data={freshPortfolioHoldingsData} />
-        </PortfolioHoldingsContainer>
+    <>
+      {isDesktop && (
+        <MainPanelD
+          freshPortfolioDetailsData={freshPortfolioDetailsData}
+          freshPortfolioHoldingsData={freshPortfolioHoldingsData}
+          hasNoHoldings={hasNoHoldings}
+        />
       )}
-    </StyledMainPanel>
+      {isMobile && (
+        <MainPanelM
+          freshPortfolioDetailsData={freshPortfolioDetailsData}
+          freshPortfolioHoldingsData={freshPortfolioHoldingsData}
+          tab={tab}
+          onChangeTab={onChangeTab}
+        />
+      )}
+    </>
   );
 }
-
-const StyledMainPanel = styled.div`
-  width: 960px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 32px;
-  background-color: #ffffff;
-  border-radius: 8px;
-`;
-
-const PortfolioOverviewContainer = styled.div`
-  width: 100%;
-`;
-
-const PortfolioHoldingsContainer = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 896px;
-`;

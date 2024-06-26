@@ -1,6 +1,7 @@
 import BottomDrawer from "@components/Drawer/BottomDrawer";
 import { Icon } from "@components/Icon";
 import { SecuritiesFirm, securitiesFirmLogos } from "@constants/securitiesFirm";
+import { BOTTOM_DRAWER_TOP_SPACE } from "@constants/styleConstants";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import styled from "styled-components";
@@ -44,7 +45,7 @@ export default function SelectDrawer({
       </StyledSelectDrawer>
 
       <BottomDrawer
-        customStyle={{ height: "calc(100vh - 64px)" }}
+        customStyle={{ height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)` }}
         isDrawerOpen={isOpen}
         onOpenDrawer={onOpen}
         onCloseDrawer={onClose}>
