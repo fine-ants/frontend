@@ -80,12 +80,11 @@ export default function SearchBarM({
     if (onSelectOption) onSelectOption(option);
   };
 
-  const isTyping = searchInputValue !== "";
-
   return (
     <Autocomplete
       id="stock-search-bar"
       fullWidth
+      disablePortal={true}
       sx={{ ...autocompleteSx(variant), ...sx }}
       disabled={disabled}
       open={isOpen}
@@ -140,7 +139,7 @@ export default function SearchBarM({
           onClick: clearSearchInput,
         },
         popper: {
-          sx: popperSx(variant, isTyping),
+          sx: popperSx(variant),
         },
       }}
       renderOption={(props, option) => {
@@ -244,26 +243,35 @@ const popupIndicatorSx = {
   padding: "0",
 };
 
-const popperSx = (variant: Variant, isTyping: boolean) => {
-  const SEARCH_PANEL_HEADER_HEIGHT = 72;
-  const SEARCH_BAR_HEIGHT = 48;
+const popperSx = (variant: Variant) => {
   const POPPER_MARGIN_TOP = variant === "default" ? 8 : 2;
 
   return {
+    "display": "flex",
+    "flexDirection": "column",
+    "flex": "1",
     "width": "100% !important",
-    "height": "100%",
+    "position": "static !important",
+    "transform": "none !important",
+    "overflow": "auto",
+
     "marginTop": `${POPPER_MARGIN_TOP}px !important`,
-    "display": isTyping ? "block" : "none",
+    "zIndex": "9999",
 
     ".MuiPaper-root": {
-      height: "inherit",
+      "border-radius": "0 !important",
+    },
+
+    ".MuiPaper-elevation": {
+      padding: 0,
     },
 
     "& .MuiAutocomplete-listbox": {
-      "height": "100%",
-      "maxHeight": `calc(100% - ${
-        SEARCH_PANEL_HEADER_HEIGHT + SEARCH_BAR_HEIGHT + POPPER_MARGIN_TOP
-      }px)`,
+      "display": "flex",
+      "flexDirection": "column",
+      "flex": "1",
+      "width": "100%",
+      "maxHeight": "none !important",
       "padding": "4px",
 
       "& .MuiAutocomplete-option": {
