@@ -3,6 +3,7 @@ import { IconButton } from "@components/Buttons/IconButton";
 import { SecuritiesFirm, securitiesFirmLogos } from "@constants/securitiesFirm";
 import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHeaderDrawer from "./PortfolioHeaderDrawer";
 
@@ -19,6 +20,8 @@ export default function PortfolioHeaderM({
   tab,
   onChangeTab,
 }: Props) {
+  const navigate = useNavigate();
+
   const {
     state: isDrawerOpen,
     setTrue: onDrawerOpen,
@@ -27,34 +30,41 @@ export default function PortfolioHeaderM({
 
   return (
     <>
-      <ButtonWrapper>
-        <IconButton icon="arrow-left" size="h32" iconColor="gray" />
-        <IconButton
-          icon="kebab-vertical"
-          size="h32"
-          iconColor="gray"
-          onClick={onDrawerOpen}
-        />
-      </ButtonWrapper>
+      <StyledPortfolioHeader>
+        <ButtonWrapper>
+          <IconButton
+            icon="arrow-left"
+            size="h40"
+            iconColor="gray"
+            onClick={() => navigate(-1)}
+          />
+          <IconButton
+            icon="kebab-vertical"
+            size="h40"
+            iconColor="gray"
+            onClick={onDrawerOpen}
+          />
+        </ButtonWrapper>
 
-      <TitleWrapper>
-        <FirmImage
-          src={securitiesFirmLogos[securitiesFirm]}
-          alt={`${securitiesFirm} 로고`}
-        />
-        <Title>{name}</Title>
-        <LabelBadge title={securitiesFirm} />
-      </TitleWrapper>
-      <Tabs>
-        <TabItem $isActive={tab === "portfolio"}>
-          <button onClick={() => onChangeTab("portfolio")}>
-            포트폴리오 정보
-          </button>
-        </TabItem>
-        <TabItem $isActive={tab === "chart"}>
-          <button onClick={() => onChangeTab("chart")}>차트</button>
-        </TabItem>
-      </Tabs>
+        <TitleWrapper>
+          <FirmImage
+            src={securitiesFirmLogos[securitiesFirm]}
+            alt={`${securitiesFirm} 로고`}
+          />
+          <Title>{name}</Title>
+          <LabelBadge title={securitiesFirm} />
+        </TitleWrapper>
+        <Tabs>
+          <TabItem $isActive={tab === "portfolio"}>
+            <button onClick={() => onChangeTab("portfolio")}>
+              포트폴리오 정보
+            </button>
+          </TabItem>
+          <TabItem $isActive={tab === "chart"}>
+            <button onClick={() => onChangeTab("chart")}>차트</button>
+          </TabItem>
+        </Tabs>
+      </StyledPortfolioHeader>
 
       <PortfolioHeaderDrawer
         isDrawerOpen={isDrawerOpen}
@@ -64,6 +74,13 @@ export default function PortfolioHeaderM({
     </>
   );
 }
+
+const StyledPortfolioHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+`;
 
 const ButtonWrapper = styled.div`
   display: flex;

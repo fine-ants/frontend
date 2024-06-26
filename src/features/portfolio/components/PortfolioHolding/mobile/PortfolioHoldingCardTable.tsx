@@ -1,6 +1,6 @@
 import SelectableCardTable from "@components/CardTable/SelectableCardTable/SelectableCardTable";
 import { PortfolioHolding } from "@features/portfolio/api/types";
-import EmptyPortfolioHoldingTable from "../desktop/EmptyPortfolioHoldingTable";
+import EmptyPortfolioHoldingTable from "../EmptyPortfolioHoldingTable";
 import PortfolioHoldingCardBody from "./PortfolioHoldingCardBody";
 import PortfolioHoldingCardTableToolbar from "./PortfolioHoldingCardTableToolbar";
 

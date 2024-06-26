@@ -1,6 +1,6 @@
 import CollapsibleSelectableTable from "@components/Table/CollapsibleSelectableTable";
 import { PortfolioHolding } from "@features/portfolio/api/types";
-import EmptyPortfolioHoldingTable from "./EmptyPortfolioHoldingTable";
+import EmptyPortfolioHoldingTable from "../EmptyPortfolioHoldingTable";
 import PortfolioHoldingTableBody from "./PortfolioHoldingTableBody";
 import PortfolioHoldingTableHead from "./PortfolioHoldingTableHead";
 import PortfolioHoldingTableToolBar from "./PortfolioHoldingTableToolBar";

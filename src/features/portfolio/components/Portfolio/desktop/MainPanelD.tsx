@@ -4,7 +4,7 @@ import {
 } from "@features/portfolio/api/types";
 import { Box } from "@mui/material";
 import styled from "styled-components";
-import EmptyPortfolioHoldingTable from "../../PortfolioHolding/desktop/EmptyPortfolioHoldingTable";
+import EmptyPortfolioHoldingTable from "../../PortfolioHolding/EmptyPortfolioHoldingTable";
 import PortfolioHoldingTable from "../../PortfolioHolding/desktop/PortfolioHoldingTable";
 import PortfolioOverviewD from "../../PortfolioOverview/desktop/PortfolioOverviewD";
 
