@@ -8,12 +8,13 @@ import { useSSE } from "@features/portfolio/hooks/useSSE";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PortfolioPageTab } from "../types";
 import MainPanelD from "./desktop/MainPanelD";
 import MainPanelM from "./mobile/MainPanelM";
 
 type Props = {
-  tab: "portfolio" | "chart";
-  onChangeTab: (tab: "portfolio" | "chart") => void;
+  tab: PortfolioPageTab;
+  onChangeTab: (tab: PortfolioPageTab) => void;
 };
 
 export default function MainPanel({ tab, onChangeTab }: Props) {

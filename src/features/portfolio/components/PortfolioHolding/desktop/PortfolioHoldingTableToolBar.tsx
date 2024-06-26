@@ -7,8 +7,8 @@ import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PortfolioHoldingAddDialog from "../PortfolioHoldingAddDialog";
 import PortfolioHoldingDeleteConfirm from "../PortfolioHoldingDeleteConfirm";
-import PortfolioHoldingAddDialog from "./PortfolioHoldingAddDialogD";
 
 type Props = {
   selected: readonly PortfolioHolding[];

@@ -102,14 +102,6 @@ function PortfolioHoldingCard({
           </CardItemRow>
           <CardItemRow title="평균 매입가">
             <Contents>₩{thousandsDelimiter(averageCostPerShare)}</Contents>
-            {/* <GainWrapper>
-              <Price>₩{thousandsDelimiter(averageCostPerShare)}</Price>
-              <RateBadge
-                size={16}
-                value={totalGainRate}
-                bgColorStatus={false}
-              />
-            </GainWrapper> */}
           </CardItemRow>
           <CardItemRow title="개수">
             <Contents>{numShares}</Contents>
@@ -151,8 +143,8 @@ function PortfolioHoldingCard({
 }
 
 const StyledPortfolioListCardList = styled.div`
-  border-top: 1px solid ${designSystem.color.neutral.gray100};
   margin-bottom: 24px;
+  border-top: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const StyledLink = styled(Link)`

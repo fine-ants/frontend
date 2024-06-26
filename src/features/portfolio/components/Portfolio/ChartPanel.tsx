@@ -8,10 +8,11 @@ import DividendBarChartContainer from "../Charts/Dividend/DividendBarChartContai
 import { PieChartContainer } from "../Charts/PieChart/PieChartContainer";
 import SectorBarChartContainer from "../Charts/Sector/SectorBarChartContainer";
 import PortfolioHeaderM from "../PortfolioHeaderM";
+import { PortfolioPageTab } from "../types";
 
 type Props = {
-  tab: "portfolio" | "chart";
-  onChangeTab: (tab: "portfolio" | "chart") => void;
+  tab: PortfolioPageTab;
+  onChangeTab: (tab: PortfolioPageTab) => void;
 };
 
 export default function ChartsPanel({ tab, onChangeTab }: Props) {

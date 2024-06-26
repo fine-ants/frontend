@@ -46,7 +46,6 @@ export default function PortfolioOverviewM({ data }: Props) {
     Number(portfolioId)
   );
 
-  // TODO : 알림 설정 테스트 필요
   const onTargetGainNotifyButtonClick = debounce(() => {
     mutate({
       notificationType: "targetGain",
@@ -271,6 +270,8 @@ const StyledPortfolioOverviewBody = styled.div`
 
 const ValuationContainer = styled.div`
   height: 64px;
+  margin: 32px 0 16px;
+  padding: 0 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -279,8 +280,6 @@ const ValuationContainer = styled.div`
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray400};
-  padding: 0 16px;
-  margin: 32px 0 16px;
 `;
 
 const CurrentValuation = styled.div`
@@ -299,11 +298,11 @@ const CurrentValuation = styled.div`
 `;
 
 const DetailItem = styled.div`
+  margin: 0 16px;
+  padding: 16px 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 0 16px;
-  padding: 16px 0;
   border-bottom: 1px solid ${designSystem.color.neutral.gray100};
 `;
 

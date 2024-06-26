@@ -1,5 +1,6 @@
 import BottomDrawer from "@components/Drawer/BottomDrawer";
 import SearchBarM from "@components/SearchBar/mobile/SearchBarM";
+import { BOTTOM_DRAWER_TOP_SPACE } from "@constants/styleConstants";
 import { StockSearchItem } from "@features/stock/api";
 import styled from "styled-components";
 
@@ -18,7 +19,7 @@ export default function PortfolioHoldingSearchDrawerM({
 }: Props) {
   return (
     <BottomDrawer
-      customStyle={{ height: "calc(100vh - 64px)" }}
+      customStyle={{ height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)` }}
       isDrawerOpen={isDrawerOpen}
       onOpenDrawer={onDrawerOpen}
       onCloseDrawer={onDrawerClose}>

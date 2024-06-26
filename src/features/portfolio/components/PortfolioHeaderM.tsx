@@ -6,12 +6,13 @@ import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHeaderDrawer from "./PortfolioHeaderDrawer";
+import { PortfolioPageTab } from "./types";
 
 type Props = {
   securitiesFirm: SecuritiesFirm;
   name: string;
-  tab: "portfolio" | "chart";
-  onChangeTab: (tab: "portfolio" | "chart") => void;
+  tab: PortfolioPageTab;
+  onChangeTab: (tab: PortfolioPageTab) => void;
 };
 
 export default function PortfolioHeaderM({

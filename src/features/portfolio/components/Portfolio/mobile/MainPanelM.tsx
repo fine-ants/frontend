@@ -10,12 +10,13 @@ import PortfolioHeaderM from "../../PortfolioHeaderM";
 import PortfolioHoldingAddDialog from "../../PortfolioHolding/PortfolioHoldingAddDialog";
 import PortfolioHoldingCardTable from "../../PortfolioHolding/mobile/PortfolioHoldingCardTable";
 import PortfolioOverviewM from "../../PortfolioOverview/mobile/PortfolioOverviewM";
+import { PortfolioPageTab } from "../../types";
 
 type Props = {
   freshPortfolioDetailsData: PortfolioDetails;
   freshPortfolioHoldingsData: PortfolioHolding[];
-  tab: "portfolio" | "chart";
-  onChangeTab: (tab: "portfolio" | "chart") => void;
+  tab: PortfolioPageTab;
+  onChangeTab: (tab: PortfolioPageTab) => void;
 };
 
 export default function MainPanelM({

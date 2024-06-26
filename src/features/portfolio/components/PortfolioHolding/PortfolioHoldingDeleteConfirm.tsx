@@ -17,8 +17,7 @@ export default function PortfolioHoldingDeleteConfirm<
       onClose={onClose}
       onConfirm={onConfirm}>
       <span>
-        '
-        {`${selected.length !== 0 && selected[0].companyName}'${
+        {`'${selected.length !== 0 && selected[0].companyName}'${
           selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
         } 종목을 삭제하시겠습니까?`}
       </span>

@@ -5,6 +5,7 @@ import MainPanel from "@features/portfolio/components/Portfolio/MainPanel";
 import ChartsPanelSkeleton from "@features/portfolio/components/Portfolio/skeletons/ChartsPanelSkeleton";
 import MainPanelSkeleton from "@features/portfolio/components/Portfolio/skeletons/MainPanelSkeleton";
 import MainPanelErrorFallback from "@features/portfolio/components/errorFallback/MainPanelErrorFallback";
+import { PortfolioPageTab } from "@features/portfolio/components/types";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -16,9 +17,9 @@ export default function PortfolioPage() {
 
   const { isMobile } = useResponsiveLayout();
 
-  const [tab, setTab] = useState<"portfolio" | "chart">("portfolio");
+  const [tab, setTab] = useState<PortfolioPageTab>("portfolio");
 
-  const onChangeTab = (tab: "portfolio" | "chart") => {
+  const onChangeTab = (tab: PortfolioPageTab) => {
     setTab(tab);
   };
 
@@ -46,11 +47,10 @@ export default function PortfolioPage() {
 }
 
 const Container = styled.div<{ $isMobile: boolean }>`
-  display: flex;
-  flex-direction: ${({ $isMobile }) => ($isMobile ? "colum" : "row")};
   width: 100%;
   padding: ${({ $isMobile }) => ($isMobile ? "16px 0 32px 0px" : "40px 150px")};
   display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "colum" : "row")};
   align-items: flex-start;
   gap: ${({ $isMobile }) => ($isMobile ? "0px" : "32px")};
 `;
