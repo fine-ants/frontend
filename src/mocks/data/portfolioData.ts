@@ -1,4 +1,4 @@
-const portfolios = [
+export const portfolios = [
   {
     id: 1,
     securitiesFirm: "토스증권",

@@ -1,9 +1,7 @@
 import {
   Box as MuiBox,
   Table as MuiTable,
-  TableBodyProps as MuiTableBodyProps,
   TableContainer as MuiTableContainer,
-  TableHeadProps as MuiTableHeadProps,
 } from "@mui/material";
 import { MouseEvent, useMemo, useState } from "react";
 import TablePagination from "../Pagination/TablePagination";
@@ -17,19 +15,15 @@ type Props<Item> = {
   initialOrderBy: keyof Item;
   rowsPerPageOptions?: number[];
   data: Item[];
-  TableHead: (
-    props: MuiTableHeadProps & {
-      order: Order;
-      orderBy: keyof Item;
-      onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
-    }
-  ) => JSX.Element;
-  TableBody: (
-    props: MuiTableBodyProps & {
-      numEmptyRows: number;
-      visibleRows: readonly Item[];
-    }
-  ) => JSX.Element;
+  TableHead: (props: {
+    order: Order;
+    orderBy: keyof Item;
+    onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
+  }) => JSX.Element;
+  TableBody: (props: {
+    numEmptyRows: number;
+    visibleRows: readonly Item[];
+  }) => JSX.Element;
   EmptyTable?: () => JSX.Element;
   enableTablePagination?: boolean;
 };
@@ -47,7 +41,7 @@ export default function PlainTable<Item>({
   const [order, setOrder] = useState<Order>("desc");
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   const handleRequestSort = (_: MouseEvent<unknown>, property: keyof Item) => {
     const isAsc = orderBy === property && order === "asc";

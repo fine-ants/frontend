@@ -12,11 +12,15 @@ import NewWatchlistDialog from "../NewWatchlistDialog";
 interface Props {
   selected: readonly WatchlistsType[];
   updateSelected: (newSelected: readonly WatchlistsType[]) => void;
+  isAllDeleteOnLastPage: boolean;
+  moveToPrevTablePage: () => void;
 }
 
 export default function WatchlistsTableToolBar({
   selected,
   updateSelected,
+  isAllDeleteOnLastPage,
+  moveToPrevTablePage,
 }: Props) {
   const { mutateAsync: watchlistsDeleteMutateAsync } =
     useWatchlistsDeleteMutation();
@@ -35,7 +39,12 @@ export default function WatchlistsTableToolBar({
   const onConfirmAction = async () => {
     const selectedWatchlistIds = selected.map((item) => item.id);
     await watchlistsDeleteMutateAsync(selectedWatchlistIds);
+
     updateSelected([]);
+
+    if (isAllDeleteOnLastPage) {
+      moveToPrevTablePage();
+    }
   };
 
   return (

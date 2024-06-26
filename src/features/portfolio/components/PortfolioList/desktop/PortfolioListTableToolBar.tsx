@@ -9,15 +9,19 @@ import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import PortfolioAddDialog from "../../PortfolioAddOrEditDialog/desktop/PortfolioAddOrEditDialogD";
 
-interface PortfolioListTableToolBarProps {
+type Props = {
   selected: readonly PortfolioItem[];
   updateSelected: (newSelected: readonly PortfolioItem[]) => void;
-}
+  isAllDeleteOnLastPage: boolean;
+  moveToPrevTablePage: () => void;
+};
 
 export default function PortfolioListTableToolBar({
   selected,
   updateSelected,
-}: PortfolioListTableToolBarProps) {
+  isAllDeleteOnLastPage,
+  moveToPrevTablePage,
+}: Props) {
   const { mutateAsync: portfoliosDeleteMutateAsync } =
     usePortfoliosDeleteMutation();
 
@@ -36,7 +40,12 @@ export default function PortfolioListTableToolBar({
   const onConfirmAction = async () => {
     const selectedPortfolioIds = selected.map((item) => item.id);
     await portfoliosDeleteMutateAsync(selectedPortfolioIds);
+
     updateSelected([]);
+
+    if (isAllDeleteOnLastPage) {
+      moveToPrevTablePage();
+    }
   };
 
   return (
