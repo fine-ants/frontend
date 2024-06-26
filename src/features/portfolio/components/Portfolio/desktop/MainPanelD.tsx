@@ -3,6 +3,7 @@ import {
   PortfolioHolding,
 } from "@features/portfolio/api/types";
 import { Box } from "@mui/material";
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import EmptyPortfolioHoldingTable from "../../PortfolioHolding/EmptyPortfolioHoldingTable";
 import PortfolioHoldingTable from "../../PortfolioHolding/desktop/PortfolioHoldingTable";
@@ -42,7 +43,7 @@ const StyledMainPanel = styled.div`
   flex-direction: column;
   gap: 40px;
   padding: 32px;
-  background-color: #ffffff;
+  background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
 `;
 

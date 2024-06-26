@@ -42,6 +42,7 @@ export default function MainPanelM({
       <PortfolioOverviewContainer>
         <PortfolioOverviewM data={freshPortfolioDetailsData} />
       </PortfolioOverviewContainer>
+
       {freshPortfolioHoldingsData.length !== 0 && (
         <ButtonWrapper>
           <Button variant="primary" size="h40" onClick={onDialogOpen}>

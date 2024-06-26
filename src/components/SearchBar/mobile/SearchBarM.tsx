@@ -247,15 +247,14 @@ const popperSx = (variant: Variant) => {
   const POPPER_MARGIN_TOP = variant === "default" ? 8 : 2;
 
   return {
+    "width": "100% !important",
+    "marginTop": `${POPPER_MARGIN_TOP}px !important`,
     "display": "flex",
     "flexDirection": "column",
     "flex": "1",
-    "width": "100% !important",
     "position": "static !important",
     "transform": "none !important",
     "overflow": "auto",
-
-    "marginTop": `${POPPER_MARGIN_TOP}px !important`,
     "zIndex": "9999",
 
     ".MuiPaper-root": {
@@ -267,12 +266,12 @@ const popperSx = (variant: Variant) => {
     },
 
     "& .MuiAutocomplete-listbox": {
-      "display": "flex",
-      "flexDirection": "column",
-      "flex": "1",
       "width": "100%",
       "maxHeight": "none !important",
       "padding": "4px",
+      "display": "flex",
+      "flexDirection": "column",
+      "flex": "1",
 
       "& .MuiAutocomplete-option": {
         "width": "100%",

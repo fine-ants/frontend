@@ -39,7 +39,7 @@ export default function DividendBarChart({ data }: Props) {
         dataKey="month"
         tickLine={false}
         tickFormatter={(tickItem) => tickItem}
-        unit={"월"}
+        unit="월"
         interval={0}
         axisLine={{
           stroke: designSystem.color.neutral.gray400,

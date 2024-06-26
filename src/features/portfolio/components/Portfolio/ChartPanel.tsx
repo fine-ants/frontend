@@ -27,18 +27,18 @@ export default function ChartsPanel({ tab, onChangeTab }: Props) {
 
   const { pieChart, dividendChart, sectorChart } = portfolioHoldingCharts;
 
-  const coloredPieChart = pieChart?.map((item, index) => ({
+  const coloredPieChart = pieChart.map((item, index) => ({
     ...item,
     fill: chartColorPalette[index],
   }));
 
-  const pieChartLegendList = coloredPieChart?.map((item) => ({
+  const pieChartLegendList = coloredPieChart.map((item) => ({
     title: item.name,
     percent: item.weight,
     color: item.fill,
   }));
 
-  const sectorLegendList = sectorChart?.map((item, index) => ({
+  const sectorLegendList = sectorChart.map((item, index) => ({
     title: item.sector,
     percent: item.sectorWeight,
     color: chartColorPalette[index],
