@@ -23,6 +23,8 @@ export default function ChartsPanel({ tab, onChangeTab }: Props) {
     Number(portfolioId)
   );
 
+  const { name, securitiesFirm } = portfolioHoldingCharts.portfolioDetails;
+
   const { pieChart, dividendChart, sectorChart } = portfolioHoldingCharts;
 
   const coloredPieChart = pieChart?.map((item, index) => ({
@@ -46,8 +48,8 @@ export default function ChartsPanel({ tab, onChangeTab }: Props) {
     <>
       {isMobile && (
         <PortfolioHeaderM
-          name={"test"}
-          securitiesFirm={"FineAnts"}
+          name={name}
+          securitiesFirm={securitiesFirm}
           tab={tab}
           onChangeTab={onChangeTab}
         />

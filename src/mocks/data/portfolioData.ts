@@ -513,6 +513,11 @@ export const successfulGetPortfolioChartsResponse = {
   status: "OK",
   message: "포트폴리오 차트 조회가 완료되었습니다",
   data: {
+    portfolioDetails: {
+      id: 1,
+      securitiesFirm: "FineAnts",
+      name: "test",
+    },
     pieChart: portfolioHoldingsPieChart,
     dividendChart: portfolioHoldingsDividendChart,
     sectorChart: portfolioHoldingsSectorChart,
