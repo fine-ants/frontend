@@ -9,7 +9,7 @@ import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import WatchlistNameEditDialog from "../WatchlistNameEditDialog";
+import WatchlistNameEditDialog from "../dialog/WatchlistNameEditDialog";
 import WatchlistTable from "./WatchlistTable";
 
 export default function WatchlistContainer() {

@@ -8,7 +8,7 @@ import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
+import WatchlistItemAddDialog from "../dialog/WatchlistItemAddDialog";
 
 interface Props {
   selected: readonly WatchlistItemType[];

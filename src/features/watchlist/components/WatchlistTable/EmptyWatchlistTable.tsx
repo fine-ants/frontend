@@ -4,7 +4,7 @@ import { Icon } from "@components/Icon";
 import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import WatchlistItemAddDialog from "../WatchlistItemAddDialog";
+import WatchlistItemAddDialog from "../dialog/WatchlistItemAddDialog";
 
 export default function EmptyWatchlistTable() {
   const {
