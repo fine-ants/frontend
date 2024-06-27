@@ -22,7 +22,7 @@ export default function Watchlists() {
   const isEmpty = data.length === 0;
 
   return (
-    <>
+    <StyledWatchlists $isMobile={isMobile}>
       <Header $isMobile={isMobile}>
         <h1>전체 관심 종목 리스트</h1>
         {isMobile && !isEmpty && (
@@ -46,14 +46,23 @@ export default function Watchlists() {
           onClose={onNewWatchlistDialogClose}
         />
       )}
-    </>
+    </StyledWatchlists>
   );
 }
+
+const StyledWatchlists = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  max-width: 1440px;
+  margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
+  padding: ${({ $isMobile }) => ($isMobile ? "32px 0" : "32px")};
+  background-color: ${designSystem.color.neutral.white};
+  border-radius: 8px;
+`;
 
 const Header = styled.header<{ $isMobile: boolean }>`
   width: 100%;
   margin-bottom: 36px;
-  padding: 0 16px;
+  padding: ${({ $isMobile }) => ($isMobile ? "0 16px" : "0")};
   display: flex;
   justify-content: space-between;
 
