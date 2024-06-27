@@ -1,13 +1,15 @@
 import SelectableTable from "@components/Table/SelectableTable";
-import useWatchlistsQuery from "@features/watchlist/api/queries/useWatchlistsQuery";
-import EmptyWatchlistsTable from "./EmptyWatchlistsTable";
+import { WatchlistsType } from "@features/watchlist/api";
+import EmptyWatchlistsTable from "../EmptyWatchlistsTable";
 import WatchlistsTableBody from "./WatchlistsTableBody";
 import WatchlistsTableHead from "./WatchlistsTableHead";
 import WatchlistsTableToolBar from "./WatchlistsTableToolBar";
 
-export default function WatchlistsTable() {
-  const { data: watchlistsData } = useWatchlistsQuery();
+type Props = {
+  data: WatchlistsType[];
+};
 
+export default function WatchlistsTable({ data }: Props) {
   return (
     <SelectableTable
       tableTitle="관심 종목 목록"
@@ -16,7 +18,7 @@ export default function WatchlistsTable() {
       TableHead={WatchlistsTableHead}
       TableBody={WatchlistsTableBody}
       EmptyTable={EmptyWatchlistsTable}
-      data={watchlistsData}
+      data={data}
     />
   );
 }
