@@ -1,5 +1,4 @@
 import Button from "@components/Buttons/Button";
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import { WatchlistItemType } from "@features/watchlist/api";
 import useWatchlistItemDeleteMutation from "@features/watchlist/api/queries/useWatchlistItemDeleteMutation";
@@ -8,7 +7,8 @@ import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import WatchlistItemAddDialog from "../dialog/WatchlistItemAddDialog";
+import WatchlistItemAddDialog from "../../dialog/WatchlistItemAddDialog";
+import WatchlistDeleteConfirm from "../WatchlistDeleteConfirm";
 
 interface Props {
   selected: readonly WatchlistItemType[];
@@ -97,18 +97,12 @@ export default function WatchlistTableToolBar({
       )}
 
       {isConfirmOpen && (
-        <ConfirmAlert
+        <WatchlistDeleteConfirm
+          selected={selected}
           isOpen={isConfirmOpen}
-          title="관심 종목 삭제"
           onClose={onDeleteWatchlistItemAlertClose}
-          onConfirm={onConfirmAction}>
-          <span>
-            '
-            {`${selected[0].companyName}'${
-              selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-            } 종목을 삭제하시겠습니까?`}
-          </span>
-        </ConfirmAlert>
+          onConfirm={onConfirmAction}
+        />
       )}
     </StyledToolbar>
   );
