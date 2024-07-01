@@ -13,6 +13,8 @@ type Props = {
   handleBackButton?: () => void;
 };
 
+const DRAWER_HEADER_HEIGHT = 32;
+
 export default function BottomDrawer({
   isDrawerOpen,
   children,
@@ -50,7 +52,7 @@ export default function BottomDrawer({
             onClick={onCloseDrawer}
           />
         </Header>
-        {children}
+        <Content>{children}</Content>
       </SwipeableDrawer>
     </ThemeProvider>
   );
@@ -83,4 +85,8 @@ const Header = styled.header<{ $hasBackButton: boolean }>`
     $hasBackButton ? "space-between" : "normal"};
   margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
   padding: 0 16px;
+`;
+
+const Content = styled.div`
+  height: calc(100% - ${DRAWER_HEADER_HEIGHT}px);
 `;
