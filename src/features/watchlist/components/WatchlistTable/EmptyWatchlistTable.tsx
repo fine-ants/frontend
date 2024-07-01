@@ -27,7 +27,7 @@ export default function EmptyWatchlistTable() {
         </TextContainer>
         <Button
           variant="primary"
-          size="h32"
+          size={isMobile ? "h40" : "h32"}
           onClick={onAddWatchlistButtonClick}>
           <Icon icon="favorite" size={16} color="white" />
           <span>관심 종목 추가</span>
