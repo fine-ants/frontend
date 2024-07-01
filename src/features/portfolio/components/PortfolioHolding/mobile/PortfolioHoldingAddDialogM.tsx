@@ -224,7 +224,7 @@ export default memo(function PortfolioHoldingAddDialogM({
             <AsyncButton
               variant="primary"
               size="h48"
-              style={{ width: "100%", marginLeft: "auto" }}
+              style={{ width: "100%" }}
               type="submit"
               disabled={!selectedStock || isPortfolioHoldingAddMutatePending}
               isPending={isPortfolioHoldingAddMutatePending}>
@@ -233,6 +233,7 @@ export default memo(function PortfolioHoldingAddDialogM({
           </Form>
         </ContentWrapper>
       </Dialog>
+
       <PortfolioHoldingSearchDrawerM
         isDrawerOpen={isDrawerOpen}
         onDrawerOpen={onDrawerOpen}
