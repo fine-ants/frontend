@@ -3,46 +3,31 @@ import BottomDrawer from "@components/Drawer/BottomDrawer";
 import SearchBarM from "@components/SearchBar/mobile/SearchBarM";
 import { BOTTOM_DRAWER_TOP_SPACE } from "@constants/styleConstants";
 import { StockSearchItem } from "@features/stock/api";
-import { useState } from "react";
 import styled from "styled-components";
 
 type Props = {
+  originalSelectedStocks: StockSearchItem[];
   selectedStocks: StockSearchItem[];
   isDrawerOpen: boolean;
   onDrawerOpen: () => void;
   onDrawerClose: () => void;
-  onSelectOption: (stock: StockSearchItem[]) => void;
+  onSelectOption: (stock: StockSearchItem) => void;
+  clearSelectedStocks: () => void;
+  updateOriginalSelectedStocks: () => void;
 };
 
 export default function WatchlistItemAddDrawerM({
-  selectedStocks: originalSelectedStocks,
+  originalSelectedStocks,
+  selectedStocks,
   isDrawerOpen,
   onDrawerOpen,
   onDrawerClose,
-  onSelectOption: onOriginalSelectOption,
+  onSelectOption,
+  clearSelectedStocks,
+  updateOriginalSelectedStocks,
 }: Props) {
-  const [selectedStocks, setSelectedStocks] = useState<StockSearchItem[]>(
-    originalSelectedStocks
-  );
-
-  const onSelectOption = (option: StockSearchItem) => {
-    setSelectedStocks((prev) => {
-      const index = prev.findIndex(
-        (stock) => stock.tickerSymbol === option.tickerSymbol
-      );
-
-      if (index === -1) {
-        return [...prev, option];
-      } else {
-        return prev.filter(
-          (stock) => stock.tickerSymbol !== option.tickerSymbol
-        );
-      }
-    });
-  };
-
-  const combinedSelectedStocks = [...originalSelectedStocks, ...selectedStocks];
-  const uniqueSelectedStocks = [...new Set(combinedSelectedStocks)];
+  const isDisabledButton =
+    JSON.stringify(originalSelectedStocks) === JSON.stringify(selectedStocks);
 
   return (
     <BottomDrawer
@@ -51,7 +36,7 @@ export default function WatchlistItemAddDrawerM({
       onOpenDrawer={onDrawerOpen}
       onCloseDrawer={() => {
         onDrawerClose();
-        setSelectedStocks([]);
+        clearSelectedStocks();
       }}>
       <DrawerContent>
         {isDrawerOpen && (
@@ -60,7 +45,7 @@ export default function WatchlistItemAddDrawerM({
             onSelectOption={(stock) => {
               onSelectOption(stock);
             }}
-            selectedOptions={uniqueSelectedStocks}
+            selectedOptions={selectedStocks}
           />
         )}
 
@@ -68,8 +53,9 @@ export default function WatchlistItemAddDrawerM({
           <StyledButton
             variant="primary"
             size="h48"
+            disabled={isDisabledButton}
             onClick={() => {
-              onOriginalSelectOption(uniqueSelectedStocks);
+              updateOriginalSelectedStocks();
               onDrawerClose();
             }}>
             선택 항목 추가
@@ -92,7 +78,7 @@ const DrawerContent = styled.div`
 const ButtonWrapper = styled.div`
   width: 100%;
   height: 48px;
-  margin-top: 16px;
+  margin: 16px 0 8px;
   padding: 0 16px;
 `;
 

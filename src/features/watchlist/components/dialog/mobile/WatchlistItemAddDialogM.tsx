@@ -7,7 +7,7 @@ import useWatchlistItemAddMutation from "@features/watchlist/api/queries/useWatc
 import { useBoolean } from "@fineants/demolition";
 import { Dialog } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import WatchlistItemAddDrawerM from "./WatchlistItemAddDrawerM";
@@ -20,7 +20,34 @@ type Props = {
 export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
   const { watchlistId } = useParams();
 
+  const [originalSelectedStocks, setOriginalSelectedStocks] = useState<
+    StockSearchItem[]
+  >([]);
   const [selectedStocks, setSelectedStocks] = useState<StockSearchItem[]>([]);
+
+  const updateOriginalSelectedStocks = () => {
+    setOriginalSelectedStocks(selectedStocks);
+  };
+
+  const clearSelectedStocks = () => {
+    setSelectedStocks([]);
+  };
+
+  const onSelectOption = (option: StockSearchItem) => {
+    setSelectedStocks((prev) => {
+      const index = prev.findIndex(
+        (stock) => stock.tickerSymbol === option.tickerSymbol
+      );
+
+      if (index === -1) {
+        return [...prev, option];
+      } else {
+        return prev.filter(
+          (stock) => stock.tickerSymbol !== option.tickerSymbol
+        );
+      }
+    });
+  };
 
   const {
     state: isDrawerOpen,
@@ -28,36 +55,38 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
     setFalse: onDrawerClose,
   } = useBoolean();
 
-  const onSuccessCb = () => {
+  const onCloseDialog = () => {
     onClose();
-    setSelectedStocks([]);
+    setOriginalSelectedStocks([]);
   };
   const {
     mutate: watchlistItemAddMutate,
     isPending: isWatchlistItemAddPending,
-  } = useWatchlistItemAddMutation(Number(watchlistId), onSuccessCb);
-
-  const onSelectOption = (option: StockSearchItem[]) => {
-    setSelectedStocks(option);
-  };
+  } = useWatchlistItemAddMutation(Number(watchlistId), onCloseDialog);
 
   const onAddButtonClick = () => {
-    const tickerSymbols = selectedStocks.map((stock) => stock.tickerSymbol);
+    const tickerSymbols = originalSelectedStocks.map(
+      (stock) => stock.tickerSymbol
+    );
     watchlistItemAddMutate(tickerSymbols);
   };
 
   const onDeleteHoldingBoxClick = (tickerSymbol: string) => {
-    setSelectedStocks((prev) =>
+    setOriginalSelectedStocks((prev) =>
       prev.filter((stock) => stock.tickerSymbol !== tickerSymbol)
     );
   };
+
+  useEffect(() => {
+    setSelectedStocks(originalSelectedStocks);
+  }, [originalSelectedStocks]);
 
   return (
     <>
       <Dialog
         fullScreen
         open={isOpen}
-        onClose={onClose}
+        onClose={onCloseDialog}
         TransitionComponent={SlideUpTransition}>
         <Header>
           <Title>관심 종목 추가</Title>
@@ -65,7 +94,7 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
             icon="close"
             size="h40"
             iconColor="gray"
-            onClick={onClose}
+            onClick={onCloseDialog}
           />
         </Header>
 
@@ -79,9 +108,9 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
             </SearchButton>
           </SearchBarWrapper>
           <SelectedStocksListWrapper>
-            {selectedStocks.length > 0 && (
+            {originalSelectedStocks.length > 0 && (
               <SelectedStocksList>
-                {selectedStocks.map((stock) => (
+                {originalSelectedStocks.map((stock) => (
                   <StockListItem key={stock.tickerSymbol}>
                     <StockDetails>
                       <p>{stock.companyName}</p>
@@ -109,7 +138,9 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
             variant="primary"
             size="h48"
             style={{ width: "100%", marginTop: "auto" }}
-            disabled={selectedStocks.length === 0 || isWatchlistItemAddPending}
+            disabled={
+              originalSelectedStocks.length === 0 || isWatchlistItemAddPending
+            }
             isPending={isWatchlistItemAddPending}
             onClick={onAddButtonClick}>
             추가
@@ -118,11 +149,14 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
       </Dialog>
 
       <WatchlistItemAddDrawerM
+        originalSelectedStocks={originalSelectedStocks}
         selectedStocks={selectedStocks}
         isDrawerOpen={isDrawerOpen}
         onDrawerOpen={onDrawerOpen}
         onDrawerClose={onDrawerClose}
         onSelectOption={onSelectOption}
+        updateOriginalSelectedStocks={updateOriginalSelectedStocks}
+        clearSelectedStocks={clearSelectedStocks}
       />
     </>
   );
