@@ -45,16 +45,15 @@ export default function EmptyWatchlistTable() {
 }
 
 const StyledEmptyWatchlistsTable = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "1376px")};
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "635px")};
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
-  width: ${({ $isMobile }) => ($isMobile ? "100%" : "1376px")};
-  height: ${({ $isMobile }) => ($isMobile ? "auto" : "635px")};
-  border-radius: 8px;
-  border: 1px dashed ${designSystem.color.primary.blue100};
   border: ${({ $isMobile }) =>
     $isMobile ? "none" : `1px dashed ${designSystem.color.primary.blue100}`};
+  border-radius: 8px;
 `;
 
 const Content = styled.div`
