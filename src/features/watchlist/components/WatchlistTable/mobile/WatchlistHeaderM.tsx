@@ -3,7 +3,7 @@ import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import WatchlistHeaderDrawer from "../WatchlistHeaderDrawer";
+import WatchlistActionDrawer from "./WatchlistActionDrawer";
 
 type Props = {
   name: string;
@@ -47,7 +47,7 @@ export default function WatchlistHeaderM({
         </Header>
       </StyledWatchlistHeader>
 
-      <WatchlistHeaderDrawer
+      <WatchlistActionDrawer
         isDrawerOpen={isDrawerOpen}
         onDrawerOpen={onDrawerOpen}
         onDrawerClose={onDrawerClose}
@@ -59,25 +59,25 @@ export default function WatchlistHeaderM({
 }
 
 const StyledWatchlistHeader = styled.div`
+  width: 100%;
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 100%;
-  margin-bottom: 16px;
 `;
 
 const ButtonWrapper = styled.div`
-  display: flex;
   width: 100%;
-  justify-content: space-between;
   padding: 0 8px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
   width: 100%;
   padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
 
   h1 {
     font: ${designSystem.font.heading4.font};

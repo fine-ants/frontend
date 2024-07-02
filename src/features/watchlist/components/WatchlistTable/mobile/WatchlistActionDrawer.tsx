@@ -11,7 +11,7 @@ type Props = {
   onNameEditDialogOpen: () => void;
 };
 
-export default function WatchlistHeaderDrawer({
+export default function WatchlistActionDrawer({
   isDrawerOpen,
   onDrawerOpen,
   onDrawerClose,
@@ -19,37 +19,35 @@ export default function WatchlistHeaderDrawer({
   onNameEditDialogOpen,
 }: Props) {
   return (
-    <>
-      <BottomDrawer
-        isDrawerOpen={isDrawerOpen}
-        onOpenDrawer={onDrawerOpen}
-        onCloseDrawer={onDrawerClose}>
-        <ContentItem>
-          <ContentItemButton
-            onClick={() => {
-              onDrawerClose();
-              onNameEditDialogOpen();
-            }}>
-            <ContentWrapper>
-              <Icon icon="edit" size={16} color="gray400" />
-              <ItemTitle>편집</ItemTitle>
-            </ContentWrapper>
-          </ContentItemButton>
-        </ContentItem>
-        <ContentItem>
-          <ContentItemButton
-            onClick={() => {
-              onDrawerClose();
-              onDeleteWatchlistAlertOpen();
-            }}>
-            <ContentWrapper>
-              <Icon icon="trash" size={16} color="gray400" />
-              <ItemTitle>삭제</ItemTitle>
-            </ContentWrapper>
-          </ContentItemButton>
-        </ContentItem>
-      </BottomDrawer>
-    </>
+    <BottomDrawer
+      isDrawerOpen={isDrawerOpen}
+      onOpenDrawer={onDrawerOpen}
+      onCloseDrawer={onDrawerClose}>
+      <ContentItem>
+        <ContentItemButton
+          onClick={() => {
+            onDrawerClose();
+            onNameEditDialogOpen();
+          }}>
+          <ContentWrapper>
+            <Icon icon="edit" size={16} color="gray400" />
+            <ItemTitle>편집</ItemTitle>
+          </ContentWrapper>
+        </ContentItemButton>
+      </ContentItem>
+      <ContentItem>
+        <ContentItemButton
+          onClick={() => {
+            onDrawerClose();
+            onDeleteWatchlistAlertOpen();
+          }}>
+          <ContentWrapper>
+            <Icon icon="trash" size={16} color="gray400" />
+            <ItemTitle>삭제</ItemTitle>
+          </ContentWrapper>
+        </ContentItemButton>
+      </ContentItem>
+    </BottomDrawer>
   );
 }
 
