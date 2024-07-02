@@ -41,7 +41,7 @@ export default function WatchlistM({
             variant="primary"
             size="h40"
             onClick={onAddWatchlistDialogOpen}>
-            <Icon icon="add" size={16} color="white" />
+            <Icon icon="favorite-add" size={16} color="white" />
             <span>관심 종목 추가</span>
           </Button>
         </ButtonWrapper>
