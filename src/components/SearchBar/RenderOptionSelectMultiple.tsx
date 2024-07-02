@@ -1,6 +1,7 @@
 import CheckBox from "@components/Checkbox";
 import splitAndIncludeDelimiter from "@components/SearchBar/utils/splitAndIncludeDelimiter";
 import { StockSearchItem } from "@features/stock/api";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
@@ -20,11 +21,16 @@ export default function RenderOptionSelectMultiple({
   selectedOptions,
   onClick,
 }: RenderOptionSelectMultipleProps) {
+  const { isMobile } = useResponsiveLayout();
+
   const isSelected = (tickerSymbol: string) =>
     !!selectedOptions.find((item) => item.tickerSymbol === tickerSymbol);
 
   return (
-    <li {...props} style={renderOptionSelectStyles} onClick={onClick}>
+    <SelectRow
+      {...props}
+      style={renderOptionSelectStyles(isMobile)}
+      onClick={onClick}>
       <CheckBox
         size="h16"
         checkType="check"
@@ -33,7 +39,7 @@ export default function RenderOptionSelectMultiple({
           "aria-label": `checkbox-${option.tickerSymbol}`,
         }}
       />
-      <CompanyName>
+      <CompanyName $isMobile={isMobile}>
         {splitAndIncludeDelimiter(option.companyName, searchValue).map(
           (word, idx) =>
             word === searchValue ? (
@@ -44,17 +50,27 @@ export default function RenderOptionSelectMultiple({
         )}
       </CompanyName>
       <TickerSymbol>{option.tickerSymbol}</TickerSymbol>
-    </li>
+    </SelectRow>
   );
 }
 
-const renderOptionSelectStyles = {
-  height: "32px",
-  justifyContent: "flex-start",
+const renderOptionSelectStyles = (isMobile: boolean) => {
+  return {
+    minHeight: isMobile ? "56px" : "32px",
+    justifyContent: "flex-start",
+  };
 };
 
-const CompanyName = styled.p`
-  font: ${designSystem.font.body3.font};
+const SelectRow = styled.li`
+  display: flex;
+  gap: 8px;
+`;
+
+const CompanyName = styled.p<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile ? designSystem.font.title4.font : designSystem.font.body3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile ? designSystem.font.title4.letterSpacing : "normal"};
   color: ${designSystem.color.neutral.gray900};
 `;
 

@@ -1,8 +1,7 @@
 import RateBadge from "@components/Badges/RateBadge";
 import { CardItemRow } from "@components/CardTable/CardItemRow";
 import SelectableCard from "@components/CardTable/SelectableCardTable/SelectableCard";
-import { securitiesFirmLogos } from "@constants/securitiesFirm";
-import { PortfolioItem } from "@features/portfolio/api/types";
+import { WatchlistItemType } from "@features/watchlist/api";
 import { thousandsDelimiter } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import { ChangeEvent } from "react";
@@ -10,12 +9,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
-  visibleRows: readonly PortfolioItem[];
-  selected: readonly PortfolioItem[];
-  updateSelected: (newSelected: readonly PortfolioItem[]) => void;
+  visibleRows: readonly WatchlistItemType[];
+  selected: readonly WatchlistItemType[];
+  updateSelected: (newSelected: readonly WatchlistItemType[]) => void;
 };
 
-export default function PortfolioListCardBody({
+export default function WatchlistCardBody({
   visibleRows,
   selected,
   updateSelected,
@@ -26,7 +25,7 @@ export default function PortfolioListCardBody({
       ? selected.indexOf(selectedItem)
       : -1;
 
-    let newSelected: readonly PortfolioItem[] = [];
+    let newSelected: readonly WatchlistItemType[] = [];
 
     if (selectedItemIndex === -1) {
       // 선택이 되어있지 않은 경우, 해당 아이템을 선택 및 추가
@@ -46,40 +45,37 @@ export default function PortfolioListCardBody({
   };
 
   return (
-    <StyledPortfolioListCardList>
+    <StyledWatchlistCardList>
       {visibleRows.map((item, index) => (
-        <PortfolioListCard
+        <WatchlistCard
           key={index}
           item={item}
           selected={selected}
           handleClick={handleClick}
         />
       ))}
-    </StyledPortfolioListCardList>
+    </StyledWatchlistCardList>
   );
 }
 
-function PortfolioListCard({
+function WatchlistCard({
   item,
   selected,
   handleClick,
 }: {
-  item: PortfolioItem;
-  selected: readonly PortfolioItem[];
+  item: WatchlistItemType;
+  selected: readonly WatchlistItemType[];
   handleClick: (event: ChangeEvent<unknown>, id: number) => void;
 }) {
   const {
     id,
-    name,
-    securitiesFirm,
-    currentValuation,
-    budget,
-    totalGain,
-    totalGainRate,
-    dailyGain,
-    dailyGainRate,
-    expectedMonthlyDividend,
-    numShares,
+    companyName,
+    tickerSymbol,
+    currentPrice,
+    dailyChange,
+    dailyChangeRate,
+    annualDividendYield,
+    sector,
   } = item;
 
   const isSelected = !!selected.find((item) => item.id === id);
@@ -89,47 +85,32 @@ function PortfolioListCard({
       isSelected={isSelected}
       onChange={(event) => handleClick(event, id)}
       CardHeader={
-        <StyledLink to={`/portfolio/${id}`}>
-          <FirmImage
-            src={securitiesFirmLogos[securitiesFirm]}
-            alt={`${securitiesFirm} 로고`}
-          />
-          {name}
-        </StyledLink>
+        <StyledLink to={`/stock/${tickerSymbol}`}>{companyName}</StyledLink>
       }
       CardBody={
         <>
-          <CardItemRow title="평가 금액">
-            <Price>₩{thousandsDelimiter(currentValuation)}</Price>
+          <CardItemRow title="현재가">
+            <Content>₩{thousandsDelimiter(currentPrice)}</Content>
           </CardItemRow>
-          <CardItemRow title="투자 예산">
-            <Price>₩{thousandsDelimiter(budget)}</Price>
-          </CardItemRow>
-          <CardItemRow title="총 손익">
-            <GainWrapper>
-              <Price>₩{thousandsDelimiter(totalGain)}</Price>
+          <CardItemRow title="변동률">
+            <ItemWrapper>
+              <Content>₩{thousandsDelimiter(dailyChange)}</Content>
               <RateBadge
                 size={16}
-                value={totalGainRate}
+                value={dailyChangeRate}
                 bgColorStatus={false}
               />
-            </GainWrapper>
+            </ItemWrapper>
           </CardItemRow>
-          <CardItemRow title="당일 손익">
-            <GainWrapper>
-              <Price>₩{thousandsDelimiter(dailyGain)}</Price>
-              <RateBadge
-                size={16}
-                value={dailyGainRate}
-                bgColorStatus={false}
-              />
-            </GainWrapper>
+          <CardItemRow title="배당금">
+            <RateBadge
+              size={16}
+              value={annualDividendYield}
+              bgColorStatus={false}
+            />
           </CardItemRow>
-          <CardItemRow title="당월 예상 배당금">
-            <Price>₩{thousandsDelimiter(expectedMonthlyDividend)}</Price>
-          </CardItemRow>
-          <CardItemRow title="종목 개수">
-            <Price>{thousandsDelimiter(numShares)}</Price>
+          <CardItemRow title="섹터">
+            <Content>{sector}</Content>
           </CardItemRow>
         </>
       }
@@ -137,9 +118,9 @@ function PortfolioListCard({
   );
 }
 
-const StyledPortfolioListCardList = styled.div`
-  border-top: 1px solid ${designSystem.color.neutral.gray100};
+const StyledWatchlistCardList = styled.div`
   margin-bottom: 24px;
+  border-top: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const StyledLink = styled(Link)`
@@ -152,19 +133,12 @@ const StyledLink = styled(Link)`
   color: ${designSystem.color.neutral.gray800};
 `;
 
-const FirmImage = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-`;
-
-const Price = styled.div`
+const Content = styled.div`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray900};
 `;
 
-const GainWrapper = styled.div`
+const ItemWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

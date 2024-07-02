@@ -12,7 +12,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function NewWatchlistDialog({ isOpen, onClose }: Props) {
+export default function NewWatchlistDialogD({ isOpen, onClose }: Props) {
   const { mutate: watchlistAddMutate } = useWatchlistsAddMutation({
     onCloseDialog: onClose,
   });
