@@ -9,10 +9,6 @@ type Props = {
 };
 
 export default function WatchlistsCardTable({ data }: Props) {
-  const orderByList: { title: string; orderBy: keyof WatchlistsType }[] = [
-    { title: "이름", orderBy: "name" },
-  ];
-
   return (
     <SelectableCardTable
       CardBody={WatchlistsCardBody}
@@ -24,3 +20,7 @@ export default function WatchlistsCardTable({ data }: Props) {
     />
   );
 }
+
+const orderByList: { title: string; orderBy: keyof WatchlistsType }[] = [
+  { title: "이름", orderBy: "name" },
+];
