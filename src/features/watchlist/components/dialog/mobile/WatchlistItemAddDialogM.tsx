@@ -28,16 +28,14 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
     setFalse: onDrawerClose,
   } = useBoolean();
 
+  const onSuccessCb = () => {
+    onClose();
+    setSelectedStocks([]);
+  };
   const {
     mutate: watchlistItemAddMutate,
     isPending: isWatchlistItemAddPending,
-  } = useWatchlistItemAddMutation({
-    watchlistId: Number(watchlistId),
-    onCloseDialog: () => {
-      onClose();
-      setSelectedStocks([]);
-    },
-  });
+  } = useWatchlistItemAddMutation(Number(watchlistId), onSuccessCb);
 
   const onSelectOption = (option: StockSearchItem[]) => {
     setSelectedStocks(option);
@@ -133,10 +131,10 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
 const Header = styled.div`
   width: 100%;
   height: 56px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   position: relative;
-  margin-bottom: 16px;
 `;
 
 const Title = styled.div`
@@ -150,12 +148,12 @@ const Title = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  width: 100%;
+  padding: 0 16px 8px;
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 16px;
-  width: 100%;
-  padding: 0 16px 8px;
   overflow: hidden;
 `;
 
@@ -176,14 +174,14 @@ const SearchBarWrapper = styled.div`
 `;
 
 const SearchButton = styled.button`
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 100%;
-  height: 48px;
   border: 1px solid ${designSystem.color.neutral.gray200};
   border-radius: 4px;
-  padding: 0 16px;
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray400};
 `;
@@ -194,16 +192,15 @@ const SelectedStocksListWrapper = styled.div`
 `;
 
 const SelectedStocksList = styled.ul`
+  width: 100%;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 16px;
-  width: 100%;
-  padding: 20px 16px;
-  overflow-y: scroll;
-  background-color: ${designSystem.color.neutral.gray50};
   border: 1px solid ${designSystem.color.primary.blue50};
   border-radius: 8px;
+  background-color: ${designSystem.color.neutral.gray50};
   overflow: auto;
 `;
 

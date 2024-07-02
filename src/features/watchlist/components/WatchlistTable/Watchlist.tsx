@@ -3,14 +3,12 @@ import useWatchlistQuery from "@features/watchlist/api/queries/useWatchlistQuery
 import useWatchlistsDeleteMutation from "@features/watchlist/api/queries/useWatchlistsDeleteMutation";
 import { useBoolean } from "@fineants/demolition";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
-import Routes from "@router/Routes";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import WatchlistNameEditDialog from "../dialog/WatchlistNameEditDialog";
 import WatchlistD from "./desktop/WatchlistD";
 import WatchlistM from "./mobile/WatchlistM";
 
 export default function Watchlist() {
-  const navigate = useNavigate();
   const { watchlistId } = useParams();
 
   const { isDesktop, isMobile } = useResponsiveLayout();
@@ -33,7 +31,6 @@ export default function Watchlist() {
 
   const onConfirmAction = () => {
     watchlistsDeleteMutate([Number(watchlistId)]);
-    navigate(Routes.WATCHLISTS);
   };
 
   return (

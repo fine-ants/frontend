@@ -24,7 +24,7 @@ export default function WatchlistCardTableToolbar({
   const { watchlistId } = useParams();
 
   const { mutateAsync: watchlistItemDeleteMutateAsync } =
-    useWatchlistItemDeleteMutation(Number(watchlistId));
+    useWatchlistItemDeleteMutation(Number(watchlistId), clearSelected);
 
   const {
     state: isDeleteConfirmOpen,
@@ -32,11 +32,9 @@ export default function WatchlistCardTableToolbar({
     setFalse: onDeleteConfirmClose,
   } = useBoolean();
 
-  const onConfirmAction = async () => {
+  const onConfirmAction = () => {
     const tickerSymbols = selected.map((item) => item.tickerSymbol);
-    await watchlistItemDeleteMutateAsync(tickerSymbols);
-
-    clearSelected();
+    watchlistItemDeleteMutateAsync(tickerSymbols);
   };
 
   return (

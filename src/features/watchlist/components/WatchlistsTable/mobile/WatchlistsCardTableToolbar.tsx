@@ -22,7 +22,7 @@ export default function WatchlistsCardTableToolbar<
   openDrawer,
 }: Props<Item>) {
   const { mutateAsync: watchlistsDeleteMutateAsync } =
-    useWatchlistsDeleteMutation();
+    useWatchlistsDeleteMutation(clearSelected);
 
   const {
     state: isDeleteConfirmOpen,
@@ -30,11 +30,9 @@ export default function WatchlistsCardTableToolbar<
     setFalse: closeDeleteConfirm,
   } = useBoolean();
 
-  const onConfirmAction = async () => {
+  const onConfirmAction = () => {
     const selectedWatchlistIds = selected.map((item) => item.id);
-    await watchlistsDeleteMutateAsync(selectedWatchlistIds);
-
-    clearSelected();
+    watchlistsDeleteMutateAsync(selectedWatchlistIds);
   };
 
   return (

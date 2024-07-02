@@ -21,10 +21,10 @@ export default function WatchlistNameEditDialogD({
 }: Props) {
   const { watchlistId } = useParams();
 
-  const { mutate: watchlistNameEditMutate } = useWatchlistNameEditMutation({
-    watchlistId: Number(watchlistId),
-    onCloseDialog: onClose,
-  });
+  const { mutate: watchlistNameEditMutate } = useWatchlistNameEditMutation(
+    Number(watchlistId),
+    onClose
+  );
 
   const [newWatchlistName, setNewWatchlistName] =
     useState(currentWatchlistName);

@@ -22,10 +22,10 @@ export default function WatchlistNameEditDialogM({
 }: Props) {
   const { watchlistId } = useParams();
 
-  const { mutate: watchlistNameEditMutate } = useWatchlistNameEditMutation({
-    watchlistId: Number(watchlistId),
-    onCloseDialog: onClose,
-  });
+  const { mutate: watchlistNameEditMutate } = useWatchlistNameEditMutation(
+    Number(watchlistId),
+    onClose
+  );
 
   const [newWatchlistName, setNewWatchlistName] =
     useState(currentWatchlistName);
@@ -34,16 +34,16 @@ export default function WatchlistNameEditDialogM({
     setNewWatchlistName("");
   };
 
+  const isInputEmpty = newWatchlistName === "";
+
   const onSubmit = () => {
-    if (newWatchlistName === currentWatchlistName) {
+    if (newWatchlistName === currentWatchlistName && isInputEmpty) {
       onClose();
       return;
     }
 
     watchlistNameEditMutate(newWatchlistName);
   };
-
-  const isInputEmpty = newWatchlistName === "";
 
   return (
     <Dialog
@@ -116,11 +116,11 @@ const Form = styled.form`
 `;
 
 const InputWrapper = styled.div`
+  width: 100%;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 100%;
-  padding: 16px;
 `;
 
 const Label = styled.label`

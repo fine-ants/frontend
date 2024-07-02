@@ -22,10 +22,7 @@ export default function WatchlistItemAddDialogD({ isOpen, onClose }: Props) {
   const {
     mutate: watchlistItemAddMutate,
     isPending: isWatchlistItemAddPending,
-  } = useWatchlistItemAddMutation({
-    watchlistId: Number(watchlistId),
-    onCloseDialog: onClose,
-  });
+  } = useWatchlistItemAddMutation(Number(watchlistId), onClose);
 
   const onSelectOption = (option: StockSearchItem) => {
     setSelectedStocks((prev) => {
