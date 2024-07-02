@@ -77,15 +77,15 @@ function WatchlistsCard({
 }
 
 const StyledWatchlistsCardBody = styled.div`
-  border-top: 1px solid ${designSystem.color.neutral.gray100};
   margin-bottom: 24px;
+  border-top: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const StyledLink = styled(Link)`
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 100%;
   font: ${designSystem.font.title4.font};
   letter-spacing: ${designSystem.font.title4.letterSpacing};
   color: ${designSystem.color.neutral.gray800};

@@ -31,13 +31,13 @@ export default function WatchlistD({
 }
 
 const StyledWatchlist = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   width: 100%;
   max-width: 1440px;
   margin-top: 48px;
   padding: 32px;
-  background-color: ${designSystem.color.neutral.white};
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   border-radius: 8px;
+  background-color: ${designSystem.color.neutral.white};
 `;

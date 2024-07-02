@@ -105,11 +105,11 @@ const Form = styled.form`
 `;
 
 const InputWrapper = styled.div`
+  width: 100%;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 100%;
-  padding: 16px;
 `;
 
 const Label = styled.label`

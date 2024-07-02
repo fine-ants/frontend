@@ -19,7 +19,7 @@ export default function EmptyWatchlistTable() {
   return (
     <StyledEmptyWatchlistsTable $isMobile={isMobile}>
       <Content>
-        <img src={emptyWatchlistImage} alt="관심종목 비어있음" />
+        <img src={emptyWatchlistImage} alt="빈 관심 종목 리스트" />
 
         <TextContainer $isMobile={isMobile}>
           <h1>관심 종목을 추가하세요</h1>

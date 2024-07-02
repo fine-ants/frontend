@@ -58,9 +58,9 @@ export default function WatchlistHeaderD({
 }
 
 const Header = styled.header`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  width: 100%;
 
   h1 {
     font: ${designSystem.font.heading4.font};
@@ -71,10 +71,10 @@ const Header = styled.header`
 
 const TitleContainer = styled.div`
   height: 73px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 40px;
 `;
 
 const TitleContent = styled.div`

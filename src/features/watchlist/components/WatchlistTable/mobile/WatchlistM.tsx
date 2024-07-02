@@ -58,19 +58,19 @@ export default function WatchlistM({
 }
 
 const StyledWatchlist = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   width: 100%;
   max-width: 1440px;
   margin-top: 0;
   padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
 `;
 
 const ButtonWrapper = styled.div`
+  padding: 16px 16px 24px;
   display: flex;
   justify-content: right;
-  padding: 16px 16px 24px;
 `;

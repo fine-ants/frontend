@@ -119,8 +119,8 @@ function WatchlistCard({
 }
 
 const StyledWatchlistCardList = styled.div`
-  border-top: 1px solid ${designSystem.color.neutral.gray100};
   margin-bottom: 24px;
+  border-top: 1px solid ${designSystem.color.neutral.gray100};
 `;
 
 const StyledLink = styled(Link)`

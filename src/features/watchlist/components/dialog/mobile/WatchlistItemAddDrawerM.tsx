@@ -42,7 +42,6 @@ export default function WatchlistItemAddDrawerM({
   };
 
   const combinedSelectedStocks = [...originalSelectedStocks, ...selectedStocks];
-
   const uniqueSelectedStocks = [...new Set(combinedSelectedStocks)];
 
   return (
@@ -82,12 +81,12 @@ export default function WatchlistItemAddDrawerM({
 }
 
 const DrawerContent = styled.div`
+  height: 100%;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-  height: 100%;
-  margin-top: 16px;
 `;
 
 const ButtonWrapper = styled.div`
