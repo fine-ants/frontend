@@ -15,9 +15,8 @@ export default function WatchlistHasStockDropdownItem({
   watchlist,
 }: Props) {
   const { id: watchlistId, hasStock, name: watchlistName } = watchlist;
-  const { mutate: watchlistItemAddMutate } = useWatchlistItemAddMutation({
-    watchlistId,
-  });
+  const { mutate: watchlistItemAddMutate } =
+    useWatchlistItemAddMutation(watchlistId);
   const { mutate: watchlistItemDeleteMutate } =
     useWatchlistItemDeleteMutation(watchlistId);
 

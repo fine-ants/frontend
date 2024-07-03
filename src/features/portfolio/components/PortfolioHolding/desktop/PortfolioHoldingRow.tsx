@@ -132,12 +132,24 @@ export default function PortfolioHoldingRow({
 
         <HoldingTableCell style={{ width: "80px" }} align="right">
           <RealtimeValue value={dailyChange} />
-          <RateBadge size={12} value={dailyChangeRate} bgColorStatus={false} />
+          <div>
+            <RateBadge
+              size={12}
+              value={dailyChangeRate}
+              bgColorStatus={false}
+            />
+          </div>
         </HoldingTableCell>
 
         <HoldingTableCell style={{ width: "108px" }} align="right">
           <RealtimeValue value={totalGain} />
-          <RateBadge size={12} value={totalReturnRate} bgColorStatus={false} />
+          <div>
+            <RateBadge
+              size={12}
+              value={totalReturnRate}
+              bgColorStatus={false}
+            />
+          </div>
         </HoldingTableCell>
 
         <HoldingTableCell
@@ -149,11 +161,13 @@ export default function PortfolioHoldingRow({
           <HoldingTypography>
             {thousandsDelimiter(annualDividend)}
           </HoldingTypography>
-          <RateBadge
-            size={12}
-            value={annualDividendYield}
-            bgColorStatus={false}
-          />
+          <div>
+            <RateBadge
+              size={12}
+              value={annualDividendYield}
+              bgColorStatus={false}
+            />
+          </div>
         </HoldingTableCell>
       </StyledHoldingTableRow>
 

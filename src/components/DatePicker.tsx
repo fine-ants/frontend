@@ -1,5 +1,6 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
 import designSystem from "@styles/designSystem";
 import { Dayjs } from "dayjs";
 import { Icon } from "./Icon";
@@ -19,13 +20,16 @@ export default function DatePicker({
   value,
   onChange,
 }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   return (
-    <ThemeProvider theme={datePickerTheme(size)}>
-      <MuiDatePicker
+    <ThemeProvider theme={datePickerTheme(size, isMobile)}>
+      <DesktopDatePicker
         disabled={disabled}
         value={value}
         onChange={onChange}
         format="YYYY-MM-DD"
+        disableOpenPicker={false}
         slotProps={{
           textField: { placeholder: "매입 날짜" },
         }}
@@ -39,14 +43,17 @@ export default function DatePicker({
   );
 }
 
-const datePickerTheme = (size: SizeType) =>
-  createTheme({
+const datePickerTheme = (size: SizeType, isMobile: boolean) => {
+  const WIDTH_SIZE = isMobile ? "100%" : size === "small" ? "127px" : "352px";
+  const HEIGHT_SIZE = isMobile ? "48px" : size === "small" ? "24px" : "32px";
+
+  return createTheme({
     components: {
       MuiInputBase: {
         styleOverrides: {
           root: {
-            "width": size === "small" ? "127px" : "352px",
-            "height": size === "small" ? "24px" : "32px",
+            "width": WIDTH_SIZE,
+            "height": HEIGHT_SIZE,
             "padding": "0 0 0 8px",
             "font": designSystem.font.body3.font,
             "&:hover, &:focus-within": {
@@ -65,3 +72,4 @@ const datePickerTheme = (size: SizeType) =>
       },
     },
   });
+};

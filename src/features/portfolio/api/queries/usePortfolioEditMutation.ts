@@ -11,6 +11,8 @@ export default function usePortfolioEditMutation(
   return useMutation({
     mutationFn: putPortfolio,
     onSuccess: () => {
+      onSuccessCb();
+
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
@@ -20,8 +22,6 @@ export default function usePortfolioEditMutation(
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.charts(portfolioId).queryKey,
       });
-
-      onSuccessCb();
     },
     meta: {
       toastSuccessMessage: "포트폴리오 수정을 성공했습니다",

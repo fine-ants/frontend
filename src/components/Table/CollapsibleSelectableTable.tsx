@@ -2,10 +2,7 @@ import { useBoolean } from "@fineants/demolition";
 import {
   Box as MuiBox,
   Table as MuiTable,
-  TableBodyProps as MuiTableBodyProps,
   TableContainer as MuiTableContainer,
-  TableHeadProps as MuiTableHeadProps,
-  ToolbarProps as MuiToolbarProps,
 } from "@mui/material";
 import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
 import TablePagination from "../Pagination/TablePagination";
@@ -17,32 +14,28 @@ type Props<Item> = {
   initialOrderBy: keyof Item;
   rowsPerPageOptions?: number[];
   data: Item[];
-  TableToolBar?: (
-    props: MuiToolbarProps & {
-      selected: readonly Item[];
-      updateSelected: (newSelected: readonly Item[]) => void;
-    }
-  ) => JSX.Element;
-  TableHead: (
-    props: MuiTableHeadProps & {
-      order: Order;
-      orderBy: keyof Item;
-      isAllRowsSelectedInCurrentPage: boolean;
-      onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
-      onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
-      isAllRowsOpen: boolean;
-      onExpandOrCollapseAllRows: (event: MouseEvent) => void;
-    }
-  ) => JSX.Element;
-  TableBody: (
-    props: MuiTableBodyProps & {
-      numEmptyRows: number;
-      visibleRows: readonly Item[];
-      selected: readonly Item[];
-      updateSelected: (newSelected: readonly Item[]) => void;
-      isAllRowsOpen: boolean;
-    }
-  ) => JSX.Element;
+  TableToolBar: (props: {
+    selected: readonly Item[];
+    updateSelected: (newSelected: readonly Item[]) => void;
+    isAllDeleteOnLastPage: boolean;
+    moveToPrevTablePage: () => void;
+  }) => JSX.Element;
+  TableHead: (props: {
+    order: Order;
+    orderBy: keyof Item;
+    isAllRowsSelectedInCurrentPage: boolean;
+    onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+    onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
+    isAllRowsOpen: boolean;
+    onExpandOrCollapseAllRows: (event: MouseEvent) => void;
+  }) => JSX.Element;
+  TableBody: (props: {
+    numEmptyRows: number;
+    visibleRows: readonly Item[];
+    selected: readonly Item[];
+    updateSelected: (newSelected: readonly Item[]) => void;
+    isAllRowsOpen: boolean;
+  }) => JSX.Element;
   EmptyTable?: () => JSX.Element;
   enableTablePagination?: boolean;
 };
@@ -66,7 +59,7 @@ export default function CollapsibleSelectableTable<
   const [orderBy, setOrderBy] = useState<keyof Item>(initialOrderBy);
   const [selected, setSelected] = useState<readonly Item[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPageOptions[0]);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
   const { state: isAllRowsOpen, setOpposite: handleExpandOrCollapseAllRows } =
     useBoolean();
 
@@ -78,6 +71,10 @@ export default function CollapsibleSelectableTable<
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
+  };
+
+  const moveToPrevTablePage = () => {
+    setPage((prev) => prev - 1);
   };
 
   const updateSelected = (newSelected: readonly Item[]) => {
@@ -122,13 +119,21 @@ export default function CollapsibleSelectableTable<
   const isAllRowsSelectedInCurrentPage =
     selected.length > 0 &&
     visibleRows.every((visibleRow) => selectedSet.has(visibleRow.id));
+  const isAllDeleteOnLastPage =
+    page >= Math.ceil(tableRows.length / rowsPerPage) - 1 &&
+    isAllRowsSelectedInCurrentPage;
 
   return (
     <MuiBox sx={{ width: "100%" }}>
       {tableRows.length > 0 ? (
         <>
           {TableToolBar && (
-            <TableToolBar selected={selected} updateSelected={updateSelected} />
+            <TableToolBar
+              selected={selected}
+              updateSelected={updateSelected}
+              isAllDeleteOnLastPage={isAllDeleteOnLastPage}
+              moveToPrevTablePage={moveToPrevTablePage}
+            />
           )}
 
           <MuiTableContainer>

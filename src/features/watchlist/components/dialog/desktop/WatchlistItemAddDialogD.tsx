@@ -14,7 +14,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
+export default function WatchlistItemAddDialogD({ isOpen, onClose }: Props) {
   const { watchlistId } = useParams();
 
   const [selectedStocks, setSelectedStocks] = useState<StockSearchItem[]>([]);
@@ -22,10 +22,7 @@ export default function WatchlistItemAddDialog({ isOpen, onClose }: Props) {
   const {
     mutate: watchlistItemAddMutate,
     isPending: isWatchlistItemAddPending,
-  } = useWatchlistItemAddMutation({
-    watchlistId: Number(watchlistId),
-    onCloseDialog: onClose,
-  });
+  } = useWatchlistItemAddMutation(Number(watchlistId), onClose);
 
   const onSelectOption = (option: StockSearchItem) => {
     setSelectedStocks((prev) => {

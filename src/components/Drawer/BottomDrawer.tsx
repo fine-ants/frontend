@@ -13,6 +13,8 @@ type Props = {
   handleBackButton?: () => void;
 };
 
+const DRAWER_HEADER_HEIGHT = 32;
+
 export default function BottomDrawer({
   isDrawerOpen,
   children,
@@ -26,6 +28,7 @@ export default function BottomDrawer({
     <ThemeProvider theme={theme(customStyle)}>
       <SwipeableDrawer
         anchor="bottom"
+        disableSwipeToOpen={true}
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
         onClose={onCloseDrawer}
@@ -49,7 +52,7 @@ export default function BottomDrawer({
             onClick={onCloseDrawer}
           />
         </Header>
-        {children}
+        <Content>{children}</Content>
       </SwipeableDrawer>
     </ThemeProvider>
   );
@@ -65,7 +68,6 @@ const theme = (customStyle: CSSProperties) =>
             "zIndex": 1400,
             ".MuiPaper-root": {
               display: "flex",
-              gap: "8px",
               borderRadius: "16px 16px 0 0",
               padding: "16px 0",
               overflow: "hidden",
@@ -83,4 +85,8 @@ const Header = styled.header<{ $hasBackButton: boolean }>`
     $hasBackButton ? "space-between" : "normal"};
   margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
   padding: 0 16px;
+`;
+
+const Content = styled.div`
+  height: calc(100% - ${DRAWER_HEADER_HEIGHT}px);
 `;

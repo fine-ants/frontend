@@ -1,5 +1,4 @@
 import Button from "@components/Buttons/Button";
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import { WatchlistsType } from "@features/watchlist/api";
 import useWatchlistsDeleteMutation from "@features/watchlist/api/queries/useWatchlistsDeleteMutation";
@@ -7,16 +6,21 @@ import { useBoolean } from "@fineants/demolition";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import NewWatchlistDialog from "../NewWatchlistDialog";
+import NewWatchlistDialog from "../../dialog/NewWatchlistDialog";
+import WatchlistsDeleteConfirm from "../WatchlistsDeleteConfirm";
 
 interface Props {
   selected: readonly WatchlistsType[];
   updateSelected: (newSelected: readonly WatchlistsType[]) => void;
+  isAllDeleteOnLastPage: boolean;
+  moveToPrevTablePage: () => void;
 }
 
 export default function WatchlistsTableToolBar({
   selected,
   updateSelected,
+  isAllDeleteOnLastPage,
+  moveToPrevTablePage,
 }: Props) {
   const { mutateAsync: watchlistsDeleteMutateAsync } =
     useWatchlistsDeleteMutation();
@@ -35,7 +39,12 @@ export default function WatchlistsTableToolBar({
   const onConfirmAction = async () => {
     const selectedWatchlistIds = selected.map((item) => item.id);
     await watchlistsDeleteMutateAsync(selectedWatchlistIds);
+
     updateSelected([]);
+
+    if (isAllDeleteOnLastPage) {
+      moveToPrevTablePage();
+    }
   };
 
   return (
@@ -83,18 +92,12 @@ export default function WatchlistsTableToolBar({
       )}
 
       {isConfirmOpen && (
-        <ConfirmAlert
+        <WatchlistsDeleteConfirm
           isOpen={isConfirmOpen}
-          title="관심 종목 리스트 삭제"
           onClose={onDeleteWatchlistsAlertClose}
-          onConfirm={onConfirmAction}>
-          <span>
-            '
-            {`${selected[0].name}'${
-              selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-            } 관심 종목 리스트를 삭제하시겠습니까?`}
-          </span>
-        </ConfirmAlert>
+          onConfirm={onConfirmAction}
+          selected={selected}
+        />
       )}
     </StyledToolbar>
   );

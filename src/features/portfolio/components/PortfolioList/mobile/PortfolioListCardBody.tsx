@@ -153,8 +153,8 @@ const StyledLink = styled(Link)`
 `;
 
 const FirmImage = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   overflow: hidden;
 `;

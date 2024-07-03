@@ -3,7 +3,7 @@ import Button from "@components/Buttons/Button";
 import { Icon } from "@components/Icon";
 import { useDropdown } from "@components/hooks/useDropdown";
 import { UserContext } from "@features/user/context/UserContext";
-import NewWatchlistDialog from "@features/watchlist/components/NewWatchlistDialog";
+import NewWatchlistDialog from "@features/watchlist/components/dialog/NewWatchlistDialog";
 import { useBoolean } from "@fineants/demolition";
 import { Button as MuiButton } from "@mui/material";
 import Routes from "@router/Routes";

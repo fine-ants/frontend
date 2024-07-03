@@ -9,6 +9,7 @@ import {
 import { calculateRate } from "@features/portfolio/utils/calculations";
 import {
   portfolioHoldings,
+  portfolios,
   successfulGetPortfolioChartsResponse,
   successfulGetPortfolioDetailsResponse,
   successfulGetPortfoliosResponse,
@@ -97,14 +98,24 @@ export default [
   }),
 
   // Delete Multiple Portfolios
-  http.delete("/api/portfolios", () => {
-    // TODO: apply changes to mock data
-    // const { portfolioIds } = await req.json();
+  http.delete<never, { portfolioIds: number[] }>(
+    "/api/portfolios",
+    async ({ request }) => {
+      const { portfolioIds } = await request.json();
 
-    return HttpResponse.json(successfulPortfolioDeleteResponse, {
-      status: HTTPSTATUS.success,
-    });
-  }),
+      for (let i = 0; i < portfolios.length; i++) {
+        const currentPortfolio = portfolios[i];
+        if (portfolioIds.includes(currentPortfolio.id)) {
+          portfolios.splice(i, 1);
+          i--;
+        }
+      }
+
+      return HttpResponse.json(successfulPortfolioDeleteResponse, {
+        status: HTTPSTATUS.success,
+      });
+    }
+  ),
 
   // Portfolio Details & Holdings
   http.get("/api/portfolio/:portfolioId/holdings", ({ params }) => {

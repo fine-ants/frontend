@@ -1,12 +1,13 @@
-import BaseDialog from "@components/BaseDialog";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
+import SlideUpTransition from "@components/SlideUpTransition";
 import { TextField } from "@components/TextField/TextField";
 import useWatchlistNameEditMutation from "@features/watchlist/api/queries/useWatchlistNameEditMutation";
+import { Dialog } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import styled, { CSSProperties } from "styled-components";
+import styled from "styled-components";
 
 type Props = {
   currentWatchlistName: string;
@@ -14,17 +15,17 @@ type Props = {
   onClose: () => void;
 };
 
-export default function WatchlistNameEditDialog({
+export default function WatchlistNameEditDialogM({
   currentWatchlistName,
   isOpen,
   onClose,
 }: Props) {
   const { watchlistId } = useParams();
 
-  const { mutate: watchlistNameEditMutate } = useWatchlistNameEditMutation({
-    watchlistId: Number(watchlistId),
-    onCloseDialog: onClose,
-  });
+  const { mutate: watchlistNameEditMutate } = useWatchlistNameEditMutation(
+    Number(watchlistId),
+    onClose
+  );
 
   const [newWatchlistName, setNewWatchlistName] =
     useState(currentWatchlistName);
@@ -33,8 +34,10 @@ export default function WatchlistNameEditDialog({
     setNewWatchlistName("");
   };
 
+  const isInputEmpty = newWatchlistName === "";
+
   const onSubmit = () => {
-    if (newWatchlistName === currentWatchlistName) {
+    if (newWatchlistName === currentWatchlistName && isInputEmpty) {
       onClose();
       return;
     }
@@ -42,10 +45,12 @@ export default function WatchlistNameEditDialog({
     watchlistNameEditMutate(newWatchlistName);
   };
 
-  const isInputEmpty = newWatchlistName === "";
-
   return (
-    <BaseDialog style={styledDialog} isOpen={isOpen} onClose={onClose}>
+    <Dialog
+      fullScreen
+      open={isOpen}
+      onClose={onClose}
+      TransitionComponent={SlideUpTransition}>
       <Header>
         <Title>리스트 이름 편집</Title>
         <IconButton
@@ -61,7 +66,7 @@ export default function WatchlistNameEditDialog({
           <Label htmlFor="watchlist-name">이름</Label>
           <TextField
             id="watchlist-name"
-            size="h32"
+            size="h48"
             placeholder="리스트 이름을 입력하세요"
             value={newWatchlistName}
             onChange={(e) => setNewWatchlistName(e.target.value)}
@@ -69,37 +74,36 @@ export default function WatchlistNameEditDialog({
           />
         </InputWrapper>
 
-        <div style={{ marginLeft: "auto" }}>
+        <ButtonWrapper>
           <Button
+            style={{ width: "100%" }}
             type="submit"
             variant="primary"
-            size="h32"
+            size="h48"
             disabled={isInputEmpty}>
             <p>추가</p>
           </Button>
-        </div>
+        </ButtonWrapper>
       </Form>
-    </BaseDialog>
+    </Dialog>
   );
 }
 
-const styledDialog: CSSProperties = {
-  height: "280px",
-  display: "flex",
-  flexDirection: "column",
-  gap: "32px",
-  borderRadius: "8px",
-};
-
-const Header = styled.header`
+const Header = styled.div`
+  width: 100%;
+  height: 56px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  position: relative;
 `;
 
-const Title = styled.h3`
-  font: ${designSystem.font.heading3.font};
-  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+const Title = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font: ${designSystem.font.title3.font};
+  letter-spacing: ${designSystem.font.title3.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 `;
 
@@ -113,8 +117,10 @@ const Form = styled.form`
 
 const InputWrapper = styled.div`
   width: 100%;
+  padding: 16px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const Label = styled.label`
@@ -122,4 +128,9 @@ const Label = styled.label`
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  padding: 8px 16px;
 `;

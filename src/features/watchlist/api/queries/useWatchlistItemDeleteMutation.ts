@@ -2,13 +2,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteWatchlistStocks } from "..";
 import { watchlistKeys } from "./queryKeys";
 
-export default function useWatchlistItemDeleteMutation(watchlistId: number) {
+export default function useWatchlistItemDeleteMutation(
+  watchlistId: number,
+  onSuccessCb?: () => void
+) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (tickerSymbols: string[]) =>
       deleteWatchlistStocks({ watchlistId, tickerSymbols }),
     onSuccess: () => {
+      onSuccessCb && onSuccessCb();
+
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.item(watchlistId).queryKey,
       });
