@@ -258,7 +258,7 @@ const popperSx = (variant: Variant) => {
     "zIndex": "9999",
 
     ".MuiPaper-root": {
-      "border-radius": "0 !important",
+      borderRadius: "0 !important",
     },
 
     ".MuiPaper-elevation": {

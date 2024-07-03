@@ -6,11 +6,11 @@ import {
 } from "@features/portfolio/api/types";
 import { useBoolean } from "@fineants/demolition";
 import styled from "styled-components";
-import PortfolioHeaderM from "../../PortfolioHeaderM";
 import PortfolioHoldingAddDialog from "../../PortfolioHolding/PortfolioHoldingAddDialog";
 import PortfolioHoldingCardTable from "../../PortfolioHolding/mobile/PortfolioHoldingCardTable";
 import PortfolioOverviewM from "../../PortfolioOverview/mobile/PortfolioOverviewM";
 import { PortfolioPageTab } from "../../types";
+import PortfolioHeaderM from "./PortfolioHeaderM";
 
 type Props = {
   freshPortfolioDetailsData: PortfolioDetails;
