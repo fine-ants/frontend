@@ -45,7 +45,13 @@ export default function DatePicker({
 
 const datePickerTheme = (size: SizeType, isMobile: boolean) => {
   const WIDTH_SIZE = isMobile ? "100%" : size === "small" ? "127px" : "352px";
-  const HEIGHT_SIZE = isMobile ? "48px" : size === "small" ? "24px" : "32px";
+  const HEIGHT_SIZE = isMobile
+    ? size === "small"
+      ? "32px"
+      : "48px"
+    : size === "small"
+    ? "24px"
+    : "32px";
 
   return createTheme({
     components: {
