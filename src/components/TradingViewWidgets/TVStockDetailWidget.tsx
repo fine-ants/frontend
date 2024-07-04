@@ -1,53 +1,41 @@
-import React, { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 
 let tvScriptLoadingPromise: Promise<void> | null = null;
 
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    TradingView: any;
-  }
-}
-interface TVStockDetailWidgetProps {
+type Props = {
   tickerSymbol: string;
-  width?: number;
-  height?: number;
-}
+};
 
-const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
-  tickerSymbol,
-  width,
-  height,
-}) => {
+function TradingViewWidget({ tickerSymbol }: Props) {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const matcher = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => {
-      setTheme(matcher.matches ? "dark" : "light");
-    };
-
-    matcher.addEventListener("change", onChange);
-    onChange();
-
-    return () => {
-      matcher.removeEventListener("change", onChange);
-      onLoadScriptRef.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    onLoadScriptRef.current = createWidget;
-
     if (!tvScriptLoadingPromise) {
       tvScriptLoadingPromise = new Promise((resolve) => {
         const script = document.createElement("script");
-        script.id = "tradingview-widget-loading-script";
-        script.src = "https://s3.tradingview.com/tv.js";
+        script.src =
+          "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
         script.type = "text/javascript";
+        script.async = true;
         script.onload = () => resolve();
-        document.head.appendChild(script);
+        script.innerHTML = `
+        {
+          "autosize": true,
+          "symbol": "${tickerSymbol}",
+          "interval": "D",
+          "timezone": "Etc/UTC",
+          "theme": "dark",
+          "style": "1",
+          "locale": "kr",
+          "allow_symbol_change": true,
+          "calendar": false,
+          "support_host": "https://www.tradingview.com"
+        }`;
+
+        if (container.current) {
+          container.current.appendChild(script);
+        }
       });
     }
 
@@ -58,42 +46,21 @@ const TVStockDetailWidget: React.FC<TVStockDetailWidgetProps> = ({
     return () => {
       onLoadScriptRef.current = null;
     };
-
-    function createWidget() {
-      if (
-        document.getElementById("tradingview_stock") &&
-        "TradingView" in window
-      ) {
-        new window.TradingView.widget({
-          symbol: tickerSymbol,
-          interval: "D",
-          timezone: "Etc/UTC",
-          theme: theme,
-          style: "1",
-          locale: "kr",
-          enable_publishing: false,
-          allow_symbol_change: true,
-          container_id: "tradingview_stock",
-          width: width,
-          height: height,
-        });
-      }
-    }
-  }, [tickerSymbol, theme, width, height]);
+  }, [tickerSymbol]);
 
   return (
     <div
       className="tradingview-widget-container"
-      style={{
-        width,
-        height,
-      }}>
+      ref={container}
+      style={{ height: "100%", width: "100%", border: "1px solid green" }}>
       <div
-        id="tradingview_stock"
-        style={{ height: "calc(100% - 32px)", width: "100%" }}
+        className="tradingview-widget-container__widget"
+        style={{ height: "100%", width: "100%" }}
       />
     </div>
   );
-};
+}
 
-export default TVStockDetailWidget;
+const TradingViewWidgetMemo = memo(TradingViewWidget);
+
+export default TradingViewWidgetMemo;
