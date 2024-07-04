@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import PortfolioHoldingLotAddRow from "./PortfolioHoldingLotAddRow";
-import PortfolioHoldingLotRow from "./PortfolioHoldingLotRow";
+import PortfolioHoldingLotAddRowD from "./PortfolioHoldingLotAddRowD";
+import PortfolioHoldingLotRowD from "./PortfolioHoldingLotRowD";
 
 type Props = {
   portfolioId: number;
@@ -22,7 +22,7 @@ type Props = {
 };
 
 // TODO: PlainTable을 사용하도록 수정
-export default function PortfolioHoldingLotsTable({
+export default function PortfolioHoldingLotsTableD({
   portfolioId,
   portfolioHoldingId,
   purchaseHistory,
@@ -58,7 +58,7 @@ export default function PortfolioHoldingLotsTable({
 
           <StyledTableBody>
             {purchaseHistory.map((lot) => (
-              <PortfolioHoldingLotRow
+              <PortfolioHoldingLotRowD
                 key={lot.purchaseHistoryId}
                 portfolioId={portfolioId}
                 portfolioHoldingId={portfolioHoldingId}
@@ -66,7 +66,7 @@ export default function PortfolioHoldingLotsTable({
               />
             ))}
             {isAddLotMode && (
-              <PortfolioHoldingLotAddRow
+              <PortfolioHoldingLotAddRowD
                 portfolioId={portfolioId}
                 portfolioHoldingId={portfolioHoldingId}
                 onDeleteButtonClick={onDeleteLotButtonClick}

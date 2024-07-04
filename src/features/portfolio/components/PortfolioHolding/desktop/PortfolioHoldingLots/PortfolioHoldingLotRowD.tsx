@@ -27,7 +27,7 @@ type Props = {
   lot: PurchaseHistory;
 };
 
-export default function PortfolioHoldingStyledTableRow({
+export default function PortfolioHoldingLotRowD({
   portfolioId,
   portfolioHoldingId,
   lot: {
