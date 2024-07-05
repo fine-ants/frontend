@@ -6,7 +6,8 @@ import styled, { CSSProperties } from "styled-components";
 type Props = {
   isDrawerOpen: boolean;
   children: ReactNode;
-  customStyle?: CSSProperties;
+  rootStyle?: CSSProperties;
+  paperStyle?: CSSProperties;
   onOpenDrawer: () => void;
   onCloseDrawer: () => void;
   handleTransitionEnd?: () => void;
@@ -18,14 +19,15 @@ const DRAWER_HEADER_HEIGHT = 32;
 export default function BottomDrawer({
   isDrawerOpen,
   children,
-  customStyle = {},
+  rootStyle = {},
+  paperStyle = {},
   onOpenDrawer,
   onCloseDrawer,
   handleTransitionEnd,
   handleBackButton,
 }: Props) {
   return (
-    <ThemeProvider theme={theme(customStyle)}>
+    <ThemeProvider theme={theme(rootStyle, paperStyle)}>
       <SwipeableDrawer
         anchor="bottom"
         disableSwipeToOpen={true}
@@ -58,21 +60,20 @@ export default function BottomDrawer({
   );
 }
 
-const theme = (customStyle: CSSProperties) =>
+const theme = (rootStyle: CSSProperties, paperStyle: CSSProperties) =>
   createTheme({
     components: {
       MuiDrawer: {
         styleOverrides: {
           root: {
-            // TODO: z-index system
-            "zIndex": 1400,
-            ".MuiPaper-root": {
-              display: "flex",
-              borderRadius: "16px 16px 0 0",
-              padding: "16px 0",
-              overflow: "hidden",
-              ...customStyle,
-            },
+            ...rootStyle,
+          },
+          paper: {
+            display: "flex",
+            borderRadius: "16px 16px 0 0",
+            padding: "16px 0",
+            overflow: "hidden",
+            ...paperStyle,
           },
         },
       },
@@ -80,11 +81,11 @@ const theme = (customStyle: CSSProperties) =>
   });
 
 const Header = styled.header<{ $hasBackButton: boolean }>`
+  margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
+  padding: 0 16px;
   display: ${({ $hasBackButton }) => ($hasBackButton ? "flex" : "block")};
   justify-content: ${({ $hasBackButton }) =>
     $hasBackButton ? "space-between" : "normal"};
-  margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
-  padding: 0 16px;
 `;
 
 const Content = styled.div`

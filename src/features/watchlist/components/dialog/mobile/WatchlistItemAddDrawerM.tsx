@@ -31,7 +31,12 @@ export default function WatchlistItemAddDrawerM({
 
   return (
     <BottomDrawer
-      customStyle={{ height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)` }}
+      rootStyle={{
+        zIndex: 1300,
+      }}
+      paperStyle={{
+        height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)`,
+      }}
       isDrawerOpen={isDrawerOpen}
       onOpenDrawer={onDrawerOpen}
       onCloseDrawer={() => {
