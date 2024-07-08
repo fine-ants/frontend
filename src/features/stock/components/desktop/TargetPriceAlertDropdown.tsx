@@ -8,10 +8,10 @@ import designSystem from "@styles/designSystem";
 import { MouseEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import StockTargetPriceForm from "../StockTargetPriceForm";
-import TargetPricesList from "./TargetPricesList";
-import TargetPricesListErrorFallback from "./errorFallback/TargetPricesListErrorFallback";
-import TargetPricesListSkeleton from "./skeleton/TargetPricesListSkeleton";
+import TargetPriceForm from "../TargetPriceForm";
+import TargetPricesList from "../TargetPricesList/TargetPricesList";
+import TargetPricesListErrorFallback from "../TargetPricesList/errorFallback/TargetPricesListErrorFallback";
+import TargetPricesListSkeleton from "../TargetPricesList/skeleton/TargetPricesListSkeleton";
 
 export default function TargetPriceAlertDropdown() {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ export default function TargetPriceAlertDropdown() {
           horizontal: "right",
         }}>
         <li>
-          <StockTargetPriceForm />
+          <TargetPriceForm />
         </li>
 
         <Divider />
@@ -94,14 +94,14 @@ const Divider = styled.li`
   background-color: ${designSystem.color.neutral.gray200};
 `;
 
-const TargetPricesListTitle = styled.div`
-  font: ${designSystem.font.title5.font};
-  letter-spacing: ${designSystem.font.title5.letterSpacing};
-  color: ${designSystem.color.neutral.gray600};
-`;
-
 const TargetPricesListContainer = styled.li`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`;
+
+const TargetPricesListTitle = styled.div`
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
 `;

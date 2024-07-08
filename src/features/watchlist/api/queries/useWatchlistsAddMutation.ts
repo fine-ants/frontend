@@ -15,6 +15,9 @@ export default function useWatchlistsAddMutation({ onCloseDialog }: Props) {
       queryClient.invalidateQueries({
         queryKey: watchlistKeys.list.queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: watchlistKeys.hasStock.queryKey,
+      });
       onCloseDialog();
     },
     meta: {

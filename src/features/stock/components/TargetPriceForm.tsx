@@ -1,4 +1,5 @@
 import Button from "@components/Buttons/Button";
+import { TextButton } from "@components/Buttons/TextButton";
 import { Icon } from "@components/Icon";
 import { CustomTooltip } from "@components/Tooltips/CustomTooltip";
 import useStockTargetPriceAddMutation from "@features/notification/api/queries/useStockTargetPriceAddMutation";
@@ -7,13 +8,16 @@ import {
   removeThousandsDelimiter,
   useText,
 } from "@fineants/demolition";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { InputAdornment, OutlinedInput } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ChangeEvent, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-export default function StockTargetPriceForm() {
+export default function TargetPriceForm() {
+  const { isMobile, isDesktop } = useResponsiveLayout();
+
   const { tickerSymbol } = useParams();
 
   const { mutate: addStockTargetPrice } = useStockTargetPriceAddMutation(
@@ -34,19 +38,19 @@ export default function StockTargetPriceForm() {
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <InputContainer>
-        <CustomTooltip
-          placement="bottom-start"
-          title="종목 지정가 알림은 최대 5개까지 추가할 수 있습니다">
-          <InputLabel>
-            지정가
-            <Icon icon="help" size={16} color="gray400" />
-          </InputLabel>
-        </CustomTooltip>
+    <StyledTargetPriceForm onSubmit={onSubmit} $isMobile={isMobile}>
+      <CustomTooltip
+        placement="bottom-start"
+        title="종목 지정가 알림은 최대 5개까지 추가할 수 있습니다">
+        <InputLabel $isDesktop={isDesktop}>
+          지정가
+          <Icon icon="help" size={16} color="gray400" />
+        </InputLabel>
+      </CustomTooltip>
 
+      <Wrapper $isMobile={isMobile}>
         <OutlinedInput
-          sx={outlinedInputSx}
+          sx={outlinedInputSx(isMobile)}
           placeholder="지정가를 입력하세요"
           value={targetPrice}
           onChange={targetPriceHandler}
@@ -59,33 +63,36 @@ export default function StockTargetPriceForm() {
             "aria-label": "종목 지정가 알림 추가",
           }}
         />
-      </InputContainer>
 
-      <SubmitButton type="submit" size="h24" variant="primary">
-        추가
-      </SubmitButton>
-    </Form>
+        {isMobile && (
+          <TextButton type="submit" size="h24" variant="default">
+            추가
+          </TextButton>
+        )}
+
+        {isDesktop && (
+          <SubmitButton type="submit" size="h24" variant="primary">
+            추가
+          </SubmitButton>
+        )}
+      </Wrapper>
+    </StyledTargetPriceForm>
   );
 }
 
-const Form = styled.form`
+const StyledTargetPriceForm = styled.form<{ $isMobile: boolean }>`
   width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+  justify-content: ${({ $isMobile }) =>
+    $isMobile ? "space-between" : "center"};
+  align-items: flex-start;
+  gap: ${({ $isMobile }) => ($isMobile ? "8px" : "16px")};
 `;
 
-const InputContainer = styled.div`
-  width: 100%;
-  height: 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-`;
-
-const InputLabel = styled.label`
+const InputLabel = styled.label<{ $isDesktop: boolean }>`
+  min-width: 80px;
+  margin-top: ${({ $isDesktop }) => ($isDesktop ? "8px" : "0")};
   display: flex;
   align-items: center;
   gap: 4px;
@@ -94,9 +101,17 @@ const InputLabel = styled.label`
   color: ${designSystem.color.neutral.gray800};
 `;
 
-const outlinedInputSx = {
-  "width": "232px",
-  "height": "inherit",
+const Wrapper = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "row" : "column")};
+  align-items: center;
+  gap: ${({ $isMobile }) => ($isMobile ? "0" : "24px")};
+`;
+
+const outlinedInputSx = (isMobile: boolean) => ({
+  "width": "inherit",
+  "height": isMobile ? "48px" : "32px",
   "borderRadius": "3px",
 
   "&:hover": {
@@ -117,7 +132,7 @@ const outlinedInputSx = {
   ".MuiOutlinedInput-notchedOutline": {
     border: `1px solid ${designSystem.color.neutral.gray200}`,
   },
-};
+});
 
 const Currency = styled.span<{ $isTyping: boolean }>`
   color: ${({ $isTyping }) =>

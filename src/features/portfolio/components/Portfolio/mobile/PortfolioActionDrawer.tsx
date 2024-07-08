@@ -6,9 +6,9 @@ import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import usePortfolioDeleteMutation from "../api/queries/usePortfolioDeleteMutation";
-import usePortfolioDetailsQuery from "../api/queries/usePortfolioDetailsQuery";
-import PortfolioAddOrEditDialog from "./PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
+import usePortfolioDeleteMutation from "../../../api/queries/usePortfolioDeleteMutation";
+import usePortfolioDetailsQuery from "../../../api/queries/usePortfolioDetailsQuery";
+import PortfolioAddOrEditDialog from "../../PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 
 type Props = {
   isDrawerOpen: boolean;
@@ -16,7 +16,7 @@ type Props = {
   onDrawerClose: () => void;
 };
 
-export default function PortfolioHeaderDrawer({
+export default function PortfolioActionDrawer({
   isDrawerOpen,
   onDrawerOpen,
   onDrawerClose,

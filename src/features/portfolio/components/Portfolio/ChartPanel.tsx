@@ -7,8 +7,8 @@ import styled from "styled-components";
 import DividendBarChartContainer from "../Charts/Dividend/DividendBarChartContainer";
 import { PieChartContainer } from "../Charts/PieChart/PieChartContainer";
 import SectorBarChartContainer from "../Charts/Sector/SectorBarChartContainer";
-import PortfolioHeaderM from "../PortfolioHeaderM";
 import { PortfolioPageTab } from "../types";
+import PortfolioHeaderM from "./mobile/PortfolioHeaderM";
 
 type Props = {
   tab: PortfolioPageTab;
