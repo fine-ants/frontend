@@ -19,7 +19,10 @@ export default function PortfolioHoldingSearchDrawerM({
 }: Props) {
   return (
     <BottomDrawer
-      customStyle={{ height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)` }}
+      rootStyle={{
+        zIndex: 1400,
+      }}
+      paperStyle={{ height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)` }}
       isDrawerOpen={isDrawerOpen}
       onOpenDrawer={onDrawerOpen}
       onCloseDrawer={onDrawerClose}>
@@ -37,9 +40,9 @@ export default function PortfolioHoldingSearchDrawerM({
 }
 
 const DrawerContent = styled.div`
+  height: 100%;
+  padding: 24px 0;
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 24px 0;
-  height: 100%;
 `;

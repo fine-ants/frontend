@@ -5,8 +5,8 @@ import { useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import PortfolioHeaderDrawer from "./PortfolioHeaderDrawer";
-import { PortfolioPageTab } from "./types";
+import { PortfolioPageTab } from "../../types";
+import PortfolioHeaderDrawer from "./PortfolioActionDrawer";
 
 type Props = {
   securitiesFirm: SecuritiesFirm;
