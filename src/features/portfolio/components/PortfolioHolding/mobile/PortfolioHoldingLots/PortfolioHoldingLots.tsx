@@ -35,7 +35,6 @@ export default function PortfolioHoldingLots({
           />
         </ButtonWrapper>
       </CardItemRow>
-
       <CardItemRow title="매입 날짜">
         <Content>{formatDate(purchaseDate)}</Content>
       </CardItemRow>

@@ -21,7 +21,7 @@ type Props = {
   portfolioHoldingId: number;
   lot?: PurchaseHistory;
   onClose: () => void;
-  onDeleteConfirmAlertOpen: () => void;
+  onDeleteConfirmAlertOpen?: () => void;
 };
 
 export default function PortfolioHoldingAddOrEditLots({
@@ -132,7 +132,6 @@ export default function PortfolioHoldingAddOrEditLots({
           />
         </ButtonWrapper>
       </CardItemRow>
-
       <CardItemRow title="매입 날짜">
         <Content>
           <DatePicker

@@ -38,7 +38,6 @@ export default function PortfolioHoldingLotsTableM({
           <StyledPortfolioHoldingLotsCard>
             <PortfolioHoldingAddOrEditLots
               portfolioHoldingId={portfolioHoldingId}
-              onDeleteConfirmAlertOpen={() => {}}
               onClose={onAddLotsClose}
             />
           </StyledPortfolioHoldingLotsCard>
