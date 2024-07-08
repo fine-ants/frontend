@@ -136,6 +136,8 @@ const TabItem = styled.li<{ $isActive: boolean }>`
     display: block;
     text-align: center;
     line-height: 40px;
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
     color: ${({ $isActive }) =>
       $isActive
         ? designSystem.color.primary.blue500

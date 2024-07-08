@@ -1,12 +1,15 @@
 import RateBadge from "@components/Badges/RateBadge";
+import { IconButton } from "@components/Buttons/IconButton";
 import { CardItemRow } from "@components/CardTable/CardItemRow";
 import SelectableCard from "@components/CardTable/SelectableCardTable/SelectableCard";
 import { PortfolioHolding } from "@features/portfolio/api/types";
-import { thousandsDelimiter } from "@fineants/demolition";
+import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
+import { Collapse } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PortfolioHoldingLotsTableM from "./PortfolioHoldingLots/PortfolioHoldingLotsTableM";
 
 type Props = {
   visibleRows: readonly PortfolioHolding[];
@@ -81,7 +84,10 @@ function PortfolioHoldingCard({
     totalReturnRate,
     annualDividend,
     annualDividendYield,
+    purchaseHistory,
   } = item;
+
+  const { state: isCollapsed, setOpposite: collapseOpposite } = useBoolean();
 
   const isSelected = !!selected.find((item) => item.id === id);
 
@@ -136,6 +142,24 @@ function PortfolioHoldingCard({
               />
             </ContentsWrapper>
           </CardItemRow>
+          <CardItemRow title="">
+            <IconButton
+              icon={isCollapsed ? "chevron-up" : "chevron-down"}
+              size="h32"
+              iconColor="custom"
+              customColor={{
+                color: isCollapsed ? "blue500" : "gray400",
+                hoverColor: "gray200",
+              }}
+              onClick={collapseOpposite}
+            />
+          </CardItemRow>
+          <Collapse in={isCollapsed} timeout="auto">
+            <PortfolioHoldingLotsTableM
+              portfolioHoldingId={id}
+              purchaseHistory={purchaseHistory}
+            />
+          </Collapse>
         </>
       }
     />

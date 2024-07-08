@@ -27,7 +27,7 @@ type Props = {
   lot: PurchaseHistory;
 };
 
-export default function PortfolioHoldingStyledTableRow({
+export default function PortfolioHoldingLotRowD({
   portfolioId,
   portfolioHoldingId,
   lot: {
@@ -39,18 +39,10 @@ export default function PortfolioHoldingStyledTableRow({
   },
 }: Props) {
   const { mutate: portfolioHoldingPurchaseEditMutate } =
-    usePortfolioHoldingPurchaseEditMutation({
-      portfolioId,
-      portfolioHoldingId,
-      purchaseHistoryId,
-    });
+    usePortfolioHoldingPurchaseEditMutation(portfolioId);
 
   const { mutate: portfolioHoldingPurchaseDeleteMutate } =
-    usePortfolioHoldingPurchaseDeleteMutation({
-      portfolioId,
-      portfolioHoldingId,
-      purchaseHistoryId,
-    });
+    usePortfolioHoldingPurchaseDeleteMutation(portfolioId);
 
   const {
     state: isEditing,

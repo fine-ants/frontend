@@ -2,18 +2,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deletePortfolioHoldingPurchase } from "..";
 import { portfolioKeys } from "./queryKeys";
 
-export default function usePortfolioHoldingPurchaseDeleteMutation(filters: {
-  portfolioId: number;
-  portfolioHoldingId: number;
-  purchaseHistoryId: number;
-}) {
+export default function usePortfolioHoldingPurchaseDeleteMutation(
+  portfolioId: number
+) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: deletePortfolioHoldingPurchase,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: portfolioKeys.details(filters.portfolioId).queryKey,
+        queryKey: portfolioKeys.details(portfolioId).queryKey,
       });
     },
     meta: {

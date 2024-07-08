@@ -10,7 +10,7 @@ import designSystem from "@styles/designSystem";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import PortfolioHoldingLotsTable from "./PortfolioHoldingLots/PortfolioHoldingLotsTable";
+import PortfolioHoldingLotsTableD from "./PortfolioHoldingLots/PortfolioHoldingLotsTableD";
 
 type Props = {
   labelId: string;
@@ -174,7 +174,7 @@ export default function PortfolioHoldingRow({
       <StyledHoldingLotRow>
         <TableCell style={{ padding: "0", border: "none" }} colSpan={10}>
           <Collapse in={isRowOpen} timeout="auto" unmountOnExit>
-            <PortfolioHoldingLotsTable
+            <PortfolioHoldingLotsTableD
               portfolioId={Number(portfolioId)}
               portfolioHoldingId={id}
               purchaseHistory={purchaseHistory}

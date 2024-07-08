@@ -151,11 +151,14 @@ export default function SelectableCardTable<Item extends { id: number }>({
             updateSelected={updateSelected}
             onSelectAllClick={handleSelectAllClick}
           />
-          <Pagination
-            count={Math.ceil(count / rowsPerPage)}
-            page={page + 1}
-            onPageChange={handleChangePage}
-          />
+
+          <PaginationWrapper>
+            <Pagination
+              count={Math.ceil(count / rowsPerPage)}
+              page={page + 1}
+              onPageChange={handleChangePage}
+            />
+          </PaginationWrapper>
 
           <OrderByDrawer
             isDrawerOpen={isDrawerOpen}
@@ -176,4 +179,8 @@ export default function SelectableCardTable<Item extends { id: number }>({
 
 const ControlWrapper = styled.div`
   padding: 0 16px;
+`;
+
+const PaginationWrapper = styled.div`
+  margin-top: auto;
 `;

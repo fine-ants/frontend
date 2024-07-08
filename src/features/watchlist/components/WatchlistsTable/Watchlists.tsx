@@ -55,6 +55,9 @@ const StyledWatchlists = styled.div<{ $isMobile: boolean }>`
   max-width: 1440px;
   margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
   padding: ${({ $isMobile }) => ($isMobile ? "32px 0" : "32px")};
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
 `;
