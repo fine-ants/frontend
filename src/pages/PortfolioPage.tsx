@@ -50,8 +50,9 @@ const Container = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   padding: ${({ $isMobile }) => ($isMobile ? "16px 0 32px 0px" : "40px 150px")};
   display: flex;
-  flex-direction: ${({ $isMobile }) => ($isMobile ? "colum" : "row")};
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   align-items: flex-start;
+  flex: 1;
   gap: ${({ $isMobile }) => ($isMobile ? "0px" : "32px")};
 `;
 
