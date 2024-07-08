@@ -2,6 +2,8 @@ import { IconButton } from "@components/Buttons/IconButton";
 import { CardItemRow } from "@components/CardTable/CardItemRow";
 import DatePicker from "@components/DatePicker";
 import { TextField } from "@components/TextField/TextField";
+import usePortfolioHoldingPurchaseAddMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseAddMutation";
+import usePortfolioHoldingPurchaseEditMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistory } from "@features/portfolio/api/types";
 import {
   executeCbIfNumeric,
@@ -12,32 +14,43 @@ import {
 import designSystem from "@styles/designSystem";
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
+  portfolioHoldingId: number;
   lot?: PurchaseHistory;
-  onMutate: (body: SubmitBodyType) => void;
+  onClose: () => void;
   onDeleteConfirmAlertOpen: () => void;
 };
 
-type SubmitBodyType = {
-  purchaseDate: string;
-  numShares: number;
-  purchasePricePerShare: number;
-  memo: string;
-};
-
 export default function PortfolioHoldingAddOrEditLots({
+  portfolioHoldingId,
   lot = {} as PurchaseHistory,
-  onMutate,
+  onClose,
   onDeleteConfirmAlertOpen,
 }: Props) {
+  const { portfolioId } = useParams();
+
   const {
     purchaseDate = new Date().toISOString(),
     purchasePricePerShare = 0,
     numShares = 0,
     memo = "",
   } = lot;
+
+  const info = {
+    portfolioId: Number(portfolioId),
+    portfolioHoldingId,
+    purchaseHistoryId: lot.purchaseHistoryId,
+  };
+
+  const { mutate: editMutate } = usePortfolioHoldingPurchaseEditMutation(
+    Number(portfolioId)
+  );
+  const { mutate: addMutate } = usePortfolioHoldingPurchaseAddMutation(
+    Number(portfolioId)
+  );
 
   const [newPurchaseDate, setNewPurchaseDate] = useState<Dayjs | null>(
     dayjs(purchaseDate)
@@ -77,6 +90,8 @@ export default function PortfolioHoldingAddOrEditLots({
     setNewMemo("");
   };
 
+  const isEditMode = Object.keys(lot).length !== 0;
+
   const onSubmit = () => {
     const body = {
       purchaseDate: newPurchaseDate?.toISOString() ?? "",
@@ -87,13 +102,17 @@ export default function PortfolioHoldingAddOrEditLots({
       memo: newMemo.trim(),
     };
 
-    onMutate(body);
+    const variables = { ...info, body };
+
+    if (isEditMode) {
+      editMutate(variables);
+    } else {
+      addMutate(variables);
+    }
+
     onPurchaseValuesRemove();
+    onClose();
   };
-
-  // const isLotEmpty = Object.keys(lot).length === 0;
-
-  // const isDisabledButton = isLotEmpty ? newPurchaseDate && newPurchasePricePerShare && newNumShares :
 
   return (
     <>
@@ -109,7 +128,7 @@ export default function PortfolioHoldingAddOrEditLots({
             icon="trash"
             size="h32"
             iconColor="gray"
-            onClick={onDeleteConfirmAlertOpen}
+            onClick={isEditMode ? onDeleteConfirmAlertOpen : onClose}
           />
         </ButtonWrapper>
       </CardItemRow>
@@ -163,6 +182,7 @@ const Content = styled.div`
   width: 200px;
   height: 32px;
 `;
+
 const StyledTextArea = styled.textarea`
   width: 200px;
   height: 64px;

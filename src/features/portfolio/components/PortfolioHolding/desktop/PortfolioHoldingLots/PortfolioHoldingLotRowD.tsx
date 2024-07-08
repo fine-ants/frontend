@@ -39,18 +39,10 @@ export default function PortfolioHoldingLotRowD({
   },
 }: Props) {
   const { mutate: portfolioHoldingPurchaseEditMutate } =
-    usePortfolioHoldingPurchaseEditMutation({
-      portfolioId,
-      portfolioHoldingId,
-      purchaseHistoryId,
-    });
+    usePortfolioHoldingPurchaseEditMutation(portfolioId);
 
   const { mutate: portfolioHoldingPurchaseDeleteMutate } =
-    usePortfolioHoldingPurchaseDeleteMutation({
-      portfolioId,
-      portfolioHoldingId,
-      purchaseHistoryId,
-    });
+    usePortfolioHoldingPurchaseDeleteMutation(portfolioId);
 
   const {
     state: isEditing,

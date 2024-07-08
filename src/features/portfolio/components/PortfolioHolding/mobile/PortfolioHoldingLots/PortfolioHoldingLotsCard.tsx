@@ -1,4 +1,3 @@
-import usePortfolioHoldingPurchaseEditMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseEditMutation";
 import { PurchaseHistory } from "@features/portfolio/api/types";
 import { useBoolean } from "@fineants/demolition";
 import { Divider } from "@mui/material";
@@ -22,19 +21,8 @@ export default function PortfolioHoldingLotsCard({
 }: Props) {
   const { portfolioId } = useParams();
 
-  const { mutate: portfolioHoldingPurchaseEditMutate } =
-    usePortfolioHoldingPurchaseEditMutation({
-      portfolioId: Number(portfolioId),
-      portfolioHoldingId,
-      purchaseHistoryId: lot.purchaseHistoryId,
-    });
-
   const { mutate: portfolioHoldingPurchaseDeleteMutate } =
-    usePortfolioHoldingPurchaseDeleteMutation({
-      portfolioId: Number(portfolioId),
-      portfolioHoldingId,
-      purchaseHistoryId: lot.purchaseHistoryId,
-    });
+    usePortfolioHoldingPurchaseDeleteMutation(Number(portfolioId));
 
   const {
     state: isEditing,
@@ -46,22 +34,6 @@ export default function PortfolioHoldingLotsCard({
     setTrue: onDeleteConfirmAlertOpen,
     setFalse: onDeleteConfirmAlertClose,
   } = useBoolean();
-
-  const onMutate = (body: {
-    purchaseDate: string;
-    numShares: number;
-    purchasePricePerShare: number;
-    memo: string;
-  }) => {
-    portfolioHoldingPurchaseEditMutate({
-      portfolioId: Number(portfolioId),
-      portfolioHoldingId,
-      purchaseHistoryId: lot.purchaseHistoryId,
-      body,
-    });
-
-    onEditCancel();
-  };
 
   const onDeleteConfirm = () => {
     portfolioHoldingPurchaseDeleteMutate({
@@ -78,7 +50,8 @@ export default function PortfolioHoldingLotsCard({
           {isEditing ? (
             <PortfolioHoldingAddOrEditLots
               lot={lot}
-              onMutate={onMutate}
+              portfolioHoldingId={portfolioHoldingId}
+              onClose={onEditCancel}
               onDeleteConfirmAlertOpen={onDeleteConfirmAlertOpen}
             />
           ) : (
