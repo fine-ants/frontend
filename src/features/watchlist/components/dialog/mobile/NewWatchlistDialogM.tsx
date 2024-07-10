@@ -1,9 +1,9 @@
+import BaseDialog from "@components/BaseDialog";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
 import SlideUpTransition from "@components/SlideUpTransition";
 import { TextField } from "@components/TextField/TextField";
 import useWatchlistsAddMutation from "@features/watchlist/api/queries/useWatchlistsAddMutation";
-import { Dialog } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
@@ -34,9 +34,10 @@ export default function NewWatchlistDialogM({ isOpen, onClose }: Props) {
   };
 
   return (
-    <Dialog
+    <BaseDialog
+      className="test"
       fullScreen
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
       TransitionComponent={SlideUpTransition}>
       <Header>
@@ -74,9 +75,34 @@ export default function NewWatchlistDialogM({ isOpen, onClose }: Props) {
           </Button>
         </ButtonWrapper>
       </Form>
-    </Dialog>
+    </BaseDialog>
   );
 }
+
+// const theme = () => {
+//   const { getCurrentZIndex } = useZIndex();
+//   const zIndex = getCurrentZIndex();
+//   console.log(zIndex);
+//   console.log("hi");
+
+//   return createTheme({
+//     components: {
+//       MuiDialog: {
+//         styleOverrides: {
+//           root: {
+//             ".MuiDialog-root": { zIndex: 1900, backgroundColor: "red" },
+//           },
+//           // paper: {
+//           //   display: "flex",
+//           //   borderRadius: "16px 16px 0 0",
+//           //   padding: "16px 0",
+//           //   overflow: "hidden",
+//           // },
+//         },
+//       },
+//     },
+//   });
+// };
 
 const Header = styled.div`
   width: 100%;

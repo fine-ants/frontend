@@ -1,7 +1,8 @@
 import { AsyncBoundary } from "@components/AsyncBoundary";
+import BaseDialog from "@components/BaseDialog";
 import { IconButton } from "@components/Buttons/IconButton";
 import SlideUpTransition from "@components/SlideUpTransition";
-import { Dialog, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 import TargetPriceForm from "../TargetPriceForm";
@@ -16,9 +17,9 @@ type Props = {
 
 export default function TargetPriceAlertDialog({ isOpen, onClose }: Props) {
   return (
-    <Dialog
+    <BaseDialog
       fullScreen
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
       TransitionComponent={SlideUpTransition}>
       <Header>
@@ -46,7 +47,7 @@ export default function TargetPriceAlertDialog({ isOpen, onClose }: Props) {
           </AsyncBoundary>
         </TargetPricesListContainer>
       </Body>
-    </Dialog>
+    </BaseDialog>
   );
 }
 

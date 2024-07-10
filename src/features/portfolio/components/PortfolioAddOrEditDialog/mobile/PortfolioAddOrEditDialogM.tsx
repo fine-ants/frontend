@@ -1,3 +1,4 @@
+import BaseDialog from "@components/BaseDialog";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
 import SlideUpTransition from "@components/SlideUpTransition";
@@ -11,7 +12,7 @@ import {
   thousandsDelimiter,
   useText,
 } from "@fineants/demolition";
-import { Dialog, FormControl } from "@mui/material";
+import { FormControl } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { FormEvent } from "react";
 import { useParams } from "react-router-dom";
@@ -158,9 +159,9 @@ export default function PortfolioAddOrEditDialogM({
   };
 
   return (
-    <Dialog
+    <BaseDialog
       fullScreen
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
       TransitionComponent={SlideUpTransition}>
       <Form onSubmit={onSubmit}>
@@ -285,7 +286,7 @@ export default function PortfolioAddOrEditDialogM({
           </Button>
         </ButtonWrapper>
       </Form>
-    </Dialog>
+    </BaseDialog>
   );
 }
 

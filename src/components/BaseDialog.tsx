@@ -1,5 +1,5 @@
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
-import { Box, Modal } from "@mui/material";
+import { Box, Dialog, DialogProps } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import { CSSProperties } from "styled-components";
@@ -9,34 +9,34 @@ type Props = {
   children: ReactNode;
   isOpen: boolean;
   onClose: () => void;
-};
+} & Omit<DialogProps, "open">;
 
 export default function BaseDialog({
   style,
   children,
   isOpen,
   onClose,
+  ...rest
 }: Props) {
   const { isMobile } = useResponsiveLayout();
 
   const baseStyle = {
-    width: "100%",
-    maxWidth: isMobile ? "343px" : "544px",
-    height: "430px",
-    padding: isMobile ? "24px" : "32px",
+    width: isMobile ? "100%" : "544px",
+    height: isMobile ? "100vh" : "430px",
+    padding: isMobile ? "0" : "32px",
+    display: "flex",
+    flexDirection: "column",
+    border: isMobile
+      ? "none"
+      : `1px solid ${designSystem.color.neutral.gray100}`,
+    borderRadius: isMobile ? "0" : "8px",
     backgroundColor: designSystem.color.neutral.white,
-    border: `1px solid ${designSystem.color.neutral.gray100}`,
-    borderRadius: "8px",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
   };
 
   return (
-    <Modal open={isOpen} onClose={onClose} sx={{ marginInline: "16px" }}>
+    <Dialog open={isOpen} onClose={onClose} {...rest}>
       <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
-    </Modal>
+    </Dialog>
   );
 }

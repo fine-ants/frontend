@@ -1,3 +1,4 @@
+import BaseDialog from "@components/BaseDialog";
 import AsyncButton from "@components/Buttons/AsyncButton";
 import { IconButton } from "@components/Buttons/IconButton";
 import { Icon } from "@components/Icon";
@@ -5,7 +6,6 @@ import SlideUpTransition from "@components/SlideUpTransition";
 import { StockSearchItem } from "@features/stock/api";
 import useWatchlistItemAddMutation from "@features/watchlist/api/queries/useWatchlistItemAddMutation";
 import { useBoolean } from "@fineants/demolition";
-import { Dialog } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -83,9 +83,9 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
 
   return (
     <>
-      <Dialog
+      <BaseDialog
         fullScreen
-        open={isOpen}
+        isOpen={isOpen}
         onClose={onCloseDialog}
         TransitionComponent={SlideUpTransition}>
         <Header>
@@ -146,7 +146,7 @@ export default function WatchlistItemAddDialogM({ isOpen, onClose }: Props) {
             추가
           </AsyncButton>
         </ContentWrapper>
-      </Dialog>
+      </BaseDialog>
 
       <WatchlistItemAddDrawerM
         originalSelectedStocks={originalSelectedStocks}
