@@ -1,4 +1,5 @@
 import { IconButton } from "@components/Buttons/IconButton";
+import { useZIndex } from "@hooks/useZIndex";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode } from "react";
 import styled, { CSSProperties } from "styled-components";
@@ -26,14 +27,21 @@ export default function BottomDrawer({
   handleTransitionEnd,
   handleBackButton,
 }: Props) {
+  const { zIndex, removeCount } = useZIndex(isDrawerOpen);
+
+  const onClose = () => {
+    removeCount();
+    onCloseDrawer();
+  };
+
   return (
-    <ThemeProvider theme={theme(rootStyle, paperStyle)}>
+    <ThemeProvider theme={theme(rootStyle, paperStyle, zIndex)}>
       <SwipeableDrawer
         anchor="bottom"
         disableSwipeToOpen={true}
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
-        onClose={onCloseDrawer}
+        onClose={onClose}
         onTransitionEnd={handleTransitionEnd}>
         <Header $hasBackButton={!!handleBackButton}>
           {handleBackButton && (
@@ -60,12 +68,17 @@ export default function BottomDrawer({
   );
 }
 
-const theme = (rootStyle: CSSProperties, paperStyle: CSSProperties) =>
-  createTheme({
+const theme = (
+  rootStyle: CSSProperties,
+  paperStyle: CSSProperties,
+  zIndex: number
+) => {
+  return createTheme({
     components: {
       MuiDrawer: {
         styleOverrides: {
           root: {
+            zIndex: zIndex,
             ...rootStyle,
           },
           paper: {
@@ -79,6 +92,7 @@ const theme = (rootStyle: CSSProperties, paperStyle: CSSProperties) =>
       },
     },
   });
+};
 
 const Header = styled.header<{ $hasBackButton: boolean }>`
   margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};

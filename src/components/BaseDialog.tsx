@@ -1,4 +1,5 @@
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
+import { useZIndex } from "@hooks/useZIndex";
 import { Box, Dialog, DialogProps } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
@@ -20,6 +21,13 @@ export default function BaseDialog({
 }: Props) {
   const { isMobile } = useResponsiveLayout();
 
+  const { zIndex, removeCount } = useZIndex(isOpen);
+
+  const onCloseDialog = () => {
+    removeCount();
+    onClose();
+  };
+
   const baseStyle = {
     width: isMobile ? "100%" : "544px",
     height: isMobile ? "100vh" : "430px",
@@ -35,7 +43,11 @@ export default function BaseDialog({
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClose} {...rest}>
+    <Dialog
+      open={isOpen}
+      onClose={onCloseDialog}
+      {...rest}
+      sx={{ zIndex: zIndex }}>
       <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
     </Dialog>
   );
