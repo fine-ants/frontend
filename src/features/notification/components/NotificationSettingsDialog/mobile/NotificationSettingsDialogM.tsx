@@ -1,6 +1,6 @@
+import BaseDialog from "@components/BaseDialog";
 import SlideUpTransition from "@components/SlideUpTransition";
 import { User } from "@features/user/api/types";
-import { Dialog } from "@mui/material";
 import NotificationSettingsContent from "../NotificationSettingsContent";
 
 type Props = {
@@ -11,12 +11,12 @@ type Props = {
 
 export function NotificationSettingsDialogM({ user, isOpen, onClose }: Props) {
   return (
-    <Dialog
+    <BaseDialog
       fullScreen
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
       TransitionComponent={SlideUpTransition}>
       <NotificationSettingsContent user={user} onClose={onClose} />
-    </Dialog>
+    </BaseDialog>
   );
 }

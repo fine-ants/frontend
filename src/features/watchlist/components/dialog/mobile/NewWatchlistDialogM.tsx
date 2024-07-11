@@ -1,9 +1,9 @@
+import BaseDialog from "@components/BaseDialog";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
 import SlideUpTransition from "@components/SlideUpTransition";
 import { TextField } from "@components/TextField/TextField";
 import useWatchlistsAddMutation from "@features/watchlist/api/queries/useWatchlistsAddMutation";
-import { Dialog } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
@@ -34,9 +34,10 @@ export default function NewWatchlistDialogM({ isOpen, onClose }: Props) {
   };
 
   return (
-    <Dialog
+    <BaseDialog
+      className="test"
       fullScreen
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
       TransitionComponent={SlideUpTransition}>
       <Header>
@@ -74,7 +75,7 @@ export default function NewWatchlistDialogM({ isOpen, onClose }: Props) {
           </Button>
         </ButtonWrapper>
       </Form>
-    </Dialog>
+    </BaseDialog>
   );
 }
 
