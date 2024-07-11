@@ -79,31 +79,6 @@ export default function NewWatchlistDialogM({ isOpen, onClose }: Props) {
   );
 }
 
-// const theme = () => {
-//   const { getCurrentZIndex } = useZIndex();
-//   const zIndex = getCurrentZIndex();
-//   console.log(zIndex);
-//   console.log("hi");
-
-//   return createTheme({
-//     components: {
-//       MuiDialog: {
-//         styleOverrides: {
-//           root: {
-//             ".MuiDialog-root": { zIndex: 1900, backgroundColor: "red" },
-//           },
-//           // paper: {
-//           //   display: "flex",
-//           //   borderRadius: "16px 16px 0 0",
-//           //   padding: "16px 0",
-//           //   overflow: "hidden",
-//           // },
-//         },
-//       },
-//     },
-//   });
-// };
-
 const Header = styled.div`
   width: 100%;
   height: 56px;
