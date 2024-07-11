@@ -19,8 +19,8 @@ export default function useWatchlistNameEditMutation(
       });
     },
     meta: {
-      toastSuccessMessage: "와치리스트 이름이 변경되었습니다.",
-      toastErrorMessage: "와치리스트 이름 변경을 실패했습니다",
+      toastSuccessMessage: "관심 종목 리스트 이름이 변경되었습니다.",
+      toastErrorMessage: "관심 종목 리스트 이름 변경을 실패했습니다",
     },
   });
 }
