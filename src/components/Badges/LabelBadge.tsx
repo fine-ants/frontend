@@ -1,3 +1,4 @@
+import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type Props = {
@@ -12,7 +13,9 @@ const StyledLabelBadge = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme: { color } }) => color.neutral.gray600};
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray600};
   background-color: ${({ theme: { color } }) => color.neutral.gray100};
   border-radius: 12px;
   padding: 3.5px 8px;
