@@ -19,9 +19,6 @@ export default function PortfolioHoldingSearchDrawerM({
 }: Props) {
   return (
     <BottomDrawer
-      rootStyle={{
-        zIndex: 1400,
-      }}
       paperStyle={{ height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)` }}
       isDrawerOpen={isDrawerOpen}
       onOpenDrawer={onDrawerOpen}
