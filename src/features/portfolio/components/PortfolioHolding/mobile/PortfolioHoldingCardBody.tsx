@@ -96,7 +96,10 @@ function PortfolioHoldingCard({
       isSelected={isSelected}
       onChange={(event) => handleClick(event, id)}
       CardHeader={
-        <StyledLink to={`/stock/${tickerSymbol}`}>{companyName}</StyledLink>
+        <StyledLink to={`/stock/${tickerSymbol}`}>
+          <h2>{companyName}</h2>
+          <span>{tickerSymbol}</span>
+        </StyledLink>
       }
       CardBody={
         <>
@@ -176,9 +179,17 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
-  color: ${designSystem.color.neutral.gray800};
+
+  h2 {
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
+    color: ${designSystem.color.neutral.gray800};
+  }
+
+  span {
+    font: ${designSystem.font.body4.font};
+    color: ${designSystem.color.neutral.gray400};
+  }
 `;
 
 const Contents = styled.div`
