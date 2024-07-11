@@ -28,6 +28,7 @@ export default function NewWatchlistDialogM({ isOpen, onClose }: Props) {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     if (!isInputEmpty) {
       watchlistAddMutate(newWatchlistName);
     }
