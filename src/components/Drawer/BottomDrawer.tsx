@@ -27,10 +27,10 @@ export default function BottomDrawer({
   handleTransitionEnd,
   handleBackButton,
 }: Props) {
-  const { zIndex, removeCount } = useZIndex(isDrawerOpen);
+  const { zIndex, popStack } = useZIndex(isDrawerOpen);
 
   const onClose = () => {
-    removeCount();
+    popStack();
     onCloseDrawer();
   };
 

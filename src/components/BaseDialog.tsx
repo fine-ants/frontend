@@ -21,10 +21,10 @@ export default function BaseDialog({
 }: Props) {
   const { isMobile } = useResponsiveLayout();
 
-  const { zIndex, removeCount } = useZIndex(isOpen);
+  const { zIndex, popStack } = useZIndex(isOpen);
 
   const onCloseDialog = () => {
-    removeCount();
+    popStack();
     onClose();
   };
 
