@@ -1,6 +1,6 @@
 import dashboardD from "@assets/images/dashboardD.svg";
 import dashboardM from "@assets/images/dashboardM.svg";
-import featureIconchart from "@assets/images/feature_icon_chart.svg";
+import featureIconChart from "@assets/images/feature_icon_chart.svg";
 import featureIconNotification from "@assets/images/feature_icon_notification.svg";
 import featureIconWatchlist from "@assets/images/feature_icon_watchlist.svg";
 import landingTopBG from "@assets/images/landingTop.png";
@@ -98,7 +98,7 @@ export default function LandingPage() {
                 관심 종목
               </FeatureBox>
               <FeatureBox $isMobile={isMobile}>
-                <img src={featureIconchart} alt="종목 상세 차트" />
+                <img src={featureIconChart} alt="종목 상세 차트" />
                 종목 상세 차트
               </FeatureBox>
               <FeatureBox $isMobile={isMobile}>
