@@ -5,7 +5,7 @@ import SlideUpTransition from "@components/SlideUpTransition";
 import { TextField } from "@components/TextField/TextField";
 import useWatchlistNameEditMutation from "@features/watchlist/api/queries/useWatchlistNameEditMutation";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -36,7 +36,9 @@ export default function WatchlistNameEditDialogM({
 
   const isInputEmpty = newWatchlistName === "";
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
     if (newWatchlistName === currentWatchlistName && isInputEmpty) {
       onClose();
       return;

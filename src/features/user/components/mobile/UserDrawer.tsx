@@ -51,19 +51,19 @@ export default function UserDrawer() {
         isDrawerOpen={isDrawerOpen}
         onOpenDrawer={openDrawer}
         onCloseDrawer={closeDrawer}>
-        <ProfileItem>
-          {user?.profileUrl ? (
-            <ProfileImage src={user.profileUrl} alt={user.nickname} />
-          ) : (
-            <Icon icon="user" size={32} color={"gray600"} />
-          )}
-          <div>
-            <ProfileDescNickname>{user?.nickname}</ProfileDescNickname>
-            <ProfileDescEmail>{user?.email}</ProfileDescEmail>
-          </div>
-        </ProfileItem>
+        <ul>
+          <ProfileItem>
+            {user?.profileUrl ? (
+              <ProfileImage src={user.profileUrl} alt={user.nickname} />
+            ) : (
+              <Icon icon="user" size={32} color={"gray600"} />
+            )}
+            <div>
+              <ProfileDescNickname>{user?.nickname}</ProfileDescNickname>
+              <ProfileDescEmail>{user?.email}</ProfileDescEmail>
+            </div>
+          </ProfileItem>
 
-        <Content>
           {drawerItems.map((item, index) => (
             <ContentItem key={index}>
               <ContentItemButton onClick={item.onClick}>
@@ -72,16 +72,11 @@ export default function UserDrawer() {
               </ContentItemButton>
             </ContentItem>
           ))}
-        </Content>
+        </ul>
       </BottomDrawer>
     </>
   );
 }
-
-const Content = styled.ul`
-  width: 100%;
-  list-style-type: none;
-`;
 
 const ProfileItem = styled.li`
   width: 100%;

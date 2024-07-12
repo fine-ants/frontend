@@ -94,7 +94,7 @@ function PortfolioListCard({
             src={securitiesFirmLogos[securitiesFirm]}
             alt={`${securitiesFirm} 로고`}
           />
-          {name}
+          <h2>{name}</h2>
         </StyledLink>
       }
       CardBody={
@@ -147,9 +147,12 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
-  color: ${designSystem.color.neutral.gray800};
+
+  h2 {
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
+    color: ${designSystem.color.neutral.gray800};
+  }
 `;
 
 const FirmImage = styled.img`
