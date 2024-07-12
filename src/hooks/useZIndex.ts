@@ -12,7 +12,7 @@ export const useZIndex = (isOpen: boolean = true) => {
     setLayoutIndex(index);
 
     return popStack;
-  }, [isOpen]);
+  }, [isOpen, popStack, pushStack]);
 
   return { zIndex, layoutIndex, pushStack, popStack, getCurrentZIndex };
 };
