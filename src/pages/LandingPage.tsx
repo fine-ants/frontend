@@ -1,66 +1,111 @@
-import dashboard from "@assets/images/dashboard.svg";
-import featureImage1 from "@assets/images/feature1.svg";
-import featureImage2 from "@assets/images/feature2.svg";
-import featureImage3 from "@assets/images/feature3.svg";
-import portfolioImage1 from "@assets/images/img_portfolio1.svg";
-import portfolioImage2 from "@assets/images/img_portfolio2.svg";
-import portfolioImage3 from "@assets/images/img_portfolio3.svg";
+import dashboardD from "@assets/images/dashboardD.svg";
+import dashboardM from "@assets/images/dashboardM.svg";
+import featureIconchart from "@assets/images/feature_icon_chart.svg";
+import featureIconNotification from "@assets/images/feature_icon_notification.svg";
+import featureIconWatchlist from "@assets/images/feature_icon_watchlist.svg";
 import landingTopBG from "@assets/images/landingTop.png";
 import landingTopChart from "@assets/images/landingTopChart.png";
+import portfolioImageD1 from "@assets/images/portfolioD1.svg";
+import portfolioImageD2 from "@assets/images/portfolioD2.svg";
+import portfolioImageD3 from "@assets/images/portfolioD3.svg";
+import portfolioImageM1 from "@assets/images/portfolioM1.svg";
+import portfolioImageM2 from "@assets/images/portfolioM2.svg";
+import portfolioImageM3 from "@assets/images/portfolioM3.svg";
 import Footer from "@components/Footer";
 import Header from "@components/Header/Header";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export default function LandingPage() {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   return (
     <>
       <Header />
       <BasePage>
-        <LandingTopBG>
-          <LandingTopBGContent>
-            <LandingTopText>
-              <h1>주식 자산 관리를 더 쉽고 간편하게</h1>
-              <h2>실시간 자산 현황을 확인하고 똑똑한 투자 관리를 시작하세요</h2>
+        <LandingTopBG $isMobile={isMobile}>
+          <LandingTopBGContent $isMobile={isMobile}>
+            <LandingTopText $isMobile={isMobile}>
+              <h1>
+                주식 자산 관리를 <br />더 쉽고 간편하게
+              </h1>
+              <h2>
+                실시간 자산 현황을 확인하고{isMobile && <br />} 똑똑한 투자
+                관리를 시작하세요
+              </h2>
             </LandingTopText>
-            <LandingTopChart src={landingTopChart} alt="landingTopChart" />
+            <LandingTopChart
+              src={landingTopChart}
+              alt="landingTopChart"
+              $isMobile={isMobile}
+            />
           </LandingTopBGContent>
         </LandingTopBG>
-        <LandingBottom>
+
+        <LandingBottom $isMobile={isMobile}>
           <FeatureContainer>
-            <FeatureTitle>대시보드</FeatureTitle>
-            <FeatureDescription>
-              보유 자산을 한 눈에 확인하세요
+            <FeatureTitle $isMobile={isMobile}>대시보드</FeatureTitle>
+            <FeatureDescription $isMobile={isMobile}>
+              보유 자산을{isMobile && <br />} 한 눈에 확인하세요
             </FeatureDescription>
-            <DashboardImage src={dashboard} alt="dashboard" />
+            <DashboardImage
+              src={isMobile ? dashboardM : dashboardD}
+              alt="dashboard"
+              $isMobile={isMobile}
+            />
           </FeatureContainer>
+
           <FeatureContainer>
-            <FeatureTitle>포트폴리오</FeatureTitle>
-            <FeatureDescription>
-              투자 목적에 맞는 다양한 포트폴리오를 생성하고
-              <br />
-              자산을 효율적으로 관리할 수 있습니다
+            <FeatureTitle $isMobile={isMobile}>포트폴리오</FeatureTitle>
+            <FeatureDescription $isMobile={isMobile}>
+              투자 목적에 맞는 다양한{isMobile && <br />}
+              포트폴리오를 생성하고{isDesktop && <br />}
+              자산을{isMobile && <br />} 효율적으로 관리할 수 있습니다
             </FeatureDescription>
-            <PortfolioImageContainer>
-              <PortfolioImage src={portfolioImage1} alt="portfolio1" />
-              <PortfolioImage src={portfolioImage2} alt="portfolio2" />
-              <PortfolioImage src={portfolioImage3} alt="portfolio3" />
+            <PortfolioImageContainer $isMobile={isMobile}>
+              <PortfolioImage
+                src={isMobile ? portfolioImageM1 : portfolioImageD1}
+                alt="portfolio1"
+                $isMobile={isMobile}
+              />
+              <PortfolioImage
+                src={isMobile ? portfolioImageM2 : portfolioImageD2}
+                alt="portfolio2"
+                $isMobile={isMobile}
+              />
+              <PortfolioImage
+                src={isMobile ? portfolioImageM3 : portfolioImageD3}
+                alt="portfolio3"
+                $isMobile={isMobile}
+              />
             </PortfolioImageContainer>
           </FeatureContainer>
-          <ComfortContainer>
-            <FeatureLeft>
-              <FeatureTitle>편의 기능</FeatureTitle>
-              <FeatureDescription>
+
+          <ComfortContainer $isMobile={isMobile}>
+            <div>
+              <FeatureTitle $isMobile={isMobile}>편의 기능</FeatureTitle>
+              <FeatureDescription $isMobile={isMobile}>
                 성공적인 투자 관리를 위한
                 <br />
                 다양한 기능을 지원합니다
               </FeatureDescription>
-            </FeatureLeft>
-            <FeatureRight>
-              <FeatureImage src={featureImage1} alt="관심 종목" />
-              <FeatureImage src={featureImage2} alt="종목 상세 차트" />
-              <FeatureImage src={featureImage3} alt="손익 알림" />
-            </FeatureRight>
+            </div>
+
+            <FeatureBoxWrapper $isMobile={isMobile}>
+              <FeatureBox $isMobile={isMobile}>
+                <img src={featureIconWatchlist} alt="관심 종목" />
+                관심 종목
+              </FeatureBox>
+              <FeatureBox $isMobile={isMobile}>
+                <img src={featureIconchart} alt="종목 상세 차트" />
+                종목 상세 차트
+              </FeatureBox>
+              <FeatureBox $isMobile={isMobile}>
+                <img src={featureIconNotification} alt="손익 알림" />
+                손익 알림
+              </FeatureBox>
+            </FeatureBoxWrapper>
           </ComfortContainer>
         </LandingBottom>
         <Footer />
@@ -79,60 +124,67 @@ const BasePage = styled.div`
   background-color: ${designSystem.color.neutral.white};
 `;
 
-const LandingTopBG = styled.div`
-  margin: 0 auto;
-  position: relative;
-  display: flex;
+const LandingTopBG = styled.div<{ $isMobile: boolean }>`
   width: 100vw;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: ${({ $isMobile }) => ($isMobile ? "0 8px" : "0")};
   background-image: url(${landingTopBG});
   background-size: cover;
   background-position: center;
 `;
 
-const LandingTopBGContent = styled.div`
+const LandingTopBGContent = styled.div<{ $isMobile: boolean }>`
   display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   align-items: center;
-  gap: 237px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  justify-content: center;
+  gap: ${({ $isMobile }) => ($isMobile ? "40px" : "237px")};
 `;
 
-const LandingTopText = styled.div`
+const LandingTopText = styled.div<{ $isMobile: boolean }>`
   width: auto;
-  height: 224px;
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "224px")};
+  text-align: ${({ $isMobile }) => ($isMobile ? "center" : "start")};
 
   > h1 {
-    width: 433px;
-    font:
-      900 64px/77px "IBM Plex Sans",
-      sans-serif;
+    font: ${({ $isMobile }) =>
+      $isMobile
+        ? designSystem.font.display3.font
+        : designSystem.font.display1.font};
+    letter-spacing: ${({ $isMobile }) =>
+      $isMobile
+        ? designSystem.font.display3.letterSpacing
+        : designSystem.font.display1.letterSpacing};
     color: ${designSystem.color.neutral.white};
-    margin-bottom: 40px;
+    margin-bottom: ${({ $isMobile }) => ($isMobile ? "24px" : "40px")};
   }
 
   > h2 {
-    font: ${designSystem.font.body1.font};
+    font: ${({ $isMobile }) =>
+      $isMobile ? designSystem.font.body2.font : designSystem.font.body1.font};
     color: ${designSystem.color.neutral.white};
   }
 `;
 
-const LandingTopChart = styled.img`
-  width: 741px;
-  height: 681px;
+const LandingTopChart = styled.img<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "741px")};
+  height: ${({ $isMobile }) => ($isMobile ? "100%" : "681px")};
   pointer-events: none;
 `;
 
-const LandingBottom = styled.div`
+const LandingBottom = styled.div<{ $isMobile: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: 200px;
+  gap: ${({ $isMobile }) => ($isMobile ? "80px" : "200px")};
   margin: 0 auto;
-  margin-bottom: 200px;
-  padding: 120px 240px 0 240px;
+  margin-bottom: ${({ $isMobile }) => ($isMobile ? "0" : "200px")};
+  padding: ${({ $isMobile }) =>
+    $isMobile ? "80px 16px" : "120px 240px 0 240px"};
   width: 100%;
   max-width: 1920px;
   height: auto;
@@ -146,60 +198,93 @@ const FeatureContainer = styled.div`
   align-items: center;
 `;
 
-const FeatureTitle = styled.h3`
+const FeatureTitle = styled.h3<{ $isMobile: boolean }>`
   margin-right: auto;
-  font: ${designSystem.font.heading3.font};
-  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title5.font
+      : designSystem.font.heading3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title5.letterSpacing
+      : designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.primary.blue500};
 `;
 
-const FeatureDescription = styled.p`
+const FeatureDescription = styled.p<{ $isMobile: boolean }>`
   margin-right: auto;
   margin-top: 16px;
-  font:
-    700 48px/62px "IBMPlexSansKR-Regular",
-    sans-serif;
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading3.font
+      : designSystem.font.display2.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading3.letterSpacing
+      : designSystem.font.display2.letterSpacing};
   color: #111111;
 `;
 
-const DashboardImage = styled.img`
-  border-radius: 16px;
+const DashboardImage = styled.img<{ $isMobile: boolean }>`
   width: 100%;
-  height: 640px;
-  margin-top: 80px;
-  pointer-events: none;
-`;
-
-const PortfolioImageContainer = styled.div`
-  display: flex;
-  gap: 24px;
-  margin-top: 80px;
-`;
-
-const PortfolioImage = styled.img`
-  width: 464px;
-  height: 464px;
+  height: ${({ $isMobile }) => ($isMobile ? "100%" : "640px")};
+  margin-top: ${({ $isMobile }) => ($isMobile ? "32px" : "80px")};
   border-radius: 16px;
   pointer-events: none;
 `;
 
-const ComfortContainer = styled(FeatureContainer)`
+const PortfolioImageContainer = styled.div<{ $isMobile: boolean }>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+  gap: ${({ $isMobile }) => ($isMobile ? "16px" : "24px")};
+  margin-top: ${({ $isMobile }) => ($isMobile ? "32px" : "80px")};
+`;
+
+const PortfolioImage = styled.img<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "464px")};
+  height: ${({ $isMobile }) => ($isMobile ? "100%" : "464px")};
+  border-radius: 16px;
+  pointer-events: none;
+`;
+
+const ComfortContainer = styled.div<{ $isMobile: boolean }>`
+  display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   height: auto;
   justify-content: space-between;
   align-items: flex-start;
 `;
-const FeatureLeft = styled.div``;
-const FeatureRight = styled.div`
+const FeatureBoxWrapper = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
   display: flex;
-  gap: 24px;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+  gap: ${({ $isMobile }) => ($isMobile ? "8px" : "24px")};
   margin-top: 45px;
 `;
 
-const FeatureImage = styled.img`
-  width: 224px;
-  height: 224px;
-  border-radius: 16px;
+const FeatureBox = styled.div<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "224px")};
+  height: ${({ $isMobile }) => ($isMobile ? "108px" : "224px")};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ $isMobile }) => ($isMobile ? "0" : "8px")};
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title5.font
+      : designSystem.font.heading3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title5.letterSpacing
+      : designSystem.font.heading3.letterSpacing};
+  color: ${designSystem.color.primary.blue50};
+  background-color: ${designSystem.color.primary.blue300};
+  border-radius: ${({ $isMobile }) => ($isMobile ? "8px" : "16px")};
   pointer-events: none;
+
+  > img {
+    width: ${({ $isMobile }) => ($isMobile ? "56px" : "80px")};
+    height: ${({ $isMobile }) => ($isMobile ? "56px" : "80px")};
+  }
 `;
