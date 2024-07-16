@@ -22,6 +22,7 @@ export default function BaseDialog({
   style,
   children,
   isOpen,
+  fullScreen,
   onClose,
   ...rest
 }: Props) {
@@ -48,25 +49,28 @@ export default function BaseDialog({
     bgcolor: "background.paper",
   };
 
+  const isCustomDialogStyle = isMobile && !fullScreen;
+
   return (
-    <ThemeProvider theme={baseDialogTheme(isMobile)}>
+    <ThemeProvider theme={baseDialogTheme(isCustomDialogStyle)}>
       <Dialog
         open={isOpen}
         onClose={onCloseDialog}
         {...rest}
-        sx={{ zIndex: zIndex }}>
+        sx={{ zIndex: zIndex }}
+        fullScreen={fullScreen}>
         <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
       </Dialog>
     </ThemeProvider>
   );
 }
 
-const baseDialogTheme = (isMobile: boolean) =>
+const baseDialogTheme = (isCustomDialogStyle: boolean) =>
   createTheme({
     components: {
       MuiPaper: {
         styleOverrides: {
-          root: isMobile && {
+          root: isCustomDialogStyle && {
             width: "100%",
             margin: "16px !important",
             borderRadius: "8px",
