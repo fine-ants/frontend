@@ -1,6 +1,12 @@
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { useZIndex } from "@hooks/useZIndex";
-import { Box, Dialog, DialogProps } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogProps,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import { CSSProperties } from "styled-components";
@@ -43,12 +49,29 @@ export default function BaseDialog({
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={onCloseDialog}
-      {...rest}
-      sx={{ zIndex: zIndex }}>
-      <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
-    </Dialog>
+    <ThemeProvider theme={baseDialogTheme(isMobile)}>
+      <Dialog
+        open={isOpen}
+        onClose={onCloseDialog}
+        {...rest}
+        sx={{ zIndex: zIndex }}>
+        <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
+      </Dialog>
+    </ThemeProvider>
   );
 }
+
+const baseDialogTheme = (isMobile: boolean) =>
+  createTheme({
+    components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: isMobile && {
+            width: "100%",
+            margin: "16px !important",
+            borderRadius: "8px",
+          },
+        },
+      },
+    },
+  });
