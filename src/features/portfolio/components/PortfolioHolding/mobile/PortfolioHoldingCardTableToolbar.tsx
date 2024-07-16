@@ -3,7 +3,7 @@ import usePortfolioHoldingDeleteMutation from "@features/portfolio/api/queries/u
 import { useBoolean } from "@fineants/demolition";
 import { ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
-import PortfolioHoldingDeleteConfirm from "../PortfolioHoldingDeleteConfirm";
+import PortfolioHoldingSelectedDeleteConfirm from "../PortfolioHoldingSelectedDeleteConfirm";
 
 type Props<Item> = {
   selected: readonly Item[];
@@ -54,7 +54,7 @@ export default function PortfolioHoldingCardTableToolbar<
         openDeleteConfirm={openDeleteConfirm}
       />
 
-      <PortfolioHoldingDeleteConfirm
+      <PortfolioHoldingSelectedDeleteConfirm
         isOpen={isDeleteConfirmOpen}
         onClose={closeDeleteConfirm}
         onConfirm={onConfirmAction}

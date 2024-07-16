@@ -8,7 +8,7 @@ import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingAddDialog from "../PortfolioHoldingAddDialog";
-import PortfolioHoldingDeleteConfirm from "../PortfolioHoldingDeleteConfirm";
+import PortfolioHoldingSelectedDeleteConfirm from "../PortfolioHoldingSelectedDeleteConfirm";
 
 type Props = {
   selected: readonly PortfolioHolding[];
@@ -92,7 +92,7 @@ export default function PortfolioHoldingTableToolBar({
         onClose={onAddHoldingDialogClose}
       />
 
-      <PortfolioHoldingDeleteConfirm
+      <PortfolioHoldingSelectedDeleteConfirm
         isOpen={isConfirmOpen}
         onClose={onDeleteHoldingsAlertClose}
         onConfirm={onConfirmAction}

@@ -1,7 +1,6 @@
 import LabelBadge from "@components/Badges/LabelBadge";
 import Breadcrumb from "@components/Breadcrumb";
 import Button from "@components/Buttons/Button";
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import usePortfolioDeleteMutation from "@features/portfolio/api/queries/usePortfolioDeleteMutation";
@@ -12,6 +11,7 @@ import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import PortfolioDeleteConfirm from "../../PortfolioDeleteConfirm";
 import PortfolioOverviewBodyD from "./PortfolioOverviewBodyD";
 
 type Props = {
@@ -95,13 +95,12 @@ export default function PortfolioOverviewD({ data }: Props) {
         />
       )}
       {isConfirmOpen && (
-        <ConfirmAlert
+        <PortfolioDeleteConfirm
           isOpen={isConfirmOpen}
-          title="포트폴리오 삭제"
+          portfolioName={data.name}
           onClose={onConfirmAlertClose}
-          onConfirm={onConfirmAction}>
-          <p>'{data.name}' 포트폴리오를 삭제하시겠습니까?</p>
-        </ConfirmAlert>
+          onConfirm={onConfirmAction}
+        />
       )}
     </StyledPortfolioOverview>
   );

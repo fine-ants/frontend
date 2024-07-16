@@ -1,3 +1,4 @@
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import styled from "styled-components";
@@ -8,6 +9,7 @@ import { IconButton } from "./Buttons/IconButton";
 type Props = {
   isOpen: boolean;
   title: string;
+  isConfirmDisabled?: boolean;
   onClose: () => void;
   onConfirm: () => void;
   children?: ReactNode;
@@ -16,36 +18,53 @@ type Props = {
 export default function ConfirmAlert({
   isOpen,
   title,
+  isConfirmDisabled = false,
   onClose,
   onConfirm,
   children,
 }: Props) {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
   const onConfirmAlertClose = () => {
-    onConfirm();
+    if (!isConfirmDisabled) {
+      onConfirm();
+    }
     onClose();
   };
 
   return (
-    <BaseDialog style={ConfirmAlertStyle} isOpen={isOpen} onClose={onClose}>
+    <BaseDialog
+      style={ConfirmAlertStyle(isMobile)}
+      isOpen={isOpen}
+      onClose={onClose}>
       <Wrapper>
         <div>
           <Header>
-            <Title>{title}</Title>
-            <IconButton
-              icon="close"
-              size="h40"
-              iconColor="gray"
-              onClick={onClose}
-            />
+            <Title $isMobile={isMobile}>{title}</Title>
+            {isDesktop && (
+              <IconButton
+                icon="close"
+                size="h40"
+                iconColor="gray"
+                onClick={onClose}
+              />
+            )}
           </Header>
-          <Body>{children}</Body>
+          <Body $isMobile={isMobile}>{children}</Body>
         </div>
-        <ButtonWrapper>
-          <Button variant="tertiary" size="h32" onClick={onClose}>
+        <ButtonWrapper $isMobile={isMobile}>
+          <Button
+            variant="tertiary"
+            size={isMobile ? "h40" : "h32"}
+            onClick={onClose}>
             <span>취소</span>
           </Button>
-          <Button variant="primary" size="h32" onClick={onConfirmAlertClose}>
-            <span>확인</span>
+          <Button
+            variant="primary"
+            size={isMobile ? "h40" : "h32"}
+            onClick={onConfirmAlertClose}
+            disabled={isConfirmDisabled}>
+            <span>삭제</span>
           </Button>
         </ButtonWrapper>
       </Wrapper>
@@ -53,8 +72,13 @@ export default function ConfirmAlert({
   );
 }
 
-const ConfirmAlertStyle = {
-  height: "280px",
+const ConfirmAlertStyle = (isMobile: boolean) => {
+  return {
+    width: isMobile ? "100%" : "544px",
+    height: isMobile ? "auto" : "280px",
+    minHeight: "200px",
+    padding: "24px",
+  };
 };
 
 const Wrapper = styled.div`
@@ -63,6 +87,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 `;
 
 const Header = styled.header`
@@ -71,25 +96,38 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const Title = styled.h3`
+const Title = styled.h3<{ $isMobile: boolean }>`
   width: 100%;
+  padding: ${({ $isMobile }) => ($isMobile ? "8px 0" : "0")};
   text-align: left;
-  font: ${designSystem.font.heading3.font};
-  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.font
+      : designSystem.font.heading3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.letterSpacing
+      : designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 `;
 
-const Body = styled.div`
+const Body = styled.div<{ $isMobile: boolean }>`
   width: 100%;
   max-height: 120px;
-  margin-top: 32px;
+  margin-top: ${({ $isMobile }) => ($isMobile ? "8px" : "32px")};
   font: ${designSystem.font.title5.font};
   letter-spacing: ${designSystem.font.title5.letterSpacing};
   color: ${designSystem.color.neutral.gray800};
 `;
 
-const ButtonWrapper = styled.div`
-  margin-left: auto;
+const ButtonWrapper = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  margin-top: 16px;
   display: flex;
+  justify-content: ${({ $isMobile }) => ($isMobile ? "center" : "right")};
   gap: 8px;
+
+  > button {
+    width: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
+  }
 `;

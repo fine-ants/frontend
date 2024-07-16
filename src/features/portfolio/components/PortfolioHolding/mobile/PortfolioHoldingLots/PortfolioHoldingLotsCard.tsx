@@ -1,4 +1,3 @@
-import ConfirmAlert from "@components/ConfirmAlert";
 import usePortfolioHoldingPurchaseDeleteMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseDeleteMutation";
 import { PurchaseHistory } from "@features/portfolio/api/types";
 import { useBoolean } from "@fineants/demolition";
@@ -6,6 +5,7 @@ import { Divider } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PortfolioHoldingDeleteConfirm from "../../PortfolioHoldingDeleteConfirm";
 import PortfolioHoldingAddOrEditLots from "./PortfolioHoldingAddOrEditLots";
 import PortfolioHoldingLots from "./PortfolioHoldingLots";
 
@@ -65,9 +65,8 @@ export default function PortfolioHoldingLotsCard({
         <StyledDivider />
       </div>
 
-      <ConfirmAlert
+      <PortfolioHoldingDeleteConfirm
         isOpen={isDeleteConfirmAlertOpen}
-        title="매입 이력을 삭제하시겠습니까?"
         onClose={onDeleteConfirmAlertClose}
         onConfirm={onDeleteConfirm}
       />

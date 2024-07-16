@@ -2,7 +2,6 @@ import { IconButton } from "@components/Buttons/IconButton";
 import { TextButton } from "@components/Buttons/TextButton";
 import { CardItemRow } from "@components/CardTable/CardItemRow";
 import { PlainCard } from "@components/CardTable/PlainCardTable/PlainCard";
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import useAllStockPriceTargetsDeleteMutation from "@features/notification/api/queries/useAllStockPriceTargetsDeleteMutation";
 import useStockNotificationSettingsMutation from "@features/notification/api/queries/useStockNotificationSettingsMutation";
@@ -11,6 +10,7 @@ import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import { Collapse, debounce } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
+import StockNotificationDeleteAllConfirm from "../StockNotificationDeleteAllConfirm";
 import { StockNotificationTargetPrices } from "./StockNotificationTargetPrices";
 
 type Props = {
@@ -98,9 +98,9 @@ function StockNotificationCard({ item }: { item: StockNotification }) {
           </Collapse>
 
           {isRemoveAllConfirmOpen && (
-            <ConfirmAlert
+            <StockNotificationDeleteAllConfirm
+              companyName={companyName}
               isOpen={isRemoveAllConfirmOpen}
-              title={`[${companyName}] 지정가 알림을 모두 삭제하시겠습니까?`}
               onClose={onRemoveAllAlertClose}
               onConfirm={onConfirmRemoveAll}
             />

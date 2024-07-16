@@ -1,6 +1,12 @@
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import { useZIndex } from "@hooks/useZIndex";
-import { Box, Dialog, DialogProps } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogProps,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ReactNode } from "react";
 import { CSSProperties } from "styled-components";
@@ -42,13 +48,32 @@ export default function BaseDialog({
     bgcolor: "background.paper",
   };
 
+  const isCustomDialogStyle = isMobile && !rest.fullScreen;
+
   return (
-    <Dialog
-      open={isOpen}
-      onClose={onCloseDialog}
-      {...rest}
-      sx={{ zIndex: zIndex }}>
-      <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
-    </Dialog>
+    <ThemeProvider theme={baseDialogTheme(isCustomDialogStyle)}>
+      <Dialog
+        open={isOpen}
+        onClose={onCloseDialog}
+        {...rest}
+        sx={{ zIndex: zIndex }}>
+        <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
+      </Dialog>
+    </ThemeProvider>
   );
 }
+
+const baseDialogTheme = (isCustomDialogStyle: boolean) =>
+  createTheme({
+    components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: isCustomDialogStyle && {
+            width: "100%",
+            margin: "16px !important",
+            borderRadius: "8px",
+          },
+        },
+      },
+    },
+  });
