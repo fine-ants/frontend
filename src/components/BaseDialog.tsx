@@ -22,7 +22,6 @@ export default function BaseDialog({
   style,
   children,
   isOpen,
-  fullScreen,
   onClose,
   ...rest
 }: Props) {
@@ -49,7 +48,7 @@ export default function BaseDialog({
     bgcolor: "background.paper",
   };
 
-  const isCustomDialogStyle = isMobile && !fullScreen;
+  const isCustomDialogStyle = isMobile && !rest.fullScreen;
 
   return (
     <ThemeProvider theme={baseDialogTheme(isCustomDialogStyle)}>
@@ -57,8 +56,7 @@ export default function BaseDialog({
         open={isOpen}
         onClose={onCloseDialog}
         {...rest}
-        sx={{ zIndex: zIndex }}
-        fullScreen={fullScreen}>
+        sx={{ zIndex: zIndex }}>
         <Box sx={{ ...baseStyle, ...style }}>{children}</Box>
       </Dialog>
     </ThemeProvider>
