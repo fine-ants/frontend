@@ -1,11 +1,11 @@
 import { IconButton } from "@components/Buttons/IconButton";
-import ConfirmAlert from "@components/ConfirmAlert";
 import useStockTargetPriceDeleteMutation from "@features/notification/api/queries/useStockTargetPriceDeleteMutation";
 import { StockTargetPrice } from "@features/notification/api/types";
 import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import designSystem from "@styles/designSystem";
 import { useState } from "react";
 import styled from "styled-components";
+import StockNotificationDeleteConfirm from "../StockNotificationDeleteConfirm";
 
 type Props = {
   companyName: string;
@@ -61,11 +61,10 @@ export function StockNotificationTargetPrices({
       ))}
 
       {isRemoveConfirmOpen && removeTargetPrice && (
-        <ConfirmAlert
+        <StockNotificationDeleteConfirm
+          companyName={companyName}
+          targetPrice={removeTargetPrice}
           isOpen={isRemoveConfirmOpen}
-          title={`[${companyName} ${thousandsDelimiter(
-            removeTargetPrice
-          )}KRW] 지정가 알림을 삭제하시겠습니까?`}
           onClose={onRemoveNotificationAlertClose}
           onConfirm={onConfirmRemove}
         />

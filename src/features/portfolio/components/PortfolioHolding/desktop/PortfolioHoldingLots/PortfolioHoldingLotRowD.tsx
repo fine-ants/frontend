@@ -1,5 +1,4 @@
 import { IconButton } from "@components/Buttons/IconButton";
-import ConfirmAlert from "@components/ConfirmAlert";
 import DatePicker from "@components/DatePicker";
 import usePortfolioHoldingPurchaseDeleteMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseDeleteMutation";
 import usePortfolioHoldingPurchaseEditMutation from "@features/portfolio/api/queries/usePortfolioHoldingPurchaseEditMutation";
@@ -20,6 +19,7 @@ import { formatDate } from "@utils/date";
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+import PortfolioHoldingDeleteConfirm from "../../PortfolioHoldingDeleteConfirm";
 
 type Props = {
   portfolioId: number;
@@ -204,9 +204,8 @@ export default function PortfolioHoldingLotRowD({
             />
           </StyledTableCell>
 
-          <ConfirmAlert
+          <PortfolioHoldingDeleteConfirm
             isOpen={isDeleteConfirmAlertOpen}
-            title="매입 이력을 삭제하시겠습니까?"
             onClose={onCloseDeleteConfirmAlert}
             onConfirm={onDeleteConfirm}
           />

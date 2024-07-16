@@ -1,4 +1,3 @@
-import ConfirmAlert from "@components/ConfirmAlert";
 import BottomDrawer from "@components/Drawer/BottomDrawer";
 import DrawerItem from "@components/Drawer/DrawerItem";
 import { Icon } from "@components/Icon";
@@ -10,6 +9,7 @@ import styled from "styled-components";
 import usePortfolioDeleteMutation from "../../../api/queries/usePortfolioDeleteMutation";
 import usePortfolioDetailsQuery from "../../../api/queries/usePortfolioDetailsQuery";
 import PortfolioAddOrEditDialog from "../../PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
+import PortfolioDeleteConfirm from "../../PortfolioDeleteConfirm";
 
 type Props = {
   isDrawerOpen: boolean;
@@ -80,13 +80,12 @@ export default function PortfolioActionDrawer({
         />
       )}
       {isConfirmOpen && (
-        <ConfirmAlert
+        <PortfolioDeleteConfirm
           isOpen={isConfirmOpen}
-          title="포트폴리오 삭제"
+          portfolioName={portfolioDetails.name}
           onClose={onConfirmAlertClose}
-          onConfirm={onConfirmAction}>
-          <p>'{portfolioDetails.name}' 포트폴리오를 삭제하시겠습니까?</p>
-        </ConfirmAlert>
+          onConfirm={onConfirmAction}
+        />
       )}
     </>
   );

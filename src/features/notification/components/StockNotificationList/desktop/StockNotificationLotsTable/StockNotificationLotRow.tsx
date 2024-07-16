@@ -1,10 +1,10 @@
 import { IconButton } from "@components/Buttons/IconButton";
-import ConfirmAlert from "@components/ConfirmAlert";
 import useStockTargetPriceDeleteMutation from "@features/notification/api/queries/useStockTargetPriceDeleteMutation";
 import { StockTargetPrice } from "@features/notification/api/types";
 import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import { TableCell, TableRow } from "@mui/material";
 import styled from "styled-components";
+import StockNotificationDeleteConfirm from "../../StockNotificationDeleteConfirm";
 
 type Props = {
   row: StockTargetPrice & { companyName: string };
@@ -43,9 +43,10 @@ export default function StockNotificationLotRow({ row }: Props) {
       </StyledTableCell>
 
       {isConfirmOpen && (
-        <ConfirmAlert
+        <StockNotificationDeleteConfirm
+          companyName={companyName}
+          targetPrice={targetPrice}
           isOpen={isConfirmOpen}
-          title={`[${companyName} ${targetPrice}KRW] 지정가 알림을 삭제하시겠습니까?`}
           onClose={onRemoveNotificationAlertClose}
           onConfirm={onConfirmRemove}
         />
