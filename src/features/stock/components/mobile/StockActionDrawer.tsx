@@ -58,14 +58,12 @@ export default function StockActionDrawer({
         </ul>
       </BottomDrawer>
 
-      {isWatchlistHasStockDrawerOpen && (
-        <WatchlistHasStockDrawer
-          tickerSymbol={tickerSymbol}
-          isOpen={isWatchlistHasStockDrawerOpen}
-          onOpen={onWatchlistHasStockDrawerOpen}
-          onClose={onWatchlistHasStockDrawerClose}
-        />
-      )}
+      <WatchlistHasStockDrawer
+        tickerSymbol={tickerSymbol}
+        isOpen={isWatchlistHasStockDrawerOpen}
+        onOpen={onWatchlistHasStockDrawerOpen}
+        onClose={onWatchlistHasStockDrawerClose}
+      />
 
       {isDialogOpen && (
         <TargetPriceAlertDialog isOpen={isDialogOpen} onClose={onDialogClose} />
