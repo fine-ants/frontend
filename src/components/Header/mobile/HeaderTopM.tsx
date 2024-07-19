@@ -1,7 +1,5 @@
 import fineantsLogo from "@assets/icons/logo/ic_fineants_white.svg";
-import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
-import { TextButton } from "@components/Buttons/TextButton";
 import { MAIN_HEADER_HEIGHT_M } from "@constants/styleConstants";
 import { NotificationControl } from "@features/notification/components/NotificationControl/NotificationControl";
 import StockSearchPanel from "@features/stock/components/StockSearchPanel/mobile/StockSearchPanel";
@@ -10,12 +8,10 @@ import { UserContext } from "@features/user/context/UserContext";
 import { useBoolean } from "@fineants/demolition";
 import Routes from "@router/Routes";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function HeaderTopM() {
-  const navigate = useNavigate();
-
   const { user } = useContext(UserContext);
 
   const {
@@ -24,30 +20,9 @@ export default function HeaderTopM() {
     setFalse: onCloseSearchPanel,
   } = useBoolean();
 
-  const moveToSignInPage = () => {
-    navigate(Routes.SIGNIN);
-  };
-
-  const moveToSignUpPage = () => {
-    navigate(Routes.SIGNUP);
-  };
-
   return (
     <StyledHeaderTopM>
-      {user ? (
-        <HeaderLeft>
-          <UserDrawer />
-        </HeaderLeft>
-      ) : (
-        <ButtonWrapper>
-          <TextButton size="h32" color="white" onClick={moveToSignInPage}>
-            로그인
-          </TextButton>
-          <Button variant="primary" size="h32" onClick={moveToSignUpPage}>
-            회원가입
-          </Button>
-        </ButtonWrapper>
-      )}
+      <HeaderLeft>{user && <UserDrawer />}</HeaderLeft>
 
       <HeaderCenter>
         <Link
@@ -87,11 +62,6 @@ const StyledHeaderTopM = styled.header`
 
 const HeaderLeft = styled.div`
   width: 33%;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  gap: 8px;
 `;
 
 const HeaderCenter = styled.div`
