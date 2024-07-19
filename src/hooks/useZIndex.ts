@@ -1,22 +1,6 @@
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 
-export const useZIndex = (isOpen: boolean = true) => {
-  const { pushStack, popStack, getCurrentZIndex } = useZIndexStore();
-
-  const [layoutIndex, setLayoutIndex] = useState(0);
-  const zIndex = getCurrentZIndex(layoutIndex);
-
-  useEffect(() => {
-    const index = pushStack();
-    setLayoutIndex(index);
-
-    return popStack;
-  }, [isOpen, popStack, pushStack]);
-
-  return { zIndex, layoutIndex, pushStack, popStack, getCurrentZIndex };
-};
-
 type ZIndexState = {
   defaultZIndex: number;
   defaultZIndexStep: number;
@@ -26,7 +10,7 @@ type ZIndexState = {
   getCurrentZIndex: (index: number) => number;
 };
 
-const useZIndexStore = create<ZIndexState>((set, get) => ({
+export const useZIndexStore = create<ZIndexState>((set, get) => ({
   defaultZIndex: 1000,
   defaultZIndexStep: 100,
   stackCount: 0,
@@ -43,3 +27,33 @@ const useZIndexStore = create<ZIndexState>((set, get) => ({
     return state.defaultZIndex + state.defaultZIndexStep * index;
   },
 }));
+
+export const useZIndex = (isOpen: boolean = true) => {
+  const pushStack = useZIndexStore((state) => state.pushStack);
+  const popStack = useZIndexStore((state) => state.popStack);
+  const getCurrentZIndex = useZIndexStore((state) => state.getCurrentZIndex);
+
+  const [layoutIndex, setLayoutIndex] = useState(0);
+  const zIndex = getCurrentZIndex(layoutIndex);
+
+  useEffect(() => {
+    if (isOpen) {
+      const index = pushStack();
+      setLayoutIndex(index);
+    }
+
+    return () => {
+      if (isOpen) {
+        popStack();
+      }
+    };
+  }, [isOpen, pushStack, popStack]);
+
+  return {
+    zIndex,
+    layoutIndex,
+    pushStack,
+    popStack,
+    getCurrentZIndex,
+  };
+};

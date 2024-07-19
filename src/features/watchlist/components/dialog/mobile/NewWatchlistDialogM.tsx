@@ -36,7 +36,6 @@ export default function NewWatchlistDialogM({ isOpen, onClose }: Props) {
 
   return (
     <BaseDialog
-      className="test"
       fullScreen
       isOpen={isOpen}
       onClose={onClose}

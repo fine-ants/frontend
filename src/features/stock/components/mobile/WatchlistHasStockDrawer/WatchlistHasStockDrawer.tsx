@@ -48,12 +48,10 @@ export default function WatchlistHasStockDrawer({
         </AsyncBoundary>
       </BottomDrawer>
 
-      {isNewWatchlistDialogOpen && (
-        <NewWatchlistDialog
-          isOpen={isNewWatchlistDialogOpen}
-          onClose={onNewWatchlistDialogClose}
-        />
-      )}
+      <NewWatchlistDialog
+        isOpen={isNewWatchlistDialogOpen}
+        onClose={onNewWatchlistDialogClose}
+      />
     </>
   );
 }
