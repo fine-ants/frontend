@@ -11,14 +11,32 @@ import portfolioImageD3 from "@assets/images/portfolioD3.svg";
 import portfolioImageM1 from "@assets/images/portfolioM1.svg";
 import portfolioImageM2 from "@assets/images/portfolioM2.svg";
 import portfolioImageM3 from "@assets/images/portfolioM3.svg";
+import Button from "@components/Buttons/Button";
+import { TextButton } from "@components/Buttons/TextButton";
 import Footer from "@components/Footer";
 import Header from "@components/Header/Header";
+import {
+  MAIN_HEADER_TOTAL_HEIGHT_D,
+  MAIN_HEADER_TOTAL_HEIGHT_M,
+} from "@constants/styleConstants";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function LandingPage() {
   const { isDesktop, isMobile } = useResponsiveLayout();
+
+  const navigate = useNavigate();
+
+  const moveToSignInPage = () => {
+    navigate(Routes.SIGNIN);
+  };
+
+  const moveToSignUpPage = () => {
+    navigate(Routes.SIGNUP);
+  };
 
   return (
     <>
@@ -34,6 +52,22 @@ export default function LandingPage() {
                 실시간 자산 현황을 확인하고{isMobile && <br />} 똑똑한 투자
                 관리를 시작하세요
               </h2>
+              {isMobile && (
+                <ButtonWrapper>
+                  <TextButton
+                    size="h32"
+                    color="white"
+                    onClick={moveToSignInPage}>
+                    로그인
+                  </TextButton>
+                  <Button
+                    variant="primary"
+                    size="h32"
+                    onClick={moveToSignUpPage}>
+                    회원가입
+                  </Button>
+                </ButtonWrapper>
+              )}
             </LandingTopText>
             <LandingTopChart
               src={landingTopChart}
@@ -126,12 +160,15 @@ const BasePage = styled.div`
 
 const LandingTopBG = styled.div<{ $isMobile: boolean }>`
   width: 100vw;
-  height: 100vh;
+  height: calc(
+    100vh -
+      ${({ $isMobile }) =>
+        $isMobile ? MAIN_HEADER_TOTAL_HEIGHT_M : MAIN_HEADER_TOTAL_HEIGHT_D}px
+  );
   display: flex;
-  align-items: center;
   justify-content: center;
   margin: 0 auto;
-  padding: ${({ $isMobile }) => ($isMobile ? "0 8px" : "0")};
+  padding: ${({ $isMobile }) => ($isMobile ? "52px 8px" : "0")};
   background-image: url(${landingTopBG});
   background-size: cover;
   background-position: center;
@@ -170,9 +207,16 @@ const LandingTopText = styled.div<{ $isMobile: boolean }>`
   }
 `;
 
+const ButtonWrapper = styled.div`
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+`;
+
 const LandingTopChart = styled.img<{ $isMobile: boolean }>`
   width: ${({ $isMobile }) => ($isMobile ? "100%" : "741px")};
-  height: ${({ $isMobile }) => ($isMobile ? "100%" : "681px")};
+  height: ${({ $isMobile }) => ($isMobile ? "auto" : "681px")};
   pointer-events: none;
 `;
 
@@ -229,7 +273,7 @@ const DashboardImage = styled.img<{ $isMobile: boolean }>`
   width: 100%;
   height: ${({ $isMobile }) => ($isMobile ? "100%" : "640px")};
   margin-top: ${({ $isMobile }) => ($isMobile ? "32px" : "80px")};
-  border-radius: 16px;
+  border-radius: ${({ $isMobile }) => ($isMobile ? "0" : "16px")};
   pointer-events: none;
 `;
 
