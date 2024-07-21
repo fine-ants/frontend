@@ -34,7 +34,7 @@ export default function ConfirmAlert({
 
   return (
     <BaseDialog
-      style={ConfirmAlertStyle(isMobile)}
+      style={confirmAlertStyle(isMobile)}
       isOpen={isOpen}
       onClose={onClose}>
       <Wrapper>
@@ -72,7 +72,7 @@ export default function ConfirmAlert({
   );
 }
 
-const ConfirmAlertStyle = (isMobile: boolean) => {
+const confirmAlertStyle = (isMobile: boolean) => {
   return {
     width: isMobile ? "100%" : "544px",
     height: isMobile ? "auto" : "280px",
