@@ -347,6 +347,9 @@ const Row = styled.div`
 const StyledSpan = styled.span`
   width: 120px;
   flex-shrink: 0;
+  font: ${designSystem.font.title5.font};
+  letter-spacing: ${designSystem.font.title5.letterSpacing};
+  color: ${designSystem.color.neutral.gray800};
 
   > span {
     color: ${designSystem.color.state.red500};

@@ -1,11 +1,11 @@
+import BaseDialog from "@components/BaseDialog";
 import Button from "@components/Buttons/Button";
 import { IconButton } from "@components/Buttons/IconButton";
 import SlideUpTransition from "@components/SlideUpTransition";
 import { TextField } from "@components/TextField/TextField";
 import useWatchlistNameEditMutation from "@features/watchlist/api/queries/useWatchlistNameEditMutation";
-import { Dialog } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -36,7 +36,9 @@ export default function WatchlistNameEditDialogM({
 
   const isInputEmpty = newWatchlistName === "";
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
     if (newWatchlistName === currentWatchlistName && isInputEmpty) {
       onClose();
       return;
@@ -46,9 +48,9 @@ export default function WatchlistNameEditDialogM({
   };
 
   return (
-    <Dialog
+    <BaseDialog
       fullScreen
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
       TransitionComponent={SlideUpTransition}>
       <Header>
@@ -85,7 +87,7 @@ export default function WatchlistNameEditDialogM({
           </Button>
         </ButtonWrapper>
       </Form>
-    </Dialog>
+    </BaseDialog>
   );
 }
 

@@ -11,7 +11,7 @@ import { retryFn } from "@fineants/demolition";
 import useDevice from "@hooks/useDevice";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
-import { useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { toast } from "src/main";
 import styled from "styled-components";
 import { NotificationDeniedSign } from "./NotificationDeniedSign";
@@ -79,7 +79,9 @@ export default function NotificationSettingsContent({ user, onClose }: Props) {
     setNewBrowserNotify((prev) => !prev);
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
     if (isDisabledButton) return;
 
     try {
@@ -136,7 +138,7 @@ export default function NotificationSettingsContent({ user, onClose }: Props) {
   return (
     <>
       <NotificationSettingsHeader onClose={onClose} />
-      <StyledContent>
+      <Form onSubmit={onSubmit}>
         <SettingContainer>
           <SubTitle>데스크탑 알림 설정</SubTitle>
           {notificationPermission === "denied" ? (
@@ -185,15 +187,15 @@ export default function NotificationSettingsContent({ user, onClose }: Props) {
 
         <ButtonContainer>
           <Button
+            type="submit"
             style={{ width: `${isMobile ? "100%" : "auto"}` }}
             variant="primary"
             size={isMobile ? "h48" : "h32"}
-            disabled={isDisabledButton}
-            onClick={onSubmit}>
+            disabled={isDisabledButton}>
             저장
           </Button>
         </ButtonContainer>
-      </StyledContent>
+      </Form>
     </>
   );
 }
@@ -218,7 +220,7 @@ const ToggleTitle = styled.div`
   color: ${designSystem.color.neutral.gray800};
 `;
 
-const StyledContent = styled.div`
+const Form = styled.form`
   width: 100%;
   margin-top: 16px;
   flex-grow: 1;

@@ -1,3 +1,4 @@
+import BaseDialog from "@components/BaseDialog";
 import AsyncButton from "@components/Buttons/AsyncButton";
 import { IconButton } from "@components/Buttons/IconButton";
 import DatePicker from "@components/DatePicker";
@@ -11,7 +12,6 @@ import {
   useBoolean,
   useText,
 } from "@fineants/demolition";
-import { Dialog } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, FormEvent, memo, useState } from "react";
@@ -122,9 +122,9 @@ export default memo(function PortfolioHoldingAddDialogM({
 
   return (
     <>
-      <Dialog
+      <BaseDialog
         fullScreen
-        open={isOpen}
+        isOpen={isOpen}
         onClose={onDialogClose}
         TransitionComponent={SlideUpTransition}>
         <HeaderWrapper>
@@ -220,19 +220,20 @@ export default memo(function PortfolioHoldingAddDialogM({
                 />
               </InputBox>
             </InputContainer>
-
-            <AsyncButton
-              variant="primary"
-              size="h48"
-              style={{ width: "100%" }}
-              type="submit"
-              disabled={!selectedStock || isPortfolioHoldingAddMutatePending}
-              isPending={isPortfolioHoldingAddMutatePending}>
-              추가
-            </AsyncButton>
+            <ButtonWrapper>
+              <AsyncButton
+                variant="primary"
+                size="h48"
+                style={{ width: "100%" }}
+                type="submit"
+                disabled={!selectedStock || isPortfolioHoldingAddMutatePending}
+                isPending={isPortfolioHoldingAddMutatePending}>
+                추가
+              </AsyncButton>
+            </ButtonWrapper>
           </Form>
         </ContentWrapper>
-      </Dialog>
+      </BaseDialog>
 
       <PortfolioHoldingSearchDrawerM
         isDrawerOpen={isDrawerOpen}
@@ -247,6 +248,9 @@ export default memo(function PortfolioHoldingAddDialogM({
 const ContentWrapper = styled.div`
   width: 100%;
   padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 const HeaderWrapper = styled.div`
@@ -270,7 +274,6 @@ const Header = styled.div`
 
 const SearchWrapper = styled.div`
   width: 100%;
-  margin-bottom: 32px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -301,12 +304,16 @@ const SearchButton = styled.button`
 
 const Form = styled.form`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 const HoldingBox = styled.div`
   width: 100%;
   height: 64px;
   padding: 0 16px;
+  margin-top: 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -404,4 +411,8 @@ const Input = styled.input`
   &&::placeholder {
     color: ${designSystem.color.neutral.gray400};
   }
+`;
+
+const ButtonWrapper = styled.div`
+  margin-top: auto;
 `;

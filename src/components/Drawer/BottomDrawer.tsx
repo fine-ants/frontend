@@ -1,4 +1,5 @@
 import { IconButton } from "@components/Buttons/IconButton";
+import { useZIndex } from "@hooks/useZIndex";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode } from "react";
 import styled, { CSSProperties } from "styled-components";
@@ -6,7 +7,8 @@ import styled, { CSSProperties } from "styled-components";
 type Props = {
   isDrawerOpen: boolean;
   children: ReactNode;
-  customStyle?: CSSProperties;
+  rootStyle?: CSSProperties;
+  paperStyle?: CSSProperties;
   onOpenDrawer: () => void;
   onCloseDrawer: () => void;
   handleTransitionEnd?: () => void;
@@ -18,20 +20,28 @@ const DRAWER_HEADER_HEIGHT = 32;
 export default function BottomDrawer({
   isDrawerOpen,
   children,
-  customStyle = {},
+  rootStyle = {},
+  paperStyle = {},
   onOpenDrawer,
   onCloseDrawer,
   handleTransitionEnd,
   handleBackButton,
 }: Props) {
+  const { zIndex, popStack } = useZIndex(isDrawerOpen);
+
+  const onClose = () => {
+    popStack();
+    onCloseDrawer();
+  };
+
   return (
-    <ThemeProvider theme={theme(customStyle)}>
+    <ThemeProvider theme={theme(rootStyle, paperStyle, zIndex)}>
       <SwipeableDrawer
         anchor="bottom"
         disableSwipeToOpen={true}
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
-        onClose={onCloseDrawer}
+        onClose={onClose}
         onTransitionEnd={handleTransitionEnd}>
         <Header $hasBackButton={!!handleBackButton}>
           {handleBackButton && (
@@ -58,33 +68,38 @@ export default function BottomDrawer({
   );
 }
 
-const theme = (customStyle: CSSProperties) =>
-  createTheme({
+const theme = (
+  rootStyle: CSSProperties,
+  paperStyle: CSSProperties,
+  zIndex: number
+) => {
+  return createTheme({
     components: {
       MuiDrawer: {
         styleOverrides: {
           root: {
-            // TODO: z-index system
-            "zIndex": 1400,
-            ".MuiPaper-root": {
-              display: "flex",
-              borderRadius: "16px 16px 0 0",
-              padding: "16px 0",
-              overflow: "hidden",
-              ...customStyle,
-            },
+            zIndex: zIndex,
+            ...rootStyle,
+          },
+          paper: {
+            display: "flex",
+            borderRadius: "16px 16px 0 0",
+            padding: "16px 0",
+            overflow: "hidden",
+            ...paperStyle,
           },
         },
       },
     },
   });
+};
 
 const Header = styled.header<{ $hasBackButton: boolean }>`
+  margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
+  padding: 0 16px;
   display: ${({ $hasBackButton }) => ($hasBackButton ? "flex" : "block")};
   justify-content: ${({ $hasBackButton }) =>
     $hasBackButton ? "space-between" : "normal"};
-  margin-left: ${({ $hasBackButton }) => ($hasBackButton ? "0" : "auto")};
-  padding: 0 16px;
 `;
 
 const Content = styled.div`

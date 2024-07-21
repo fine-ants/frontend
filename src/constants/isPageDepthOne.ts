@@ -1,5 +1,5 @@
 const oneDepthPages = new Set([
-  "/landing",
+  "/",
   "/dashboard",
   "/watchlists",
   "/portfolios",
@@ -9,7 +9,7 @@ const oneDepthPages = new Set([
 ]);
 
 export default function isPageDepthOne(route: string) {
-  const regex = /\/\w+/;
+  const regex = /^\/(\w+)?$/;
   const parsedRoute = route.match(regex);
   return parsedRoute ? oneDepthPages.has(parsedRoute[0]) : false;
 }

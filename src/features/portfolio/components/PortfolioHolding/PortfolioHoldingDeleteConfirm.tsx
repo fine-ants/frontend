@@ -1,26 +1,23 @@
 import ConfirmAlert from "@components/ConfirmAlert";
 
-type Props<Item> = {
+type Props = {
   isOpen: boolean;
-  selected: readonly Item[];
   onClose: () => void;
   onConfirm: () => void;
 };
 
-export default function PortfolioHoldingDeleteConfirm<
-  Item extends { companyName: string },
->({ isOpen, selected, onClose, onConfirm }: Props<Item>) {
+export default function PortfolioHoldingDeleteConfirm({
+  isOpen,
+  onClose,
+  onConfirm,
+}: Props) {
   return (
     <ConfirmAlert
       isOpen={isOpen}
-      title="선택 종목 삭제"
+      title="종목 삭제"
       onClose={onClose}
       onConfirm={onConfirm}>
-      <span>
-        {`'${selected.length !== 0 && selected[0].companyName}'${
-          selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-        } 종목을 삭제하시겠습니까?`}
-      </span>
+      매입 이력을 삭제하시겠습니까?
     </ConfirmAlert>
   );
 }

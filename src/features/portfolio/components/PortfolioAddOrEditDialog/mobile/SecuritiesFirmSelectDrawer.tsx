@@ -55,6 +55,7 @@ export function SecuritiesFirmSelectDrawer({
 }
 
 const DrawerContent = styled.div`
+  height: 100%;
   overflow: scroll;
 `;
 

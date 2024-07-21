@@ -1,3 +1,4 @@
+import { useZIndex } from "@hooks/useZIndex";
 import { SwipeableDrawer, ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode } from "react";
 
@@ -14,30 +15,40 @@ export default function RightDrawer({
   onCloseDrawer,
   children,
 }: Props) {
+  const { zIndex, popStack } = useZIndex(isDrawerOpen);
+
+  const onClose = () => {
+    popStack();
+    onCloseDrawer();
+  };
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme(zIndex)}>
       <SwipeableDrawer
         anchor="right"
         disableDiscovery={true}
         open={isDrawerOpen}
         onOpen={onOpenDrawer}
-        onClose={onCloseDrawer}>
+        onClose={onClose}>
         {children}
       </SwipeableDrawer>
     </ThemeProvider>
   );
 }
 
-const theme = createTheme({
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        root: {
-          ".MuiPaper-root": {
-            width: "100%",
+const theme = (zIndex: number) => {
+  return createTheme({
+    components: {
+      MuiDrawer: {
+        styleOverrides: {
+          root: {
+            "zIndex": zIndex,
+            ".MuiPaper-root": {
+              width: "100%",
+            },
           },
         },
       },
     },
-  },
-});
+  });
+};

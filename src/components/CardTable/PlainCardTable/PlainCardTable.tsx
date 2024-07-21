@@ -63,12 +63,16 @@ export function PlainCardTable<Item>({
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </ControlWrapper>
+
           <CardBody visibleRows={visibleRows} />
-          <Pagination
-            count={Math.ceil(count / rowsPerPage)}
-            page={page + 1}
-            onPageChange={handleChangePage}
-          />
+
+          <PaginationWrapper>
+            <Pagination
+              count={Math.ceil(count / rowsPerPage)}
+              page={page + 1}
+              onPageChange={handleChangePage}
+            />
+          </PaginationWrapper>
         </>
       ) : (
         <EmptyComponent />
@@ -79,4 +83,8 @@ export function PlainCardTable<Item>({
 
 const ControlWrapper = styled.div`
   padding: 0 16px;
+`;
+
+const PaginationWrapper = styled.div`
+  margin-top: auto;
 `;

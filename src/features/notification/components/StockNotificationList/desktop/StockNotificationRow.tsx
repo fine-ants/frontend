@@ -1,5 +1,4 @@
 import { IconButton } from "@components/Buttons/IconButton";
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import useAllStockPriceTargetsDeleteMutation from "@features/notification/api/queries/useAllStockPriceTargetsDeleteMutation";
 import useStockNotificationSettingsMutation from "@features/notification/api/queries/useStockNotificationSettingsMutation";
@@ -18,6 +17,7 @@ import designSystem from "@styles/designSystem";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import StockNotificationDeleteAllConfirm from "../StockNotificationDeleteAllConfirm";
 import StockNotificationLotsTable from "./StockNotificationLotsTable/StockNotificationLotsTable";
 
 type Props = {
@@ -130,9 +130,9 @@ export default function StockNotificationRow({ row, isAllRowsOpen }: Props) {
       </StyledLotRow>
 
       {isConfirmOpen && (
-        <ConfirmAlert
+        <StockNotificationDeleteAllConfirm
+          companyName={companyName}
           isOpen={isConfirmOpen}
-          title={`[${companyName}] 지정가 알림을 모두 삭제하시겠습니까?`}
           onClose={onRemoveAllAlertClose}
           onConfirm={onConfirmRemoveAll}
         />

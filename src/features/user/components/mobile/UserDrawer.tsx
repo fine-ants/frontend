@@ -1,4 +1,5 @@
 import BottomDrawer from "@components/Drawer/BottomDrawer";
+import DrawerItem from "@components/Drawer/DrawerItem";
 import { DrawerItemType } from "@components/Drawer/types";
 import { Icon } from "@components/Icon";
 import useSignOutMutation from "@features/auth/api/queries/useSignOutMutation";
@@ -51,37 +52,30 @@ export default function UserDrawer() {
         isDrawerOpen={isDrawerOpen}
         onOpenDrawer={openDrawer}
         onCloseDrawer={closeDrawer}>
-        <ProfileItem>
-          {user?.profileUrl ? (
-            <ProfileImage src={user.profileUrl} alt={user.nickname} />
-          ) : (
-            <Icon icon="user" size={32} color={"gray600"} />
-          )}
-          <div>
-            <ProfileDescNickname>{user?.nickname}</ProfileDescNickname>
-            <ProfileDescEmail>{user?.email}</ProfileDescEmail>
-          </div>
-        </ProfileItem>
+        <ul>
+          <ProfileItem>
+            {user?.profileUrl ? (
+              <ProfileImage src={user.profileUrl} alt={user.nickname} />
+            ) : (
+              <Icon icon="user" size={32} color={"gray600"} />
+            )}
+            <div>
+              <ProfileDescNickname>{user?.nickname}</ProfileDescNickname>
+              <ProfileDescEmail>{user?.email}</ProfileDescEmail>
+            </div>
+          </ProfileItem>
 
-        <Content>
           {drawerItems.map((item, index) => (
-            <ContentItem key={index}>
-              <ContentItemButton onClick={item.onClick}>
-                <Icon icon={item.icon} size={24} color="gray400" />
-                {item.title}
-              </ContentItemButton>
-            </ContentItem>
+            <DrawerItem key={index} onClick={item.onClick}>
+              <Icon icon={item.icon} size={24} color="gray400" />
+              {item.title}
+            </DrawerItem>
           ))}
-        </Content>
+        </ul>
       </BottomDrawer>
     </>
   );
 }
-
-const Content = styled.ul`
-  width: 100%;
-  list-style-type: none;
-`;
 
 const ProfileItem = styled.li`
   width: 100%;
@@ -108,27 +102,4 @@ const ProfileDescNickname = styled.p`
 const ProfileDescEmail = styled.span`
   font: ${designSystem.font.body3.font};
   color: ${designSystem.color.neutral.gray600};
-`;
-
-const ContentItem = styled.li`
-  width: 100%;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px;
-
-  &:active {
-    background-color: ${designSystem.color.neutral.gray50};
-  }
-`;
-
-const ContentItemButton = styled.button`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
 `;

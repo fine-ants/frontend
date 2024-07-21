@@ -21,11 +21,7 @@ export default function IndicesPage() {
         <Main>
           <LeftContainer>
             <Title>{tickerSymbol}</Title>
-            <TVStockDetailWidget
-              tickerSymbol={tickerSymbol}
-              width={1018}
-              height={601}
-            />
+            <TVStockDetailWidget tickerSymbol={tickerSymbol} />
           </LeftContainer>
           <RightContainer>
             <p>인덱스</p>

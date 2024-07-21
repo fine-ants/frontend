@@ -39,7 +39,11 @@ export default function NavBarFixed() {
   return (
     <NavBar>
       {mobileNavItems.map((item) => {
-        const isActive = pathname.includes(item.to);
+        const isActive =
+          (item.to === Routes.PORTFOLIOS &&
+            pathname.startsWith("/portfolio")) ||
+          pathname.includes(item.to);
+
         return (
           <NavBarListItem key={item.name}>
             <NavItemLink to={item.to}>

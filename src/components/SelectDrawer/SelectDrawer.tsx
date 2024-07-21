@@ -45,7 +45,9 @@ export default function SelectDrawer({
       </StyledSelectDrawer>
 
       <BottomDrawer
-        customStyle={{ height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)` }}
+        paperStyle={{
+          height: `calc(100vh - ${BOTTOM_DRAWER_TOP_SPACE}px)`,
+        }}
         isDrawerOpen={isOpen}
         onOpenDrawer={onOpen}
         onCloseDrawer={onClose}>
@@ -81,8 +83,8 @@ const StyledSelectDrawer = styled.div<{ $size: Size; $isOpen: boolean }>`
 const Display = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const SecuritiesFirmWrapper = styled.div`

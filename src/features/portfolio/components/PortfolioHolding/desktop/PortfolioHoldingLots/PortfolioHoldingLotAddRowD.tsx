@@ -20,7 +20,8 @@ type Props = {
   portfolioHoldingId: number;
   onDeleteButtonClick: () => void;
 };
-export default function PortfolioHoldingLotAddRow({
+
+export default function PortfolioHoldingLotAddRowD({
   portfolioId,
   portfolioHoldingId,
   onDeleteButtonClick,

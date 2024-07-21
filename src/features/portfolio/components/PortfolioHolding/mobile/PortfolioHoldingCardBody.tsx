@@ -1,12 +1,15 @@
 import RateBadge from "@components/Badges/RateBadge";
+import { IconButton } from "@components/Buttons/IconButton";
 import { CardItemRow } from "@components/CardTable/CardItemRow";
 import SelectableCard from "@components/CardTable/SelectableCardTable/SelectableCard";
 import { PortfolioHolding } from "@features/portfolio/api/types";
-import { thousandsDelimiter } from "@fineants/demolition";
+import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
+import { Collapse } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import { ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PortfolioHoldingLotsTableM from "./PortfolioHoldingLots/PortfolioHoldingLotsTableM";
 
 type Props = {
   visibleRows: readonly PortfolioHolding[];
@@ -81,7 +84,10 @@ function PortfolioHoldingCard({
     totalReturnRate,
     annualDividend,
     annualDividendYield,
+    purchaseHistory,
   } = item;
+
+  const { state: isCollapsed, setOpposite: collapseOpposite } = useBoolean();
 
   const isSelected = !!selected.find((item) => item.id === id);
 
@@ -90,7 +96,10 @@ function PortfolioHoldingCard({
       isSelected={isSelected}
       onChange={(event) => handleClick(event, id)}
       CardHeader={
-        <StyledLink to={`/stock/${tickerSymbol}`}>{companyName}</StyledLink>
+        <StyledLink to={`/stock/${tickerSymbol}`}>
+          <h2>{companyName}</h2>
+          <span>{tickerSymbol}</span>
+        </StyledLink>
       }
       CardBody={
         <>
@@ -136,6 +145,24 @@ function PortfolioHoldingCard({
               />
             </ContentsWrapper>
           </CardItemRow>
+          <CardItemRow title="">
+            <IconButton
+              icon={isCollapsed ? "chevron-up" : "chevron-down"}
+              size="h32"
+              iconColor="custom"
+              customColor={{
+                color: isCollapsed ? "blue500" : "gray400",
+                hoverColor: "gray200",
+              }}
+              onClick={collapseOpposite}
+            />
+          </CardItemRow>
+          <Collapse in={isCollapsed} timeout="auto">
+            <PortfolioHoldingLotsTableM
+              portfolioHoldingId={id}
+              purchaseHistory={purchaseHistory}
+            />
+          </Collapse>
         </>
       }
     />
@@ -152,9 +179,17 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
-  color: ${designSystem.color.neutral.gray800};
+
+  h2 {
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
+    color: ${designSystem.color.neutral.gray800};
+  }
+
+  span {
+    font: ${designSystem.font.body4.font};
+    color: ${designSystem.color.neutral.gray400};
+  }
 `;
 
 const Contents = styled.div`
