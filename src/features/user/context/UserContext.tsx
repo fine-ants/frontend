@@ -1,11 +1,9 @@
-import { SignInData } from "@features/auth/api";
 import { User } from "@features/user/api/types";
 import { ReactNode, createContext, useState } from "react";
 
 export const UserContext = createContext<{
   user: User | null;
   fcmTokenId: number | null;
-  onSignIn: (signInData: SignInData) => void;
   onSignOut: () => void;
   onGetUser: (user: User) => void;
   onEditProfileDetails: (user: User) => void;
@@ -14,7 +12,6 @@ export const UserContext = createContext<{
 }>({
   user: null,
   fcmTokenId: null,
-  onSignIn: () => {},
   onSignOut: () => {},
   onGetUser: () => {},
   onEditProfileDetails: () => {},
@@ -31,21 +28,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(getUser());
   const [fcmTokenId, setFcmTokenId] = useState<number | null>(null);
 
-  const onSignIn = ({ jwt: { accessToken, refreshToken } }: SignInData) => {
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-  };
-
   const onSignOut = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
     setUser(null);
   };
 
   const onGetUser = (user: User) => {
     localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("recentlyLoggedInMethod", user.provider);
+    localStorage.setItem("recentLoginMethod", user.provider);
     setUser(user);
   };
 
@@ -67,7 +57,6 @@ export function UserProvider({ children }: { children: ReactNode }) {
       value={{
         user,
         fcmTokenId,
-        onSignIn,
         onSignOut,
         onGetUser,
         onEditProfileDetails,

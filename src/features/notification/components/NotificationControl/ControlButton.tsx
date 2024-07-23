@@ -11,7 +11,7 @@ type Props = {
 
 export function ControlButton({ count, onClick }: Props) {
   return (
-    <Control>
+    <StyledControlButton>
       <Wrapper>
         <IconButton
           icon="notification"
@@ -22,14 +22,15 @@ export function ControlButton({ count, onClick }: Props) {
             hoverColor: "gray800",
           }}
           onClick={onClick}
+          aria-label="알림 패널 버튼"
         />
         {count > 0 && <CounterBadge count={count} />}
       </Wrapper>
-    </Control>
+    </StyledControlButton>
   );
 }
 
-const Control = styled.div`
+const StyledControlButton = styled.div`
   width: 40px;
   height: 40px;
   padding: 4px;

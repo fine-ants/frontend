@@ -1,10 +1,13 @@
 import { AsyncBoundary } from "@components/AsyncBoundary";
-import ChartsPanel from "@features/portfolio/components/Charts/ChartsPanel";
 import ChartsPanelErrorFallback from "@features/portfolio/components/Charts/errorFallback/ChartsPanelErrorFallback";
-import ChartsPanelSkeleton from "@features/portfolio/components/Charts/skeletons/ChartsPanelSkeleton";
-import MainPanel from "@features/portfolio/components/MainPanel";
-import MainPanelSkeleton from "@features/portfolio/components/MainPanelSkeleton";
+import ChartsPanel from "@features/portfolio/components/Portfolio/ChartPanel";
+import MainPanel from "@features/portfolio/components/Portfolio/MainPanel";
+import ChartsPanelSkeleton from "@features/portfolio/components/Portfolio/skeletons/ChartsPanelSkeleton";
+import MainPanelSkeleton from "@features/portfolio/components/Portfolio/skeletons/MainPanelSkeleton";
 import MainPanelErrorFallback from "@features/portfolio/components/errorFallback/MainPanelErrorFallback";
+import { PortfolioPageTab } from "@features/portfolio/components/types";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BasePage from "./BasePage";
@@ -12,28 +15,48 @@ import BasePage from "./BasePage";
 export default function PortfolioPage() {
   const { portfolioId } = useParams();
 
+  const { isMobile } = useResponsiveLayout();
+
+  const [tab, setTab] = useState<PortfolioPageTab>("portfolio");
+
+  const onChangeTab = (tab: PortfolioPageTab) => {
+    setTab(tab);
+  };
+
   return (
     <BasePage key={portfolioId}>
-      <Container>
-        <AsyncBoundary
-          ErrorFallback={MainPanelErrorFallback}
-          SuspenseFallback={<MainPanelSkeleton />}>
-          <MainPanel key={portfolioId} />
-        </AsyncBoundary>
+      <Container $isMobile={isMobile}>
+        <PanelWrapper $isVisible={isMobile ? tab === "portfolio" : true}>
+          <AsyncBoundary
+            ErrorFallback={MainPanelErrorFallback}
+            SuspenseFallback={<MainPanelSkeleton />}>
+            <MainPanel key={portfolioId} tab={tab} onChangeTab={onChangeTab} />
+          </AsyncBoundary>
+        </PanelWrapper>
 
-        <AsyncBoundary
-          ErrorFallback={ChartsPanelErrorFallback}
-          SuspenseFallback={<ChartsPanelSkeleton />}>
-          <ChartsPanel />
-        </AsyncBoundary>
+        <PanelWrapper $isVisible={isMobile ? tab === "chart" : true}>
+          <AsyncBoundary
+            ErrorFallback={ChartsPanelErrorFallback}
+            SuspenseFallback={<ChartsPanelSkeleton />}>
+            <ChartsPanel tab={tab} onChangeTab={onChangeTab} />
+          </AsyncBoundary>
+        </PanelWrapper>
       </Container>
     </BasePage>
   );
 }
 
-const Container = styled.div`
-  padding: 40px 150px;
+const Container = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  padding: ${({ $isMobile }) => ($isMobile ? "16px 0 32px 0px" : "40px 150px")};
   display: flex;
+  flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   align-items: flex-start;
-  gap: 32px;
+  flex: 1;
+  gap: ${({ $isMobile }) => ($isMobile ? "0px" : "32px")};
+`;
+
+const PanelWrapper = styled.div<{ $isVisible: boolean }>`
+  width: 100%;
+  display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
 `;

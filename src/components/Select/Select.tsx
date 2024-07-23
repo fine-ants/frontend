@@ -9,7 +9,7 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import { Icon } from "../Icon";
 
-export type Size = "h24" | "h32" | "h40";
+export type Size = "h24" | "h32" | "h40" | "h48";
 
 type Props = {
   size: Size;
@@ -45,14 +45,16 @@ export default function Select({
       onOpen={onOpen}
       onClose={onClose}
       input={<BootstrapInput $size={size} $isOpen={isOpen} />}
+      inputProps={{ "aria-label": "포트폴리오 종목 테이블 행 개수 선택" }}
       SelectDisplayProps={{
         style: {
-          paddingRight: "28px",
+          minWidth: "66px",
+          paddingRight: "40px",
         },
       }}
       IconComponent={(props) => (
         <IconWrapper className={`material-icons ${props.className}`}>
-          <Icon icon="chevron-down" size={12} color="gray600" />
+          <Icon icon="chevron-down" size={16} color="gray600" />
         </IconWrapper>
       )}
       MenuProps={{ sx: MenuSX(size, menuMinHeight, menuMaxHeight) }}>
@@ -63,8 +65,8 @@ export default function Select({
 
 const BootstrapInput = styled(InputBase)<{ $size: Size; $isOpen: boolean }>`
   & .MuiInputBase-input {
-    height: ${({ $size }) => $size.slice(1)}px;
     min-width: ${({ $size }) => ($size === "h24" ? 56 : 80)}px;
+    height: ${({ $size }) => $size.slice(1)}px;
     padding: 0 28px 0 8px;
     display: flex;
     align-items: center;
@@ -87,6 +89,7 @@ const BootstrapInput = styled(InputBase)<{ $size: Size; $isOpen: boolean }>`
 `;
 
 const IconWrapper = styled.div`
+  width: 32px;
   display: flex;
   justify-content: center;
   align-items: center;

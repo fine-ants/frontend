@@ -45,19 +45,14 @@ const StyledFooter = styled.footer<{ $isMobile: boolean; $isDesktop: boolean }>`
       ? designSystem.color.neutral.gray50
       : designSystem.color.neutral.white};
   color: ${designSystem.color.neutral.gray600};
-}`;
+`;
 
 const FooterLogo = styled.img<{ $isMobile: boolean }>`
   width: ${({ $isMobile }) => ($isMobile ? "92px" : "127px")};
+  height: ${({ $isMobile }) => ($isMobile ? "16px" : "24px")};
 `;
 
 const Copyright = styled.div`
   font: ${designSystem.font.body4.font};
   color: ${designSystem.color.neutral.gray600};
 `;
-
-// const IconContainer = styled.div`
-//   display: flex;
-//   align-items: center;
-//   gap: 16px;
-// `;

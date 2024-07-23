@@ -1,6 +1,6 @@
 import { useBoolean } from "@fineants/demolition";
 import { ColorType, getColor } from "@styles/designSystem";
-import { MouseEvent } from "react";
+import { ButtonHTMLAttributes, MouseEvent } from "react";
 import styled from "styled-components";
 import { Icon, IconType } from "../Icon";
 import { ColorObjectType, ColorTableType, DefaultColorType } from "./types";
@@ -18,7 +18,7 @@ type DefaultProps = {
   bgColor?: ColorType;
   borderRadius?: "default" | "rounded";
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 type CustomProps = {
   icon: IconType;
@@ -32,7 +32,7 @@ type CustomProps = {
   customColor: ColorObjectType;
   borderRadius?: "default" | "rounded";
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 type Props = DefaultProps | CustomProps;
 
@@ -48,7 +48,16 @@ export function IconButton(props: Props) {
     bgColor,
     borderRadius = "default",
     onClick,
+    ...rest
   } = props;
+
+  const buttonHTMLAttributes = Object.entries(rest).reduce(
+    (acc, [key, value]) => {
+      if (key === "customColor") return acc;
+      return { ...acc, [key]: value };
+    },
+    {}
+  );
 
   const {
     state: isHovered,
@@ -87,7 +96,8 @@ export function IconButton(props: Props) {
       $disabled={disabled}
       $borderRadius={borderRadius}
       $colorObject={colorObject}
-      $bgColor={bgColor}>
+      $bgColor={bgColor}
+      {...buttonHTMLAttributes}>
       <Icon
         icon={isHovered && hoverIcon ? hoverIcon : icon}
         size={getIconSize(size)}

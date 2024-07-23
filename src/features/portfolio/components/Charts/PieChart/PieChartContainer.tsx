@@ -1,6 +1,8 @@
 import emptyHoldingsPieChartImg from "@assets/images/no_holdings_pie_chart.png";
+import TallLegend from "@components/Legend/TallLegend";
 import WideLegend from "@components/Legend/WideLegend";
 import PieChart from "@components/PieChart/PieChart";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -25,29 +27,37 @@ export function PieChartContainer({
   coloredPieChart,
   pieChartLegendList,
 }: Props) {
+  const { isMobile } = useResponsiveLayout();
+
   const hasNoHoldings =
     coloredPieChart.length === 1 && coloredPieChart[0].name === "현금";
 
   return (
     <StyledPieChartContainer>
-      <ChartLabel>종목 구성</ChartLabel>
+      <ChartLabel $isMobile={isMobile}>종목 구성</ChartLabel>
       <PieChartWrapper>
         {hasNoHoldings ? (
           <img src={emptyHoldingsPieChartImg} alt="비어있는 파이차트 이미지" />
         ) : (
           <PieChart
-            width={256}
-            height={256}
-            hoverGap={12.8}
+            width={isMobile ? 280 : 256}
+            height={isMobile ? 280 : 256}
+            hoverGap={isMobile ? 14 : 12.8}
             pieData={coloredPieChart}
           />
         )}
-        {!hasNoHoldings && (
-          <WideLegend
-            legendList={pieChartLegendList}
-            etcOptions={{ title: "기타", numItemsFromFront: 10 }}
-          />
-        )}
+        {!hasNoHoldings &&
+          (isMobile ? (
+            <TallLegend
+              legendList={pieChartLegendList}
+              etcOptions={{ title: "기타", numItemsFromFront: 10 }}
+            />
+          ) : (
+            <WideLegend
+              legendList={pieChartLegendList}
+              etcOptions={{ title: "기타", numItemsFromFront: 10 }}
+            />
+          ))}
       </PieChartWrapper>
     </StyledPieChartContainer>
   );
@@ -66,7 +76,14 @@ const PieChartWrapper = styled.div`
   gap: 16px;
 `;
 
-const ChartLabel = styled.h1`
-  font: ${designSystem.font.heading3.font};
-  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+const ChartLabel = styled.h1<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.font
+      : designSystem.font.heading3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.heading4.letterSpacing
+      : designSystem.font.heading3.letterSpacing};
+  color: ${designSystem.color.neutral.gray900};
 `;

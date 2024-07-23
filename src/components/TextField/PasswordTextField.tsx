@@ -44,6 +44,7 @@ export function PasswordTextField({
         value={password}
         onChange={onChange}
         placeholder={placeholder}
+        autoCapitalize="none"
         endAdornment={
           <InputAdornment position="end">
             <IconButton

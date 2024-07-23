@@ -10,3 +10,7 @@ export const MAIN_HEADER_TOTAL_HEIGHT_M =
 
 export const MAIN_FOOTER_HEIGHT_D = 64;
 export const MAIN_FOOTER_HEIGHT_M = 106;
+
+export const IOS_HOME_INDICATOR_HEIGHT = 34;
+
+export const BOTTOM_DRAWER_TOP_SPACE = 64;

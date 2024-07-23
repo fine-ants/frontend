@@ -43,75 +43,75 @@ export const colors = {
 
 const font = {
   display1: {
-    font: "700 64px/77px 'IBM Plex Sans', sans-serif",
+    font: "700 64px/77px 'IBM Plex Sans KR 700', sans-serif",
     letterSpacing: "-0.02rem",
   },
   display2: {
-    font: "700 48px/58px 'IBM Plex Sans', sans-serif",
+    font: "700 48px/58px 'IBM Plex Sans KR 700', sans-serif",
     letterSpacing: "-0.02rem",
   },
   display3: {
-    font: "500 32px/39px 'IBM Plex Sans', sans-serif",
+    font: "500 32px/39px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
 
   heading1: {
-    font: "500 48px/58px 'IBM Plex Sans', sans-serif",
+    font: "500 48px/58px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   heading2: {
-    font: "700 32px/39px 'IBM Plex Sans', sans-serif",
+    font: "700 32px/39px 'IBM Plex Sans KR 700', sans-serif",
     letterSpacing: "-0.02rem",
   },
   heading3: {
-    font: "700 24px/29px 'IBM Plex Sans', sans-serif",
+    font: "700 24px/29px 'IBM Plex Sans KR 700', sans-serif",
     letterSpacing: "-0.02rem",
   },
   heading4: {
-    font: "700 20px/24px 'IBM Plex Sans', sans-serif",
+    font: "700 20px/24px 'IBM Plex Sans KR 700', sans-serif",
     letterSpacing: "-0.02rem",
   },
 
   title1: {
-    font: "500 28px/34px 'IBM Plex Sans', sans-serif",
+    font: "500 28px/34px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   title2: {
-    font: "500 24px/29px 'IBM Plex Sans', sans-serif",
+    font: "500 24px/29px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   title3: {
-    font: "500 20px/24px 'IBM Plex Sans', sans-serif",
+    font: "500 20px/24px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   title4: {
-    font: "500 16px/19px 'IBM Plex Sans', sans-serif",
+    font: "500 16px/19px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   title5: {
-    font: "500 14px/17px 'IBM Plex Sans', sans-serif",
+    font: "500 14px/17px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   title6: {
-    font: "500 12px/14px 'IBM Plex Sans', sans-serif",
+    font: "500 12px/14px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   title7: {
-    font: "500 10px/12px 'IBM Plex Sans', sans-serif",
+    font: "500 10px/12px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
 
-  body1: { font: "400 20px/30px 'IBM Plex Sans', sans-serif" },
-  body2: { font: "400 16px/24px 'IBM Plex Sans', sans-serif" },
-  body3: { font: "400 14px/21px 'IBM Plex Sans', sans-serif" },
-  body4: { font: "400 12px/18px 'IBM Plex Sans', sans-serif" },
+  body1: { font: "400 20px/30px 'IBM Plex Sans KR 400', sans-serif" },
+  body2: { font: "400 16px/24px 'IBM Plex Sans KR 400', sans-serif" },
+  body3: { font: "400 14px/21px 'IBM Plex Sans KR 400', sans-serif" },
+  body4: { font: "400 12px/18px 'IBM Plex Sans KR 400', sans-serif" },
 
   button1: {
-    font: "500 16px/19px 'IBM Plex Sans', sans-serif",
+    font: "500 16px/19px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
   button2: {
-    font: "500 14px/17px 'IBM Plex Sans', sans-serif",
+    font: "500 14px/17px 'IBM Plex Sans KR 500', sans-serif",
     letterSpacing: "-0.02rem",
   },
 };

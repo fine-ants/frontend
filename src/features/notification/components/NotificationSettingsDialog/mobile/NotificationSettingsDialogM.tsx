@@ -1,8 +1,7 @@
+import BaseDialog from "@components/BaseDialog";
+import SlideUpTransition from "@components/SlideUpTransition";
 import { User } from "@features/user/api/types";
-import { Dialog, Slide } from "@mui/material";
-import { TransitionProps } from "@mui/material/transitions";
-import React from "react";
-import { NotificationSettingsContent } from "../NotificationSettingsContent";
+import NotificationSettingsContent from "../NotificationSettingsContent";
 
 type Props = {
   user: User;
@@ -12,21 +11,12 @@ type Props = {
 
 export function NotificationSettingsDialogM({ user, isOpen, onClose }: Props) {
   return (
-    <Dialog
+    <BaseDialog
       fullScreen
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
-      TransitionComponent={TransitionComponent}>
+      TransitionComponent={SlideUpTransition}>
       <NotificationSettingsContent user={user} onClose={onClose} />
-    </Dialog>
+    </BaseDialog>
   );
 }
-
-const TransitionComponent = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});

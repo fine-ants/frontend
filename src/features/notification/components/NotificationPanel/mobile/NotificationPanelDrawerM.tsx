@@ -1,14 +1,13 @@
 import { IconButton } from "@components/Buttons/IconButton";
 import BottomDrawer from "@components/Drawer/BottomDrawer";
+import DrawerItem from "@components/Drawer/DrawerItem";
 import { DrawerItemType } from "@components/Drawer/types";
 import { Icon } from "@components/Icon";
 import useDeleteAllMemberNotificationsMutation from "@features/notification/api/queries/useDeleteAllMemberNotificationsMutation";
 import { User } from "@features/user/api/types";
 import { useBoolean } from "@fineants/demolition";
 import Routes from "@router/Routes";
-import designSystem from "@styles/designSystem";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { NotificationSettingsDialog } from "../../NotificationSettingsDialog/NotificationSettingsDialog";
 
 type Props = {
@@ -87,16 +86,14 @@ export default function NotificationPanelDrawerM({
         isDrawerOpen={isDrawerOpen}
         onOpenDrawer={openDrawer}
         onCloseDrawer={closeDrawer}>
-        <Content>
+        <ul>
           {drawerItem.map((item, index) => (
-            <ContentItem key={index}>
-              <ContentItemButton onClick={item.onClick}>
-                <Icon icon={item.icon} size={24} color="gray400" />
-                {item.title}
-              </ContentItemButton>
-            </ContentItem>
+            <DrawerItem key={index} onClick={item.onClick}>
+              <Icon icon={item.icon} size={24} color="gray400" />
+              {item.title}
+            </DrawerItem>
           ))}
-        </Content>
+        </ul>
       </BottomDrawer>
 
       <NotificationSettingsDialog
@@ -107,29 +104,3 @@ export default function NotificationPanelDrawerM({
     </div>
   );
 }
-
-const Content = styled.ul`
-  list-style-type: none;
-`;
-
-const ContentItem = styled.li`
-  width: 100%;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  &:active {
-    background-color: ${designSystem.color.neutral.gray50};
-  }
-`;
-
-const ContentItemButton = styled.button`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
-`;

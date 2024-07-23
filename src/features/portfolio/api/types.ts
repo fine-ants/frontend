@@ -126,6 +126,11 @@ export type PortfolioHoldingsSectorBarItem = {
 };
 
 export type PortfolioPageCharts = {
+  portfolioDetails: {
+    id: number;
+    name: string;
+    securitiesFirm: SecuritiesFirm;
+  };
   pieChart: PieChartData[];
   dividendChart: PortfolioHoldingsDividendChartItem[];
   sectorChart: PortfolioHoldingsSectorBarItem[];

@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import mkcert from "vite-plugin-mkcert";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { excludeMsw, fcmSwEnvPlugin } from "./config/vitePlugins";
@@ -34,7 +35,11 @@ export default defineConfig(({ command }) => {
 
   if (command === "serve") {
     return {
+      server: {
+        https: true,
+      },
       plugins: [
+        mkcert(),
         react(),
         tsconfigPaths(),
         fcmSwEnvPlugin(),

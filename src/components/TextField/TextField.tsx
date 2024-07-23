@@ -1,7 +1,7 @@
 import { useBoolean } from "@fineants/demolition";
 import { InputAdornment } from "@mui/material";
 import designSystem from "@styles/designSystem";
-import { ChangeEvent, ReactNode } from "react";
+import { ChangeEvent, HTMLInputTypeAttribute, ReactNode } from "react";
 import styled from "styled-components";
 import { IconButton } from "../Buttons/IconButton";
 import { BaseTextField, Size } from "./BaseTextField";
@@ -17,6 +17,7 @@ type Props = {
   endAdornment?: ReactNode;
   disabled?: boolean;
   value: string;
+  type?: HTMLInputTypeAttribute;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   clearValue?: () => void;
 };
@@ -31,6 +32,7 @@ export function TextField({
   endAdornment,
   disabled = false,
   value,
+  type = "text",
   onChange,
   clearValue,
 }: Props) {
@@ -45,6 +47,7 @@ export function TextField({
   return (
     <StyledTextFieldWrapper>
       <BaseTextField
+        type={type}
         id={id ?? undefined}
         size={size}
         error={isError}
@@ -54,6 +57,7 @@ export function TextField({
         onBlur={handleBlur}
         placeholder={placeholder}
         disabled={disabled}
+        autoCapitalize="none"
         startAdornment={
           startAdornment && (
             <InputAdornment position="start" sx={startAdornmentSx}>

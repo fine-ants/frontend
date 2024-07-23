@@ -1,5 +1,4 @@
 import Button from "@components/Buttons/Button";
-import ConfirmAlert from "@components/ConfirmAlert";
 import { Icon } from "@components/Icon";
 import usePortfoliosDeleteMutation from "@features/portfolio/api/queries/usePortfoliosDeleteMutation";
 import { PortfolioItem } from "@features/portfolio/api/types";
@@ -7,17 +6,22 @@ import { useBoolean } from "@fineants/demolition";
 import { Toolbar, Tooltip, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
-import PortfolioAddDialog from "../../PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
+import PortfolioAddDialog from "../../PortfolioAddOrEditDialog/desktop/PortfolioAddOrEditDialogD";
+import PortfolioListDeleteConfirm from "../PortfolioListDeleteConfirm";
 
-interface PortfolioListTableToolBarProps {
+type Props = {
   selected: readonly PortfolioItem[];
   updateSelected: (newSelected: readonly PortfolioItem[]) => void;
-}
+  isAllDeleteOnLastPage: boolean;
+  moveToPrevTablePage: () => void;
+};
 
 export default function PortfolioListTableToolBar({
   selected,
   updateSelected,
-}: PortfolioListTableToolBarProps) {
+  isAllDeleteOnLastPage,
+  moveToPrevTablePage,
+}: Props) {
   const { mutateAsync: portfoliosDeleteMutateAsync } =
     usePortfoliosDeleteMutation();
 
@@ -36,7 +40,12 @@ export default function PortfolioListTableToolBar({
   const onConfirmAction = async () => {
     const selectedPortfolioIds = selected.map((item) => item.id);
     await portfoliosDeleteMutateAsync(selectedPortfolioIds);
+
     updateSelected([]);
+
+    if (isAllDeleteOnLastPage) {
+      moveToPrevTablePage();
+    }
   };
 
   return (
@@ -83,18 +92,12 @@ export default function PortfolioListTableToolBar({
       )}
 
       {isDeleteConfirmOpen && (
-        <ConfirmAlert
+        <PortfolioListDeleteConfirm
+          selected={selected}
           isOpen={isDeleteConfirmOpen}
-          title="포트폴리오 삭제"
           onClose={onDeletePortfoliosAlertClose}
-          onConfirm={onConfirmAction}>
-          <span>
-            '
-            {`${selected[0].name}'${
-              selected.length > 1 ? ` 외 ${selected.length - 1}개` : ""
-            } 포트폴리오를 삭제하시겠습니까?`}
-          </span>
-        </ConfirmAlert>
+          onConfirm={onConfirmAction}
+        />
       )}
     </StyledToolbar>
   );

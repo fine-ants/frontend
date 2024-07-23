@@ -1,4 +1,3 @@
-import { WindowProvider } from "@context/WindowContext";
 import { User } from "@features/user/api/types";
 import DashboardPage from "@pages/DashboardPage";
 import GlobalErrorPage from "@pages/GlobalErrorPage";
@@ -41,12 +40,7 @@ const router = (user: User | null) =>
           <Route path={Routes.PROFILE()} element={<ProfilePage />} />
         </Route>
 
-        <Route
-          element={
-            <WindowProvider>
-              <PublicOnlyRoute user={user} />
-            </WindowProvider>
-          }>
+        <Route element={<PublicOnlyRoute user={user} />}>
           <Route index path={Routes.LANDING} element={<LandingPage />} />
           <Route path={Routes.OAUTHLOADING} element={<OAuthLoadingPage />} />
           <Route path={Routes.SIGNIN} element={<SignInPage />} />

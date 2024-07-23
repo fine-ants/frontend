@@ -1,26 +1,54 @@
 import Spinner from "@components/Spinner";
-import { CLIENT_URL } from "@constants/config";
+import { getUser } from "@features/user/api";
+import { UserContext } from "@features/user/context/UserContext";
+import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "src/main";
 import styled from "styled-components";
 
 export default function OAuthLoadingPage() {
-  // Handle Google, Kakao, Naver Redirect (receive OAuth provider, auth code and state) received in popup.
+  const navigate = useNavigate();
+
+  const { onSignOut, onGetUser } = useContext(UserContext);
+
+  // Fetch user data if OAuth login is successful
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const provider = urlParams.get("provider");
-    const authCode = urlParams.get("code");
-    const state = urlParams.get("state");
+    const success = urlParams.get("success");
 
-    if (!provider || !authCode || !state) return; // TODO: handle error
+    if (success !== "true") {
+      onSignOut();
+      toast.error("로그인에 실패했습니다. 다시 시도해주세요.");
+      navigate(Routes.SIGNIN);
+      return;
+    }
 
-    window.opener?.postMessage({ provider, authCode, state }, CLIENT_URL);
+    const fetchUserData = async () => {
+      try {
+        const {
+          data: { user },
+        } = await getUser();
+
+        onGetUser(user);
+        navigate(Routes.DASHBOARD);
+      } catch (error) {
+        onSignOut();
+        toast.error(
+          "데이터를 불러오는 중 문제가 발생했습니다. 다시 시도해주세요."
+        );
+        navigate(Routes.SIGNIN);
+      }
+    };
+
+    fetchUserData();
   });
 
   return (
     <StyledSignInLoadingPage>
       <Spinner size={85} sx={{ color: designSystem.color.primary.blue500 }} />
-      <Text>로그인 중입니다.</Text>
+      <Text>로그인 중입니다</Text>
     </StyledSignInLoadingPage>
   );
 }

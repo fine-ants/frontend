@@ -8,12 +8,14 @@ import {
 import { User } from "@features/user/api/types";
 import { UserContext } from "@features/user/context/UserContext";
 import { retryFn } from "@fineants/demolition";
+import useDevice from "@hooks/useDevice";
 import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import designSystem from "@styles/designSystem";
-import { useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { toast } from "src/main";
 import styled from "styled-components";
 import { NotificationDeniedSign } from "./NotificationDeniedSign";
+import { NotificationPWANotice } from "./NotificationPWANotice";
 import { NotificationSettingsHeader } from "./NotificationSettingsHeader";
 
 type Props = {
@@ -21,8 +23,9 @@ type Props = {
   onClose: () => void;
 };
 
-export function NotificationSettingsContent({ user, onClose }: Props) {
+export default function NotificationSettingsContent({ user, onClose }: Props) {
   const { isMobile } = useResponsiveLayout();
+  const { isMobileDevice } = useDevice();
 
   const {
     fcmTokenId,
@@ -32,7 +35,10 @@ export function NotificationSettingsContent({ user, onClose }: Props) {
 
   const { browserNotify, maxLossNotify, targetGainNotify, targetPriceNotify } =
     user.notificationPreferences;
-  const notificationPermission = Notification.permission;
+  const notificationPermission =
+    isMobileDevice && !("Notification" in window)
+      ? "default"
+      : Notification.permission;
 
   const [newBrowserNotify, setNewBrowserNotify] = useState(browserNotify);
   const [newMaxLossNotify, setNewMaxLossNotify] = useState(maxLossNotify);
@@ -73,7 +79,9 @@ export function NotificationSettingsContent({ user, onClose }: Props) {
     setNewBrowserNotify((prev) => !prev);
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
     if (isDisabledButton) return;
 
     try {
@@ -130,22 +138,22 @@ export function NotificationSettingsContent({ user, onClose }: Props) {
   return (
     <>
       <NotificationSettingsHeader onClose={onClose} />
-      <StyledContent>
+      <Form onSubmit={onSubmit}>
         <SettingContainer>
           <SubTitle>데스크탑 알림 설정</SubTitle>
           {notificationPermission === "denied" ? (
             <NotificationDeniedSign />
+          ) : isMobileDevice ? (
+            <NotificationPWANotice />
           ) : (
             <ToggleList>
-              <>
-                <ToggleTitle>
-                  브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
-                </ToggleTitle>
-                <ToggleSwitch
-                  onToggle={onToggleBrowserNotify}
-                  isChecked={newBrowserNotify}
-                />
-              </>
+              <ToggleTitle>
+                브라우저(ex: Chrome)로 부터 데스크탑 알림 받기
+              </ToggleTitle>
+              <ToggleSwitch
+                onToggle={onToggleBrowserNotify}
+                isChecked={newBrowserNotify}
+              />
             </ToggleList>
           )}
         </SettingContainer>
@@ -179,15 +187,15 @@ export function NotificationSettingsContent({ user, onClose }: Props) {
 
         <ButtonContainer>
           <Button
+            type="submit"
             style={{ width: `${isMobile ? "100%" : "auto"}` }}
             variant="primary"
             size={isMobile ? "h48" : "h32"}
-            disabled={isDisabledButton}
-            onClick={onSubmit}>
+            disabled={isDisabledButton}>
             저장
           </Button>
         </ButtonContainer>
-      </StyledContent>
+      </Form>
     </>
   );
 }
@@ -212,8 +220,9 @@ const ToggleTitle = styled.div`
   color: ${designSystem.color.neutral.gray800};
 `;
 
-const StyledContent = styled.div`
+const Form = styled.form`
   width: 100%;
+  margin-top: 16px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;

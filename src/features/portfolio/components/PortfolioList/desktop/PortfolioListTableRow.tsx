@@ -10,7 +10,7 @@ import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-type PortfolioListTableRowProps = {
+type Props = {
   row: PortfolioItem;
   labelId: string;
   isItemSelected: boolean;
@@ -22,7 +22,7 @@ export default function PortfolioListTableRow({
   labelId,
   isItemSelected,
   handleClick,
-}: PortfolioListTableRowProps) {
+}: Props) {
   const {
     id,
     name,

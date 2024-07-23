@@ -46,6 +46,9 @@ const Container = styled.div<{ $isMobile: boolean }>`
   height: 100%;
   margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
   padding: ${({ $isMobile }) => ($isMobile ? "0" : "32px")};
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   background-color: ${({ theme: { color } }) => color.neutral.white};
   border-radius: 8px;
 `;

@@ -1,6 +1,6 @@
 import RateBadge from "@components/Badges/RateBadge";
 import { CardItemRow } from "@components/CardTable/CardItemRow";
-import { SelectableCard } from "@components/CardTable/SelectableCardTable/SelectableCard";
+import SelectableCard from "@components/CardTable/SelectableCardTable/SelectableCard";
 import { securitiesFirmLogos } from "@constants/securitiesFirm";
 import { PortfolioItem } from "@features/portfolio/api/types";
 import { thousandsDelimiter } from "@fineants/demolition";
@@ -15,7 +15,7 @@ type Props = {
   updateSelected: (newSelected: readonly PortfolioItem[]) => void;
 };
 
-export function PortfolioListCardBody({
+export default function PortfolioListCardBody({
   visibleRows,
   selected,
   updateSelected,
@@ -94,7 +94,7 @@ function PortfolioListCard({
             src={securitiesFirmLogos[securitiesFirm]}
             alt={`${securitiesFirm} 로고`}
           />
-          {name}
+          <h2>{name}</h2>
         </StyledLink>
       }
       CardBody={
@@ -147,14 +147,17 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;
-  font: ${designSystem.font.title4.font};
-  letter-spacing: ${designSystem.font.title4.letterSpacing};
-  color: ${designSystem.color.neutral.gray800};
+
+  h2 {
+    font: ${designSystem.font.title4.font};
+    letter-spacing: ${designSystem.font.title4.letterSpacing};
+    color: ${designSystem.color.neutral.gray800};
+  }
 `;
 
 const FirmImage = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   overflow: hidden;
 `;

@@ -11,7 +11,10 @@ export default function PortfolioWeightPieChartToolTip({
 
   if (active && payload && payload.length) {
     return (
-      <TooltipBox>
+      <TooltipBox
+        aria-label={`${payload[0].name} 비중 - ${Math.floor(
+          payload[0].payload.weight
+        )}`}>
         <TooltipContainer>
           <ItemTitle>
             <ColorCircle color={payload[0].payload.fill} />
