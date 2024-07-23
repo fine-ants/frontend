@@ -29,9 +29,11 @@ export const useZIndexStore = create<ZIndexState>((set, get) => ({
 }));
 
 export const useZIndex = (isOpen: boolean = true) => {
-  const pushStack = useZIndexStore((state) => state.pushStack);
-  const popStack = useZIndexStore((state) => state.popStack);
-  const getCurrentZIndex = useZIndexStore((state) => state.getCurrentZIndex);
+  const { pushStack, popStack, getCurrentZIndex } = useZIndexStore((state) => ({
+    pushStack: state.pushStack,
+    popStack: state.popStack,
+    getCurrentZIndex: state.getCurrentZIndex,
+  }));
 
   const [layoutIndex, setLayoutIndex] = useState(0);
   const zIndex = getCurrentZIndex(layoutIndex);
