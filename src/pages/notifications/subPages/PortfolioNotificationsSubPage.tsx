@@ -27,6 +27,5 @@ const StyledPortfolioNotificationsSubPage = styled.div`
   margin-top: 24px;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex: 1;
 `;
