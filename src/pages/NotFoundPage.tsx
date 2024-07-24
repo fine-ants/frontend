@@ -3,6 +3,7 @@ import notFoundImage from "@assets/images/not_found.png";
 import Button from "@components/Buttons/Button";
 import { Icon } from "@components/Icon";
 import { UserContext } from "@features/user/context/UserContext";
+import useResponsiveLayout from "@hooks/useResponsiveLayout";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
 import { useContext } from "react";
@@ -10,32 +11,37 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function NotFoundPage() {
+  const { isMobile, isDesktop } = useResponsiveLayout();
+
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
   return (
     <StyledNotFoundPage>
-      <Header>
-        <Link to={user ? Routes.DASHBOARD : Routes.LANDING}>
-          <img src={fineAntsLogo} alt="FineAnts 로고 이미지" />
-        </Link>
-      </Header>
+      {isDesktop && (
+        <Header>
+          <Link to={user ? Routes.DASHBOARD : Routes.LANDING}>
+            <img src={fineAntsLogo} alt="FineAnts 로고 이미지" />
+          </Link>
+        </Header>
+      )}
 
-      <Main>
+      <Main $isMobile={isMobile}>
         <img src={notFoundImage} alt="페이지를 찾을 수 없습니다" />
 
-        <TextContainer>
-          <Title>페이지를 찾을 수 없습니다</Title>
-          <Description>
-            주소가 올바른지 다시 한번 확인하거나 아래 버튼을 눌러 메인 페이지로
-            이동하세요
+        <TextContainer $isMobile={isMobile}>
+          <Title $isMobile={isMobile}>페이지를 찾을 수 없습니다</Title>
+          <Description $isMobile={isMobile}>
+            주소가 올바른지 다시 한번 확인하거나 {isMobile && <br />} 아래
+            버튼을 눌러 메인 페이지로 이동하세요
           </Description>
         </TextContainer>
 
         <StyledButton
           variant="primary"
-          size="h44"
-          onClick={() => navigate(user ? Routes.DASHBOARD : Routes.LANDING)}>
+          size={isMobile ? "h40" : "h44"}
+          onClick={() => navigate(user ? Routes.DASHBOARD : Routes.LANDING)}
+          $isMobile={isMobile}>
           <Icon icon="arrow-up-right" size={16} color="white" />
           메인 페이지로 이동
         </StyledButton>
@@ -45,10 +51,11 @@ export default function NotFoundPage() {
 }
 
 const StyledNotFoundPage = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 219px;
 `;
 
 const Header = styled.header`
@@ -56,31 +63,46 @@ const Header = styled.header`
   padding: 28px 0 0 40px;
 `;
 
-const Main = styled.main`
+const Main = styled.main<{ $isMobile: boolean }>`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ $isMobile }) => ($isMobile ? "24px" : "48px")};
+
+  > img {
+    width: ${({ $isMobile }) => ($isMobile ? "240px" : "auto")};
+  }
+`;
+
+const TextContainer = styled.div<{ $isMobile: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 48px;
+  gap: ${({ $isMobile }) => ($isMobile ? "8px" : "16px")};
 `;
 
-const TextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-`;
-
-const Title = styled.h3`
-  font: ${designSystem.font.heading3.font};
-  letter-spacing: ${designSystem.font.heading3.letterSpacing};
+const Title = styled.h3<{ $isMobile: boolean }>`
+  font: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title3.font
+      : designSystem.font.heading3.font};
+  letter-spacing: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.font.title3.letterSpacing
+      : designSystem.font.heading3.letterSpacing};
   color: ${designSystem.color.neutral.gray600};
 `;
 
-const Description = styled.p`
-  font: ${designSystem.font.body2.font};
+const Description = styled.p<{ $isMobile: boolean }>`
+  text-align: center;
+  font: ${({ $isMobile }) =>
+    $isMobile ? designSystem.font.body3.font : designSystem.font.body2.font};
   color: ${designSystem.color.neutral.gray500};
 `;
 
-const StyledButton = styled(Button)`
-  width: 179px;
+const StyledButton = styled(Button)<{ $isMobile: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "auto" : "179px")};
 `;
