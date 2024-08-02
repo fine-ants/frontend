@@ -22,7 +22,7 @@ export function PortfolioList() {
   const isEmpty = data.length === 0;
 
   return (
-    <StyledPortfolioList $isMobile={isMobile}>
+    <>
       <Header $isMobile={isMobile}>
         <h1>내 포트폴리오</h1>
         {isMobile && !isEmpty && (
@@ -44,28 +44,15 @@ export function PortfolioList() {
         isOpen={isAddPortfolioDialogOpen}
         onClose={onAddPortfolioDialogClose}
       />
-    </StyledPortfolioList>
+    </>
   );
 }
 
-const StyledPortfolioList = styled.div<{ $isMobile: boolean }>`
-  width: 100%;
-  max-width: 1440px;
-  display: flex;
-  flex-direction: column;
-  margin-top: ${({ $isMobile }) => ($isMobile ? "0" : "48px")};
-  padding: ${({ $isMobile }) => ($isMobile ? "0" : "32px")};
-  background-color: ${({ theme: { color } }) => color.neutral.white};
-  border-radius: 8px;
-  flex: 1;
-`;
-
 const Header = styled.header<{ $isMobile: boolean }>`
-  margin-bottom: 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: ${({ $isMobile }) => ($isMobile ? "32px 16px 16px" : "0 0 24px")};
+  margin: ${({ $isMobile }) => ($isMobile ? "32px 16px 16px" : "0 0 40px")};
 
   h1 {
     font: ${({ $isMobile }) =>
