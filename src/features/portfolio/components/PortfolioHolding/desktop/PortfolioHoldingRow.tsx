@@ -1,6 +1,7 @@
 import RateBadge from "@components/Badges/RateBadge";
 import { IconButton } from "@components/Buttons/IconButton";
 import CheckBox from "@components/Checkbox";
+import { EllipsisTextTooltip } from "@components/Tooltips/EllipsisTextTooltip";
 import { PortfolioHolding } from "@features/portfolio/api/types";
 import RealtimeValue from "@features/portfolio/components/RealtimeValue";
 import { thousandsDelimiter } from "@fineants/demolition";
@@ -102,7 +103,9 @@ export default function PortfolioHoldingRow({
             <Link
               style={{ font: designSystem.font.body3.font }}
               to={Routes.STOCK(tickerSymbol)}>
-              {companyName}
+              <EllipsisTextTooltip defaultMaxWidth="116px">
+                {companyName}
+              </EllipsisTextTooltip>
             </Link>
           </Typography>
           <Typography
