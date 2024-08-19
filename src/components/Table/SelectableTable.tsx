@@ -72,10 +72,10 @@ export default function SelectableTable<Item extends { id: string | number }>({
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const numEmptyRows = Math.max(
-    0,
-    (1 + page) * Math.min(5, rowsPerPage) - tableRows.length
-  );
+  const numEmptyRows =
+    rowsPerPage === -1
+      ? Math.max(0, 5 - tableRows.length)
+      : Math.max(0, (1 + page) * Math.min(5, rowsPerPage) - tableRows.length);
 
   const visibleRows = useMemo(
     () =>
