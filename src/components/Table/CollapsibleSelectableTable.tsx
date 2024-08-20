@@ -4,7 +4,14 @@ import {
   Table as MuiTable,
   TableContainer as MuiTableContainer,
 } from "@mui/material";
-import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  ComponentType,
+  MouseEvent,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import TablePagination from "../Pagination/TablePagination";
 import { Order } from "./types";
 import { getComparator } from "./utils/comparator";
@@ -14,13 +21,13 @@ type Props<Item> = {
   initialOrderBy: keyof Item;
   rowsPerPageOptions?: number[];
   data: Item[];
-  TableToolBar: (props: {
+  TableToolBar: ComponentType<{
     selected: readonly Item[];
     updateSelected: (newSelected: readonly Item[]) => void;
     isAllDeleteOnLastPage: boolean;
     moveToPrevTablePage: () => void;
-  }) => JSX.Element;
-  TableHead: (props: {
+  }>;
+  TableHead: ComponentType<{
     order: Order;
     orderBy: keyof Item;
     isAllRowsSelectedInCurrentPage: boolean;
@@ -28,15 +35,15 @@ type Props<Item> = {
     onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
     isAllRowsOpen: boolean;
     onExpandOrCollapseAllRows: (event: MouseEvent) => void;
-  }) => JSX.Element;
-  TableBody: (props: {
+  }>;
+  TableBody: ComponentType<{
     numEmptyRows: number;
     visibleRows: readonly Item[];
     selected: readonly Item[];
     updateSelected: (newSelected: readonly Item[]) => void;
     isAllRowsOpen: boolean;
-  }) => JSX.Element;
-  EmptyTable?: () => JSX.Element;
+  }>;
+  EmptyTable?: ComponentType;
   enableTablePagination?: boolean;
 };
 
