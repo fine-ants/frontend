@@ -70,23 +70,26 @@ export default function CollapsibleSelectableTable<
   const { state: isAllRowsOpen, setOpposite: handleExpandOrCollapseAllRows } =
     useBoolean();
 
-  const handleRequestSort = (_: MouseEvent<unknown>, property: keyof Item) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
+  const handleRequestSort = useCallback(
+    (_: MouseEvent<unknown>, property: keyof Item) => {
+      const isAsc = orderBy === property && order === "asc";
+      setOrder(isAsc ? "desc" : "asc");
+      setOrderBy(property);
+    },
+    []
+  );
 
-  const handleChangePage = (_: unknown, newPage: number) => {
+  const handleChangePage = useCallback((_: unknown, newPage: number) => {
     setPage(newPage);
-  };
+  }, []);
 
-  const moveToPrevTablePage = () => {
+  const moveToPrevTablePage = useCallback(() => {
     setPage((prev) => prev - 1);
-  };
+  }, []);
 
-  const updateSelected = (newSelected: readonly Item[]) => {
+  const updateSelected = useCallback((newSelected: readonly Item[]) => {
     setSelected(newSelected);
-  };
+  }, []);
 
   const numEmptyRows = enableTablePagination
     ? Math.max(0, (1 + page) * Math.min(5, rowsPerPage) - tableRows.length)
@@ -117,10 +120,10 @@ export default function CollapsibleSelectableTable<
     [visibleRows]
   );
 
-  const handleChangeRowsPerPage = (newValue: string) => {
+  const handleChangeRowsPerPage = useCallback((newValue: string) => {
     setRowsPerPage(parseInt(newValue, 10));
     setPage(0);
-  };
+  }, []);
 
   const selectedSet = new Set(selected.map((item) => item.id));
   const isAllRowsSelectedInCurrentPage =
@@ -137,8 +140,8 @@ export default function CollapsibleSelectableTable<
           {TableToolBar && (
             <TableToolBar
               selected={selected}
-              updateSelected={updateSelected}
               isAllDeleteOnLastPage={isAllDeleteOnLastPage}
+              updateSelected={updateSelected}
               moveToPrevTablePage={moveToPrevTablePage}
             />
           )}
@@ -152,17 +155,17 @@ export default function CollapsibleSelectableTable<
                 order={order}
                 orderBy={orderBy}
                 isAllRowsSelectedInCurrentPage={isAllRowsSelectedInCurrentPage}
+                isAllRowsOpen={isAllRowsOpen}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                isAllRowsOpen={isAllRowsOpen}
                 onExpandOrCollapseAllRows={handleExpandOrCollapseAllRows}
               />
               <TableBody
                 numEmptyRows={numEmptyRows}
                 visibleRows={visibleRows}
                 selected={selected}
-                updateSelected={updateSelected}
                 isAllRowsOpen={isAllRowsOpen}
+                updateSelected={updateSelected}
               />
             </MuiTable>
           </MuiTableContainer>
