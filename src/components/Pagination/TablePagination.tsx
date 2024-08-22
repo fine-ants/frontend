@@ -3,6 +3,7 @@ import {
   tablePaginationClasses,
 } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { memo } from "react";
 import styled from "styled-components";
 import { LabelRowsPerPage } from "./LabelRowsPerPage";
 import Pagination from "./Pagination";
@@ -18,7 +19,7 @@ type Props = {
   onRowsPerPageChange: (value: string) => void;
 };
 
-export default function TablePagination({
+export default memo(function TablePagination({
   count,
   page,
   rowsPerPage,
@@ -63,7 +64,7 @@ export default function TablePagination({
       onPageChange={onPageChange}
     />
   );
-}
+});
 
 const StyledTablePagination = styled(MuiTablePagination)`
   margin-top: 16px;
