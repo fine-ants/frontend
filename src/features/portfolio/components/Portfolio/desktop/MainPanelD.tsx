@@ -23,9 +23,7 @@ export default memo(function MainPanelD({
 }: Props) {
   return (
     <StyledMainPanel>
-      <PortfolioOverviewContainer>
-        <PortfolioOverviewD data={freshPortfolioDetailsData} />
-      </PortfolioOverviewContainer>
+      <PortfolioOverviewD data={freshPortfolioDetailsData} />
 
       {hasNoHoldings ? (
         <EmptyPortfolioHoldingTable />
@@ -46,10 +44,6 @@ const StyledMainPanel = styled.div`
   padding: 32px;
   background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
-`;
-
-const PortfolioOverviewContainer = styled.div`
-  width: 100%;
 `;
 
 const PortfolioHoldingsContainer = styled(Box)`
