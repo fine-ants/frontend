@@ -9,7 +9,9 @@ import {
   ComponentType,
   MouseEvent,
   useCallback,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import TablePagination from "../Pagination/TablePagination";
@@ -109,15 +111,22 @@ export default function CollapsibleSelectableTable<
     [order, orderBy, page, rowsPerPage, tableRows]
   );
 
+  // TODO : 다른 Table component도 고려
+  const visibleRowsRef = useRef(visibleRows);
+
+  useEffect(() => {
+    visibleRowsRef.current = visibleRows;
+  }, [visibleRows]);
+
   const handleSelectAllClick = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
-        setSelected(visibleRows);
-        return;
+        setSelected(visibleRowsRef.current);
+      } else {
+        setSelected([]);
       }
-      setSelected([]);
     },
-    [visibleRows]
+    []
   );
 
   const handleChangeRowsPerPage = useCallback((newValue: string) => {
