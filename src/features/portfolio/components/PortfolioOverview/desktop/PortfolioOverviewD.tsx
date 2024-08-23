@@ -9,7 +9,7 @@ import PortfolioEditDialog from "@features/portfolio/components/PortfolioAddOrEd
 import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioDeleteConfirm from "../../PortfolioDeleteConfirm";
@@ -25,10 +25,6 @@ export default memo(function PortfolioOverviewD({ data }: Props) {
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
 
   const { id, name, securitiesFirm, currentValuation, ...overViewData } = data;
-  const memoizedOverViewData = useMemo(
-    () => overViewData,
-    [id, name, securitiesFirm, currentValuation]
-  );
 
   const {
     state: isDialogOpen,
@@ -58,7 +54,7 @@ export default memo(function PortfolioOverviewD({ data }: Props) {
 
       <CurrentValue currentValuation={currentValuation} />
 
-      <PortfolioOverviewBodyD data={memoizedOverViewData} />
+      <PortfolioOverviewBodyD data={overViewData} />
 
       {isDialogOpen && (
         <PortfolioEditDialog
