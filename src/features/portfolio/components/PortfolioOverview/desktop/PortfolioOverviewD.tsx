@@ -91,7 +91,7 @@ const Header = memo(function ({
     <PortfolioOverviewHead>
       <Breadcrumb
         depthData={[
-          { name: "내 포트폴리오", url: "/portfolios" },
+          { name: "내 포트폴리오", url: Routes.PORTFOLIOS },
           { name, url: Routes.PORTFOLIO(id) },
         ]}
       />
