@@ -121,8 +121,6 @@ function PortfolioHoldingRow({
   );
 }
 
-// 이후에 필요한 다른 memoized 컴포넌트들 정의
-
 const MemoizedHoldingTableCell = memo(
   ({
     isRowOpen,
