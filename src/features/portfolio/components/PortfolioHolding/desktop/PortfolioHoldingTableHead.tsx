@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
 import designSystem from "@styles/designSystem";
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent, MouseEvent, memo } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -87,7 +87,7 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-export default function PortfolioHoldingTableHead({
+export default memo(function PortfolioHoldingTableHead({
   order,
   orderBy,
   isAllRowsSelectedInCurrentPage,
@@ -188,7 +188,7 @@ export default function PortfolioHoldingTableHead({
       </StyledTableRow>
     </StyledTableHead>
   );
-}
+});
 
 const StyledTableHead = styled(TableHead)`
   height: 48px;
