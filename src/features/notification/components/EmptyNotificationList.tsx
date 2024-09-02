@@ -19,7 +19,7 @@ export default function EmptyNotificationList() {
 
 const StyledEmptyNotificationList = styled.div<{ $isMobile: boolean }>`
   width: 100%;
-  margin: 196.5px auto;
+  margin: ${({ $isMobile }) => ($isMobile ? "0" : "196.5px auto")};
   display: flex;
   flex-direction: column;
   justify-content: center;

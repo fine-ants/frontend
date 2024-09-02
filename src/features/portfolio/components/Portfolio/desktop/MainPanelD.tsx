@@ -4,6 +4,7 @@ import {
 } from "@features/portfolio/api/types";
 import { Box } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { memo } from "react";
 import styled from "styled-components";
 import EmptyPortfolioHoldingTable from "../../PortfolioHolding/EmptyPortfolioHoldingTable";
 import PortfolioHoldingTable from "../../PortfolioHolding/desktop/PortfolioHoldingTable";
@@ -15,16 +16,14 @@ type Props = {
   hasNoHoldings: boolean;
 };
 
-export default function MainPanelD({
+export default memo(function MainPanelD({
   freshPortfolioDetailsData,
   freshPortfolioHoldingsData,
   hasNoHoldings,
 }: Props) {
   return (
     <StyledMainPanel>
-      <PortfolioOverviewContainer>
-        <PortfolioOverviewD data={freshPortfolioDetailsData} />
-      </PortfolioOverviewContainer>
+      <PortfolioOverviewD data={freshPortfolioDetailsData} />
 
       {hasNoHoldings ? (
         <EmptyPortfolioHoldingTable />
@@ -35,7 +34,7 @@ export default function MainPanelD({
       )}
     </StyledMainPanel>
   );
-}
+});
 
 const StyledMainPanel = styled.div`
   width: 960px;
@@ -45,10 +44,6 @@ const StyledMainPanel = styled.div`
   padding: 32px;
   background-color: ${designSystem.color.neutral.white};
   border-radius: 8px;
-`;
-
-const PortfolioOverviewContainer = styled.div`
-  width: 100%;
 `;
 
 const PortfolioHoldingsContainer = styled(Box)`

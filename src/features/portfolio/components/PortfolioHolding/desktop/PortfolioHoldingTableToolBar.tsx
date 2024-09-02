@@ -5,6 +5,7 @@ import { PortfolioHolding } from "@features/portfolio/api/types";
 import { useBoolean } from "@fineants/demolition";
 import { Toolbar, Typography } from "@mui/material";
 import designSystem from "@styles/designSystem";
+import { memo } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioHoldingAddDialog from "../PortfolioHoldingAddDialog";
@@ -12,15 +13,15 @@ import PortfolioHoldingSelectedDeleteConfirm from "../PortfolioHoldingSelectedDe
 
 type Props = {
   selected: readonly PortfolioHolding[];
-  updateSelected: (newSelected: readonly PortfolioHolding[]) => void;
   isAllDeleteOnLastPage: boolean;
+  updateSelected: (newSelected: readonly PortfolioHolding[]) => void;
   moveToPrevTablePage: () => void;
 };
 
-export default function PortfolioHoldingTableToolBar({
+export default memo(function PortfolioHoldingTableToolBar({
   selected,
-  updateSelected,
   isAllDeleteOnLastPage,
+  updateSelected,
   moveToPrevTablePage,
 }: Props) {
   const { portfolioId } = useParams();
@@ -100,7 +101,7 @@ export default function PortfolioHoldingTableToolBar({
       />
     </StyledToolbar>
   );
-}
+});
 
 const StyledToolbar = styled(Toolbar)`
   height: 32px;

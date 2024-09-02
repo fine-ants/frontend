@@ -3,10 +3,13 @@ import { CustomTooltip } from "./CustomTooltip";
 
 type Props = {
   children: ReactNode;
-  maxWidth: string;
+  defaultMaxWidth?: string;
 };
 
-export const EllipsisTextTooltip = ({ children, maxWidth }: Props) => {
+export const EllipsisTextTooltip = ({
+  children,
+  defaultMaxWidth = "100%",
+}: Props) => {
   const [isTextOverflow, setIsTextOverflow] = useState(false);
   const textRef = useRef<HTMLDivElement>(null);
 
@@ -32,7 +35,8 @@ export const EllipsisTextTooltip = ({ children, maxWidth }: Props) => {
       <div
         ref={textRef}
         style={{
-          maxWidth: maxWidth,
+          // width: "100%",
+          maxWidth: defaultMaxWidth,
           whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis",
