@@ -4,10 +4,11 @@ import { PortfolioItem } from "@features/portfolio/api/types";
 import { Divider } from "@mui/material";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
+import { ComponentType } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {
-  DropdownItem: ({ sx, onClick, children }: DropdownItemProps) => JSX.Element;
+  DropdownItem: ComponentType<DropdownItemProps>;
 };
 
 export default function PortfoliosDropdownList({ DropdownItem }: Props) {

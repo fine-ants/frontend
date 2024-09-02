@@ -4,7 +4,13 @@ import calculateStartAndEndRows from "@components/Pagination/utils/calculateStar
 import { Order } from "@components/Table/types";
 import { getComparator } from "@components/Table/utils/comparator";
 import { useBoolean } from "@fineants/demolition";
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  ComponentType,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { OrderByDrawer } from "../OrderByDrawer/OrderByDrawer";
 
@@ -15,21 +21,21 @@ type Props<Item> = {
     title: string;
     orderBy: keyof Item;
   }[];
-  CardBody: (props: {
+  CardBody: ComponentType<{
     visibleRows: Item[];
     selected: readonly Item[];
     isAllRowsSelectedInCurrentPage: boolean;
     updateSelected: (newSelected: readonly Item[]) => void;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
-  }) => JSX.Element;
-  CardTableToolbar: (props: {
+  }>;
+  CardTableToolbar: ComponentType<{
     selected: readonly Item[];
     isAllRowsSelectedInCurrentPage: boolean;
     openDrawer: () => void;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
     clearSelected: () => void;
-  }) => JSX.Element;
-  EmptyComponent?: () => JSX.Element;
+  }>;
+  EmptyComponent?: ComponentType;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
