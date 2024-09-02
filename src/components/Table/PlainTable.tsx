@@ -3,7 +3,7 @@ import {
   Table as MuiTable,
   TableContainer as MuiTableContainer,
 } from "@mui/material";
-import { MouseEvent, useMemo, useState } from "react";
+import { ComponentType, MouseEvent, useMemo, useState } from "react";
 import TablePagination from "../Pagination/TablePagination";
 import { Order } from "./types";
 import { getComparator } from "./utils/comparator";
@@ -15,16 +15,16 @@ type Props<Item> = {
   initialOrderBy: keyof Item;
   rowsPerPageOptions?: number[];
   data: Item[];
-  TableHead: (props: {
+  TableHead: ComponentType<{
     order: Order;
     orderBy: keyof Item;
     onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
-  }) => JSX.Element;
-  TableBody: (props: {
+  }>;
+  TableBody: ComponentType<{
     numEmptyRows: number;
     visibleRows: readonly Item[];
-  }) => JSX.Element;
-  EmptyTable?: () => JSX.Element;
+  }>;
+  EmptyTable?: ComponentType;
   enableTablePagination?: boolean;
 };
 

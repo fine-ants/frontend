@@ -17,16 +17,14 @@ type Props = {
   labelId: string;
   isItemSelected: boolean;
   isAllRowsOpen: boolean;
-  handleClick: (event: MouseEvent<unknown>, row: PortfolioHolding) => void;
+  toggleSelect: (event: MouseEvent<unknown>, row: PortfolioHolding) => void;
 } & PortfolioHolding;
 
-export default memo(PortfolioHoldingRow);
-
-function PortfolioHoldingRow({
+export default memo(function PortfolioHoldingRow({
   labelId,
   isItemSelected,
   isAllRowsOpen,
-  handleClick,
+  toggleSelect,
   ...row
 }: Props) {
   const { portfolioId } = useParams();
@@ -68,7 +66,7 @@ function PortfolioHoldingRow({
       <StyledHoldingTableRow
         tabIndex={-1}
         selected={isItemSelected}
-        onClick={(event) => handleClick(event, row)}
+        onClick={(event) => toggleSelect(event, row)}
         aria-selected={isItemSelected}>
         <MemoizedHoldingTableCell
           isRowOpen={isRowOpen}
@@ -119,7 +117,7 @@ function PortfolioHoldingRow({
       </StyledHoldingLotRow>
     </>
   );
-}
+});
 
 const MemoizedHoldingTableCell = memo(
   ({
