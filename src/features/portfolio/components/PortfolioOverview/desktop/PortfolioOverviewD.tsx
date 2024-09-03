@@ -9,6 +9,7 @@ import PortfolioEditDialog from "@features/portfolio/components/PortfolioAddOrEd
 import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
 import Routes from "@router/Routes";
 import designSystem from "@styles/designSystem";
+import { memo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PortfolioDeleteConfirm from "../../PortfolioDeleteConfirm";
@@ -18,10 +19,12 @@ type Props = {
   data: PortfolioDetails;
 };
 
-export default function PortfolioOverviewD({ data }: Props) {
+export default memo(function PortfolioOverviewD({ data }: Props) {
   const navigate = useNavigate();
   const { portfolioId } = useParams();
   const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
+
+  const { id, name, securitiesFirm, currentValuation, ...overViewData } = data;
 
   const {
     state: isDialogOpen,
@@ -41,51 +44,17 @@ export default function PortfolioOverviewD({ data }: Props) {
 
   return (
     <StyledPortfolioOverview>
-      <PortfolioOverviewHead>
-        <Breadcrumb
-          depthData={[
-            { name: "내 포트폴리오", url: "/portfolios" },
-            { name: data.name, url: Routes.PORTFOLIO(portfolioId) },
-          ]}
-        />
-        <TitleContent>
-          <TitleWrapper>
-            <FirmImage
-              src={securitiesFirmLogos[data.securitiesFirm]}
-              alt={`${data.securitiesFirm} 로고`}
-            />
-            <Title>{data.name}</Title>
-            <LabelBadge title={data.securitiesFirm} />
-          </TitleWrapper>
-          <ButtonsWrapper>
-            <Button
-              variant="tertiary"
-              size="h32"
-              onClick={onPortfolioRemove}
-              disabled={false}>
-              <Icon icon="trash" size={16} color="gray600" />
-              삭제
-            </Button>
-            <Button
-              variant="secondary"
-              size="h32"
-              onClick={onPortfolioEdit}
-              disabled={false}>
-              <Icon icon="edit" size={16} color="blue500" />
-              편집
-            </Button>
-          </ButtonsWrapper>
-        </TitleContent>
-      </PortfolioOverviewHead>
+      <Header
+        id={id}
+        name={name}
+        securitiesFirm={securitiesFirm}
+        onPortfolioRemove={onPortfolioRemove}
+        onPortfolioEdit={onPortfolioEdit}
+      />
 
-      <ValuationContainer>
-        <div>평가금액</div>
-        <CurrentValuation>
-          ₩<span>{thousandsDelimiter(data.currentValuation)}</span>
-        </CurrentValuation>
-      </ValuationContainer>
+      <CurrentValue currentValuation={currentValuation} />
 
-      <PortfolioOverviewBodyD data={data} />
+      <PortfolioOverviewBodyD data={overViewData} />
 
       {isDialogOpen && (
         <PortfolioEditDialog
@@ -104,7 +73,72 @@ export default function PortfolioOverviewD({ data }: Props) {
       )}
     </StyledPortfolioOverview>
   );
-}
+});
+
+type HeaderProps = Pick<PortfolioDetails, "name" | "id" | "securitiesFirm"> & {
+  onPortfolioRemove: () => void;
+  onPortfolioEdit: () => void;
+};
+
+const Header = memo(function ({
+  name,
+  id,
+  securitiesFirm,
+  onPortfolioRemove,
+  onPortfolioEdit,
+}: HeaderProps) {
+  return (
+    <PortfolioOverviewHead>
+      <Breadcrumb
+        depthData={[
+          { name: "내 포트폴리오", url: Routes.PORTFOLIOS },
+          { name, url: Routes.PORTFOLIO(id) },
+        ]}
+      />
+      <TitleContent>
+        <TitleWrapper>
+          <FirmImage
+            src={securitiesFirmLogos[securitiesFirm]}
+            alt={`${securitiesFirm} 로고`}
+          />
+          <Title>{name}</Title>
+          <LabelBadge title={securitiesFirm} />
+        </TitleWrapper>
+        <ButtonsWrapper>
+          <Button
+            variant="tertiary"
+            size="h32"
+            onClick={onPortfolioRemove}
+            disabled={false}>
+            <Icon icon="trash" size={16} color="gray600" />
+            삭제
+          </Button>
+          <Button
+            variant="secondary"
+            size="h32"
+            onClick={onPortfolioEdit}
+            disabled={false}>
+            <Icon icon="edit" size={16} color="blue500" />
+            편집
+          </Button>
+        </ButtonsWrapper>
+      </TitleContent>
+    </PortfolioOverviewHead>
+  );
+});
+
+const CurrentValue = memo(function ({
+  currentValuation,
+}: Pick<PortfolioDetails, "currentValuation">) {
+  return (
+    <ValuationContainer>
+      <div>평가금액</div>
+      <CurrentValuation>
+        ₩<span>{thousandsDelimiter(currentValuation)}</span>
+      </CurrentValuation>
+    </ValuationContainer>
+  );
+});
 
 const StyledPortfolioOverview = styled.div`
   display: flex;
@@ -128,7 +162,6 @@ const TitleContent = styled.div`
 
 const TitleWrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 8px;
 `;

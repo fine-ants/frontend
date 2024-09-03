@@ -3,8 +3,10 @@ import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 type Props = {
+  tableTitle?: boolean;
   tableToolBar?: boolean;
   tablePagination?: boolean;
+  tableTitleHeight?: number;
   tableToolBarHeight?: number;
   tableHeadHeight?: number;
   tableRowHeight?: number;
@@ -12,8 +14,10 @@ type Props = {
 };
 
 export default function TableSkeleton({
+  tableTitle = true,
   tableToolBar = true,
   tablePagination = true,
+  tableTitleHeight = 39,
   tableToolBarHeight = 32,
   tableHeadHeight = 48,
   tableRowHeight = 64,
@@ -21,6 +25,13 @@ export default function TableSkeleton({
 }: Props) {
   return (
     <StyledTableSkeleton>
+      {tableTitle && (
+        <TableTitleSkeleton
+          variant="rounded"
+          $tableTitleHeight={tableTitleHeight}
+        />
+      )}
+
       {tableToolBar && (
         <TableToolBarSkeleton
           variant="rounded"
@@ -50,11 +61,16 @@ export default function TableSkeleton({
 
 const StyledTableSkeleton = styled.div`
   width: 100%;
+  height: 100%;
 `;
 
-const TableToolBarSkeleton = styled(Skeleton)<{
-  $tableToolBarHeight: number;
-}>`
+const TableTitleSkeleton = styled(Skeleton)<{ $tableTitleHeight: number }>`
+  width: 100%;
+  height: ${({ $tableTitleHeight }) => $tableTitleHeight}px;
+  margin-bottom: 40px;
+`;
+
+const TableToolBarSkeleton = styled(Skeleton)<{ $tableToolBarHeight: number }>`
   width: 100%;
   height: ${({ $tableToolBarHeight }) => $tableToolBarHeight}px;
   margin-bottom: 16px;

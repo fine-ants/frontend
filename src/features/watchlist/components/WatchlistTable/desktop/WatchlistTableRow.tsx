@@ -13,17 +13,16 @@ type Props = {
   row: WatchlistItemType;
   labelId: string;
   isItemSelected: boolean;
-  handleClick: (event: MouseEvent<unknown>, id: number) => void;
+  toggleSelect: (event: MouseEvent<unknown>, row: WatchlistItemType) => void;
 };
 
 export default function WatchlistTableRow({
   row,
   labelId,
   isItemSelected,
-  handleClick,
+  toggleSelect,
 }: Props) {
   const {
-    id,
     companyName,
     tickerSymbol,
     currentPrice,
@@ -40,7 +39,7 @@ export default function WatchlistTableRow({
       tabIndex={-1}
       selected={isItemSelected}
       aria-checked={isItemSelected}
-      onClick={(event) => handleClick(event, id)}>
+      onClick={(event) => toggleSelect(event, row)}>
       <StyledTableCell sx={{ width: "36px" }} padding="checkbox">
         <CheckBox
           size="h20"
