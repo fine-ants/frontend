@@ -26,7 +26,9 @@ export default function PortfolioPage() {
   return (
     <BasePage key={portfolioId}>
       <Container $isMobile={isMobile}>
-        <PanelWrapper $isVisible={isMobile ? tab === "portfolio" : true}>
+        <PanelWrapper
+          $isMobile={isMobile}
+          $isVisible={isMobile ? tab === "portfolio" : true}>
           <AsyncBoundary
             ErrorFallback={MainPanelErrorFallback}
             SuspenseFallback={<MainPanelSkeleton />}>
@@ -34,7 +36,9 @@ export default function PortfolioPage() {
           </AsyncBoundary>
         </PanelWrapper>
 
-        <PanelWrapper $isVisible={isMobile ? tab === "chart" : true}>
+        <PanelWrapper
+          $isMobile={isMobile}
+          $isVisible={isMobile ? tab === "chart" : true}>
           <AsyncBoundary
             ErrorFallback={ChartsPanelErrorFallback}
             SuspenseFallback={<ChartsPanelSkeleton />}>
@@ -52,11 +56,12 @@ const Container = styled.div<{ $isMobile: boolean }>`
   display: flex;
   flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
   align-items: flex-start;
+  justify-content: center;
   flex: 1;
   gap: ${({ $isMobile }) => ($isMobile ? "0px" : "32px")};
 `;
 
-const PanelWrapper = styled.div<{ $isVisible: boolean }>`
-  width: 100%;
+const PanelWrapper = styled.div<{ $isMobile: boolean; $isVisible: boolean }>`
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
   display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
 `;

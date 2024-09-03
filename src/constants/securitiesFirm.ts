@@ -1,4 +1,3 @@
-import FA from "@assets/icons/logo/ic_fineants_black.svg";
 import bnk from "@assets/images/securitiesFirmLogo/bnk.png";
 import bookook from "@assets/images/securitiesFirmLogo/bookook.png";
 import cape from "@assets/images/securitiesFirmLogo/cape.png";
@@ -7,6 +6,7 @@ import daol from "@assets/images/securitiesFirmLogo/daol.png";
 import db from "@assets/images/securitiesFirmLogo/db.png";
 import ebest from "@assets/images/securitiesFirmLogo/ebest.png";
 import eugene from "@assets/images/securitiesFirmLogo/eugene.png";
+import FA from "@assets/images/securitiesFirmLogo/fineants.png";
 import hana from "@assets/images/securitiesFirmLogo/hana.png";
 import hanwha from "@assets/images/securitiesFirmLogo/hanwha.png";
 import hi from "@assets/images/securitiesFirmLogo/hi.png";

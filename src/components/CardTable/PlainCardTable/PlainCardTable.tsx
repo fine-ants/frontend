@@ -1,13 +1,13 @@
 import Pagination from "@components/Pagination/Pagination";
 import { PaginationControl } from "@components/Pagination/PaginationControl";
 import calculateStartAndEndRows from "@components/Pagination/utils/calculateStartAndEndRows";
-import { useMemo, useState } from "react";
+import { ComponentType, useMemo, useState } from "react";
 import styled from "styled-components";
 
 type Props<Item> = {
   data: Item[];
-  CardBody: (props: { visibleRows: Item[] }) => JSX.Element;
-  EmptyComponent?: () => JSX.Element;
+  CardBody: ComponentType<{ visibleRows: Item[] }>;
+  EmptyComponent?: ComponentType;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];

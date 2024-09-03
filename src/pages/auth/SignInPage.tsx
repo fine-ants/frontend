@@ -45,7 +45,7 @@ const Wrapper = styled.div<{ $isDesktop: boolean; $isMobile: boolean }>`
   height: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
   padding: ${({ $isDesktop }) => ($isDesktop ? "0 48px 48px 48px" : "0")};
   display: flex;
-  flex-direction: ${({ $isDesktop }) => ($isDesktop ? "row" : "column")};
+  flex-direction: column;
   gap: ${({ $isDesktop }) => ($isDesktop ? "16px" : 0)};
 `;
 
@@ -80,18 +80,21 @@ const SignInFormContainer = styled.div`
   height: 100%;
   padding-top: 156px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   flex: 1;
 `;
 
 const ImageContainer = styled.div`
-  width: 50%;
+  width: 45%;
+  position: absolute;
+  right: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1;
 `;
 
 const StyledImage = styled.img`
   width: 100%;
+  height: calc(100vh - 96px);
 `;

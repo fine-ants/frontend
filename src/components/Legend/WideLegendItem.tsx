@@ -1,3 +1,4 @@
+import { EllipsisTextTooltip } from "@components/Tooltips/EllipsisTextTooltip";
 import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
@@ -10,10 +11,12 @@ export type Props = {
 export default function WideLegendItem({ color, title, percent }: Props) {
   return (
     <StyledLegendItem>
-      <TitleWrapper>
+      <Title>
         <LegendItemColor $color={color} />
-        {title}
-      </TitleWrapper>
+        <TitleTextWrapper>
+          <EllipsisTextTooltip>{title}</EllipsisTextTooltip>
+        </TitleTextWrapper>
+      </Title>
       <Percent>{Math.floor(percent)}%</Percent>
     </StyledLegendItem>
   );
@@ -28,15 +31,19 @@ const StyledLegendItem = styled.div`
   color: #75767f;
 `;
 
-const TitleWrapper = styled.div`
+const Title = styled.div`
+  width: 76px;
   display: flex;
-
   justify-content: center;
-
   gap: 3px;
 `;
 
+const TitleTextWrapper = styled.div`
+  width: 63px;
+`;
+
 const Percent = styled.div`
+  width: 30px;
   color: ${designSystem.color.primary.blue500};
 `;
 
@@ -47,7 +54,6 @@ const LegendItemColor = styled.div<{ $color: string }>`
   position: relative;
   justify-content: center;
   align-items: center;
-
   width: 10px;
   height: 10px;
   border-radius: 50%;

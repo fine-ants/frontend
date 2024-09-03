@@ -11,15 +11,17 @@ type Props = {
   row: WatchlistsType;
   labelId: string;
   isItemSelected: boolean;
-  handleClick: (event: MouseEvent<unknown>, id: number) => void;
+  toggleSelect: (event: MouseEvent<unknown>, row: WatchlistsType) => void;
 };
 
 export default function WatchlistsTableRow({
-  row: { id, name },
+  row,
   labelId,
   isItemSelected,
-  handleClick,
+  toggleSelect,
 }: Props) {
+  const { id, name } = row;
+
   return (
     <StyledTableRow
       hover
@@ -27,7 +29,7 @@ export default function WatchlistsTableRow({
       tabIndex={-1}
       selected={isItemSelected}
       aria-checked={isItemSelected}
-      onClick={(event) => handleClick(event, id)}>
+      onClick={(event) => toggleSelect(event, row)}>
       <StyledTableCell sx={{ width: "36px" }} padding="checkbox">
         <CheckBox
           size="h20"

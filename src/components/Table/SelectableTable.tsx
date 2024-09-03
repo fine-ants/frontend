@@ -3,7 +3,14 @@ import {
   Table as MuiTable,
   TableContainer as MuiTableContainer,
 } from "@mui/material";
-import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  ComponentType,
+  MouseEvent,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import TablePagination from "../Pagination/TablePagination";
 import { Order } from "./types";
 import { getComparator } from "./utils/comparator";
@@ -13,26 +20,26 @@ type Props<Item> = {
   initialOrderBy: keyof Item;
   rowsPerPageOptions?: number[];
   data: Item[];
-  TableToolBar: (props: {
+  TableToolBar: ComponentType<{
     selected: readonly Item[];
     updateSelected: (newSelected: readonly Item[]) => void;
     isAllDeleteOnLastPage: boolean;
     moveToPrevTablePage: () => void;
-  }) => JSX.Element;
-  TableHead: (props: {
+  }>;
+  TableHead: ComponentType<{
     order: Order;
     orderBy: keyof Item;
     isAllRowsSelectedInCurrentPage: boolean;
     onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
     onRequestSort: (event: MouseEvent<unknown>, property: keyof Item) => void;
-  }) => JSX.Element;
-  TableBody: (props: {
+  }>;
+  TableBody: ComponentType<{
     numEmptyRows: number;
     visibleRows: readonly Item[];
     selected: readonly Item[];
     updateSelected: (newSelected: readonly Item[]) => void;
-  }) => JSX.Element;
-  EmptyTable?: () => JSX.Element;
+  }>;
+  EmptyTable?: ComponentType;
 };
 
 const defaultRowsPerPageOptions = [5, 10, 15, 20, -1];
@@ -72,10 +79,10 @@ export default function SelectableTable<Item extends { id: string | number }>({
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const numEmptyRows = Math.max(
-    0,
-    (1 + page) * Math.min(5, rowsPerPage) - tableRows.length
-  );
+  const numEmptyRows =
+    rowsPerPage === -1
+      ? Math.max(0, 5 - tableRows.length)
+      : Math.max(0, (1 + page) * Math.min(5, rowsPerPage) - tableRows.length);
 
   const visibleRows = useMemo(
     () =>
