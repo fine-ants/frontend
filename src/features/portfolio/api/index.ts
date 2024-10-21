@@ -5,11 +5,18 @@ import {
   PortfolioPageCharts,
   PortfolioReqBody,
   PortfoliosList,
+  PortfoliosNameList,
   PurchaseHistoryInput,
 } from "./types";
 
 export const getPortfoliosList = async () => {
   const res = await fetcher.get<Response<PortfoliosList>>("/portfolios");
+  return res.data;
+};
+
+export const getPortfoliosNameList = async () => {
+  const res =
+    await fetcher.get<Response<PortfoliosNameList>>("/portfolios/names");
   return res.data;
 };
 
