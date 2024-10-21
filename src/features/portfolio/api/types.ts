@@ -5,6 +5,10 @@ export type PortfoliosList = {
   portfolios: PortfolioItem[];
 };
 
+export type PortfoliosNameList = {
+  portfolios: PortfoliosName[];
+};
+
 export type PortfolioItem = {
   id: number;
   securitiesFirm: SecuritiesFirm;
@@ -17,6 +21,12 @@ export type PortfolioItem = {
   dailyGainRate: number;
   expectedMonthlyDividend: number;
   numShares: number;
+  dateCreated: string;
+};
+
+export type PortfoliosName = {
+  id: number;
+  name: string;
   dateCreated: string;
 };
 
